@@ -1,0 +1,8 @@
+<snippet>
+<description>PROC &lt;file&gt;()</description>
+<content>
+<![CDATA[PROC ${1/.+//m}${1:${TM_FILENAME/^((.*?)\..*)?$/$2/:mine}}()]]>
+</content>
+<tabTrigger>proc</tabTrigger>
+<scope>source.s840d</scope>
+</snippet>
