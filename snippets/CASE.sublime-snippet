@@ -1,0 +1,28 @@
+<snippet>
+<description>CASE &lt;VAR&gt; OF 1 GOTOF ...</description>
+<content>
+<![CDATA[
+CASE ${1:var} OF 1 GOTOF ${2:LBL1} OF 2 GOTOF ${3:LBL2}
+; *************************************
+; default: no match
+  $0
+
+  GOTOF ${4:CASE_END}
+; *************************************
+; case 1
+${2:LBL1}:
+
+  GOTOF ${4:CASE_END}
+; *************************************
+; case 2
+${3:LBL2}:
+
+  GOTOF ${4:CASE_END}
+; *************************************
+; case end
+${4:CASE_END}:
+]]>
+</content>
+<tabTrigger>case</tabTrigger>
+<scope>source.s840d</scope>
+</snippet>

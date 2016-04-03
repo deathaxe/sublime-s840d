@@ -1,0 +1,507 @@
+%_N_SYNTAX_CHECK_SPF
+;$PATH=/_N_CMA_DIR
+10Define
+dataDEFINE G1 AS GORAP-10
+dEfINE test aS 50
+N5DEFINE G1 AS GORAP-10
+N10DEFINE G1 AS GORAP-10
+N10 DEFINE G1 AS GORAP-10    ; test $A_CMDSI "test"
+n15 DEFINE G1 AS GORAP-10
+define G1 as G0B1D5C2
+; A comment with 10 binary 'Heff' values
+
+$MN_USER_DATA_INT[5]=$P_ACTFRAME
+X=ACN(_d)
+X=acn(_d)
+N10 /1 ABS(R3)
+0define
+
+N30 DEF BOOL CHECK=TRUE        ; comment
+N30 DEF STRING[12] STR="Test"  ; comment
+
+IF CHECK=TRUE GOTOF END
+
+$PI
+$AC_UDAT[]
+
+$P_UiFR[0,X,TR]
+N10; **************************************
+; procedure definition
+PROC WZW (VAR BOOL DATA)
+    T TR BOOL
+    GOTOS ; goto start of proc
+RET
+; **************************************
+; procedure calls
+N10 PROC WZW (VAR BOOL DATA) SBLOF
+N10 das PROC WZW (VAR BOOL DATA) SBLOF
+gehtPROC WZW (VAR BOOL DATA) SBLOF
+
+L350
+M240
+G1 F1000
+N10G1F1000
+N10 G1 F1000      ; match N10 as block number
+D N10 F1000       ; don't match N10
+
+; **************************************
+; G-Code
+G0                ; ok
+G[1]    = 1       ; ok
+G[R1]   = 5       ; ok
+G[R1+2] = 5       ; ok
+; --------------------------------------
+G5[10]  = 4       ; syntax error
+; **************************************
+
+; **************************************
+; M-Code
+M3                ; ok
+M75               ; ok
+M       = 3       ; ok (equal to M3)
+M0      = 3       ; ok (equal to M3)
+M99     = 4       ; ok (highest supported M-group)
+M[0]    = 3       ; ok (indirect access)
+M[R1]   = 3       ; ok (indirect access)
+M[R1+2] = 3       ; ok (indirect access)
+; --------------------------------------
+M100    = 5       ; unsupported M-group
+M5[10]  = 3       ; syntax error
+M 5               ; syntax error
+; **************************************
+
+; **************************************
+; ISO H-Code (equal to M-Code)
+H3
+H       = 3
+H0      = 3
+N4H4    = 3
+H[0]    = 3
+; **************************************
+; **************************************
+; tool call
+T10               ; ok
+T       = 10      ; ok
+T       = "10"    ; ok
+T       = "T"<<R1 ; ok
+; --------------------------------------
+T10     = 50      ; syntax error
+T[10]   = 1       ; syntax error
+T10[2]  = 5       ; syntax error
+T"10"             ; syntax error
+; **************************************
+N10L300
+
+; **************************************
+; spindle speed
+S1000.0           ; ok
+S+1000            ; ok
+S-1000            ; ok
+S.5000            ; ok
+S       = 1000.0  ; ok
+S1      = 1000.0  ; ok
+S[1]    = 1000.0  ; ok
+S[R1]   = 1000.0  ; ok
+S [R1]  = 1000.0  ; ok
+; --------------------------------------
+S4      = 1000.0  ; invalid S-No
+S1[1]   = 1000.0  ; syntax error
+S1 [1]  = 1000.0  ; syntax error
+S32[1]  = 1000.0  ; syntax error
+; **************************************
+DARKS1G0DATA
+; **************************************
+; travel speed
+f1000             ; ok
+F1000             ; ok
+F200.5            ; ok
+F-2000.5          ; ok
+F=10000           ; ok
+; --------------------------------------
+F2=2000           ; syntax error
+F[1]=5000         ; syntax error
+; **************************************
+
+; **************************************
+; ISO position (XYZABCQUVW)
+x1
+X1
+X1.
+X1.1
+X0.1
+X.1
+X+1
+X+1.
+X+1.1
+X+0.1
+X+.1
+X-1
+X-1.
+X-1.1
+X-0.1
+X-.1
+X=1
+X=1.
+X=1.1
+X=0.1
+X=.1
+X=-1
+X=-1.
+X=-1.1
+X=-0.1
+X=-.1
+N1x1
+N1X1
+N1X1.
+N1X1.1
+N1X0.1
+N1X.1
+N1X+1
+N1X+1.
+N1X+1.1
+N1X+0.1
+N1X+.1
+N1X-1
+N1X-1.
+N1X-1.1
+N1X-0.1
+N1X-.1
+N1X=1
+N1X=1.
+N1X=1.1
+N1X=0.1
+N1X=.1
+N1X=-1
+N1X=-1.
+N1X=-1.1
+N1X=-0.1
+N1X=-.1
+N1 x1
+N1 X1
+N1 X1.
+N1 X1.1
+N1 X0.1
+N1 X.1
+N1 X+1
+N1 X+1.
+N1 X+1.1
+N1 X+0.1
+N1 X+.1
+N1 X-1
+N1 X-1.
+N1 X-1.1
+N1 X-0.1
+N1 X-.1
+N1 X=1
+N1 X=1.
+N1 X=1.1
+N1 X=0.1
+N1 X=.1
+N1 X=-1
+N1 X=-1.
+N1 X=-1.1
+N1 X=-0.1
+N1 X=-.1
+; --------------------------------------
+A1
+A1
+A1.
+A1.1
+A0.1
+A.1
+A+1
+A+1.
+A+1.1
+A+0.1
+A+.1
+A-1
+A-1.
+A-1.1
+A-0.1
+A-.1
+A=1
+A=1.
+A=1.1
+A=0.1
+A=.1
+A=-1
+A=-1.
+A=-1.1
+A=-0.1
+A=-.1
+N1A1
+N1A1
+N1A1.
+N1A1.1
+N1A0.1
+N1A.1
+N1A+1
+N1A+1.
+N1A+1.1
+N1A+0.1
+N1A+.1
+N1A-1
+N1A-1.
+N1A-1.1
+N1A-0.1
+N1A-.1
+N1A=1
+N1A=1.
+N1A=1.1
+N1A=0.1
+N1A=.1
+N1A=-1
+N1A=-1.
+N1A=-1.1
+N1A=-0.1
+N1A=-.1
+N1 A1
+N1 A1
+N1 A1.
+N1 A1.1
+N1 A0.1
+N1 A.1
+N1 A+1
+N1 A+1.
+N1 A+1.1
+N1 A+0.1
+N1 A+.1
+N1 A-1
+N1 A-1.
+N1 A-1.1
+N1 A-0.1
+N1 A-.1
+N1 A=1
+N1 A=1.
+N1 A=1.1
+N1 A=0.1
+N1 A=.1
+N1 A=-1
+N1 A=-1.
+N1 A=-1.1
+N1 A=-0.1
+N1 A = -.1
+; **************************************
+; SINUMERIK AX identifier
+AX1              ; direct AX identifier
+AX[1]            ; indirect AX identifier
+N501AX1          ; direct AX identifier
+N502AX[1]        ; indirect AX identifier
+N503 AX1         ; direct AX identifier
+N504 AX[1]       ; indirect AX identifier
+AXSTRING(AX1)    ; direct AX parameter
+AXSTRING(AX[1])  ; indirect AX parameter
+AXSTRING(AX[R2]) ; indirect AX parameter
+$MA_CORR_VELO[AX1]    ; direct AX index
+$MA_CORR_VELO[AX[1]]  ; indirect AX index
+$MA_AX_MASS[3,AX3]    ; direct AX index
+$MA_AX_MASS[4,AX[R1]] ; indirect AX index
+G0 AX1=10 AX[_YY]=.20
+; --------------------------------------
+AX31           ; last valid AX identfier
+AX32           ; unknown AX identifier
+AX40           ; unknown AX identifier
+AX100          ; unknown AX identifier
+AX1000         ; unknown AX identifier
+; **************************************
+; SINUMERIK channel and machine axes
+X1                   ; ISO position
+X[1]                 ; indirect X identifier
+N501X1               ; ISO position
+N502X[1]             ; indirect X identifier
+N503 X1              ; ISO position
+N504 X[1]            ; indirect X identifier
+AXSTRING(X)          ; direct X parameter
+AXSTRING(X1)         ; direct X parameter
+AXSTRING(X[1])       ; indirect X parameter
+AXSTRING(X[R2])      ; indirect X parameter
+$MA_CORR_VELO[X1]    ; direct X index
+$MA_CORR_VELO[X[1]]  ; indirect X index
+$MA_AX_MASS[3,X2]    ; direct X index
+$MA_AX_MASS[4,X[R1]] ; indirect X index
+G0 X1=10 X[_YY]=.20
+; --------------------------------------
+X1[10]=7.508         ; syntax error
+
+; **************************************
+$MA_AX_MASS[X,4] = 10
+$MA_AX_MASS[X1,4] = 10
+$MA_AX_MASS[XC,4] = 10
+N10$MA_AX_MASS[ZP,4] = 10
+; **************************************
+
+ZP1 = ;
+; **************************************
+; complex example
+G0G500X0Y-10Z-.05B.51C10.J7.R1M3M7M8T100D1H90
+N34G9G1G4G2M4
+N46 X4.25Y59.75Z-9.678R6.
+N48 X7.136Y64.879Z-10.R6.
+N47 X5.3Y63.141Z-9.866R6.
+; --------------------------------------
+N10 MOVE_19: GG40M30HRM21HR0M4M[4]=10G500
+; **************************************
+
+; **************************************
+; R-parameters
+WHEN TRUE DO $R10 = 21
+DO $R10 = 5
+G10F4.R10
+N10R10= 44
+N10$R10= 44
+R100=R10+R5       ; ok
+$R[20]=4          ; ok
+$r[20]=4          ; ok
+; --------------------------------------
+R10[5]=4          ; syntax error
+$R10[5]=4         ; syntax error
+; **************************************
+; STRINGS & COMMENTS
+"IN A STRING ; DOES NOT MEAN A COMMENT" ; but here it does
+"STRINGS ESCAPE '"'TEXT'"' WITH TWO DOUBLE QUOTES"
+"CONSTANTS LIKE TRUE OR FALSE ARE ALLOWED"
+"NUMBERS LIKE -0.4 OR 'H509F' AND 'B1101' ARE HIGHLIGHTED"
+"NC-VARS AS $A_HOUR ARE RECOCNIZED, TOO"
+"The functions ACN are highlighted like this."
+"WHAT ABOUT X OR X1 AX1 R1 and so on?)" ;
+; **************************************
+; constants
+N10R0 = $PI
+R1 = TRUE
+R2 = FALSE
+R3 = 2000.4                ; dez
+R4 = 'H012345678ABCDEF'    ; hex
+$R5 = 'B11010011101'       ; bin
+; --------------------------------------
+R3 = 200G0                 ; dez error
+R4 = 'H0125ANMNOA'         ; hex error
+R5 = 'B11012011101'        ; bin error
+; **************************************
+; **************************************
+; known nc variables
+$A_hour
+N10$A_HOUR
+N10$MN_G53_TOOLCORR = $MN_G53_TOOLCORR B_AND 'H20'   ; known
+; --------------------------------------
+$MN_G53_TOLCORR = 'H20'    ; unknown
+; **************************************
+
+
+IF $A_DAY==10 GOTOB MOVE_19   ; cool man
+IF $A_DAY[0]=10 GOTOB "MOVE_19"  data  ; invalid label definition
+IF $P_ACTID="10" GOTOB ("TEST"<<R1)    ; cool man
+IF $P_ACTID="10" GOTOS ("TEST"<<R1)    ; GOTOS doesn't allow labels
+; **************************************
+; control structures
+N11 IF (R1==5)
+  IF (R2<50)    ; comment
+    G0
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X=10 Y1=-.5
+  ENDIF
+ELSE       da   ; Comment
+  WHILE (R1<50)
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X100Y10
+  ENDWHILE        ; test
+  REPEAT
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+    X100Y10
+    X0Y100
+  UNTIL (R4>50)
+ENDIF
+
+GOTO ; test
+N10 IF $A_HOUR==1 GOTOS  ; test
+N100if $A_DAY>10 GOTOF ("test") data ; comment
+; **************************************
+CASE ABS ($A_HOUR) OF 1 GOTOF _M20 2 GOTOF LM40 DEFAULT GOTOF _M02 ; data
+
+_M20:  G0X10
+       ; Rücksprung ins Hauptprogramm zu Label END
+       RET("END",0,$P_STACK,FALSE)
+
+N100LM40:  G0 X10 Y10 Z1
+       RET
+
+N100_M02:  G0X10
+           RET
+
+N10GOTOB _M20
+
+N10AC(10)
+
+; **************************************
+; REPEAT
+N10REPEAT _LBL1             ; comment
+N10REPEAT _LBL1 P=10        ; comment
+N10REPEAT _LBL1 _LBL2       ; comment
+N10REPEAT _LBL1 _LBL2 P=10  ; comment
+; --------------------------------------
+N10REPEAT P=10 _LBL1        ; comment
+N10REPEAT P=10 _LBL1 _LBL2  ; comment
+; **************************************
+; REPEATB
+N10REPEATB _LBL1            ; comment
+N10REPEATB _LBL1 P=10       ; comment
+; --------------------------------------
+N10REPEATB P=10 _LBL1       ; comment
+N10REPEATB _LBL1 _LBL2      ; comment
+N10REPEATB _LBL1 _LBL2 P=10 ; comment
+; **************************************
+
+CASE R3 OF 1 GOTOF LBL1 OF 2 GOTOF LBL2
+; *************************************
+; default: i does not match anything
+
+
+  GOTOF CEND
+; *************************************
+; case 1
+LBL1:
+
+  GOTOF CEND
+; *************************************
+; case 2
+LBL2:
+
+  GOTOF CEND
+; *************************************
+; case end
+CEND:FOR IDX=0 TO NUM
+  IF (condition)
+
+  ELSE
+
+  ENDIF
+ENDFOR
+CALL "CYCLE" BLOCK "N10" TO "N20"
+
+CHANDATA(1)
+N10CLRINT(4)
+N10(Data)
+WHEN TRUE DO START
+IDS
+IDS=
+IDS=10
+IDS=10
+IDS=10 DO
+IDS=10 WHEN R1 DO START
+N10 IDS=10 WHEN R1.7 DO START
