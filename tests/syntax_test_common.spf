@@ -45,243 +45,6 @@ N10 G1 F1000      ; match N10 as block number
 D N10 F1000       ; don't match N10
 
 ; **************************************
-; G-Code
-G0                ; ok
-G[1]    = 1       ; ok
-G[R1]   = 5       ; ok
-G[R1+2] = 5       ; ok
-; --------------------------------------
-G5[10]  = 4       ; syntax error
-; **************************************
-
-; **************************************
-; M-Code
-M3                ; ok
-M75               ; ok
-M       = 3       ; ok (equal to M3)
-M0      = 3       ; ok (equal to M3)
-M99     = 4       ; ok (highest supported M-group)
-M[0]    = 3       ; ok (indirect access)
-M[R1]   = 3       ; ok (indirect access)
-M[R1+2] = 3       ; ok (indirect access)
-; --------------------------------------
-M100    = 5       ; unsupported M-group
-M5[10]  = 3       ; syntax error
-M 5               ; syntax error
-; **************************************
-
-; **************************************
-; ISO H-Code (equal to M-Code)
-H3
-H       = 3
-H0      = 3
-N4H4    = 3
-H[0]    = 3
-; **************************************
-; **************************************
-; tool call
-T10               ; ok
-T       = 10      ; ok
-T       = "10"    ; ok
-T       = "T"<<R1 ; ok
-; --------------------------------------
-T10     = 50      ; syntax error
-T[10]   = 1       ; syntax error
-T10[2]  = 5       ; syntax error
-T"10"             ; syntax error
-; **************************************
-N10L300
-
-; **************************************
-; spindle speed
-S1000.0           ; ok
-S+1000            ; ok
-S-1000            ; ok
-S.5000            ; ok
-S       = 1000.0  ; ok
-S1      = 1000.0  ; ok
-S[1]    = 1000.0  ; ok
-S[R1]   = 1000.0  ; ok
-S [R1]  = 1000.0  ; ok
-; --------------------------------------
-S4      = 1000.0  ; invalid S-No
-S1[1]   = 1000.0  ; syntax error
-S1 [1]  = 1000.0  ; syntax error
-S32[1]  = 1000.0  ; syntax error
-; **************************************
-DARKS1G0DATA
-; **************************************
-; travel speed
-f1000             ; ok
-F1000             ; ok
-F200.5            ; ok
-F-2000.5          ; ok
-F=10000           ; ok
-; --------------------------------------
-F2=2000           ; syntax error
-F[1]=5000         ; syntax error
-; **************************************
-
-; **************************************
-; ISO position (XYZABCQUVW)
-x1
-X1
-X1.
-X1.1
-X0.1
-X.1
-X+1
-X+1.
-X+1.1
-X+0.1
-X+.1
-X-1
-X-1.
-X-1.1
-X-0.1
-X-.1
-X=1
-X=1.
-X=1.1
-X=0.1
-X=.1
-X=-1
-X=-1.
-X=-1.1
-X=-0.1
-X=-.1
-N1x1
-N1X1
-N1X1.
-N1X1.1
-N1X0.1
-N1X.1
-N1X+1
-N1X+1.
-N1X+1.1
-N1X+0.1
-N1X+.1
-N1X-1
-N1X-1.
-N1X-1.1
-N1X-0.1
-N1X-.1
-N1X=1
-N1X=1.
-N1X=1.1
-N1X=0.1
-N1X=.1
-N1X=-1
-N1X=-1.
-N1X=-1.1
-N1X=-0.1
-N1X=-.1
-N1 x1
-N1 X1
-N1 X1.
-N1 X1.1
-N1 X0.1
-N1 X.1
-N1 X+1
-N1 X+1.
-N1 X+1.1
-N1 X+0.1
-N1 X+.1
-N1 X-1
-N1 X-1.
-N1 X-1.1
-N1 X-0.1
-N1 X-.1
-N1 X=1
-N1 X=1.
-N1 X=1.1
-N1 X=0.1
-N1 X=.1
-N1 X=-1
-N1 X=-1.
-N1 X=-1.1
-N1 X=-0.1
-N1 X=-.1
-; --------------------------------------
-A1
-A1
-A1.
-A1.1
-A0.1
-A.1
-A+1
-A+1.
-A+1.1
-A+0.1
-A+.1
-A-1
-A-1.
-A-1.1
-A-0.1
-A-.1
-A=1
-A=1.
-A=1.1
-A=0.1
-A=.1
-A=-1
-A=-1.
-A=-1.1
-A=-0.1
-A=-.1
-N1A1
-N1A1
-N1A1.
-N1A1.1
-N1A0.1
-N1A.1
-N1A+1
-N1A+1.
-N1A+1.1
-N1A+0.1
-N1A+.1
-N1A-1
-N1A-1.
-N1A-1.1
-N1A-0.1
-N1A-.1
-N1A=1
-N1A=1.
-N1A=1.1
-N1A=0.1
-N1A=.1
-N1A=-1
-N1A=-1.
-N1A=-1.1
-N1A=-0.1
-N1A=-.1
-N1 A1
-N1 A1
-N1 A1.
-N1 A1.1
-N1 A0.1
-N1 A.1
-N1 A+1
-N1 A+1.
-N1 A+1.1
-N1 A+0.1
-N1 A+.1
-N1 A-1
-N1 A-1.
-N1 A-1.1
-N1 A-0.1
-N1 A-.1
-N1 A=1
-N1 A=1.
-N1 A=1.1
-N1 A=0.1
-N1 A=.1
-N1 A=-1
-N1 A=-1.
-N1 A=-1.1
-N1 A=-0.1
-N1 A = -.1
-; **************************************
 ; SINUMERIK AX identifier
 AX1              ; direct AX identifier
 AX[1]            ; indirect AX identifier
@@ -326,18 +89,18 @@ X1[10]=7.508         ; syntax error
 ; **************************************
 $MA_AX_MASS[X,4] = 10
 $MA_AX_MASS[X1,4] = 10
-$MA_AX_MASS[XC,4] = 10
-N10$MA_AX_MASS[ZP,4] = 10
-; **************************************
-
-ZP1 = ;
+N10$MA_AX_MASS[XC,4] = 10
+N10 $MA_AX_MASS[ZP,4] = 10
+ N10$MA_AX_MASS[ZP,4] = 10
+ N10 $MA_AX_MASS[ZP,4] = 10
 ; **************************************
 ; complex example
 G0G500X0Y-10Z-.05B.51C10.J7.R1M3M7M8T100D1H90
 N34G9G1G4G2M4
-N46 X4.25Y59.75Z-9.678R6.
+N46X4.25Y59.75Z-9.678 R6.
 N48 X7.136Y64.879Z-10.R6.
-N47 X5.3Y63.141Z-9.866R6.
+ N47   X5.3 Y63.141 Z-9.866 R6.
+ N47   X 5.3 Y 63.141 Z -9.866 R 6.
 ; --------------------------------------
 N10 MOVE_19: GG40M30HRM21HR0M4M[4]=10G500
 ; **************************************
@@ -444,7 +207,7 @@ N100LM40:  G0 X10 Y10 Z1
 N100_M02:  G0X10
            RET
 
-N10GOTOB _M20
+N10TEST:GOTOB _M20
 
 N10AC(10)
 
@@ -494,9 +257,11 @@ CEND:FOR IDX=0 TO NUM
 ENDFOR
 CALL "CYCLE" BLOCK "N10" TO "N20"
 
-CHANDATA(1)
+DEF INT _TEST IF
+
+CHANDATA(1) IF
 N10CLRINT(4)
-N10(Data)
+N10 (Data)
 WHEN TRUE DO START
 IDS
 IDS=
