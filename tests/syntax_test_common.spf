@@ -1,7 +1,7 @@
 %_N_SYNTAX_CHECK_SPF
 ;$PATH=/_N_CMA_DIR
 10Define
-dataDEFINE G1 AS GORAP-10
+N1 data DEFINE G1 AS GORAP-10
 dEfINE test aS 50
 N5DEFINE G1 AS GORAP-10
 N10DEFINE G1 AS GORAP-10
@@ -9,15 +9,20 @@ N10 DEFINE G1 AS GORAP-10    ; test $A_CMDSI "test"
 n15 DEFINE G1 AS GORAP-10
 define G1 as G0B1D5C2
 ; A comment with 10 binary 'Heff' values
+define g1 as G1 F500
+define D1 as D2
+N10 ( iso comment )
 
-$MN_USER_DATA_INT[5]=$P_ACTFRAME
+$MN_USER_DATA_INT[5]=$P_ACTFRAME  ; variable assigning
 X=ACN(_d)
 X=acn(_d)
 N10 /1 ABS(R3)
-0define
+define cdc as
+/1 N40 G0 D10
 
-N30 DEF BOOL CHECK=TRUE        ; comment
-N30 DEF STRING[12] STR="Test"  ; comment
+N30DEF BOOL CHECK=TRUE        ; comment
+N30 DEF NCK STRING[12] STR="Test"  ; comment
+N30LABEL: DEF NCK STRING[12] STR="Test" <<Ba[i]<< test ; comment
 
 IF CHECK=TRUE GOTOF END
 
@@ -86,6 +91,7 @@ G0 X1=10 X[_YY]=.20
 ; --------------------------------------
 X1[10]=7.508         ; syntax error
 
+
 ; **************************************
 $MA_AX_MASS[X,4] = 10
 $MA_AX_MASS[X1,4] = 10
@@ -134,7 +140,7 @@ R1 = TRUE
 R2 = FALSE
 R3 = 2000.4                ; dez
 R4 = 'H012345678ABCDEF'    ; hex
-$R5 = 'B11010011101'       ; bin
+  $R5 = 'B11010011101'       ; bin
 ; --------------------------------------
 R3 = 200G0                 ; dez error
 R4 = 'H0125ANMNOA'         ; hex error
@@ -149,6 +155,7 @@ N10$MN_G53_TOOLCORR = $MN_G53_TOOLCORR B_AND 'H20'   ; known
 $MN_G53_TOLCORR = 'H20'    ; unknown
 ; **************************************
 
+IF TEST == DET
 
 IF $A_DAY==10 GOTOB MOVE_19   ; cool man
 IF $A_DAY[0]=10 GOTOB "MOVE_19"  data  ; invalid label definition
@@ -213,13 +220,17 @@ N10AC(10)
 
 ; **************************************
 ; REPEAT
-N10REPEAT _LBL1             ; comment
+N10REPEAT _LBL              ; comment
 N10REPEAT _LBL1 P=10        ; comment
 N10REPEAT _LBL1 _LBL2       ; comment
 N10REPEAT _LBL1 _LBL2 P=10  ; comment
+N10REPEAT _LBL1 _LBL2 P=_VAR ; comment
 ; --------------------------------------
-N10REPEAT P=10 _LBL1        ; comment
-N10REPEAT P=10 _LBL1 _LBL2  ; comment
+N10REPEAT _1LBL             ; invalid label
+N10REPEAT P=10 _LBL1        ; invalid order
+N10REPEAT P=10 _LBL1 _LBL2  ; invalid order
+N10REPEAT _LBL1 _LBL2 P=.10 ; invalid repeat count
+N10REPEAT _LBL1 _LBL2 P=1.0 ; invalid repeat count
 ; **************************************
 ; REPEATB
 N10REPEATB _LBL1            ; comment
@@ -240,7 +251,7 @@ CASE R3 OF 1 GOTOF LBL1 OF 2 GOTOF LBL2
 ; case 1
 LBL1:
 
-  GOTOF CEND
+  GOTOF CEND           ; test
 ; *************************************
 ; case 2
 LBL2:
@@ -255,18 +266,10 @@ CEND:FOR IDX=0 TO NUM
 
   ENDIF
 ENDFOR
-CALL "CYCLE" BLOCK "N10" TO "N20"
+N10CALL "CYCLE" BLOCK "N10" TO "N20" ; TEST
 
 DEF INT _TEST IF
-
+GOTOS ; test
 CHANDATA(1) IF
 N10CLRINT(4)
 N10 (Data)
-WHEN TRUE DO START
-IDS
-IDS=
-IDS=10
-IDS=10
-IDS=10 DO
-IDS=10 WHEN R1 DO START
-N10 IDS=10 WHEN R1.7 DO START

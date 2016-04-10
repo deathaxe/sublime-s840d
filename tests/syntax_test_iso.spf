@@ -1,6 +1,10 @@
+%_N_SYNTAX_CHECK_SPF
+;$PATH=/_N_CMA_DIR
 ; **************************************
 ; G-Code
 G0                ; ok
+G00               ; ok
+G01               ; ok
 G[1]      = 1     ; ok
 G[R1]     = 5     ; ok
 G[R1+2]   = 5     ; ok
@@ -14,7 +18,9 @@ G5[10]  = 4       ; syntax error
 ; M-Code
 M3                ; ok
 M         = 3     ; ok (equal to M3)
+M         = MCODE ; ok (equal to M3)
 M0        = 3     ; ok (equal to M3)
+M0        = MCODE+20 ; ok (equal to M3)
 M99       = 4     ; ok (highest supported M-group)
 M[0]      = 3     ; ok (indirect access)
 M[R1]     = 3     ; ok (indirect access)
@@ -64,11 +70,14 @@ S1      = 1000.0  ; ok
 S[1]    = 1000.0  ; ok
 S[R1]   = 1000.0  ; ok
 S [R1]  = 1000.0  ; ok
+S[_XX]  = 10+20+ABS($$AC_MEAS_NCBFR[ AX3, 0 ]-__X) AX[10]=15 S[20]
+S[1]    ; Test
 ; --------------------------------------
 S4      = 1000.0  ; invalid S-No
 S1[1]   = 1000.0  ; syntax error
 S1 [1]  = 1000.0  ; syntax error
 S32[1]  = 1000.0  ; syntax error
+S[1] X10 =        ; syntax error
 ; **************************************
 ; travel speed
 f1000             ; ok
@@ -365,3 +374,12 @@ N48 LBL2: X7.136Y64.879Z-10.R6.
 ; --------------------------------------
 N10 MOVE_19: GG40M30HRM21HR0M4M[4]=10G500
 ; **************************************
+L300
+ABS(10)
+MCALL CYCLE84(1,2,4,65) IF TS ; comment
+MCALL TEST(DATA)
+
+TEST(DATA)
+
+TEST IF IT IS HERE + 12
+AROT

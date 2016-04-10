@@ -1,0 +1,201 @@
+// SYNTAX TEST "Packages/s840d/s840d.sublime-syntax"
+
+////////////////////////////////////////////////////
+// ASSIGNMENT tests
+////////////////////////////////////////////////////
+
+// assign positive floating point value
+_RESULT=10.50
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric
+//        ^ constant.numeric
+//         ^ constant.numeric
+_RESULT=+10.50
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric.sign
+//       ^ constant.numeric
+_RESULT=.50
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric
+//       ^ constant.numeric
+_RESULT=+.50
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric.sign
+//       ^ constant.numeric
+_RESULT = 10.50
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric
+//          ^ constant.numeric
+//           ^ constant.numeric
+_RESULT = +10.50
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+//         ^ constant.numeric
+_RESULT = .50
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric
+//         ^ constant.numeric
+
+// assign negative floating point value
+_RESULT=-10.50
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric.sign
+//       ^ constant.numeric
+//         ^ constant.numeric
+//          ^ constant.numeric
+_RESULT=-.50
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric.sign
+//       ^ constant.numeric
+//        ^ constant.numeric
+_RESULT = -10.50
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+//         ^ constant.numeric
+//           ^ constant.numeric
+//            ^ constant.numeric
+_RESULT = -.50
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+//         ^ constant.numeric
+//          ^ constant.numeric
+
+// valid inverted value assignment
+_RESULT=-_VALUE
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric.sign
+_RESULT = -_VALUE
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+
+// valid inverted nc variable assignment
+_RESULT=-$AC_CTOL
+//     ^ keyword.operator.assignment
+//      ^ constant.numeric.sign
+//       ^ variable.language
+_RESULT = -$AC_CTOL
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+//         ^ variable.language
+
+// valid string chain assignment
+_STR="String 1"<<"String 2"
+//  ^ keyword.operator.assignment
+//   ^ string.quoted.double
+//             ^ keyword.operator.assignment
+//               ^ string.quoted.double
+_STR = "String 1" << "String 2"
+//   ^ keyword.operator.assignment
+//     ^ string.quoted.double
+//                ^ keyword.operator.assignment
+//                   ^ string.quoted.double
+_STR=<<$C_T<<"String 2"
+//  ^ keyword.operator.assignment
+//     ^ variable.language
+//         ^ keyword.operator.assignment
+//           ^ string.quoted.double
+_STR = << $C_T << "String 2"
+//   ^ keyword.operator.assignment
+//     ^ keyword.operator.assignment
+//        ^ variable.language
+//             ^ keyword.operator.assignment
+//                ^ string.quoted.double
+_STR=<<-$C_T<<"String 2"
+//  ^ keyword.operator.assignment
+//     ^ constant.numeric.sign
+//      ^ variable.language
+//          ^ keyword.operator.assignment
+//            ^ string.quoted.double
+_STR = << -$C_T << "String 2"
+//   ^ keyword.operator.assignment
+//     ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+//         ^ variable.language
+//              ^ keyword.operator.assignment
+//                 ^ string.quoted.double
+
+// invalid string chain assignment
+_STR=-"String 1"<<<<"String 2"
+//  ^ keyword.operator.assignment
+//   ^ invalid.illegal
+//    ^ string.quoted.double
+//              ^ keyword.operator.assignment
+//                ^ invalid.illegal
+//                 ^ invalid.illegal
+//                  ^ string.quoted.double
+_STR = -"String 1" <<<< "String 2"
+//   ^ keyword.operator.assignment
+//     ^ invalid.illegal
+//      ^ string.quoted.double
+//                 ^ keyword.operator.assignment
+//                   ^ invalid.illegal
+//                    ^ invalid.illegal
+//                      ^ string.quoted.double
+
+// Valid operators
+_RESULT=10.5+20.1*5/10-20.5
+//     ^ keyword.operator.assignment
+//          ^ keyword.operator.unary
+//               ^ keyword.operator.unary
+//                 ^ keyword.operator.unary
+//                    ^ keyword.operator.unary
+_RESULT = 10.5 + 20.1 * 5 / 10 - 20.5
+//      ^ keyword.operator.assignment
+//             ^ keyword.operator.unary
+//                    ^ keyword.operator.unary
+//                        ^ keyword.operator.unary
+//                             ^ keyword.operator.unary
+
+// invalid double operators
+_RESULT = 10.5 ++ 20.1 ** 5 // 10 -- 20.5
+//      ^ keyword.operator.assignment
+//             ^ keyword.operator.unary
+//              ^ invalid.illegal
+//                     ^ keyword.operator.unary
+//                      ^ invalid.illegal
+//                          ^ keyword.operator.unary
+//                           ^ invalid.illegal
+//                                ^ keyword.operator.unary
+//                                 ^ invalid.illegal
+_RESULT = 10.5 + + 20.1 * * 5 / / 10 - - 20.5
+//      ^ keyword.operator.assignment
+//             ^ keyword.operator.unary
+//               ^ invalid.illegal
+//                      ^ keyword.operator.unary
+//                        ^ invalid.illegal
+//                            ^ keyword.operator.unary
+//                              ^ invalid.illegal
+//                                   ^ keyword.operator.unary
+//                                     ^ invalid.illegal
+
+// Valid negative value aritmetic
+_RESULT = (-10.5) + ( -20.1 ) * (- 5) / (-R4) - (-$AC_CTOL-4)
+//      ^ keyword.operator.assignment
+//         ^ constant.numeric.sign
+//                ^ keyword.operator.unary
+//                    ^ constant.numeric.sign
+//                            ^ keyword.operator.unary
+//                               ^ constant.numeric.sign
+//                                    ^ keyword.operator.unary
+//                                       ^ constant.numeric.sign
+//                                            ^ keyword.operator.unary
+//                                               ^ constant.numeric.sign
+//                                                        ^ keyword.operator.unary
+//                                                         ^ constant.numeric
+
+// Invalid negative value aritmetic
+_RESULT = -10.5 + -20.1 * - 5 / -R4 - -($AC_CTOL-4)
+//      ^ keyword.operator.assignment
+//        ^ constant.numeric.sign
+//              ^ keyword.operator.unary
+//                ^ invalid.illegal
+//                      ^ keyword.operator.unary
+//                        ^ invalid.illegal
+//                            ^ keyword.operator.unary
+//                              ^ invalid.illegal
+//                                  ^ keyword.operator.unary
+//                                    ^ invalid.illegal
+//                                              ^ keyword.operator.unary
+//                                               ^ constant.numeric
+
+

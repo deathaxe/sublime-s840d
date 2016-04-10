@@ -1,0 +1,21 @@
+; *************************************
+WHEN TRUE DO M5=10
+WHEN R1 = 10 DO M5=10
+; -------------------------------------
+WHEN DO             ; missing condition
+WHEN R1 = 10        ; missing operation
+; *************************************
+
+; *************************************
+; modal synchron actions
+IDS
+IDS=10
+IDS=10 DO NOTHING       ; comment
+IDS=10 WHEN R1=10 DO L300
+; -------------------------------------
+IDS=
+IDS=                    ; id missing
+IDS=DO DO M6=5+R2       ; id invalid
+IDS= WHENEVER DO        ; id missing
+IDS = 10 R1.7 DO START  ; id invalid
+; *************************************
