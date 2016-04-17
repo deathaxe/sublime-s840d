@@ -2,81 +2,92 @@
 
 ////////////////////////////////////////////////////
 // ASSIGNMENT tests
+// Performance: 88.4ms - with 'block-subprogram'
+//               8.1ms - without 'block-subprogram'
 ////////////////////////////////////////////////////
 
 // assign positive floating point value
 _RESULT=10.50
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric
-//        ^ constant.numeric
-//         ^ constant.numeric
+//      ^ constant.language.numeric
+//        ^ constant.language.numeric
+//         ^ constant.language.numeric
 _RESULT=+10.50
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric.sign
-//       ^ constant.numeric
+//      ^ constant.language.numeric.sign
+//       ^ constant.language.numeric
 _RESULT=.50
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric
-//       ^ constant.numeric
+//      ^ constant.language.numeric
+//       ^ constant.language.numeric
 _RESULT=+.50
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric.sign
-//       ^ constant.numeric
+//      ^ constant.language.numeric.sign
+//       ^ constant.language.numeric
+_RESULT=+.50EX2
+//     ^ keyword.operator.assignment
+//      ^ constant.language.numeric.sign
+//       ^ constant.language.numeric
+_RESULT=+.50EX-2
+//     ^ keyword.operator.assignment
+//      ^ constant.language.numeric.sign
+//       ^ constant.language.numeric
+
 _RESULT = 10.50
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric
-//          ^ constant.numeric
-//           ^ constant.numeric
-_RESULT = +10.50
+//        ^ constant.language.numeric
+//          ^ constant.language.numeric
+//           ^ constant.language.numeric
+_RESULT = +10
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
-//         ^ constant.numeric
+//        ^ constant.language.numeric.sign
+//         ^ constant.language.numeric
 _RESULT = .50
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric
-//         ^ constant.numeric
+//        ^ constant.language.numeric
+//         ^ constant.language.numeric
 
 // assign negative floating point value
 _RESULT=-10.50
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric.sign
-//       ^ constant.numeric
-//         ^ constant.numeric
-//          ^ constant.numeric
+//      ^ constant.language.numeric.sign
+//       ^ constant.language.numeric
+//         ^ constant.language.numeric
+//          ^ constant.language.numeric
 _RESULT=-.50
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric.sign
-//       ^ constant.numeric
-//        ^ constant.numeric
+//      ^ constant.language.numeric.sign
+//       ^ constant.language.numeric
+//        ^ constant.language.numeric
 _RESULT = -10.50
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
-//         ^ constant.numeric
-//           ^ constant.numeric
-//            ^ constant.numeric
+//        ^ constant.language.numeric.sign
+//         ^ constant.language.numeric
+//           ^ constant.language.numeric
+//            ^ constant.language.numeric
 _RESULT = -.50
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
-//         ^ constant.numeric
-//          ^ constant.numeric
+//        ^ constant.language.numeric.sign
+//         ^ constant.language.numeric
+//          ^ constant.language.numeric
 
 // valid inverted value assignment
 _RESULT=-_VALUE
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric.sign
+//      ^ constant.language.numeric.sign
 _RESULT = -_VALUE
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
+//        ^ constant.language.numeric.sign
 
 // valid inverted nc variable assignment
 _RESULT=-$AC_CTOL
 //     ^ keyword.operator.assignment
-//      ^ constant.numeric.sign
-//       ^ variable.language
+//      ^ constant.language.numeric.sign
+//       ^ support.variable.nck
 _RESULT = -$AC_CTOL
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
-//         ^ variable.language
+//        ^ constant.language.numeric.sign
+//         ^ support.variable.nck
 
 // valid string chain assignment
 _STR="String 1"<<"String 2"
@@ -91,28 +102,32 @@ _STR = "String 1" << "String 2"
 //                   ^ string.quoted.double
 _STR=<<$C_T<<"String 2"
 //  ^ keyword.operator.assignment
-//     ^ variable.language
+//     ^ support.variable.nck
 //         ^ keyword.operator.assignment
 //           ^ string.quoted.double
 _STR = << $C_T << "String 2"
 //   ^ keyword.operator.assignment
 //     ^ keyword.operator.assignment
-//        ^ variable.language
+//        ^ support.variable.nck
 //             ^ keyword.operator.assignment
 //                ^ string.quoted.double
-_STR=<<-$C_T<<"String 2"
+_STR=<<-$C_T<<"String 2"<< - -$C_M_PROG
 //  ^ keyword.operator.assignment
-//     ^ constant.numeric.sign
-//      ^ variable.language
+//     ^ constant.language.numeric.sign
+//      ^ support.variable.nck
 //          ^ keyword.operator.assignment
 //            ^ string.quoted.double
-_STR = << -$C_T << "String 2"
+//                         ^ constant.language.numeric.sign
+//                           ^ invalid.illegal
+//                             ^ support.variable.nck
+_STR = << -$C_T << - "String 2"
 //   ^ keyword.operator.assignment
 //     ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
-//         ^ variable.language
+//        ^ constant.language.numeric.sign
+//         ^ support.variable.nck
 //              ^ keyword.operator.assignment
-//                 ^ string.quoted.double
+//                 ^ invalid.illegal
+//                   ^ string.quoted.double
 
 // invalid string chain assignment
 _STR=-"String 1"<<<<"String 2"
@@ -135,67 +150,72 @@ _STR = -"String 1" <<<< "String 2"
 // Valid operators
 _RESULT=10.5+20.1*5/10-20.5
 //     ^ keyword.operator.assignment
-//          ^ keyword.operator.unary
-//               ^ keyword.operator.unary
-//                 ^ keyword.operator.unary
-//                    ^ keyword.operator.unary
+//          ^ keyword.operator.arithmetic
+//               ^ keyword.operator.arithmetic
+//                 ^ keyword.operator.arithmetic
+//                    ^ keyword.operator.arithmetic
 _RESULT = 10.5 + 20.1 * 5 / 10 - 20.5
 //      ^ keyword.operator.assignment
-//             ^ keyword.operator.unary
-//                    ^ keyword.operator.unary
-//                        ^ keyword.operator.unary
-//                             ^ keyword.operator.unary
+//             ^ keyword.operator.arithmetic
+//                    ^ keyword.operator.arithmetic
+//                        ^ keyword.operator.arithmetic
+//                             ^ keyword.operator.arithmetic
 
 // invalid double operators
 _RESULT = 10.5 ++ 20.1 ** 5 // 10 -- 20.5
 //      ^ keyword.operator.assignment
-//             ^ keyword.operator.unary
+//             ^ keyword.operator.arithmetic
 //              ^ invalid.illegal
-//                     ^ keyword.operator.unary
+//                     ^ keyword.operator.arithmetic
 //                      ^ invalid.illegal
-//                          ^ keyword.operator.unary
+//                          ^ keyword.operator.arithmetic
 //                           ^ invalid.illegal
-//                                ^ keyword.operator.unary
+//                                ^ keyword.operator.arithmetic
 //                                 ^ invalid.illegal
 _RESULT = 10.5 + + 20.1 * * 5 / / 10 - - 20.5
 //      ^ keyword.operator.assignment
-//             ^ keyword.operator.unary
+//             ^ keyword.operator.arithmetic
 //               ^ invalid.illegal
-//                      ^ keyword.operator.unary
+//                      ^ keyword.operator.arithmetic
 //                        ^ invalid.illegal
-//                            ^ keyword.operator.unary
+//                            ^ keyword.operator.arithmetic
 //                              ^ invalid.illegal
-//                                   ^ keyword.operator.unary
+//                                   ^ keyword.operator.arithmetic
 //                                     ^ invalid.illegal
 
 // Valid negative value aritmetic
 _RESULT = (-10.5) + ( -20.1 ) * (- 5) / (-R4) - (-$AC_CTOL-4)
 //      ^ keyword.operator.assignment
-//         ^ constant.numeric.sign
-//                ^ keyword.operator.unary
-//                    ^ constant.numeric.sign
-//                            ^ keyword.operator.unary
-//                               ^ constant.numeric.sign
-//                                    ^ keyword.operator.unary
-//                                       ^ constant.numeric.sign
-//                                            ^ keyword.operator.unary
-//                                               ^ constant.numeric.sign
-//                                                        ^ keyword.operator.unary
-//                                                         ^ constant.numeric
+//         ^ constant.language.numeric.sign
+//                ^ keyword.operator.arithmetic
+//                    ^ constant.language.numeric.sign
+//                            ^ keyword.operator.arithmetic
+//                               ^ constant.language.numeric.sign
+//                                    ^ keyword.operator.arithmetic
+//                                       ^ constant.language.numeric.sign
+//                                            ^ keyword.operator.arithmetic
+//                                               ^ constant.language.numeric.sign
+//                                                        ^ keyword.operator.arithmetic
+//                                                         ^ constant.language.numeric
 
-// Invalid negative value aritmetic
+// Invalid negative value arithmetic
 _RESULT = -10.5 + -20.1 * - 5 / -R4 - -($AC_CTOL-4)
 //      ^ keyword.operator.assignment
-//        ^ constant.numeric.sign
-//              ^ keyword.operator.unary
+//        ^ constant.language.numeric.sign
+//              ^ keyword.operator.arithmetic
 //                ^ invalid.illegal
-//                      ^ keyword.operator.unary
+//                      ^ keyword.operator.arithmetic
 //                        ^ invalid.illegal
-//                            ^ keyword.operator.unary
+//                            ^ keyword.operator.arithmetic
 //                              ^ invalid.illegal
-//                                  ^ keyword.operator.unary
+//                                  ^ keyword.operator.arithmetic
 //                                    ^ invalid.illegal
-//                                              ^ keyword.operator.unary
-//                                               ^ constant.numeric
+//                                              ^ keyword.operator.arithmetic
+//                                               ^ constant.language.numeric
 
-
+// valid negative values
+_RESULT = 10 > -_DATA
+_RESULT = 10 == -_DATA - 4
+_RESULT = 10 == -_DATA[10 - 10 -data -12]
+_RESULT = 10 == -_DATA[-"test" - 10 -data -12] - 10 _RES = 10.
+_RESULT = 10 B_AND B_OR DATA

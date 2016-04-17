@@ -2,16 +2,22 @@
 ;$PATH=/_N_CMA_DIR
 10Define
 N1 data DEFINE G1 AS GORAP-10
-dEfINE test aS 50
+dEfINE test as 50
 N5DEFINE G1 AS GORAP-10
 N10DEFINE G1 AS GORAP-10
 N10 DEFINE G1 AS GORAP-10    ; test $A_CMDSI "test"
 n15 DEFINE G1 AS GORAP-10
-define G1 as G0B1D5C2
+define G1 date  da data as G0B1D5C2
 ; A comment with 10 binary 'Heff' values
 define g1 as G1 F500
 define D1 as D2
 N10 ( iso comment )
+
+CALL "L300" BLOCK N100 TO N200
+CALL BLOCK N100 TO N200
+
+ADISPOS=0
+ATOL[DELAYFSTOF]=2
 
 $MN_USER_DATA_INT[5]=$P_ACTFRAME  ; variable assigning
 X=ACN(_d)
@@ -21,18 +27,23 @@ define cdc as
 /1 N40 G0 D10
 
 N30DEF BOOL CHECK=TRUE        ; comment
-N30 DEF NCK STRING[12] STR="Test"  ; comment
+N30 DEF NCK STRING[12] STR="Test", STR2 = 10 ; comment
 N30LABEL: DEF NCK STRING[12] STR="Test" <<Ba[i]<< test ; comment
+
+$MN_USER_DATA_HEX[10]
 
 IF CHECK=TRUE GOTOF END
 
 $PI
 $AC_UDAT[]
-
-$P_UiFR[0,X,TR]
-N10; **************************************
+SPOS[1]=10
+SPOS = 10
+SPOS DATA [for] = 10
+ABS does (R1)
+;$P_UiFR[0,X,TR]
+N10 ; **************************************
 ; procedure definition
-PROC WZW (VAR BOOL DATA)
+PROC WZW (VAR BOOL[31] DATA)
     T TR BOOL
     GOTOS ; goto start of proc
 RET
@@ -41,6 +52,9 @@ RET
 N10 PROC WZW (VAR BOOL DATA) SBLOF
 N10 das PROC WZW (VAR BOOL DATA) SBLOF
 gehtPROC WZW (VAR BOOL DATA) SBLOF
+
+WZW(1000,3,1,1,1,)
+WZW (1000,3,1,1,1,)
 
 L350
 M240
@@ -91,6 +105,9 @@ G0 X1=10 X[_YY]=.20
 ; --------------------------------------
 X1[10]=7.508         ; syntax error
 
+ATOL[<AXIS>]=<REAL>
+
+SQRT data  ; comment
 
 ; **************************************
 $MA_AX_MASS[X,4] = 10
@@ -101,7 +118,7 @@ N10 $MA_AX_MASS[ZP,4] = 10
  N10 $MA_AX_MASS[ZP,4] = 10
 ; **************************************
 ; complex example
-G0G500X0Y-10Z-.05B.51C10.J7.R1M3M7M8T100D1H90
+G0G500X0Y-10Z-.05B.51C10.J7.R1M3M7M8T100D1H90 ; coment
 N34G9G1G4G2M4
 N46X4.25Y59.75Z-9.678 R6.
 N48 X7.136Y64.879Z-10.R6.
@@ -116,7 +133,7 @@ N10 MOVE_19: GG40M30HRM21HR0M4M[4]=10G500
 WHEN TRUE DO $R10 = 21
 DO $R10 = 5
 G10F4.R10
-N10R10= 44
+N10R10 = 44
 N10$R10= 44
 R100=R10+R5       ; ok
 $R[20]=4          ; ok
@@ -161,6 +178,7 @@ IF $A_DAY==10 GOTOB MOVE_19   ; cool man
 IF $A_DAY[0]=10 GOTOB "MOVE_19"  data  ; invalid label definition
 IF $P_ACTID="10" GOTOB ("TEST"<<R1)    ; cool man
 IF $P_ACTID="10" GOTOS ("TEST"<<R1)    ; GOTOS doesn't allow labels
+IF $P_ACTID="10" abs("TEST"<<R1)    ; GOTOS doesn't allow labels
 ; **************************************
 ; control structures
 N11 IF (R1==5)
@@ -268,8 +286,8 @@ CEND:FOR IDX=0 TO NUM
 ENDFOR
 N10CALL "CYCLE" BLOCK "N10" TO "N20" ; TEST
 
-DEF INT _TEST IF
+DEF INT _TEST
 GOTOS ; test
-CHANDATA(1) IF
+CHANDATA(1)
 N10CLRINT(4)
 N10 (Data)

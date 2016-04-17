@@ -1,5 +1,12 @@
 %_N_SYNTAX_CHECK_SPF
 ;$PATH=/_N_CMA_DIR
+
+////////////////////////////////////////////////////
+// ISO code tests
+// Performance: 3.9ms
+////////////////////////////////////////////////////
+
+
 ; **************************************
 ; G-Code
 G0                ; ok
@@ -92,6 +99,7 @@ F[1]=5000         ; syntax error
 ; ISO position (XYZABCQUVW)
 x1
 X1
+X1EX-1
 X1.
 X1.1
 X0.1
@@ -366,7 +374,7 @@ N46X4.25Y59.75Z-9.678 R6.
 N48 X7.136Y1=(64.879+0.4)Z-10. R6.
  N47   X5.3 Y63.141 Z-9.866 R6.
  N47   X 5.3 Y 63.141 Z -9.866 R 6.
- N47   X1 = 5.3+ABS(R1)+R5Y 63.141 Z -9.866 R 6.
+ N47   X1 = 5.3+ABS(R1)+R5 Y 63.141 Z -9.866 R 6.
 N46LBL1:X4.25Y59.75Z-9.678 R6.
 N48 LBL2: X7.136Y64.879Z-10.R6.
  N47 LBL3: X5.3 Y63.141 Z-9.866 R6.
@@ -374,12 +382,9 @@ N48 LBL2: X7.136Y64.879Z-10.R6.
 ; --------------------------------------
 N10 MOVE_19: GG40M30HRM21HR0M4M[4]=10G500
 ; **************************************
-L300
-ABS(10)
-MCALL CYCLE84(1,2,4,65) IF TS ; comment
-MCALL TEST(DATA)
 
-TEST(DATA)
+G0 F=1000 B0 A0
+G0 F=$AC_AXCTSWE X10 B12
+G0 F=$AC_AXCTSWE[R3] X10 B12
 
-TEST IF IT IS HERE + 12
-AROT
+SUPA X0 B0 Y400
