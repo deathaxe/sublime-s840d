@@ -15,7 +15,7 @@ N10 ( iso comment )
 
 CALL "L300" BLOCK N100 TO N200
 CALL BLOCK N100 TO N200
-
+IF TEST >= 10
 ADISPOS=0
 ATOL[DELAYFSTOF]=2
 
@@ -88,7 +88,7 @@ AX1000         ; unknown AX identifier
 ; **************************************
 ; SINUMERIK channel and machine axes
 X1                   ; ISO position
-X[1]                 ; indirect X identifier
+X[1]  = 0            ; indirect X identifier
 N501X1               ; ISO position
 N502X[1]             ; indirect X identifier
 N503 X1              ; ISO position
@@ -105,7 +105,7 @@ G0 X1=10 X[_YY]=.20
 ; --------------------------------------
 X1[10]=7.508         ; syntax error
 
-ATOL[<AXIS>]=<REAL>
+ATOL[<AXIS>]={REAL}
 
 SQRT data  ; comment
 

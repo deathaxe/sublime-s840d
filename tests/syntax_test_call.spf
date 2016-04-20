@@ -9,11 +9,23 @@
 N10 CALL
 //  ^ keyword.control.call
 
+// indirect static function call
 N20 CALL "/_N_CUS_DIR/_N_L320_SPF"
 //  ^ keyword.control.call
 //       ^ punctuation.definition.string.begin
 //        ^ string.quoted.double
 //                               ^ punctuation.definition.string.end
+
+// indirect dynamic function call
+N20 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
+//  ^ keyword.control.call
+//       ^ punctuation.definition.string.begin
+//        ^ string.quoted.double
+//                     ^ punctuation.definition.string.end
+//                       ^^ keyword.operator.assignment
+//                          ^ support.function
+//                                    ^^ keyword.operator.assignment
+//                                        ^ string.quoted.double
 
 N30 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK "N100" TO "N200"
 //  ^ keyword.control.call
@@ -88,7 +100,8 @@ N90 CALL L350 BLOCK N20 TO "N"<<50
 //                  ^ invalid.illegal
 //                      ^ keyword.control.call
 //                          ^ string.quoted.double
-//                            ^^^^ invalid.illegal
+//                            ^^ keyword.operator.assignment
+//                              ^^ constant.language.numeric
 
 // modal cycle call
 N100 MCALL L350
