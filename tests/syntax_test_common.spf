@@ -13,12 +13,15 @@ define g1 as G1 F500
 define D1 as D2
 N10 ( iso comment )
 
+$A_DBB[10]
+
 CALL "L300" BLOCK N100 TO N200
 CALL BLOCK N100 TO N200
 IF TEST >= 10
 ADISPOS=0
 ATOL[DELAYFSTOF]=2
 
+$MA_ABS_INC_RATIO[0,AX1]
 $MN_USER_DATA_INT[5]=$P_ACTFRAME  ; variable assigning
 X=ACN(_d)
 X=acn(_d)
@@ -32,13 +35,14 @@ N30LABEL: DEF NCK STRING[12] STR="Test" <<Ba[i]<< test ; comment
 
 $MN_USER_DATA_HEX[10]
 
+$MN_BAG_MASK
 IF CHECK=TRUE GOTOF END
 
 $PI
 $AC_UDAT[]
 SPOS[1]=10
 SPOS = 10
-SPOS DATA [for] = 10
+SPOS DATA [-for] = 10
 ABS does (R1)
 ;$P_UiFR[0,X,TR]
 N10 ; **************************************
