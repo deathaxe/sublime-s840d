@@ -1,13 +1,13 @@
-# [sublime-s840d](https://github.com/deathaxe/sublime-s840d)
+# [SyntaxSinumerik840D](https://github.com/deathaxe/SyntaxSinumerik840D)
 
-This SublimeText plugin adds syntax highlighting support for the
-SINUMERIK 840D CNC control system.
+This package adds syntax highlighting support for the
+SINUMERIK 840D CNC control system to the SublimeText 3 Editor.
 
 ### Features:
-* Syntax highlighting support for G-Code for SINUMERIK 840D
+* Syntax highlighting support for SINUMERIK 840D
 	* G-Code
-	* known NC cycles and functions
-	* known NC variables and machine data for nc software version (04.07.01.04)
+	* known NC cycles, functions and commands
+	* known NC variables and machine data for nc software version (04.07.02.01)
 * code-snippets for most common control functions
 
 ### Installation
