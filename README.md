@@ -18,7 +18,7 @@ is located in the \Data\Packages subdirectory by default.
 
 ### Setup
 
-The package contains a **s84d.sublime-settings** file, which is recommended
+The package contains a **s840d.sublime-settings** file, which is recommended
 to be copied to the Data/User folder to enable the follwing language specific
 settings.
 
