@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Indentation Rules: S840D</string>
+	<key>scope</key>
+	<string>source.s840d</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string>^\s*\b(?i:END(?:IF|FOR|LOOP|UNTIL|WHILE)|ELSE)\b</string>
+		<key>increaseIndentPattern</key>
+		<string>^\s*\b(?i:IF|FOR|LOOP|WHILE|ELSE)\b</string>
+		<key>unIndentedLinePattern</key>
+		<string>^\s*(\w+:.*)?$</string>
+		<key>highlightPairs</key>
+		<array>
+			<array>
+				<string>IF</string>
+				<string>ENDIF</string>
+			</array>
+			<array>
+				<string>FOR</string>
+				<string>ENDFOR</string>
+			</array>
+			<array>
+				<string>LOOP</string>
+				<string>ENDLOOP</string>
+			</array>
+			<array>
+				<string>WHILE</string>
+				<string>ENDWHILE</string>
+			</array>
+		</array>
+		<key>smartTypingPairs</key>
+		<array>
+			<array>
+				<string>IF</string>
+				<string>ENDIF</string>
+			</array>
+			<array>
+				<string>FOR</string>
+				<string>ENDFOR</string>
+			</array>
+			<array>
+				<string>LOOP</string>
+				<string>ENDLOOP</string>
+			</array>
+			<array>
+				<string>WHILE</string>
+				<string>ENDWHILE</string>
+			</array>
+		</array>
+	</dict>
+</dict>
+</plist>
