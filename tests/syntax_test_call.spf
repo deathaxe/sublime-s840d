@@ -4,19 +4,21 @@
 // PROC header tests
 // Build 3111 (17.04.16)
 //    1.2ms - without 'block-subprogram'
+// Build 3113 (15.06.16)
+//    2.2ms - without 'block-subprogram'
 ////////////////////////////////////////////////////
 
 N10 CALL
 //  ^ keyword.control.call
 
-// indirect static function call
+; indirect static function call
 N20 CALL "/_N_CUS_DIR/_N_L320_SPF"
 //  ^ keyword.control.call
 //       ^ punctuation.definition.string.begin
 //        ^ string.quoted.double
 //                               ^ punctuation.definition.string.end
 
-// indirect dynamic function call
+; indirect dynamic function call
 N20 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
 //  ^ keyword.control.call
 //       ^ punctuation.definition.string.begin
@@ -47,7 +49,7 @@ N40 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK _STARTBLK TO _ENDBLK
 //                                                 ^ keyword.control.call
 //                                                    ^ variable.other
 
-// call statically defined blocks within the current cycle
+; call statically defined blocks within the current cycle
 N50 CALL BLOCK "N100" TO "N200"
 //  ^ keyword.control.call
 //       ^ keyword.control.call
@@ -55,7 +57,7 @@ N50 CALL BLOCK "N100" TO "N200"
 //                    ^ keyword.control.call
 //                        ^ string.quoted.double
 
-// call dynamically defined blocks within the current cycle
+; call dynamically defined blocks within the current cycle
 N60 CALL BLOCK _STARTBLK TO _ENDBLK
 //  ^ keyword.control.call
 //       ^ keyword.control.call
@@ -63,7 +65,7 @@ N60 CALL BLOCK _STARTBLK TO _ENDBLK
 //                       ^ keyword.control.call
 //                          ^ variable.other
 
-// call statically defined blocks in a dynamically cefined cycle
+; call statically defined blocks in a dynamically cefined cycle
 N70 CALL _CYCLE BLOCK "N100" TO "N200"
 //  ^ keyword.control.call
 //       ^ variable.other
@@ -72,7 +74,7 @@ N70 CALL _CYCLE BLOCK "N100" TO "N200"
 //                           ^ keyword.control.call
 //                               ^ string.quoted.double
 
-// call dynamically defined blocks in a dynamically cefined cycle
+; call dynamically defined blocks in a dynamically cefined cycle
 N80 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
 //  ^ keyword.control.call
 //       ^ variable.other
@@ -81,7 +83,7 @@ N80 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
 //                              ^ keyword.control.call
 //                                 ^ variable.other
 
-// call dynamically defined blocks in a dynamically cefined cycle
+; call dynamically defined blocks in a dynamically cefined cycle
 N80 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
 //  ^ keyword.control.call
 //       ^ variable.other
@@ -92,7 +94,7 @@ N80 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
 //                                     ^ keyword.operator.assignment
 //                                       ^ variable.other
 
-// invalid cycle and block identifiers
+; invalid cycle and block identifiers
 N90 CALL L350 BLOCK N20 TO "N"<<50
 //  ^ keyword.control.call
 //       ^ invalid.illegal
@@ -103,27 +105,27 @@ N90 CALL L350 BLOCK N20 TO "N"<<50
 //                            ^^ keyword.operator.assignment
 //                              ^^ constant.language.numeric
 
-// modal cycle call
+; modal cycle call
 N100 MCALL L350
 //   ^ keyword.control.call
 //         ^ support.function
 
-// modal cycle call with complex parameters
+; modal cycle call with complex parameters
 N110 MCALL L350(10,20,ABS(R4))
 //   ^ keyword.control.call
 //         ^ support.function
-//             ^ punctuation.definition.parameters.begin.s840d
+//             ^ punctuation.definition.expression.begin.s840d
 //              ^ constant.language.numeric
 //                    ^ support.function
 //                        ^ support.variable.r
-//                           ^ punctuation.definition.parameters.end.s840d
+//                           ^ punctuation.definition.expression.end.s840d
 
-// missing cycle name
+; missing cycle name
 N120 MCALL (10,20,30,50)
 //   ^ keyword.control.call
 //         ^ invalid.illegal
 
-// too many cycle names
+; too many cycle names
 N120 MCALL L300 INV(10,20,30,50)
 //   ^ keyword.control.call
 //         ^ support.function

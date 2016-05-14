@@ -2,15 +2,22 @@
 
 ////////////////////////////////////////////////////
 // SYNCHRON ACTION tests
-// Performance: 1.5ms
+// Performance: 1.1ms
 ////////////////////////////////////////////////////
 
-// simplest example
+; simplest example
 N1 DO G0 F=$MN_USER_DATA_HEX[12 + R1] X10 Y20
 // ^ keyword.control.async.operation
 //    ^ support.function.iso
+//       ^ support.variable.iso
+//        ^ keyword.operator.assignment
+//         ^^^ support.variable.machdata
+//                                    ^ support.variable.iso
+//                                     ^^ constant.language.numeric.iso
+//                                        ^ support.variable.iso
+//                                         ^^ constant.language.numeric.iso
 
-// constant condition
+; constant condition
 N2 WHEN TRUE DO M5=10
 // ^ keyword.control.async.condition
 //      ^ constant.language.boolean
@@ -19,8 +26,24 @@ N2 WHEN TRUE DO M5=10
 //                ^ keyword.operator.assignment
 //                 ^ constant.language.numeric
 
-// condition expression and operation statement
-N3 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
+; variable condition
+N3 WHEN _VAR DO M5=10
+// ^ keyword.control.async.condition
+//      ^ variable.other
+//           ^ keyword.control.async.operation
+//              ^ support.function.iso
+//                ^ keyword.operator.assignment
+//                 ^ constant.language.numeric
+N4 WHEN _VAR==TRUE DO M5=10
+// ^ keyword.control.async.condition
+//      ^ variable.other
+//                 ^ keyword.control.async.operation
+//                    ^ support.function.iso
+//                      ^ keyword.operator.assignment
+//                       ^ constant.language.numeric
+
+; condition expression and operation statement
+N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 // ^ keyword.control.async.condition
 //          ^ support.function
 //              ^ support.variable.r
@@ -31,8 +54,8 @@ N3 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 //                           ^ keyword.operator.assignment
 //                            ^ support.function
 
-// modal asynchronous positioning call
-N3 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
+; modal asynchronous positioning call
+N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 // ^ keyword.control.async.identifier
 //   ^ keyword.operator.assignment
 //    ^ constant.language.numeric
@@ -44,8 +67,8 @@ N3 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 //                            ^ support.variable.iso
 //                                   ^ keyword.operator.assignment
 
-// modal asynchronous function without condition
-N3 IDS=1 DO POS[Q1]=($A_DBB[5]+10/$PI)
+; modal asynchronous function without condition
+N7 IDS=1 DO POS[Q1]=($A_DBB[5]+10/$PI)
 // ^ keyword.control.async.identifier
 //    ^ keyword.operator.assignment
 //     ^ constant.language.numeric
@@ -53,8 +76,8 @@ N3 IDS=1 DO POS[Q1]=($A_DBB[5]+10/$PI)
 //          ^ support.variable.iso
 //                 ^ keyword.operator.assignment
 
-// no assignments in condition allowed
-N4 IDS==1 WHENEVER ABS(R1)=10 DO M5=SQRT(2)*$PI
+; no assignments in condition allowed
+N8 IDS==1 WHENEVER ABS(R1)=10 DO M5=SQRT(2)*$PI
 // ^ keyword.control.async.identifier
 //    ^ invalid.illegal
 //     ^ keyword.operator.assignment
@@ -67,12 +90,28 @@ N4 IDS==1 WHENEVER ABS(R1)=10 DO M5=SQRT(2)*$PI
 //                                 ^ keyword.operator.assignment
 //                                  ^ support.function
 
-; *************************************
-; modal asynchronous actions
-IDS                     ; id keyword only
-IDS=                    ; id missing
-IDS=10                  ; no condition or action
-IDS=DO DO M6=5+R2       ; id invalid
-IDS= WHENEVER DO        ; id missing
-IDS 10 = 10 R1.7 DO START  ; id invalid
-; *************************************
+; do some tests to ensure editing is not disturbed by
+; unassassary invalid.illegal
+N9 IDS
+// ^ keyword.control.async.identifier
+N10 IDS=
+//  ^ keyword.control.async.identifier
+//     ^ keyword.operator.assignment
+N11 IDS=
+//  ^ keyword.control.async.identifier
+//     ^ keyword.operator.assignment
+N12 IDS=10
+//  ^ keyword.control.async.identifier
+//     ^ keyword.operator.assignment
+//      ^ constant.language.numeric
+N13 IDS=10 DO
+//  ^ keyword.control.async.identifier
+//     ^ keyword.operator.assignment
+//      ^ constant.language.numeric
+//         ^ keyword.control.async.operation
+N14 IDS=10 WHENEVER DO
+//  ^ keyword.control.async.identifier
+//     ^ keyword.operator.assignment
+//      ^ constant.language.numeric
+//         ^ keyword.control.async.condition
+//                  ^ keyword.control.async.operation
