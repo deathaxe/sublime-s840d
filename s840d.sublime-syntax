@@ -52,6 +52,8 @@ variables:
   label: '[[:alpha:]_]{2}[[:alnum:]_]{0,30}'
   # simple operators
   operator: '[-+=<>/*]'
+  # first +/- after ( is a negative number indicator
+  sign: '[-+](?!\s*\")'
   # positive or negative float value, which must not be followed by [ or =
   # e.g.:
   #  100.0 | 100. | +100.0 | +100. | -100.0 | -100.
@@ -498,7 +500,7 @@ contexts:
     # performance is increased massivly
     - match: '(?=\${0,2}{{identifier}})'
       push:
-        - include: operators-binary
+        - include: operators-litheral
         - include: functions
         - include: properties
         - include: variables
@@ -531,17 +533,23 @@ contexts:
       scope: keyword.operator.arithmetic.s840d
       push: after-operator
     # curly brackets are used for templates
-    - match: '{.*}'
+    - match: '{[^}]*}'
       scope: invalid.illegal.s840d
 
-  operators-binary:
-    - match: '\b(?:AND|and|OR|or|XOR|xor|NOT|not|B_AND|b_and|B_OR|b_or|B_XOR|b_xor|B_NOT|b_not|MOD|mod|DIV|div)\b'
-      scope: keyword.operator.s840d
+  operators-litheral:
+    - match: '\b(?:B_AND|b_and|B_OR|b_or|B_XOR|b_xor|B_NOT|b_not)\b'
+      scope: keyword.operator.binary.s840d
+      push: after-operator
+    - match: '\b(?:AND|and|OR|or|XOR|xor|NOT|not)\b'
+      scope: keyword.operator.boolean.s840d
+      push: after-operator
+    - match: '\b(?:MOD|mod|DIV|div)\b'
+      scope: keyword.operator.arithmetic.s840d
       push: after-operator
     # special SINUMERIK aritmetic operator
     # found in CST cycles
     - match: '\b_(?:DEC|dec)[1-8]\b'
-      scope: keyword.operator.s840d
+      scope: keyword.operator.arithmetic.s840d
 
   after-assignment:
     # string chaining after assignment is allowed
@@ -552,7 +560,7 @@ contexts:
 
   after-relational:
     # first '-' after assignment is a negative value identifier
-    - match: '[-+]'
+    - match: '{{sign}}'
       scope: constant.language.numeric.sign.s840d
       set: after-operator
     # leave this context as soon as possible
@@ -581,7 +589,7 @@ contexts:
 
   parens-begin:
     # first +/- after ( is a negative number indicator
-    - match: '[-+]'
+    - match: '{{sign}}'
       scope: constant.language.numeric.sign
       set: parens-body
     # leave this context as soon as possible
@@ -610,7 +618,7 @@ contexts:
   brackets-square-begin:
     - meta_scope: meta.arrayindex.s840d
     # first +/- after [ is a negative number indicator
-    - match: '[-+]'
+    - match: '{{sign}}'
       scope: constant.language.numeric.sign.s840d
       set: brackets-square-body
     # leave this context as soon as possible
@@ -750,6 +758,7 @@ contexts:
     # match anything valid inside an expression as GUD, PUD or LUD
     - match: '{{label}}\b(?!\()'
       scope: variable.other.s840d
+      pop: true
 
 ###################################################################
 # SINUMERIK sinumerik axis constants
@@ -792,7 +801,7 @@ contexts:
 ###################################################################
 
   properties:
-    - match: '(?i:A(?:CC|DI(?:S|SPOS)|LF|TOL)|COARSEA|DILF|F(?:[AP]?|INEA)|I(?:P|POENDA)|PO(?:S|S[AP])|S(?:F|PO(?:S|SA)))\b'
+    - match: '(?:A(?:C(?:C|CLIMA)|DI(?:S|SPOS)|LF|NG|[PR]?|TOL)|C(?:HR|OARSEA|R|TOL)|DI(?:LF|S(?:PR|R))|F(?:[ABPZ]?|INEA|MA)|I(?:P|POENDA)|JERKLI(?:M|MA)|OTOL|PO(?:S|S[AP])|R(?:ND|P|PL)|S(?:[FRT]?|PO(?:S|SA)|RA|T(?:A|AT|OLF))|TU|VELOLI(?:M|MA))\b'
       scope: support.variable.iso.s840d
       push:
         # property index
@@ -815,7 +824,7 @@ contexts:
   functions:
     # SINUMERIK function : func(...)
     #   e.g.: ABS(...)
-    - match: '(?i:A(?:BS|C|C(?:[NP]?|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:NAME|STRING|TOSPI))|BOUND|C(?:A(?:C|C[NP]|LLPATH|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|OS|ROT|SCALE|TRANS)|D(?:AC|C|EL(?:DL|M(?:LRES|T)|OBJ|T|TC)|IC)|EX(?:ECSTRING|P)|FILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|GET(?:ACT(?:T|TD)|DNO|EXET|FREELOC|SELT|T)|I(?:C|NDEX|PBRKA|S(?:AXIS|FILE|NUMBER|VAR))|LN|M(?:A(?:TCH|XVAL)|IN(?:DEX|VAL)|SG|VTOOL)|N(?:EW(?:MT|T)|UMBER)|PO(?:S(?:M|MT)|T)|R(?:AC|ESETMON|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:ET(?:AL|DNO|INT|M(?:S|TH)|PIECE|T(?:A|IA))|I(?:N|REL(?:AY|IN|OUT|TIME))|PRINT|QRT|TRLEN|UBSTR)|T(?:C[AI]|O(?:LOWER|UPPER)|R(?:A(?:ANG|CYL|NSMIT|ORI)|UNC))|W(?:AITS|RITE))\b'
+    - match: '(?:A(?:BS|C|C(?:[NP]?|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:CDAT|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|OS|ROT|SCALE|TRANS)|D(?:AC|C|EL(?:DL|M(?:LRES|T)|OBJ|T|TC)|IC)|EX(?:ECSTRING|P)|F(?:GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME))|GET(?:ACT(?:T|TD)|DNO|EXET|FREELOC|SELT|T)|I(?:C|N(?:DEX|IT)|PBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|LN|M(?:A(?:TCH|XVAL)|IN(?:DEX|VAL)|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|P(?:O(?:S(?:M|MT)|T)|ROTS)|R(?:AC|ESETMON|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T(?:AL|DNO|INT|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|PRINT|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|W(?:AIT[PS]|RITE))\b'
       scope: support.function.s840d
       push:
         # function parameters
@@ -831,7 +840,7 @@ contexts:
     # SINUMERIK command with ISO style parameters
     #   e.g.: TRANS X0 Y0.4
     # TODO: merge with top level cycle call
-    - match: '(?i:A(?:C(?:CLIMA|TBLOCNO)|MIRROR|NG|[PR]?|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|X(?:CTSW(?:E|ED)|TOCHAN))|B(?:AUTO|LSYNC|NAT|RIS(?:K|KA)|SPLINE|TAN)|C(?:AL(?:C(?:DAT|POSI)|L)|DO[FN]|F(?:C|I(?:N|NE)|TCP)|H[FR]|IP|O(?:MP(?:C(?:AD|URV)|LETE|O[FN])|NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]?|FS|NC)|RES))|[PT]?|PR(?:ECO[FN]|O(?:T|TDEF))|R(?:OTS|PL)|SPLINE|T(?:A(?:B|B(?:DE[FL]|E(?:ND|XISTS)|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]?|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|OL)|UT(?:2(?:D|DF)|3D(?:[CF]?|C(?:C|CD)|F[FS])|CONO[FN]|MOD))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MLOWNER|TOOLENV)|I(?:A(?:CYCOFA|M(?:90|90A|C(?:HA(?:N|NA)|YCOF)|O(?:[FN]?|FA|NA)))|S(?:ABLE|[CR]?|CL|P(?:LO[FN]|R))|T[ES])|L|R(?:FOF|IV(?:E|EA))|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NA(?:BLE|T)|TAN|X|X(?:EC(?:TAB|UTE)|T(?:CALL|ERN)))|F(?:AD|[BDLZ]?|C(?:TDEF|UB)|DA|ENDNORM|FWO[FN]|GR(?:EF|OUP)|IFOCTRL|LIN|MA|NORM|OCO[FN]|P(?:[OR]?|RAO[FN])|R(?:C|CM|OM)|TO(?:C|CO[FN])|X(?:S|S[TW]))|G(?:E(?:OAX|T|T(?:D|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|ORAP|P|WPSO[FN])|HOLES[12]|I(?:CYCO[FN]|N(?:I(?:CF|PO|RE|T|TIAL)|T(?:ERSEC|TOAX)|V(?:C(?:CW|W)|FRAME))|PTR(?:LOCK|UNLOCK)|S(?:D|OCALL))|JERK(?:A|LI(?:M|MA))|KON(?:T|T[CT])|L(?:E(?:A(?:D|DO[FN])|NTOAX)|F(?:O[FN]|POS|TXT|WP)|I(?:FTFAST|MS)|O(?:CK|NGHOLE))|M(?:ASL(?:DE[FL]|O(?:[FN]?|FS))|CALL|E(?:A(?:[CSW]?|FRAME|SA|WA)|SURE)|IRROR|MC|O(?:DAXVAL|V))|N(?:EWCONF|ORM|PRO(?:T|TDEF))|O(?:EMIPO[12]|[FS]?|FFN|MA[1-5]|RI(?:AX(?:ES|POS)|[CDS]?|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[BCDEPST]?|C(?:ILL|TRL)|NSC|OF|P1|SE|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:ARO(?:T|TOF)|CALL|DELAYO[FN]|HU|[LMORW]?|O(?:CKET[34]|L(?:[FY]?|F(?:A|M(?:ASK|LIN))|YPATH)|N|NS|SRANGE)|R(?:E(?:PRO|SETON)|IO)|T(?:P|PG0)|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRO[FN]|U)|R(?:DISABLE|E(?:AD|LEASE|P|POS(?:[AHLQ]?|QA)|SET)|M[BEIN]|N(?:D|DM)|O(?:T|TS)|P|P(?:L|OSHA)|TLIO[FN])|S(?:AVE|BLO[FN]|C(?:ALE|C|PARA)|[DRT]?|E(?:FORM|T|T(?:M|TCOR))|LOT[12]|O(?:F(?:T|TA)|N|NS)|P(?:ATH|CO[FN]|[INP]?|IF[12]|LINEPATH|OF)|RA|T(?:A|A(?:R(?:T|TFIFO)|T)|O(?:LF|P(?:FIFO|R(?:E|EOF)))|RING(?:FIELD|IS|VAR))|UPA|VC|YN(?:FCT|[RW]?|RW))|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C(?:ARR|O(?:ABS|F(?:R|R[XYZ])))|HETA|ILT|LIFT|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OL(?:ENV|G(?:NT|T))|RO(?:T|T(?:OF|[XYZ]?))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|ILO[FN]|NS)|U|URN)|U(?:NLOCK|PATH)|VELOLIM|W(?:A(?:IT(?:[CEMP]?|MC)|L(?:CS(?:[0-9]|10)|IMO[FN]))|ELOLIMA|RTPTR))\b'
+    - match: '(?:A(?:CTBLOCNO|MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|XTOCHAN)|B(?:AUTO|LSYNC|NAT|RISK|SPLINE|TAN)|C(?:AL(?:CPOSI|L)|DO[FN]|F(?:C|I(?:N|NE)|TCP)|HF|IP|O(?:MP(?:C(?:AD|URV)|LETE|O[FN])|NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]?|FS|NC)|RES))|[PT]?|PR(?:ECO[FN]|O(?:T|TDEF))|R(?:OTS|PL)|SPLINE|TA(?:B|B(?:DE[FL]|E(?:ND|XISTS)|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]?|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|UT(?:2(?:D|DF)|3D(?:[CF]?|C(?:C|CD)|F[FS])|CONO[FN]|MOD))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MLOWNER|TOOLENV)|I(?:A(?:CYCOFA|M(?:90|90A|C(?:HA(?:N|NA)|YCOF)|O(?:[FN]?|FA|NA)))|S(?:ABLE|C|CL|PLO[FN])|T[ES])|L|R(?:FOF|IV(?:E|EA))|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NA(?:BLE|T)|TAN|X(?:EC(?:TAB|UTE)|T(?:CALL|ERN)))|F(?:AD|C(?:TDEF|UB)|[DL]?|DA|ENDNORM|FWO[FN]|GREF|IFOCTRL|LIN|NORM|OCO[FN]|P(?:[OR]?|RAO[FN])|R(?:C|CM|OM)|TO(?:C|CO[FN])|X(?:S|S[TW]))|G(?:E(?:OAX|T|T(?:D|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|ORAP|P|WPSO[FN])|HOLES[12]|I(?:CYCO[FN]|N(?:I(?:CF|PO|RE|TIAL)|T(?:ERSEC|TOAX)|V(?:C(?:CW|W)|FRAME))|PTR(?:LOCK|UNLOCK)|S(?:D|OCALL))|KON(?:T|T[CT])|L(?:E(?:A(?:D|DO[FN])|NTOAX)|F(?:O[FN]|POS|TXT|WP)|I(?:FTFAST|MS)|O(?:CK|NGHOLE))|M(?:ASL(?:DE[FL]|O(?:[FN]?|FS))|CALL|E(?:A(?:[CSW]?|FRAME|SA|WA)|SURE)|IRROR|MC|O(?:DAXVAL|V))|N(?:EWCONF|ORM|PRO(?:T|TDEF))|O(?:EMIPO[12]|[FS]?|FFN|MA[1-5]|RI(?:AX(?:ES|POS)|[CDS]?|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[BCDEPST]?|C(?:ILL|TRL)|NSC|OF|P1|SE|T[12])|V(?:R|R(?:A|RAP)))|P(?:ARO(?:T|TOF)|CALL|DELAYO[FN]|HU|[LMORW]?|O(?:CKET[34]|L(?:[FY]?|F(?:A|M(?:ASK|LIN))|YPATH)|N|NS|SRANGE)|R(?:E(?:PRO|SETON)|IO|OTA)|T(?:P|PG0)|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRO[FN]|U)|R(?:DISABLE|E(?:AD|LEASE|P|POS(?:[AHLQ]?|QA)|SET)|M[BEIN]|NDM|O(?:T|TS)|POSHA|TLIO[FN])|S(?:AVE|BLO[FN]|C(?:ALE|C|PARA)|D|E(?:T|T(?:M|TCOR))|LOT[12]|O(?:FT|N|NS)|P(?:ATH|CO[FN]|[INP]?|IF[12]|LINEPATH|OF)|T(?:AR(?:T|TFIFO)|OP(?:FIFO|R(?:E|EOF)))|UPA|VC|YN(?:FCT|[RW]?|RW))|T(?:C(?:ARR|O(?:ABS|F(?:R|R[XYZ])))|HETA|ILT|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OLENV|RO(?:T|T(?:OF|[XYZ]?))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|NS)|URN)|U(?:NLOCK|PATH)|W(?:A(?:IT(?:[CEM]?|MC)|L(?:CS(?:[0-9]|10)|IMO[FN]))|RTPTR))\b'
       scope: support.function.s840d
 
     # custom user cycle
