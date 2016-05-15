@@ -1,5 +1,20 @@
 import sublime, sublime_plugin
 import re
+import sre_compile
+import cProfile, pstats
+
+_regexp_cache = dict()
+
+def regexp_match(pattern, text):
+  if not pattern in _regexp_cache:
+    _regexp_cache[pattern] = sre_compile.compile(pattern)
+  return _regexp_cache[pattern].match(text)
+
+def regexp_replace(pattern, replace, text):
+  if not pattern in _regexp_cache:
+    _regexp_cache[pattern] = sre_compile.compile(pattern)
+  return _regexp_cache[pattern].sub(replace, text)
+
 
 class S840dTextCommand(sublime_plugin.TextCommand):
   """
@@ -43,13 +58,13 @@ class S840dMinifyCommand(S840dTextCommand):
         # line content without leading and tailing whitespaces
         text = self.view.substr(line).strip()
         # remove block numbers
-        text = re.sub(r'^[Nn]\d+\s*', '', text)
+        text = regexp_replace(r'^[Nn]\d+\s*', '', text)
         # remove comments
-        text = re.sub(r'\s*;(?!\$PATH\=).*$', '', text)
+        text = regexp_replace(r'\s*;(?!\$PATH\=).*$', '', text)
         # no whitespaces around operators or seperators
-        text = re.sub(r'\s*([-+*/=><,:\[\(\]\)]+)\s*', r'\1', text)
+        text = regexp_replace(r'\s*([-+*/=><,:\[\(\]\)]+)\s*', r'\1', text)
         # remove multi space
-        text = re.sub(r'\s{2,}', ' ', text)
+        text = regexp_replace(r'\s{2,}', ' ', text)
         if (len(text)>0):
           # replace line content by minified version
           self.view.replace(edit, line, text)
@@ -74,62 +89,68 @@ class S840dBeautifyCommand(S840dTextCommand):
 
   # API method
   def run(self, edit):
+
+    pr = cProfile.Profile()
+    pr.enable()
+
     # run only for SINUMERIK code
     if (self.is_scope_s840d()):
       line = self.view.line(0)
       self.tab_size = self.view.settings().get('tab_size')
       while (line.b <= self.view.size()):
         # line content without leading and tailing whitespaces
-        text = self.beautify(self.view.substr(line))
+        text = self.view.substr(line)
+
+        #text = self.beautify(text)
         # replace line content by correctly indented one
         self.view.replace(edit, line, text)
         # move on to the next row
         line = self.view.line(line.a + len(text) + 1)
 
+    pr.disable()
+    sortby = 'cumulative'
+    ps = pstats.Stats(pr).sort_stats(sortby)
+    ps.print_stats()
+
   # private member
   def beautify(self,text):
     # remove block numbers and leading spaces
-    text = re.sub(r'(?i)^(?:\s*[Nn]\d+)?\s*', r'', text)
+    text = regexp_replace(r'^(?:\s*[Nn]\d+)?\s*', r'', text)
     # block start
-    match = re.match("(?i)^(IF|FOR|LOOP|WHILE)", text)
-    if (match):
+    if regexp_match(r'^(?i)(?:IF|FOR|LOOP|REPEAT|WHILE)\b', text):
       text = ' ' * self.indents + text
       if (text.find('GOTO') == -1):
         self.indents += self.tab_size
     else:
       # intermediate keyword
-      match = re.match("(?i)^ELSE", text)
-      if (match):
+      if regexp_match(r'^(?i)ELSE\b', text):
         text = ' ' * (self.indents - self.tab_size) + text
       else:
         # block end
-        match = re.match("(?i)^END(IF|FOR|LOOP|UNTIL|WHILE)", text)
-        if (match):
+        if regexp_match(r'^(?i)(?:END(?:IF|FOR|LOOP|WHILE)|UNTIL)\b', text):
           self.indents = max(0, self.indents - self.tab_size)
 
         # don't indent block beginning with a label
-        match = re.match("(?i)^\w+\:", text)
-        if (not match):
+        if not regexp_match(r'^\w+:', text):
           text = ' ' * self.indents + text
 
     # ignore comments
-    if (not re.match('^\s*;', text)):
+    if not regexp_match('^\s*;', text):
       # surround IF condition with parentheses
       # this is not required but looks better
-      text = re.sub(r'\bIF\b\s*([\w\d\$].*?(?=GOTO|;|$))', r'IF (\1) ', text)
+      text = regexp_replace(r'(?i)\bIF\b\s*([\w\d\$].*?(?=GOTO|;|$))', r'IF (\1) ', text)
       # one whitespace before and after literal operators
-      text = re.sub(r'(?i)\s*b(NOT)\b\s*', r' \1 ', text)
+      text = regexp_replace(r'(?i)\s*\bNOT\b\s*', r' NOT ', text)
       # no whitespaces around ( or [
-      text = re.sub(r'\s*([\[\(]+)\s*', r'\1', text)
+      text = regexp_replace(r'\s*([\[\(]+)\s*', r'\1', text)
       # one whitespace before and after literal operators
-      text = re.sub(r'(?i)\s*\b(AND|OR|XOR|B_AND|B_OR|B_XOR|B_NOT|MOD|DIV)\b\s*', r' \1 ', text)
+      text = regexp_replace(r'(?i)\s*\b(AND|OR|XOR|B_AND|B_OR|B_XOR|B_NOT|MOD|DIV)\b\s*', r' \1 ', text)
       # one whitespace after ) or ]
-      text = re.sub(r'\s*([\]\):]+)\s*', r'\1 ', text)
+      text = regexp_replace(r'\s*([\]\):]+)\s*', r'\1 ', text)
       # no whitespace around unary operators
-      text = re.sub(r'\s*([-+*/=><,]+)\s*', r'\1', text)
+      text = regexp_replace(r'\s*([-+*/=><,]+)\s*', r'\1', text)
       # one whitespace after keyword
-      text = re.sub(r'(?i)\b(IF|FOR|LOOP|WHILE)\s*', r'\1 ', text)
-
+      text = regexp_replace(r'(?i)\b(IF|FOR|LOOP|UNTIL|WHILE)\s*', r'\1 ', text)
 
     return text
 
@@ -177,9 +198,8 @@ class S840dRenumberCommand(S840dTextCommand):
   # private member
   def renumber(self,text):
     # comment
-    m = re.match('^\s*(?:[%;]|$)', text)
-    if (not m):
-      text = re.sub(r"^(\s*[Nn]\d+\s?)?", "N" + str(self.blockno) + " " , text)
+    if not regexp_match(r'^\s*(?:[%;]|$)', text):
+      text = regexp_replace(r"^(\s*[Nn]\d+\s?)?", "N" + str(self.blockno) + " " , text)
       self.blockno += self.blockno_step
 
     return text
