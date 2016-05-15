@@ -101,9 +101,11 @@ contexts:
   block-main:
 
     # ISO block disable
-    - match: '/\d?.*$'
-      scope: comment.line.s840d
-      pop: true
+    - match: '/\d\b'
+      set:
+        - meta_scope: comment.line.s840d
+        - match: $
+          pop: true
 
     # ISO comment block
     # (* Some text *)
