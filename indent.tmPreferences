@@ -11,7 +11,7 @@
 		<key>decreaseIndentPattern</key>
 		<string>^\s*\b(?i:END(?:IF|FOR|LOOP|WHILE)|UNTIL|ELSE)\b</string>
 		<key>increaseIndentPattern</key>
-		<string>^\s*\b(?i:IF|FOR|LOOP|REPEAT|WHILE|ELSE)\b</string>
+		<string>^\s*\b(?i:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT|WHILE|ELSE)\b</string>
 		<key>unIndentedLinePattern</key>
 		<string>^\s*(\w+:.*)?$</string>
 		<key>highlightPairs</key>
