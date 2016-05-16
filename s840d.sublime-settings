@@ -8,5 +8,15 @@
 
 	// If translate_tabs_to_spaces is true, use_tab_stops will make tab and
 	// backspace insert/delete up to the next tabstop
-	"use_tab_stops": false
+	"use_tab_stops": false,
+
+	// Define the format of binary numbers for the Hex-Bin-System plugin
+	// Binaries look like 'B101110'
+	"convert_src_bin": "'B([01]+)'",
+	"convert_dst_bin": "'B{0:b}'",
+
+	// Define the format of hexadecimal numbers for the Hex-Bin-System plugin
+	// Hexadecimals look like 'H1AF23'
+	"convert_src_hex": "'H([0-9A-Z]+)'",
+	"convert_dst_hex": "'H{0:X}'",
 }
