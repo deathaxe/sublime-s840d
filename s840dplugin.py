@@ -1,8 +1,14 @@
 import sublime, sublime_plugin
 import math
 import re
-import cProfile, pstats
+# import cProfile, pstats
 
+_regexp_cache = dict()
+
+def regexp_match(pattern, text):
+  if not pattern in _regexp_cache:
+    _regexp_cache[pattern] = re.compile(pattern)
+  return _regexp_cache[pattern].match(text)
 
 class S840dTextCommand(sublime_plugin.TextCommand):
   """
@@ -115,16 +121,15 @@ class S840dBeautifyCommand(S840dTextCommand):
       view.replace(edit, view_region, repl.strip() + '\n')
 
     # pr.disable()
-    # sortby = 'name' # 'cumulative'
-    # ps = pstats.Stats(pr)#.sort_stats(sortby)
+    # sortby = 'cumulative'
+    # ps = pstats.Stats(pr).sort_stats(sortby)
     # ps.print_stats()
 
   def __indentdify(self,text):
     # block start
-    if regexp_match(r'^(?i)(?:IF|FOR|LOOP|REPEAT|WHILE)\b', text):
+    if regexp_match(r'^(?i)\s*\b(?:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT|WHILE)\b', text):
       text = ' ' * self.indents + text
-      if (text.find('GOTO') == -1):
-        self.indents += self.tab_size
+      self.indents += self.tab_size
     else:
       # intermediate keyword
       if regexp_match(r'^(?i)ELSE\b', text):
@@ -173,33 +178,40 @@ class S840dRenumberCommand(S840dTextCommand):
         # not an empty row
         if row:
           # unindented line comment
-          if row[0] == ';':
+          if row[0] in (';', '%'):
             repl += row
 
           else:
             i = 0
             # skip leading white space
-            while row[i] == ' ':
+            while row[i] in (' ', '\t'):
               i += 1
 
+            # indented header
+            if row[i] == '%':
+              repl += row
+
             # indented line comment
-            if row[i] == ';':
+            elif row[i] == ';':
               # insert spaces instead of 'Nxxx '
               repl += ' ' * (2 + num_digits) + row
 
-            else:
-              # skip existing block number
-              if row[i] == 'N':
+            # skip existing block number
+            elif row[i] in ('N', 'n'):
+              i += 1
+              while row[i] >= '0' and row[i] <= '9':
                 i += 1
-                while row[i] >= '0' and row[i] <= '9':
-                  i += 1
-                # skip one whitespace after block number
-                # as it will be added anyway in the next step
-                if row[i] == ' ':
-                  i += 1
+              # skip one whitespace after block number
+              # as it will be added anyway in the next step
+              if row[i] == ' ':
+                i += 1
 
-              # ordinary block
               repl += 'N' + str(blockno) + ' ' + row[i:]
+              blockno += blockno_step
+
+            # ordinary block
+            else:
+              repl += 'N' + str(blockno) + ' ' + row
               blockno += blockno_step
 
         # finalize the row
