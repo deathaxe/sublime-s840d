@@ -1,7 +1,7 @@
-# [SyntaxSinumerik840D](https://github.com/deathaxe/sublime-s840d)
+# [CNC Sinumerik840D](https://github.com/deathaxe/sublime-s840d)
 
 This package adds syntax highlighting support for the
-SINUMERIK 840D CNC control system to the SublimeText 3 Editor.
+SINUMERIK 840D Computerized Numerical Control to the SublimeText 3 Editor.
 
 ### Features:
 * Syntax highlighting support for SINUMERIK 840D
