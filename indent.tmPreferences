@@ -9,9 +9,9 @@
 	<key>settings</key>
 	<dict>
 		<key>decreaseIndentPattern</key>
-		<string>^\s*\b(?i:END(?:IF|FOR|LOOP|UNTIL|WHILE)|ELSE)\b</string>
+		<string>^\s*\b(?i:E(?:LSE|ND(?:IF|FOR|LOOP|WHILE))|UNTIL)\b</string>
 		<key>increaseIndentPattern</key>
-		<string>^\s*\b(?i:IF|FOR|LOOP|WHILE|ELSE)\b</string>
+		<string>^\s*\b(?i:ELSE|IF(?!\b.*GOTO[CBF]?\b)|FOR|LOOP|REPEAT|WHILE)\b</string>
 		<key>unIndentedLinePattern</key>
 		<string>^\s*(\w+:.*)?$</string>
 		<key>highlightPairs</key>
