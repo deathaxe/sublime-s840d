@@ -77,8 +77,11 @@ class S840dBeautifyCommand(S840dTextCommand):
   """
   Make a minified code readable.
 
-  Try to make the code more readable, by indending and inserting
-  whitespaces by a fixed rule.
+  Try to make the code more readable, by indending and inserting whitespaces
+  by a fixed rule.
+
+  The basic intend of this function is to make standard cycles CYCLExxx
+  readable again as they are released without comments and indention.
   """
 
   indents = 0
@@ -90,32 +93,35 @@ class S840dBeautifyCommand(S840dTextCommand):
     # pr = cProfile.Profile()
     # pr.enable()
 
+    # read settings
+    self.tab_size = self.view.settings().get('tab_size', 2)
     # run only for SINUMERIK code
     if (self.is_scope_s840d()):
       view = self.view
       # get a copy of the file content
       view_region = sublime.Region(0, view.size())
-
-      # this is basically what sublime's reindent does
+      # replace tabs with spaces
+      rows = view.substr(view_region).replace('\t', ' ' * self.tab_size)
+      # reindent the code
       repl = ''
-      for line in re.sub(r'(?im)^[ \t]*N\d+[ \t]*', '', view.substr(view_region)).split('\n'):
-        repl += self.__indentdify(line.strip()) + '\n'
+      for row in rows.split('\n'):
+        repl += self.__indentdify(row.strip()) + '\n'
 
       # surround IF condition with parentheses
       # this is not required but looks better
-      repl = re.sub(r'(?i)^[ \t]*IF\b[ \t]*([\w\d\$].*?(?=GOTO|;|$))', r'IF (\1) ', repl)
+      repl = re.sub(r'(?im)^[ ]*IF\b[ ]*([\w\d\$].*?(?=GOTO|;|$))', r'IF (\1) ', repl)
       # one whitespace before and after literal operators
-      repl = re.sub(r'(?i)[ \t]*\bNOT\b[ \t]*', r' NOT ', repl)
+      repl = re.sub(r'(?im)[ ]*\bNOT\b[ ]*', r' NOT ', repl)
       # no whitespaces around ( or [
-      repl = re.sub(r'[ \t]*([\[\(]+)[ \t]*', r'\1', repl)
+      repl = re.sub(r'[ ]*([\[\(]+)[ ]*', r'\1', repl)
       # one whitespace before and after literal operators
-      repl = re.sub(r'(?i)[ \t]*\b(AND|OR|XOR|B_AND|B_OR|B_XOR|B_NOT|MOD|DIV)\b[ \t]*', r' \1 ', repl)
+      repl = re.sub(r'(?i)[ ]*\b(AND|OR|XOR|B_AND|B_OR|B_XOR|B_NOT|MOD|DIV)\b[ ]*', r' \1 ', repl)
       # one whitespace after ) or ]
-      repl = re.sub(r'[ \t]*([\]\)\:]+)[ \t]*', r'\1 ', repl)
+      repl = re.sub(r'[ ]*([\]\)\:]+)[ ]*', r'\1 ', repl)
       # no whitespace around unary operators
-      repl = re.sub(r'[ \t]*([-+*/=><,]+)[ \t]*', r'\1', repl)
+      repl = re.sub(r'[ ]*([-+*/=><,]+)[ ]*', r'\1', repl)
       # one whitespace after keyword
-      repl = re.sub(r'(?i)\b(IF|FOR|LOOP|UNTIL|WHILE)\b[ \t]*', r'\1 ', repl)
+      repl = re.sub(r'(?im)\b(IF|FOR|LOOP|UNTIL|WHILE)\b[ ]*', r'\1 ', repl)
 
       # replace view's content and keep the last empty line only
       view.replace(edit, view_region, repl.strip() + '\n')
@@ -126,24 +132,50 @@ class S840dBeautifyCommand(S840dTextCommand):
     # ps.print_stats()
 
   def __indentdify(self,text):
+    """
+    Indent the code.
+
+    This is basically what the built-in function 'reident' does,
+    with the help of the indent.tmPreferences, but a little bit faster
+    and with regard of lines beginning with a block number (e.g. N1240).
+    """
+
+    # Don't indent empty line
+    if not text:
+      return ''
+
+    indents = 0
+    block_no = ''
+
+    # block number
+    if text[0] in 'Nn':
+      col = 1
+      while text[col] >= '0' and text[col] <='9':
+        col += 1
+      block_no = text[:col] + ' '
+      text = text[col:].lstrip()
+
     # block start
-    if regexp_match(r'^(?i)\s*\b(?:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT|WHILE)\b', text):
-      text = ' ' * self.indents + text
-      self.indents += self.tab_size
+    if regexp_match(r'^(?:IF|FOR|LOOP|REPEAT|WHILE)\b', text):
+      indents = self.indents
+      if not 'GOTO' in text.upper():
+        self.indents += self.tab_size
+
     else:
       # intermediate keyword
-      if regexp_match(r'^(?i)ELSE\b', text):
-        text = ' ' * (self.indents - self.tab_size) + text
+      if 'ELSE' in text[:4].upper():
+        indents = max(0, self.indents - self.tab_size)
+
       else:
         # block end
-        if regexp_match(r'^(?i)(?:END(?:IF|FOR|LOOP|WHILE)|UNTIL)\b', text):
+        if regexp_match(r'(?i)^(?:END(?:IF|FOR|LOOP|WHILE)|UNTIL)\b', text):
           self.indents = max(0, self.indents - self.tab_size)
 
         # don't indent block beginning with a label
         if not regexp_match(r'^\w+:', text):
-          text = ' ' * self.indents + text
+          indents = self.indents
 
-    return text
+    return block_no + ' ' * indents + text
 
 
 class S840dRenumberCommand(S840dTextCommand):
@@ -178,13 +210,13 @@ class S840dRenumberCommand(S840dTextCommand):
         # not an empty row
         if row:
           # unindented line comment
-          if row[0] in (';', '%'):
+          if row[0] in ';%':
             repl += row
 
           else:
             i = 0
             # skip leading white space
-            while row[i] in (' ', '\t'):
+            while row[i] in ' \t':
               i += 1
 
             # indented header
@@ -194,10 +226,10 @@ class S840dRenumberCommand(S840dTextCommand):
             # indented line comment
             elif row[i] == ';':
               # insert spaces instead of 'Nxxx '
-              repl += ' ' * (2 + num_digits) + row
+              repl += ' ' * (3 + num_digits) + row
 
             # skip existing block number
-            elif row[i] in ('N', 'n'):
+            elif row[i] in 'Nn':
               i += 1
               while row[i] >= '0' and row[i] <= '9':
                 i += 1
