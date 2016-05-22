@@ -5,7 +5,7 @@
 // Performance: 11.7ms
 ////////////////////////////////////////////////////
 
-; assign positive floating point value
+; constant value assignment
 _RESULT=10
 // ^ variable.other
 //     ^ keyword.operator.assignment
@@ -85,7 +85,34 @@ _RESULT = -.50
 //         ^ constant.language.numeric
 //          ^ constant.language.numeric
 
-; valid inverted value assignment
+; valid axis name assignment
+_AXIS=X1
+// ^ variable.other
+//   ^ keyword.operator.assignment
+//    ^^ support.variable.axis
+_AXIS = X1
+// ^ variable.other
+//    ^ keyword.operator.assignment
+//      ^^ support.variable.axis
+; valid axis name assignment
+_AXIS=XC
+// ^ variable.other
+//   ^ keyword.operator.assignment
+//    ^^ support.variable.axis
+_AXIS = XC
+// ^ variable.other
+//    ^ keyword.operator.assignment
+//      ^^ support.variable.axis
+_AXIS=AX1
+// ^ variable.other
+//   ^ keyword.operator.assignment
+//    ^^ support.variable.axis
+_AXIS = AX1
+// ^ variable.other
+//    ^ keyword.operator.assignment
+//      ^^ support.variable.axis
+
+; valid locale variable assignment
 _RESULT=-_VALUE
 // ^ variable.other
 //     ^ keyword.operator.assignment
@@ -102,7 +129,7 @@ _RESULT = - _VALUE
 //        ^ constant.language.numeric.sign
 //          ^ variable.other
 
-; valid inverted nc variable assignment
+; valid nc variable assignment
 _RESULT=-$AC_CTOL
 // ^ variable.other
 //     ^ keyword.operator.assignment
@@ -267,3 +294,4 @@ _RESULT = 'H10' B_AND B_OR NOT DATA
 //                    ^ invalid.illegal
 //                         ^ keyword.operator.boolean
 //                             ^ variable.other
+
