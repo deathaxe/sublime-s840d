@@ -1,5 +1,11 @@
 %_N_SYNTAX_CHECK_SPF
 ;$PATH=/_N_CMA_DIR
+
+////////////////////////////////////////////////////
+// COMMON tests
+// Performance: 9.3ms
+////////////////////////////////////////////////////
+
 10Define
 N1 data DEFINE G1 AS GORAP-10
 dEfINE test as 50
@@ -31,12 +37,12 @@ define cdc as
 
 N30DEF BOOL CHECK=TRUE        ; comment
 N30 DEF NCK STRING[12] STR="Test", STR2 = 10 ; comment
-N30LABEL: DEF NCK STRING[12] STR="Test" <<Ba[i]<< test ; comment
+N30 LABEL: DEF NCK STRING[12] STR="Test" <<Ba[i]<< test ; comment
 
 $MN_USER_DATA_HEX[10]
 
 $MN_BAG_MASK
-IF CHECK=TRUE GOTOF END
+N10 IF CHECK=TRUE GOTOF END
 
 $PI
 $AC_UDAT[]
@@ -109,7 +115,7 @@ G0 X1=10 X[_YY]=.20
 ; --------------------------------------
 X1[10]=7.508         ; syntax error
 
-ATOL[<AXIS>]={REAL}
+ATOL[{AXIS}]={REAL}
 
 SQRT data  ; comment
 
@@ -164,7 +170,7 @@ R4 = 'H012345678ABCDEF'    ; hex
   $R5 = 'B11010011101'       ; bin
 ; --------------------------------------
 R3 = 200G0                 ; dez error
-R4 = 'H0125ANMNOA'         ; hex error
+R4 = 'H0125ANMnOAa'        ; hex error
 R5 = 'B11012011101'        ; bin error
 ; **************************************
 ; **************************************
