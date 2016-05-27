@@ -395,7 +395,7 @@ contexts:
     #   H-Function
     #   T-Call
     #   D-Call
-    - match: '(?i:[GLMHTD])\s*{{iso_uint}}'
+    - match: '(?i:[GLMHTD])\$?\s*{{iso_uint}}'
       scope: support.function.iso.s840d
 
     # extended ISO parameter (e.g. F=100.0)
@@ -493,7 +493,7 @@ contexts:
         - include: global-variables
 
         # local variables
-        - match: '\w+\b'
+        - match: '\w{2,}\b'
           scope: variable.other.s840d
           pop: true
 
