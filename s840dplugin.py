@@ -59,7 +59,7 @@ class S840dMinifyCommand(S840dTextCommand):
       # remove leading line spaces and block numbers
       text = re.sub(r'(?im)^(?:\s*N\d+)?\s*', '', text)
       # remove comments excluding some special header comments
-      text = re.sub(r'(?im)\s*;(?!(?:\$PATH\=|DATE|VERSION|CHANGE)).*$', '', text)
+      text = re.sub(r'(?im)\s*;(?!(?:\$PATH\=|DATE|VERSION|CHANGE|.*\")).*$', '', text)
       # no whitespaces around operators or seperators
       text = re.sub(r'[\t ]*([-+*/=><,\:\[\(\]\)]+)[\t ]*', r'\1', text)
       # remove multi space
@@ -86,6 +86,7 @@ class S840dBeautifyCommand(S840dTextCommand):
 
   indents = 0
   tab_size = 2
+  bln_size = 0
 
   # API method
   def run(self, edit):
@@ -101,15 +102,20 @@ class S840dBeautifyCommand(S840dTextCommand):
       # get a copy of the file content
       view_region = sublime.Region(0, view.size())
       # replace tabs with spaces
-      rows = view.substr(view_region).replace('\t', ' ' * self.tab_size)
+      rows = view.substr(view_region).replace('\t', ' ' * self.tab_size).split('\n')
+      # find longest block number
+      self.bln_size = 0
+      for row in rows:
+        self.bln_size = max(self.bln_size, len(self.__blockno(row)))
+
       # reindent the code
       repl = ''
-      for row in rows.split('\n'):
+      for row in rows:
         repl += self.__indentdify(row.strip()) + '\n'
 
       # surround IF condition with parentheses
       # this is not required but looks better
-      repl = re.sub(r'(?im)^[ ]*IF\b[ ]*([\w\d\$].*?(?=GOTO|;|$))', r'IF (\1) ', repl)
+      repl = re.sub(r'(?im)^([ ]*IF)\b[ ]*([\w\d\$].*?(?=GOTO|;|$))', r'\1 (\2) ', repl)
       # one whitespace before and after literal operators
       repl = re.sub(r'(?im)[ ]*\bNOT\b[ ]*', r' NOT ', repl)
       # no whitespaces around ( or [
@@ -131,6 +137,25 @@ class S840dBeautifyCommand(S840dTextCommand):
     # ps = pstats.Stats(pr).sort_stats(sortby)
     # ps.print_stats()
 
+
+  def __blockno(self,text):
+    """
+    Extract the block number
+
+
+    """
+
+    block_no = ''
+    if text:
+      if text[0] in 'Nn':
+        col = 1
+        while text[col] >= '0' and text[col] <='9':
+          col += 1
+        block_no = text[:col]
+
+    return block_no
+
+
   def __indentdify(self,text):
     """
     Indent the code.
@@ -145,25 +170,33 @@ class S840dBeautifyCommand(S840dTextCommand):
       return ''
 
     indents = 0
-    block_no = ''
 
     # block number
-    if text[0] in 'Nn':
-      col = 1
-      while text[col] >= '0' and text[col] <='9':
-        col += 1
-      block_no = text[:col] + ' '
+    block_no = self.__blockno(text)
+    if block_no:
+      col = len(block_no)
+      block_no += ' ' * (1 + max(0, self.bln_size - col))
+      text = text[col+1:].lstrip()
+    else:
+      block_no = ' ' * (self.bln_size + 1)
+
+    # goto label
+    label = ''
+    match = regexp_match(r'^(\w+:)', text)
+    if match:
+      col = len(match.group(1))
+      label = text[:col] + ' '
       text = text[col:].lstrip()
 
     # block start
-    if regexp_match(r'^(?:IF|FOR|LOOP|REPEAT|WHILE)\b', text):
+    if regexp_match(r'(?i)^(?:IF|FOR|LOOP|REPEAT|WHILE)\b', text):
       indents = self.indents
-      if not 'GOTO' in text.upper():
+      if text.upper().find('GOTO') == -1:
         self.indents += self.tab_size
 
     else:
       # intermediate keyword
-      if 'ELSE' in text[:4].upper():
+      if 'ELSE' == text[:4].upper():
         indents = max(0, self.indents - self.tab_size)
 
       else:
@@ -171,11 +204,9 @@ class S840dBeautifyCommand(S840dTextCommand):
         if regexp_match(r'(?i)^(?:END(?:IF|FOR|LOOP|WHILE)|UNTIL)\b', text):
           self.indents = max(0, self.indents - self.tab_size)
 
-        # don't indent block beginning with a label
-        if not regexp_match(r'^\w+:', text):
-          indents = self.indents
+        indents = self.indents
 
-    return block_no + ' ' * indents + text
+    return block_no + label + ' ' * max(0, indents - len(label)) + text
 
 
 class S840dRenumberCommand(S840dTextCommand):

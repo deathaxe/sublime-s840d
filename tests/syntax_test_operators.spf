@@ -217,6 +217,16 @@ _RESULT = 10.5 + 20.1 * 5 / 10 - 20.5
 //                    ^ keyword.operator.arithmetic
 //                        ^ keyword.operator.arithmetic
 //                             ^ keyword.operator.arithmetic
+_RESULT = (2340 DIV 10) MOD 5 + R4 * DATA
+// ^ variable.other
+//      ^ keyword.operator.assignment
+//         ^ constant.language.numeric
+//              ^ keyword.operator.arithmetic
+//                  ^ constant.language.numeric
+//                      ^ keyword.operator.arithmetic
+//                          ^ constant.language.numeric
+//                              ^ support.variable.r
+//                                   ^ variable.other
 
 ; invalid double operators
 _RESULT = 10.5 ++ 20.1 ** 5 // 10 -- 20.5
@@ -294,4 +304,3 @@ _RESULT = 'H10' B_AND B_OR NOT DATA
 //                    ^ invalid.illegal
 //                         ^ keyword.operator.boolean
 //                             ^ variable.other
-
