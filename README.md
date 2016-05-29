@@ -54,4 +54,4 @@ settings.
 They are all required to ensure NC will read the resulting file correctly.
 
 ### License
-[Copyright &copy; 2016 DeathAxe](https://github.com/deathaxe/sublime-s840d/License.md)
+[Copyright &copy; 2016 DeathAxe](https://github.com/deathaxe/sublime-s840d/blob/master/LICENSE.md)
