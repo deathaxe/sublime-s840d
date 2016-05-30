@@ -55,7 +55,7 @@ contexts:
     - include: block-definition
     - include: dialog-definition
     - include: grid-definition
-    - include: softkeybar-definition
+    - include: menu-definition
 
 ###############################################################################
 # ARRAY
@@ -78,23 +78,21 @@ contexts:
             - match: \)|$
               scope: punctuation.definition.parameter.end.s840d_hmi
               set: array-body
-            - match: '{{label}}'
-              scope: entity.name.section.s840d_hmi
+            - include: section-name
         - include: illegal-pop
 
   array-body:
     - meta_scope: meta.section.array.s840d_hmi
-    - include: comment
     - include: section-end
     - match: \(
-      scope: punctuation.array.row.begin.s840d_hmi
+      scope: punctuation.definition.array.row.begin.s840d_hmi
       push:
-        - meta_scope: meta.parameter.s840d_hmi
+        - meta_scope: meta.section.array.row.s840d_hmi
         - match: \)|$
-          scope: punctuation.array.row.end.s840d_hmi
+          scope: punctuation.definition.array.row.end.s840d_hmi
           pop: true
         - match: '/'
-          scope: punctuation.array.column.seperator.s840d_hmi
+          scope: punctuation.definition.array.column.seperator.s840d_hmi
         - include: string
         - include: number
         - include: boolean
@@ -120,13 +118,11 @@ contexts:
             - match: \)|$
               scope: punctuation.definition.parameter.end.s840d_hmi
               set: block-body
-            - match: '{{label}}'
-              scope: entity.name.section.s840d_hmi
+            - include: section-name
         - include: illegal-pop
 
   block-body:
     - meta_scope: meta.section.subprogram.s840d_hmi
-    - include: comment
     - include: section-end
     - include: def-method-sub
     - include: illegal
@@ -162,8 +158,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: grid-param-type
-    - match: '{{label}}'
-      scope: entity.name.section.s840d_hmi
+    - include: section-name
     - include: grid-param-end
 
   grid-param-type:
@@ -192,7 +187,6 @@ contexts:
 
   grid-body:
     - meta_scope: meta.section.grid.s840d_hmi
-    - include: comment
     - include: section-end
     - match: \(
       scope: punctuation.grid.row.begin.s840d_hmi
@@ -223,8 +217,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: dialog-param-caption
-    - match: '{{label}}'
-      scope: entity.name.section.s840d_hmi
+    - include: section-name
     - include: dialog-param-end
 
   dialog-param-caption:
@@ -245,8 +238,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: dialog-param-variable
-    - match: ','
-      scope: punctuation.definition.parameter.seperator.s840d_hmi
+    - include: section-param-seperator
     - include: number
     - include: dialog-param-end
 
@@ -261,8 +253,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: dialog-param-attribute
-    - match: ','
-      scope: punctuation.definition.parameter.seperator.s840d_hmi
+    - include: section-param-seperator
     - include: number
     - include: dialog-param-end
 
@@ -285,7 +276,6 @@ contexts:
 
   dialog-body:
     - meta_scope: meta.section.dialog.s840d_hmi
-    - include: comment
     - include: section-end
     - include: def-operand
     - include: def-softkey
@@ -301,7 +291,7 @@ contexts:
 #   //END
 ###############################################################################
 
-  softkeybar-definition:
+  menu-definition:
     - match: '//[Ss]\b'
       scope: keyword.control.section.begin.s840d_hmi
       push:
@@ -310,25 +300,34 @@ contexts:
           set:
             - match: \)|$
               scope: punctuation.definition.parameter.end.s840d_hmi
-              set: softkeybar-body
-            - match: '{{label}}'
-              scope: entity.name.section.s840d_hmi
-        - include: softkeybar-body
+              set: menu-body
+            - include: section-name
+        - include: menu-body
 
-  softkeybar-body:
-    - meta_scope: meta.section.softkeybar.s840d_hmi
-    - include: comment
+  menu-body:
+    - meta_scope: meta.section.menu.s840d_hmi
     - include: section-end
     - include: def-softkey
     - include: def-methods
     - include: illegal
 
 ###############################################################################
+# SECTION prototypes
+###############################################################################
+
+  section-name:
+    - match: '{{label}}'
+      scope: entity.name.section.s840d_hmi
+
+  section-param-seperator:
+    - match: ','
+      scope: punctuation.definition.parameter.seperator.s840d_hmi
 
   section-end:
     - match: //(?i:END)\b
       scope: keyword.control.section.end.s840d_hmi
       pop: true
+    - include: comment
 
 ###############################################################################
 # INPUT / OPERAND
@@ -388,10 +387,9 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-default
-    - match: ','
-      scope: punctuation.definition.seperator.limits.s840d_hmi
     - match: '%\w+'
       scope: entity.name.grid.s840d_hmi
+    - include: section-param-seperator
     - include: string
     - include: number
     - include: operator
@@ -410,8 +408,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-attributes
-    - match: ','
-      scope: punctuation.definition.seperator.captions.s840d_hmi
+    - include: section-param-seperator
     - include: string
     - include: def-operand-end
 
@@ -419,8 +416,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-picture
-    - match: ','
-      scope: punctuation.definition.seperator.attributes.s840d_hmi
+    - include: section-param-seperator
     - include: attribute-accesslevel
     - include: attribute-allignment
     - include: attribute-changeblock
@@ -448,8 +444,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-inputpos
-    - match: ','
-      scope: punctuation.definition.seperator.position.s840d_hmi
+    - include: section-param-seperator
     - include: number
     - include: def-operand-end
 
@@ -458,8 +453,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-colors
-    - match: ','
-      scope: punctuation.definition.seperator.position.s840d_hmi
+    - include: section-param-seperator
     - include: number
     - include: def-operand-end
 
@@ -467,14 +461,12 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-helpfile
-    - match: ','
-      scope: punctuation.definition.seperator.color.s840d_hmi
+    - include: section-param-seperator
     - include: number
     - include: def-operand-end
 
   def-operand-helpfile:
-    - match: ','
-      scope: punctuation.definition.seperator.color.s840d_hmi
+    - include: section-param-seperator
     - include: number
     - include: string
     - include: def-operand-end
@@ -488,7 +480,7 @@ contexts:
 ###############################################################################
 # SOFTKEY DEFINITION
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   HS1=("Caption",AC1,SE2)
 ###############################################################################
@@ -506,14 +498,14 @@ contexts:
       pop: true
     - match: \(
       scope: punctuation.definition.parameter.begin.s840d_hmi
-      set: def-softkey-caption
+      set: def-softkey-param-caption
     - include: comment
     - include: illegal
 
-  def-softkey-caption:
+  def-softkey-param-caption:
     - match: ','
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: def-sofktey-accesslevel
+      set: def-sofktey-param-accesslevel
     - match: \[
       scope: punctuation.softkey-caption-group.begin.s840d_hmi
       push:
@@ -525,14 +517,14 @@ contexts:
     - include: string
     - include: def-softkey-end
 
-  def-sofktey-accesslevel:
+  def-sofktey-param-accesslevel:
     - match: ','
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: def-sofktey-state
+      set: def-sofktey-param-state
     - include: attribute-accesslevel
     - include: def-softkey-end
 
-  def-sofktey-state:
+  def-sofktey-param-state:
     - include: attribute-state
     - include: def-softkey-end
 
@@ -559,7 +551,7 @@ contexts:
 ###############################################################################
 # CHANGE block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   CHANGE(operand)
 #   ....
@@ -590,7 +582,7 @@ contexts:
 ###############################################################################
 # FOCUS block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   FOCUS
 #   ....
@@ -612,7 +604,7 @@ contexts:
 ###############################################################################
 # LOAD block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   LOAD
 #   ....
@@ -634,7 +626,7 @@ contexts:
 ###############################################################################
 # UNLOAD block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   UNLOAD
 #   ....
@@ -656,7 +648,7 @@ contexts:
 ###############################################################################
 # OUTPUT block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   OUTPUT(operand)
 #   ....
@@ -704,7 +696,7 @@ contexts:
 ###############################################################################
 # PRESS block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   PRESS(HSx)
 #   ....
@@ -723,7 +715,7 @@ contexts:
               set: def-method-press-body
             - match: '{{softkey}}'
               scope: entity.name.softkey.s840d_hmi
-            - match: '\b(?i:RECALL|P[UD]|S[LRUD])\b'
+            - match: '\b(?i:P[UD]|S[LRUD])\b'
               scope: entity.name.key.s840d_hmi
             - include: illegal
         - include: illegal-pop
@@ -738,7 +730,7 @@ contexts:
 ###############################################################################
 # SUB block
 #   second-level entity
-#   exists in dialog and softkeybar
+#   exists in dialog and menu
 #
 #   SUB("function_name")
 #   ....
@@ -876,17 +868,16 @@ contexts:
 
   function-parameter:
     - match: \(
-      scope: punctuation.parameter.begin.s840d_hmi
+      scope: punctuation.function.parameter.begin.s840d_hmi
       set:
-        - meta_scope: meta.parameter.s840d_hmi
+        - meta_scope: meta.function.parameter.s840d_hmi
         - match: \)
-          scope: punctuation.parameter.end.s840d_hmi
+          scope: punctuation.function.parameter.end.s840d_hmi
           pop: true
         - match: ','
-          scope: punctuation.parameter.seperator.s840d_hmi
+          scope: punctuation.function.parameter.seperator.s840d_hmi
         - include: expressions
         - include: illegal
-    # - include: illegal-pop
     - match: (?=\S)
       pop: true
 
