@@ -51,11 +51,11 @@ contexts:
 
   main:
     - include: comment
-    - include: array-definition
-    - include: block-definition
-    - include: dialog-definition
-    - include: grid-definition
-    - include: menu-definition
+    - include: class-array
+    - include: class-block
+    - include: class-dialog
+    - include: class-grid
+    - include: class-menu
 
 ###############################################################################
 # ARRAY
@@ -68,26 +68,26 @@ contexts:
 #   //END
 ###############################################################################
 
-  array-definition:
+  class-array:
     - match: //[Aa]\b
-      scope: keyword.control.section.begin.s840d_hmi
+      scope: keyword.class.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.definition.parameter.begin.s840d_hmi
           set:
             - match: \)|$
               scope: punctuation.definition.parameter.end.s840d_hmi
-              set: array-body
-            - include: section-name
+              set: class-array-body
+            - include: class-name
         - include: illegal-pop
 
-  array-body:
-    - meta_scope: meta.section.array.s840d_hmi
-    - include: section-end
+  class-array-body:
+    - meta_scope: meta.class.array.s840d_hmi
+    - include: class-end
     - match: \(
       scope: punctuation.definition.array.row.begin.s840d_hmi
       push:
-        - meta_scope: meta.section.array.row.s840d_hmi
+        - meta_scope: meta.class.array.row.s840d_hmi
         - match: \)|$
           scope: punctuation.definition.array.row.end.s840d_hmi
           pop: true
@@ -108,22 +108,22 @@ contexts:
 #   //END
 ###############################################################################
 
-  block-definition:
+  class-block:
     - match: //[Bb]\b
-      scope: keyword.control.section.begin.s840d_hmi
+      scope: keyword.class.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.definition.parameter.begin.s840d_hmi
           set:
             - match: \)|$
               scope: punctuation.definition.parameter.end.s840d_hmi
-              set: block-body
-            - include: section-name
+              set: class-block-body
+            - include: class-name
         - include: illegal-pop
 
-  block-body:
-    - meta_scope: meta.section.subprogram.s840d_hmi
-    - include: section-end
+  class-block-body:
+    - meta_scope: meta.class.subprogram.s840d_hmi
+    - include: class-end
     - include: def-method-sub
     - include: illegal
 
@@ -143,53 +143,51 @@ contexts:
 #   //END
 ###############################################################################
 
-  grid-definition:
+  class-grid:
     - match: //[Gg]\b
-      scope: keyword.control.section.begin.s840d_hmi
-      push: grid-param-begin
+      scope: keyword.class.begin.s840d_hmi
+      push:
+        - match: \(
+          scope: punctuation.definition.parameter.begin.s840d_hmi
+          set: class-grid-attr-name
+        - include: class-grid-attr-end
 
-  grid-param-begin:
-    - match: \(
-      scope: punctuation.definition.parameter.begin.s840d_hmi
-      set: grid-param-name
-    - include: grid-param-end
-
-  grid-param-name:
+  class-grid-attr-name:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: grid-param-type
-    - include: section-name
-    - include: grid-param-end
+      set: class-grid-attr-type
+    - include: class-name
+    - include: class-grid-attr-end
 
-  grid-param-type:
+  class-grid-attr-type:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: grid-param-fixed-row
+      set: class-grid-attr-fixed-row
     - include: number
-    - include: grid-param-end
+    - include: class-grid-attr-end
 
-  grid-param-fixed-row:
+  class-grid-attr-fixed-row:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: grid-param-fixed-col
+      set: class-grid-attr-fixed-col
     - include: number
-    - include: grid-param-end
+    - include: class-grid-attr-end
 
-  grid-param-fixed-col:
+  class-grid-attr-fixed-col:
     - include: number
-    - include: grid-param-end
+    - include: class-grid-attr-end
 
-  grid-param-end:
+  class-grid-attr-end:
     - match: \)|$
       scope: punctuation.definition.parameter.end.s840d_hmi
-      set: grid-body
+      set: class-grid-body
     - include: illegal
 
-  grid-body:
-    - meta_scope: meta.section.grid.s840d_hmi
-    - include: section-end
+  class-grid-body:
+    - meta_scope: meta.class.grid.s840d_hmi
+    - include: class-end
     - match: \(
-      scope: punctuation.grid.row.begin.s840d_hmi
+      scope: punctuation.definition.parameter.begin.s840d_hmi
       push: def-operand-type
     - include: illegal
 
@@ -202,81 +200,79 @@ contexts:
 #   //END
 ###############################################################################
 
-  dialog-definition:
+  class-dialog:
     - match: '//M'
-      scope: keyword.control.section.begin.s840d_hmi
-      push: dialog-param-begin
+      scope: keyword.class.begin.s840d_hmi
+      push:
+        - match: \(
+          scope: punctuation.definition.parameter.begin.s840d_hmi
+          set: class-dialog-attr-name
+        - include: class-dialog-attr-end
 
-  dialog-param-begin:
-    - match: \(
-      scope: punctuation.definition.parameter.begin.s840d_hmi
-      set: dialog-param-name
-    - include: dialog-param-end
-
-  dialog-param-name:
+  class-dialog-attr-name:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-caption
-    - include: section-name
-    - include: dialog-param-end
+      set: class-dialog-attr-caption
+    - include: class-name
+    - include: class-dialog-attr-end
 
-  dialog-param-caption:
+  class-dialog-attr-caption:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-picture
+      set: class-dialog-attr-picture
     - include: string
-    - include: dialog-param-end
+    - include: class-dialog-attr-end
 
-  dialog-param-picture:
+  class-dialog-attr-picture:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-dimension
+      set: class-dialog-attr-dimension
     - include: string
-    - include: dialog-param-end
+    - include: class-dialog-attr-end
 
-  dialog-param-dimension:
+  class-dialog-attr-dimension:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-variable
-    - include: section-param-seperator
+      set: class-dialog-attr-variable
+    - include: param-seperator
     - include: number
-    - include: dialog-param-end
+    - include: class-dialog-attr-end
 
-  dialog-param-variable:
+  class-dialog-attr-variable:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-picture-position
+      set: class-dialog-attr-picture-position
     - include: string
-    - include: dialog-param-end
+    - include: class-dialog-attr-end
 
-  dialog-param-picture-position:
+  class-dialog-attr-picture-position:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-attribute
-    - include: section-param-seperator
+      set: class-dialog-attr-attribute
+    - include: param-seperator
     - include: number
-    - include: dialog-param-end
+    - include: class-dialog-attr-end
 
-  dialog-param-attribute:
+  class-dialog-attr-attribute:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
-      set: dialog-param-end
+      set: class-dialog-attr-end
     - include: attribute-accesslevel
     - include: attribute-allignment
     - include: attribute-changeblock
     - include: attribute-fontsize
     - include: attribute-writeability
-    - include: dialog-param-end
+    - include: class-dialog-attr-end
 
-  dialog-param-end:
+  class-dialog-attr-end:
     - match: \)|$
       scope: punctuation.definition.parameter.end.s840d_hmi
-      set: dialog-body
+      set: class-dialog-body
     - include: illegal
 
-  dialog-body:
-    - meta_scope: meta.section.dialog.s840d_hmi
-    - include: section-end
+  class-dialog-body:
+    - meta_scope: meta.class.dialog.s840d_hmi
+    - include: class-end
     - include: def-operand
     - include: def-softkey
     - include: def-methods
@@ -291,22 +287,22 @@ contexts:
 #   //END
 ###############################################################################
 
-  menu-definition:
+  class-menu:
     - match: '//[Ss]\b'
-      scope: keyword.control.section.begin.s840d_hmi
+      scope: keyword.class.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.definition.parameter.begin.s840d_hmi
           set:
             - match: \)|$
               scope: punctuation.definition.parameter.end.s840d_hmi
-              set: menu-body
-            - include: section-name
-        - include: menu-body
+              set: class-menu-body
+            - include: class-name
+        - include: class-menu-body
 
-  menu-body:
-    - meta_scope: meta.section.menu.s840d_hmi
-    - include: section-end
+  class-menu-body:
+    - meta_scope: meta.class.menu.s840d_hmi
+    - include: class-end
     - include: def-softkey
     - include: def-methods
     - include: illegal
@@ -315,17 +311,17 @@ contexts:
 # SECTION prototypes
 ###############################################################################
 
-  section-name:
+  class-name:
     - match: '{{label}}'
-      scope: entity.name.section.s840d_hmi
+      scope: entity.name.class.s840d_hmi
 
-  section-param-seperator:
+  param-seperator:
     - match: ','
       scope: punctuation.definition.parameter.seperator.s840d_hmi
 
-  section-end:
+  class-end:
     - match: //(?i:END)\b
-      scope: keyword.control.section.end.s840d_hmi
+      scope: keyword.class.end.s840d_hmi
       pop: true
     - include: comment
 
@@ -367,7 +363,7 @@ contexts:
       scope: punctuation.definition.parameter.begin.s840d_hmi
       push: def-operand-type
     - match: ','
-      scope: punctuation.definition.seperator.operand.s840d_hmi
+      scope: punctuation.definition.operand.seperator.s840d_hmi
       set: def-operand-name
     - match: $
       pop: true
@@ -389,7 +385,7 @@ contexts:
       set: def-operand-default
     - match: '%\w+'
       scope: entity.name.grid.s840d_hmi
-    - include: section-param-seperator
+    - include: param-seperator
     - include: string
     - include: number
     - include: operator
@@ -408,7 +404,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-attributes
-    - include: section-param-seperator
+    - include: param-seperator
     - include: string
     - include: def-operand-end
 
@@ -416,7 +412,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-picture
-    - include: section-param-seperator
+    - include: param-seperator
     - include: attribute-accesslevel
     - include: attribute-allignment
     - include: attribute-changeblock
@@ -444,7 +440,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-inputpos
-    - include: section-param-seperator
+    - include: param-seperator
     - include: number
     - include: def-operand-end
 
@@ -453,7 +449,7 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-colors
-    - include: section-param-seperator
+    - include: param-seperator
     - include: number
     - include: def-operand-end
 
@@ -461,12 +457,12 @@ contexts:
     - match: /
       scope: punctuation.definition.parameter.seperator.s840d_hmi
       set: def-operand-helpfile
-    - include: section-param-seperator
+    - include: param-seperator
     - include: number
     - include: def-operand-end
 
   def-operand-helpfile:
-    - include: section-param-seperator
+    - include: param-seperator
     - include: number
     - include: string
     - include: def-operand-end
@@ -535,7 +531,7 @@ contexts:
     - include: illegal
 
 ###############################################################################
-# section methods
+# class methods
 #   second-level entities
 ###############################################################################
 
@@ -896,11 +892,17 @@ contexts:
 
   number:
     - match: \b(?i:PI)\b
-      scope: constant.language.numeric.s840d_hmi
+      scope: constant.language.s840d_hmi
     - match: \b[1-8](\.\d+)?EX[-+]?\d{1,2}\b
-      scope: constant.language.numeric.s840d_hmi
-    - match: \b\d+(\.\d+)?\b
-      scope: constant.language.numeric.s840d_hmi
+      scope: constant.numeric.float.s840d_hmi
+    - match: \b\d+\.\d+\b
+      scope: constant.numeric.float.s840d_hmi
+    - match: \b\d+\b
+      scope: constant.numeric.integer.s840d_hmi
+    - match: \b[Bb][01]+\b
+      scope: constant.numeric.binary.s840d_hmi
+    - match: \b[Hh]\H+\b
+      scope: constant.numeric.hexadecimal.s840d_hmi
 
   operator:
     - match: =(?!=)
@@ -930,7 +932,7 @@ contexts:
 
   string:
     - match: '"'
-      scope: punctuation.string.begin.s840d_hmi
+      scope: punctuation.definition.string.begin.s840d_hmi
       push:
         # double quoted strings with embedded highlighting
         - meta_scope: string.quoted.double.s840d_hmi
@@ -942,7 +944,7 @@ contexts:
           scope: constant.character.escape.linefeed.s840d_hmi
         # valid end of double quoted string
         - match: '"'
-          scope: punctuation.string.end.s840d_hmi
+          scope: punctuation.definition.string.end.s840d_hmi
           pop: true
         # invalid end of double quoted string
         - match: '[^"]$'
