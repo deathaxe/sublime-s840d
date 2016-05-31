@@ -652,11 +652,11 @@ contexts:
       scope: constant.language.boolean.s840d_gcode
     # decimal numbers
     - match: '(?:\b\d+\.?\d*|\.\d+)(EX[-+]?\d{1,2})?'
-      scope: constant.language.numeric.s840d_gcode
+      scope: constant.numeric.double.s840d_gcode
     # single quoted binary numbers
     - match: '''[Bb]'
       push:
-      - meta_scope: constant.language.numeric.s840d_gcode
+      - meta_scope: constant.numeric.binary.s840d_gcode
       - match: '''|$'
         pop: true
       - match: '[^01]'
@@ -664,7 +664,7 @@ contexts:
     # single quoted hexadecimal numbers
     - match: '''[Hh]'
       push:
-      - meta_scope: constant.language.numeric.s840d_gcode
+      - meta_scope: constant.numeric.hexadecimal.s840d_gcode
       - match: '''|$'
         pop: true
       - match: '\H'
@@ -743,7 +743,7 @@ contexts:
   nc-variables:
 
     - match: '\$'
-      scope: punctuation.variable.nck.s840d_gcode
+      scope: punctuation.definition.variable.nck.s840d_gcode
       push:
         - meta_scope: support.variable.nck.s840d_gcode
 
