@@ -33,7 +33,7 @@ file_extensions:
   - nc
   - spf
   - tea
-first_line_match: '(PROC|%_N_[0-9A-Za-z_]+)'
+first_line_match: '(PROC|%_N_[A-z_]{2}[[:alnum:]_]{0,30})'
 scope: source.s840d_gcode
 
 ###############################################################################
