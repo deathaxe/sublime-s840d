@@ -34,12 +34,7 @@ scope: source.s840d_hmi
 ###############################################################################
 
 variables:
-  # label or variable
-  #   - must start with two letters or underline
-  #     before the first digit is allowed
-  #   - must not be longer than 32 chars
-  label: '\b[A-z_]{2}[[:alnum:]_]{0,30}\b'
-
+  ident: '\b(?:[A-Z_][[:alnum:]_]{0,31})\b'
   softkey: '\b(?i:[HV]S[1-8]|RECALL)\b'
 
 ###############################################################################
@@ -311,7 +306,7 @@ contexts:
 ###############################################################################
 
   class-name:
-    - match: '{{label}}'
+    - match: '{{ident}}'
       scope: entity.name.class.s840d_hmi
 
   param-seperator:
@@ -340,7 +335,7 @@ contexts:
   def-operand-name:
     - meta_scope: meta.definition.operand.s840d_hmi
     - include: comment
-    - match: '{{label}}'
+    - match: '{{ident}}'
       scope: variable.other.s840d_hmi
       set:
         - match: \(
@@ -920,7 +915,7 @@ contexts:
       scope: keyword.operator.binary.s840d_hmi
 
   operand:
-    - match: '{{label}}'
+    - match: '{{ident}}'
       scope: variable.other.s840d_hmi
       push: operand-members
 
