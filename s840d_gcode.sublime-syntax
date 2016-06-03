@@ -27,13 +27,10 @@
 # https://manual.macromates.com/en/language_grammars#naming_conventions
 name: S840D G-Code
 file_extensions:
-  - arc
   - def
   - mpf
-  - nc
   - spf
   - tea
-first_line_match: '(PROC|%_N_[A-z_]{2}[[:alnum:]_]{0,30})'
 scope: source.s840d_gcode
 
 ###############################################################################
@@ -70,14 +67,6 @@ variables:
 contexts:
 
   main:
-    # SINUMERIK archive header file
-    - match: '^\s*%_N_{{identifier}}'
-      scope: constant.language.archive.filename.s840d_gcode
-    # SINUMERIK archive header path
-    - match: '^\s*(;\$PATH=)(/_N_{{identifier}})'
-      captures:
-        1: constant.language.archive.s840d_gcode
-        2: constant.language.archive.pathname.s840d_gcode
     # SINUMERIK comment
     - match: ';.*$'
       scope: comment.line.s840d_gcode
@@ -87,7 +76,7 @@ contexts:
         1: comment.blockno.s840d_gcode
         2: entity.name.label.s840d_gcode meta.toc-list.s840d_gcode
         3: punctuation.definition.separator.s840d_gcode
-      set: block-main
+      push: block-main
 
 ###############################################################################
 # MAIN NC BLOCK
