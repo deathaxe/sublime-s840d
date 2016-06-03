@@ -3,11 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Comments: S840D</string>
+	<string>S840D: G-Code Settings</string>
 	<key>scope</key>
-	<string>source.s840d</string>
+	<string>source.s840d_gcode</string>
 	<key>settings</key>
 	<dict>
+		<!-- Comment Rules -->
 		<key>shellVariables</key>
 		<array>
 			<dict>
@@ -23,6 +24,13 @@
 				<string>/ </string>
 			</dict>
 		</array>
+		<!-- Indention Rules -->
+		<key>decreaseIndentPattern</key>
+		<string>^\s*\b(?i:END(?:IF|FOR|LOOP|WHILE)|UNTIL|ELSE)\b</string>
+		<key>increaseIndentPattern</key>
+		<string>^\s*\b(?i:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT|WHILE|ELSE)\b</string>
+		<key>unIndentedLinePattern</key>
+		<string>^\s*(\w+:.*)?$</string>
 	</dict>
 </dict>
 </plist>

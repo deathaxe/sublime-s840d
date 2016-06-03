@@ -32,7 +32,7 @@ class S840dTextCommand(sublime_plugin.TextCommand):
 
   # private member
   def is_scope_s840d(self):
-    return (self.view.scope_name(0).find('source.s840d') >= 0)
+    return (self.view.scope_name(0).find('source.s840d_gcode') >= 0)
 
 
 class S840dMinifyCommand(S840dTextCommand):
