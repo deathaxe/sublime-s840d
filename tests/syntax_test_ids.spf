@@ -2,7 +2,7 @@
 
 ////////////////////////////////////////////////////
 // SYNCHRON ACTION tests
-// Performance: 0.9ms
+// Performance: 0.7ms
 ////////////////////////////////////////////////////
 
 ; simplest example
@@ -68,7 +68,7 @@ N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 //                                   ^ keyword.operator.assignment
 
 ; modal asynchronous function without condition
-N7 IDS=1 DO POS[Q1]l.async.identifier
+N7 IDS=1 DO POS[Q1]=13
 //    ^ keyword.operator.assignment
 //     ^ constant.language.numeric
 //       ^ keyword.control.async.operation

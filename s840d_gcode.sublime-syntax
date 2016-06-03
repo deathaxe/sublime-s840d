@@ -41,12 +41,12 @@ variables:
   # end of block
   eob: (?=\s*(;|$))
   # identifier
-  identifier: '[A-z_][[:alnum:]_]{0,31}'
+  identifier: '[A-z_][0-z_]+\b'
   # label or variable
   #   - must start with two letters or underline
   #     before the first digit is allowed
   #   - must not be longer than 32 chars
-  label: '[A-z_]{2}[[:alnum:]_]{0,30}'
+  label: '[A-z_]{2}[0-z_]*\b'
   # simple operators
   operator: '[-+=<>/*]'
   # first +/- after ( is a negative number indicator
