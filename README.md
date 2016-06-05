@@ -5,14 +5,23 @@ SINUMERIK 840D Computerized Numerical Control to the SublimeText 3 Editor.
 
 ### Features:
 
-* Syntax highlighting support for NC programs including
-	* ISO G-Code
-	* SINUMERIK highlevel commands
-	* known NC cycles, functions and commands
-	* known NC variables and machine data (NC-Version 04.07.02.01)
-	* code-snippets for most common control functions
+* NC cycles
+  * syntax highlighting
+    * ISO G-Code
+    * SINUMERIK highlevel commands
+    * known NC cycles, functions and commands
+    * known NC variables and machine data (NC-Version 04.07.02.01)
+  * indention rules
+  * code-snippets for most common control functions
+  * commands to ``Minify``, ``Beautify``, ``Add/Update block numbers``
 
-* Syntax highlighting for (EasyScreen/RunMyHmi) sources
+* EasyScreen / RunMyHmi
+  * syntax highlighting
+  * indention rules
+  * code-snippets for
+    * classes: ARRAY, BLOCK, DIALOG, MENU
+    * methods: LOAD, UNLOAD, PRESS, ...
+    * functions: RNP,WNP,CP,DP,EP, ...
 
 ### Installing
 
