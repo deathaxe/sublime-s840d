@@ -1,0 +1,24 @@
+<snippet>
+<description>Class</description>
+<content>
+<![CDATA[
+; ===================================================================
+;  GRID         : ${1:name}
+;  ROWS         : ${2:10}
+;  FIXED ROW    : ${3:1}
+;  FIXED COL    : ${4:0}
+;  DESCRIPTION  :
+; ===================================================================
+//G(${1:name}//${2:10}/${3:1}/${4:0})
+
+; Column 1
+; (type/min,max//tooltip,title/attr/var/colwidth/ofs1,ofs2,ofs3)
+(${5:V}///"${6:tooltip}","${7:title}"/${8:AC7,LI0,WR2}//"${9:$TC_TP8}"/${10:30}/${11:1},${12:0},${13:0})
+$0
+//END    ; //G(${1:name})
+
+]]>
+</content>
+<tabTrigger>GRID</tabTrigger>
+<scope>source.s840d_hmi</scope>
+</snippet>
