@@ -11,11 +11,11 @@ N1 DO G0 F=$MN_USER_DATA_HEX[12 + R1] X10 Y20
 //    ^ support.function.iso
 //       ^ support.variable.iso
 //        ^ keyword.operator.assignment
-//         ^^^ support.variable.machdata
+//         ^^^ support.variable.nck
 //                                    ^ support.variable.iso
-//                                     ^^ constant.language.numeric.iso
+//                                     ^^ constant.numeric.iso
 //                                        ^ support.variable.iso
-//                                         ^^ constant.language.numeric.iso
+//                                         ^^ constant.numeric.iso
 
 ; constant condition
 N2 WHEN TRUE DO M5=10
@@ -24,7 +24,7 @@ N2 WHEN TRUE DO M5=10
 //           ^ keyword.control.async.operation
 //              ^ support.function.iso
 //                ^ keyword.operator.assignment
-//                 ^ constant.language.numeric
+//                 ^ constant.numeric
 
 ; variable condition
 N3 WHEN _VAR DO M5=10
@@ -33,14 +33,14 @@ N3 WHEN _VAR DO M5=10
 //           ^ keyword.control.async.operation
 //              ^ support.function.iso
 //                ^ keyword.operator.assignment
-//                 ^ constant.language.numeric
+//                 ^ constant.numeric
 N4 WHEN _VAR==TRUE DO M5=10
 // ^ keyword.control.async.condition
 //      ^ variable.other
 //                 ^ keyword.control.async.operation
 //                    ^ support.function.iso
 //                      ^ keyword.operator.assignment
-//                       ^ constant.language.numeric
+//                       ^ constant.numeric
 
 ; condition expression and operation statement
 N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
@@ -48,7 +48,7 @@ N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 //          ^ support.function
 //              ^ support.variable.r
 //                 ^ keyword.operator.relational
-//                   ^ constant.language.numeric
+//                   ^ constant.numeric
 //                      ^ keyword.control.async.operation
 //                         ^ support.function.iso
 //                           ^ keyword.operator.assignment
@@ -58,11 +58,11 @@ N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 // ^ keyword.control.async.identifier
 //   ^ keyword.operator.assignment
-//    ^ constant.language.numeric
+//    ^ constant.numeric
 //      ^ keyword.control.async.condition
 //            ^ support.variable.nck
 //                     ^ keyword.operator.relational
-//                       ^ constant.language.numeric
+//                       ^ constant.numeric
 //                         ^ keyword.control.async.operation
 //                            ^ support.variable.iso
 //                                   ^ keyword.operator.assignment
@@ -70,7 +70,7 @@ N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 ; modal asynchronous function without condition
 N7 IDS=1 DO POS[Q1]=13
 //    ^ keyword.operator.assignment
-//     ^ constant.language.numeric
+//     ^ constant.numeric
 //       ^ keyword.control.async.operation
 //          ^ support.variable.iso
 //                 ^ keyword.operator.assignment
@@ -80,7 +80,7 @@ N8 IDS==1 WHENEVER ABS(R1)=10 DO M5=SQRT(2)*$PI
 // ^ keyword.control.async.identifier
 //    ^ invalid.illegal
 //     ^ keyword.operator.assignment
-//      ^ constant.language.numeric
+//      ^ constant.numeric
 //        ^ keyword.control.async.condition
 //                 ^ support.function
 //                        ^ invalid.illegal
@@ -102,15 +102,15 @@ N11 IDS=
 N12 IDS=10
 //  ^ keyword.control.async.identifier
 //     ^ keyword.operator.assignment
-//      ^ constant.language.numeric
+//      ^ constant.numeric
 N13 IDS=10 DO
 //  ^ keyword.control.async.identifier
 //     ^ keyword.operator.assignment
-//      ^ constant.language.numeric
+//      ^ constant.numeric
 //         ^ keyword.control.async.operation
 N14 IDS=10 WHENEVER DO
 //  ^ keyword.control.async.identifier
 //     ^ keyword.operator.assignment
-//      ^ constant.language.numeric
+//      ^ constant.numeric
 //         ^ keyword.control.async.condition
 //                  ^ keyword.control.async.operation

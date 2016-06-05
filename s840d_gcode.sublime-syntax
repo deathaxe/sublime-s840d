@@ -248,7 +248,7 @@ contexts:
       captures:
         1: support.variable.s840d_gcode
         2: keyword.operator.assignment.s840d_gcode
-        3: constant.language.numeric.s840d_gcode
+        3: constant.numeric.s840d_gcode
 
 ###################################################################
 # macro blocks
@@ -375,7 +375,7 @@ contexts:
     - match: '((?i:[ABCFIJKQRSUVWXYZ]))\s*({{iso_float}})'
       captures:
         1: support.variable.iso.s840d_gcode
-        2: constant.language.numeric.iso.s840d_gcode
+        2: constant.numeric.iso.s840d_gcode
 
     # direct ISO functions (e.g. G0 G01 M01 H4 ...)
     # {{iso_uint}}          --> G0 ... G999999...
@@ -541,7 +541,7 @@ contexts:
   after-relational:
     # first '-' after assignment is a negative value identifier
     - match: '{{sign}}'
-      scope: constant.language.numeric.sign.s840d_gcode
+      scope: constant.numeric.sign.s840d_gcode
       set: after-operator
     - include: after-operator
 
@@ -575,7 +575,7 @@ contexts:
   parens-begin:
     # first +/- after ( is a negative number indicator
     - match: '{{sign}}'
-      scope: constant.language.numeric.sign
+      scope: constant.numeric.sign
       set: parens-body
     # leave this context as soon as possible
     - match: '{{eoe}}'
@@ -616,7 +616,7 @@ contexts:
     # first +/- after [ is a negative number indicator
     - match: '{{sign}}'
       captures:
-        1: constant.language.numeric.sign.s840d_gcode
+        1: constant.numeric.sign.s840d_gcode
       set: brackets-square-body
     - match: '{{eoe}}'
       set: brackets-square-body

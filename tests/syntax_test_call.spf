@@ -100,7 +100,7 @@ N90 CALL L350 BLOCK N20 TO "N"<<50
 //                      ^ keyword.control.call
 //                          ^ string.quoted.double
 //                            ^^ keyword.operator.assignment
-//                              ^^ constant.language.numeric
+//                              ^^ constant.numeric
 
 ; modal cycle call
 N100 MCALL L350
@@ -111,11 +111,11 @@ N100 MCALL L350
 N110 MCALL L350(10,20,ABS(R4))
 //   ^ keyword.control.call
 //         ^ support.function
-//             ^ punctuation.definition.expression.begin.s840d
-//              ^ constant.language.numeric
+//             ^ punctuation.definition.expression.begin
+//              ^ constant.numeric
 //                    ^ support.function
 //                        ^ support.variable.r
-//                           ^ punctuation.definition.expression.end.s840d
+//                           ^ punctuation.definition.expression.end
 
 ; missing cycle name
 N120 MCALL (10,20,30,50)
