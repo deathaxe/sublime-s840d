@@ -40,11 +40,39 @@ contexts:
 
   main:
     - include: comment
-    - include: class-dialog
-    - include: class-menu
-    - include: class-array
-    - include: class-block
-    - include: class-grid
+
+    # archive header pragma is invalid in this context
+    - match: '%\w+'
+      scope: invalid.illegal.s840d_hmi
+
+    # file contains EasyScreen/RunMyHmi
+    - match: (?=//[ABMS]\b)
+      push:
+        - include: comment
+        - include: class-dialog
+        - include: class-menu
+        - include: class-array
+        - include: class-block
+        - include: class-grid
+        # required for embedding in s840d_arc
+        - match: (?=%)
+          pop: true
+
+    # file contains list of strings
+    - match: '(?=\d{1,6}\s+[01]\s+[01]\s+\".*?\")'
+      push:
+        - meta_content_scope: meta.stringlist.s840d_hmi
+        - include: comment
+        - match: \b\d+\b
+          scope: support.variable.textid.s840d_hmi
+          push:
+            - match: \b\d\b
+              scope: comment.block.s840d_hmi
+            - include: string
+            - include: line-end
+        # required for embedding in s840d_arc
+        - match: (?=%)
+          pop: true
 
 ###############################################################################
 # ARRAY
