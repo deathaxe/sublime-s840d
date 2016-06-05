@@ -42,7 +42,7 @@ variables:
   # end of block
   eob: (?=\s*(;|$))
   # identifier
-  identifier: '[A-z_][0-z_]+\b'
+  identifier: '[A-z_][0-z_]*\b'
   # label or variable
   #   - must start with two letters or underline
   #     before the first digit is allowed
@@ -198,7 +198,7 @@ contexts:
     # SETINT(2) PRIO=1 ABHEB_Z LIFTFAST
 
     # SUB PROGRAMM
-    - match: '[[:alnum:]]{2,}{{eob}}'
+    - match: '[A-z][\w_]+{{eob}}'
       scope: support.function.s840d_gcode
       pop: true
 
@@ -478,8 +478,8 @@ contexts:
       push:
         - include: operators-litheral
         - include: functions
-        - include: properties
         - include: axes-variables
+        - include: properties
         - include: global-variables
 
         # local variables
@@ -499,8 +499,8 @@ contexts:
     - match: =(?!=)
       scope: keyword.operator.assignment.s840d_gcode
       push: after-assignment
-    # string chaining
-    - match: '<<'
+    # string and frame chaining
+    - match: '<<|:'
       scope: keyword.operator.assignment.s840d_gcode
       push: after-relational
     # relational operators
@@ -829,7 +829,7 @@ contexts:
   functions:
     # SINUMERIK function : func(...)
     #   e.g.: ABS(...)
-    - match: '(?i:A(?:BS|C|C(?:[NP]?|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:CDAT|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|OS|ROT|SCALE|TRANS)|D(?:AC|C|EL(?:DL|M(?:LRES|T)|OBJ|T|TC)|IC)|EX(?:ECSTRING|P)|F(?:GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME))|GET(?:ACT(?:T|TD)|DNO|EXET|FREELOC|SELT|T)|I(?:C|N(?:DEX|IT)|PBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|LN|M(?:A(?:TCH|XVAL)|IN(?:DEX|VAL)|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|P(?:O(?:S(?:M|MT)|T)|ROTS)|R(?:AC|ESETMON|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T(?:AL|DNO|INT|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|PRINT|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|W(?:AIT[PS]|RITE))\b'
+    - match: '(?i:A(?:BS|C(?:[NP]?|OS)?|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:CDAT|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|OS|ROT|SCALE|TRANS)|D(?:AC|C|EL(?:DL|M(?:LRES|T)|OBJ|T|TC)|IC)|EX(?:ECSTRING|P)|F(?:GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME))|GET(?:ACT(?:T|TD)|DNO|EXET|FREELOC|SELT|T)|I(?:C|N(?:DEX|IT)|PBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|LN|M(?:A(?:TCH|XVAL)|IN(?:DEX|VAL)|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|P(?:O(?:S(?:M|MT)|T)|ROTS)|R(?:AC|ESETMON|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T(?:AL|DNO|INT|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|PRINT|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|W(?:AIT[PS]|RITE))\b'
       scope: support.function.s840d_gcode
       push:
         # function parameters
