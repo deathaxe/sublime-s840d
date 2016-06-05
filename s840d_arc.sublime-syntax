@@ -33,7 +33,7 @@ contexts:
     - match: (?i:%_N_[\w_]+_COM)
       scope: constant.language.filename.s840d_arc
       push:
-        - meta_scope: sourse.s840d_hmi
+        - meta_scope: source.s840d_hmi
         - match: (?=%)
           pop: true
         - include: header_path
@@ -43,7 +43,7 @@ contexts:
     - match: (?i:%_N_[\w_]+_(?:[MS]PF|INI|DEF|TEA))
       scope: constant.language.filename.s840d_arc
       push:
-        - meta_scope: sourse.s840d_gcode
+        - meta_scope: source.s840d_gcode
         - match: (?=%)
           pop: true
         - include: header_path
