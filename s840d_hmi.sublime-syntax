@@ -1146,7 +1146,7 @@ contexts:
     - include: illegal
 
   illegal:
-    - match: \S+
+    - match: \S+?(?=[/,])
       scope: invalid.illegal.s840d_hmi
 
   illegal-pop:
