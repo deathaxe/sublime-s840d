@@ -1,9 +1,10 @@
-# [CNC Sinumerik840D](https://github.com/deathaxe/sublime-s840d)
+# [CNC Sinumerik 840D language support][home]
+[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
 This package provides syntax highlighting support for the
-SINUMERIK 840D Computerized Numerical Control to the SublimeText 3 Editor.
+SINUMERIK 840D Computerized Numerical Control to the [SublimeText 3 Editor][1].
 
-### Features:
+## Features:
 
 * NC cycles
   * syntax highlighting
@@ -19,48 +20,49 @@ SINUMERIK 840D Computerized Numerical Control to the SublimeText 3 Editor.
   * syntax highlighting
   * indention rules
   * code-snippets for
-    * classes: ARRAY, BLOCK, DIALOG, MENU
-    * methods: LOAD, UNLOAD, PRESS, ...
-    * functions: RNP,WNP,CP,DP,EP, ...
-
-### Installing
-
-**With the Package Control plugin:** The easiest way to install SublimeCodeIntel is through Package Control, which can be found at this site: http://wbond.net/sublime_packages/package_control
-
-Once you install Package Control, restart Sublime Text and bring up the Command Palette (``Command+Shift+P`` on OS X, ``Control+Shift+P`` on Linux/Windows). Select "Package Control: Install Package", wait while Package Control fetches the latest package list, then select ``CNC Sinumerik840D`` when the list appears. The advantage of using this method is that Package Control will automatically keep ``CNC Sinumerik840D`` up to date with the latest version.
-
-**Without Git:** Download the latest source from `GitHub <https://github.com/deathaxe/sublime-s840d>`_ and copy the whole directory into the Packages directory.
-
-**With Git:** Clone the repository in your Sublime Text Packages directory, located somewhere in user's "Home" directory::
-
-    git clone git://github.com/deathaxe/sublime-s840d.git
+    * classes: ``ARRAY``, ``BLOCK``, ``DIALOG``, ``MENU``
+    * methods: ``LOAD``, ``UNLOAD``, ``PRESS``, ...
+    * functions: ``RNP``, ``WNP``, ``CP``, ``DP``, ``EP``, ...
 
 
-The "Packages" packages directory is located differently in different platforms. To access the directory use:
+## Installing
 
-* OS X::
+### Using [Package Control][2]
 
-    Sublime Text -> Preferences -> Browse Packages...
+For all Sublime Text 3 users install via [Package Control][2] is recommended.
+1. [Install][3] Package Control if you haven't yet.
+2. Use <kbd>ctrl+shift+P</kbd> then `Package Control: Install Package`
+3. Look for `CNC SINUMERIK 840D language support` and install it.
 
-* Linux::
 
-    Preferences -> Browse Packages...
+### Using Git
 
-* Windows::
+Clone the repository in your Sublime Text Packages directory, located somewhere in user's "Home" directory:
 
-    Preferences -> Browse Packages...
+    git clone git://github.com/deathaxe/sublime-s840d.git "CNC Sinumerik 840D language support"
+
+
+### Manual Install
+Download the latest source from GitHub [https://github.com/deathaxe/sublime-s840d][zip] and extract the whole content into the _"Packages/CNC Sinumerik 840D language support"_ directory.
+
 
 ### Setup
 
-The package contains a **s840d.sublime-settings** file, which is recommended
-to be copied to the Data/User folder to enable the follwing language specific
-settings.
+The package contains the syntax specific settings files ``s840d_gcode.sublime-settings`` and ``s840d_hmi.sublime-settings`` with the following required default settings:
 
 - "ensure_newline_at_eof_on_save": true
 - "translate_tabs_to_spaces": true
 - "use_tab_stops": false
 
 They are all required to ensure NC will read the resulting file correctly.
+You can override these settings by creating your own syntax specific setting ``Preferences->Settings - Syntax Specific``
 
-### License
-[Copyright &copy; 2016 DeathAxe](https://github.com/deathaxe/sublime-s840d/blob/master/LICENSE.md)
+## License
+The code is available at [GitHub][home] under [MIT licence][lic].
+
+[home]: <https://github.com/deathaxe/sublime-s840d>
+[zip]:  <https://github.com/deathaxe/sublime-s840d/archive/master.zip>
+[lic]:  <https://github.com/deathaxe/sublime-s840d/blob/master/LICENSE>
+[1]:    <http://www.sublimetext.com>
+[2]:    <https://packagecontrol.io>
+[3]:    <https://packagecontrol.io/installation>

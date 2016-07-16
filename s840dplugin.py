@@ -67,6 +67,8 @@ class S840dMinifyCommand(S840dTextCommand):
       # replace view's content
       view.replace(edit, region, text)
 
+      view.set_viewport_position([0,0], False)
+
     # pr.disable()
     # sortby = 'cumulative'
     # ps = pstats.Stats(pr).sort_stats(sortby)
@@ -131,6 +133,7 @@ class S840dBeautifyCommand(S840dTextCommand):
 
       # replace view's content and keep the last empty line only
       view.replace(edit, view_region, repl.strip() + '\n')
+      view.set_viewport_position([0,0], False)
 
     # pr.disable()
     # sortby = 'cumulative'
@@ -282,3 +285,4 @@ class S840dRenumberCommand(S840dTextCommand):
 
       # replace view's content and keep the last empty line only
       view.replace(edit, view_region, repl.strip() + '\n')
+      view.set_viewport_position([0,0], False)
