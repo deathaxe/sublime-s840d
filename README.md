@@ -1,8 +1,12 @@
 # [CNC Sinumerik 840D language support][home]
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![Package Control](https://packagecontrol.herokuapp.com/downloads/CNC SINUMERIK 840D language support.svg)](https://packagecontrol.io/packages/CNC SINUMERIK 840D language support)
 
 This package provides syntax highlighting support for the
 SINUMERIK 840D Computerized Numerical Control to the [SublimeText 3 Editor][1].
+
+## Screenshot:
+![gcode](example.jpg)
 
 ## Features:
 
