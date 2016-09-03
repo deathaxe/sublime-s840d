@@ -38,7 +38,10 @@ scope: source.s840d_gcode
 
 variables:
   # axis
-  axis: (?:[ABCEQUWXYZ]C?|AX|V[ABCXYZ]?)
+  # REM: AC is not an axis
+  #      AX is a general axis identifier
+  #      VX is a custom positioning axis
+  axis: (?:[BCEQUWXYZ]C?|AX?|V[ABCXYZ]?)
   # loating point values
   float: '(?:\d+\.?\d*|\.\d+)(EX[-+]?\d{1,2})?'
   # normal identifiers start with 2 letters or '_' optinally followed by :alnum:
