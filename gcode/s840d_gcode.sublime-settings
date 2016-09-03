@@ -1,14 +1,14 @@
 {
-  // The encoding to use when the encoding can't be determined automatically.
-  // ASCII, UTF-8 and UTF-16 encodings will be automatically detected.
-  "fallback_encoding": "Western (Windows 1252)",
+	// The encoding to use when the encoding can't be determined automatically.
+	// ASCII, UTF-8 and UTF-16 encodings will be automatically detected.
+	"fallback_encoding": "Western (Windows 1252)",
 
-  // Encoding used when saving new files, and files opened with an undefined
-  // encoding (e.g., plain ascii files). If a file is opened with a specific
-  // encoding (either detected or given explicitly), this setting will be
-  // ignored, and the file will be saved with the encoding it was opened
-  // with.
-  "default_encoding": "ASCII",
+	// Encoding used when saving new files, and files opened with an undefined
+	// encoding (e.g., plain ascii files). If a file is opened with a specific
+	// encoding (either detected or given explicitly), this setting will be
+	// ignored, and the file will be saved with the encoding it was opened
+	// with.
+	"default_encoding": "ASCII",
 
 	// Set to true to ensure the last line of the file ends in a newline
 	// character when saving
@@ -31,7 +31,7 @@
 
 	// Define the format of hexadecimal numbers for the Hex-Bin-System plugin
 	// Hexadecimals look like 'H1AF23'
-	"convert_src_hex": "'H(\\H+)'",
+	"convert_src_hex": "'H(\\h+)'",
 	"convert_dst_hex": "'H{0:X}'",
 
 	// Define the format of exponential numbers for the Hex-Bin-System plugin

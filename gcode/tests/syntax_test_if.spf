@@ -1,0 +1,63 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  IF tests
+;  Performance: 0.3ms
+; ==================================================
+
+; keyword only
+IF
+; <- meta.control.if
+; <- keyword.control.if
+
+; block number with keyword only
+N10 IF
+;   ^^ meta.control.if
+;   ^^ keyword.control.if
+
+N15 IF _VAR==0 GOTO _M10 ; comment
+;   ^^^^^^^^^^^ meta.control.if
+;              ^^^^^^^^^ meta.control.goto
+;   ^^ keyword.control.if
+;      ^^^^ variable.other
+;          ^^ keyword.operator.relational
+;            ^ constant.numeric
+;              ^^^^ keyword.control.goto
+;                   ^^^^ entity.name.tag.goto-label
+;                        ^^^^^^^^^ comment.line
+
+; several IF .. GOTO after each other
+N20 IF _VAR==0 GOTO _M10 IF _VAR==2 GOTO _M20
+;   ^^^^^^^^^^^ meta.control.if
+;              ^^^^^^^^^ meta.control.goto
+;                        ^^^^^^^^^^^ meta.control.if
+;                                   ^^^^^^^^^ meta.control.goto
+;   ^^ keyword.control.if
+;              ^^^^ keyword.control.goto
+;                        ^^ keyword.control.if
+;                                   ^^^^ keyword.control.goto
+
+; Invalid embedded IF statement in
+N20 IF _VAR==0 IF _VAR==2
+;   ^^^^^^^^^^^^^^^^^^^^^ meta.control.if
+;   ^^ keyword.control.if
+;              ^^ invalid.illegal
+
+; Invalid ELSE and ENDIF in IF statement
+N20 IF _VAR==0 ELSE ENDIF
+;   ^^^^^^^^^^^^^^^^^^^^^ meta.control.if
+;   ^^ keyword.control.if
+;              ^^^^ invalid.illegal
+;                   ^^^^ invalid.illegal
+
+; else must stand alone in a line
+N25 ELSE invalid ; comment
+;   ^^^^ keyword.control.else
+;        ^^^^^^^ invalid.illegal
+;                ^^^^^^^^^ comment.line
+
+; endif must stand alone in a line
+N25 ENDIF invalid ; comment
+;   ^^^^^ keyword.control.endif
+;         ^^^^^^^ invalid.illegal
+;                 ^^^^^^^^^ comment.line

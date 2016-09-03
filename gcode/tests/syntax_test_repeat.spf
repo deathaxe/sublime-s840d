@@ -1,0 +1,200 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  REPEAT STATEMENTS
+;  Performance: 0.5ms
+; ==================================================
+
+; repeat one block once
+N10REPEAT _LBL ; comment
+;  ^^^^^^^^^^^ meta.control.repeat
+; <- comment.blockno
+;  ^^^^^^ keyword.control.repeat
+;         ^^^^ entity.name.label
+;              ^^^^^^^^^ comment.line
+
+; repeat one block 10 times
+N10 REPEAT _LBL P=10 ; comment
+;   ^^^^^^^^^^^^^^^^ meta.control.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+;          ^^^^ entity.name.label
+;               ^ support.variable
+;                ^ keyword.operator.assignment
+;                 ^^ constant.numeric
+;                    ^^^^^^^^^ comment.line
+
+; repeat everything from _LBL1 to _LBL2 once
+N10 REPEAT _LBL1 _LBL2 ; comment
+;   ^^^^^^^^^^^^^^^^^^ meta.control.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+;          ^^^^^ entity.name.label
+;                ^^^^^ entity.name.label
+;                      ^^^^^^^^^ comment.line
+
+; repeat everything from _LBL1 to _LBL2 10 times
+N10 REPEAT _LBL1 _LBL2 P = 10 ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+;          ^^^^^ entity.name.label
+;                ^^^^^ entity.name.label
+;                      ^ support.variable
+;                        ^ keyword.operator.assignment
+;                          ^^ constant.numeric
+;                             ^^^^^^^^^ comment.line
+
+; repeat everything from _LBL1 to _LBL2 <_VAR> times
+N10 REPEAT _LBL1 _LBL2 P=_VAR ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+;          ^^^^^ entity.name.label
+;                ^^^^^ entity.name.label
+;                      ^ support.variable
+;                       ^ keyword.operator.assignment
+;                        ^^^^ variable.other
+;                             ^^^^^^^^^ comment.line
+
+; invalid label name (first 2 letters must not be a digit)
+N10REPEAT _1LBL ; invalid label
+;  ^^^^^^^^^^^^ meta.control.repeat
+; <- comment.blockno
+;  ^^^^^^ keyword.control.repeat
+;         ^^^^^ invalid.illegal
+;               ^^^^^^^^^ comment.line
+
+; invalid repeat count position
+N10REPEAT P=10 _LBL1 ; invalid order
+;  ^^^^^^^^^^^^^^^^^ meta.control.repeat
+; <- comment.blockno
+;  ^^^^^^ keyword.control.repeat
+;         ^^^^ invalid.illegal
+;              ^^^^^ entity.name.label
+;                    ^^^^^^^^^ comment.line
+
+; invalid repeat count position
+N10REPEAT P=10 _LBL1 _LBL2 ; invalid order
+;  ^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
+; <- comment.blockno
+;  ^^^^^^ keyword.control.repeat
+;         ^^^^ invalid.illegal
+;              ^^^^^ entity.name.label
+;                    ^^^^^ entity.name.label
+;                          ^^^^^^^^^ comment.line
+
+; invalid label after repeat count
+N10REPEAT _LBL1 P=10 _LBL2 ; invalid order
+;  ^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
+; <- comment.blockno
+;  ^^^^^^ keyword.control.repeat
+;         ^^^^^ entity.name.label
+;               ^ support.variable
+;                ^ keyword.operator.assignment
+;                 ^^ constant.numeric
+;                    ^^^^^ invalid.illegal
+;                          ^^^^^^^^^ comment.line
+
+; invalid repeat count
+N10 REPEAT _LBL1 P=.10 ; comment
+;   ^^^^^^^^^^^^^^^^^^ meta.control.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+;          ^^^^^ entity.name.label
+;                ^ support.variable
+;                 ^ keyword.operator.assignment
+;                  ^^^ invalid.illegal
+;                      ^^^^^^^^^ comment.line
+
+; invalid repeat count
+N10 REPEAT _LBL1 P=1.0 ; comment
+;   ^^^^^^^^^^^^^^^^^^ meta.control.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+;          ^^^^^ entity.name.label
+;                ^ support.variable
+;                 ^ keyword.operator.assignment
+;                  ^^^ invalid.illegal
+;                      ^^^^^^^^^ comment.line
+
+; repeat one block once
+N10REPEATB _LBL ; comment
+;  ^^^^^^^^^^^^ meta.control.repeatb
+; <- comment.blockno
+;  ^^^^^^^ keyword.control.repeatb
+;          ^^^^ entity.name.label
+;               ^^^^^^^^^ comment.line
+
+; repeat one block 10 times
+N10 REPEATB _LBL P=10 ; comment
+;   ^^^^^^^^^^^^^^^^^ meta.control.repeatb
+;  <- comment.blockno
+;   ^^^^^^^ keyword.control.repeatb
+;           ^^^^ entity.name.label
+;                ^ support.variable
+;                 ^ keyword.operator.assignment
+;                  ^^ constant.numeric
+;                     ^^^^^^^^^ comment.line
+
+; invalid second label
+N10 REPEATB _LBL1 _LBL2 ; comment
+;   ^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+;  <- comment.blockno
+;   ^^^^^^^ keyword.control.repeatb
+;           ^^^^^ entity.name.label
+;                 ^^^^^ invalid.illegal
+;                       ^^^^^^^^^ comment.line
+
+; invalid second label
+N10 REPEATB _LBL1 _LBL2 P = 10 ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+;  <- comment.blockno
+;   ^^^^^^^ keyword.control.repeatb
+;           ^^^^^ entity.name.label
+;                 ^^^^^ invalid.illegal
+;                       ^ support.variable
+;                         ^ keyword.operator.assignment
+;                           ^^ constant.numeric
+;                              ^^^^^^^^^ comment.line
+
+; invalid repeat count position
+N10REPEATB P=10 _LBL1 ; invalid order
+;  ^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+; <- comment.blockno
+;  ^^^^^^^ keyword.control.repeatb
+;          ^^^^ invalid.illegal
+;               ^^^^^ entity.name.label
+;                     ^^^^^^^^^ comment.line
+
+; invalid repeat count position
+N10REPEATB P=10 _LBL1 _LBL2 ; invalid order
+;  ^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+; <- comment.blockno
+;  ^^^^^^^ keyword.control.repeatb
+;          ^^^^ invalid.illegal
+;               ^^^^^ entity.name.label
+;                     ^^^^^ invalid.illegal
+;                           ^^^^^^^^^ comment.line
+
+; invalid repeat count (can't be matched without drawbacks)
+N10 REPEATB _LBL1 P=.10 ; comment
+;   ^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+;  <- comment.blockno
+;   ^^^^^^^ keyword.control.repeatb
+;           ^^^^^ entity.name.label
+;                 ^ support.variable
+;                  ^ keyword.operator.assignment
+;                   ^^^ constant.numeric
+;                       ^^^^^^^^^ comment.line
+
+; invalid repeat count (can't be matched without drawbacks)
+N10 REPEATB _LBL1 P=1.0 ; comment
+;   ^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+;  <- comment.blockno
+;   ^^^^^^^ keyword.control.repeatb
+;           ^^^^^ entity.name.label
+;                 ^ support.variable
+;                  ^ keyword.operator.assignment
+;                   ^^^ constant.numeric
+;                       ^^^^^^^^^ comment.line

@@ -1,0 +1,97 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  DEFINITIONS tests
+;  Performance: 0.2ms
+; ==================================================
+
+DEF
+; <- meta.definition
+; <- keyword.control.def
+
+N10DEF
+;  ^^^ meta.definition.variable
+;  ^^^ keyword.control.def
+
+N10 DEF
+;   ^^^ meta.definition.variable
+;   ^^^ keyword.control.def
+
+DEF INT VAR = 0 ; comment
+;             <- meta.definition.variable
+; <- keyword.control.def
+;   ^^^ storage.type
+;       ^^^ variable.other
+;           ^ keyword.operator.assignment
+;             ^ constant.numeric
+;               ^^^^ comment.line
+
+N10DEF INT VAR=0;comment
+;  ^^^^^^^^^^^^^ meta.definition.variable
+;  ^^^ keyword.control.def
+;      ^^^ storage.type
+;          ^^^ variable.other
+;             ^ keyword.operator.assignment
+;              ^ constant.numeric
+;               ^^^^ comment.line
+
+N10DEF NCK APW 5 APR 7 APX 7 REAL PHU 5 LLI -100.0 LLU +100.0 VAR[3,3] = SET(1,0,0, 0,1,0, 0,0,1) ; comment
+;  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
+;  ^^^ keyword.control.def
+;      ^^^ storage.modifier.scope
+;          ^^^ storage.modifier.access
+;              ^ constant.numeric.access
+;                ^^^ storage.modifier.access
+;                    ^ constant.numeric.access
+;                      ^^^ storage.modifier.access
+;                          ^ constant.numeric.access
+;                            ^^^^ storage.type
+;                                 ^^^ storage.modifier.unit
+;                                     ^ constant.numeric.unit
+;                                       ^^^ storage.modifier.limit
+;                                           ^^^^^^ constant.numeric.limit
+;                                                  ^^^ storage.modifier.limit
+;                                                      ^^^^^^ constant.numeric.limit
+;                                                             ^^^ variable.other
+;                                                                ^ punctuation.definition.array.begin
+;                                                                 ^^^ meta.definition.array
+;                                                                 ^ constant.numeric
+;                                                                  ^ punctuation.definition.array.seperator
+;                                                                   ^ constant.numeric
+;                                                                    ^ punctuation.definition.array.end
+;                                                                      ^ keyword.operator.assignment
+;                                                                        ^^^ support.function
+
+
+;  multiple definitions
+N10 DEF INT VAR=0, VAR2[10] = 20 , VAR3 = 40 ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
+;   ^^^ keyword.control.def
+;       ^^^ storage.type
+;           ^^^ variable.other
+;              ^ keyword.operator.assignment
+;               ^ constant.numeric
+;                  ^^^^ variable.other
+;                      ^ punctuation.definition.array.begin
+;                       ^^ constant.numeric
+;                         ^ punctuation.definition.array.end
+;                           ^ keyword.operator.assignment
+;                             ^^ constant.numeric
+;                                  ^^^^ variable.other
+;                                       ^ keyword.operator.assignment
+;                                         ^^ constant.numeric
+;                                            ^^^^ comment.line
+
+; illegal array definition
+N10 DEF INT VAR2[10][10] = 20 ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
+;   ^^^ keyword.control.def
+;       ^^^ storage.type
+;           ^^^^ variable.other
+;               ^ punctuation.definition.array.begin
+;                ^^ constant.numeric
+;                  ^ punctuation.definition.array.end
+;                   ^^^^ invalid.illegal
+;                        ^ keyword.operator.assignment
+;                          ^^ constant.numeric
+;                             ^^^^ comment.line

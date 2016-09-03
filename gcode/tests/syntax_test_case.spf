@@ -1,0 +1,131 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  CASE tests
+;  Performance: 0.3ms
+; ==================================================
+
+; keyword only
+CASE
+;   <- meta.control.case
+;   <- keyword.control.case
+
+; block number with keyword only
+N10 CASE
+;   ^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+
+; simple case statement with positiv decimal values
+N15 CASE _IDX OF 1 GOTO LBL1 2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;                ^ constant.numeric
+;                  ^^^^ keyword.control.goto
+;                       ^^^^ entity.name.tag.goto-label
+;                            ^ constant.numeric
+;                              ^^^^ keyword.control.goto
+;                                   ^^^^ entity.name.tag.goto-label
+;                                        ^^^^^^^ keyword.control.default
+;                                                ^^^^ keyword.control.goto
+;                                                     ^^^^ entity.name.tag.goto-label
+;                                                          ^^^^^^^^^ comment.line
+; simple case statement with negative decimal values
+N15 CASE _IDX OF-1 GOTO LBL1-2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;               ^^ constant.numeric
+;                  ^^^^ keyword.control.goto
+;                       ^^^^ entity.name.tag.goto-label
+;                           ^^ constant.numeric
+;                              ^^^^ keyword.control.goto
+;                                   ^^^^ entity.name.tag.goto-label
+;                                        ^^^^^^^ keyword.control.default
+;                                                ^^^^ keyword.control.goto
+;                                                     ^^^^ entity.name.tag.goto-label
+;                                                          ^^^^^^^^^ comment.line
+; simple case statement with hexadecimal values
+N15 CASE _IDX OF'HC' GOTO LBL1 'HA' GOTO LBL2 DEFAULT GOTO LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;               ^^^^ constant.numeric
+;                    ^^^^ keyword.control.goto
+;                         ^^^^ entity.name.tag.goto-label
+;                              ^^^^ constant.numeric
+;                                   ^^^^ keyword.control.goto
+;                                        ^^^^ entity.name.tag.goto-label
+;                                             ^^^^^^^ keyword.control.default
+;                                                     ^^^^ keyword.control.goto
+;                                                          ^^^^ entity.name.tag.goto-label
+;                                                               ^^^^^^^^^ comment.line
+; simple case statement with binary values
+N15 CASE _IDX OF'B0' GOTO LBL1 'B1' GOTO LBL2 DEFAULT GOTO LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;               ^^^^ constant.numeric
+;                    ^^^^ keyword.control.goto
+;                         ^^^^ entity.name.tag.goto-label
+;                              ^^^^ constant.numeric
+;                                   ^^^^ keyword.control.goto
+;                                        ^^^^ entity.name.tag.goto-label
+;                                             ^^^^^^^ keyword.control.default
+;                                                     ^^^^ keyword.control.goto
+;                                                          ^^^^ entity.name.tag.goto-label
+;                                                               ^^^^^^^^^ comment.line
+; case statement with macros/variables
+; REMARK: might be possible, but I never saw something like that being used
+N15 CASE _IDX OF ID1 GOTO LBL1 ID2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;                ^^^ entity.name.macro
+;                    ^^^^ keyword.control.goto
+;                         ^^^^ entity.name.tag.goto-label
+;                              ^^^ entity.name.macro
+;                                  ^^^^ keyword.control.goto
+;                                       ^^^^ entity.name.tag.goto-label
+;                                            ^^^^^^^ keyword.control.default
+;                                                    ^^^^ keyword.control.goto
+;                                                         ^^^^ entity.name.tag.goto-label
+;                                                              ^^^^^^^^^ comment.line
+
+; invalid 'OF' usage
+N15 CASE _IDX OF 1 GOTO LBL1 OF 2 GOTO LBL2 OF DEFAULT GOTO LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;                ^ constant.numeric
+;                  ^^^^ keyword.control.goto
+;                       ^^^^ entity.name.tag.goto-label
+;                            ^^ invalid.illegal
+;                               ^ constant.numeric
+;                                 ^^^^ keyword.control.goto
+;                                      ^^^^ entity.name.tag.goto-label
+;                                           ^^ invalid.illegal
+;                                              ^^^^^^^ keyword.control.default
+;                                                      ^^^^ keyword.control.goto
+;                                                           ^^^^ entity.name.tag.goto-label
+;                                                                ^^^^^^^^^ comment.line
+
+; missing GOTO
+N15 CASE _IDX OF 1 LBL1 2 LBL2 DEFAULT LBLD ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ keyword.control.case
+;        ^^^^ variable.other
+;             ^^ keyword.control.of
+;                ^ constant.numeric
+;                  ^^^^ invalid.illegal
+;                       ^ constant.numeric
+;                         ^^^^ invalid.illegal
+;                              ^^^^^^^ keyword.control.default
+;                                      ^^^^ invalid.illegal
+;                                           ^^^^^^^^^ comment.line

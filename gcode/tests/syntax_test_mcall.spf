@@ -1,0 +1,39 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  MCALL tests
+;  Performance: 0.5ms
+; ==================================================
+
+; modal cycle call
+N100 MCALL L350
+;    ^^^^^^^^^^ meta.modal-call
+;    ^^^^^ keyword.control.mcall
+;          ^^^^ support.function
+
+; modal cycle call with complex parameters
+N110 MCALL L350(10,20,ABS(R4))
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.modal-call
+;    ^^^^^ keyword.control.mcall
+;          ^^^^ support.function
+;              ^ punctuation.arguments.begin
+;               ^^ constant.numeric
+;                 ^ punctuation.arguments.seperator
+;                  ^^ constant.numeric
+;                    ^ punctuation.arguments.seperator
+;                     ^^^ support.function
+;                        ^ punctuation.arguments.begin
+;                         ^^ support.variable.nck.r
+;                           ^^ punctuation.arguments.end
+
+; missing cycle name
+N120 MCALL (10,20,30,50)
+;    ^^^^^^^^^^^^^^^^^^^ meta.modal-call
+;    ^^^^^ keyword.control.mcall
+
+; too many cycle names
+N120 MCALL L300 INV(10,20,30,50)
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.modal-call
+;    ^^^^^ keyword.control.mcall
+;          ^^^^ support.function
+;               ^^^ invalid.illegal

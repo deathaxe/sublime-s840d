@@ -1,0 +1,318 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  ASSIGNMENT tests
+;  Performance: 0.8 - 1.4 ms
+; ==================================================
+
+; constant value assignment
+_RESULT=10
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^^ constant.numeric
+_RESULT=10.
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^^^ constant.numeric
+_RESULT=10.50
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^^^^^ constant.numeric
+_RESULT=+10.50
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^^^^^ constant.numeric
+_RESULT=.50
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^^^ constant.numeric
+_RESULT=+.50
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^^^ constant.numeric
+_RESULT=+.50EX2
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^^^^^^ constant.numeric
+_RESULT=-.50EX-2
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^^^^^^^ constant.numeric
+_RESULT = 10.50
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric
+;           ^ constant.numeric
+;            ^ constant.numeric
+_RESULT = +10
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;          ^ constant.numeric
+_RESULT = .50
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric
+;          ^ constant.numeric
+_RESULT=-10.50
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^ constant.numeric
+;          ^ constant.numeric
+;           ^ constant.numeric
+_RESULT=-.50
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^ constant.numeric
+;         ^ constant.numeric
+_RESULT = -10.50
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;          ^ constant.numeric
+;            ^ constant.numeric
+;             ^ constant.numeric
+_RESULT = -.50
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;          ^ constant.numeric
+;           ^ constant.numeric
+
+; valid axis name assignment
+_AXIS=X1
+;  ^ variable.other
+;    ^ keyword.operator.assignment
+;     ^^ support.variable.axis
+_AXIS = X1
+;  ^ variable.other
+;     ^ keyword.operator.assignment
+;       ^^ support.variable.axis
+; valid axis name assignment
+_AXIS=XC
+;  ^ variable.other
+;    ^ keyword.operator.assignment
+;     ^^ support.variable.axis
+_AXIS = XC
+;  ^ variable.other
+;     ^ keyword.operator.assignment
+;       ^^ support.variable.axis
+_AXIS=AX1
+;  ^ variable.other
+;    ^ keyword.operator.assignment
+;     ^^ support.variable.axis
+_AXIS = AX1
+;  ^ variable.other
+;     ^ keyword.operator.assignment
+;       ^^ support.variable.axis
+
+; valid locale variable assignment
+_RESULT=-_VALUE
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^ variable.other
+_RESULT = -_VALUE
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;          ^ variable.other
+_RESULT = - _VALUE
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;           ^ variable.other
+
+; valid nc variable assignment
+_RESULT=-$AC_CTOL
+;  ^ variable.other
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric.sign
+;        ^^^^^^^^ support.variable.nck
+_RESULT = -$AC_CTOL
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;          ^^^^^^^^ support.variable.nck
+_RESULT = - $AC_CTOL
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;           ^^^^^^^^ support.variable.nck
+
+; valid string chain assignment
+_STR="String 1"<<"String 2"
+;   ^ keyword.operator.assignment
+;    ^ string.quoted.double
+;              ^ keyword.operator.assignment
+;                ^ string.quoted.double
+_STR = "String 1" << "String 2"
+;    ^ keyword.operator.assignment
+;      ^ string.quoted.double
+;                 ^ keyword.operator.assignment
+;                    ^ string.quoted.double
+_STR=<<$C_T<<"String 2"
+;   ^ keyword.operator.assignment
+;      ^ support.variable.nck
+;          ^ keyword.operator.assignment
+;            ^ string.quoted.double
+_STR = << $C_T << "String 2"
+;    ^ keyword.operator.assignment
+;      ^ keyword.operator.assignment
+;         ^ support.variable.nck
+;              ^ keyword.operator.assignment
+;                 ^ string.quoted.double
+_STR=<<-$C_T<<"String 2"<< - -$C_M_PROG
+;   ^ keyword.operator.assignment
+;      ^ constant.numeric.sign
+;       ^ support.variable.nck
+;           ^ keyword.operator.assignment
+;             ^ string.quoted.double
+;                          ^ constant.numeric.sign
+;                            ^ invalid.illegal
+;                              ^ support.variable.nck
+_STR = << -$C_T << - "String 2"
+;    ^ keyword.operator.assignment
+;      ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;          ^ support.variable.nck
+;               ^ keyword.operator.assignment
+;                  ^ invalid.illegal
+;                    ^ string.quoted.double
+
+; invalid string chain assignment
+_STR=-"String 1"<<<<"String 2"
+;   ^ keyword.operator.assignment
+;    ^ invalid.illegal
+;     ^ string.quoted.double
+;               ^ keyword.operator.assignment
+;                 ^ invalid.illegal
+;                  ^ invalid.illegal
+;                   ^ string.quoted.double
+_STR = -"String 1" <<<< "String 2"
+;    ^ keyword.operator.assignment
+;      ^ invalid.illegal
+;       ^ string.quoted.double
+;                  ^ keyword.operator.assignment
+;                    ^ invalid.illegal
+;                     ^ invalid.illegal
+;                       ^ string.quoted.double
+
+; valid operators
+_RESULT=10.5+20.1*5/10-20.5
+;      ^ keyword.operator.assignment
+;           ^ keyword.operator.arithmetic
+;                ^ keyword.operator.arithmetic
+;                  ^ keyword.operator.arithmetic
+;                     ^ keyword.operator.arithmetic
+_RESULT = 10.5 + 20.1 * 5 / 10 - 20.5
+;       ^ keyword.operator.assignment
+;              ^ keyword.operator.arithmetic
+;                     ^ keyword.operator.arithmetic
+;                         ^ keyword.operator.arithmetic
+;                              ^ keyword.operator.arithmetic
+_RESULT = (2340 DIV 10) MOD 5 + R4 * DATA
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;          ^ constant.numeric
+;               ^ keyword.operator.arithmetic
+;                   ^ constant.numeric
+;                       ^ keyword.operator.arithmetic
+;                           ^ constant.numeric
+;                               ^ support.variable.r
+;                                    ^ variable.other
+
+; invalid double operators
+_RESULT = 10.5 ++ 20.1 ** 5 // 10 -- 20.5
+;       ^ keyword.operator.assignment
+;              ^ keyword.operator.arithmetic
+;               ^ invalid.illegal
+;                      ^ keyword.operator.arithmetic
+;                       ^ invalid.illegal
+;                           ^ keyword.operator.arithmetic
+;                            ^ invalid.illegal
+;                                 ^ keyword.operator.arithmetic
+;                                  ^ invalid.illegal
+_RESULT = 10.5 + + 20.1 * * 5 / / 10 - - 20.5
+;       ^ keyword.operator.assignment
+;              ^ keyword.operator.arithmetic
+;                ^ invalid.illegal
+;                       ^ keyword.operator.arithmetic
+;                         ^ invalid.illegal
+;                             ^ keyword.operator.arithmetic
+;                               ^ invalid.illegal
+;                                    ^ keyword.operator.arithmetic
+;                                      ^ invalid.illegal
+
+; valid negative value aritmetic
+_RESULT = 10 > -_DATA
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;            ^ keyword.operator.relational
+;              ^ constant.numeric.sign
+;               ^ variable.other
+_RESULT = 10 == - _DATA - 4
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric
+;            ^ keyword.operator.relational
+;               ^ constant.numeric.sign
+;                 ^ variable.other
+;                       ^ keyword.operator.arithmetic
+;                         ^ constant.numeric
+_RESULT = (-10.5) + ( -20.1 ) * (- 5) / (-R4) - (-$AC_CTOL-4)
+;       ^ keyword.operator.assignment
+;          ^ constant.numeric.sign
+;                 ^ keyword.operator.arithmetic
+;                     ^ constant.numeric.sign
+;                             ^ keyword.operator.arithmetic
+;                                ^ constant.numeric.sign
+;                                     ^ keyword.operator.arithmetic
+;                                        ^ constant.numeric.sign
+;                                             ^ keyword.operator.arithmetic
+;                                                ^ constant.numeric.sign
+;                                                         ^ keyword.operator.arithmetic
+;                                                          ^ constant.numeric
+
+; invalid negative value arithmetic
+_RESULT = -10.5 + -20.1 * - 5 / -R4 - -($AC_CTOL-4)
+;       ^ keyword.operator.assignment
+;         ^ constant.numeric.sign
+;               ^ keyword.operator.arithmetic
+;                 ^ invalid.illegal
+;                       ^ keyword.operator.arithmetic
+;                         ^ invalid.illegal
+;                             ^ keyword.operator.arithmetic
+;                               ^ invalid.illegal
+;                                   ^ keyword.operator.arithmetic
+;                                     ^ invalid.illegal
+;                                               ^ keyword.operator.arithmetic
+;                                                ^ constant.numeric
+
+; invalid double literal operators
+_RESULT = 'H10' B_AND B_OR NOT DATA
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;          ^ constant.numeric
+;               ^ keyword.operator.binary
+;                     ^ invalid.illegal
+;                          ^ keyword.operator.boolean
+;                              ^ variable.other
+
+; valid frame chaining
+$P_UIFR[1]=CTRANS(X,-37.8,Y,25.16):CROT(X,0,Y,0,Z,0)
+;          ^ support.function
+;                ^ punctuation.arguments.begin
+;                 ^ support.variable.axis
+;                  ^ punctuation.arguments.seperator
+;                   ^ constant.numeric.sign
+;                    ^ constant.numeric
+;                                ^ punctuation.arguments.end
+;                                 ^ keyword.operator.assignment
+;                                  ^ support.function

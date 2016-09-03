@@ -1,0 +1,130 @@
+;  SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  SYNCHRONIZED ACTION tests
+;  Performance: 0.4ms
+; ==================================================
+
+; simplest example
+N1 DO G0 F=$MN_USER_DATA_HEX[12 + R1] X10 Y20
+;  ^ keyword.control.synact.operation
+;     ^ support.function
+;        ^ support.variable
+;         ^ keyword.operator.assignment
+;          ^ punctuation.variable.nck
+;           ^^ support.variable.nck.machdata
+;                                     ^ support.variable
+;                                      ^^ constant.numeric
+;                                         ^ support.variable
+;                                          ^^ constant.numeric
+
+; constant condition
+N2 WHEN TRUE DO M5=10
+;  ^^^^ keyword.control.synact.condition
+;       ^^^^ constant.boolean
+;            ^^ keyword.control.synact.operation
+;               ^^ support.function
+;                 ^ keyword.operator.assignment
+;                  ^^ constant.numeric
+
+; variable condition
+N3 WHEN _VAR DO M5=10
+;  ^^^^ keyword.control.synact.condition
+;       ^^^^ variable.other
+;            ^^ keyword.control.synact.operation
+;               ^^ support.function
+;                 ^ keyword.operator.assignment
+;                  ^^ constant.numeric
+N4 WHEN _VAR==TRUE DO M5=10
+;  ^^^^ keyword.control.synact.condition
+;       ^^^^ variable.other
+;           ^^ keyword.operator.relational
+;             ^^^^ constant.boolean
+;                  ^^ keyword.control.synact.operation
+;                     ^^ support.function
+;                       ^ keyword.operator.assignment
+;                        ^^ constant.numeric
+
+; condition expression and operation statement
+N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
+;  ^^^^^^^^ keyword.control.synact.condition
+;           ^^^ support.function
+;              ^ punctuation.arguments.begin
+;               ^^ support.variable.nck.r
+;                 ^ punctuation.arguments.end
+;                  ^^ keyword.operator.relational
+;                    ^^ constant.numeric
+;                       ^^ keyword.control.synact.operation
+;                          ^^ support.function
+;                            ^ keyword.operator.assignment
+;                             ^^^^ support.function
+;                                 ^ punctuation.arguments.begin
+;                                     ^ punctuation.arguments.end
+
+; modal synact.ronous positioning call
+N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
+;  ^^ keyword.control.synact.identifier
+;    ^ keyword.operator.assignment
+;     ^ constant.numeric
+;       ^^^^^ keyword.control.synact.condition
+;             ^ punctuation.variable.nck
+;              ^^^^^ support.variable.nck
+;                   ^ punctuation.index.begin
+;                    ^ constant.numeric
+;                     ^ punctuation.index.end
+;                      ^^ keyword.operator.relational
+;                        ^ constant.numeric
+;                          ^^ keyword.control.synact.operation
+;                             ^^^ support.variable
+;                                ^ punctuation.index.begin
+;                                 ^^ support.variable.axis
+;                                   ^ punctuation.index.end
+;                                    ^ keyword.operator.assignment
+
+; modal synact.ronous function without condition
+N7 IDS=1 DO POS[Q1]=13
+;     ^ keyword.operator.assignment
+;      ^ constant.numeric
+;        ^ keyword.control.synact.operation
+;           ^ support.variable
+;                  ^ keyword.operator.assignment
+
+; no assignments in condition allowed
+N8 IDS==1 WHENEVER ABS(R1)=10 DO M5=SQRT(2)*$PI
+;  ^ keyword.control.synact.identifier
+;     ^ invalid.illegal
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric
+;         ^ keyword.control.synact.condition
+;                  ^ support.function
+;                         ^ invalid.illegal
+;                             ^ keyword.control.synact.operation
+;                                ^ support.function
+;                                  ^ keyword.operator.assignment
+;                                   ^ support.function
+
+; do some tests to ensure editing is not disturbed by
+; unassassary invalid.illegal
+N9 IDS
+;  ^ keyword.control.synact.identifier
+N10 IDS=
+;   ^ keyword.control.synact.identifier
+;      ^ keyword.operator.assignment
+N11 IDS=
+;   ^ keyword.control.synact.identifier
+;      ^ keyword.operator.assignment
+N12 IDS=10
+;   ^ keyword.control.synact.identifier
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric
+N13 IDS=10 DO
+;   ^ keyword.control.synact.identifier
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric
+;          ^ keyword.control.synact.operation
+N14 IDS=10 WHENEVER DO G0 X0 M3 F2000 ; comment
+;   ^ keyword.control.synact.identifier
+;      ^ keyword.operator.assignment
+;       ^ constant.numeric
+;          ^ keyword.control.synact.condition
+;                   ^ keyword.control.synact.operation

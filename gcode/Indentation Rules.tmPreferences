@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>S840D: Indention Rules</string>
+	<key>scope</key>
+	<string>source.s840d_gcode</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string>^\s*\b(?i:END(?:IF|FOR|LOOP|WHILE)|UNTIL|ELSE)\b</string>
+		<key>increaseIndentPattern</key>
+		<string>^\s*\b(?i:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT|WHILE|ELSE)\b</string>
+		<key>unIndentedLinePattern</key>
+		<string>^\s*(\w+:.*)?$</string>
+	</dict>
+</dict>
+</plist>

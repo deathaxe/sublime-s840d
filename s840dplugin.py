@@ -181,7 +181,7 @@ class S840dBeautifyCommand(S840dTextCommand):
       block_no += ' ' * (1 + max(0, self.bln_size - col))
       text = text[col+1:].lstrip()
     else:
-      block_no = ' ' * (self.bln_size + 1)
+      block_no = ' ' * self.bln_size
 
     # goto label
     label = ''

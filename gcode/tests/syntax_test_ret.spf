@@ -1,0 +1,26 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  RET STATEMENTS
+;  Performance: 0.3ms
+; ==================================================
+
+RET
+; <- meta.control.ret
+; <- keyword.control.ret
+
+N10RET
+;  ^^^ meta.control.ret
+;  ^^^ keyword.control.ret
+
+N10 RET
+;   ^^^ meta.control.ret
+;   ^^^ keyword.control.ret
+
+; Rücksprung ins Hauptprogramm zu Label END
+N10RET("END",0,$P_STACK,FALSE)
+;  ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.ret
+;      ^^^^^^^^^^^^^^^^^^^^^^ meta.arguments
+;  ^^^ keyword.control.ret
+;     ^ punctuation.arguments.begin
+;                            ^ punctuation.arguments.end

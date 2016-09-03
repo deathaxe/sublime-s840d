@@ -1,0 +1,168 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  CALL tests
+;  Performance: 0.5ms
+; ==================================================
+
+CALL
+;   <- meta.control.call
+;   <- keyword.control.call
+
+N10 CALL
+;   ^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+
+; function name provided as string variable
+N15 CALL _PNAME
+;   ^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^^^^^^ variable.other
+
+; function name provided as string
+N20 CALL "/_N_CUS_DIR/_N_L320_SPF"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ punctuation.definition.string.begin
+;         ^ string.quoted.double
+;                                ^ punctuation.definition.string.end
+
+; indirect dynamic function call
+N25 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ punctuation.definition.string.begin
+;         ^^^^^^^^^^^^^ string.quoted.double
+;                      ^ punctuation.definition.string.end
+;                        ^^ keyword.operator.assignment
+;                           ^^^ support.function
+;                              ^ punctuation.arguments.begin
+;                               ^^^^ variable.other
+;                                   ^ punctuation.arguments.end
+;                                     ^^ keyword.operator.assignment
+;                                        ^ punctuation.definition.string.begin
+;                                         ^^^^ string.quoted.double
+;                                             ^ punctuation.definition.string.end
+
+N30 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK "N100" TO "N200"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ punctuation.definition.string.begin
+;        ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+;                                ^ punctuation.definition.string.end
+;                                  ^^^^^ keyword.control.block
+;                                        ^ punctuation.definition.string.begin
+;                                        ^^^^^^ string.quoted.double
+;                                             ^ punctuation.definition.string.end
+;                                               ^^ keyword.control.to
+;                                                  ^ punctuation.definition.string.begin
+;                                                  ^^^^^^ string.quoted.double
+;                                                       ^ punctuation.definition.string.end
+
+N35 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK _STARTBLK TO _ENDBLK
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ punctuation.definition.string.begin
+;         ^ string.quoted.double
+;                                ^ punctuation.definition.string.end
+;                                  ^^^^^ keyword.control.block
+;                                        ^ variable.other
+;                                                  ^^ keyword.control.to
+;                                                     ^ variable.other
+
+; call statically defined blocks within the current cycle
+N40 CALL BLOCK "N100" TO "N200"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^^^^^ keyword.control.block
+;               ^ string.quoted.double
+;                     ^^ keyword.control.to
+;                         ^ string.quoted.double
+
+; call dynamically defined blocks within the current cycle
+N45 CALL BLOCK _STARTBLK TO _ENDBLK
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^^^^^ keyword.control.block
+;              ^ variable.other
+;                        ^^ keyword.control.to
+;                           ^ variable.other
+
+; call statically defined blocks in a dynamically cefined cycle
+N50 CALL _CYCLE BLOCK "N100" TO "N200"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ variable.other
+;               ^^^^^ keyword.control.block
+;                      ^ string.quoted.double
+;                            ^^ keyword.control.to
+;                                ^ string.quoted.double
+
+; call dynamically defined blocks in a dynamically cefined cycle
+N55 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ variable.other
+;               ^^^^^ keyword.control.block
+;                     ^ variable.other
+;                               ^^ keyword.control.to
+;                                  ^ variable.other
+
+; call dynamically defined blocks in a dynamically cefined cycle
+N60 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ variable.other
+;               ^^^^^ keyword.control.block
+;                     ^ variable.other
+;                               ^^ keyword.control.to
+;                                    ^ string.quoted.double
+;                                      ^ keyword.operator.assignment
+;                                        ^ variable.other
+
+N65 CALL $P_INCOAP_S160[_S160NFWFC] BLOCK $P_INCOAP_S32[_S32SFC] TO $P_INCOAP_S32[_S32EFC]
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^ punctuation.variable.nck
+;         ^^^^^^^^^^^^^ support.variable.nck
+;                      ^ punctuation.index.begin
+;                       ^^^^^^^^^^ variable.other
+;                                 ^ punctuation.index.end
+
+; invalid cycle and block identifiers
+N65 CALL L350 BLOCK N20 TO "N"<<50
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
+;   ^^^^ keyword.control.call
+;        ^^^^ support.function
+;             ^^^^^ keyword.control.block
+;                   ^^^ invalid.illegal
+;                       ^^ keyword.control.to
+;                           ^ string.quoted.double
+;                             ^^ keyword.operator.assignment
+;                               ^^ constant.numeric
+
+; path call with unquoted string as path identifier
+N100 PCALL /_N_MPF_DIR/WELLE(ARG1,20,TRUE)
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.path-call
+;    ^^^^^ keyword.control.pcall
+;          ^^^^^^^^^^^^^^^^^ string.unquoted
+;                           ^ punctuation.arguments.begin
+;                            ^^^^ variable.other
+;                                ^ punctuation.arguments.seperator
+;                                 ^^ constant.numeric
+;                                   ^ punctuation.arguments.seperator
+;                                    ^^^^ constant.boolean
+;                                        ^ punctuation.arguments.end
+
+; path call with variable as path identifier
+N100 PCALL PATHTOPROG(ARG1,20,TRUE)
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.path-call
+;    ^^^^^ keyword.control.pcall
+;          ^^^^^^^^^^ support.function
+;                    ^ punctuation.arguments.begin
+;                     ^^^^ variable.other
+;                         ^ punctuation.arguments.seperator
+;                          ^^ constant.numeric
+;                            ^ punctuation.arguments.seperator
+;                             ^^^^ constant.boolean
+;                                 ^ punctuation.arguments.end
