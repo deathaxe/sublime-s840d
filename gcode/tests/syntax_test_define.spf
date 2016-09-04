@@ -1,0 +1,39 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  DEFINITIONS tests
+;  Performance: 0.2ms
+; ==================================================
+
+DEFINE ; comment
+;    <- meta.definition.macro
+;    <- keyword.control.define
+;      ^ comment.line
+N10DEFINE ; comment
+;  ^^^^^^ meta.definition.macro
+;  ^^^^^^ keyword.control.define
+;         ^ comment.line
+N10 DEFINE ; comment
+;   ^^^^^^ meta.definition.macro
+;   ^^^^^^ keyword.control.define
+;          ^ comment.line
+N10 DEFINE name AS $MN_USER_DATA_HEX[10] ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro
+;                 ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^ keyword.control.as
+;                   ^^^^^^^^^^^^^^^^ support.variable.nck.machdata
+;                                        ^ comment.line
+N10 DEFINE name AS GORAP X0 Y0 ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro
+;                 ^^^^^^^^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^ keyword.control.as
+;                  ^^^^^ support.function.iso
+;                        ^ support.variable.iso.pos
+;                         ^ constant.numeric
+;                           ^ support.variable.iso.pos
+;                            ^ constant.numeric
+;                              ^ comment.line

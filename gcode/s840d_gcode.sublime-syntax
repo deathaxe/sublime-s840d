@@ -128,27 +128,27 @@ contexts:
 
   stmt-proc:
     - match: (?i:PROC)\b
-      scope: keyword.control.proc.s840d_gcode
+      scope: meta.definition.procedure.s840d_gcode keyword.control.proc.s840d_gcode
       set: stmt-proc-name
 
   stmt-proc-name:
-    - meta_scope: meta.definition.function.s840d_gcode
+    - meta_content_scope: meta.definition.procedure.name.s840d_gcode
     - match: 'L\d+\b|{{ident}}'
-      scope: entity.name.function.s840d_gcode
-      push: stmt-proc-parameters
+      scope: entity.name.procedure.s840d_gcode
+      set: stmt-proc-parameters
     - include: line-end-or-illegal
 
   stmt-proc-parameters:
+    - meta_content_scope: meta.definition.procedure.name.s840d_gcode
     - match: \(
       scope: punctuation.definition.parameters.begin.s840d_gcode
       set: stmt-proc-parameters-body
-    - match: (?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b
-      scope: storage.modifier.s840d_gcode
+    - match: (?=(?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN]))
       set: stmt-proc-attribute
     - include: line-end-or-illegal
 
   stmt-proc-parameters-body:
-    - meta_scope: meta.definition.parameters.s840d_gcode
+    - meta_content_scope: meta.definition.procedure.parameters.s840d_gcode
     - match: \)
       scope: punctuation.definition.parameters.end.s840d_gcode
       set: stmt-proc-attribute
@@ -162,14 +162,14 @@ contexts:
     - include: line-end-or-illegal
 
   stmt-proc-attribute:
-    - meta_scope: meta.definition.attributes.s840d_gcode
+    - meta_content_scope: meta.definition.procedure.attributes.s840d_gcode
     - match: (?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b
       scope: storage.modifier.s840d_gcode
     - include: line-end-or-illegal
 
 ###############################################################################
 # MACRO DEFINITION
-# TESTS:
+# TESTS: syntax_test_define.spf
 ###############################################################################
 
   stmt-define:
@@ -180,9 +180,12 @@ contexts:
         - match: '{{macro}}'
           scope: entity.name.macro.s840d_gcode
           set:
+            - meta_content_scope: meta.definition.macro.s840d_gcode
             - match: (?i:AS)\b
               scope: keyword.control.as.s840d_gcode
-              set: stmt-iso-body
+              set:
+                - meta_content_scope: meta.definition.macro.action.s840d_gcode
+                - include: stmt-iso-body
             - include: line-end-or-illegal
         - include: line-end-or-illegal
 
@@ -474,7 +477,7 @@ contexts:
 
   iso-cycle:
     - match: L\d+\b
-      scope: support.function.iso.cycle.s840d_gcode
+      scope: entity.name.procedure.s840d_gcode
       push: function-call-arguments
 
   iso-gcode:
@@ -564,7 +567,7 @@ contexts:
     # SINUMERIK command with ISO style parameters
     #   e.g.: TRANS X0 Y0.4
     - match: (?:A(?:CTBLOCNO|MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|XTOCHAN)|B(?:AUTO|LSYNC|NAT|RISK|SPLINE|TAN)|C(?:DO[FN]|F(?:C|I(?:N|NE)|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|R(?:OTS|PL)|SPLINE|UT(?:2(?:D|DF)|3D(?:[CF]|C(?:C|CD)|F[FS])|CONO[FN]))|D(?:EL(?:AYFSTO[FN]|DTG)|I(?:AM(?:90|C(?:HAN|YCOF)|O[FN])|S(?:C|PLO[FN]))|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|GO(?:N|NSY(?:N|NE))|NAT|TAN|XTERN)|F(?:CUB|[DL]|DA|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TO(?:C|CO[FN]))|G(?:ORAP|P|WPSO[FN])|I(?:CYCO[FN]|NVC(?:CW|W)|PTR(?:LOCK|UNLOCK))|KON(?:T|T[CT])|L(?:F(?:O[FN]|TXT|WP)|I(?:FTFAST|MS)|ONGHOLE)|M(?:EA(?:FRAME|SURE)|IRROR)|N(?:EWCONF|ORM)|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CDS]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CPST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS|SRANGE)|R(?:E(?:PRO|SETON)|OTA)|T(?:P|PG0))|QECLRNOF|R(?:DISABLE|EPOS(?:[AHLQ]|QA)|M[BEIN]|O(?:T|TS)|POSHA|TLIO[FN])|S(?:AVE|BLO[FN]|C(?:ALE|C)|ETTCOR|LOT[12]|O(?:FT|N|NS)|P(?:ATH|CO[FN]|IF[12]|LINEPATH|[NP]|OF)|T(?:ARTFIFO|OP(?:FIFO|R(?:E|EOF)))|UPA|VC|YNFCT)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OLENV|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|NS))|UPATH|W(?:AL(?:CS(?:[0-9]|10)|IMO[FN])|RTPTR))\b
-      scope: support.function.command.s840d_gcode
+      scope: support.function.iso.s840d_gcode
       push:
         # some compatibility hacks to avoid invalid illegals
         - include: function-call-arguments # some commands may be functions
@@ -638,7 +641,7 @@ contexts:
         - include: illegal-keywords
         - include: comment
         - match: '\S+'
-          scope: support.function.procedure.s840d_gcode
+          scope: entity.name.procedure.s840d_gcode
           pop: true
 
 ###############################################################################
@@ -653,7 +656,7 @@ contexts:
       set:
         - meta_scope: meta.control.repeatb.s840d_gcode
         - match: '\b{{label}}\b'
-          scope: entity.name.label.s840d_gcode
+          scope: entity.name.tag.label.s840d_gcode
           set:
             - meta_content_scope: meta.control.repeatb.s840d_gcode
             - include: iso-repeat-count
@@ -667,7 +670,7 @@ contexts:
         - meta_scope: meta.control.repeat.s840d_gcode
         # begin label and optional end label
         - match: '\b{{label}}\b(\s+{{label}}\b)?'
-          scope: entity.name.label.s840d_gcode
+          scope: entity.name.tag.label.s840d_gcode
           set:
             - meta_content_scope: meta.control.repeat.s840d_gcode
             - include: iso-repeat-count
@@ -1045,9 +1048,14 @@ contexts:
 ###############################################################################
 
   function-call:
+    # known NC functions
+    - match: (?:A(?:BS|C|C(?:[NP]|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:C(?:DAT|POSI)|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|O(?:NT(?:DCON|PRON)|RROF|S|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|ROT|SCALE|T(?:A(?:B|B(?:DEL|EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|RANS))|D(?:AC|C|EL(?:DL|ETE|M(?:L(?:OWNER|RES)|T)|OBJ|T|T(?:C|OOLENV))|I(?:C|SABLE)|RIVEA)|E(?:G(?:DE[FL]|OF[CS])|NABLE|X(?:EC(?:STRING|TAB|UTE)|P|TCALL))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN]))|GE(?:OAX|T|T(?:ACT(?:T|TD)|[DT]|DNO|EXET|FREELOC|SELT|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|HOLES[12]|I(?:C|N(?:DEX|IT|T(?:ERSEC|TOAX)|VFRAME)|POBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|L(?:E(?:ADO[FN]|NTOAX)|FPOS|N|OCK)|M(?:A(?:SL(?:DE[FL]|O(?:[FN]|FS))|TCH|XVAL)|IN(?:DEX|VAL)|MC|ODAXVAL|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|PRO(?:T|TDEF)|UMBER)|P(?:[MR]|O(?:CKET[34]|L(?:FM(?:ASK|LIN)|YPATH)|S(?:M|MT)|T)|ROTS|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRNON|U)|R(?:AC|E(?:AD|LEASE|P|SE(?:T|TMON))|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T|T(?:AL|DNO|INT|M|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|P(?:I|RINT)|QRT|T(?:ART|R(?:INGIS|LEN))|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|UNLOCK|W(?:AIT(?:[CEMPS]|MC)|RITE))\b
+      scope: support.function.nck.s840d_gcode
+      push: function-call-arguments
+    # unknown function is handled as subprogram (SPF)
     - match: '({{ident}})\s*(\()'
       captures:
-        1: support.function.s840d_gcode
+        1: entity.name.procedure.s840d_gcode
         2: punctuation.arguments.begin.s840d_gcode
       push: function-call-arguments-body
 
