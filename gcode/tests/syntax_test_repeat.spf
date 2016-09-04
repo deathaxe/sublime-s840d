@@ -10,7 +10,7 @@ N10REPEAT _LBL ; comment
 ;  ^^^^^^^^^^^ meta.control.repeat
 ; <- comment.blockno
 ;  ^^^^^^ keyword.control.repeat
-;         ^^^^ entity.name.label
+;         ^^^^ entity.name.tag.repeat-label
 ;              ^^^^^^^^^ comment.line
 
 ; repeat one block 10 times
@@ -18,7 +18,7 @@ N10 REPEAT _LBL P=10 ; comment
 ;   ^^^^^^^^^^^^^^^^ meta.control.repeat
 ;  <- comment.blockno
 ;   ^^^^^^ keyword.control.repeat
-;          ^^^^ entity.name.label
+;          ^^^^ entity.name.tag.repeat-label
 ;               ^ support.variable
 ;                ^ keyword.operator.assignment
 ;                 ^^ constant.numeric
@@ -29,8 +29,8 @@ N10 REPEAT _LBL1 _LBL2 ; comment
 ;   ^^^^^^^^^^^^^^^^^^ meta.control.repeat
 ;  <- comment.blockno
 ;   ^^^^^^ keyword.control.repeat
-;          ^^^^^ entity.name.label
-;                ^^^^^ entity.name.label
+;          ^^^^^ entity.name.tag.repeat-label
+;                ^^^^^ entity.name.tag.repeat-label
 ;                      ^^^^^^^^^ comment.line
 
 ; repeat everything from _LBL1 to _LBL2 10 times
@@ -38,8 +38,8 @@ N10 REPEAT _LBL1 _LBL2 P = 10 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
 ;  <- comment.blockno
 ;   ^^^^^^ keyword.control.repeat
-;          ^^^^^ entity.name.label
-;                ^^^^^ entity.name.label
+;          ^^^^^ entity.name.tag.repeat-label
+;                ^^^^^ entity.name.tag.repeat-label
 ;                      ^ support.variable
 ;                        ^ keyword.operator.assignment
 ;                          ^^ constant.numeric
@@ -50,8 +50,8 @@ N10 REPEAT _LBL1 _LBL2 P=_VAR ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
 ;  <- comment.blockno
 ;   ^^^^^^ keyword.control.repeat
-;          ^^^^^ entity.name.label
-;                ^^^^^ entity.name.label
+;          ^^^^^ entity.name.tag.repeat-label
+;                ^^^^^ entity.name.tag.repeat-label
 ;                      ^ support.variable
 ;                       ^ keyword.operator.assignment
 ;                        ^^^^ variable.other
@@ -71,7 +71,7 @@ N10REPEAT P=10 _LBL1 ; invalid order
 ; <- comment.blockno
 ;  ^^^^^^ keyword.control.repeat
 ;         ^^^^ invalid.illegal
-;              ^^^^^ entity.name.label
+;              ^^^^^ entity.name.tag.repeat-label
 ;                    ^^^^^^^^^ comment.line
 
 ; invalid repeat count position
@@ -80,8 +80,8 @@ N10REPEAT P=10 _LBL1 _LBL2 ; invalid order
 ; <- comment.blockno
 ;  ^^^^^^ keyword.control.repeat
 ;         ^^^^ invalid.illegal
-;              ^^^^^ entity.name.label
-;                    ^^^^^ entity.name.label
+;              ^^^^^ entity.name.tag.repeat-label
+;                    ^^^^^ entity.name.tag.repeat-label
 ;                          ^^^^^^^^^ comment.line
 
 ; invalid label after repeat count
@@ -89,11 +89,11 @@ N10REPEAT _LBL1 P=10 _LBL2 ; invalid order
 ;  ^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeat
 ; <- comment.blockno
 ;  ^^^^^^ keyword.control.repeat
-;         ^^^^^ entity.name.label
+;         ^^^^^ entity.name.tag.repeat-label
 ;               ^ support.variable
 ;                ^ keyword.operator.assignment
 ;                 ^^ constant.numeric
-;                    ^^^^^ invalid.illegal
+;                    ^^^^^ variable.other
 ;                          ^^^^^^^^^ comment.line
 
 ; invalid repeat count
@@ -101,10 +101,10 @@ N10 REPEAT _LBL1 P=.10 ; comment
 ;   ^^^^^^^^^^^^^^^^^^ meta.control.repeat
 ;  <- comment.blockno
 ;   ^^^^^^ keyword.control.repeat
-;          ^^^^^ entity.name.label
+;          ^^^^^ entity.name.tag.repeat-label
 ;                ^ support.variable
 ;                 ^ keyword.operator.assignment
-;                  ^^^ invalid.illegal
+;                  ^^^ constant.numeric
 ;                      ^^^^^^^^^ comment.line
 
 ; invalid repeat count
@@ -112,10 +112,10 @@ N10 REPEAT _LBL1 P=1.0 ; comment
 ;   ^^^^^^^^^^^^^^^^^^ meta.control.repeat
 ;  <- comment.blockno
 ;   ^^^^^^ keyword.control.repeat
-;          ^^^^^ entity.name.label
+;          ^^^^^ entity.name.tag.repeat-label
 ;                ^ support.variable
 ;                 ^ keyword.operator.assignment
-;                  ^^^ invalid.illegal
+;                  ^^^ constant.numeric
 ;                      ^^^^^^^^^ comment.line
 
 ; repeat one block once
@@ -123,7 +123,7 @@ N10REPEATB _LBL ; comment
 ;  ^^^^^^^^^^^^ meta.control.repeatb
 ; <- comment.blockno
 ;  ^^^^^^^ keyword.control.repeatb
-;          ^^^^ entity.name.label
+;          ^^^^ entity.name.tag.repeat-label
 ;               ^^^^^^^^^ comment.line
 
 ; repeat one block 10 times
@@ -131,7 +131,7 @@ N10 REPEATB _LBL P=10 ; comment
 ;   ^^^^^^^^^^^^^^^^^ meta.control.repeatb
 ;  <- comment.blockno
 ;   ^^^^^^^ keyword.control.repeatb
-;           ^^^^ entity.name.label
+;           ^^^^ entity.name.tag.repeat-label
 ;                ^ support.variable
 ;                 ^ keyword.operator.assignment
 ;                  ^^ constant.numeric
@@ -142,7 +142,7 @@ N10 REPEATB _LBL1 _LBL2 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
 ;  <- comment.blockno
 ;   ^^^^^^^ keyword.control.repeatb
-;           ^^^^^ entity.name.label
+;           ^^^^^ entity.name.tag.repeat-label
 ;                 ^^^^^ invalid.illegal
 ;                       ^^^^^^^^^ comment.line
 
@@ -151,7 +151,7 @@ N10 REPEATB _LBL1 _LBL2 P = 10 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
 ;  <- comment.blockno
 ;   ^^^^^^^ keyword.control.repeatb
-;           ^^^^^ entity.name.label
+;           ^^^^^ entity.name.tag.repeat-label
 ;                 ^^^^^ invalid.illegal
 ;                       ^ support.variable
 ;                         ^ keyword.operator.assignment
@@ -164,7 +164,7 @@ N10REPEATB P=10 _LBL1 ; invalid order
 ; <- comment.blockno
 ;  ^^^^^^^ keyword.control.repeatb
 ;          ^^^^ invalid.illegal
-;               ^^^^^ entity.name.label
+;               ^^^^^ entity.name.tag.repeat-label
 ;                     ^^^^^^^^^ comment.line
 
 ; invalid repeat count position
@@ -173,7 +173,7 @@ N10REPEATB P=10 _LBL1 _LBL2 ; invalid order
 ; <- comment.blockno
 ;  ^^^^^^^ keyword.control.repeatb
 ;          ^^^^ invalid.illegal
-;               ^^^^^ entity.name.label
+;               ^^^^^ entity.name.tag.repeat-label
 ;                     ^^^^^ invalid.illegal
 ;                           ^^^^^^^^^ comment.line
 
@@ -182,7 +182,7 @@ N10 REPEATB _LBL1 P=.10 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
 ;  <- comment.blockno
 ;   ^^^^^^^ keyword.control.repeatb
-;           ^^^^^ entity.name.label
+;           ^^^^^ entity.name.tag.repeat-label
 ;                 ^ support.variable
 ;                  ^ keyword.operator.assignment
 ;                   ^^^ constant.numeric
@@ -193,7 +193,7 @@ N10 REPEATB _LBL1 P=1.0 ; comment
 ;   ^^^^^^^^^^^^^^^^^^ meta.control.repeatb
 ;  <- comment.blockno
 ;   ^^^^^^^ keyword.control.repeatb
-;           ^^^^^ entity.name.label
+;           ^^^^^ entity.name.tag.repeat-label
 ;                 ^ support.variable
 ;                  ^ keyword.operator.assignment
 ;                   ^^^ constant.numeric

@@ -655,8 +655,10 @@ contexts:
       scope: keyword.control.repeatb.s840d_gcode
       set:
         - meta_scope: meta.control.repeatb.s840d_gcode
-        - match: '\b{{label}}\b'
-          scope: entity.name.tag.label.s840d_gcode
+        - match: (\b{{label}}\b)\s*(\b{{label}}\b)?
+          captures:
+            1: entity.name.tag.repeat-label.s840d_gcode
+            2: invalid.illegal.tag.repeat-label.s840d_gcode
           set:
             - meta_content_scope: meta.control.repeatb.s840d_gcode
             - include: iso-repeat-count
@@ -669,8 +671,10 @@ contexts:
       set:
         - meta_scope: meta.control.repeat.s840d_gcode
         # begin label and optional end label
-        - match: '\b{{label}}\b(\s+{{label}}\b)?'
-          scope: entity.name.tag.label.s840d_gcode
+        - match: (\b{{label}}\b)\s*(\b{{label}}\b)?
+          captures:
+            1: entity.name.tag.repeat-label.begin.s840d_gcode
+            2: entity.name.tag.repeat-label.end.s840d_gcode
           set:
             - meta_content_scope: meta.control.repeat.s840d_gcode
             - include: iso-repeat-count
