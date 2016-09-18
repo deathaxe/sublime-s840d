@@ -53,8 +53,8 @@ N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 ;   ^ keyword.control.proc
 ;        ^ entity.name.procedure
 ;             ^ punctuation.definition.parameters.begin
-;              ^ storage.modifier
-;                  ^ storage.type
+;              ^^^ storage.modifier
+;                  ^^^^ storage.type
 ;                       ^^^^ variable.parameter
 ;                           ^ punctuation.definition.array.begin
 ;                              ^ punctuation.definition.array.end
@@ -62,6 +62,26 @@ N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 ;                                 ^ storage.modifier
 ;                                       ^ storage.modifier
 ;                                               ^ comment.line
+
+; valid procedure definition with parameters and attributes
+N40 PROC name (VAR REAL DATA = 10.0) SBLOF DISPLOF ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
+;       ^^^^^^^ meta.definition.procedure.name
+;              ^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;                                  ^^^^^^^^^^^^^^ meta.definition.procedure.attributes
+; <- comment.blockno
+;   ^ keyword.control.proc
+;        ^ entity.name.procedure
+;             ^ punctuation.definition.parameters.begin
+;              ^^^ storage.modifier
+;                  ^^^^ storage.type
+;                       ^^^^ variable.parameter
+;                            ^ keyword.operator.assignment
+;                              ^^^^ constant.numeric
+;                                   ^ punctuation.definition.parameters.end
+;                                     ^^^^^ storage.modifier
+;                                           ^^^^^^ storage.modifier
+;                                                  ^ comment.line
 
 ; valid procedure definition with attributes
 N50 PROC name SBLOF ACTBLOCNO ; comment
