@@ -33,7 +33,7 @@ def init_default_settings(scope):
 
         # Define the format of hexadecimal numbers for the Hex-Bin-System plugin
         # Hexadecimals look like 'H1AF23'
-        settings.set("convert_src_hex", "'H(\\h+)'")
+        settings.set("convert_src_hex", "'H([0-9A-F]+)'")
         settings.set("convert_dst_hex", "'H{0:X}'")
 
         # Define the format of exponential numbers for the Hex-Bin-System plugin

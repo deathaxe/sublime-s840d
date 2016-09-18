@@ -21,9 +21,6 @@
 	// backspace insert/delete up to the next tabstop
 	"use_tab_stops": false,
 
-	// Show ruler on column
-	"rulers": [	70 ],
-
 	// Define the format of binary numbers for the Hex-Bin-System plugin
 	// Binaries look like 'B101110'
 	"convert_src_bin": "'B([01]+)'",
@@ -31,7 +28,7 @@
 
 	// Define the format of hexadecimal numbers for the Hex-Bin-System plugin
 	// Hexadecimals look like 'H1AF23'
-	"convert_src_hex": "'H(\\h+)'",
+	"convert_src_hex": "'H([0-9A-F]+)'",
 	"convert_dst_hex": "'H{0:X}'",
 
 	// Define the format of exponential numbers for the Hex-Bin-System plugin
