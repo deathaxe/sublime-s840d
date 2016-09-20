@@ -1,9 +1,12 @@
 import sublime
+import os
+
 
 def plugin_loaded():
     init_default_settings("s840d_arc")
     init_default_settings("s840d_gcode")
     init_default_settings("s840d_hmi")
+
 
 def init_default_settings(scope):
     '''
@@ -12,8 +15,8 @@ def init_default_settings(scope):
     file exists, create one with those settings.
     '''
     file_name = scope + ".sublime-settings"
-
-    if 2 > len(sublime.find_resources(file_name)):
+    file_path = os.path.join(sublime.packages_path(), "User", file_name)
+    if not os.path.exists(file_path):
 
         settings = sublime.load_settings(file_name)
 
