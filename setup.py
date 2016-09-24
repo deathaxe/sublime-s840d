@@ -9,11 +9,11 @@ def plugin_loaded():
 
 
 def init_default_settings(scope):
-    '''
+    """
     There are some setting, which are essensial to make G-Code files
     work correctly on a CNC later. If no language specific settings
     file exists, create one with those settings.
-    '''
+    """
     file_name = scope + ".sublime-settings"
     file_path = os.path.join(sublime.packages_path(), "User", file_name)
     if not os.path.exists(file_path):
