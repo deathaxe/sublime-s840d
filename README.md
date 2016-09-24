@@ -67,7 +67,7 @@ Download the latest source from GitHub [https://github.com/deathaxe/sublime-s840
 
 ### Setup
 
-The package contains the syntax specific settings files ``s840d_gcode.sublime-settings`` and ``s840d_hmi.sublime-settings`` with the following required default settings:
+If ``s840d_arc.sublime-settings``, ``s840d_gcode.sublime-settings`` or ``s840d_hmi.sublime-settings`` don't exist in the user folder they will be automatically created to ensure the following essential syntax specific settings:
 
 - "ensure_newline_at_eof_on_save": true
 - "translate_tabs_to_spaces": true
