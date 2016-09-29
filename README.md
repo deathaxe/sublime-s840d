@@ -10,39 +10,41 @@ SINUMERIK 840D Computerized Numerical Control to the [SublimeText 3 Editor][1].
 
 ## Features:
 
-* NC cycles
-  * file extensions: MPF, SPF, DEF, TEA
-  * syntax highlighting
-    * ISO G-Code
-    * SINUMERIK highlevel commands
-    * known NC cycles, functions and commands
-    * known NC variables and machine data (NC-Version 04.07.02.01)
-    * Highlight illegal usage of control keywords.
-  * indention rules
-  * code-snippets for most common control functions
-  * commands to ``Minify``, ``Beautify``, ``Add/Update block numbers``
-  * Goto Definition
-    * Show labels in local symbol list
-    * Show PROC names in indexed symbol list
-  * Context sensitive auto completions for:
-    * variable attributes in definitions (access rights, unit)
-    * ISO parameters (e.g.: SPOS= , FP=, ...)
-    * ISO commands (e.g.: TRANS, ROT, ...)
-    * functions (e.g.: COUPDEF(...))
+### NC cycles
+* file extensions: MPF, SPF, DEF, TEA
+* syntax highlighting
+  - ISO G-Code
+  - SINUMERIK highlevel commands
+  - known NC cycles, functions and commands
+  - known NC variables and machine data (NC-Version 04.07.02.01)
+  - Highlight illegal usage of control keywords.
+* indention rules
+* code-snippets for most common control functions
+* commands to ``Minify``, ``Beautify``, ``Add/Update block numbers``
+* Goto Definition
+  - Show labels in local symbol list
+  - Show PROC names in indexed symbol list
+* Context sensitive auto completions for:
+  - variable attributes in definitions (access rights, unit)
+  - ISO parameters (e.g.: SPOS= , FP=, ...)
+  - ISO commands (e.g.: TRANS, ROT, ...)
+  - functions (e.g.: COUPDEF(...))
+* tooltip support
+  - *.mdat *.svar files from CreateMyConfig
 
-* EasyScreen / RunMyHmi
-  * file extensions: COM
-  * syntax highlighting
-  * indention rules
-  * code-snippets for
-    * classes: ``ARRAY``, ``BLOCK``, ``DIALOG``, ``MENU``
-    * methods: ``LOAD``, ``UNLOAD``, ``PRESS``, ...
-    * functions: ``RNP``, ``WNP``, ``CP``, ``DP``, ``EP``, ...
-  * Goto Definition for classes.
+### EasyScreen / RunMyHmi
+* file extensions: COM
+* syntax highlighting
+* indention rules
+* code-snippets for
+  - classes: ``ARRAY``, ``BLOCK``, ``DIALOG``, ``MENU``
+  - methods: ``LOAD``, ``UNLOAD``, ``PRESS``, ...
+  - functions: ``RNP``, ``WNP``, ``CP``, ``DP``, ``EP``, ...
+* Goto Definition for classes.
 
-* NC archives (text)
-  * file extensions: ARC
-  * embedds NC cycles and RunMyHmi syntax highlighting
+### NC archives (text)
+* file extensions: ARC
+* embedds NC cycles and RunMyHmi syntax highlighting
 
 ## Installing
 
