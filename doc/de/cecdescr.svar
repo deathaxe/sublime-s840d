@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="CECDescr">
+<parameter type="DOUBLE" dim="2">
+<name>$AN_CEC</name>
+<brief>CEC-Tabelle: Kompensationswert</brief>
+<description>$AN_CEC[n,m]
+Kompensationswert
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_INPUT_NCU</name>
+<brief>CEC-Tabelle: Basisachse auf NCU</brief>
+<description>$AN_CEC_INPUT_NCU[n]:
+NCU auf der die Basisachse gerechnet wird
+</description>
+</parameter>
+<parameter type="AXIS" dim="1">
+<name>$AN_CEC_INPUT_AXIS</name>
+<brief>CEC-Tabelle: Basisachse</brief>
+<description>$AN_CEC_INPUT_AXIS[n]:
+Name der Achse, deren Sollwert als Eingang der Kompensationstabelle dient
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_OUTPUT_NCU</name>
+<brief>CEC-Tabelle: Kompensationsachse auf NCU</brief>
+<description>$AN_CEC_OUTPUT_NCU[n]:
+NCU auf der die Kompensationsachse gerechnet wird
+</description>
+</parameter>
+<parameter type="AXIS" dim="1">
+<name>$AN_CEC_OUTPUT_AXIS</name>
+<brief>CEC-Tabelle: Kompensationsachse</brief>
+<description>$AN_CEC_OUTPUT_AXIS[n]:
+Name der Achse, auf die der Ausgang der Kompensationstabelle wirkt
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$AN_CEC_STEP</name>
+<brief>CEC-Tabelle: Stützpunktabstand</brief>
+<description>$AN_CEC_STEP[n]
+Distanz der Korrekturwerte
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$AN_CEC_MIN</name>
+<brief>CEC-Tabelle: Anfangsposition</brief>
+<description>AN_CEC_MIN[n]
+Startposition der Kompensationstabelle
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$AN_CEC_MAX</name>
+<brief>CEC-Tabelle: Endposition</brief>
+<description>AN_CEC_MAX[n]
+Endposition der Kompensationstabelle
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_DIRECTION</name>
+<brief>CEC-Tabelle: Richtungsabhängigkeit</brief>
+<description>$AN_CEC_DIRECTION[n]
+aktiviert richtungsabhängiges Wirken der Kompensationstabelle
+0: beide Verfahrrichtungen der Basisachse
+1: positive Verfahrrichtung der Basisachse
+-1: negative Verfahrrichtung der Basisachse
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_MULT_BY_TABLE</name>
+<brief>CEC-Tabelle: Multiplikation</brief>
+<description>$AN_CEC_MULT_BY_TABLE[n]
+Nummer der Tabelle, deren Ausgangswert mit dem Ausgangswert der
+Kompensationstabelle multipliziert werden soll
+</description>
+</parameter>
+<parameter type="BOOL" dim="1">
+<name>$AN_CEC_IS_MODULO</name>
+<brief>CEC-Tabelle: Modulofunktionalität</brief>
+<description>$AN_CEC_IS_MODULO[n]
+TRUE: zyklisches Wiederholen der Kompensationstabelle
+FALSE: kein zyklisches Wiederholen der Kompensationstabelle
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_TYPE</name>
+<brief>CEC-Tabelle: Tabellentyp</brief>
+<description>$AN_CEC_TYPE[n]
+0: kein besonderer Tabellentyp
+1: Tabelle vom Typ Zylinderfehlerkompensation
+</description>
+</parameter>
+</info>

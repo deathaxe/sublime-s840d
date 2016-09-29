@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="51000" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM</name>
+<brief>Anzeigefeinheit mm</brief>
+<description>Anzeigefeinheit mm
+</description>
+</parameter>
+<parameter number="51001" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_FEED_PER_REV</name>
+<brief>Anzeigefeinheit mm Vorschub/U</brief>
+<description>Anzeigefeinheit mm Vorschub/U
+</description>
+</parameter>
+<parameter number="51002" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_FEED_PER_TIME</name>
+<brief>Anzeigefeinheit mm Vorschub/min</brief>
+<description>Anzeigefeinheit mm Vorschub/min
+</description>
+</parameter>
+<parameter number="51003" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_FEED_PER_TOOTH</name>
+<brief>Anzeigefeinheit mm Vorschub/Zahn</brief>
+<description>Anzeigefeinheit mm Vorschub/Zahn
+</description>
+</parameter>
+<parameter number="51004" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_CONST_CUT_RATE</name>
+<brief>Anzeigefeinheit konstante Schnittgeschwindigkeit m/min</brief>
+<description>Anzeigefeinheit konstante Schnittgeschwindigkeit m/min
+</description>
+</parameter>
+<parameter number="51010" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH</name>
+<brief>Anzeigefeinheit Inch</brief>
+<description>Anzeigefeinheit Inch
+</description>
+</parameter>
+<parameter number="51011" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_FEED_P_REV</name>
+<brief>Anzeigefeinheit Inch Vorschub/U</brief>
+<description>Anzeigefeinheit Inch Vorschub/U
+</description>
+</parameter>
+<parameter number="51012" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_FEED_P_TIME</name>
+<brief>Anzeigefeinheit Inch Vorschub/min</brief>
+<description>Anzeigefeinheit Inch Vorschub/min
+</description>
+</parameter>
+<parameter number="51013" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_FEED_P_TOOTH</name>
+<brief>Anzeigefeinheit Inch Vorschub/Zahn</brief>
+<description>Anzeigefeinheit Inch Vorschub/Zahn
+</description>
+</parameter>
+<parameter number="51014" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_CUT_RATE</name>
+<brief>Anzeigefeinheit konstante Schnittgeschwindigkeit ft/min</brief>
+<description>Anzeigefeinheit konstante Schnittgeschwindigkeit ft/min
+</description>
+</parameter>
+<parameter number="51020" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_ANGLE</name>
+<brief>Anzeigefeinheit Winkel</brief>
+<description>Anzeigefeinheit Winkel
+</description>
+</parameter>
+<parameter number="51021" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_SPINDLE</name>
+<brief>Anzeigefeinheit Spindeln</brief>
+<description>Nachkommastellen im Drehzahleingabefeld
+</description>
+</parameter>
+<parameter number="51022" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_ROT_AX_FEED</name>
+<brief>Anzeigefeinheit Vorschub Rundachse</brief>
+<description>Anzeigefeinheit Vorschub Rundachse
+</description>
+</parameter>
+<parameter number="51023" type="BYTE" dim="0" display="DECIMAL">
+<name>ACT_VALUE_SPIND_MODE</name>
+<brief>Spindeln nur im Achsbetrieb im Istwertefenster anzeigen</brief>
+<description>Die Anzeige der Spindeln in den Achs-Istwerte-Fenstern kann damit beeinflusst werden. Ist der Wert auf 1 gesetzt, werden die Spindeln nur dann angezeigt, wenn sie sich im Achsbetrieb befinden. Im Spindelbetrieb werden sie als Lücken dargestellt. Ist der Wert auf 0 gesetzt, werden die Spindeln immer angezeigt.
+</description>
+</parameter>
+<parameter number="51024" type="BYTE" dim="0" display="HEX">
+<name>BLOCK_SEARCH_MODE_MASK_JS</name>
+<brief>Bitmaske für verfügbare Suchlaufmodi (ShopMill, ShopTurn einkanalig)</brief>
+<description>Bitmaske für verfügbare Suchlaufmodi (ShopMill, ShopTurn einkanalig)
+Bit 0:	Satzsuchlauf mit Berechnung ohne Anfahren
+Bit 1:	Satzsuchlauf mit Berechnung mit Anfahren
+Bit 2:	reserviert
+Bit 3:	EXTCALL-Programme überspringen
+Bit 4:	reserviert
+Bit 5:	Satzsuchlauf mit Testlauf
+
+</description>
+</parameter>
+<parameter number="51025" type="BYTE" dim="0" display="DECIMAL">
+<name>FRAMES_ACT_IMMEDIATELY</name>
+<brief>Aktive Verschiebung sofort wirksam setzen</brief>
+<description>Aktive Daten (Frames) werden nach Änderung sofort wirksam
+</description>
+</parameter>
+<parameter number="51026" type="BYTE" dim="0" display="DECIMAL">
+<name>AXES_SHOW_GEO_FIRST</name>
+<brief>Istwertanzeige mit führenden Geo-Achsen</brief>
+<description>Wenn der Wert des Maschinendatums 1 ist, werden die Geometrieachsen des Kanals zuerst angezeigt.
+</description>
+</parameter>
+<parameter number="51027" type="BYTE" dim="0" display="DECIMAL">
+<name>ONLY_MKS_DIST_TO_GO</name>
+<brief>Restweganzeige im WKS-Fenster</brief>
+<description>Restweganzeige im WKS-Fenster
+</description>
+</parameter>
+<parameter number="51028" type="BYTE" dim="0" display="HEX">
+<name>BLOCK_SEARCH_MODE_MASK</name>
+<brief>Bitmaske für verfügbare Suchlaufmodi</brief>
+<description>Bitmaske für verfügbare Suchlaufmodi
+Bit 0:	Satzsuchlauf mit Berechnung ohne Anfahren
+Bit 1:	Satzsuchlauf mit Berechnung mit Anfahren
+Bit 3:	EXTCALL-Programme überspringen
+Bit 4:	Satzsuchlauf ohne Berechnung
+Bit 5:	Satzsuchlauf mit Testlauf
+
+</description>
+</parameter>
+<parameter number="51029" type="BYTE" dim="0" display="DECIMAL">
+<name>MAX_SKP_LEVEL</name>
+<brief>Maximale Anzahl der Ausblendebenen im NC-Programm</brief>
+<description>Das Maschinendatum legt fest, wieviel Ausblendebenen in der Bedienung nutzbar gemacht werden.
+</description>
+</parameter>
+<parameter number="51030" type="DWORD" dim="0" display="DECIMAL">
+<name>SPIND_MAX_POWER</name>
+<brief>Maximalwert der Spindelleistungsanzeige</brief>
+<description>Maximalwert der zulässigen Spindelleistung in Prozent; Der Anzeigebalken im Maschinenbild "Spindeldiagnose", wird im Bereich zwischen 0 und dem im SPIND_MAX_POWER hinterlegten Wert, grün dargestellt.
+Bei einem SINAMICS-Antrieb wird der Antriebsparameter r0033 "Momentenausnutzung geglättet" im Auslastungsbalken dargestellt.
+</description>
+</parameter>
+<parameter number="51031" type="DWORD" dim="0" display="DECIMAL">
+<name>SPIND_POWER_RANGE</name>
+<brief>Anzeigebereich der Spindelleistungsanzeige</brief>
+<description>Skalenendwert  für Spindelleistungsanzeige in Prozent; Wert muss gleich oder größer SPIND_MAX_POWER sein.
+Die Balkenanzeige im Maschinenbild, wird im Bereich zwischen den Werten von  SPIND_MAX_POWER und SPIND_POWER_RANGE, rot dargestellt.
+</description>
+</parameter>
+<parameter number="51032" type="BYTE" dim="0" display="DECIMAL">
+<name>STAT_DISPLAY_BASE</name>
+<brief>Zahlenbasis Anzeige Gelenkstellung STAT</brief>
+<description>Zahlenbasis für die Anzeige der Gelenkstellung STAT
+00: keine Anzeige
+02: Darstellung als binärer Wert
+10: Darstellung als dezimaler Wert
+16: Darstellung als hexadezimaler Wert
+
+</description>
+</parameter>
+<parameter number="51033" type="BYTE" dim="0" display="DECIMAL">
+<name>TU_DISPLAY_BASE</name>
+<brief>Zahlenbasis Anzeige Lage der Rundachsen TU</brief>
+<description>Zahlenbasis für die Anzeige der Rundachsstellung TU
+00: keine Anzeige
+02: Darstellung als binärer Wert
+10: Darstellung als dezimaler Wert
+16: Darstellung als hexadezimaler Wert
+</description>
+</parameter>
+<parameter number="51034" type="DWORD" dim="0" display="HEX">
+<name>TEACH_MODE</name>
+<brief>Zu aktivierender Teachmodus</brief>
+<description>Zu aktivierender Teachmodus
+Bit 0:  Standard-Teachen
+           Geteachter Satz wird mit SK Übernahme ins Programm übernommen.
+Bit 1:  Übernahme des Teachsatzes kann durch die PLC gesperrt werden.
+           SINUMERIK  840D sl:
+              DB19.DBX13.0 = 0 Satz wird übernommen.
+              DB19.DBX13.0 = 1 Satz wird nicht übernommen.
+           SINUMERIK  828D:
+              DB1700.DBX1000.0 = 0 Satz wird übernommen.
+              DB1700.DBX1000.0 = 1 Satz wird nicht übernommen.
+Bit 2:  Satzanwahl nur explizit
+Bits 16-31 sind für den OEM reserviert.
+</description>
+</parameter>
+<parameter number="51035" type="DOUBLE" dim="0" display="DECIMAL">
+<name>WRITE_FRAMES_FINE_LIMIT</name>
+<brief>Eingabegrenze für alle NPV fein</brief>
+<description>Eingabegrenze für alle Nullpunktverschiebungen fein
+</description>
+</parameter>
+<parameter number="51036" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_COORDINATE_REL</name>
+<brief>REL Koordinatensystem ermöglichen</brief>
+<description>REL Koordinatensystem anzeigen
+0 = kein relatives Koordinatensystem anwählbar
+1 = das REL Koordinatensystem kann alternativ zum WKS/ENS Koordinatensystem angewählt werden
+</description>
+</parameter>
+<parameter number="51037" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_COORDINATE_ACS</name>
+<brief>Einstellbares Koordinatensystem aktivieren</brief>
+<description>Einstellbares Koordinatensystem aktivieren
+0 = WKS Koordinatensystem wird angezeigt.
+1 = ENS Koordinatensystem wird angezeigt.
+     (ENS ist WKS reduziert um die unter MD24030 festgelegten Verschiebungsanteile)
+</description>
+</parameter>
+<parameter number="51038" type="BYTE" dim="0" display="DECIMAL">
+<name>SET_ACT_VALUE</name>
+<brief>Auswahl Istwert setzen</brief>
+<description>Auswahl Istwert setzen
+0 = Istwerte setzen wird nicht angeboten.
+1 = ist ein User-Frame (Einstellbare Nullpunktverschiebung z.B. G54) aktiv, wird dieser verwendet. Bei G500 wird Istwerte setzen nicht angeboten (Systemframe wird nicht mehr verwendet).
+</description>
+</parameter>
+<parameter number="51039" type="DWORD" dim="0" display="HEX">
+<name>PROGRAM_CONTROL_MODE_MASK</name>
+<brief>Optionen für Maschine - Programm-Beeinflussung</brief>
+<description>Optionen für Maschine - Programm-Beeinflussung:
+Bit 0: Funktion Programmtest verfügbar
+</description>
+</parameter>
+<parameter number="51040" type="BYTE" dim="0" display="HEX">
+<name>SWITCH_TO_MACHINE_MASK</name>
+<brief>Automatische Bedienbereichsumschaltung nach Maschine</brief>
+<description>Automatische Bedienbereichsumschaltung nach Maschine
+Bit 0: Bei der Programmanwahl im Programmanager wird nicht automatisch in den Bedienbereich Maschine gewechselt.
+BIt 1: Bei der Umschaltung der Betriebsart über die Maschinensteuertafel (MSTT) wird nicht automatisch in den Bedienbereich Maschine gewechselt.
+Bit 2: Bei der Programmanwahl im Bedienbereich Programm wird nicht automatisch in den Bedienbereich Maschine gewechselt.
+Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satzsuchlauf nicht automatisch gestartet.
+</description>
+</parameter>
+<parameter number="51041" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_PROGLIST_USER</name>
+<brief>Aktivierung PLC-Programmliste Bereich USER</brief>
+<description>Aktiviert die PLC-Programmliste des Bereichs USER. Die hier eingetragenen Programme können von der PLC aus zum Abarbeiten angewählt werden.
+
+</description>
+</parameter>
+<parameter number="51042" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_PROGLIST_INDIVIDUAL</name>
+<brief>Aktivierung PLC-Programmliste Bereich INDIVIDUAL</brief>
+<description>Aktiviert die PLC-Programmliste des Bereichs INDIVIDUAL. Die hier eingetragenen Programme können von der PLC aus zum Abarbeiten angewählt werden.
+
+</description>
+</parameter>
+<parameter number="51043" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_PROGLIST_MANUFACT</name>
+<brief>Aktivierung PLC-Programmliste Bereich MANUFACTURER</brief>
+<description>Aktiviert die PLC-Programmliste des Bereichs MANUFACTURER. Die hier eingetragenen Programme können von der PLC aus zum Abarbeiten angewählt werden.
+
+</description>
+</parameter>
+<parameter number="51044" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_SHOW_SBL2</name>
+<brief>Schutzstufe SBL2 anzeigen</brief>
+<description>Schutzstufe SBL2 anzeigen
+</description>
+</parameter>
+<parameter number="51045" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TEACH_IN</name>
+<brief>Schutzstufe TEACH IN</brief>
+<description>Schutzstufe TEACH IN
+</description>
+</parameter>
+<parameter number="51046" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_CLEAR_RPA</name>
+<brief>Schutzstufe R-Parameter löschen</brief>
+<description>Schutzstufe R-Parameter löschen
+</description>
+</parameter>
+<parameter number="51047" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_READ_GUD_LUD</name>
+<brief>Schutzstufe Anwendervariable lesen</brief>
+<description>Schutzstufe Anwendervariable lesen
+</description>
+</parameter>
+<parameter number="51048" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_GUD_LUD</name>
+<brief>Schutzstufe Anwendervariablen schreiben</brief>
+<description>Schutzstufe Anwendervariablen schreiben
+</description>
+</parameter>
+<parameter number="51049" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PRG_COND</name>
+<brief>Schutzstufe Programmbeeinflussung schreiben</brief>
+<description>Schutzstufe Programmbeeinflussung schreiben
+</description>
+</parameter>
+<parameter number="51050" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PROGRAM</name>
+<brief>Schutzstufe Teileprogramm schreiben</brief>
+<description>Schutzstufe Teileprogramm schreiben
+</description>
+</parameter>
+<parameter number="51051" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_RPA</name>
+<brief>Schutzstufe R-Parameter schreiben</brief>
+<description>Schutzstufe R-Parameter schreiben
+</description>
+</parameter>
+<parameter number="51052" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_SEA</name>
+<brief>Schutzstufe Settingdaten schreiben</brief>
+<description>Schutzstufe Settingdaten schreiben
+</description>
+</parameter>
+<parameter number="51053" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_BASEFRAME</name>
+<brief>Schutzstufe Basis NV schreiben</brief>
+<description>Schutzstufe Basis NV (Basisframe) schreiben
+</description>
+</parameter>
+<parameter number="51054" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CYCFRAME</name>
+<brief>Schutzstufe Zyklenframe schreiben</brief>
+<description>Schutzstufe Zyklenframe schreiben
+</description>
+</parameter>
+<parameter number="51055" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_EXTFRAME</name>
+<brief>Schutzstufe externe NV schreiben</brief>
+<description>Schutzstufe externe Nullpunktverschiebung schreiben
+</description>
+</parameter>
+<parameter number="51056" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PARTFRAME</name>
+<brief>Schutzstufe Tischbezug schreiben</brief>
+<description>Schutzstufe Tischbezug schreiben
+</description>
+</parameter>
+<parameter number="51057" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_SETFRAME</name>
+<brief>Schutzstufe Basisbezug schreiben</brief>
+<description>Schutzstufe Basisbezug schreiben
+</description>
+</parameter>
+<parameter number="51058" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TOOLFRAME</name>
+<brief>Schutzstufe Werkzeugbezug schreiben</brief>
+<description>Schutzstufe Werkzeugbezug schreiben
+</description>
+</parameter>
+<parameter number="51059" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TRAFRAME</name>
+<brief>Schutzstufe Transformationsframe schreiben</brief>
+<description>Schutzstufe Transformationsframe schreiben
+</description>
+</parameter>
+<parameter number="51060" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_USERFRAME</name>
+<brief>Schutzstufe einstellbare NV schreiben</brief>
+<description>Schutzstufe einstellbare NV (G54 ... G599) schreiben
+</description>
+</parameter>
+<parameter number="51061" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_WPFRAME</name>
+<brief>Schutzstufe Werkstückbezug schreiben</brief>
+<description>Schutzstufe Werkstückbezug schreiben
+</description>
+</parameter>
+<parameter number="51062" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_FINE</name>
+<brief>Schutzstufe Feinverschiebung aller NV schreiben</brief>
+<description>Schutzstufe Feinverschiebung aller NV schreiben
+</description>
+</parameter>
+<parameter number="51063" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_SET_ACT_VALUE</name>
+<brief>Schutzstufe Istwert setzen</brief>
+<description>Schutzstufe Istwert setzen
+</description>
+</parameter>
+<parameter number="51064" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PROGLIST</name>
+<brief>Schutzstufe Programmliste Bereich USER schreiben</brief>
+<description>Mindest-Schutzstufe zum Ändern der Programmliste im Bereich USER (Programm-Manager)
+</description>
+</parameter>
+<parameter number="51065" type="BYTE" dim="0" display="DECIMAL">
+<name>NUM_DISPLAYED_CHANNELS</name>
+<brief>Anzahl der gleichzeitig angezeigten Kanäle</brief>
+<description>Einstellung, wieviele Kanäle im Bedienbereich Maschine und im Mehrkanaleditor gleichzeitig angezeigt werden
+</description>
+</parameter>
+<parameter number="51066" type="STRING" dim="0" display="ASCII">
+<name>ORDER_DISPLAYED_CHANNELS</name>
+<brief>Kanalnummern der angezeigten Kanäle</brief>
+<description>Enthält die Nummern der in der Mehrkanalansicht unter Maschine anzuzeigenden Kanäle in der gewünschten Reihenfolge, getrennt durch Komma oder Semikolon oder Space
+</description>
+</parameter>
+<parameter number="51067" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_HANDWHEEL_WINDOW</name>
+<brief>Handradfenster anzeigen</brief>
+<description>Wenn das Maschinendatum auf 0 gesetzt ist, wird das Fenster für die Handradzuordnung ausgeblendet
+</description>
+</parameter>
+<parameter number="51068" type="BYTE" dim="0" display="DECIMAL">
+<name>SPIND_DRIVELOAD_FROM_PLC1</name>
+<brief>Maschinenachsindex Spindel 1 Auslastungsanzeige aus PLC</brief>
+<description>Maschinenachsindex einer Spindel (analog), die die Daten zur Auslastungsanzeige im T,F,S-Fenster aus der PLC bezieht.
+ SINUMERIK  840D sl:  DB19.DBB6
+ SINUMERIK  828D   :   DB1900.DBB5006
+</description>
+</parameter>
+<parameter number="51069" type="BYTE" dim="0" display="DECIMAL">
+<name>SPIND_DRIVELOAD_FROM_PLC2</name>
+<brief>Maschinenachsindex Spindel 2 Auslastungsanzeige aus PLC</brief>
+<description>Maschinenachsindex einer Spindel (analog), die die Daten zur Auslastungsanzeige im T,F,S-Fenster aus der PLC (DB19.DBB7) bezieht.
+</description>
+</parameter>
+<parameter number="51070" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_CAL_TOOL_PROBE</name>
+<brief>Schutzstufe Werkzeugmesstaster kalibrieren (ShopTurn)</brief>
+<description>Schutzstufe Werkzeugmesstaster kalibrieren (ShopTurn)
+</description>
+</parameter>
+<parameter number="51071" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_ACTIVATE_CTRL_E</name>
+<brief>Schutzstufe Ctrl-Energy</brief>
+<description>Schutzstufe zum Aktivieren, Sperren und Freigeben von Energiesparprofilen.
+</description>
+</parameter>
+<parameter number="51072" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_EDIT_CTRL_E</name>
+<brief>Schutzstufe Ctrl-Energy Profile ändern</brief>
+<description>Schutzstufe Ctrl-Energy: Definition der Energiesparprofile
+</description>
+</parameter>
+<parameter number="51073" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_SET_SOFTKEY_ACCESS</name>
+<brief>Schutzstufe Softkeys anpassen</brief>
+<description>Schutzstufe für den Softkey "Softkeys anpassen", mit dem die Zugriffsstufen von anderen Softkeys geändert werden können.
+</description>
+</parameter>
+<parameter number="51160" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CA_MACH_JOG</name>
+<brief>Schutzstufe Kollisionskontrolle Maschine Jog schreiben</brief>
+<description>Dieses Maschinendatum legt fest, ab welcher Schutzstufe die Kollisionskontrolle Maschine/Maschine unter Jog ein- bzw. ausgeschaltet werden kann.
+
+</description>
+</parameter>
+<parameter number="51161" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CA_MACH_AUTO</name>
+<brief>Schutzstufe Kollisionskontrolle Maschine Automatik schreiben</brief>
+<description>Dieses Maschinendatum legt fest, ab welcher Schutzstufe die Kollisionskontrolle Maschine/Maschine unter Automatik ein- bzw. ausgeschaltet werden kann.
+
+</description>
+</parameter>
+<parameter number="51162" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CA_TOOL</name>
+<brief>Schutzstufe Kollisionskontrolle Werkzeug schreiben</brief>
+<description>Dieses Maschinendatum legt fest, ab welcher Schutzstufe die Kollisionskontrolle für Werkzeuge ein- bzw. ausgeschaltet werden kann.
+
+</description>
+</parameter>
+<parameter number="51198" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_READ_TM_ALL_PARAM</name>
+<brief>Schutzstufe WZV Details - Alle Parameter lesen</brief>
+<description>Schutzstufe WZV Details - Alle Parameter lesen
+</description>
+</parameter>
+<parameter number="51199" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_GRIND</name>
+<brief>Schutzstufe WZV Schleifdaten schreiben</brief>
+<description>Schutzstufe WZV Schleifdaten schreiben
+</description>
+</parameter>
+<parameter number="51200" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_GEO</name>
+<brief>Schutzstufe WZV Geometriedaten schreiben</brief>
+<description>Schutzstufe WZV Geometriedaten schreiben
+</description>
+</parameter>
+<parameter number="51201" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_WEAR</name>
+<brief>Schutzstufe WZV Verschleißdaten schreiben</brief>
+<description>Schutzstufe WZV Verschleißdaten schreiben
+</description>
+</parameter>
+<parameter number="51202" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_WEAR_DELTA</name>
+<brief>Schutzstufe WZV eingeschränktes Schreiben der Verschleißdaten</brief>
+<description>Schutzstufe eingeschränkes Schreiben von Werkzeugverschleißwerten
+S. MD 51213: TM_WRITE_WEAR_DELTA_LIMIT
+</description>
+</parameter>
+<parameter number="51203" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_SC</name>
+<brief>Schutzstufe WZV Summenkorrekturen schreiben</brief>
+<description>Schutzstufe WZV Summenkorrekturen schreiben
+</description>
+</parameter>
+<parameter number="51204" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_EC</name>
+<brief>Schutzstufe WZV Einsatzkorrekturen schreiben</brief>
+<description>Schutzstufe WZV Einsatzkorrekturen schreiben
+</description>
+</parameter>
+<parameter number="51205" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_SUPVIS</name>
+<brief>Schutzstufe WZV Überwachungsdaten schreiben</brief>
+<description>Schutzstufe WZV Überwachungsdaten schreiben
+Eine Berechtigung gilt gemeinsam für Grenzwerte: Stückzahl, Standzeit, Verschleiß und die Überwachungsart.
+</description>
+</parameter>
+<parameter number="51206" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_ASSDNO</name>
+<brief>Schutzstufe WZV eindeutige D-Nummer schreiben</brief>
+<description>Schutzstufe WZV eindeutige D-Nummer schreiben
+</description>
+</parameter>
+<parameter number="51207" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_WGROUP</name>
+<brief>Schutzstufe WZV Verschleißgruppen schreiben</brief>
+<description>Schutzstufe WZV Verschleißgruppen (Magazinplatz / Magazin) schreiben
+</description>
+</parameter>
+<parameter number="51208" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_ADAPT</name>
+<brief>Schutzstufe WZV Adapterdaten schreiben</brief>
+<description>Schutzstufe WZV Werkzeug-Adapter-Geometriedaten schreiben
+
+</description>
+</parameter>
+<parameter number="51209" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_NAME</name>
+<brief>Schutzstufe WZV Werkzeugname schreiben</brief>
+<description>Schutzstufe WZV Werkzeugnameund Duplo  schreiben
+</description>
+</parameter>
+<parameter number="51210" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_TYPE</name>
+<brief>Schutzstufe WZV Werkzeugtyp schreiben</brief>
+<description>Schutzstufe WZV Werkzeugtyp schreiben
+</description>
+</parameter>
+<parameter number="51211" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_READ_TM</name>
+<brief>Schutzstufe WZV Daten lesen</brief>
+<description>Schutzstufe WZV Daten lesen
+</description>
+</parameter>
+<parameter number="51212" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TM_WRITE_WEAR_ABS_LIMIT</name>
+<brief>Maximaler Wert des Werkzeugverschleißes</brief>
+<description>Mit TM_WRITE_WEAR_ABS_LIMIT wird der max. mögliche Wert eines Werkzeugverschleißes absolut begrenzt, unabhängig von der aktuellen Schutzstufe (Schlüsselschalterstellung), d.h. auch unabhängig von ACCESS_WRITE_TM_WEAR. Absolute und inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD 51213.
+Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
+
+</description>
+</parameter>
+<parameter number="51213" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TM_WRITE_WEAR_DELTA_LIMIT</name>
+<brief>Maximaler Differenzwert eingeschränkte Werkzeugverschleißeingabe</brief>
+<description>Bei der Eingabe von Werkzeugkorrekturen kann der Betrag der Änderung zwischen bisherigem Wert und neuem Wert maximal die hier eingestellte Größe annehmen.
+Mit TM_WRITE_WEAR_DELTA_LIMIT wird die Änderung eines Werkzeugverschleißes inkrementell begrenzt, wenn die aktuelle Schutzstufe gleich oder höher ist wie in ACCESS_WRITE_TM_WEAR_DELTA eingestellt. Mit akt. Schutzstufe gleich oder höher ACCESS_WRITE_TM_WEAR wird nicht mehr inkrementell begrenzt. Absolute und
+inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD 51212.
+Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
+
+</description>
+</parameter>
+<parameter number="51214" type="BYTE" dim="0" display="HEX">
+<name>TM_WRITE_LIMIT_MASK</name>
+<brief>Geltungsbereich der eingeschränkten Werkzeugverschleißeingabe</brief>
+<description>Geltungsbereich der eingeschränkten Werkzeugverschleißeingabe
+Bit 0:	Anwendung auf Schneidendaten, Verschleiß
+Bit 1:	Anwendung auf SC-Daten, Summenkorrekturen
+Bit 2:	Anwendung auf EC-Daten, Einsatzkorrekturen
+Bit 0+1+2:	Anwendung auf alle Daten, Verschleiß, SC, EC
+
+</description>
+</parameter>
+<parameter number="51215" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_ALL_PARAM</name>
+<brief>Schutzstufe WZV Details - Alle Parameter schreiben</brief>
+<description>Schutzstufe WZV Details - Alle Parameter schreiben
+</description>
+</parameter>
+<parameter number="51216" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_CREATE</name>
+<brief>Schutzstufe WZV Werkzeug anlegen</brief>
+<description>Schutzstufe WZV Werkzeug anlegen
+</description>
+</parameter>
+<parameter number="51217" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_DELETE</name>
+<brief>Schutzstufe WZV Werkzeug löschen</brief>
+<description>Schutzstufe WZV Werkzeug löschen
+</description>
+</parameter>
+<parameter number="51218" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_LOAD</name>
+<brief>Schutzstufe WZV Werkzeug beladen</brief>
+<description>Schutzstufe WZV Werkzeug beladen
+</description>
+</parameter>
+<parameter number="51219" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_UNLOAD</name>
+<brief>Schutzstufe WZV Werkzeug entladen</brief>
+<description>Schutzstufe WZV Werkzeug entladen
+</description>
+</parameter>
+<parameter number="51220" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_MOVE</name>
+<brief>Schutzstufe WZV Werkzeug umsetzen</brief>
+<description>Schutzstufe WZV Werkzeug umsetzen
+</description>
+</parameter>
+<parameter number="51221" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_REACTIVATE</name>
+<brief>Schutzstufe WZV Werkzeug reaktivieren</brief>
+<description>Schutzstufe WZV Werkzeug reaktivieren
+</description>
+</parameter>
+<parameter number="51222" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_MEASURE</name>
+<brief>Schutzstufe WZV Werkzeug messen</brief>
+<description>Schutzstufe WZV Werkzeug messen
+Direktsprung aus der Werkzeugliste in das Messenbild,
+</description>
+</parameter>
+<parameter number="51223" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOLEDGE_CREATE</name>
+<brief>Schutzstufe WZV Werkzeugschneide anlegen</brief>
+<description>Schutzstufe WZV Werkzeugschneide anlegen
+</description>
+</parameter>
+<parameter number="51224" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOLEDGE_DELETE</name>
+<brief>Schutzstufe WZV Werkzeugschneide löschen</brief>
+<description>Schutzstufe WZV Werkzeugschneide löschen
+</description>
+</parameter>
+<parameter number="51225" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_MAGAZINE_POS</name>
+<brief>Schutzstufe WZV Magazin positionieren</brief>
+<description>Schutzstufe WZV Magazin positionieren
+</description>
+</parameter>
+<parameter number="51226" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_SIM</name>
+<brief>Funktionsmaske Simulation</brief>
+<description>Funktionsmaske Simulation
+Bit 0: Kein automatischer Start bei Simulationsanwahl
+Bit 1: Simulation deaktivieren
+Bit 4: Framekomponenten in X und Y ignorieren (Kompatibilität)
+Bit 5: Drehwerkzeug in Werkzeugspindel drehbar
+Bit 6: Freigabe Handrad als Simulations-Override (Werte aus DB19.DBW400)
+Bit 7: Interpretation der Handrad-Werte aus DB19.DBW400 als Absolutwerte
+Bit 10: Nullpunktsymbol ausblenden
+</description>
+</parameter>
+<parameter number="51228" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TECH</name>
+<brief>Funktionsmaske Technologieübergreifend</brief>
+<description>Funktionsmaske Technologieübergreifend
+Bit 0: G-Code-Programmierung ohne Mehrkanaldaten
+	Wenn das Bit 0 = 1 ist, werden bei Joblisten, die nur G-Code-Programme enthalten keine Mehrkanaldaten angeboten.
+Bit 1: Druckfunktion des Editors freigeben
+</description>
+</parameter>
+<parameter number="51230" type="BOOLEAN" dim="0">
+<name>ENABLE_LADDER_DB_ADDRESSES</name>
+<brief>Aktivierung DB Adressen im PLC Ladder-Viewer</brief>
+<description>Aktivierung DB Adressen im PLC Ladder-Viewer
+
+</description>
+</parameter>
+<parameter number="51231" type="BOOLEAN" dim="0">
+<name>ENABLE_LADDER_EDITOR</name>
+<brief>Aktivierung PLC Ladder-Editor</brief>
+<description>Aktivierung PLC Ladder-Editor
+</description>
+</parameter>
+<parameter number="51233" type="BOOLEAN" dim="0">
+<name>ENABLE_GSM_MODEM</name>
+<brief>Aktivierung GSM Modem für Easy Message</brief>
+<description>Aktivierung GSM Modem für Easy Message
+</description>
+</parameter>
+<parameter number="51235" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_RESET_SERV_PLANNER</name>
+<brief>Schutzstufe für Quittierung von Wartungsaufgaben</brief>
+<description>Schutzstufe für Quittierung von Wartungsaufgaben
+</description>
+</parameter>
+<parameter number="51300" type="BYTE" dim="0" display="DECIMAL">
+<name>MAXNUM_WAITM_USER</name>
+<brief>Anzahl der Waitmarken, die dem Endanwender zur Verfügung stehen</brief>
+<description>Anzahl der Waitmarken, die dem Endanwender zur Verfügung stehen
+
+</description>
+</parameter>
+<parameter number="51600" type="BYTE" dim="0">
+<name>MEA_CAL_WP_NUM</name>
+<brief>Anzahl der Kalibrierdatenfelder für Werkstückmesstaster</brief>
+<description>Die Kalibrierdaten des Werkstückmesstasters, beziehen sich auf das Werkstückkoordinatensystem (WKS) !
+In den Datenfelder werden die Kalibrierdaten des Werkstückmesstasters der Technologie Fräsen, sowie
+Drehen abgelegt!
+</description>
+</parameter>
+<parameter number="51601" type="BYTE" dim="0">
+<name>MEA_CAL_EDGE_NUM</name>
+<brief>Anzahl der Geometriedatenfelder des Kalibrierkörpers, Werkstückmesstaster</brief>
+<description>Der Kalibrierkörper dient ausschließlich zum kalibrieren des Werkstückmesstasters der Technolgie Drehen!
+</description>
+</parameter>
+<parameter number="51602" type="BYTE" dim="0">
+<name>MEA_CAL_TP_NUM</name>
+<brief>Anzahl der Kalibrierdatenfelder für Werkzeugmesstaster</brief>
+<description>Der Wert dieses Paramters, entspricht der Anzahl der eingerichteten Werkzeugmesstaster-Kalibrierdatensätze,
+bezezogen auf das Maschinenkoordinatensystem (MKS) !
+</description>
+</parameter>
+<parameter number="51603" type="BYTE" dim="0">
+<name>MEA_CAL_TPW_NUM</name>
+<brief>Anzahl der Kalibrierdatenfelder für Werkzeugmesstaster</brief>
+<description>Der Wert dieses Parameters, entspricht der Anzahl der eingerichteten Werkzeugmesstaster-Kalibrierdatensätze,
+bezogen auf das Werkstückkoordinatensystem (WKS) !
+</description>
+</parameter>
+<parameter number="51618" type="DOUBLE" dim="0">
+<name>MEA_CM_ROT_AX_POS_TOL</name>
+<brief>Toleranz der Rundachspositionen - Messen mit orientierbaren Werkzeugträger</brief>
+<description>Parameter für das Messen mit orientierbaren Werkzeugträger
+Eingaben im Parameter $MN_MEA_CM_ROT_AX_POS_TOL sind nur wirksam, wenn von MD 51740 $MNS_MEA_FUNCTION_MASK Bit2 oder Bit16 gesetzt ist.
+Die reale Winkelposition der Rundachsen kann von der programmierten abweichen (Genauhalt-Fein-Fenster).
+Diese Abweichung ist abhängig von den Lageregeleigenschaften der Achse. Die an der konkreten Achse maximal zu erwartende
+Abweichung ist in diesem Parameter einzutragen. Bei Überschreitung der Toleranz erfolgt der Alarm 61442, "Werkzeugträger nicht parallel zu den Geometrieachsen".
+</description>
+</parameter>
+<parameter number="51740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Funktionsmaske Messzyklen, Werkstück- Werkzeugmessen</brief>
+<description>Funktionsmaske Messzyklen
+
+Bit 0:	Werkstückmessen, Kalibrierstatusüberwachung
+          	0: Kalibrierüberwachung nicht aktiv
+          	1: Kalibrierüberwachung aktiv
+              Es wird zwischen Kalibrieren und Messen der Status folgender Zustände überwacht:
+              - Arbeitsebene  (G17, 18, 19)
+              - Messtastertyp   (3D-Taster Typ 710, Monotaster Typ 712, L-Taster Typ 713, Sterntaster Typ 714)
+              - Längenbezug des Messtasters (Messtasterkugelmitte, Messtasterkugelumfang)
+	 - Es können die Alarme 61341, 61419, 61420 gemeldet werden.
+          	   Hinweis: - Bei "Messen im JOG" ist diese Überwachungen immer aktiv.
+		     - Siehe auch SD54740 $SNS_MEA_FUNCTION_MASK, Bit 4.
+
+Bit 1: 	Werkstückmessen, Technologie Fräsen, Längenbezug des Werkstückmesstasters
+          	0: Werkzeuglänge in der Zustellachse bezogen auf die Mitte der Messtasterkugel (TCP)
+          	1: Werkzeuglänge in der Zustellachse bezogen auf den Kugelumfang der Messtasterkugel
+
+Bit 2:	Werkstückmessen, Berücksichtigung der Orientierung von Werkzeugträgern (Kinematiktyp "T", 	Schwenkkopf)  bei der Korrektur in Werkzeuge
+          	0: Die Korrektur der Werkzeugkomponenten erfolgt entsprechend der Orientierung des Werkzeugträgers
+              beim Messen. Dies gilt für die Orientierungen 0°, 90°, 180° und  270°.
+          	1: Die Korrektur der Werkzeugkomponenten erfolgt entsprechend der Orientierung des Werkzeugträgers
+                 in Grundstellung.
+
+Bit 4:	Werkstückmessen, Technologie Fräsen, Messtaster ist fest an der Maschine angebaut
+          	0: Der Werkstückmesstaster befindet sich beim Messen in einer Werkzeugspindel.
+          	1: Der Werkstückmesstaster ist fest an der Maschine angebaut.
+                 Es stehen nicht alle Messvarianten zur Verfügung. Bei Auswahl einer unzulässigen Messvariante
+	   wird der Alarm 61373 ausgegeben.
+
+Bit 5:	Werkstückmessen, Korrektur in NPV grob, wenn keine Feinverschiebung eingerichtet ist
+          	0: Nur die Messdifferenz wird in die Grobverschiebung der NPV eingetragen (Kompatibilität).
+          	1: Die absolute Verschiebung, korrigiert um die Messdifferenz, wird in die Grobverschiebung der NPV eingetragen.
+
+Bit 6:	Wirkung des Vorschuboverride in Messsätzen von Messzyklen
+          	0: Messsätze werden in den Messzyklen mit dem aktuellen Vorschuboveride verfahren (Kompatibilität).
+          	1: Messsätze werden in den Messzyklen mit 100% Vorschuboveride verfahren, wenn der Vorschuboveride &gt;0 eingestellt ist.
+
+Bit 15:	Werkstückmessen, Messsatz mit Bahnverhalten G60 Genauhalt am Satzende verfahren
+             0: Der Messsatz wird im Bahnsteuerbetrieb G64 verfahren.
+             1: Der Messsatz wird mit Bahnverhalten G60 Genauhalt am Satzende verfahren.
+
+Bit 16:	Werkzeugmessen, Technologie Drehen, Berücksichtigung der Orientierung des Werkzeugträgers 	(Kinematiktyp "T", Schwenkkopf)
+          	0: Die Korrektur der Werkzeugkomponenten erfolgt entsprechend der Orientierung des Werkzeugträgers
+                  beim Messen.
+          	1: Die Korrektur der Werkzeugkomponenten erfolgt entsprechend der Orientierung des Werkzeugträgers
+                  in Grundstellung.
+
+</description>
+</parameter>
+<parameter number="51750" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST</name>
+<brief>Messweg für Messen mit ShopMill, in Automatik</brief>
+<description>Dieser Parameter definiert den Messweg vor und hinter dem Mess-Sollwert.
+Er wird nur von alten ShopMill-Messzyklen (PowerLine) verwendet.
+</description>
+</parameter>
+<parameter number="51751" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST_MANUELL</name>
+<brief>Messweg, für Messen im JOG</brief>
+<description>Dieser Parameter definiert den Messweg vor und hinter dem Mess-Sollwert.
+</description>
+</parameter>
+<parameter number="51752" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST_TOOL_LENGTH</name>
+<brief>Messweg für die Werkzeuglängenmessung, in Messen im JOG</brief>
+<description>Dieser Parameter definiert den Messweg vor und hinter dem Mess-Sollwert.
+
+</description>
+</parameter>
+<parameter number="51753" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST_TOOL_RADIUS</name>
+<brief>Messweg für die Werkzeugradiusmessung, in Messen im JOG</brief>
+<description>Dieser Parameter definiert den Messweg vor und hinter dem Mess-Sollwert.
+
+</description>
+</parameter>
+<parameter number="51755" type="DOUBLE" dim="0">
+<name>J_MEA_MEASURING_FEED</name>
+<brief>Messvorschub für Werkstückmessen und Kalibrieren, in Messen im JOG</brief>
+<description>Messvorschub für Werkstückmessen und Kalibrieren des Werkstückmesstasters, in "Messen im JOG"
+</description>
+</parameter>
+<parameter number="51757" type="DOUBLE" dim="0">
+<name>J_MEA_COLL_MONIT_FEED</name>
+<brief>Vorschub in der Ebene mit aktiver Kollisionsüberwachung, in Messen im JOG</brief>
+<description>Vorschub in der Arbeitsebene mit aktiver Kollisionsüberwachung.
+
+</description>
+</parameter>
+<parameter number="51758" type="DOUBLE" dim="0">
+<name>J_MEA_COLL_MONIT_POS_FEED</name>
+<brief>Zustellvorschub mit aktiver Kollisionsüberwachung, in Messen im JOG</brief>
+<description>Vorschub der Zustellachse mit aktiver Kollisionsüberwachung, in "Messen im JOG".
+
+</description>
+</parameter>
+<parameter number="51770" type="DOUBLE" dim="1">
+<name>J_MEA_CAL_RING_DIAM</name>
+<brief>Durchmesser des Kalibrierringes, in Messen im JOG</brief>
+<description>Durchmesser des Kalibrierringes, für das Kalibrieren der Messtasterkugel in der Ebene, in "Messen im JOG"
+</description>
+</parameter>
+<parameter number="51772" type="DOUBLE" dim="1">
+<name>J_MEA_CAL_HEIGHT_FEEDAX</name>
+<brief>Kalibrierhöhe in der Zustellachse, zum Kalibrieren der Messtasterlänge</brief>
+<description>Kalibrierhöhe in der Zustellachse für das Kalibrieren der Messtasterlänge, in "Messen im JOG"
+Die Kalibrierhöhe ist mit Bezug auf das Werkstückkoordinatensystem (WKS) einzugeben!
+
+</description>
+</parameter>
+<parameter number="51780" type="DOUBLE" dim="1">
+<name>J_MEA_T_PROBE_DIAM_RAD</name>
+<brief>Durchmesser des Werkzeugmesstasters für Radiusmessung, in Messen im JOG</brief>
+<description>Wirksamer Scheibendurchmesser des Werkzeugmesstasters zur Radiusmessung von Fräswerkzeugen, in "Messen im JOG"
+</description>
+</parameter>
+<parameter number="51781" type="DOUBLE" dim="1">
+<name>MEA_T_PROBE_THICKNESS</name>
+<brief>Dicke des Werkzeugmesstasters</brief>
+<description>Dicke des Werkzeugmesstasters, zum automatischen Anfahren von Drehwerkzeugen an den Messtaster auf Fräs-/Drehmaschinen
+</description>
+</parameter>
+<parameter number="51784" type="DWORD" dim="1">
+<name>J_MEA_T_PROBE_APPR_AX_DIR</name>
+<brief>Anfahrrichtung in der Ebene an den Werkzeugmesstaster, in Messen im JOG</brief>
+<description>Anfahrrichtung in der Ebene an den Werkzeugmesstaster, in "Messen im JOG"
+= -2 negative Richtung 2. Messachse
+= -1 negative Richtung 1. Messachse
+=  0 oder 1 positive Richtung 1. Messachse
+=  2 positive Richtung 2. Messachse
+</description>
+</parameter>
+<parameter number="51786" type="DOUBLE" dim="0">
+<name>J_MEA_T_PROBE_MEASURE_DIST</name>
+<brief>Messweg für Werkzeugmessen mit stehender Spindel, in Messen im JOG</brief>
+<description>Messweg zum Werkzeugmesstaster kalibrieren und Werkzeugmessen mit stehender Spindel, vor und hinter der erwarteten Schaltposition.
+</description>
+</parameter>
+<parameter number="51840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Funktionsmaske Schleifzyklen</brief>
+<description>Funktionsmaske Schleifzyklen
+Bit 0: Bezugspunkt beim Abrichter / Scheibe erfassen ist eine Nullpunktverschiebung
+          0: Abwahl Nullpunktverschiebung als Bezugspunkt
+          1: Anwahl Nullpunktverschiebung als Bezugspunkt
+Bit 1: reserviert
+</description>
+</parameter>
+</info>

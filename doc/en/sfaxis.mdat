@@ -1,0 +1,1547 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="36901" type="DWORD" dim="0" display="HEX">
+<name>SAFE_FUNCTION_ENABLE</name>
+<brief>Enable safety functions</brief>
+<description>The safe operation functions can be enabled for an axis/spindle with this data.
+For each axis, only as many axes/spindles can be enabled for safe operation as are enabled by the global option.
+The more subfunctions are set, the more CPU time the safety functions need.
+
+Bit  0: Enables safe velocity, safe operational stop
+Bit  1: Enables safe limit switches
+Bit  2: Reserved for functions with absolute references (such as SE/SN)
+Bit  3: Enables actual value synchronization, 2-encoder system
+Bit  4: Enables external ESR activation (STOP E)
+Bit  5: Enables SG offset
+Bit  6: Enables external stop requests
+Bit  7: Enables cam synchronization
+Bit  8: Enables safe cams, pair 1, cam +
+Bit  9: Enables safe cams, pair 1, cam -
+Bit 10: Enables safe cams, pair 2, cam +
+Bit 11: Enables safe cams, pair 2, cam -
+Bit 12: Enables safe cams, pair 3, cam +
+Bit 13: Enables safe cams, pair 3, cam -
+Bit 14: Enables safe cams, pair 4, cam +
+Bit 15: Enables safe cams, pair 4, cam -
+Bit 16: Enables synchronization "n &lt; nx", hysteresis and filtering
+Bit 23: Enables deactivation of SBH/SG monitoring during external stop A
+
+Special cases:
+- When one of the bits from bit 1 is set, bit 0 also has to be set because the control switches to safe operational stop with STOP C, D, E (parameterization alarm 27033 is displayed if there is an error).
+- If the global option does not enable enough axes/spindles for safe operation, then this data can be overwritten with the value 0 during runup.
+
+Related to: Global option
+
+</description>
+</parameter>
+<parameter number="36902" type="BOOLEAN" dim="0">
+<name>SAFE_IS_ROT_AX</name>
+<brief>Rotary axis</brief>
+<description>States whether the axis for safe operation is a rotary axis/spindle or a linear axis.
+
+0:	Linear axis
+1:	Rotary axis/spindle
+
+The value in this MD must be equal to that in MD30300 $MA_IS_ROT_AX. A parameterization error is displayed if there is a difference.
+</description>
+</parameter>
+<parameter number="36903" type="DWORD" dim="0" display="HEX">
+<name>SAFE_CAM_ENABLE</name>
+<brief>Function enable safe cam track</brief>
+<description>Function enables of safe cam track for "Safety Integrated".
+Bit  0: Enables safe cam track, cam 1
+Bit  1: Enables safe cam track, cam 2
+Bit  2: Enables safe cam track, cam 3
+Bit  3: Enables safe cam track, cam 4
+Bit  4: Enables safe cam track, cam 5
+Bit  5: Enables safe cam track, cam 6
+Bit  6: Enables safe cam track, cam 7
+Bit  7: Enables safe cam track, cam 8
+Bit  8: Enables safe cam track, cam 9
+Bit  9: Enables safe cam track, cam 10
+Bit 10: Enables safe cam track, cam 11
+Bit 11: Enables safe cam track, cam 12
+Bit 12: Enables safe cam track, cam 13
+Bit 13: Enables safe cam track, cam 14
+Bit 14: Enables safe cam track, cam 15
+Bit 15: Enables safe cam track, cam 16
+Bit 16: Enables safe cam track, cam 17
+Bit 17: Enables safe cam track, cam 18
+Bit 18: Enables safe cam track, cam 19
+Bit 19: Enables safe cam track, cam 20
+Bit 20: Enables safe cam track, cam 21
+Bit 21: Enables safe cam track, cam 22
+Bit 22: Enables safe cam track, cam 23
+Bit 23: Enables safe cam track, cam 24
+Bit 24: Enables safe cam track, cam 25
+Bit 25: Enables safe cam track, cam 26
+Bit 26: Enables safe cam track, cam 27
+Bit 27: Enables safe cam track, cam 28
+Bit 28: Enables safe cam track, cam 29
+Bit 29: Enables safe cam track, cam 30
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="36904" type="DWORD" dim="0" display="HEX">
+<name>SAFE_ADD_FUNCTION_MASK</name>
+<brief>Enable additional functions for Safety Integrated</brief>
+<description>Bit 0: On the NCK side, braking is with stops B and C and not by the default "Speed setpoint 0". The braking on the drive side is based on the OFF3 ramp.
+</description>
+</parameter>
+<parameter number="36905" type="DOUBLE" dim="0">
+<name>SAFE_MODULO_RANGE</name>
+<brief>Modulo value Safe cams</brief>
+<description>Actual value range in which the safe cams are calculated for rotary axes. The axis must be a rotary axis (MD36902 $MA_SAFE_IS_ROT_AX = 1).
+
+0:	Modulo compensation after +/- 2048 revolutions (that is after 737,280 degrees)
+
+&gt;0:	And multiples of 360 degrees: Modulo compensation after this value, for example: value = 360 --&gt; then the actual value range lies between 0 and 359.999 degrees. That is modulo compensation is made after each revolution.
+
+Special cases:
+-	If the value of this data is not 0 or a multiple of 360 degrees then a corresponding alarm is issued during power on.
+-	The parameterized actual value ranges of the cam positions are also checked during power on. A corresponding alarm is issued if there is a parameterization error.
+-	The actual value ranges set by MD36905 $MA_SAFE_MODULO_RANGE and MD30330 $MA_MODULO_RANGE must be integers and divisible without a remainder.
+
+Related to:
+	MD 30330: $MA_MODULO_RANGE
+	MD 36935: $MA_SAFE_CAM_POS_PLUS[n]
+	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+</description>
+</parameter>
+<parameter number="36906" type="BYTE" dim="0">
+<name>SAFE_CTRLOUT_MODULE_NR</name>
+<brief>SI drive assignment</brief>
+<description>Assignment of the drive for SI motion monitoring.
+The entry refers to data field MD10393 $MN_SAFE_DRIVE_LOGIC_ADDRESS.
+The drive assigned must be the same as the one selected using MD30110 $MA_CTRLOUT_MODULE_NR and MD13050 $MN_DRIVE_LOGIC_ADDRESS.
+</description>
+</parameter>
+<parameter number="36907" type="DWORD" dim="0" display="HEX" readonly="true">
+<name>SAFE_DRIVE_PS_ADDRESS</name>
+<brief>PROFIsafe address of the drive</brief>
+<description>This NCK MD contains the PROFIsafe address of the drive asigned to this axis. This MD is read out during the power on of the drive. This address must be unique across all axes.
+This MD cannot be written, the PROFIsafe address must be parameterized in the drive.
+The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[2].
+</description>
+</parameter>
+<parameter number="36909" type="DOUBLE" dim="0" readonly="true">
+<name>SAFE_ENC_MEAS_STEPS_RESOL</name>
+<brief>Resolving measurement steps for linear absolute encoders</brief>
+<description>Sets the resolution of the absolute position for a linear absolute encoder.
+
+When powering up, this information for linear DRIVE-CLiQ encoders is read from drive parameter r0469 and is compared with the value last saved. This MD is then overwritten. If not equal, then alarm 27036 is output.
+The value of this MD is incorporated in the checksum calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[0].
+
+Corresponds with:
+	MD 36913: $MA_SAFE_ENC_MEAS_STEPS_POS1
+	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+</description>
+</parameter>
+<parameter number="36910" type="BYTE" dim="0">
+<name>SAFE_ENC_SEGMENT_NR</name>
+<brief>Actual value assignment: type of drive</brief>
+<description>Number of the bus segment over which the SI encoder is addressed.
+0:	Local bus
+2:	MERKUR local P-bus
+4:	Reserved (virtual buses)
+5:	PROFIBUS DP
+
+Safety functions are only possible with SIMODRIVE611D or suitable PROFIBUS drives, see also MD 30210 $MA_ENC_SEGMENT_NR
+</description>
+</parameter>
+<parameter number="36912" type="BYTE" dim="0">
+<name>SAFE_ENC_INPUT_NR</name>
+<brief>Actual value assignment</brief>
+<description>Number of the actual value input through which the safe actual values are recorded.
+
+Related to:
+p9526, p0189
+</description>
+</parameter>
+<parameter number="36913" type="DWORD" dim="0" readonly="true">
+<name>SAFE_ENC_MEAS_STEPS_POS1</name>
+<brief>Non-safety-relevant measurement steps POS1</brief>
+<description>Sets the non safety-relevant measurement steps of the position value POS1.
+
+When powering up, this information for linear DRIVE-CLiQ encoders is read out of drive parameter r0473 and compared with the value last saved here. This MD is then overwritten. If not equal, then alarm 27036 is output.
+The value of this MD is incorporated in the checksum calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[0].
+
+Corresponds with:
+	MD 36909: $MA_SAFE_ENC_MEAS_STEPS_RESOL
+	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+</description>
+</parameter>
+<parameter number="36914" type="BOOLEAN" dim="0">
+<name>SAFE_SINGLE_ENC</name>
+<brief>SI single-encoder system</brief>
+<description>Identifier that SI is carried out with an encoder. This MD must be parameterized to 0 if different encoders are used for the Safety Integrated monitoring functions in the NCK and in the drive.
+</description>
+</parameter>
+<parameter number="36916" type="BOOLEAN" dim="0">
+<name>SAFE_ENC_IS_LINEAR</name>
+<brief>Linear scale</brief>
+<description>Definition of whether a linear or a rotary encoder is connected.
+
+0:	Rotary encoder is connected, its resolution is defined by MD36918 $MA_SAFE_ENC_RESOL, and converted by MD36920 $MA_SAFE_ENC_GEAR_PITCH, MD36921 $MA_SAFE_ENC_GEAR_DENOM[n] and MD36922 $MA_SAFE_ENC_GEAR_NUMERA[n] on the load side. MD36917 $MA_SAFE_ENC_GRID_POINT_DIST has no significance.
+
+1:	Linear encoder is connected, its resolution is defined by MD36917 $MA_SAFE_ENC_GRID_POINT_DIST. MD36918 $MA_SAFE_ENC_RESOL, MD36920 $MA_SAFE_ENC_GEAR_PITCH, MD36921 $MA_SAFE_ENC_GEAR_DENOM[n] and MD36922 $MA_SAFE_ENC_GEAR_NUMERA[n] have no meaning. If the value changes, alarm 27036 is triggered.
+
+Related to:
+With 0:     
+MD36918 $MA_SAFE_ENC_RESOL
+MD36920 $MA_SAFE_ENC_GEAR_PITCH
+MD36921 $MA_SAFE_ENC_GEAR_DENOM[n]
+MD36922 $MA_SAFE_ENC_GEAR_NUMERA[n]
+
+With 1:
+	MD36917 $MA_SAFE_ENC_GRID_POINT_DIST
+</description>
+</parameter>
+<parameter number="36917" type="DOUBLE" dim="0">
+<name>SAFE_ENC_GRID_POINT_DIST</name>
+<brief>Scale division for linear scale</brief>
+<description>Definition of the grid spacing of the linear scale used.
+
+Not relevant for a rotary encoder.
+</description>
+</parameter>
+<parameter number="36918" type="DWORD" dim="0">
+<name>SAFE_ENC_RESOL</name>
+<brief>Encoder lines per revolution</brief>
+<description>Definition of the lines per revolution for a rotary encoder.
+
+Not relevant for a linear encoder.
+</description>
+</parameter>
+<parameter number="36919" type="BYTE" dim="0" readonly="true">
+<name>SAFE_ENC_PULSE_SHIFT</name>
+<brief>Shift factor of encoder multiplication</brief>
+<description>Slide factor of the multiplication factor (high-resolution) of the encoder used for the Safety Integrated monitoring functions in the NCK. The encoder value must be divided by 2, the number of times needed to get the number of encoder lines. A slide factor of 11 corresponds to an encoder multiplication factor of 2048. If the drive provides this information (r0979[3,13,23]), this MD is automatically assigned internally after power ON of the drive. If the value changes during this process, alarm 27036 is triggered.
+</description>
+</parameter>
+<parameter number="36920" type="DOUBLE" dim="0">
+<name>SAFE_ENC_GEAR_PITCH</name>
+<brief>Lead screw pitch</brief>
+<description>Gear ratio between encoder and load for a linear axis with a rotary encoder.
+</description>
+</parameter>
+<parameter number="36921" type="DWORD" dim="1">
+<name>SAFE_ENC_GEAR_DENOM</name>
+<brief>Denominator of gearbox encoder/load</brief>
+<description>Numerator of the gearbox between encoder and load, that is the numerator of the fraction: number of encoder revolutions / number of load revolutions
+n = 0, 1, ... , 7 stand for gear stages 1, 2, ... 8
+
+The current value is selected via safety-relevant input signals (SGE).
+
+Related to:
+	MD 36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
+</description>
+</parameter>
+<parameter number="36922" type="DWORD" dim="1">
+<name>SAFE_ENC_GEAR_NUMERA</name>
+<brief>Numerator of gearbox encoder/load</brief>
+<description>Numerator of the gearbox between encoder and load, that is the numerator of the fraction: 
+
+number of encoder revolutions / number of load revolutions
+n = 0, 1, ... , 7 stand for gear stages 1, 2, ... 8
+
+The current value is selected via safety-relevant input signals (SGE).
+
+Related to:
+	MD 36921: $MA_SAFE_ENC_GEAR_DENOM[n]
+</description>
+</parameter>
+<parameter number="36923" type="DOUBLE" dim="1" readonly="true">
+<name>SAFE_INFO_ENC_RESOL</name>
+<brief>Safe encoder resolution</brief>
+<description>Display data: Resolution of the encoder used in the relevant gear stage for the Safety Integrated monitoring functions. A single encoder system can monitor safe positions with this accuracy. This MD is 0 if different encoders are used in the drive and in the NCK for the Safety Integrated monitoring functions.
+
+</description>
+</parameter>
+<parameter number="36924" type="DWORD" dim="1" readonly="true">
+<name>SAFE_ENC_NUM_BITS</name>
+<brief>Bit information of the redundant actual value</brief>
+<description>Information about the redundant actual value:
+- Array index 0: Number of valid bits of the redundant actual value
+- Array index 1: Number of fine resolution bits of the redundant actual value
+- Array index 2: Number of relevant bits of the redundant actual value
+- Array index 3: Most significant bit of the redundant coarse position
+This information is read out when powering up (for DRIVE-CLiQ encoders from drive parameters p0470, p0471, p0472, and p0475; the default values apply for SMI/SMC/SME encoders) and compared with the most recent values saved here. This MD is then overwritten. In the case of inequality, alarm 27035 or 27036 is output. The values from MD36924 $MA_SAFE_ENC_NUM_BITS[0,1] are included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1]. The values from MD36924 $MA_SAFE_ENC_NUM_BITS[2,3] are included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[0].
+If the combination of several values is incorrect or the number of relevant bits (index 2) is equal to 0, then alarm 27038 is output.
+</description>
+</parameter>
+<parameter number="36925" type="DWORD" dim="0">
+<name>SAFE_ENC_POLARITY</name>
+<brief>Direction reversal of actual value</brief>
+<description>A direction reversal of the actual value can be set with this data.
+
+-1:	Direction reversal
+0:	No direction reversal or
+1:	No direction reversal
+</description>
+</parameter>
+<parameter number="36927" type="BYTE" dim="0" readonly="true">
+<name>SAFE_ENC_MOD_TYPE</name>
+<brief>Encoder evaluation type</brief>
+<description>Type of encoder evaluation used for Safety Integrated on this axis.
+1 = Sensor Module (SMI,SMC,SME)
+2 = DRIVE-CLiQ encoder
+3 = EnDatV2.2 converter
+This type is read out from drive parameter r9527 when powering up. If a valid value has not been entered, alarm 27038 is output. If the drive parameter contains a valid value, this is compared with the last value stored in this MD. This MD is then overwritten. In the event of inequality, alarm 27035 is output. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
+</description>
+</parameter>
+<parameter number="36928" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_ENC_IDENT</name>
+<brief>Encoder identification</brief>
+<description>Identification of the encoder evaluation used for Safety Integrated on this axis. This identification is read out during power on by the encoder evaluation, and compared with the last value stored here. This MD is then overwritten. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
+
+Related to:
+r9881: SI Motion Sensor Module Node Identifier control
+</description>
+</parameter>
+<parameter number="36929" type="DWORD" dim="0" display="HEX" readonly="true">
+<name>SAFE_ENC_CONF</name>
+<brief>Configuration of the redundant actual value</brief>
+<description>Configuration of the redundant actual value for DRIVE-CLiQ encoders:
+Bit 0: Up-down counter
+     = 0: Down counter
+     = 1: Up counter
+Bit 1: Encoder CRC: Processing of redundant coarse position
+     = 0: Most significant byte first
+     = 1: Least significant byte first
+Bit 2: Redundant coarse position MSB-/LSB-justified
+     = 0: Redundant coarse position LSB-justified
+     = 1: Redundant coarse position MSB-justified
+Bit 4: Binary comparison not possible
+     = 0: Binary comparison possible
+     = 1: Binary comparison not possible
+This information is read out from drive parameter r0474 during ramp-up and compared with the last value stored here. This MD is then overwritten. In the event of inequality, alarm 27035 is output. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
+If an unknown bit is set in drive parameter r0474, then alarm 27038 is output. The alarm output at this location can be suppressed using MD $MN_SAFE_DIAGNOSIS_MASK, bit 3 = 1.
+</description>
+</parameter>
+<parameter number="36930" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_TOL</name>
+<brief>Standstill tolerance</brief>
+<description>Definition of the tolerance for safe operational stop.
+
+The control triggers alarm 27010 with STOP B if the difference between position limit value und position actual value is greater than this tolerance when safe operational stop is selected. The position limit value is the position actual value at the time safe operational stop was selected.
+
+Related to:
+	MD 36956: $MA_SAFE_PULSE_DISABLE_DELAY
+</description>
+</parameter>
+<parameter number="36931" type="DOUBLE" dim="1">
+<name>SAFE_VELO_LIMIT</name>
+<brief>Limit value for safe velocity</brief>
+<description>Definition of the limit values for the safe velocities 1, 2, 3 and 4.
+
+If SG1, SG2, SG3 or SG4 is selected and the current velocity exceeds this limit value, the control triggers alarm 27011 with the stop response configured in MD36961 $MA_SAFE_VELO_STOP_MODE or MD36963 $MA_SAFE_VELO_STOP_REACTION.
+
+n = 0, 1, 2, 3 stand for the limit values of SG1, SG2, SG3, SG4
+
+Special cases:
+In a 1-encoder system with SBH/SG active, the velocity is monitored according to the encoder frequency limit. A corresponding alarm is output if this is exceeded.
+
+Related to:
+	MD 36961: $MA_SAFE_VELO_STOP_MODE
+	MD 36963: $MA_SAFE_VELO_STOP_REACTION
+</description>
+</parameter>
+<parameter number="36932" type="DOUBLE" dim="1">
+<name>SAFE_VELO_OVR_FACTOR</name>
+<brief>SG offset values</brief>
+<description>Overrides for the limit values of safe velocities 2 and 4 can be selected via the SGEs, and the associated override value (percentage values) can be set with this MD.
+
+n = 0, 1, ... , 15 stand for overrides 0, 1, ... 15
+
+Special cases:
+-	The function "Override safe speed" is enabled by MD 36901 $MA_SAFE_FUNCTION_ENABLE.
+-	This override is inactive for the limit values of velocities 1 and 3.
+Related to:
+	MD 36978: $MA_SAFE_OVR_INPUT[n]
+	MD 36931: $MA_SAFE_VELO_LIMIT[n]
+
+</description>
+</parameter>
+<parameter number="36933" type="DOUBLE" dim="1">
+<name>SAFE_DES_VELO_LIMIT</name>
+<brief>SG setpoint speed limit</brief>
+<description>Weighting factors for determining the setpoint velocity limit.
+The active weighting factor is selected via the axial NC/PLC interface &lt;SG-Sollwertbegrenzung/&gt; .
+
+Parameterization:
+To set this MD optimally, it may be necessary to make several changes in order to take into account the dynamic performance of the drives.
+
+Effect of SI monitoring with NCK involvement:
+- When 0% is entered, the setpoint velocity limit is inactive.
+- When 100% is entered, the setpoint is limited to the active SG stage.
+- The active actual velocity limit is weighted with the selected factor, and specified to the interpolator as the setpoint limit.
+- When SBH is selected, setpoint 0 is specified.
+-	This data is not included in the cross-check with the drive.
+-	This data is not included in the axial checksum MD36998 $MA_SAFE_ACT_CHECKSUM, as it involves a 1-channel function.
+
+Effect of drive-autonomous SI monitoring:
+- When 0% is entered, the NCK influence on the setpoint limit is inactive. The setpoint limit corresponds to the value read from the drive via SIC.
+- When values &gt; 0% are entered, the NCK influence on the setpoint velocity limit is active. It affects the setpoint limit read from the drive via SIC.
+- The value read from the drive via SIC is weighted with the selected factor, and specified to the interpolator as the setpoint limit.
+- The parameterizable setpoint limit in the drive (p9533) is active independently of the NCK limit.
+
+
+
+
+</description>
+</parameter>
+<parameter number="36934" type="DOUBLE" dim="1">
+<name>SAFE_POS_LIMIT_PLUS</name>
+<brief>Upper limit of safe end position</brief>
+<description>Definition of the upper limit value for safe end positions 1 and 2.
+
+If SE1 or SE2 is selected and the current actual position is greater than this limit value, the control triggers alarm 27012 with the stop response configured in  MD36962 $MA_SAFE_POS_STOP_MODE and switches to SBH. Stop responses STOP B and A follow if SBH is violated.
+
+n = 0, 1 stand for the upper limit values of SE1, SE2
+
+Related to:
+	MD36962: $MA_SAFE_POS_STOP_MODE     
+	MD36935: $MA_SAFE_POS_LIMIT_MINUS[n]
+	MD36901: $MA_SAFE_FUNCTION_ENABLE
+
+Special cases:
+A parameterization error is displayed if a value is entered in MD36934 $MA_SAFE_POS_LIMIT_PLUS[n] which is less than or equal to that in MD36935 $MA_SAFE_POS_LIMIT_MINUS[n].
+</description>
+</parameter>
+<parameter number="36935" type="DOUBLE" dim="1">
+<name>SAFE_POS_LIMIT_MINUS</name>
+<brief>Lower limit of safe end position</brief>
+<description>Definition of the lower limit value for safe end positions 1 and 2.
+
+If SE1 or SE2 is selected and the current actual position is less than this limit value, the control triggers alarm 27012 with the stop response configured in  MD36962 $MA_SAFE_POS_STOP_MODE and switches to SBH. Stop responses STOP B and A follow if SBH is violated.
+
+n = 0, 1 stand for the lower limit values of SE1, SE2
+
+Related to:
+	MD36962: $MA_SAFE_POS_STOP_MODE     
+	MD36934: $MA_SAFE_POS_LIMIT_PLUS[n]
+
+Special cases:
+A parameterization error is displayed if a value is entered in MD36934 $MA_SAFE_POS_LIMIT_PLUS[n] which is less than or equal to that in MD36935 $MA_SAFE_POS_LIMIT_MINUS[n].
+</description>
+</parameter>
+<parameter number="36936" type="DOUBLE" dim="1">
+<name>SAFE_CAM_POS_PLUS</name>
+<brief>Plus cam position for safe cams</brief>
+<description>Definition of the plus cam positions for the safe cams SN1 +, SN2 +, SN3 + and SN4 +, ... 
+
+The following applies to the function "Safe cams":
+If, with activated safe cams, the actual position is greater than this value, the corresponding safety-relevant output signal (SGA) is set to 1. If the actual position falls below this value, the SGA is set to 0.
+
+n = 0, 1, 2, 3 stand for plus cam positions of SN1 +, SN2 +, SN3 +, SN4 +
+
+The following applies to the function "Safe cam track":
+If the function "Safe cam track" has been enabled, the safety-related output signals "Cam track" and "Cam range" are set in accordance with the cam parameterization. For this purpose, the parameterization of the cam range in MD $MA_SAFE_CAM_TRACK_ASSIGN[n] must be viewed.
+n = 0 ... 29 stand for plus cam positions of SN1+, SN2+, ..., SN30+.
+
+Related to:
+	MD 36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
+	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+
+</description>
+</parameter>
+<parameter number="36937" type="DOUBLE" dim="1">
+<name>SAFE_CAM_POS_MINUS</name>
+<brief>Minus cam position for safe cams</brief>
+<description>Definition of the minus cam positions for the safe cams SN1 -, SN2 -, SN3 -, ... 
+
+The following applies to the function "Safe cams":
+If, with activated safe cams, the actual position is greater than this value, the corresponding, safety-relevant output signal (SGA) is set to 1. If the actual position falls below this value, the SGA is set to 0.
+
+n = 0, 1, 2, 3 stand for minus cam positions of SN1 -, SN2 -, SN3 -, SN4 -
+
+The following applies to the function "Safe cam track":
+If the function "Safe cam track" has been enabled, the safety-related output signals "Cam track" and "Cam range" are set in accordance with the cam parameterization. For this purpose, the parameterization of the cam range in MD $MA_SAFE_CAM_TRACK_ASSIGN[n] must be viewed.
+n = 0 ... 29 stand for minus cam positions of SN1-, SN2-, ..., SN30-.
+
+Related to:
+	MD 36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
+	MD 36936: $MA_SAFE_CAM_POS_PLUS[n]
+	MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+
+</description>
+</parameter>
+<parameter number="36938" type="DWORD" dim="1">
+<name>SAFE_CAM_TRACK_ASSIGN</name>
+<brief>Cam track assignment</brief>
+<description>Assignment of the individual cams to the max. 4 cam tracks including definition of the numerical value for SGA "Cam range".
+
+&gt;The hundreds digit defines to which cam track the cam is assigned. Valid values are 1, 2, 3 or 4.
+The tens and ones digits include the numerical value that is to be reported to the safe logics as SGA "Cam range" and processed there. Valid values are 0 to 14, while each numerical value per cam track may be used only once.
+
+Therefore the valid value range of this machine data is:
+100...114, 200...214, 300...314, 400...414
+
+Examples:
+MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[0] = 207: cam 1 (index 0) is assigned to cam track 2.
+If the position is within the range of this cam, a 7 is entered in SGA "Cam range" of the 2nd cam track.
+MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[5] = 100: cam 6 (index 5) is assigned to cam track 1.
+If the position is within the range of this cam, a 0 is entered in SGA "Cam range" of the 1st cam track.
+
+Related to:
+	MD 36936: $MA_SAFE_CAM_POS_PLUS[n]
+	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+
+</description>
+</parameter>
+<parameter number="36940" type="DOUBLE" dim="0">
+<name>SAFE_CAM_TOL</name>
+<brief>Tolerance for safe cams</brief>
+<description>As a result of differing encoder mounting positions and differing cycle and run times, the cam signals of the two monitoring channels never switch at exactly the same position or at exactly the same time.
+
+This data defines the tolerance as a load-side path for all cams, within which the monitoring channels can have different signal states for the same cam without triggering alarm 27001.
+
+Recommendation:
+Enter a value equal to or slightly larger than that in MD 36942.
+</description>
+</parameter>
+<parameter number="36942" type="DOUBLE" dim="0">
+<name>SAFE_POS_TOL</name>
+<brief>Tolerance actual value cross-check</brief>
+<description>Because of varying installation locations for the encoder, backlash, torsion, lead screw error etc, the two actual positions acquired by NCK and drive at the same time can differ from one another.
+
+The tolerance for the cross-check of the actual positions in the two monitoring channels is entered in this data.
+
+Special cases:
+-	The prime consideration for defining this tolerance is the "finger protection" (ca. 10 mm).
+
+-	If this tolerance is exceeded, stop reaction STOP F ensues.
+</description>
+</parameter>
+<parameter number="36944" type="DOUBLE" dim="0">
+<name>SAFE_REFP_POS_TOL</name>
+<brief>Tolerance actual value check (referencing)</brief>
+<description>This data defines the tolerance for checking the actual values after referencing (for an incremental encoder) or during power on (for an absolute encoder).
+Referencing determines an absolute actual position of the axis. A second absolute actual position is derived from the last stored standstill position before the control was  switched off and the path traversed since power on. The control checks the actual values after referencing with these two absolute positions, the path traversed and this data.
+
+The following influences must be taken into account when determining the tolerance values:
+backlash, leadscrew error, compensations (max. compensation values with LEC, sag and temperature compensations), temperature errors, torsion (2-encoder system), gear tolerance in variable gears, coarser resolution (2-encoder system), oscillation distance with variable gears.
+
+Special cases:
+Given user agreement, if the two absolute actual positions differ by more than the value in this data, alarm 27001 is displayed with error code 1003, and renewed user agreement is required for referencing.
+</description>
+</parameter>
+<parameter number="36945" type="DOUBLE" dim="0">
+<name>SAFE_VELO_X_FILTER_TIME</name>
+<brief>Filter n &lt; nx</brief>
+<description>Setting the filter time to form the SGA "n &lt; nx"
+
+The filtering must be activated by setting bit 16 in MD36901 $MA_SAFE_FUNCTION_ENABLE.
+Filtering is not active with default value 0.
+Parameterizing a filter time not equal to 0 increases the reaction time of SGA "n &lt; nx".
+
+Related to:
+	MD 36946: $MA_SAFE_VELO_X
+	MD 36947: $MA_SAFE_VELO_X_HYSTERESIS
+
+</description>
+</parameter>
+<parameter number="36946" type="DOUBLE" dim="0">
+<name>SAFE_VELO_X</name>
+<brief>Velocity limit n &lt; nx</brief>
+<description>This data defines the limit speed n_x for the SGA "n &lt; nx".
+The SGA "n &lt; nx" is set if this speed limit is undershot.
+
+
+
+</description>
+</parameter>
+<parameter number="36947" type="DOUBLE" dim="0">
+<name>SAFE_VELO_X_HYSTERESIS</name>
+<brief>Velocity hysteresis n &lt; nx</brief>
+<description>Setting of the hysteresis threshold to form the SGA "n &lt; nx".
+
+This MD is used in addition to the hysteresis to check the velocity in both monitoring channels at the threshold nx. The velocity must not differ more than the value of this MD, otherwise a Stop F will be output with error code 2.
+MD36947 $MA_SAFE_VELO_X_HYSTERESIS must be less than or equal to 1/2 MD36946 $MA_SAFE_VELO_X.
+
+The function "Synchronization "n &lt; nx", hysteresis and filtering" must be active (MD36901 $MA_SAFE_FUNCTION_ENABLE, bit 16 = 1).
+
+Related to:
+	MD 36945: $MA_SAFE_VELO_X_FILTER_TIME
+	MD 36946: $MA_SAFE_VELO_X
+
+</description>
+</parameter>
+<parameter number="36948" type="DOUBLE" dim="0">
+<name>SAFE_STOP_VELO_TOL</name>
+<brief>Velocity tolerance for Safe monitoring of acceleration</brief>
+<description>Tolerance of the actual velocity for safe monitoring of the acceleration (SBR).
+This tolerance is added to the actual velocity after safe monitoring of the acceleration has been activated (by triggering a Stop B or C).
+The actual velocity must not be greater than the limit thus defined.
+Otherwise a Stop A is triggered. This reveals an acceleration of the drive as quickly as possible.
+</description>
+</parameter>
+<parameter number="36949" type="DOUBLE" dim="0">
+<name>SAFE_SLIP_VELO_TOL</name>
+<brief>Slip velocity tolerance</brief>
+<description>Difference in velocity between the motor and load sides tolerated by a 2-encoder system, without the data cross-check between drive and NCK signaling an error.
+
+MD36949 $MA_SAFE_SLIP_VELO_TOL is only evaluated if MD36901 $MA_SAFE_FUNCTION_ENABLE, bit3 is set.
+
+Related to:
+	MD1349 $MD_SAFE_SLIP_VELO_TOL
+</description>
+</parameter>
+<parameter number="36950" type="DOUBLE" dim="0">
+<name>SAFE_MODE_SWITCH_TIME</name>
+<brief>Tolerance time for SGE switchover</brief>
+<description>SGE switchovers are not active simultaneously because the data transfer runtimes of the SGEs differ in the two monitoring channels. The data cross-check would report an error in this case.
+
+This data defines the length of time after SGE switchovers during which the actual values and the monitoring results are not cross-checked (the machine data continue to be compared!). The selected monitoring continues to run uninterrupted in both monitoring channels.
+
+A safe function becomes active in a monitoring channel as soon as the selection or switchover is detected in this channel.
+
+The differing runtime is mainly determined by the PLC cycle time.
+
+System-related minimum tolerance time: 2 x PLC cycle time (maximum cycle) + 1 x IPO cycle time.
+The runtime differences must also be taken into account in the external circuit (e.g. relay switching times).
+</description>
+</parameter>
+<parameter number="36951" type="DOUBLE" dim="0">
+<name>SAFE_VELO_SWITCH_DELAY</name>
+<brief>Delay time for velocity changeover</brief>
+<description>A timer is started with this value when transferring from a higher to a lower safe speed or when selecting safe operational stop with safe speed active.
+The parameterized value selected must be as low as possible.
+
+The last selected speed limit value continues to be monitored while the timer is running. During this time, the axle/spindle can be decelerated, for example via the PLC user program, without the monitoring reporting an error and triggering a stop reaction.
+Special cases:
+1.	The timer is canceled immediately on switching to a limit greater than or equal to the previously active SG limit.
+2.	The timer is canceled immediately on switching to "Non-safe operation" (SGE "Deselect SBH/SG=1).
+3.	The timer is retriggered (restarted) on switching to a limit less than the previously active SG limit or to SBH while the timer is running.
+
+</description>
+</parameter>
+<parameter number="36952" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_C</name>
+<brief>Transition time STOP C to safe standstill</brief>
+<description>This data defines the time after which a switch is made to safe operational stop when a STOP C has been triggered.
+The parameterized value selected must be as low as possible.
+
+Safe operational stop is monitored after this time has expired. STOP A or B is triggered if the axis/spindle could not be stopped.
+</description>
+</parameter>
+<parameter number="36953" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_D</name>
+<brief>Transition time STOP D to safe standstill</brief>
+<description>This data defines the time after which a switch is made to safe operational stop when a STOP D has been triggered.
+The parameterized value selected must be as low as possible.
+
+Safe operational stop is monitored after this time has expired. STOP B is triggered if the axis/spindle could not be stopped.
+</description>
+</parameter>
+<parameter number="36954" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_E</name>
+<brief>Transitional period STOP E to safe standstill</brief>
+<description>Time period after which a switch over takes place from STOP E to safe operational stop.
+The parameterized value selected must be as small as possible.
+
+
+</description>
+</parameter>
+<parameter number="36955" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_F</name>
+<brief>Transition time STOP F to STOP B</brief>
+<description>Time period after which a switch over takes place from stop F to stop B with active monitoring functions.
+The parameterized value selected must be as low as possible.
+During this time, another deceleration reaction can be activated, e.g. by means of synchronized actions.
+
+The switch over also takes place if a C/D/E stop occurs during this time.
+</description>
+</parameter>
+<parameter number="36956" type="DOUBLE" dim="0">
+<name>SAFE_PULSE_DISABLE_DELAY</name>
+<brief>Delay time for pulse suppression</brief>
+<description>On STOP B, deceleration is made with "speed setpoint 0" (or OFF3 ramp) , and changed to STOP A for pulse suppression after the delay time defined with this data.
+The parameterized value selected must be as low as possible.
+
+Special cases:
+The pulse suppression is performed earlier than defined in this data if the condition for pulse suppression is present via MD 36960: $MA_SAFE_STANDSTILL_VELO_TOL or via MD 36620: $MA_SERVO_DISABLE_DELAY_TIME.
+If the time is set in this data to ZERO, then on STOP B an immediate change is made to STOP A (immediate pulse suppression).
+
+Relating to:
+	MD 36960: $MA_SAFE_STANDSTILL_VELO_TOL
+	MD 36620: $MA_SERVO_DISABLE_DELAY_TIME
+	MD 36060: $MA_STANDSTILL_VELO_TOL
+</description>
+</parameter>
+<parameter number="36957" type="DOUBLE" dim="0">
+<name>SAFE_PULSE_DIS_CHECK_TIME</name>
+<brief>Time for checking pulse suppression</brief>
+<description>Definiiton of the time after which pulses have to be disabled after a request to disable pulses.
+
+The time between deleting the SGA "Enable pulse" and detecting the disabling of pulses via the SGE "Status pulses disabled" must not exceed the value of this data.
+
+Special cases:
+STOP A is triggered if this time is exceeded.
+</description>
+</parameter>
+<parameter number="36958" type="DOUBLE" dim="0">
+<name>SAFE_ACCEPTANCE_TST_TIMEOUT</name>
+<brief>Time limit for acceptance test duration</brief>
+<description>On the NCK side, a time limit can be specified for the duration of an acceptance test.
+
+The NCK terminates the test if an acceptance test lasts longer than the time defined in MD 36958.
+
+The acceptance test status is set to zero on the NCK side. When the acceptance test status is reset, SI-power-ON-alarms are reset again from reset-acknowledgeable to power-ON-acknowledgeable on the NCK and drive sides.
+
+The NCK clears alarm 27007 and the drive clears alarm 300952.
+This MD is also used to limit the duration of an SE (safe limit position) acceptance test. After the programmed time has elapsed, the SE acceptance test is canceled and alarm 27008 deleted. The software limit positions then once again act as defined in the machine data.
+</description>
+</parameter>
+<parameter number="36960" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_VELO_TOL</name>
+<brief>Creep speed for pulse suppression</brief>
+<description>Speed below which the axle/spindle is regarded as being at a standstill and the pulses are disabled with STOP B (through transition to STOP A).
+
+Related to:
+	MD 36956: $MA_SAFE_PULSE_DISABLE_DELAY
+</description>
+</parameter>
+<parameter number="36961" type="BYTE" dim="0">
+<name>SAFE_VELO_STOP_MODE</name>
+<brief>Stop reaction for safe velocity</brief>
+<description>The stop reaction defined in this data is triggered if the limit value for the safe velocity 1, 2, 3 or 4 
+is exceeded.
+
+= 0, 1, 2, 3 correspond to STOP A, B, C, D, common to each safe velocity stage
+= 5 means that the stop reaction can be configured specifically for each safe velocity in MD 36963.
+The units digit defines the selection of the stop reaction when the safe velocity is exceeded.
+The tens digit defines the behavior in the case of failure of communicaton to the drive if a time greater than 0 is parameterized in MD10089 $MN_SAFE_PULSE_DIS_TIME_BUSFAIL.
+
+0:	Stop A
+1:	Stop B
+2:	Stop C
+3:	Stop D
+4:	Stop E
+5:	SAFE_VELO_STOP_MODE invalid, stop reaction is parameterized via MD SAFE_VELO_STOP_REACTION
+10:	Stop A, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if safe velocity is active
+11:	Stop B, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if safe velocity is active
+12:	Stop C, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if safe velocity is active
+13:	Stop D, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if safe velocity is active
+14:	Stop E, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if safe velocity is active
+
+Special cases:
+- If the value in this MD is 5, the stop reaction for each safe velocity stage is defined selectively in MD36963 $MA_SAFE_VELO_STOP_REACTION.
+
+Related to:
+	MD 36931: $MA_SAFE_VELO_LIMIT[n]
+	MD 36963: $MA_SAFE_VELO_STOP_REACTION[n]
+</description>
+</parameter>
+<parameter number="36962" type="BYTE" dim="0">
+<name>SAFE_POS_STOP_MODE</name>
+<brief>Stop reaction for safe end position</brief>
+<description>The stop reaction defined in this data is triggered if safe end position 1 or 2 is overrun.
+
+2:	Stop C
+3:	Stop D
+4:	Stop E
+
+Related to:
+	MD 36934: $MA_SAFE_POS_LIMIT_PLUS[n]
+	MD 36935: $MA_SAFE_POS_LIMIT_MINUS[n]
+</description>
+</parameter>
+<parameter number="36963" type="BYTE" dim="1">
+<name>SAFE_VELO_STOP_REACTION</name>
+<brief>Stop reaction for safe velocity</brief>
+<description>The stop reaction defined in this data is triggered if the limit value for the safe velocity 1, 2, 3 or 4 is exceeded.
+
+= 0, 1, 2, 3 stand for SG1, SG2, SG3, SG4
+
+The units digit defines the selection of the stop reaction for each specific safe velocity when the safe velocity is exceeded.
+The tens digit defines the behavior in the case of a failure of communicaton to the drive for each specific safe velocity if a time greater than 0 has been parameterized in MD10089 $MN_SAFE_PULSE_DIS_TIME_BUSFAIL.
+
+Value    Meaning
+ 0:	Stop A
+ 1:	Stop B
+ 2:	Stop C
+ 3:	Stop D
+ 4:	Stop E
+10:	Stop A, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if this safe velocity level is active
+11:	Stop B, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if this safe velocity level is active
+12:	Stop C, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if this safe velocity level is active
+13:	Stop D, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if this safe velocity level is active
+14:	Stop E, additionally, in the event of failure of communicaton to the drive, pulses are not disabled immediately if this safe velocity level is active
+
+Special cases:
+This MD is only active when MD 36961 and drive parameter p9561 have the value 5.
+
+Related to:
+	MD 10089: $MN_SAFE_PULSE_DIS_TIME_BUSFAIL
+	MD 36961: $MA_SAFE_VELO_STOP_MODE
+</description>
+</parameter>
+<parameter number="36964" type="BYTE" dim="0">
+<name>SAFE_IPO_STOP_GROUP</name>
+<brief>Safety-integrated IPO-response grouping</brief>
+<description>This MD is only active with Safety Integrated axes and spindles.
+It influences the channel-wide IPO response distribution of Safety Integrated:
+
+0 =	Default: All other axes/spindles in the channel are informed of the IPO stop response of this axis.
+
+1 =	For internal stops, the axes and machining spindles interpolating with the axis in question are also influenced via the triggered safety alarms.
+	Other axes/spindles in the channel, however, continue without disturbance. In the case of external stops (without an alarm) all other axes/spindles are not influenced by the safety axis/spindle stop. This allows, for example, the safe cancelation of the pulses of a spindle (using external Stop A) so that the spindle can be turned manually but still move the axes safely with monitoring.
+	If the other axes/spindles stop together with the safety axis/spindle in certain machining situations, the user must implement this at his own responsibility using the PLC or synchronous action operations.
+</description>
+</parameter>
+<parameter number="36965" type="BOOLEAN" dim="0">
+<name>SAFE_PARK_ALARM_SUPPRESS</name>
+<brief>Alarm suppression on parking axis</brief>
+<description>This MD is only active for Safety Integrated axes/spindles.
+
+0 =	Default setting: Alarms 27000/A01797 are displayed when parking is selected.
+1 =	Alarms 27000/A01797 are not displayed when parking is selected. This is necessary for axes that are disconnected on the encoder side during the machining process (e.g. dressing axes). The alarms are displayed when parking is deselected again.
+
+
+</description>
+</parameter>
+<parameter number="36966" type="DOUBLE" dim="0">
+<name>SAFE_BRAKETEST_TORQUE</name>
+<brief>Holding torque for brake test (NC-controlled)</brief>
+<description>Specification of the torque and force for the NC-controlled functional test of the brake mechanism.
+
+This torque and force is exerted on the applied brake during the test without the axis starting to move.
+The percentage value entered here is related to drive parameter p2003 of the axis.
+
+The following supplementary conditions apply:
+If the current torque is more than 85% of the test torque when the brake test is selected (that is with the brake off) the brake test is canceled with alarm 20095. This ensures that the motor can stop the axis even if the brake is defective.
+If the brake test is made with the drive parameter p1532 (MD36968 $MA_SAFE_BRAKETEST_CONTROL bit0 = 0), the safety reserve required is increased by double the difference between the current holding torque and the value in parameter p1532.
+
+Release of the corresponding test function via MD37000 $MA_FIXED_STOP_MODE bit 1.
+
+
+
+</description>
+</parameter>
+<parameter number="36967" type="DOUBLE" dim="0">
+<name>SAFE_BRAKETEST_POS_TOL</name>
+<brief>Position tolerance for brake test (NC-controlled)</brief>
+<description>Maximum position tolerance for the functional test of the brake mechanics.
+
+The functional test of the brake mechanics is canceled if the axis position deviates
+by more than this tolerance from the position at selection of the brake test.
+
+The corresponding test function is enabled by
+MD37000 $MA_FIXED_STOP_MODE bit 1.
+</description>
+</parameter>
+<parameter number="36968" type="DWORD" dim="0" display="HEX">
+<name>SAFE_BRAKETEST_CONTROL</name>
+<brief>Advanced settings for the brake test</brief>
+<description>Advanced settings for the NC-controlled brake test.
+
+Bit 0: Selection of the average value of the torque limit
+= 0:	Drive parameter p1532 is used as the average value of the torque limit
+= 1:	The torque measured at the time of selection of the brake test is used as the average value of the torque limit
+Bit 1: Criterion for reaching the torque limit in the PLC
+= 0:	The torque limit must be reached during the programmed traversing distance
+= 1:	The torque limit must be reached during the programmed time (PLC)
+</description>
+</parameter>
+<parameter number="36969" type="DOUBLE" dim="0" readonly="true">
+<name>SAFE_BRAKETEST_TORQUE_NORM</name>
+<brief>Reference variable for brake test holding torque</brief>
+<description>Setting of the reference variable for torques
+All torques indicated as relative value refer to this reference variable.
+This MD is an image of drive parameter p2003
+</description>
+</parameter>
+<parameter number="36970" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SVSS_DISABLE_INPUT</name>
+<brief>Input assignment SBH/SG deselection</brief>
+<description>This data defines the NCK input for selecting/deselecting the functions SBH and SG.
+
+Signal          Meaning
+= 0	SG or SBH is selected
+= 1	SG and SBH are deselected
+
+Structure:
+
+Special cases:
+-	Entry of 0 means there is no existing assignment, the input remains fixed at 0, SG and SBH cannot be deselected.
+-	Entry of 80 00 00 00 means there is no existing assignment, the input remains fixed at 1.
+
+-	If a single output signal is placed on a system variable, the signal is processed inverted if MD bit 31 is set.
+-	If several output signals are placed on the same system variable, then
+	the signal concerned is initially inverted if MD bit 31 is set. The (if applicable inverted) output signals are then AND-ed. The result is written to the system variable.
+
+Related to:
+	MD 10366: $MN_HW_ASSIGN_DIG_FASTIN
+	MD 13010: $MN_DRIVE_LOGIC_NR
+
+References:           /FB/, A4, Digital and Analog NCK I/Os
+
+
+
+
+</description>
+</parameter>
+<parameter number="36971" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SS_DISABLE_INPUT</name>
+<brief>Input assignment SBH deselection</brief>
+<description>Assignment of the NCK input for deselecting the function safe operational stop.
+
+Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+Input assignment to the safe functions if either safe velocity or safe operational stop have been activated.
+
+Signal           Meaning
+= 0	Safe operational stop is selected
+= 1	Safe operational stop is deselected (only if other functions have not triggered a STOP C, D or E)
+
+Special cases:
+-	The signal is processed inverted if MD bit 31 is set.
+-	This input is irrelevant if SG and SBH have been deselected (see MD36970 $MA_SAFE_SVSS_DISABLE_INPUT).
+
+Related to:
+	MD 36970: $MA_SAFE_SVSS_DISABLE_INPUT
+</description>
+</parameter>
+<parameter number="36972" type="DWORD" dim="1" display="HEX">
+<name>SAFE_VELO_SELECT_INPUT</name>
+<brief>Input assignment SG selection</brief>
+<description>This data defines the two inputs for selecting SG1, SG2, SG3 or SG4.
+
+Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+n = 1, 0 stand for bit 1, 0 for selecting SG1 to SG4
+
+Assignment of the input bits to the safe velocities:
+
+Bit 1            Bit 0              Selected SG
+0                  0                    SG1
+0                  1                    SG2
+1                  0                    SG3
+1                  1                    SG4
+
+Special cases:
+The signal is processed inverted if the MD bits 31 are set.
+</description>
+</parameter>
+<parameter number="36973" type="DWORD" dim="0" display="HEX">
+<name>SAFE_POS_SELECT_INPUT</name>
+<brief>Input assignment SE selection</brief>
+<description>This data defines the input for selecting safe limit positions 1 or 2.
+
+Structure see: MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+Signal       Meaning
+= 0	SE1 is active
+= 1	SE2 is active
+
+Special cases:
+The signal is processed inverted if MD bit 31 is set.
+
+Related to:
+	MD 36970: $MA_SAFE_SVSS_DISABLE_INPUT.
+</description>
+</parameter>
+<parameter number="36974" type="DWORD" dim="1" display="HEX">
+<name>SAFE_GEAR_SELECT_INPUT</name>
+<brief>Input assignment speed ratio selection</brief>
+<description>Input assignment for selecting the gear ratio (gear stage).
+
+Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+n = 2, 1, 0 stand for bit 2, 1, 0 for selecting gear stages 1 to 8
+
+Bit 2               Bit 1              Bit 0            Active gear stage
+0                     0                    0                   Stage 1
+0                     0                    1                   Stage 2
+0                     1                    0                   Stage 3
+...                  ...                  ...                      ...
+1                     1                    1                   Stage 8
+
+Special cases:
+The signals are processed inverted if the MD bits 31 are set.
+
+Related to:
+	MD 36970: $MA_SAFE_SVSS_DISABLE_INPUT
+</description>
+</parameter>
+<parameter number="36977" type="DWORD" dim="1" display="HEX">
+<name>SAFE_EXT_STOP_INPUT</name>
+<brief>Input assignment for external stop request</brief>
+<description>This data defines the NCK inputs for selecting/deselecting the external brake requests.
+
+n = 0, 1, 2, 3 stand for the various braking modes
+
+n = 0: Assignment for "Deselect external stop A" (SH, disabling of pulses)
+n = 1: Assignment for "Deselect external stop C" (braking at the current limit/OFF3 ramp)
+n = 2: Assignment for "Deselect external stop D" (path braking)
+n = 3: Assignment for "Deselect external stop E" (ESR + path braking)
+
+Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+Special cases:
+The signals are processed inverted if the MD bits 31 are set. The signal "Deselect external stop A" cannot be parameterized inverted. A parameter error is reported if there is an error.
+</description>
+</parameter>
+<parameter number="36978" type="DWORD" dim="1" display="HEX">
+<name>SAFE_OVR_INPUT</name>
+<brief>Input assignment for SG override</brief>
+<description>Assignment of the NCK inputs for the override of the limit values of safe velocities 2 and 4.
+
+Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+n = 3, 2, 1, 0 stand for the override selection bits 3, 2, 1, 0
+
+Assignment of the input bits to the SG override values:
+
+Bit 3        Bit 2         Bit 1        Bit 0
+    0            0             0            0    Override 0 is selected
+
+    0            0             0            1    Override 1 is selected
+
+to ...
+
+    1            1             1            1    Override 15 is selected
+
+The following machine data defines the override factor itself (percentage value):
+MD 36932: $MA_SAFE_VELO_OVR_FACTOR[n]
+
+Special cases:
+-	The function "Override safe velocity" is enabled by MD 36901 $MA_SAFE_FUNCTION_ENABLE.
+-	The signals are processed inverted if the MD bits 31 are set.
+
+Related to:
+	MD 36932: $MA_SAFE_VELO_OVR_FACTOR[n]
+</description>
+</parameter>
+<parameter number="36980" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SVSS_STATUS_OUTPUT</name>
+<brief>Output assignment SBH/SG active</brief>
+<description>Assignment of the output for reporting the status of the functions safe velocity and safe operational stop.
+
+Signal          Meaning
+= 0	SG and SBH are not active
+= 1	SG or SBH is active
+
+Special cases:
+-	Entry of 0 means 
+	there is no existing assignment, the output is not affected.
+-	Entry of 80 00 00 00 means there is no existing assignment, the output remains fixed at 1.
+-	If a single output signal is placed on a system variable, then
+	the signal is processed inverted if MD bit 31 is set.
+-	If several output signals are placed on the same system variable, then
+	the signal concerned is initially inverted if MD bit 31 is set. The (if applicable inverted) output signals are then AND-ed. The result is written to the system variable.
+
+Related to:
+	MD 10368: $MN_HW_ASSIGN_DIG_FASTOUT
+	MD 13010: $MN_DRIVE_LOGIC_NR
+
+References:           /FB/, A4, Digital and Analog NCK I/Os
+
+
+
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="36981" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SS_STATUS_OUTPUT</name>
+<brief>Output assignment SBH active</brief>
+<description>This data defines the output or the system variable for the message "SBH active".
+
+Structure see: MD36977 $MA_SAFE_EXT_STOP_INPUT
+
+Signal       Meaning
+= 0	SBH is inactive
+= 1	SBH is active
+
+Special cases:
+The signal is processed inverted if MD bit 31 is set.
+</description>
+</parameter>
+<parameter number="36982" type="DWORD" dim="1" display="HEX">
+<name>SAFE_VELO_STATUS_OUTPUT</name>
+<brief>Output assignment for active SG selection</brief>
+<description>This data defines the outputs or the system variables for the messages "SBH active bit 0" and "SBH active bit 1".
+
+Structure see: MD36977 $MA_SAFE_EXT_STOP_INPUT
+
+n = 1, 0              stand for SG active bits 1, 0
+
+SG active
+Bit 1  Bit 0  Meaning:
+= 0    = 0    SG1 active if SBH/SG are active and SBH is not active
+              SBH active if SBH/SG are active and SBH is active
+= 1    = 0    SG2 active
+= 0    = 1    SG3 active
+= 1    = 1    SG4 active
+
+Special cases:
+The signal is processed inverted if MD bit 31 is set.
+</description>
+</parameter>
+<parameter number="36985" type="DWORD" dim="0" display="HEX">
+<name>SAFE_VELO_X_STATUS_OUTPUT</name>
+<brief>Output assignment n &lt; n_x</brief>
+<description>This data defines the output or the system variable for the message "n &lt; nx".
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Signal       Meaning
+= 0	Actual speed is greater than the limit speed in MD36946 $MA_SAFE_VELO_X
+
+= 1	Actual speed is less than or equal to the limit speed in $MA_SAFE_VELO_X
+
+Related to:    MD36946 $MA_SAFE_VELO_X
+
+Special cases:
+The signal is processed inverted if MD bit 31 is set.
+</description>
+</parameter>
+<parameter number="36987" type="DWORD" dim="0" display="HEX">
+<name>SAFE_REFP_STATUS_OUTPUT</name>
+<brief>Output assignment axis safely referenced</brief>
+<description>This data defines the output for the message "Axis safely referenced".
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Signal       Meaning
+= 0	Axis is not safely referenced (that is the safe limit monitoring is inactive!)
+= 1	Axis is safely referenced
+
+Special cases:
+The signal is processed inverted if MD bit 31 is set.
+</description>
+</parameter>
+<parameter number="36988" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_PLUS_OUTPUT</name>
+<brief>Output assignment SN1 + to SN4 +</brief>
+<description>This data defines the outputs for the cam signals SN1 + to SN4 +.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the assignments for plus cams SN1 +, SN2 +, SN3 +, SN4 +
+
+Signal       Meaning
+= 0	Axis is left of the cam (actual value &lt; cam position)
+= 1	Axis is right of the cam (actual value &gt; cam position)
+
+Special cases:
+The signal is processed inverted if MD bit 31 is set.
+</description>
+</parameter>
+<parameter number="36989" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_MINUS_OUTPUT</name>
+<brief>Output assignment SN1 - to SN4 -</brief>
+<description>This data defines the outputs for the minus cams SN1 - to SN4 -.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the assignments for minus cams SN1 -, SN2 -, SN3 -, SN4 -
+
+Signal       Meaning
+= 0	Axis is left of the cam (actual value &lt; cam position)
+= 1	Axis is right of the cam (actual value &gt; cam position)
+
+Special cases:
+-	If a cam is negated and placed with another cam on an output, it is AND-ed and a single cam signal is generated for range recognition.
+</description>
+</parameter>
+<parameter number="36990" type="DWORD" dim="1" display="HEX">
+<name>SAFE_ACT_STOP_OUTPUT</name>
+<brief>Output assignment of active stop</brief>
+<description>Assignment of the output signals for displaying the currently active stop.
+Index 0:  Assignment for "Stop A/B active"
+Index 1:  Assignment for "Stop  C active"
+Index 2:  Assignment for "Stop  D active"
+Index 3:  Assignment for "Stop  E active"
+
+
+
+</description>
+</parameter>
+<parameter number="36992" type="DOUBLE" dim="0" readonly="true">
+<name>SAFE_CROSSCHECK_CYCLE</name>
+<brief>Display of axial cross-check cycle</brief>
+<description>Display data for safety functions: Effective axial cross-check cycle in seconds.
+The cycle derives from INFO_SAFETY_CYCLE_TIME and the number of data to be cross-checked.
+
+</description>
+</parameter>
+<parameter number="36993" type="STRING" dim="1" readonly="true">
+<name>SAFE_CONFIG_CHANGE_DATE</name>
+<brief>Date/time of last change of SI axis MD</brief>
+<description>Display data for safety functions:
+Date and time of the last configuration change to safety related NCK axis machine data. 
+Changes to the machine data included in the calculation of axial checksums SAFE_ACT_CHECKSUM are recorded.
+</description>
+</parameter>
+<parameter number="36994" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_PREV_CONFIG</name>
+<brief>Data of previous safety axis configuration</brief>
+<description>Intermediate buffer for storing previous safety configuration data
+Index [0]: Status flag for change history
+Index [1]: Previous value of function enable
+Index [2]: Previous value of set checksum SAFE_DES_CHECKSUM[0]
+Index [3]: Last value of function enable before standard data were loaded
+Index [4]: Last value of set checksum SAFE_DES_CHECKSUM[0] before standard data were loaded.
+Index [5]: Previous value of set checksum SAFE_DES_CHECKSUM[1]
+Index [6]: Last value of set checksum SAFE_DES_CHECKSUM[1] before standard data were loaded
+Index [7]: Previous value of set checksum SAFE_DES_CHECKSUM[2]
+Index [8]: Last value of set checksum SAFE_DES_CHECKSUM[2] before standard data were loaded
+</description>
+</parameter>
+<parameter number="36995" type="DWORD" dim="0">
+<name>SAFE_STANDSTILL_POS</name>
+<brief>Standstill position</brief>
+<description>This MD displays the current standstill position.
+
+In order to be able to test the referencing of the axis for plausibility at the next control Power ON, the current position of the axis is stored in non-volatile memory in the following cases:
+-	On selection of safe operational stop (SBH)
+-	Cyclically, if SE/SN are activated
+
+Special cases:
+If the MD is changed manually, this will be detected at the next Power ON and plausibility test. Another user agreement is required after referencing.
+</description>
+</parameter>
+<parameter number="36997" type="DWORD" dim="0" display="HEX">
+<name>SAFE_ACKN</name>
+<brief>User acknowledge</brief>
+<description>This data displays the status of the user agreement.
+
+The user agreement can be given or withdrawn by the user by means of a corresponding screen.
+
+If the software detects internally that the reference to the machine has been lost, then it is "automatically" withdrawn (e.g. on changing gear or if the plausibility comparison with the stored standstill position fails during referencing).
+
+Special cases:
+If the MD is changed manually, then this will be detected at the next Power ON and plausibility test. Another user agreement is required after referencing.
+</description>
+</parameter>
+<parameter number="36998" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_ACT_CHECKSUM</name>
+<brief>Actual checksum</brief>
+<description>The actual checksum calculated after POWER ON or on RESET is entered here over the current values of the safety relevant machine data.
+Assignment of the field indices:
+Index 0: Axial monitoring functions
+Index 1: Hardware component recognition
+Index 2: Drive assignment
+</description>
+</parameter>
+<parameter number="36999" type="DWORD" dim="1" display="HEX">
+<name>SAFE_DES_CHECKSUM</name>
+<brief>Desired (expected) checksum</brief>
+<description>In this data, the set checksum stored at the last machine acceptance appears above the current values of the safety relevant machine data.
+Assignment of the field indices:
+Index 0: Axial monitoring functions
+Index 1: Hardware component recognition
+Index 2: MDs for drive assignment
+</description>
+</parameter>
+<parameter number="37900" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_TRACK_OUTPUT</name>
+<brief>Output assignment cam track 1 to 4</brief>
+<description>This data defines the outputs for the cam tracks 1 to 4.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the assignment for cam track 1 to 4
+
+Signal       Meaning
+= 0	Axis is not placed on a cam of the cam track
+= 1	Axis is placed on a cam of the cam track
+
+Special cases:
+The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+
+</description>
+</parameter>
+<parameter number="37901" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_1</name>
+<brief>Output assignment cam range for cam track 1</brief>
+<description>This data defines the outputs for the cam range of cam track 1.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the 4 bits for the indicated range on cam track 1
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Cam range 0 active
+  0      0       0      1      Cam range 1 active
+to ...
+  1      1       1      1      Cam range 15 active
+
+The cam range is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal          Meaning
+= 0...14	Axis is placed within the cam range, to which the range ID 0...14 on cam track 1 was assigned
+= 15  	Axis is placed within the range to the right of the cam with the highest position of cam track 1
+
+Special cases:
+The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="37902" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_2</name>
+<brief>Output assignment cam range for cam track 2</brief>
+<description>This data defines the outputs for the cam range of cam track 2.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the 4 bits for the indicated range on cam track 2
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Cam range 0 active
+  0      0       0      1      Cam range 1 active
+to ...
+  1      1       1      1      Cam range 15 active
+
+The cam range is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal          Meaning
+= 0...14	Axis is placed within the cam range, to which the range ID 0...14 on cam track 2 was assigned
+= 15  	Axis is placed within the range to the right of the cam with the highest position of cam track 2
+
+Special cases:
+The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="37903" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_3</name>
+<brief>Output assignment cam range for cam track 3</brief>
+<description>This data defines the outputs for the cam range of cam track 3.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the 4 bits for the indicated range on cam track 3
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Cam range 0 active
+  0      0       0      1      Cam range 1 active
+to ...
+  1      1       1      1      Cam range 15 active
+
+The cam range is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal          Meaning
+= 0...14	Axis is placed within the cam range, to which the range ID 0...14 on cam track 3 was assigned
+= 15  	Axis is placed within the range to the right of the cam with the highest position of cam track 3
+
+Special cases:
+The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="37904" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_4</name>
+<brief>Output assignment cam range for cam track 4</brief>
+<description>This data defines the outputs for the cam range of cam track 4.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 correspond to the 4 bits for the indicated range on cam track 4
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Cam range 0 active
+  0      0       0      1      Cam range 1 active
+to ...
+  1      1       1      1      Cam range 15 active
+
+The cam range is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal          Meaning
+= 0...14	Axis is placed within the cam range, to which the range ID 0...14 on cam track 4 was assigned
+= 15  	Axis is placed within the range to the right of the cam with the highest position of cam track 4
+
+Special cases:
+The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="37906" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_1</name>
+<brief>Output assignment cam range bit for cam track 1</brief>
+<description>This data defines the outputs for the cam range bits of cam track 1.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Field index n corresponds to the parameterizable cam range numbers on cam track 1.
+
+The cam range number is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal          Meaning
+= 0	Axis is not placed on cam with cam range number n
+= 1	Axis is placed on cam with cam range number n
+
+Example:
+The signal addressed with field index 5 changes to 1, if the axis is placed on the cam, to which cam range number 5 on cam track 1 was assigned during parameterization.
+
+Special cases:
+- The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+- If cam range number n on cam track 1 is not parameterized, the signal of field index can never change to 1. In this case the output MD with field index n does not have to be parameterized.
+
+</description>
+</parameter>
+<parameter number="37907" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_2</name>
+<brief>Output assignment cam range bit for cam track 2</brief>
+<description>This data defines the outputs for the cam range bits of cam track 2.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Field index n corresponds to the parameterizable cam range numbers on cam track 2.
+
+The cam range number is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal          Meaning
+= 0	Axis is not placed on cam with cam range number n
+= 1	Axis is placed on cam with cam range number n
+
+Example:
+The signal addressed with field index 5 changes to 1, if the axis is placed on the cam, to which cam range number 5 on cam track 2 was assigned during parameterization.
+
+Special cases:
+- The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+- If cam range number n on cam track 2 is not parameterized, the signal of field index can never change to 1. In this case the output MD with field index n does not have to be parameterized.
+
+</description>
+</parameter>
+<parameter number="37908" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_3</name>
+<brief>Output assignment cam range bit for cam track 3</brief>
+<description>This data defines the outputs for the cam range bits of cam track 3.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Field index n corresponds to the parameterizable cam range numbers on cam track 3.
+
+The cam range number is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal          Meaning
+= 0	Axis is not placed on cam with cam range number n
+= 1	Axis is placed on cam with cam range number n
+
+Example:
+The signal addressed with field index 5 changes to 1, if the axis is placed on the cam, to which cam range number 5 on cam track 3 was assigned during parameterization.
+
+Special cases:
+- The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+- If cam range number n on cam track 3 is not parameterized, the signal of field index can never change to 1. In this case the output MD with field index n does not have to be parameterized.
+
+</description>
+</parameter>
+<parameter number="37909" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_4</name>
+<brief>Output assignment cam range bit for cam track 4</brief>
+<description>This data defines the outputs for the cam range bits of cam track 4.
+
+Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Field index n corresponds to the parameterizable cam range numbers on cam track 4.
+
+The cam range number is defined via the following machine data:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal          Meaning
+= 0	Axis is not placed on cam with cam range number n
+= 1	Axis is placed on cam with cam range number n
+
+Example:
+The signal addressed with field index 5 changes to 1, if the axis is placed on the cam, to which cam range number 5 on cam track 4 was assigned during parameterization.
+
+Special cases:
+- The function "Safe cam track" is enabled via MD 36903 $MA_SAFE_CAM_ENABLE.
+- If cam range number n on cam track 4 is not parameterized, the signal of field index can never change to 1. In this case the output MD with field index n does not have to be parameterized.
+
+</description>
+</parameter>
+<parameter number="37920" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_VELO_LIMIT</name>
+<brief>Switchover speed safe operating stop</brief>
+<description>Speed below which an axis/spindle is regarded as being at a standstill and there is a switch to safe operating stop.
+
+Related to:
+MD 37922: $MA_SAFE_STANDSTILL_DELAY
+p9567
+</description>
+</parameter>
+<parameter number="37922" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_DELAY</name>
+<brief>Delay time before switch to safe operating stop</brief>
+<description>If a standstill is detected during the switch to SBH (see MD 37920: $MA_SAFE_STANDSTILL_VELO_LIMIT), then SBH becomes active after this transition time at the latest. In this case, the transition times of stops C, D and E as well as SG after SBH are canceled or replaced by this delay time.
+
+Related to:
+MD 37920: $MA_SAFE_STANDSTILL_VELO_LIMIT
+p9569
+</description>
+</parameter>
+<parameter number="37950" type="DWORD" dim="0" display="HEX">
+<name>SAFE_INFO_ENABLE</name>
+<brief>SIC/SCC and PROFIsafe enable</brief>
+<description>MD to enable the evaluation of the SIC/SCC telegram between the control and drive, and to enable the transfer of the PROFIsafe telegram between the F-PLC and the drive
+Bit 0: Enables the evaluation of the Safety Info Channel / Safety Control Channel (SIC/SCC)
+       for axes with NC Safety functionality, only the drive-autonomous brake test is supported via SIC/SCC
+Bit 1: Enables PROFIsafe communication between the F-PLC and drive
+</description>
+</parameter>
+<parameter number="37952" type="BYTE" dim="0">
+<name>PROFISAFE_MODULE_NR</name>
+<brief>PROFIsafe module number</brief>
+<description>Number to select a logical basis address from MD13372 $MN_SAFE_PS_DRIVE_LOGIC_ADDR.
+</description>
+</parameter>
+<parameter number="37954" type="BYTE" dim="0">
+<name>SAFE_INFO_MODULE_NR</name>
+<brief>SIC/SCC module number</brief>
+<description>Number to select a logical basis address from MD13374 $MN_SAFE_INFO_DRIVE_LOGIC_ADDR.
+</description>
+</parameter>
+</info>

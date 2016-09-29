@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="41010" type="DOUBLE" dim="0">
+<name>JOG_VAR_INCR_SIZE</name>
+<brief>Size of the variable increment for JOG</brief>
+<description>This setting data defines the number of increments when variable increment (INCvar) is selected. This increment size is traversed by the axis in JOG mode each time the traverse key is pressed or the handwheel is turned one detent position and variable increment is selected (PLC interface signal "Active machine function: INC variable" for machine or geometry axes is set to 1). The defined increment size also applies to DRF.
+
+Note:
+	Please note that the increment size is active for incremental jogging and handwheel jogging. So, if a large increment value is entered and the handwheel is turned, the axis might cover a large distance (depends on setting in MD31090 $MA_JOG_INCR_WEIGHT).
+
+SD irrelevant to ...... 
+JOG continuous 
+
+Related to .... 
+	NC/PLC interface signal &lt;Geometrieachse1-3aktiveMaschinenfunktion-VarINC/&gt; (Geometry axis 1-3 active machine function: INC variable) or NC/PLC interface signal &lt;aktiveMaschinenfunktion-VarINC/&gt; (Active machine function: INC variable)
+	MD31090 $MA_JOG_INCR_WEIGHT (weighting of an increment for INC/handwheel)
+This setting data defines the number of increments when variable increment (INCvar) is selected. This increment size is traversed by the axis in JOG mode each time the traverse key is pressed or the handwheel is turned one detent position and variable increment is selected (PLC interface signal "Active machine function: INC variable" for machine or geometry axes is set to 1).
+Note: The increment size is active for both incremental and handwheel traversing.
+</description>
+</parameter>
+<parameter number="41050" type="BOOLEAN" dim="0">
+<name>JOG_CONT_MODE_LEVELTRIGGRD</name>
+<brief>Jog mode / continuous operation with continuous JOG</brief>
+<description>1:	Jog mode for JOG continuous
+	In jog mode (default setting) the axis traverses as long as the traverse key is held down and an axis limitation has not been reached. When the key is released the axis is decelerated to zero speed and the movement is considered complete. 
+
+0:	Continuous operation for JOG continuous
+	In continuous operation the traverse movement is started with the first rising edge of the traverse key and continues to move even after the key is released. The axis can be stopped again by pressing the traverse key again (second rising edge). 
+
+SD irrelevant for ...... 
+Incremental jogging (JOG INC) 
+Reference point approach (JOG REF)
+</description>
+</parameter>
+<parameter number="41100" type="BYTE" dim="0" display="HEX">
+<name>JOG_REV_IS_ACTIVE</name>
+<brief>JOG mode: revolutional feedrate / linear feedrate</brief>
+<description>Bit 0 = 0:
+	The behavior depends on the following:
+	- in the case of an axis/spindle:
+		on the axial SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE
+	- in the case of a geometry axis with an active frame with rotation:
+		on the channel-specific SD42600 $SC_JOG_FEED_PER_REV_SOURCE
+	- in the case of an orientation axis:
+		on the channel-specific SD42600 $SC_JOG_FEED_PER_REV_SOURCE
+Bit 0 = 1:
+	A JOG motion with revolutional feedrate shall be traversed depending on the master spindle.
+	The following must be considered:
+	- If a spindle is the master spindle itself, it will be traversed without revolutional feedrate.
+	- If the master spindle is in stop position and if SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE (with an axis/spindle) or SD42600 $SC_JOG_FEED_PER_REV_SOURCE (with a geometry axis with an active frame with rotation, or with an orientation axis) = -3, traversing will be carried out without revolutional feedrate.
+
+Bit 1 = 0:
+	The axis/spindle, geometry axis or orientation axis will be traversed with revolutional feedrate even during rapid traverse (see bit 0 for selection).
+Bit 1 = 1:
+	The axis/spindle, geometry axis or orientation axis is always traversed without revolutional feedback during rapid traverse.
+
+Bit 2 = 0:
+	The axis/spindle, geometry axis or orientation axis is traversed with revolutional feedrate during JOG handwheel travel, too (see bit 0 for selection).
+Bit 2 = 1:
+	The axis/spindle, geometry axis or orientation axis is always traversed without revolutional feedrate during JOG handwheel travel.
+
+Bit 3 = 0:
+	The axis/spindle is traversed with revolutional feedrate during DRF handwheel travel, too (see bit 0 for selection).
+Bit 3 = 1:
+	The axis/spindle is always traversed without revolutional feedrate during DRF handwheel travel.
+</description>
+</parameter>
+<parameter number="41110" type="DOUBLE" dim="0">
+<name>JOG_SET_VELO</name>
+<brief>Axis velocity in JOG</brief>
+<description>Value not equal to 0:
+The velocity value entered applies to linear axes traversed in JOG mode if linear feedrate (G94) is active for the relevant axis (SD41100 $SN_JOG_REV_IS_ACTIVE = 0).
+The axis velocity is active for
+- continuous jogging 
+- incremental jogging (INC1, ... INCvar)
+- handwheel traversing.
+The value entered is valid for all linear axes and must not exceed the maximum permissible axis velocity (MD32000 $MA_MAX_AX_VELO).
+In the case of DRF, the velocity defined by SD41110 $SN_JOG_SET_VELO is reduced by
+MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR.
+
+Value = 0:
+If 0 has been entered in the setting data, the active linear feedrate in JOG mode is 
+MD32020 $MA_JOG_VELO "Jog axis velocity". Each axis can be given its own JOG velocity with this MD (axial MD).
+
+SD irrelevant for ......
+- Linear axes if SD41100 $SN_JOG_REV_IS_ACTIVE = 1
+- Rotary axes (SD41130 $SN_JOG_ROT_AX_SET_VELO is active here)
+
+Application example(s)
+The operator can thus define a JOG velocity for a specific application.
+
+Related to ....
+	SD41100 $SN_JOG_REV_IS_ACTIVE (revolutional feedrate with JOG active)
+	Axial MD32020 $MA_JOG_VELO (JOG axis velocity)
+	Axial MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
+	Axial MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (ratio of JOG velocity to handwheel velocity (DRF))
+	SD41130 $SN_JOG_ROT_AX_SET_VELO (JOG speed with rotary axes)
+Value &gt; 0:
+The velocity value entered applies to all linear axes in JOG mode when traversed by the "Plus and minus traversing keys".
+The axis velocity is active:
+	-	for continuous jogging
+	-	for incremental jogging (INC1, ... INCvar)
+The value enered must not exceed the maximum possible axis velocity (MD32000 $MA_MAX_AX_VELO).
+
+Value = 0:
+It acts as a feedrate in JOG mode of the relevant axis-specific MD32020 $MA_JOG_VELO "Jog axis velocity". Thus, a separate JOG veloocity can be entered for each axis.
+</description>
+</parameter>
+<parameter number="41120" type="DOUBLE" dim="0">
+<name>JOG_REV_SET_VELO</name>
+<brief>Revolutional feedrate of axes in JOG mode</brief>
+<description>Value not equal to 0:
+The velocity value entered applies to axes traversed in JOG mode if revolutional feedrate (G95) is active for the relevant axis (SD41100 $SN_JOG_REV_IS_ACTIVE = 1). The axis velocity is active for
+- continuous jogging 
+- incremental jogging (INC1, ... INCvar)
+- handwheel traversing. The value entered is valid for all axes and must not exceed the maximum permissible axis velocity (MD32000 $MA_MAX_AX_VELO).
+
+Value = 0:
+If 0 has been entered in the setting data, the active revolutional feedrate in JOG mode is MD32050 $MA_JOG_REV_VELO "revolutional feedrate with JOG".
+Each axis can be given its own revolutional feedrate with this MD (axial MD).
+
+SD irrelevant for ......
+- For axes if SD41100 $SN_JOG_REV_IS_ACTIVE = 0
+
+Application example(s)
+The operator can define a JOG velocity for a particular application.
+
+Related to ....
+	Axial SD41100 $SN_JOG_REV_IS_ACTIVE (revolutional feedrate for JOG active)
+	Axial MD32050 $MA_JOG_REV_VELO (revolutional feedrate with JOG)
+	Axial MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
+</description>
+</parameter>
+<parameter number="41130" type="DOUBLE" dim="0">
+<name>JOG_ROT_AX_SET_VELO</name>
+<brief>Axis velocity for rotary axes in JOG mode</brief>
+<description>Value not equal to 0:
+The velocity entered applies to rotary axes in JOG mode (to continuous jogging, incremental  jogging, jogging with handwheel). The value entered is common to all rotary axes, and must not exceed the maximum permissible axis velocity (MD32000 $MA_MAX_AX_VELO).
+
+With DRF, the velocity set with SD41130 $SN_JOG_ROT_AX_SET_VELO must be reduced by MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR.
+
+Value equal to 0:
+If the value 0 is entered in the setting data, the velocity applied to rotary axes in JOG mode is the axial MD32020 $MA_JOG_VELO (jog axis velocity). In this way, it is possible to define a separate JOG velocity for each axis.
+
+Application example(s)
+The operator can define a JOG velocity for a particular application.
+
+Related to ....
+	MD32020 $MA_JOG_VELO (JOG axis velocity)
+	MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
+	MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (ratio JOG velocity to handwheel velocity (DRF)
+As SD41110 $SN_JOG_SET_VELO - but for all rotary axes instead of linear axes
+</description>
+</parameter>
+<parameter number="41200" type="DOUBLE" dim="0">
+<name>JOG_SPIND_SET_VELO</name>
+<brief>Speed for spindle JOG mode</brief>
+<description>Value not equal to 0:
+The speed entered applies to spindles in JOG mode if they are traversed manually by the "Plus and minus traversing keys" or the handwheel. The speed is active for
+- continuous jogging 
+- incremental jogging (INC1, ... INCvar)
+- handwheel traversing. The value entered is valid for all spindles, and must not exceed the maximum permissible speed (MD32000 $MA_MAX_AX_VELO).
+
+Value = 0:
+If 0 has been entered in the setting data, MD32020 $MA_JOG_VELO (JOG axis velocity) acts as the JOG velocity. Each axis can thus be given its own JOG velocity with this MD (axial MD).
+The maximum speeds of the active gear stage (MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT) are taken into account when traversing the spindle with JOG.
+
+SD irrelevant for ......
+Application example(s). The operator can thus define a JOG speed for the spindles for a specific application.
+
+Related to ....
+	Axial MD32020 $MA_JOG_VELO (JOG axis velocity)
+	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT (maximum speeds of the gear stages)
+Value &gt; 0:
+The speed value entered applies to all spindles in JOG mode when traversed manually by the "Plus and minus traversing keys".
+The speed is active:
+	-	for continuous jogging
+	-	for incremental jogging (INC1, ... INCvar)
+The value enered must not exceed the maximum possible speed (MD32000 $MA_MAX_AX_VELO).
+
+Value = 0:
+If 0 is entered in the setting data, 
+MD32020 $MA_JOG_VELO (JOG axis velocity) acts as the JOG velocity. This enables a separate JOG velocity to be set for each axis (axis-specific MD).
+When traversing a spindle with JOG, the maximum speeds of the active gear stage (MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT) are taken into account.
+</description>
+</parameter>
+<parameter number="41300" type="BOOLEAN" dim="1">
+<name>CEC_TABLE_ENABLE</name>
+<brief>Compensation table enable</brief>
+<description>1:	The evaluation of the compensation table [t] is enabled.
+
+	The compensation table is now included in the calculation of the compensation value for the compensation axis.
+	The compensation axis $AN_CEC_OUTPUT_AXIS can be taken from the table configuration.
+
+	The effective total compensation value in the compensation axis can be adapted to the current machining by the targeted activation of tables (from NC part programm or PLC user program).
+
+	The function does not become active until the following conditions have been fulfilled:
+- The option "Interpolatory compensation" is set
+- The associated compensation tables in the NC user memory have been loaded and enabled (SD41300 $SN_CEC_TABLE_ENABLEt] = 1)
+- The current position measuring system is referenced (NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt; (Referenced/synchronized 1 or 2) = 1).
+
+0:	The evaluation of the sag compensation table [t] is not enabled.
+
+Related to ....
+	MD18342 $MN_MM_CEC_MAX_POINTS[t]    Number of  interpolation points with sag compensation
+	SD41300 $SN_CEC_TABLE_ENABLE[t]     Evaluation of the sag compensation table t is enabled
+	NC/PLC interface signal &lt;Referiert-Synchronisiert1/&gt; (Referenced/synchronized 1)
+	NC/PLC interface signal &lt;Referiert-Synchronisiert2/&gt; (Referenced/synchronized 2)
+</description>
+</parameter>
+<parameter number="41310" type="DOUBLE" dim="1">
+<name>CEC_TABLE_WEIGHT</name>
+<brief>Weighting factor compensation table</brief>
+<description>The compensation value stored in the table [t] is multiplied by the weighting factor.
+When selecting the weighting factor it should be ensured that the total compensation value in the compensation axis does not exceed the maximal value of 
+(MD18342 $MN_CEC_MAX_SUM). With [t] = index of the compensation table (see MD18342 $MN_MM_CEC_MAX_POINTS)
+
+If, for example, the weight of the tools used on the machine or the workpieces to be machined are too different and this affects the error curve by changing the amplitude, this can be corrected by changing the weighting factor. In the case of sag compensation, the weighting factor in the table can be changed for specific tools or workpieces from the PLC user program or the NC program by overwriting the setting data. However, different compensation tables are to be used if the course of the error curve is substantially changed by the different weights.
+
+Related to ....
+	SD41300 $SN_CEC_TABLE_ENABLE[t]  Evaluation of the sag compensation table t is enabled
+
+	MD18342 $MN_CEC_MAX_SUM         Maximum compensation value for sag compensation
+</description>
+</parameter>
+<parameter number="41320" type="DOUBLE" dim="1">
+<name>CEC_0</name>
+<brief>Compensation value 1</brief>
+<description>The value of this SD is added to the compensation value $AN_CEC[t,0].
+
+
+Related to ....
+ $AN_CEC[t,0] compensation value
+
+</description>
+</parameter>
+<parameter number="41321" type="DOUBLE" dim="1">
+<name>CEC_1</name>
+<brief>Compensation value 2</brief>
+<description>The value of this SD is added to the compensation value $AN_CEC[t,1].
+
+
+Related to ....
+ $AN_CEC[t,1] compensation value
+
+</description>
+</parameter>
+<parameter number="41330" type="DOUBLE" dim="1">
+<name>CEC_BAS_0</name>
+<brief>Distance to measuring point 1 in the basic axis</brief>
+<description>The value of the SD is used to calculate $SN_CEC.
+Is deleted after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41331" type="DOUBLE" dim="1">
+<name>CEC_BAS_1</name>
+<brief>Distance to measuring point 2 in the basic axis</brief>
+<description>The value of the SD is used to calculate $SN_CEC.
+Is deleted after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41335" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_BAS_STORE_0</name>
+<brief>Stored distance to measuring point 1 in the basic axis</brief>
+<description>Saves the value of $SN_CEC_BAS after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_0[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41336" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_BAS_STORE_1</name>
+<brief>Stored distance to measuring point 2 in the basic axis</brief>
+<description>Saves the value of $SN_CEC_BAS after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41340" type="DOUBLE" dim="1">
+<name>CEC_COMP_0</name>
+<brief>Cylinder error 1 in the compensation axis</brief>
+<description>The value of the SD is used to calculate $SN_CEC.
+Is deleted after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41341" type="DOUBLE" dim="1">
+<name>CEC_COMP_1</name>
+<brief>Cylinder error 2 in the compensation axis</brief>
+<description>The value of the SD is used to calculate $SN_CEC.
+Is deleted after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41350" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_COMP_STORE_0</name>
+<brief>Stored cylinder error 1 in the compensation axis</brief>
+<description>Saves the value of $SN_CEC_COMP after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41351" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_COMP_STORE_1</name>
+<brief>Stored cylinder error 2 in the compensation axis</brief>
+<description>Saves the value of $SN_CEC_COMP after calculating $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  compensation values
+
+</description>
+</parameter>
+<parameter number="41355" type="BOOLEAN" dim="1">
+<name>CEC_CALC</name>
+<brief>The 0/1  edge starts the calculation of $SN_CEC_0[t] and $SN_CEC_1[t].</brief>
+<description>Starts the calculation of $SN_CEC.
+
+
+Related to ....
+	$SN_CEC_BAS_0[t], $SN_CEC_BAS_1[t]   distance to measuring point in basic axis
+	$SN_CEC_COMP_0[t], $SN_CEC_COMP_1[t] cylinder error in the compensation axis
+
+</description>
+</parameter>
+<parameter number="41356" type="BOOLEAN" dim="1">
+<name>CEC_CALC_ADD</name>
+<brief>Absolute or additive calculation of $SN_CEC_0[t] and $SN_CEC_1[t]</brief>
+<description>$SN_CEC_0[t] and $SN_CEC_1[t] can be calculated absolutely or additively:
+
+FALSE: Absolute, the calculated values of $SN_CEC_0[t] and $SN_CEC_1[t] are included as absolute values.
+TRUE:  Additive, the calculated values of $SN_CEC_0[t] and $SN_CEC_1[t] are added to the existing values.
+
+Related to ....
+	$SN_CEC_BAS_0[t], $SN_CEC_BAS_1[t]    distance to measuring point in the basic axis
+	$SN_CEC_COMP_0[t], $SN_CEC_COMP_1[t]  cylinder error in the compensation axis
+
+</description>
+</parameter>
+<parameter number="41500" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_1</name>
+<brief>Trigger points at falling cam 1-8</brief>
+<description>The cam positions of minus cams 1 - 8 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 0, 1, ... , 7 corresponds to cam pair 1, 2, ... , 8
+
+When the set switching points are overtraveled in the positive axis direction, the associated "minus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 1 to 0.
+</description>
+</parameter>
+<parameter number="41501" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_1</name>
+<brief>Trigger points at rising cam edge 1-8</brief>
+<description>The cam positions of plus cams 1 - 8 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 0, 1, ... , 7 corresponds to cam pair 1, 2, ... , 8
+
+When the set switching points are overtraveled in the positive axis direction, the associated "plus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 0 to 1.
+</description>
+</parameter>
+<parameter number="41502" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_2</name>
+<brief>Trigger points at falling cam edge 9-16</brief>
+<description>The cam positions of minus cams 9-16 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 8, 9, ... , 15 corresponds to cam pair 9, 10, ... , 16
+
+Switching points with falling edges of cams 9 - 16.
+When the set switching points are overtraveled in the positive axis direction, the associated "minus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 1 to 0.
+</description>
+</parameter>
+<parameter number="41503" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_2</name>
+<brief>Trigger points at rising cam edge 9-16</brief>
+<description>The cam positions of plus cams 9-16 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 8, 9, ... , 15 corresponds to cam pair 9, 10, ... , 16
+
+Switching points with rising edges of cams 9 - 16.
+When the set switching points are overtraveled in the positive axis direction, the associated "plus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 0 to 1.
+</description>
+</parameter>
+<parameter number="41504" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_3</name>
+<brief>Trigger points at falling cam edge 17-24</brief>
+<description>The cam positions of minus cams 17 - 24 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 0, 1, ... , 7 corresponds to cam pair 17, 18, ... , 24
+
+Switching points with falling edges of cams 17 - 24.
+When the set switching points are overtraveled in the positive axis direction, the associated "minus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 1 to 0.
+</description>
+</parameter>
+<parameter number="41505" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_3</name>
+<brief>Trigger points at rising cam edge 17-24</brief>
+<description>The cam positions of plus cams 17 - 24 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 0, 1, ... , 7 corresponds to cam pair 17, 18, ... , 24
+
+Switching points with rising edges of cams 17 - 24
+When the set switching points are overtraveled in the positive axis direction, the associated "plus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 0 to 1.
+</description>
+</parameter>
+<parameter number="41506" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_4</name>
+<brief>Trigger points at falling cam edge 25-32</brief>
+<description>The cam positions of minus cams 25 - 32 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 8, 9, ... , 15 corresponds to cam pair 25, 26, ... , 32
+
+Switching points with falling edges of cams 25 - 32.
+When the set switching points are overtraveled in the positive axis direction, the associated "minus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 1 to 0.
+</description>
+</parameter>
+<parameter number="41507" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_4</name>
+<brief>Trigger points at rising cam edge 25-32</brief>
+<description>The cam positions of plus cams 25 - 32 are entered in this machine data.
+The positions are entered in the machine coordinate system.
+
+Index [n] of the setting data addresses the cam pair: 
+n = 8, 9, ... , 15 corresponds to cam pair 25, 26, ... , 32
+
+Switching points with rising edges of cams 25 - 32.
+When the set switching points are overtraveled in the positive axis direction, the associated "plus" cam signals in the PLC interface ( and any applied fast output signals ) switch from 0 to 1.
+</description>
+</parameter>
+<parameter number="41520" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_1</name>
+<brief>Rate time for '-' trigger points of cams 1-8</brief>
+<description>A lead or delay time can be assigned to each cam 1-8 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:         Lead time
+Negative value:         Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 0, 1, ... , 7 corresponds to cam pair 1,  2, ... , 8
+
+This setting data is added to MD: MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n].
+
+Related to .... 
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n]  (lead or delay time on minus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41521" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_1</name>
+<brief>Rate time for '+' trigger points of cams 1-8</brief>
+<description>A lead or delay time can be assigned to each plus cam 1-8 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:           Lead time
+Negative value:           Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 0, 1, ... , 7 corresponds to cam pair 1, 2, ... , 8
+
+This setting data is added to MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n].
+
+Related to ....
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (lead or delay time on plus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41522" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_2</name>
+<brief>Rate time for '-' trigger points of cams 9-16</brief>
+<description>A lead or delay time can be assigned to each minus cam 9 - 16 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:        Lead time
+Negative value:        Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 8, 9, ... , 15 corresponds to cam pair 9, 10, ... , 16
+
+This setting data is added to MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n+8].
+
+Related to .... 
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n] (lead or delay time on minus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41523" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_2</name>
+<brief>Rate time for '+' trigger points of cams 9-16</brief>
+<description>A lead or delay time can be assigned to each plus cam 9 - 16 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:            Lead time
+Negative value:            Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 8, 9, ... , 15 corresponds to cam pair 9, 10, ... , 16
+
+This setting data is added to MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n+8].
+
+Related to ....
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (lead or delay time on plus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41524" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_3</name>
+<brief>Rate time for '-' trigger points of cams 17-24</brief>
+<description>A lead or delay time can be assigned to each minus cam 17-24 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:         Lead time
+Negative value:         Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 0, 1, ... , 7 corresponds to cam pair 17, 18, ... , 24
+
+This setting data is added to MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n].
+
+Related to .... 
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n]  (lead or delay time on minus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41525" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_3</name>
+<brief>Rate time for '+' trigger points of cams 17-24</brief>
+<description>A lead or delay time can be assigned to each plus cam 17-24 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:             Lead time
+Negative value:             Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 0, 1, ... , 7 corresponds to cam pair 17, 18, ... , 24
+
+This setting data is added to MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n].
+
+Related to .... 
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME (lead or delay time on plus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41526" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_4</name>
+<brief>Rate time for '-' trigger points of cams 25-32</brief>
+<description>A lead or delay time can be assigned to each minus cam 25-32 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:             Lead time
+Negative value:             Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 8, 9, ... , 15 corresponds to cam pair 25, 26, ... , 32
+
+This setting data is added to MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n+8].
+
+Related to .... 
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n] (lead or delay time on minus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41527" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_4</name>
+<brief>Rate time for '+' trigger points of cams 25-32</brief>
+<description>A lead or delay time can be assigned to each plus cam 25 - 32 in this setting data to compensate for delay times.
+
+The switching edge of the associated cam signal is advanced or delayed by the time value entered.
+
+Positive value:         Lead time
+Negative value:         Delay time
+
+Index [n] of the setting data addresses the cam pair:
+n = 8, 9, ... , 15 corresponds to cam pair 25, 26, ... , 32
+
+This setting data is added to MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n+8].
+
+Related to .... 
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (lead or delay time on plus cams 1 - 16)
+</description>
+</parameter>
+<parameter number="41600" type="DOUBLE" dim="1">
+<name>COMPAR_THRESHOLD_1</name>
+<brief>Threshold value of the 1st comparator</brief>
+<description>COMPAR_THRESHOLD_1[b] defines the threshold values for the individual input bits [b] of comparator byte 1.
+
+The output bit n of the 1st comparator is created by comparing the threshold value n according to the comparison type defined in bit n of COMPAR_TYPE_1.
+
+For example: 
+	COMPAR_ASSIGN_ANA_INPUT_1[2] = 4
+	COMPAR_TRESHOLD_1[2]         = 5000.0
+	COMPAR_TYPE_1                = 5
+	The 3rd output bit of comparator 1 is set if the input value at AnalogIn 4 is greater than or equal to 5 volts.
+
+Index [b]: Bits 0 - 7
+
+Related to .... 
+	MD10530 $MN_COMPAR_ASSIGN_ANA_INPUT_1
+	MD10531 $MN_COMPAR_ASSIGN_ANA_INPUT_2
+	MD10540 $MN_COMPAR_TYPE_1
+	MD10541 $MN_COMPAR_TYPE_2
+</description>
+</parameter>
+<parameter number="41601" type="DOUBLE" dim="1">
+<name>COMPAR_THRESHOLD_2</name>
+<brief>Threshold value of the 2nd comparator</brief>
+<description>COMPAR_THRESHOLD_1[b] defines the threshold values for the individual input bits [b] of comparator byte 1.
+Output bit n of the 1st comparator is created by comparing the threshold value n according to the comparison type defined in bit n of COMPAR_TYPE_2.
+
+
+Index [b]: Bits 0 - 7
+
+Related to .... 
+	MD10530 $MN_COMPAR_ASSIGN_ANA_INPUT_1
+	MD10531 $MN_COMPAR_ASSIGN_ANA_INPUT_2
+	MD10540 $MN_COMPAR_TYPE_1
+	MD10541 $MN_COMPAR_TYPE_2
+</description>
+</parameter>
+<parameter number="41610" type="DOUBLE" dim="0">
+<name>CORR_TRAFO_LIN_MAX</name>
+<brief>Maximal zulässiger Korrekturwert für Offsetvektoren bei CORRTRAFO</brief>
+<description>Mit der Funktion CORRTRAFO zur Maschinenvermessung können Offsetvektoren im kinematischen Modell einer Maschine modifiziert werden.
+Dieses Settingdatum begrenzt die maximal zulässige Änderung in jeder Komponente eines solchen Vektors auf den angegebenen Maximalwert.
+</description>
+</parameter>
+<parameter number="41611" type="DOUBLE" dim="0">
+<name>CORR_TRAFO_DIR_MAX</name>
+<brief>Maximal zulässige Winkelabweichung für Richtungsvektoren bei CORRTRAFO</brief>
+<description>Mit der Funktion CORRTRAFO zur Maschinenvermessung können die Richtungsvektoren von rotatorischen Achsen im kinematischen Modell einer Maschine modifiziert werden.
+Dieses Settingdatum begrenzt die maximal zulässige Winkeländerung eines solchen Vektors auf den angegebenen Maximalwert.
+</description>
+</parameter>
+<parameter number="41700" type="DWORD" dim="1">
+<name>AXCT_SWWIDTH</name>
+<brief>Default rotation of axis container</brief>
+<description>The number of entries (slots) by which the entries in the axis container are advanced on execution of the rotation. The value is interpreted modulo of the actually existing entries. Negative values reverse the direction of rotation.
+
+Related to the container rotation command, container axes.
+This machine data is distribued via the NCU-link.
+
+Contrary to the the definition for setting data, this SD is not immediately active, but first with NEWCONF.
+</description>
+</parameter>
+</info>

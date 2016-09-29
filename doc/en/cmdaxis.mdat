@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="53220" type="DOUBLE" dim="1" display="DECIMAL">
+<name>AXIS_MCS_POSITION</name>
+<brief>Position of axis in the Machine</brief>
+<description>Position of axis in the Machine:
+The 3 field elements specify the position in X, Y, Z.
+For linear axes, the value corresponds to the zero point of the axis in the Machine.
+For rotary axes, the position of the rotary axis is defined in the Machine.
+
+</description>
+</parameter>
+<parameter number="53230" type="DOUBLE" dim="0" display="DECIMAL">
+<name>SIM_START_POSITION</name>
+<brief>Axis position at start of simulation</brief>
+<description>Axis position at start of simulation
+Simulation is only possible if a value not equal to 0 has been set for at least one geometry axs.
+</description>
+</parameter>
+<parameter number="53240" type="DOUBLE" dim="1" display="DECIMAL">
+<name>SPINDLE_PARAMETER</name>
+<brief>Spindle chuck data</brief>
+<description>Spindle chuck data:
+  [0]: Chuck dimension
+  [1]: Stop dimension
+  [2]: Jaw dimension
+
+</description>
+</parameter>
+<parameter number="53241" type="BYTE" dim="0" display="DECIMAL">
+<name>SPINDLE_CHUCK_TYPE</name>
+<brief>Spindle jaw type</brief>
+<description>Spindle jaw type:
+  0 = Clamping from outside
+  1 = Clamping from inside
+
+</description>
+</parameter>
+<parameter number="53242" type="DOUBLE" dim="1" display="DECIMAL">
+<name>TAILSTOCK_PARAMETER</name>
+<brief>Tailstock data</brief>
+<description>Tailstock data:
+  [0]: Tailstock diameter
+  [1]: Tailstock length
+
+
+</description>
+</parameter>
+<parameter number="53250" type="DOUBLE" dim="0" display="DECIMAL">
+<name>CLAMPING_TOLERANCE</name>
+<brief>Permissible tolerance when an axis jams</brief>
+<description>Permissible tolerance when an axis jams.
+When jamming, an axis can be pushed somewhat out of its position.
+With this machine date you define up to which tolerance level the axis does not have to be repositioned.
+
+</description>
+</parameter>
+</info>

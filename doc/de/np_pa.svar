@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="npPA">
+<parameter type="STRING" dim="1">
+<name>$NP_PROT_NAME</name>
+<brief>Name des Schutzbereichs</brief>
+<description>Name des Schutzbereichs n.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_CHAIN_ELEM</name>
+<brief>Zuordnung zu einem kin. Kettenelement</brief>
+<description>Diese Systemvariable gibt an, welchem kinematischen Kettenelement ($NK_NAME[..]) der aktuelle Schutzbereich zugeordnet ist.
+
+
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_PROT_TYPE</name>
+<brief>Typ des Schutzbereichs</brief>
+<description>Typ des Schutzbereichs. Zulässig sind die Werte:.
+"MACHINE"
+"TOOL"
+"WORKPIECE"
+"FIXTURE"
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_1ST_PROT</name>
+<brief>Name des ersten Elements eines Schutzbereichs.</brief>
+<description>Name des ersten Elements eines Schutzbereichs.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$NP_PROT_COLOR</name>
+<brief>Farbe des Schutzbereichs.</brief>
+<description>Daten zur Visualisierung eines Schutzbereichs.
+Die niederwertigen 3 Bytes enthalten die Farbinformation im RGB-Format, das höchste Byte enthält die Information für den Alpha-Kanal (Transparenz).
+Dieses Datum wird für ein Schutzbereichselement, das Teil des Schutzbereiches ist, für den dieses Datum definiert ist, nur dann wirksam, wenn für dieses kein eigener Farbparameter definiert ist (siehe das Systemdatum $NP_COLOR), d.h. die Farbdefinition für ein Schutzbereichselement hat Vorrang vor der Farbdefinition eines Schutzbereichs.
+Der default-Wert ist 0 (schwarz, transparent).
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$NP_PROT_D_LEVEL</name>
+<brief>Detailierungslevel des Schutzbereichs.</brief>
+<description>Daten zur Visualisierung eines Schutzbereichs.
+Dieses Datum enhält einen Integerwert, mit dem festgelegt wird, wann der betreffend Schutzbereich beim sukzessiven Bildaufabau angezeigt werden soll.
+Dieses Datum wird für ein Schutzbereichselement, das Teil des Schutzbereiches ist, für den dieses Datum definiert ist, nur dann wirksam, wenn für dieses kein eigener D-Level-Parameter definiert ist (siehe das Systemdatum $NP_D_LEVEL), d.h. die D-Level-Definition für ein Schutzbereichselement hat Vorrang vor der D-Level-Definition eines Schutzbereichs.
+Der default-Wert ist 0
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$NP_BIT_NO</name>
+<brief>Nr. des Interfacebits für Umschaltung aktiviert / voraktiviert.</brief>
+<description>In der PLC-Nahtstelle sind 64 Bit definiert, mit denen Schutzbereiche, die mit dem Befehl PROTA(1(,.,.,.)) voraktiviert wurden, aktiviert werden können.Der Eintrag gibt an, welches Bit diesem Schutzbereich zugeordnet ist. Der default-Wert ist -1, d.h. dem Schutzbereich ist kein Interfacebit zugeordnet.
+</description>
+</parameter>
+<parameter type="CHAR" dim="1">
+<name>$NP_INIT_STAT</name>
+<brief>Default-Aktivierungszustand eines Schutzbereiches.</brief>
+<description>Aktivierungsstatus des Schutzbereiches bei erstmaliger Anwahl ohne Angabe eines Aktivierungsstatus.
+Dieser Status wird für definierte Schutzbereiche auch bei Steuerungshochlauf wirksam.
+Die zulässigen Werte sind:
+Aktiviert ('A' oder 'a'),
+Inaktiviert ('I' oder 'i'),
+Voraktiviert ('P' oder 'p').
+Der default-Wert ist 'I'.
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$NP_INDEX</name>
+<brief>Index zur Werkzeugbezeichnung</brief>
+<description>Diese Komponente wird nur ausgewertet, wenn $NP_PROT_TYPE[n] einen automatisch erzeugten Schutzbereich bezeichnet ("TOOL"). 
+Die Indizes bestimmen dann die genaue Art des automatisch erzeugten Schutzbereichs.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_NAME</name>
+<brief>Name des Schutzbreichselements</brief>
+<description>Name des Schutzbereichselements.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_NEXT</name>
+<brief>Name des nächsten Schutzbereichselements</brief>
+<description>Name des nächsten Schutzbereichselements.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_NEXTP</name>
+<brief>Name des nächsten parallelen Schutzbereichselements</brief>
+<description>Name eines weiteren (zu $NP_NEXT "parallelen") Schutzbereichselements, das auf das aktuelle Schutzbereichselement folgt.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_ADD</name>
+<brief>Name eines additiven Schutzbereichs</brief>
+<description>Name eines Schutzbereichs, der zum aktuellen Schutzbereichselement hinzugefügt wird.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$NP_COLOR</name>
+<brief>Farbe des Schutzbereichselements.</brief>
+<description>Daten zur Visualisierung eines Schutzbereichselements.
+Zur Codierung siehe die Systemvariable $NP_PROT_COLOR.
+Ist der Inhalt diese Datums 0, gilt die Farbe als nicht definiert. In diesem Fall erhält das Schutzbereichselment die Farbe, die für den Schutzbereich definiert ist, in dem es enthalten ist.
+Der default-Wert ist 0 (Farbe nicht definiert).
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$NP_D_LEVEL</name>
+<brief>Detailierungslevel des Schutzbereichelements</brief>
+<description>Daten zur Visualisierung eines Schutzbereichelements.
+Ist der Inhalt diese Datums 0, gilt der Detailierungslevel als nicht definiert. In diesem Fall erhält das Schutzbereichelement den Detailierungslevel, der für den Schutzbereich definiert ist, in dem es enthalten ist.
+Der default-Wert ist 0.
+</description>
+</parameter>
+<parameter type="CHAR" dim="1">
+<name>$NP_USAGE</name>
+<brief>Vorgesehene Verwendung des Schutzbereichs.</brief>
+<description>Diese Systemvariable gibt an, ob das Schutzbereichselment visualisiert werden soll ('V'), in die Schutzbereichsüberwachung einbezogen werden soll ('C'), oder beides ('A').
+Zwischen Groß- und Kleinschreibung wird nicht unterschieden.
+Der default-Wert ist 'A'
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_TYPE</name>
+<brief>Typ des Schutzbereichelements</brief>
+<description>Typ des Schutzbereichelements. Folgende Typen sind möglich:
+FRAME: Ein Element dieses Typs enthält keinen Körper, sondern definiert nur einen Frame, der für die nachfolgenden Schutzbereichsdefinitionen wirksam wird.
+1. BOX (L, W, H): Achsparalleler Quader symmetrisch zum Nullpunkt mit den Abmessungen L in X-Richtung, W in Y-Richtung und H in Z-Richtung, d.h. die Ecken des Quaders liegen bei (+/-L/2, +/-W/2, +/-H/2).
+2. SPHERE (R): Kugel im Nullpunkt mit Radius R.
+3. CYLINDER (H, R): Zylinder mit Radius R und Höhe H, Längsachse parallel zur Z-Achse. Der Mittelpunkt des Zylinders liegt im Nullpunkt, d.h. die beiden begrenzenden Kreisflächen sind parallel zur X-Y-Ebene und liegen bei +/-H/2.
+4. FILE: Gitter aus Dreiecksflächen im STL-Format.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_FILENAME</name>
+<brief>Filename eines Schutzbereichselements des Typs "FILE"</brief>
+<description>Dieser Parameter wird nur ausgewertet, wenn das Schutzbereichselement vom Typ "File" ist ($NP_TYPE[..] = "FILE"). Er gibt dann den Namen des Files an, das die Beschreibung des Schutzbereichslements enthält.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NP_PARA</name>
+<brief>Parameter zur Beschreibung des Typs</brief>
+<description>Parameter zur Beschreibung des Schutzbereichselments. Für die unter $NP_TYPE beschriebenen Typen werden maximal 3 Parameter benötigt.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NP_OFF</name>
+<brief>Offsetkomponente</brief>
+<description>Komponente i (0&lt;=i&lt;=2) des Offsetvektors des Schutzbereichelements n.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NP_DIR</name>
+<brief>Richtung der Drehachse</brief>
+<description>Komponenten der Drehachse für eine Koordinatendrehung des Schutzbereichselements n.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$NP_ANG</name>
+<brief>Winkel einer Koordinatendrehung im Schutzbereichselement n.</brief>
+<description>Winkel (in Grad) einer Koordinatendrehung im Schutzbereichselement n.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NP_COLL_PAIR</name>
+<brief>Schutzbereichspaare</brief>
+<description>Enthält die Namen zweier Schutzbereiche, die bei der Kollisionsvermeidung gegeneinander überwacht werden können.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$NP_SAFETY_DIST</name>
+<brief>Sicherheitsabstand eines Schutzbereichspaares</brief>
+<description>Sicherheitsabstand eines Schutzbereichspaares. Ist der Inhalt dieses Datums 0.0, wirkt der globale Sicherheitsabstand der im Maschinendatum $MN_COLLISION_SAFETY_DIST enthalten ist.
+</description>
+</parameter>
+</info>

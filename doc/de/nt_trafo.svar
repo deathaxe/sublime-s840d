@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="ntTrafo">
+<parameter type="STRING" dim="1">
+<name>$NT_NAME</name>
+<brief>Name des Transformationsdatensates</brief>
+<description>Name des Transformationsdatensatzes n.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_TRAFO_TYPE</name>
+<brief>Transformationstyp</brief>
+<description>Typ der Transformation für den der Transformationsdatensatz gilt.
+Für den Inhalt dieses Systemdatums sind nur bestimmte, reservierte Schlüsselwörter zulässig.
+Die gültigen Schlüsselwörter sind derzeit:
+- TRAORI           für dynamische Orientierungstransformationen
+- TRAORI_STAT      für statische Orientierungstransformationen
+- TRAANG_K         für Transformationen ohne Orientierungsachsen. Die Geometrieachsen müssen nicht senkrecht aufeiander stehen (Schräge-Achse-Transformation).
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_T_CHAIN_LAST_ELEM</name>
+<brief>Letztes Elem. der  kin. Kette zum Werkzeug</brief>
+<description>Name eines Elements in der kinematischen Beschreibung der Maschine. Mit diesem Kettenelement wird das letzte Glied einer kinematischen Kette bezeichnet. Es definiert den Punkt der Transformation, an dem das Werkzeug ansetzt.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_P_CHAIN_LAST_ELEM</name>
+<brief>Letztes Element der kin. Kette zum Werkstück</brief>
+<description>&gt;Name eines Elements in der kinematischen Beschreibung der Maschine. Mit diesem Kettenelement wird das letzte Glied einer kinematischen Kette bezeichnet. Es definiert den Werkstücknullpunkt.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_T_REF_ELEM</name>
+<brief>Referenzpunkt für Werkzeuglängenberechnung</brief>
+<description>Diese Systemvariable bezeichnet den Referenzpunkt für die Werkzeuglängenberechnung (Werkzeugreferenzpunkt). Der Werkzeugreferenzpunkt ist der Anfangspunkt des bezeichneten kinematischen Elements.
+Der Werkzeugreferenzpunkt definiert den Punkt in der kinematischen Kette, an dem Werkzeugverschleißkomponenten eingerechnet werden können, deren Orientierung gegenüber den Grundlängenkomponenten gedreht sein können, siehe dazu die Beschreibung der G-Codes der Gruppe 56 (Einrechnung Werkzeugverschleißes).
+Ist die Systemvariable nicht leer, muss sie den Namen eines Kettenelements enthalten, das Bestandteil der aktuellen Kette zum Werkzeug ist.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_GEO_AX_NAME</name>
+<brief>Namen der Linearachsen</brief>
+<description>Mit diesem Systemdatum wird auf maximal 3 Maschinenachsen verwiesen. Es enthält die Namen der Kettenglieder ($NK_NAME), die die Achsen definieren, die die Ausgleichsbewegungen ausführen müssen, die sich aus einer kinematischen Transformation ergeben. Diese Achsen können sowohl Linearachsen (z.B. bei allen Orientierungstransformationen) als auch Rundachsen (z.B. die Rundachse bei TRANSMIT) sein.
+Die Reihenfolge, dieser Achsen definiert die Zuordnung der Geometrieachsen zu den Kanalachsen entsprechenden dem Maschinendatum $MC_AXCONF_GEO_AX_ASSIGN_TAB.
+Beispiel: Das Systemdatum $NT_GEO_AX_NAME[n,1] verweist auf ein Kettenglied, das die rotatorische Maschinenachse C1 enthält. C1 sei im aktuellen Kanal die 7. Achse. Dieser Eintrag ist dann bei aktiver Transformation gleichbedeutend mit dem Eintrag $MC_AXCONF_GEOAX_ASSIGN_TAB[1] = 7 bei ausgeschalteter Transformation.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_ROT_AX_NAME</name>
+<brief>Namen der Rundachsen</brief>
+<description>Mit diesem Systemdatum wird auf maximal 3 Achsen verwiesen, die zur Einstellung der Orientierung dienen. Es enthält die Namen der Kettenglieder ($NK_NAME), die diejenigen Maschinenachsen (Rundachsen) definieren, die die Orientierungsbewegungen ausführen müssen, die sich aus einer kinematischen Transformation ergeben.
+Die Reihenfolge, in der die maximal drei Rundachsen in diesem Systemdatum enthalten sind, ist für die Maschinenkinematik bedeutungslos, da diese aus der Struktur der kinematischen Ketten abgeleitet wird. Sie definiert aber, die Reihenfolge, mit der andere Variable, die sich ebenfalls auf die Rundachsen beziehen (z.B. die Hirth-Paramter), auf die Rundachsen zugreifen.
+
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_ROT_AX_POS</name>
+<brief>Postion einer manuellen rundachse</brief>
+<description>Diese Systemvariable ist nur dann von Bedeutung, wenn die Rundachse, auf die sie sich bezieht ($NT_ROT_AX_NAME) eine manuelle Rundachse ist. In diesem Fall ergibt sich die Rundachsposition als die Summe dieser Systemvariablen und der Systemvariablen $NK_A_OFF und $NK_A_OFF_FINE des betreffenden kinematischen Kettenelements.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_HIRTH_OFF</name>
+<brief>Offset der Hirth-Verzahnung</brief>
+<description>Offset der Hirthverzahnung.
+Eine Hirthverzahnung ist für eine Rundachse dann aktiv, wenn das zugehörige Systemdatum $NT_HIRT_INC[n, i] einen Wert ungleich 0 enthält.
+Bei einer vorgegebenen Sollposition PHIsoll einer Rundachse ergibt sich der tatsächlich eingestellte Winkel zu
+PHIist = $NT_HIRTH_OFF[n, i] + k * $NT_HIRTH_INC
+wobei k eine ganze Zahl ist und so gewählt wird, dass die Differenz zwischen PHIist und PHIsoll minimal wird.
+
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_HIRTH_INC</name>
+<brief>Inkrementschritt der Hirth-Verzahnung</brief>
+<description>Inkrementschritt der Hirthverzahnung.
+Eine Hirthverzahnung ist für eine Rundachse dann aktiv, wenn dieses Systemdatum einen Wert ungleich 0 enthält.
+Bei einer vorgegebenen Sollposition PHIsoll einer Rundachse ergibt sich der tatsächlich eingestellte Winkel zu
+PHIist = $NT_HIRTH_OFF[n, i] + k * $NT_HIRTH_INC
+wobei k eine ganze Zahl ist und so gewählt wird, dass die Differenz zwischen PHIist und PHIsoll minimal wird.
+
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_ROT_AX_MIN</name>
+<brief>Minimalposition einer Rundachse</brief>
+<description>Diese Systemvariable wird nur dann ausgewertet, wenn nicht $NT_ROT_AX_MIN[n, i] und $NT_ROT_AX_MAX[n,i] beide Null sind.
+In diesem Fall gibt sie die minimal zulässige Position der Rundachse an, auf die mit $NT_ROT_AX_NAME[n, i] verwiesen wird.
+
+
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_ROT_AX_MAX</name>
+<brief>Maximalposition einer Rundachse</brief>
+<description>Maximalposition einer Rundachse.
+Diese Systemvariable wird nur dann ausgewertet, wenn nicht $NT_ROT_AX_MIN[n, i] und $NT_ROT_AX_MAX[n,i] beide Null sind.
+In diesem Fall gibt sie die maximal zulässige Position der Rundachse an, auf die mit $NT_ROT_AX_NAME[n, i] verwiesen wird.
+
+
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_BASE_ORIENT</name>
+<brief>Vektor der Werkzeuggrundorientierung bei Orientierungstransformationen</brief>
+<description>Gibt Vektor der Werkzeugorientierung bei einer allgemeinen Orientierungstransformation an.
+Der Vektor wird nur dann wirksam, wenn die Werkzeugorientierung nicht beim Aufruf der Transformation angegeben oder aus einem programmierten Werkzeug gelesen wird.
+Der Betrag des Vektors ist beliebig, muss aber ungleich Null sein.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_BASE_ORIENT_NORMAL</name>
+<brief>Normalenvektor bei Orientierungstrafos mit 3 Orientierungsfreiheitsgraden</brief>
+<description>Gibt einen Vektor an, der bei Orientierungstransformationen mit 3 Freiheitsgeraden der Orientierung senkrecht auf der Werkzeugorientierung ($NT_BASE_ORIENT) steht.
+Der Vektor wird nur dann wirksam, wenn die Werkzeugorientierung nicht beim Aufruf der Transformation angegeben oder aus einem programmierten Werkzeug gelesen wird.
+Der Betrag des Vektors ist beliebig, muss aber ungleich Null sein.
+Sind $NT_BASE_ORIENT_NORMAL und $NT_BASE_ORIENT nicht orthogonal aber auch nicht parallel, so werden die beiden Vektoren orthogonalisiert indem der Normalenvektor modifiziert wird. Der Normalenvektor wird dabei in der Ebene, die von beiden Vektoren aufgespannt wird, so gedreht, dass die beiden Vektoren aufeinander senkrecht stehen.
+ Die beiden genannten Vektoren dürfen nicht parallel sein.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$NT_POLE_LIMIT</name>
+<brief>Endwinkeltoleranz bei Interpolation durch Pol für 5/6-Achstrafo</brief>
+<description>Dieses MD kennzeichnet eine Endwinkeltoleranz für die fünfte Achse der ersten 5-Achs-Transformation mit folgenden Eigenschaften:
+
+Bei der Interpolation durch einen Polpunkt der Orientierung bewegt sich nur die 2. Rundachse Achse, die 2. Rundachse behält ihre Startposition bei. Wird eine Bewegung programmiert, die nicht exakt durch den Polpunkt, aber innerhalb des durch MD: TRAFO5_NON_POLE_LIMIT gegebenen Bereichs in der Nähe des Pols verlaufen soll, wird von der vorgegebenen Bahn abgewichen, da die Interpolation exakt durch den Polpunkt verläuft. Dadurch ergibt sich im Endpunkt der vierten Achse (der Polachse) eine Positionsabweichung gegenüber dem programmierten Wert.
+
+Dieses MD gibt den Winkel an, um den die Polachse bei der 5-Achs-Transformation vom programmierten Wert abweichen darf, wenn von der programmierten Interpolation auf die Interpolation durch den Polpunkt umgeschaltet wird.
+Ergibt sich eine größere Abweichung, wird eine Fehlermeldung ausgegeben (Alarm 14112) und die Interpolation nicht durchgeführt.
+
+Nicht relevant:
+	wenn die Option "5-Achs-Transformation" nicht installiert ist.
+	Ebenfalls irrelevant bei Programmierung im Maschinenkoordinatensystem ORIMKS.
+
+Korrespondiert mit:
+	MD: TRAFO5_NON_POLE_LIMIT_n
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$NT_POLE_TOL</name>
+<brief>Endwinkeltoleranz bei Pol-Interpolation</brief>
+<description>Endwinkel-Toleranz bei Interpolation durch den Pol für 1. 5/6-Achs-Transformation.
+Dieses MD wird nur von der generischen 5/6-Achs
+Transformation ausgewertet.
+
+Liegt die Endorientierung innerhalb des Polkegels und innerhalb des mit diesem MD angegebenen Toleranzkegels, bewegt sich die
+Polachse nicht und behält ihre Startpositionen bei. Die andere
+Rundachse nimmt dagegen den programmierten Winkel an.
+Dadurch gibt es eine Abweichung der Endorientierung von der
+programmierten Orientierung.
+Maximal wirksamer Wert dieses MD ist der Wert des MD TRAFO5_POLE_LIMIT_1 mit dem der Polkegel festgelegt wird.
+</description>
+</parameter>
+<parameter type="CHAR" dim="1">
+<name>$NT_ROT_OFFSET_FROM_FRAME</name>
+<brief>Rundachsoffset bei Trafoanwahl aus NPV übernehmen</brief>
+<description>Für Orientierungstransformationen:
+Ist der Inhalt dieses Datum ungleich Null, wird der programmierbare Offset für Orientierungsachsen automatisch aus der bei Einschalten einer Orientierungstransformation für die Orientierungsachsen aktiven Nullpunktsverschiebung übernommen.
+Für Transmit:
+0:	axiale Verschiebung der Rundachse wird nicht berücksichtigt.
+1:	axiale Verschiebung der Rundachse wird berücksichtigt.
+2:	axiale Verschiebung der Rundachse wird bis zum ENS berücksichtigt.
+	Die ENS-Frames enthalten transformierte Drehungen um die Rundachse.
+</description>
+</parameter>
+<parameter type="BOOL" dim="1">
+<name>$NT_IGNORE_TOOL_ORIENT</name>
+<brief>Werkzeugorientierung aus $NT_BASE_ORIENT lesen</brief>
+<description>Jedes Werkzeug hat eine definierte Werkzeugorientierung, die normalerweise bei der Orientierungsprogrammierung der Berechnung der Bewegungen bzw. Endpunkte der Orientierungsachsen zu Grunde gelegt wird. Ist dieses Systemdatum gesetzt, wird auch bei aktivem Werkzeug nicht die Werkzeugorientierung sondern die in den Systemdaten $NT_BASE_ORIENT / $NT_BASE_ORIENT_NORMAL enthaltene Orientierung verwendet.
+</description>
+</parameter>
+<parameter type="BOOL" dim="1">
+<name>$NT_TRAFO_INCLUDES_TOOL</name>
+<brief>Werkzeugbehandlung bei aktiver Transformation</brief>
+<description>Diese Systemvariable gibt an, ob das Werkzeug bei einer aktiven Transformation intern oder extern behandelt wird.
+Sie wird nur bei bestimmten Transformationen ausgewertet.
+Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
+Ist diese Systemvariable gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$NT_AUX_POS</name>
+<brief>Hilfsposition</brief>
+<description>Diese Systemvariable enthält einen Positionsvektor zur Verwendung durch die Messzyklen.
+Er hat innerhalb NCK keine Bedeutung.
+
+
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$NT_IDENT</name>
+<brief>Kennung</brief>
+<description>Diese Systemvariable enthält eine numerische Kennung zur Kennzeichnung eines Transformationdatensatzes zur Verwendung durch die Messzyklen.
+Sie haben innerhalb NCK keine Bedeutung.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_CORR_ELEM_T</name>
+<brief>Namen der Korrekturelemente</brief>
+<description>Mit diesem Systemdatum wird auf maximal 4 konstante Kettenelemente ($NK_NAME) in der Tool-Kette verwiesen, die zur Aufnahme von Korrekturwerten (linearen Offsets), wie sie z.B. in Messzyklen ermittelt werden, vorgesehen sind. Es ist (vorerst) nur bei Orientierungstransformationen von Bedeutung.
+ Zwischen zwei dieser Elemente muss in der kinematischen Kette immer eine Orientierungsachse liegen. Das bedeutet, dass nur bei 6-Achs-Transformationen, bei denen alle 3 Orientierungsachsen in der Tool-Kette definiert sind, alle 4 Kettenelemente auch belegt sein können, während z.B. bei 5-Achstransformationen dieses Systemdatum nur maximal drei Einträge enthalten darf.
+ Die gesamte kinematische Kette vom Maschinennullpunkt (Bezugspunkt der kinematischen Kette) bis zur Werkzeugaufnahme wird durch die Orientierungsachsen in maximal 4 Abschnitte geteilt. In jedem dieser Abschnitte kann es maximal ein Korrekturelment geben. Das Korrekturelement mit dem Index n muss im n-ten Abschnitt liegen (Beispiel: $NT_CORR_ELEM_T[k, 1] muss auf eine Kettenelement zwischen der ersten und der zweiten Orientierungsachse der tool-Kette verweisen).
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_CORR_ELEM_P</name>
+<brief>Namen der Korrekturelemente</brief>
+<description>Mit diesem Systemdatum wird auf maximal 4 konstante Kettenelemente ($NK_NAME) in der Part-Kette verwiesen, die zur Aufnahme von Korrekturwerten (linearen Offsets), wie sie z.B. in Messzyklen ermittelt werden, vorgesehen sind. Es ist (vorerst) nur bei Orientierungstransformationen von Bedeutung.
+ Zwischen zwei dieser Elemente muss in der kinematischen Kette immer eine Orientierungsachse liegen. Das bedeutet, dass nur bei 6-Achs-Transformationen, bei denen alle 3 Orientierungsachsen in der Tool-Kette definiert sind, alle 4 Kettenelemente auch belegt sein können, während z.B. bei 5-Achstransformationen dieses Systemdatum nur maximal drei Einträge enthalten darf.
+ Die gesamte kinematische Kette vom Maschinennullpunkt (Bezugspunkt der kinematischen Kette) bis zur Werkstücknullpunkt wird durch die Orientierungsachsen in maximal 4 Abschnitte geteilt. In jedem dieser Abschnitte kann es maximal ein Korrekturelment geben. Das Korrekturelement mit dem Index n muss im n-ten Abschnitt liegen (Beispiel: $NT_CORR_ELEM_P[k, 1] muss auf eine Kettenelement zwischen der ersten und der zweiten Orientierungsachse in der Part-Kette verweisen).
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$NT_CNTRL</name>
+<brief>Bitkodiertes Steuerwort</brief>
+<description>Dieses Datum ist ein bitkodiertes Steuerwort, mit dem das Verhalten in bestimmten Situationen beeinflusst werden kann.
+Die einzelnen Bits haben die folgenden Bedeutungen:
+Bit  0     : Nicht belegt
+Bit  1 -  3: Die Orientierungsachse, die dem Bit zugordnet ist (Bit 1: erste Orientierungsachse, Bit 2: zweite Orientierungsache, Bit 3: dritte Orientierungsachse) wird als drehzahlgesteuerte Spindel interpretiert.
+           Derzeit werden nur die Fälle unterstützt, dass entweder die erste oder die dritte Orientierungsachse als Spindel parametriert ist (Drehen auf Fräsmaschinen bzw. 5-Achs-Fräsen auf Maschinen, bei denen die dritte Orientierungsachse nicht lagegeregelt betrieben wird).
+Bit  4 -  6: Die Orientierungsachse, die dem Bit zugordnet ist (Bit 4: erste Orientierungsachse, Bit 5: zweite Orientierungsachse, Bit 6: dritte Orientierungsachse) ist Hirth-verzahnt. Für die Hirthverzahnung werden nur die Maschinendaten $MA_INDEX_AX_NUMERATOR, $MA_INDEX_AX_DENOMINATOR und $MA_INDEX_AX_OFFSET ausgewertet.
+           Der Inhalt des Maschinendatums $MA_HIRTH_IS_ACTIVE wird nicht ausgewertet, d.h. die Achse muss nicht als echte Hirthachse prametriert sein.
+           Ist die Achse als Moduloachse parameriert, wird das Maschinendatum $MA_INDEX_AX_NUMERATOR durch das Maschinendatum $MA_MODULO_RANGE ersetzt. Die Abstände der zulässigen Achspositionen ergeben sich dann durch $MA_MODULO_RANGE / $MA_INDEX_AX_DENOMINATOR.
+           Das Maschinendatum $MA_INDEX_AX_OFFSET wird auch bei Moduloachsen ausgewertet.
+Bit  7 -  8: Sind diese Bits gesetzt, werden an den Startpunkten der Teilketten (Bit7: Part-Kette; Bit 8: Tool-Kette) bei Bedarf intern automatisch zusätzliche konstante Kettenelmnente eingefügt, die eine Veebindung vom Endpunkt der Kette zum Maschinennullpunkt herstellen ("Kette schließen").
+Bit  9 - 31: Nicht belegt
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_CLOSE_CHAIN_P</name>
+<brief>Punkt zum Schließen der Partkette.</brief>
+<description>Diese Systemdatum verweist auf ein Element der kinematischen Kette, dessen Endpunkt als Bezugspunkt für das "Schließen" der Partkette dient.
+ Beim Schließen der kinematischen Kette wird am Startpunkt ein solches Offset-Element eingefügt, dass bei Nullstellung aller Achsen der genannte Bezugspunkt mit dem Startpunkt der Kette zusammenfällt.
+Ist das Systemdatum leer, ist der Endpunkt der Kette der Bezugspunkt.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$NT_CLOSE_CHAIN_T</name>
+<brief>Punkt zum Schließen der Toolkette.</brief>
+<description>Diese Systemdatum verweist auf ein Element der kinematischen Kette, dessen Endpunkt als Bezugspunkt für das "Schließen" der Partkette dient.
+ Beim Schließen der kinematischen Kette wird am Startpunkt ein solches Offset-Element eingefügt, dass bei Nullstellung aller Achsen der genannte Bezugspunkt mit dem Startpunkt der Kette zusammenfällt.
+Ist das Systemdatum leer, ist der Endpunkt der Kette der Bezugspunkt.
+</description>
+</parameter>
+</info>

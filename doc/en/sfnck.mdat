@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="10089" type="DOUBLE" dim="0">
+<name>SAFE_PULSE_DIS_TIME_BUSFAIL</name>
+<brief>Delay time pulse suppr. for bus failure</brief>
+<description>Time after a communication failure at which safe pulse disable takes place. The drive can still respond autonomously to the bus failure during this time (see extended stop and retract)
+
+This time is not waited before disabling pulses in the following cases:
+
+- On selection of an external Stop A, a test stop or a test stop external switch off
+- If SBH is active or on selection of SBH
+- A pulse disable is parameterized immediately if an SG level is active or on selection of an SG level for which an immediate pulse disable is parameterized in $MA_SAFE_VELO_STOP_MODE or $MA_SAFE_VELO_STOP_REACTION.
+
+Note:
+	$MN_SAFE_PULSE_DIS_TIME_BUSFAIL is transferred to the drive parameter MD 9580 with the copy function of the SI-MD and compared in the data cross-check. This general machine data is contained in the axial checksum calculation of the safety relevant machine data ($MA_SAFE_ACT_CHECKSUM, $MA_SAFE_DES_CHECKSUM).
+</description>
+</parameter>
+<parameter number="10090" type="DWORD" dim="0">
+<name>SAFETY_SYSCLOCK_TIME_RATIO</name>
+<brief>Factor for monitoring cycle</brief>
+<description>Ratio between the monitoring cycle and the system clock cycle. The monitoring cycle is the product of this data and $MN_SYSCLOCK_CYCLE_TIME.
+
+Special cases:
+The monitoring cycle is checked during power on:
+-  It must be an integer multiple of the position-control cycle
+-  It must be &lt; 25 ms
+
+The factor is rounded down to the next possible value if the conditions are not fulfilled. The actual set monitoring cycle is displayed by MD10091 $MN_INFO_SAFETY_CYCLE_TIME.
+
+A new value is also generated for the cross-check cycle, which is displayed by data $MN_INFO_CROSSCHECK_CYCLE_TIME.
+
+Note:
+	The monitoring cycle defines the monitoring response time. It must be noted that the CPU load increases as the monitoring cycle becomes shorter.
+
+Related to:
+	MD 10050: $MN_SYSCLOCK_CYCLE_TIME
+	MD 10091: $MN_INFO_SAFETY_CYCLE_TIME
+	MD 10092: $MN_INFO_CROSSCHECK_CYCLE_TIME
+</description>
+</parameter>
+<parameter number="10091" type="DOUBLE" dim="0" readonly="true">
+<name>INFO_SAFETY_CYCLE_TIME</name>
+<brief>Display of monitoring cycle time</brief>
+<description>Display data: Displays the actually active monitoring cycle. The data cannot be written.
+
+The data value is recalculated as soon as one of the following data are changed:
+SAFETY_SYSCLOCK_TIME_RATIO,
+POSCTRL_SYSCLOCK_TIME_RATIO
+SYSCLOCK_CYCLE_TIME
+The new value does not become active until after the next Power On.
+
+Related to:
+	MD 10090: $MN_SAFETY_SYSCLOCK_TIME_RATIO
+
+
+</description>
+</parameter>
+<parameter number="10092" type="DOUBLE" dim="0" readonly="true">
+<name>INFO_CROSSCHECK_CYCLE_TIME</name>
+<brief>Display of cycle time for cross-checking</brief>
+<description>Display data: Maximum cross-checking cycle in seconds.
+Derived from INFO_SAFETY_CYCLE_TIME and the number of data to be cross-checked (this may vary according to the type of drive used for the individual axes).
+
+The data value is recalculated as soon as one of the following data are changed:
+SAFETY_SYSCLOCK_TIME_RATIO,
+POSCTRL_SYSCLOCK_TIME_RATIO
+SYSCLOCK_CYCLE_TIME
+The new value does not become active until after the next Power On.
+
+Related to:
+	MD 10090: $MN_SAFETY_SYSCLOCK_TIME_RATIO
+	MD 36992: $MA_SAFE_CROSSCHECK_CYCLE
+
+</description>
+</parameter>
+<parameter number="10093" type="DWORD" dim="0" readonly="true">
+<name>INFO_NUM_SAFE_FILE_ACCESS</name>
+<brief>Number of SPL file accesses</brief>
+<description>Display data: SPL file /_N_CST_DIR/_N_SAFE_SPF has been accessed n-times in a protected state. This MD is intended for service purposes only. The MD can only take the values 0 and 1. The value cannot be changed.
+
+</description>
+</parameter>
+<parameter number="10094" type="BYTE" dim="0">
+<name>SAFE_ALARM_SUPPRESS_LEVEL</name>
+<brief>Alarm suppress level</brief>
+<description>Affects the display of safety alarms. The monitoring channels NCK and drive or NCK and PLC display alarms with the same meaning in several situations. 
+To reduce the volume of the alarm display, this MD is set to define whether safety alarms with the same meaning are to be hidden or not. This does not affect the dual-channel stop response.
+0 = Dual-channel triggered alarms are displayed in full
+- Dual-channel display of all axial safety alarms
+- Alarm 27001, error code 0 is displayed
+- Alarms 27090, 27091, 27092, 27093, and 27095 are dual-channel and are displayed several times.
+1 = Alarms with the same meaning are only displayed once.
+The following alarms can be affected by this:
+27010 = C01707
+27011 = C01714
+27012 = C01715
+27013 = C01706
+27020 = C01710
+27021 = C01709
+27022 = C01708
+27023 = C01701
+27024 = C01700
+In the case of these alarms, only one of the alarms listed (270xx or C01xxx) is triggered.
+The alarm of the monitoring channel that later triggers the alarm with the same meaning 
+is no longer displayed.
+Furthermore, alarm 27001 with error code 0 is suppressed. This alarm is triggered 
+as a result of drive alarm C01711. In this case, drive parameters 
+r9710[0,1], r9711[0,1], r9735[0,1], r9736[0,1], r9737[0,1], 
+r9738[0,1], r9739[0,1] provide further information about the cause of the error.
+2 = Default setting
+In addition to the functionality with MD value = 1, the alarms from the SPL processing 
+(27090, 27091, 27092, 27093, and 27095) are displayed in one channel and only once. This
+also applies to the alarms for PROFIsafe communications (27250 and following).
+3 = Axial alarms 27000 and A01797 are replaced by alarm message 27100 for all axes /
+drives. Alarm 27040 is replaced by alarm 27140 for all axes/
+drives. 
+12 = The alarms are prioritized beyond the functionality with MD value = 2. Obvious subsequent alarms are no longer displayed or are automatically deleted from the display.
+	The following alarms can be affected by this:
+	27001, 27004, 27020, 27021, 27022, 27023, 27024, 27091,
+	27101, 27102, 27103, 27104, 27105, 27106, 27107
+13 = The alarms are prioritized beyond the functionality with MD value = 3 (as with MD value 12).
+1xx = If SPL commissioning mode is active ($MN_PREVENT_SYNACT_LOCK[0,1] = 0), the global group alarm 27135 will be displayed instead of the axial checksum alarms 27032, 27035, and 27060.
+This machine data must be set to 0 to create an acceptance log, so that the triggering of all alarms can be logged.
+</description>
+</parameter>
+<parameter number="10095" type="DWORD" dim="0" display="HEX">
+<name>SAFE_MODE_MASK</name>
+<brief>'Safety Integrated' operating modes</brief>
+<description>Bit 1 = 0: The "Modular PROFIsafe I/O connection" function is not active.
+Bit 1 = 1: The "Modular PROFIsafe I/O connection" function is active.
+Bit 2 = 0: The reduced language scope for SAFE.SPF is only activated during ramp-up in the case of automatic startup ($MC_PROG_EVENT_MASK bit 5)
+Bit 2 = 1: The reduced language scope for SAFE.SPF is also activated if the CALL command is used to call SAFE.SPF.
+Bit 3 = 0: All PROFIsafe drivers in one IPO cycle
+Bit 3 = 1: PROFIsafe drivers distributed over several IPO cycles
+Bit 4 = 0: In "SINUMERIK Safety Integrated (SPL)" safety mode, NC axes cannot be linked to the drive monitoring functions via SIC/SCC
+Bit 4 = 1: In "SINUMERIK Safety Integrated (SPL)" safety mode, NC axes can be linked to the drive monitoring functions via SIC/SCC
+
+
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="10096" type="DWORD" dim="0" display="HEX">
+<name>SAFE_DIAGNOSIS_MASK</name>
+<brief>'Safety Integrated' diagnostics functions</brief>
+<description>Bit 0 = 0: 
+	SGE differences between NCK and drive monitoring channels are not displayed
+Bit 0 = 1: 
+	Default setting: SGE differences between NCK and drive monitoring channels are displayed. Differences between the following SGEs are displayed (the bit numbers stated refer to the axial map of the SGEs; they correspond to the assignment of the axial VDI interface:
+
+Bit  0: &lt;SBH-SG_Abwahl/&gt; (SBH/SG deselection)
+Bit  1: &lt;SBH_Abwahl/&gt; (SBH deselection)
+Bit  3: &lt;SG-Auswahl-Bit0/&gt; (SG selection: Bit 0)
+Bit  4: &lt;SG-Auswahl-Bit1/&gt; (SG selection: bit 1)
+Bit 12: &lt;SE2aktivieren/&gt; (activate SE 2)
+Bit 28: &lt;SG-Korrektur-Bit0/&gt; (SG correction: bit 0)
+Bit 29: &lt;SG-Korrektur-Bit1/&gt; (SG correction: bit 1)
+Bit 30: &lt;SG-Korrektur-Bit2/&gt; (SG correction: bit 2)
+Bit 31: &lt;SG-Korrektur-Bit3/&gt; (SG correction: bit 3)
+
+The differences are displayed by message alarm 27004.
+
+Bit 1 = 0: Default setting: Display of a non-executed SPL start after expiry of the timer defined in MD SAFE_SPL_START_TIMEOUT
+	      with alarm 27097
+Bit 1 = 1: Display of alarm 27097 is suppressed
+
+	Alarm 27097 indicates that despite the SPL configuration an SPL start has not been executed
+	after expiration of the time specified in MD SAFE_SPL_START_TIMEOUT. Alarm description 27097 explains why.
+
+Bit 2 = 0: Default setting: Communication errors are displayed with SFC error codes in alarm 27354
+Bit 2 = 1: Display of alarm 27354 is suppressed
+
+Bit 3 = 0: Default setting: alarm 27038 is displayed, if an unknown bit is set in drive parameter r474.
+Bit 3 = 1: Display of alarm 27038 is suppressed
+
+</description>
+</parameter>
+<parameter number="10097" type="BYTE" dim="0">
+<name>SAFE_SPL_STOP_MODE</name>
+<brief>Stop reaction for SPL errors</brief>
+<description>Selection of the stop response when the NCK / PLC SPL detects 
+errors during a cross-check.
+
+3: Stop D
+4: Stop E
+
+Entering the value 4 in this MD (Stop E) leads to alarm 27033, "Axis %1 Parameterization of MD10097 $MN_SAFE_SPL_STOP_MODE is invalid" unless external Stop E is enabled in all axes with SI function enable (MD36901 $MA_SAFE_FUNCTION_ENABLE is not equal to 0).
+As a remedy, either Stop D must be parameterized, or bits 4 and 6 must be set in MD36901 $MA_SAFE_FUNCTION_ENABLE for all affected axes.
+If this MD is set to 4, NC/PLC interface signal &lt;Stop_E/&gt; (Stop E) must also be set to 1 to make this parameterization known to the PLC. A different parameterization leads to alarm 27909, "Error in NCK / PLC data cross check"
+</description>
+</parameter>
+<parameter number="10098" type="DWORD" dim="0">
+<name>PROFISAFE_IPO_TIME_RATIO</name>
+<brief>Factor for PROFIsafe communication</brief>
+<description>Ratio between PROFIsafe communication and interpolator cycle. The actual PROFIsafe communication cycle is the product of this data and IPO_CYCLE_TIME, and is displayed in MD INFO_PROFISAFE_CYCLE_TIME. The OB40 on the PLC side is triggered from the NCK side in this cycle to run the communication between F master and F slaves.
+The PROFIsafe communication must not exceed 25 ms.
+</description>
+</parameter>
+<parameter number="10099" type="DOUBLE" dim="0" readonly="true">
+<name>INFO_PROFISAFE_CYCLE_TIME</name>
+<brief>PROFIsafe communication cycle time</brief>
+<description>Displays the maximum time frame within which the OB40 is initiated for PROFIsafe communication.
+The value is derived from the interpolator cycle and MD $MN_PROFISAFE_IPO_TIME_RATIO.
+If the selected communication cycle is exceeded in cyclic operation, then this is also displayed here.
+In the case of a parameterization error (communication cycle exceeds the maximum value of 25.0 ms) the maximum value that can be set is displayed.
+
+It involves pure display data. The value cannot be changed.
+</description>
+</parameter>
+<parameter number="10385" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_MASTER_ADDRESS</name>
+<brief>PROFIsafe address master module</brief>
+<description>Definition of the PROFIsafe address of the F master NCK/PLC. Used for unique assignment between F master and F slave. This parameter must be entered corresponding to the parameter "F_source_address" set in S7-ES for the F slaves. Communication is only attempted to be set up with F slaves which have this address entered.
+
+
+
+
+</description>
+</parameter>
+<parameter number="10386" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_IN_ADDRESS</name>
+<brief>PROFIsafe address input module</brief>
+<description>PROFIsafe destination address of an input module
+Format: 0s 0x aaaa
+s: Bus segment (5 = DP connection on the PLC side)
+x: Sub-slot address
+    Value range: 0...2
+	x = 0 addresses the F user data signals 1...32
+	x = 1 adresses the F user data signals 33...64
+	x = 2 adresses the F user data signals 65...96
+aaaa: Hexadecimal PROFIsafe address of the F module
+</description>
+</parameter>
+<parameter number="10387" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_OUT_ADDRESS</name>
+<brief>PROFIsafe-address output module</brief>
+<description>PROFIsafe destination address of an output module
+Format: 0s 0x aaaa
+s: Bus segment (5 = DP connection on the PLC side)
+x: Sub-slot address
+    Value range: 0...2
+	x = 0 addresses the F user data signals 1...32
+	x = 1 adresses the F user data signals 33...64
+	x = 2 adresses the F user data signals 65...96
+aaaa: Hexadecimal PROFIsafe address of the F module
+</description>
+</parameter>
+<parameter number="10388" type="DWORD" dim="1">
+<name>PROFISAFE_IN_ASSIGN</name>
+<brief>Input.assignment $A_INSE to PROFIsafe module</brief>
+<description>Assignment between external SPL interface $A_INSE and PROFIsafe input module
+
+The three lower digits indicate the 1st range limit for the $A_INSE variables to be fed.
+The three higher digits indicate the 2nd range limit for the $A_INSE variables to be fed.
+
+Example:
+PROFISAFE_IN_ASSIGN[0] = 4001 or alternatively 1004: 
+The system variables $A_INSE[1...4] are fed with the state of the input terminals of the PROFIsafe module specified by MD PROFISAFE_IN_ADDRESS[0].
+
+</description>
+</parameter>
+<parameter number="10389" type="DWORD" dim="1">
+<name>PROFISAFE_OUT_ASSIGN</name>
+<brief>Outp.assignment $A_OUTSE to PROFIsafe module</brief>
+<description>Assignment between external SPL interface $A_OUTSE and PROFIsafe output module
+The three lower digits indicate the 1st range limit for the $A_OUTSE variables to be connected.
+The three higher digits indicate the 2nd range limit for the $A_OUTSE variables to be connected.
+
+Example:
+PROFISAFE_OUT_ASSIGN[0] = 64061 or alternatively 61064: 
+The system variables $A_OUTSE[61...64] are fed to the output terminals of the PROFIsafe module specified by MD PROFISAFE_OUT_ADDRESS[0].
+
+
+</description>
+</parameter>
+<parameter number="10393" type="DWORD" dim="1">
+<name>SAFE_DRIVE_LOGIC_ADDRESS</name>
+<brief>Logical drive addresses SI</brief>
+<description>Logical I/O addresses of the SI message frames of the drives on the PROFIBUS.
+One address is assigned to one drive.
+</description>
+</parameter>
+<parameter number="13300" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_IN_FILTER</name>
+<brief>Useful F data filter IN</brief>
+<description>Filter between F user data and $INSE variables
+
+Machine data $MN_PROFISAFE_IN_FILTER defines which F user data bits of the PROFIsafe module are accepted from the F user data interface of the PROFIsafe module into the NCK for further processing.
+
+The filtered F user data bits are compressed internally in the NCK to form a contiguous bit field.
+
+Machine data $MN_PROFISAFE_IN_ASSIGN then also defines the $INSE variables to which the filtered F user data bits are transferred.
+
+Example:
+
+Note:
+	Only 16 bits are shown for the sake of simplicity.
+
+Parameterization:
+	$MN_PROFISAFE_IN_FILTER = 1010100101000100
+	$MN_PROFISAFE_IN_ASSIGN = 011006
+
+ n = 16        11         6         1
+     |x|x|x|x|x|1|1|1|0|0|1|x|x|x|x|x|
+	$INSE[n], x = irrelevant
+
+     |0|0|0|0|0|0|0|0|0|0|1|1|1|0|0|1|
+	NCK-internal image of F user data
+
+     |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|
+	$MN_PROFISAFE_IN_FILTER
+
+     |1|0|1|0|1|0|0|0|0|0|0|0|0|1|0|0|
+	Exemplary value present at F user data interface of the PROFIsafe module
+</description>
+</parameter>
+<parameter number="13301" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_OUT_FILTER</name>
+<brief>Useful F data filter OUT</brief>
+<description>Filter between $OUTSE variables and F user data
+
+Machine data $MN_PROFISAFE_OUT_ASSIGN defines which $OUTSE[n] variables are transferred to the F user data bits of the PROFIsafe module.
+
+Machine data $MN_PROFISAFE_OUT_FILTER defines the F user data bit to which the relevant $OUTSE[n] variable is transferred.
+
+Example:
+
+Note: Only 16 bits are shown for the sake of simplicity.
+
+Parameterization:
+	$MN_PROFISAFE_OUT_FILTER = 1010100101000100
+	$MN_PROFISAFE_OUT_ASSIGN = 011006
+
+n = 16        11         6         1
+    |x|x|x|x|x|1|1|1|1|1|1|x|x|x|x|x|
+	Exemplary value present in the $OUTSE variables, x = irrelevant
+
+    |0|0|0|0|0|0|0|0|0|0|1|1|1|1|1|1|
+	NCK-internal image of F user data
+
+    |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|
+	$MN_PROFISAFE_OUT_FILTER
+
+    |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|
+	F user data of the PROFIsafe module
+
+</description>
+</parameter>
+<parameter number="13302" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_IN_ENABLE_MASK</name>
+<brief>Enable mask for connections to PROFIsafe input modules.</brief>
+<description>The enable mask is used to enable the machine data blocks for the connections to PROFIsafe input modules.
+
+A machine data block comprises the following data:
+- $MN_PROFISAFE_IN_ADDRESS[n]
+- $MN_PROFISAFE_IN_ASSIGN[n]
+- $MN_PROFISAFE_IN_FILTER[n]
+- $MN_PROFISAFE_IN_SUBS[n]
+
+Bit n = 0
+The machine data block [n] is checked for consistency but not activated.
+The PROFIsafe connection [n] or the slot [n] is not active.
+
+Bit n = 1
+The machine data block [n] is active.
+The PROFIsafe connection [n] or the slot [n] is active.
+
+
+
+
+</description>
+</parameter>
+<parameter number="13303" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_OUT_ENABLE_MASK</name>
+<brief>Enable mask for connections to PROFIsafe output modules.</brief>
+<description>The enable mask is used to enable the machine data blocks for the connections to PROFIsafe output modules.
+
+A machine data blocks comprises the following data:
+- $MN_PROFISAFE_OUT_ADDRESS[n]
+- $MN_PROFISAFE_OUT_ASSIGN[n]
+- $MN_PROFISAFE_OUT_FILTER[n]
+
+Bit n = 0
+The machine data block [n] is checked for consistency but not activated.
+The PROFIsafe connection [n] or the slot [n] is not active.
+
+Bit n = 1
+The machine data block [n] is active.
+The PROFIsafe connection [n] or the slot [n] is active.
+
+
+
+</description>
+</parameter>
+<parameter number="13304" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_IN_SUBS_ENAB_MASK</name>
+<brief>Activation of substitute value output for PROFIsafe input modules</brief>
+<description>The enable mask is used to enable subsitute value output for connections to PROFIsafe input modules.
+
+Bit n = 0
+The PROFIsafe input module's process data is transferred to the SPL input data for the connection parameterized in machine data block [n].
+The PROFIsafe connection [n] or the slot [n] is active.
+
+Bit n = 1
+The substitute values from $MN_PROFISAFE_IN_SUBS are transferred to the SPL input data for the connection parameterized in machine data block [n].
+The PROFIsafe connection [n] or the slot [n] is passive.
+
+
+
+
+</description>
+</parameter>
+<parameter number="13305" type="DWORD" dim="1" display="HEX">
+<name>PROFISAFE_IN_SUBS</name>
+<brief>Substitute values for passive connections to PROFIsafe input modules</brief>
+<description>For passive connections to PROFIsafe input modules, the substitute values parameterized in the machine data are transferred to the SPL inputs ($A_INSE) parameterized via $MN_PROFISAFE_IN_ASSIGN[n].
+
+If the SPL inputs parameterized with $MN_PROFISAFE_IN_ASSIGN[n] overlap the SPL inputs of an active slot, the control will modify the passive slot's substitute values in order to prevent duplicate assignment of the SPL inputs. Here, the states of the signals from the active slots have priority. 
+
+
+
+
+</description>
+</parameter>
+<parameter number="13307" type="DWORD" dim="0">
+<name>PROFISAFE_IPO_RESERVE</name>
+<brief>Number of IPO cycles without PROFIsafe calculations</brief>
+<description>The value specifies the number of IPO cycles for each PROFIsafe cycle, in which no PROFIsafe calculations should be made.
+This machine data is only active, if machine data SAFE_MODE_MASK, bit 3 is set.
+The number of IPO cycles must be selected less than the value in machine data PROFISAFE_IPO_TIME_RATIO.
+</description>
+</parameter>
+<parameter number="13308" type="STRING" dim="1">
+<name>PROFISAFE_IN_NAME</name>
+<brief>Name of the PROFIsafe IN connection</brief>
+<description>A name can be assigned to each PROFIsafe IN connection.
+If a name has been assigned, this will be displayed in the alarm text instead of the PROFIsafe address.
+</description>
+</parameter>
+<parameter number="13309" type="STRING" dim="1">
+<name>PROFISAFE_OUT_NAME</name>
+<brief>Name of the PROFIsafe OUT connection</brief>
+<description>A name can be assigned to each PROFIsafe OUT connection.
+If a name has been assigned, this will be displayed in the alarm text instead of the PROFIsafe address.
+</description>
+</parameter>
+<parameter number="13310" type="DOUBLE" dim="0">
+<name>SAFE_SPL_START_TIMEOUT</name>
+<brief>Delay in display of alarm 27097</brief>
+<description>After powerup of the control, alarm 27097 is displayed after the time if the SPL start is not carried out.
+</description>
+</parameter>
+<parameter number="13312" type="DWORD" dim="1" display="HEX">
+<name>SAFE_SPL_USER_DATA</name>
+<brief>User data</brief>
+<description>User data for storing user-specific information. These data are monitored for changes by the data cross-check between NCK and PLC. Changes to these data are detected when included in the checksums, and reported by alarm 27071. The data must agree with the corresponding PLC data (&lt;SafeUserData/&gt;). Deviations between NCK and PLC trigger the programmed stop (Stop D or Stop E) and are displayed via alarm 27090.
+
+
+</description>
+</parameter>
+<parameter number="13316" type="STRING" dim="1" readonly="true">
+<name>SAFE_GLOB_CFG_CHANGE_DATE</name>
+<brief>Date/time of last change of SI-NCK MD</brief>
+<description>Display data for safety functions:
+Date and time of the last configuration change to safety-related NCK machine data.
+Changes to the machine data included in the calculation of the checksums SAFE_GLOB_ACT_CHECKSUM are recorded.
+</description>
+</parameter>
+<parameter number="13317" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_GLOB_PREV_CONFIG</name>
+<brief>Data of previous safety configuration</brief>
+<description>Intermediate buffer for storing previous safety configuration data
+Index 0: Status flag for change history
+Index 1: Previous value of option data
+Index 2: Previous value of set checksum SAFE_GLOB_DES_CHECKSUM[0]
+Index 3: Last value of option data before standard data were loaded
+Index 4: Last value of set checksum SAFE_GLOB_DES_CHECKSUM[0] before standard data were loaded.
+Index 5: Previous value of set checksum SAFE_GLOB_DES_CHECKSUM[1]
+Index 6: Last value of set checksum SAFE_GLOB_DES_CHECKSUM[1] before standard data were loaded
+Index 7: Previous value of set checksum SAFE_GLOB_DES_CHECKSUM[2]
+Index 8: Last value of set checksum SAFE_GLOB_DES_CHECKSUM[2] before standard data were loaded
+Index 9: Previous value of set checksum SAFE_GLOB_DES_CHECKSUM[3]
+Index 10: Last value of set checksum SAFE_GLOB_DES_CHECKSUM[3] before standard data were loaded
+</description>
+</parameter>
+<parameter number="13318" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_GLOB_ACT_CHECKSUM</name>
+<brief>Actual checksum NCK</brief>
+<description>In this data, the actual checksum calculated after POWER ON or on RESET overwrites the current values of the safety-relevant machine data.
+Assignment of the field indices:
+Index 0: General safety parameterization, parameterization of the SPL-I/O link
+Index 1: SPL user data
+Index 2: Enable for I/O link (PROFIsafe and F_SEND/F_RECV)
+Index 3: PROFIsafe parameter from the S7 configuration
+
+</description>
+</parameter>
+<parameter number="13319" type="DWORD" dim="1" display="HEX">
+<name>SAFE_GLOB_DES_CHECKSUM</name>
+<brief>Desired (expected) checksum</brief>
+<description>In this data, the set checksum stored at the time of the last machine acceptance overwrites the current values of the safety relevant machine data.
+Assignment of the field indices:
+Index 0: General safety parameterization, parameterization of the SPL-I/O link
+Index 1: SPL user data
+Index 2: Enable for I/O link (PROFIsafe and F_SEND/F_RECV)
+Index 3: PROFIsafe parameter from the S7 configuration
+</description>
+</parameter>
+<parameter number="13320" type="DWORD" dim="0">
+<name>SAFE_SRDP_IPO_TIME_RATIO</name>
+<brief>Factor F_DP communication cycle</brief>
+<description>Ratio between interpolator cycle and F_DP cycle, in which the F_DP communication is performed. In the resulting time interval the NCK triggers OB40 on the PLC in order to perform the F_DP communication.
+The value for the communication cycle resulting from this MD and the set IPO cycle must not exceed 250ms.
+</description>
+</parameter>
+<parameter number="13322" type="DOUBLE" dim="0" readonly="true">
+<name>INFO_SAFE_SRDP_CYCLE_TIME</name>
+<brief>Maximum F_DP communication cycle</brief>
+<description>Displays the maximum time grid, in which the OB40 for F_DP communication is initiated.
+The value is obtained from the interpolation cycle and MD $MN_SAFE_SRDP_IPO_TIME_RATIO.
+If the set communication cycle in cyclic operation is exceeded, then this is also displayed here.
+In the case of a parameterization error (communication cycle exceeds the maximum value of 250.0 ms), then the maximum value that can be set is displayed.
+This is only a display data. The value cannot be changed.
+</description>
+</parameter>
+<parameter number="13330" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SDP_ENABLE_MASK</name>
+<brief>Enable screen F_SENDDP communication relationships </brief>
+<description>Enable screen for the individual F_SENDDP communication relationships 
+</description>
+</parameter>
+<parameter number="13331" type="DWORD" dim="1">
+<name>SAFE_SDP_ID</name>
+<brief>ID for F_SENDDP communication relationship</brief>
+<description>Any network unique value as ID for F_SENDDP communication relationship.
+SIMATIC module parameter: DP_DP_ID
+</description>
+</parameter>
+<parameter number="13332" type="STRING" dim="1">
+<name>SAFE_SDP_NAME</name>
+<brief>Name of SPL connection</brief>
+<description>A name can be assigned to each SPL connection.
+If a name was assigned, this name will be displayed in the alarm text instead of DP_DP_ID.
+</description>
+</parameter>
+<parameter number="13333" type="BYTE" dim="1">
+<name>SAFE_SDP_CONNECTION_NR</name>
+<brief>Number of SPL connection</brief>
+<description>This machine data is used to set the number of the SPL connection that is parameterized with this data record.
+The number of the SPL connection is at the same time also the index for access to the system variables of the user interface of this SPL connection. 
+ This applies to the following system variables:
+ - $A_FSDP_ERR_REAC 
+ - $A_FSDP_ERROR 
+ - $A_FSDP_SUBS_ON 
+ - $A_FSDP_DIAG 
+
+ Example: $MN_SAFE_SDP_CONNECTION_NR[2] = 3 means that the control and status information of the SPL connection that is parameterized via data record 2 can be found in the system variables with field index 3.
+
+</description>
+</parameter>
+<parameter number="13334" type="DWORD" dim="1">
+<name>SAFE_SDP_LADDR</name>
+<brief>Basic address of the input/output data range F_SENDDP</brief>
+<description>The start address of the input and output data range - parameterized in SIMATIC STEP 7 - through which F_SENDDP of this communication relationship communicates.
+SIMATIC module parameter: LADDR
+</description>
+</parameter>
+<parameter number="13335" type="DOUBLE" dim="1">
+<name>SAFE_SDP_TIMEOUT</name>
+<brief>Monitoring time F_SENDDP</brief>
+<description>The monitoring time is the time in which F_SENDDP must have sent a new F telegram to F_RECVDP or in which F_RECVDP must have acknowledged a new F telegram. When the monitoring time is exceeded, F_RECVDP outputs replacement values to the SPL.
+SIMATIC module parameter: TIMEOUT
+</description>
+</parameter>
+<parameter number="13336" type="DWORD" dim="1">
+<name>SAFE_SDP_ASSIGN</name>
+<brief>Output assignment.$A_OUTSE to F_SENDDP user data</brief>
+<description>The SPL signals $A_OUTSE to be transmitted can only be selected area by area.
+
+Format: 00 aaa bbb (decimal) with
+ aaa = area limit 1, SPL signal $A_OUTSE[aaa]
+ bbb = area limit 2, SPL signal $A_OUTSE[bbb]
+
+ Example: $MN_SAFE_SDP_ASSIGN[0] = 001 004 or alternatively 004 001
+ The SPL signals $A_OUTSE[1] to $A_OUTSE[4] are transmitted to the F_SENDDP user data selected via MD13337 SAFE_SDP_FILTER[0].
+
+</description>
+</parameter>
+<parameter number="13337" type="DWORD" dim="1" display="HEX">
+<name>SAFE_SDP_FILTER</name>
+<brief>F user data filter between $A_OUTSE and F_SENDDP</brief>
+<description>The SPL signals selected via MD $MN_SAFE_SDP_ASSIGN are transmitted to the F_SENDDP user data signals in the order of the FILTER bits set to 1. The lowest-value SPL signal to the bit position of the F_SENDDP user data of the lowest-value filter bit set to 1, etc. for all SPL signals selected.
+
+ Bit x = 1: an SPL signal is transmitted to bit position x of the F_SENDDP user data.
+ Bit x = 0: no SPL signal is transmitted to bit position x of the F_SENDDP user data.
+</description>
+</parameter>
+<parameter number="13338" type="DWORD" dim="1">
+<name>SAFE_SDP_ERR_REAC</name>
+<brief>Fault reaction</brief>
+<description>In the case of a communication error the fault reaction defined here is triggered. This value is valid as long as no other value is specified from the SPL via system variable $A_FSDP_ERR_REAC.
+Meaning of the values:
+- 0 = alarm 27350 + stop D/E
+- 1 = alarm 27350
+- 2 = alarm 27351 (displayed only; self-extinguishing)
+- 3 = no system reaction
+</description>
+</parameter>
+<parameter number="13340" type="DWORD" dim="0" display="HEX">
+<name>SAFE_RDP_ENABLE_MASK</name>
+<brief>Enable screen F_RECVDP communication relationships</brief>
+<description>Enable screen for the individual F_RECVDP communication relationships
+</description>
+</parameter>
+<parameter number="13341" type="DWORD" dim="1">
+<name>SAFE_RDP_ID</name>
+<brief>ID for F_RECVDP communication relationships</brief>
+<description>Any network unique value as ID for F_RECVDP communication relationships.
+SIMATIC module parameter: DP_DP_ID
+</description>
+</parameter>
+<parameter number="13342" type="STRING" dim="1">
+<name>SAFE_RDP_NAME</name>
+<brief>Name of SPL connection</brief>
+<description>A name can be assigned to each SPL connection.
+If a name was assigned, this name will be displayed in the alarm text instead of DP_DP_ID.
+</description>
+</parameter>
+<parameter number="13343" type="BYTE" dim="1">
+<name>SAFE_RDP_CONNECTION_NR</name>
+<brief>Assignment SPL connection to system variables</brief>
+<description>This machine data is used to set the number of the SPL connection that is parameterized with this data record.
+The number of the SPL connection is at the same time also the index for access to the system variables of the user interface of this SPL connection. 
+ This applies to the following system variables: 
+ - $A_FRDP_SUBS 
+ - $A_FRDP_ERR_REAC 
+ - $A_FRDP_ERROR 
+ - $A_FRDP_SUBS_ON 
+ - $A_FRDP_ACK_REQ 
+ - $A_FRDP_DIAG 
+ - $A_FRDP_SENDMODE 
+
+ Example: $MN_SAFE_RDP_CONNECTION_NR[2] = 3 means that the control and status information of the SPL connection that is parameterized via data record 2 can be found in the system variables with field index 3.
+
+</description>
+</parameter>
+<parameter number="13344" type="DWORD" dim="1">
+<name>SAFE_RDP_LADDR</name>
+<brief>Basic address of the input/output data range F_RECVDP</brief>
+<description>The start address of the input and output data range - parameterized in SIMATIC STEP 7 - through which F_RECVDP of this communication relationship communicates.
+SIMATIC module parameter: LADDR
+</description>
+</parameter>
+<parameter number="13345" type="DOUBLE" dim="1">
+<name>SAFE_RDP_TIMEOUT</name>
+<brief>Monitoring time F_RECVDP</brief>
+<description>The monitoring time is the time in which F_SENDDP must have sent a new F telegram to F_RECVDP or in which F_RECVDP must have acknowledged a new F telegram. When the monitoring time is exceeded, F_RECVDP outputs replacement values to the SPL.
+SIMATIC module parameter: TIMEOUT
+</description>
+</parameter>
+<parameter number="13346" type="DWORD" dim="1">
+<name>SAFE_RDP_ASSIGN</name>
+<brief>Input assignment. F_RECVDP user data to $A_INSE</brief>
+<description>The SPL signals $A_INSE to be supplied can only be selected area by area.
+
+Format: 00 aaa bbb (decimal) with
+ aaa = area limit 1, SPL signal $A_INSE[aaa]
+ bbb = area limit 2, SPL signal $A_INSE[bbb]
+
+ Example: $MN_SAFE_RDP_ASSIGN[0] = 001 004 or alternatively 004 001
+ The SPL signals $A_INSE[1] to $A_INSE[4] are transmitted to the F_RECVDP user data selected via MD SAFE_RDP_FILTER[0].
+
+</description>
+</parameter>
+<parameter number="13347" type="DWORD" dim="1" display="HEX">
+<name>SAFE_RDP_FILTER</name>
+<brief>F user data filter between F_RECVDP and $A_INSE</brief>
+<description>The F_RECVDP user data signals the filter bits of which are set to 1 are transmitted to the SPL signals via MD $MN_SAFE_RDP_ASSIGN. The lowest-value F_RECVDP user data signal to the lowest-value selected SPL signal etc. for all F_RECVDP user data selected.
+
+ Bit x = 1: the F_RECVDP user data signal of bit position x is transmitted as SPL signal.
+ Bit x = 0: the F_RECVDP user data signal of bit position x is not transmitted as SPL signal.
+</description>
+</parameter>
+<parameter number="13348" type="DWORD" dim="1">
+<name>SAFE_RDP_ERR_REAC</name>
+<brief>Fault reaction</brief>
+<description>In the case of a communication error, the fault reaction defined here is triggered. This value is valid as long as no other value is specified from the SPL via system variable $A_FRDP_ERR_REAC.
+Meaning of the values:
+- 0 = alarm 27350 + stop D/E
+- 1 = alarm 27350
+- 2 = alarm 27351 (displayed only; self-clearing)
+- 3 = no system reaction
+</description>
+</parameter>
+<parameter number="13349" type="DWORD" dim="1" display="HEX">
+<name>SAFE_RDP_SUBS</name>
+<brief>Replacement values in case of error </brief>
+<description>In the case of a communication error, the replacement values defined here are activated in the system variables $A_INSE assigned to this SPL connection. 
+This value is valid as long as no other value is specified from the SPL via system variable $A_FRDP_SUBS.
+</description>
+</parameter>
+<parameter number="13370" type="BYTE" dim="0" display="HEX">
+<name>SAFE_MODE</name>
+<brief>Safety operating mode</brief>
+<description>MD to make a distinction between the safety operating modes:
+0 = Safety operating mode "SINUMERIK Safety Integrated (SPL)"
+1 = Safety operating mode "SINUMERIK Safety Integrated (Drive Based)"
+3 = Safety operating mode "SINUMERIK Safety Integrated plus (F-PLC)"
+</description>
+</parameter>
+<parameter number="13372" type="DWORD" dim="1">
+<name>SAFE_PS_DRIVE_LOGIC_ADDR</name>
+<brief>Logical basis addresses, PROFIsafe drive</brief>
+<description>Logical basis addresses for PROFIsafe communication between the F-PLC and drive.
+</description>
+</parameter>
+<parameter number="13374" type="DWORD" dim="1">
+<name>SAFE_INFO_DRIVE_LOGIC_ADDR</name>
+<brief>Logical basis addresses, SIC/SCC</brief>
+<description>Logical basis addresses for SIC/SCC communication between NCK and drive.
+
+</description>
+</parameter>
+<parameter number="13376" type="DWORD" dim="1">
+<name>SAFE_INFO_TELEGRAM_TYPE</name>
+<brief>SIC/SCC telegram type</brief>
+<description>Number of the SIC/SCC telegram type
+</description>
+</parameter>
+</info>

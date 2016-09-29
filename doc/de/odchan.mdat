@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="29000" type="DWORD" dim="0">
+<name>LOOKAH_NUM_CHECKED_BLOCKS</name>
+<brief>Optionsdatum</brief>
+<description>Datum für bahnbezogenen dyn. LookAhead:
+Anzahl (maximal) über den aktuellen Satz hinaus überblickter Sätze zur
+vorausschauenden Berücksichtigung von Geschwindigkeitsbeschränkungen.
+
+Der Wert legt eine Obergrenze fest. Der Wert sollte nicht zu klein gesetzt
+werden, um unnötige Geschwindigkeitsreduzierungen zu vermeiden.
+Vergrößerung des Wertes über die Anzahl der im IPO-Puffer max.
+vorhandenen Sätze ( MM_IPO_BUFFER_SIZE ) hinaus hat keine Konsequenzen.
+Bei 0 wird kein LookAhead-Puffer eingerichtet (Arbeitsspeicher wird
+entlastet). Wird in diesem Fall per Teileprogramm LookAhead aktiviert,
+so wird die Geschwindigkeit an jedem Satzende auf Null reduziert.
+
+Es wird ungepufferter Speicher benötigt.
+
+Optionsdatum
+</description>
+</parameter>
+</info>

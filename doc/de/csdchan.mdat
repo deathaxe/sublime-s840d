@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="55200" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAX_INP_FEED_PER_REV</name>
+<brief>Obergrenze Vorschub/U</brief>
+<description>Vorschub-Eingabeobergrenze für mm/U
+</description>
+</parameter>
+<parameter number="55201" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAX_INP_FEED_PER_TIME</name>
+<brief>Obergrenze Vorschub/min</brief>
+<description>Vorschub-Eingabeobergrenze für mm/min
+</description>
+</parameter>
+<parameter number="55202" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAX_INP_FEED_PER_TOOTH</name>
+<brief>Obergrenze Vorschub/Zahn</brief>
+<description>Vorschub-Eingabeobergrenze für mm/Zahn
+</description>
+</parameter>
+<parameter number="55212" type="BYTE" dim="0" display="HEX">
+<name>FUNCTION_MASK_TECH_SET</name>
+<brief>Funktionsmaske Technologieübergreifend</brief>
+<description>Funktionsmaske Technologieübergreifend
+Bit 0: Werkzeugvoranwahl aktiv
+Bit 1: Gewindetiefe aus metrischer Gewindesteigung berechnen
+Bit 2: Gewindedurchm. und -tiefe aus Tabelle übernehmen
+</description>
+</parameter>
+<parameter number="55214" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL_SET</name>
+<brief>Funktionsmaske Fräsen</brief>
+<description>Funktionsmaske Fräsen
+Bit 0: Grundeinstellung Fräszyklen im Gleichlauf
+Bit 2: Tiefenberech. Fräszyklen ohne Parameter SC
+</description>
+</parameter>
+<parameter number="55216" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DRILL_SET</name>
+<brief>Funktionsmaske Bohren</brief>
+<description>Funktionsmaske Bohren
+Bit 1:    Ausdrehen CYCLE86: Drehung der Werkzeugebene beim Positionieren der Spindel berücksichtigen
+Bit 2:    Ausdrehen CYCLE86: Beim Positionieren der Spindel geschwenkte Tischkinematiken berücksichtigen (Toolcarrier)
+Bit 3:    Gewindebohren CYCLE84: Überwachung Maschinendaten 31050 und 31060 der Spindel
+Bit 4:    Gewindebohren CYCLE840: Überwachung Maschinendaten 31050 und 31060 der Spindel
+Bit 6:    Ausdrehen CYCLE86: Spindelposition an Orientierung des Werkzeugs anpassen
+             Werkzeugorientierung kann durch TOOLCARR oder TRAORI vor Zyklusaufruf erreicht werden.
+             Wenn Bit6=1 ist, wirken die Bits 1 und 2 nicht mehr.
+Bit 7:    Ausdrehen CYCLE86: Richtung des Abhebwegs in der Ebene an aktive Spiegelung anpassen
+	0: das Abheben in der Ebene erfolgt wie programmiert
+	1: bei aktiver Spiegelung wird die Richtung beim Abheben in der Ebene zyklusintern an die aktive Spiegelung angepaßt.
+</description>
+</parameter>
+<parameter number="55218" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TURN_SET</name>
+<brief>Funktionsmaske Drehen</brief>
+<description>Funktionsmaske Drehen
+Bit 0: Neue Gewindetabelle beim Gewindedrehen
+Bit 1:	reserviert (CYCLE93)
+Bit 2:	reserviert (CYCLE93)
+Bit 3: Fasen im CYCLE930 als Fasenlänge (CHF)
+</description>
+</parameter>
+<parameter number="55220" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL_TOL_SET</name>
+<brief>Funktionsmaske High Speed Settings CYCLE832</brief>
+<description>Funktionsmaske High Speed Settings CYCLE832
+Bit 0: Eingabefelder Technologie einblenden
+=0: Eingabefelder Technologie nicht einblenden
+=1: Eingabefelder Technologie einblenden
+Bit 1: Orientierungstoleranz (OTOL) als Faktor der Toleranz (CTOL) oder direkt eingeben
+Das Bit 1 ist nur für Maschinen mit eingerichteter Orientierungtransformation relevant
+=0: Orientierungstoleranz (OTOL) wird  als Faktor der eingegenenen Toleranz berechnet
+=1: Orientierungstoleranz (OTOL) direkt in der Eingabemaske eingeben
+Der Faktor für die Berechnung der Orientierungstoleranz ist in folgenden Settingdaten gespeichert
+$SCS_MILL_TOL_FACTOR_ROUGH für die Bearbeitungsart Schruppen G-Gruppe 59 DYNROUGH
+$SCS_MILL_TOL_FACTOR_SEMIFIN für die Bearbeitungsart Vorschlichten G-Gruppe 59 DYNSEMIFIN
+$SCS_MILL_TOL_FACTOR_FINISH für die Bearbeitungsart Schlichten G-Gruppe 59 DYNFINISH
+</description>
+</parameter>
+<parameter number="55221" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_SWIVEL_SET</name>
+<brief>Funktionsmaske Schwenken CYCLE800</brief>
+<description>Funktionsmaske Schwenken CYCLE800
+Die Einstellungen der Funktionsmaske (Bit 0 bis 4) Schwenken wirken auf alle Schwenkdatensätze
+Bit 0: Eingabefeld "Schwenken nein" einblenden
+=0: Eingabefeld "Schwenken nein" nicht einblenden
+=1: Eingabefeld "Schwenken nein" einblenden
+Bit 1: Freifahren "Festpunkt 1/2" statt "Z", "Z XY"
+=0: Auswahltext Freifahren "Z" oder Freifahren "Z XY"
+=1: Auswahltext Freifahren "Festpunkt 1" oder Freifahren "Festpunkt 2"
+Bit 2: Auswahl "Abwahl" des Schwenkdatensatzes zulassen
+=0: Auswahl "Abwahl" des Schwenkdatensatzes nicht zulassen (ausblenden)
+=1: Auswahl "Abwahl" des Schwenkdatensatzes zulassen
+Bit 3: Aktive Schwenkebene unter Schwenken in JOG anzeigen
+=0: Aktive Schwenkebene unter Schwenken in JOG nicht anzeigen
+=1: Aktive Schwenkebene unter Schwenken in JOG anzeigen
+Bit 4: Eingabewerte beim Schwenken in Polstellung der Maschinenkinematik auswerten
+Ausgehend von der Polstellung der Maschinenkinematik werden die Eingabewerte beim Schwenken
+so ausgewertet, das ein kontinuierliches Schwenken um die Polachse möglich ist
+Polachse ist die 2.Rundachse des Schwenkdatensatzes, die um die Werkzeugachse dreht
+Beispiel: Rundachse C dreht um Z bei G17./
+weitere Einstellungen Polachse:
+- Winkelbereich (Verfahrbereich) von &gt;360 Grad im Schwenkdatensatz
+- Die Rundachse darf nicht als Moduloachse vereinbart sein. $MA_ROT_IS_MODULO[AX]=0
+Polstellung bedeutet, das die 1.Rundachse des Schwenkdatensatzes in Grundstellung steht
+=0: Auswertung der Eingabewerte beim Schwenken in Polstellung
+=1: keine Auswertung der Eingabewerte beim Schwenken in Polstellung (Kompatibilität)
+Bit 5: Ausrichten Werkzeug (Technologie Drehen) mittels Frameberechnung (TCOFRY) oder absolut (TCOABS)
+Die Berechung der Werkzeugorientierung des orientierbaren Werkzeugträgers erfolgt
+entweder über eine Frameberechung (TCOFRY bei G18) oder absolut mit TCOABS
+Bei einer B-Achskinematik einer Drehmaschine kann die Werkzeugspindel in Grundstellung der Kinematik
+entweder parallel zu Z oder zu X eingerichtet sein. Siehe auch unter Inbetriebnahme "Schwenkdaten".
+Bei Neuinbetriebnahmen wird empfohlen das Bit 5=1 zu setzen:
+=0: Ausrichten Werkzeug mittles Frameberechnung (TCOFRY bei G18)
+=1: Ausrichten Werkzeug absolut (TCOABS)
+Bit 6: Schwenkmodus "direkt" unter Schwenken in JOG nicht anbieten
+=0: Schwenkmodus "direkt" wird unter Schwenken in JOG angeboten
+=1: Schwenkmodus "direkt" wird unter Schwenken in JOG nicht angeboten
+Bit 7: Schwenken Ebene: Richtungsauswahl in Grundstellung der Kinematik
+Verhalten bei Schwenken Ebene in Grundstellung der Kinematik, wenn vom NCK zwei Lösungen berechnet werden:
+=0: Bei Richtungsauswahl + oder - werden beide berechneten Lösungen der Rundachsen angefahren.
+=1: Bei Richtungsauswahl + oder - wird nur eine der berechneten Lösungen der Rundachsen angefahren.
+Kompatibilität zur PowerLine bis SW 7.x bzw. SolutionLine bis SW 1.x
+Bit 8: Nullpunktverschiebung der Rundachsen des Schwenkdatensatzes als Offset verfahren
+=0: Nullpunktverschiebung der Rundachsen des Schwenkdatensatzes nur im WKS berücksichtigen (Kompatibilität)
+=1: Nullpunktverschiebung der Rundachsen des Schwenkdatensatzes als Offset verfahren
+Einstellung steht im Zusammenhang mit MD21186 $MC_TOCARR_ROT_OFFSET_FROM_FR
+Bit 9: Schwenkdatensatz TC fest dem Werkzeug zugeordnet
+=0 Nummer des Schwenkdatensatzes TC anzeigen
+=1 Nummer des Schwenkdatensatzes TC nicht anzeigen
+Zuordnung des Schwenkdatensatzes zum Werkzeug erfolgt durch SGUD _TC_GNO,
+wenn Technologie im MD52200 $MCS_TECHNOLOGY =3 Rundschleifen eingestellt ist
+Beispiel:
+_TC_GNO kann vom Maschinenhersteller im Werkzeugwechselprogramm L6 geschrieben werden
+
+</description>
+</parameter>
+<parameter number="55230" type="DOUBLE" dim="0" display="DECIMAL">
+<name>CIRCLE_RAPID_FEED</name>
+<brief>Positioniervorschub auf Kreisbahnen</brief>
+<description>Eilgangvorschub in mm/min für das Positionieren auf einer Kreisbahn
+</description>
+</parameter>
+<parameter number="55232" type="DOUBLE" dim="0" display="DECIMAL">
+<name>SUB_SPINDLE_REL_POS</name>
+<brief>Freifahrposition Z für Gegenspindel</brief>
+<description>Z-Rückzugsposition für die Gegenspindel
+</description>
+</parameter>
+<parameter number="55260" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAJOG_SAFETY_CLEARANCE</name>
+<brief>Sicherheitsabstand für Maschine JOG</brief>
+<description>Sicherheitsabstand für Maschine JOG
+</description>
+</parameter>
+<parameter number="55261" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAJOG_RELEASE_PLANE</name>
+<brief>Rückzugsebene für Maschine JOG</brief>
+<description>Rückzugsebene für Maschine JOG
+</description>
+</parameter>
+<parameter number="55300" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_SAFETY_CLEARANCE</name>
+<brief>Eingabe Einfach: Sicherheitsabstand</brief>
+<description>Eingabe Einfach: Sicherheitsabstand
+In den einfachen Eingabemasken fehlt das Eingabefeld für den Sicherheitsabstand.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+
+</description>
+</parameter>
+<parameter number="55301" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_DWELL_TIME</name>
+<brief>Eingabe Einfach: Verweilzeit</brief>
+<description>Eingabe Einfach: Verweilzeit in Sekunden
+In den einfachen Eingabemasken fehlen die Eingabefelder für Verweilzeiten.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+</description>
+</parameter>
+<parameter number="55305" type="DOUBLE" dim="0">
+<name>EASY_DRILL_DEEP_FD1</name>
+<brief>Eingabe Einfach: Prozentsatz 1. Vorschub Tieflochbohren</brief>
+<description>Eingabe Einfach: Prozentsatz 1. Vorschub Tieflochbohren
+In den einfachen Eingabemasken fehlt das Eingabefeld für diesen Prozentsatz.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+
+</description>
+</parameter>
+<parameter number="55306" type="DOUBLE" dim="0">
+<name>EASY_DRILL_DEEP_DF</name>
+<brief>Eingabe Einfach: Prozentsatz Zustellung Tieflochbohren</brief>
+<description>Eingabe Einfach: Prozentsatz Zustellung Tieflochbohren
+In den einfachen Eingabemasken fehlt das Eingabefeld für diesen Prozentsatz.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+
+</description>
+</parameter>
+<parameter number="55307" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_DRILL_DEEP_V1</name>
+<brief>Eingabe Einfach: min. Tiefenzustellung Tieflochbohren</brief>
+<description>Eingabe Einfach: min. Tiefenzustellung Tieflochbohren
+In den einfachen Eingabemasken fehlt das Eingabefeld für die minimale Tiefenzustellung.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+
+</description>
+</parameter>
+<parameter number="55308" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_DRILL_DEEP_V2</name>
+<brief>Eingabe Einfach: Rückzugsbetrag Tieflochbohren</brief>
+<description>Eingabe Einfach: Rückzugsbetrag Tieflochbohren
+In den einfachen Eingabemasken fehlt das Eingabefeld für den Rückzugsbetrag.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+
+</description>
+</parameter>
+<parameter number="55309" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_THREAD_RETURN_DIST</name>
+<brief>Eingabe Einfach: Rücklaufabstand Gewindedrehen</brief>
+<description>Eingabe Einfach: Rücklaufabstand Gewindedrehen
+In den einfachen Eingabemasken fehlt das Eingabefeld für den Rücklaufabstand.
+Statt dessen wird fest der Wert dieses Settingdatums verwendet.
+
+</description>
+</parameter>
+<parameter number="55405" type="STRING" dim="1">
+<name>MILL_TRAORI_USERCYCLE_NAME</name>
+<brief>Programmname 5 Achs-Herstellerzyklus bei Aufruf  Zyklus High Speed Settings</brief>
+<description>Programmname des Herstellerzyklus wenn die 5 Achsbearbeitung (TRAORI) durch den Zyklus High Speed Settings aufgerufen wird.
+</description>
+</parameter>
+<parameter number="55410" type="DWORD" dim="0" display="HEX">
+<name>MILL_SWIVEL_ALARM_MASK</name>
+<brief>Aus- und Einblenden von Zyklenalarmen für CYCLE800</brief>
+<description>Anzeige von Zyklenalarmen im CYCLE800
+Bit 0: Alarm 62186 anzeigen: aktive Nullpunktverschiebung  G54 ff. und Basis (Basisbezug) enthalten Drehungen
+Bit 1: Alarm 62187 anzeigen: aktive Basis und Basisbezug  (G500) enthalten Drehungen
+Bit 2: Alarm 61148 anzeigen: Schwenken Ebene mit aktivem Drehwerkzeug nicht möglich
+
+</description>
+</parameter>
+<parameter number="55420" type="BYTE" dim="0" display="DECIMAL">
+<name>MILL_SWIVEL_RESET_RETRACT</name>
+<brief>Grundstellung Schwenken: Freifahren</brief>
+<description>Grundstellung Schwenken: Freifahren
+Mit diesem Settingdatum kann eingestellt werden, welchen Zustand der Toggler "Freifahren" in der Maske "Schwenken Ebene" bei Betätigung des Softkeys "Grundstellung" einnimmt:
+  0 = keine Änderung
+  1 = nein
+  2 = Z
+  3 = Z XY
+  4 = Werkzeugrichtung max.
+  5 = Werkzeugrichtung ink.
+
+</description>
+</parameter>
+<parameter number="55421" type="BYTE" dim="0" display="DECIMAL">
+<name>MILL_SWIVEL_RESET_TRACK</name>
+<brief>Grundstellung Schwenken: Werkzeug nachführen</brief>
+<description>Grundstellung Schwenken: Werkzeug nachführen
+Mit diesem Settingdatum kann eingestellt werden, welchen Zustand der Toggler "Werkzeug nachführen" in der Maske "Schwenken Ebene" bei Betätigung des Softkeys "Grundstellung" einnimmt:
+  0 = keine Änderung
+  1 = nicht nachführen
+  2 = nachführen
+
+</description>
+</parameter>
+<parameter number="55422" type="BYTE" dim="0" display="DECIMAL">
+<name>MILL_SWIVEL_RESET_MODE</name>
+<brief>Grundstellung Schwenken: Schwenkmodus</brief>
+<description>Grundstellung Schwenken: Schwenkmodus
+Mit diesem Settingdatum kann eingestellt werden, welchen Zustand der Toggler "Schwenkmodus" in der Maske "Schwenken Ebene" bei Betätigung des Softkeys "Grundstellung" einnimmt:
+  0 = achsweise
+  1 = direkt
+
+
+
+</description>
+</parameter>
+<parameter number="55440" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_NORM</name>
+<brief>Faktor Toleranz Rundachsen bei CYCLE832(High Speed Settings), G-Gruppe 59</brief>
+<description>Einstellungen bei Abwahl CYCLE832 der G-Gruppe 59
+</description>
+</parameter>
+<parameter number="55441" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_ROUGH</name>
+<brief>Faktor Toleranz Rundachsen für Schruppen CYCLE832 der G-Gruppe 59</brief>
+<description>Faktor Toleranz Rundachsen für Schruppen CYCLE832 der G-Gruppe 59
+</description>
+</parameter>
+<parameter number="55442" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_SEMIFIN</name>
+<brief>Faktor Toleranz Rundachsen für Vorschlichten CYCLE832 der G-Gruppe 59</brief>
+<description>Faktor Toleranz Rundachsen für Vorschlichten CYCLE832 der G-Gruppe 59
+</description>
+</parameter>
+<parameter number="55443" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_FINISH</name>
+<brief>Faktor Toleranz Rundachsen für Schlichten CYCLE832 G-Gruppe 59</brief>
+<description>Faktor Toleranz Rundachsen für Schlichten CYCLE832 G-Gruppe 59
+</description>
+</parameter>
+<parameter number="55445" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_NORM</name>
+<brief>Toleranzwert bei Abwahl Zyklus High Speed Settings CYCLE832</brief>
+<description>Toleranzwert bei Abwahl Zyklus High Speed Settings CYCLE832
+</description>
+</parameter>
+<parameter number="55446" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_ROUGH</name>
+<brief>Toleranzwert für Schruppen CYCLE832 (High Speed Settings)</brief>
+<description>Toleranzwert für Schruppen CYCLE832
+</description>
+</parameter>
+<parameter number="55447" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_SEMIFIN</name>
+<brief>Toleranzwert für Feinschlichten CYCLE832 (High Speed Settings)</brief>
+<description>Toleranzwert für Vorschlichten CYCLE832
+</description>
+</parameter>
+<parameter number="55448" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_FINISH</name>
+<brief>Toleranzwert für Schlichten CYCLE832 (High Speed Settings)</brief>
+<description>Toleranzwert für Schlichten CYCLE832
+</description>
+</parameter>
+<parameter number="55460" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_CONT_INITIAL_RAD_FIN</name>
+<brief>Konturtaschenfräsen: Anfahrkreisradius Schlichten</brief>
+<description>Mit diesem Datum wird der Radius des Anfahrkreises beim Schlichten von Konturtaschen beeinflußt.
+0: Der Radius wird so gewählt, dass im Startpunkt der Sicherheitsabstand zum Schlichtaufmaß eingehalten wird.
+&gt;0: Der Radius wird so gewählt, dass im Startpunkt der Wert von diesem Settingdatum zum Schlichtaufmaß eingehalten wird.
+</description>
+</parameter>
+<parameter number="55480" type="BYTE" dim="0" display="DECIMAL">
+<name>DRILLING_AXIS_IS_Z</name>
+<brief>Bohrachse ist ebenenabhängig  oder immer Z</brief>
+<description>Bohrachse ist ebenenabhängig (G17, G18, G19) oder immer Z
+</description>
+</parameter>
+<parameter number="55481" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_GG12</name>
+<brief>Einstellung Gewindebohren G-Gruppe 12: Satzwechselverhalten bei Genauhalt</brief>
+<description>Einstellungen für Gewindebohren Zyklus CYCLE84 und CYCLE840 der G-Gruppe 12
+G-Gruppe 12:  Satzwechselverhalten bei Genauhalt (G60)
+
+</description>
+</parameter>
+<parameter number="55482" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_GG21</name>
+<brief>Einstellung Gewindebohren G-Gruppe 21: Beschleunigungsprofil</brief>
+<description>Einstellungen für Gewindebohren Zyklus CYCLE84  der G-Gruppe 21
+G-Gruppe 21: Beschleunigungsprofil  (SOFT, BRISK, .. )
+</description>
+</parameter>
+<parameter number="55483" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_GG24</name>
+<brief>Einstellung Gewindebohren G-Gruppe 24: Vorsteuerung</brief>
+<description>Einstellungen für Gewindebohren Zyklus CYCLE84 und CYCLE840 der G-Gruppe 24
+G-Gruppe 24: Vorsteuerung  (FFWON, FFWOF )
+
+</description>
+</parameter>
+<parameter number="55484" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_MC</name>
+<brief>Einstellung Gewindebohren: Spindelbetrieb bei MCALL</brief>
+<description>Einstellung bei Gewindebohren Zyklus CYCLE84 Spindelbetrieb bei MCALL
+0= bei MCALL Spindelbetrieb wieder aktivieren
+1= bei MCALL lagegeregelten Spindelbetrieb bleiben
+</description>
+</parameter>
+<parameter number="55489" type="DOUBLE" dim="0" display="DECIMAL">
+<name>DRILL_MID_MAX_ECCENT</name>
+<brief>Maximaler Mittenversatz mittiges Bohren</brief>
+<description>Maximaler Mittenversatz beim Mittigen Bohren
+</description>
+</parameter>
+<parameter number="55490" type="DOUBLE" dim="0" display="DECIMAL">
+<name>DRILL_SPOT_DIST</name>
+<brief>Anbohrtiefe Bohrgewindefräsen</brief>
+<description>Anbohrtiefe beim Bohrgewindefräsen
+</description>
+</parameter>
+<parameter number="55500" type="BYTE" dim="0" display="DECIMAL">
+<name>TURN_FIN_FEED_PERCENT</name>
+<brief>Schlichtvorschub bei Komplettbearbeitung in %</brief>
+<description>Bei der Auswahl Komplettbearbeitung (Schruppen und Schlichten) wird der in diesem Settingdatum eingestelle Prozentsatz des eingegebenen Vorschubs F beim Schlichten verwendet.
+</description>
+</parameter>
+<parameter number="55505" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_ROUGH_O_RELEASE_DIST</name>
+<brief>Rückzugsabstand Abspanen bei Außenbearbeitung</brief>
+<description>Mit diesem Settingdatum geben Sie den Abstand an, um den das Werkzeug beim Abspanen einer Außenecke von der Kontur zurückgezogen wird. Dies gilt nicht für das Abspanen einer Kontur.
+-1: Als Abstand wird der Sicherheitsabstand verwendet.
+</description>
+</parameter>
+<parameter number="55506" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_ROUGH_I_RELEASE_DIST</name>
+<brief>Rückzugsabstand Abspanen bei Innenbearbeitung</brief>
+<description>Mit diesem Settingdatum geben Sie den Abstand an, um den das Werkzeug beim Abspanen einer Innenecke von der Kontur zurückgezogen wird. Dies gilt nicht für das Abspanen einer Kontur.
+-1: Als Abstand wird der Sicherheitsabstand verwendet.
+</description>
+</parameter>
+<parameter number="55510" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_GROOVE_DWELL_TIME</name>
+<brief>Freischneidezeit beim Einstich am Grund (neg.Werte=Umdrehungen)</brief>
+<description>Tritt in einem Zyklus, z.B. Tieflochbohren, Einstechen eine Freischneidezeit auf, dann wird der Wert dieses Settingdatums verwendet
+- negativer Wert in Spindelumdrehungen
+- positiver Wert in Sekunden
+</description>
+</parameter>
+<parameter number="55515" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_THREAD_RELEASE_DIST</name>
+<brief>Rücklaufabstand beim Gewindedrehen</brief>
+<description>In diesem Settingdatum können Sie den Abstand zum Werkstück festlegen, auf den zwischen den Zustellungen beim Gewindedrehen zurückgezogen wird.
+</description>
+</parameter>
+<parameter number="55540" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_CTRL_DIST</name>
+<brief>Weg für Abstichkontrolle</brief>
+<description>Weg für Abstichkontrolle
+</description>
+</parameter>
+<parameter number="55541" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_CTRL_FEED</name>
+<brief>Vorschub für Abstichkontrolle</brief>
+<description>Vorschub für Abstichkontrolle
+</description>
+</parameter>
+<parameter number="55542" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_CTRL_FORCE</name>
+<brief>Kraft für Abstichkontrolle, in %</brief>
+<description>Kraft in Prozent für Abstichkontrolle
+</description>
+</parameter>
+<parameter number="55543" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_RETRACTION</name>
+<brief>Rückzugsweg vor Abstich mit Gegenspindel</brief>
+<description>Rückzugsweg vor Abstich mit Gegenspindel
+</description>
+</parameter>
+<parameter number="55550" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_DIST</name>
+<brief>Gegenspindel: Weg für Fahren auf Festanschlag</brief>
+<description>In diesem Settingdatum legen Sie den Abstand zur programmierten Zielposition fest, ab dem die Gegenspindel beim Fahren auf Festanschlag mit einem speziellen Vorschub fährt (siehe 55551 $SCS_TURN_FIXED_STOP_FEED).
+</description>
+</parameter>
+<parameter number="55551" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_FEED</name>
+<brief>Gegenspindel: Vorschub für Fahren auf Festanschlag</brief>
+<description>In diesem Settingdatum legen Sie den Vorschub fest, mit dem die Gegenspindel auf Festanschlag fährt. Den Abstand, ab dem in diesem Vorschub gefahren wird, bestimmen Sie im Settingdatum 55550 $SCS_TURN_FIXED_STOP_DIST.
+</description>
+</parameter>
+<parameter number="55552" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_FORCE</name>
+<brief>Gegenspindel: Kraft für Fahren auf Festanschlag, in %</brief>
+<description>In diesem Settingdatum legen Sie fest, bei wieviel Prozent der Antriebskraft die Gegenspindel beim Fahren auf Festanschlag stoppen soll.
+</description>
+</parameter>
+<parameter number="55553" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_RETRACTION</name>
+<brief>Gegenspindel: Rückzugsweg vor Spannen nach Festanschlag</brief>
+<description>Rückzugsweg vor dem Spannen nach Fahren auf Festanschlag
+</description>
+</parameter>
+<parameter number="55580" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_RELEASE_ANGLE</name>
+<brief>Konturdrehen: Rückzugswinkel</brief>
+<description>Mit diesem Settingdatum wird der Winkel festgelegt, um dem beim Konturdrehen Schruppen von der Kontur abgehoben wird.
+</description>
+</parameter>
+<parameter number="55581" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_RELEASE_DIST</name>
+<brief>Konturdrehen: Rückzugsbetrag</brief>
+<description>Mit diesem Settingdatum wird der Betrag festgelegt, um dem beim Konturdrehen Schruppen in beiden Achsen abgehoben wird.
+</description>
+</parameter>
+<parameter number="55582" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_TRACE_ANGLE</name>
+<brief>Konturdrehen: Minimaler Winkel für Nachziehen an der Kontur</brief>
+<description>Mit diesem Settingdatum wird der Winkel zwischen Schneide und Kontur festgelegt, ab dem beim Konturdrehen an der Kontur nachgezogen wird, um stehengebliebenes Material zu entfernen.
+</description>
+</parameter>
+<parameter number="55583" type="BYTE" dim="0" display="DECIMAL">
+<name>TURN_CONT_VARIABLE_DEPTH</name>
+<brief>Konturdrehen: Prozentsatz für variable Schnitttiefe</brief>
+<description>Prozentsatz für variable Schnitttiefe beim Konturdrehen
+</description>
+</parameter>
+<parameter number="55584" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_BLANK_OFFSET</name>
+<brief>Konturdrehen: Rohteilaufmaß</brief>
+<description>Mit diesem Settingdatum wird der Abstand vom Rohteil festgelegt, ab dem beim Konturdrehen von G0 auf G1 umgeschaltet wird, um etwaige Rohteilaufmaße auszugleichen.
+</description>
+</parameter>
+<parameter number="55585" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_INTERRUPT_TIME</name>
+<brief>Konturdrehen: Vorschubunterbrechungszeit (neg.Werte=Umdrehungen)</brief>
+<description>Vorschubunterbrechungszeit beim Konturdrehen, Konturstechen und Stechdrehen
+- negativer Wert in Spindelumdrehungen
+- positiver Wert in Sekunden
+Dieses Settingdatum wirkt nur, wenn Settingdatum 55586 $SCS_TURN_CONT_INTER_RETRACTION = 0 ist.
+</description>
+</parameter>
+<parameter number="55586" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_INTER_RETRACTION</name>
+<brief>Konturdrehen: Rückzugsweg bei Vorschubunterbrechung</brief>
+<description>Rückzugsweg Vorschubunterbrechung beim Konturdrehen, Konturstechen und Stechdrehen:
+&gt;0: Rückzugsweg bei Vorschubunterbrechung (hierbei wirkt Settingdatum 55585 $SCS_TURN_CONT_INTERRUPT_TIME nicht mehr!)
+=0: kein Rückzugsweg
+</description>
+</parameter>
+<parameter number="55587" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_MIN_REST_MAT_AX1</name>
+<brief>Konturdrehen: Min. Differenzmaß Restmaterialbearbeitung Achse 1</brief>
+<description>Mit diesem MD wird der Grenzwert für das Abspanen von Restmaterial in Richtung der 1. Achse festgelegt.
+Beispiel:
+Ist das MD auf 50% gesetzt und beträgt das Schlichtaufmaß 0,5mm, wird Restmaterial, das dünner als 0,25 mm ist, nicht in einem extra Bearbeitungsschritt ausgeräumt, sondern es wird beim Schlichten mit entfernt.
+</description>
+</parameter>
+<parameter number="55588" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_MIN_REST_MAT_AX2</name>
+<brief>Konturdrehen: Min. Differenzmaß Restmaterialbearbeitung Achse 2</brief>
+<description>Mit diesem MD wird der Grenzwert für das Abspanen von Restmaterial in Richtung der 2. Achse festgelegt.
+Beispiel:
+Ist das MD auf 50% gesetzt und beträgt das Schlichtaufmaß 0,5mm, wird Restmaterial, das dünner als 0,25 mm ist, nicht in einem extra Bearbeitungsschritt ausgeräumt, sondern es wird beim Schlichten mit entfernt.
+</description>
+</parameter>
+<parameter number="55595" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_TOOL_BEND_RETR</name>
+<brief>Konturstechdrehen: Rückzugsweg wegen Werkzeugbiegung</brief>
+<description>Rückzug wegen Werkzeugbiegung beim Stechdrehen
+</description>
+</parameter>
+<parameter number="55596" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_TURN_RETRACTION</name>
+<brief>Konturstechdrehen: Rückzugstiefe vor Drehbearbeitung</brief>
+<description>Rückzug Tiefe vor Drehbearbeitung Stechdrehen
+</description>
+</parameter>
+<parameter number="55613" type="BYTE" dim="0">
+<name>MEA_RESULT_DISPLAY</name>
+<brief>Wahl der Messergebnisbildanzeige</brief>
+<description>Messergebnisbildanzeige
+
+=0: 	kein Messergebnisbild
+=1: 	das Messergebnisbild bleibt für eine feste Zeit von 8 Sekunden anstehen
+=3:  	mit dem Messergebnisbild wird der Zyklus durch ein internes M0 angehalten,
+        	mit NC-Start wird der Messzyklus fortgesetzt und das Messergebnisbild abgewählt
+=4:  	Nur bei den Zyklenalarmen 61303, 61304, 61305, 61306 wird das Messergebnisbild aufgeblendet.
+</description>
+</parameter>
+<parameter number="55614" type="BYTE" dim="0">
+<name>MEA_RESULT_MRD</name>
+<brief>Programmbeeinflussung Messergebnisbildanzeige MRD</brief>
+<description>Einstellung der Programmbeeinflussung der Messergebnisbildanzeige MRD
+0= Anzeige des Messergebnisbildes ausschalten
+1= Anzeige des Messergebnisbildes einschalten
+</description>
+</parameter>
+<parameter number="55618" type="BYTE" dim="0">
+<name>MEA_SIM_ENABLE</name>
+<brief>Einstellung Messzyklen unter simulierter Umgebung</brief>
+<description>Einstellung Messzyklen unter simulierter Umgebung
+
+=0: Die Messzyklen werden ohne Funktion beendet.
+=1: Die Messzyklen werden durchlaufen.
+    - Simulation im HMI Operate:
+      Es werden die Verfahrbewegungen visualisiert.
+      Es stehen keine Messergebnisse und Messergebnisanzeige zur Verfügung.
+    - SinuTrain:
+      Es stehen Messergebnisse und Messergebnisanzeige zur Verfügung.
+      Bei Mitzeichen werden die Verfahrbewegungen visualisiert.
+    - Bei Systemen, die ausschließlich mit simulierten Achsen arbeiten
+      (z.B. virtuelle Maschine, Testrack):
+      Es stehen Messergebnisse und Messergebnisanzeige zur Verfügung.
+      Bei Mitzeichen werden die Verfahrbewegungen visualisiert.
+
+      Folgende Einstellungen sind in diesem Fall zu beachten:
+      MD10360 $MN_FASTIO_DIG_NUM_OUTPUTS &gt;=1
+      MD13230 $MN_MEAS_PROBE_SOURCE = 1 bis 4
+
+= 2 bis 8: reserviert
+= 9 intern
+
+
+</description>
+</parameter>
+<parameter number="55619" type="DOUBLE" dim="0">
+<name>MEA_SIM_MEASURE_DIFF</name>
+<brief>Wert für simulierte Messabweichung</brief>
+<description>Mit diesem Parameter können simulierte Messabweichungen an den Messpunkten vorgegeben werden.
+
+Unter der Vorraussetzung von SD55618  $SCS_MEA_SIM_ENABLE=1 und dem Ablauf der Messzyklen in einer
+simulierten Umgebung des HMI, kann in diesem Parameter eine Messdifferenz
+eingegeben werden. Der Betrag der Messdifferenz muss kleiner als der Messweg im Parameter _FA sein!
+Andernfalls wird bei aktiver Simulation der Zyklen-Alarm 61301 "Meßfühler schaltet nicht" ausgegeben.
+</description>
+</parameter>
+<parameter number="55622" type="DWORD" dim="0">
+<name>MEA_EMPIRIC_VALUE_NUM</name>
+<brief>Anzahl der Erfahrungswerte</brief>
+<description>Anzahl der Erfahrungswerte
+</description>
+</parameter>
+<parameter number="55623" type="DOUBLE" dim="1">
+<name>MEA_EMPIRIC_VALUE</name>
+<brief>Erfahrungswertspeicher</brief>
+<description>Der Erfahrungswertspeicher besteht in der Defauleinstellung aus 20 Speicherelementen.
+Mit dem Parameter $SCS_MEA_EMPIRIC_VALUE_NUM kann die Anzahl der Speicherelemente
+definiert werden! Zur Zeit sind jedoch die 20 Speicherelemente  nicht veränderbar!
+Im Erfahrungswertspeicher können Erfahrungswerte hinterlegt werden, welche mit der aktuell berechneten
+Differenz aus Sollwert und Istwert, verrechnet werden.
+Mittels dem Parameter _EVNUM wird das zu verrechnente Erfahrungswertelement addressiert!
+</description>
+</parameter>
+<parameter number="55624" type="DWORD" dim="0">
+<name>MEA_AVERAGE_VALUE_NUM</name>
+<brief>Anzahl der Mittelwerte</brief>
+<description>Anzahl der Mittelwerte
+</description>
+</parameter>
+<parameter number="55625" type="DOUBLE" dim="1">
+<name>MEA_AVERAGE_VALUE</name>
+<brief>Mittelwertspeicher</brief>
+<description>Der Mittelwertspeicher besteht in der Defauleinstellung aus 20 Speicherelementen.
+Mit dem Parameter $SCS_MEA_AVERAGE_VALUE_NUM kann die Anzahl der Speicherelemente
+definiert werden! Zur Zeit sind jedoch die 20 Speicherelemente  nicht veränderbar!
+Im Mittelwertspeicher werden die im Zusammenhang mit der Funktionalität "Automatische Werkzeugkorrektur
+mit Mittelwertbildung" berechneten Mittelwerte gespeichert!
+Mit dem Parameter _EVNUM wird das zu verwendente Mittelwertelement addressiert!
+
+</description>
+</parameter>
+<parameter number="55628" type="DOUBLE" dim="0">
+<name>MEA_TP_FEED_MEASURE</name>
+<brief>Vorschub für das Kalibrieren eines Werkzeugmesstasters</brief>
+<description>MEA_TP_FEED_MEASURE
+Vorschub für das Kalibrieren eines Werkzeugmesstasters mit stehender Spindel in AUTO und JOG
+
+</description>
+</parameter>
+<parameter number="55630" type="DOUBLE" dim="0">
+<name>MEA_FEED_MEASURE</name>
+<brief>Vorschub für das Kalibrieren eines Werkstückmesstasters</brief>
+<description>MEA_FEED_MEASURE
+Vorschub für das Kalibrieren eines Werkstückmesstasters in Automatik und JOG
+
+</description>
+</parameter>
+<parameter number="55632" type="DOUBLE" dim="0">
+<name>MEA_FEED_RAPID_IN_PERCENT</name>
+<brief>Eilgangsgeschwindigkeit in Prozent, für Zwischenpositionierungen</brief>
+<description>Verfahrgeschwindigkeiten für die Positionierung im Messzyklus zwischen den Messpositionen,
+mit Eilgangsgeschwindigkeit in Prozent, bei nicht aktiver Kollisionsüberwachung
+
+Hinweis:
+Den Wert der prozentualen Eilganggeschwindigkeit gegebenenfalls an  den eingesetzten Messtastertyp und die
+
+Eigenschaften der  Maschine anpassen! Das heist, die maximale Auslenkung des konkreten Messtastertyps ist zu berücksichtigen!!
+Erläuterungen:
+In den Messzyklen werden Zwischenpositionen vor dem eigentlichen Messsatz berechnet. Diese Positionen können
+
+- mit Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1 oder
+- ohne Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0) angefahren werden.
+Entsprechend dieser Einstellung werden unterschiedliche Geschwindigkeiten zum Anfahren verwendet:
+- Mit Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1):
+	Mit SD55634 $SCS_MEA_FEED_PLAN_VALUE erfolgt der Vorschub beim Verfahren in der Ebene und
+	mit SD55636 $SCS_MEA_FEED_FEEDAX_VALUE beim Verfahren in der Zustellachse (Applikate).
+	Falls beim Anfahren dieser Zwischenpositionen der Messtaster schaltet, wird die Bewegung abgebrochen und der Alarm "Messtasterkollision" ausgegeben.
+- Ohne Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0):
+	Die Zwischenpositionen werden mit der in SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT angegebenen prozentualen maximalen Achsgeschwindigkeit (Eilgang) angefahren.
+	Bei  SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=0 und  SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=100 wirkt die maximale Achsgeschwindigkeit.
+</description>
+</parameter>
+<parameter number="55634" type="DOUBLE" dim="0">
+<name>MEA_FEED_PLANE_VALUE</name>
+<brief>Verfahrgeschwindigkeit für die Zwischenpositionierung  in der Ebene</brief>
+<description>MEA_FEED_MEASURE
+Messvorschub Werkstück messen in Automatik und JOG
+
+</description>
+</parameter>
+<parameter number="55636" type="DOUBLE" dim="0">
+<name>MEA_FEED_FEEDAX_VALUE</name>
+<brief>Positioniergeschwindigkeit in der Zustellachse</brief>
+<description>Verfahrgeschwindigkeiten für die Zwischenpositionierung im Messzyklus in der Zustellachse, mit ohne Kollisionsüberwachung
+
+Hinweis:
+Den Wert der Geschwindigkeit in der Zustellachse gegebenenfalls an  den eingesetzten Messtastertyp und die
+Eigenschaften der  Maschine anpassen! Das heist, die maximale Auslenkung des konkreten Messtastertyps ist zu berücksichtigen!!
+
+Erläuterungen:
+In den Messzyklen werden Zwischenpositionen vor dem eigentlichen Messsatz berechnet. Diese Positionen können
+- mit Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1 oder
+
+- ohne Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0) angefahren werden.
+Entsprechend dieser Einstellung werden unterschiedliche Geschwindigkeiten zum Anfahren verwendet:
+- Mit Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1):
+	Mit SD55636 $SCS_MEA_FEED_FEEDAX_VALUE erfolgt das Verfahren in der Zustellachse (Applikate).
+	Falls beim Anfahren dieser Zwischenpositionen der Messtaster schaltet, wird die Bewegung abgebrochen und der Alarm "Messtasterkollision" ausgegeben.
+- Ohne Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0):
+	Die Zwischenpositionen werden mit der in SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT angegebenen prozentualen maximalen Achsgeschwindigkeit (Eilgang) angefahren.
+	Bei SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=0 und SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=100 wirkt die maximale Achsgeschwindigkeit.
+</description>
+</parameter>
+<parameter number="55638" type="DOUBLE" dim="0">
+<name>MEA_FEED_FAST_MEASURE</name>
+<brief>Schneller Messvorschub</brief>
+<description>Schneller Messvorschub
+
+Hinweis:
+Den Wert der Geschwindigkeit gegebenenfalls an  den eingesetzten Messtastertyp und die Eigenschaften der  Maschine anpassen!
+Das heist, die maximale Auslenkung des konkreten Messtastertyps ist zu berücksichtigen!!
+Die Anwendung des "schnellen Messvorschub" ist vom SD55740 $SCS_MEA_FUNCTION_MASK Bit4 abhängig!
+</description>
+</parameter>
+<parameter number="55640" type="DOUBLE" dim="0">
+<name>MEA_FEED_CIRCLE</name>
+<brief>Kreisvorschub beim Messen Kreissegment</brief>
+<description>MEA_FEED_CIRCLE
+Kreisvorschub beim Messen Kreissegment
+
+</description>
+</parameter>
+<parameter number="55642" type="DOUBLE" dim="0">
+<name>MEA_EDGE_SAVE_ANG</name>
+<brief>zusätzlicher sicherer Winkel bei Messen Ecke</brief>
+<description>Bei Kompatibilitätsprogrammen $SCS_MEA_EDGE_SAVE_ANG=10 einstellen.
+Der eingestellte Winkel wird als Sicherheitswinkel zum Messwinkel addiert.
+
+
+</description>
+</parameter>
+<parameter number="55644" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MEA_KIN_DM_TOL</name>
+<brief>Kinematik vermessen: Toleranz des Durchmessers der Kalibrierkugel</brief>
+<description>Kinematik vermessen: Toleranz des Durchmessers der Kalibrierkugel
+Ist das $SCS_MEA_KIN_DM_TOL &gt; 0 wird bei Kinematik vermessen (CYCLE996) überprüft ob der gemessene Durchmesser
+der Kalibrierkugel innerhalb des Toleranzwertes im $SCS_MEA_KIN_DM_TOL liegt.
+
+
+
+</description>
+</parameter>
+<parameter number="55645" type="BYTE" dim="1" display="DECIMAL">
+<name>MEA_KIN_MODE</name>
+<brief>Freie Komponente des Linearvektor</brief>
+<description>Freie Komponente des Linearvektor
+  0 = alle Komponenten des Linearvektors berechnen
+  1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  4 = freie Komponente für X aus aktiver Trafo beibehalten
+  5 = freie Komponente für Y aus aktiver Trafo beibehalten
+  6 = freie Komponente für Z aus aktiver Trafo beibehalten
+  10 = Vektorkette schließen
+
+</description>
+</parameter>
+<parameter number="55646" type="DOUBLE" dim="1" display="DECIMAL">
+<name>MEA_KIN_VALUE</name>
+<brief>Kinematik komplett vermessen: Wert des Linearvektors</brief>
+<description>Kinematik komplett vermessen: Wert des Linearvektors
+
+</description>
+</parameter>
+<parameter number="55647" type="DOUBLE" dim="0">
+<name>MEA_KIN_MIN_ANG_TRIANGLE</name>
+<brief>Minimaler Innenwinkel des Messdreiecks</brief>
+<description>Minimaler Innenwinkel des Messdreiecks
+
+</description>
+</parameter>
+<parameter number="55730" type="STRING" dim="1" display="ASCII">
+<name>MEA_PROTOCOL_USER_EXT</name>
+<brief>Dateiendung für Anwenderprotokoll</brief>
+<description>Dateiendung für Anwenderprotokoll
+
+</description>
+</parameter>
+<parameter number="55740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Funktionsmaske Messzyklen, Werkstück- Werkzeugmessen</brief>
+<description>Funktionsmaske Messzyklen
+
+Bit 0: Kollisionsüberwachung mittels Werkstückmesstaster bei Zwischenpositionierung
+       In der BA JOG ist die Kollisionsüberwachung immer aktiviert.
+          	0: keine Kollisionsüberwachung
+          	1: Bei Positionierungen, die von den Messzyklen zwischen den Messpunkten ausgeführt werden
+              erfolgt ein Bewegungsabbruch sobald der Messtaster ein Schaltsignal liefert.
+              Es wird eine Alarmmeldung (Alarm 61302) ausgegeben.
+
+Bit 1:	Werkstückmessung mit 3D-Taster, Kopplung der Spindelausrichtung mit der Koordinatendrehung um die
+       Zustellachse der aktiven Ebene (Z-  Achse bei G17)
+        In der BA JOG ist die Kopplung immer aktiviert.
+          	0: keine Kopplung zwischen Spindelausrichtung und Koordinatendrehung
+	             Es erfolgt eine automatische Korrekturrechnung der Triggerdaten.
+          	1: Bei 3D- und Stern-Tastern (Werkzeugtyp 710, 714) erfolgt eine Spindelausrichtung in Abhängigkeit von
+              der Koordinatendrehung um die Zustellachse der aktiven Ebene.
+              Die Positionierrichtung der Spindel wird durch SD55740 $SCS_MEA_FUNCTION_MASK Bit2 bestimmt.
+
+          Achtung
+             Die Kopplung oder die Korrekturrechnung wird durch den Messzyklus ohne Alarmmeldung aufgehoben, wenn eine der folgenden Bedingungen zutrifft:
+	            - Es ist keine Orientierungstransformation TRAORI und kein orientierbarer Werkzeugträger TCARR  (CYCLE800) aktiv und es sind außer der Drehung um Z, weitere Drehungen aktiv die nicht zwischen
+               Messen und Kalibrieren identisch sind.
+             - Die Arbeitsspindel ist nicht lagegeregelt (kein SPOS möglich).
+	            - Die Spindelposition ist zwischen Kalibrieren und Messen nicht identisch.
+
+Bit 2: Werkstückmessen, bei Kopplung der Spindelposition Positionierrichtung umkehren,
+	      Funktion bezieht sich auf SD55740 $SCS_MEA_FUNCTION_MASK, Bit1 = 1
+          	0: Die Spindelpositionierung erfolgt laut Standard.
+          	1: Die Spindelpositionierung erfolgt entgegengesetzt (Angepasste Winkelwerte).
+
+	      Beispiel:
+   	  Winkel der Koordinatendrehung in der Ebene 90°
+	      wenn Bit2 = 0  dann Spindelpositionierung auf 270°
+	      wenn Bit2 = 1  dann Spindelpositionierung auf   90°
+
+Bit 3: Werkstückmessen, Anzahl der Messwiederholungen wenn der Messtaster nicht schaltet
+          	In der BA JOG erfolgt keine Messwiederholung.
+          	0: Bis zu 4 Messwiederholungen, dann wird ein Messzyklenalarm (Alarm 61301) ausgegeben.
+          	1: Keine Messwiederholung wenn der Messtaster nicht schaltet, es wird ein  Messzyklenalarm
+	             ausgegeben (Alarm 61301).
+
+Bit 4:	Werkstückmessen, 1. Antasten bei jeder Messung mit schnellem Messvorschub
+          	0: Beim Messen wirkt die in den Kalibrierdaten hinterlegte Messgeschwindigkeit.
+          	1: Es wird mit "Schnellem Messvorschub" (SD 55638 $SCS_MEA_FEED_FAST_MEASURE)
+              gefahren. Nach dem ersten Antasten des Messtasters erfolgt ein Rückzug um 2 mm.
+ 	           Danach wird die Messung mit der in den Kalibrierdaten hinterlegten Messgeschwindigkeit ausgeführt.
+              Die Funktion  "Schneller Messvorschub" wird nicht ausgeführt, wenn der Messweg &lt; 1mm ist!
+
+Bit 5: Werkstückmessen, schneller Rückzug nach dem Messen
+          	0: Der Rückzug nach dem Messen erfolgt mit der gleichen Geschwindigkeit wie bei einer
+              Zwischenpositionierung (SD 55634   $SCS_MEA_FEED_PLANE_VALUE).
+	             Ist nur wirksam bei aktiver Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK, Bit0 = 1).
+          	1: Der Rückzug nach dem Messen erfolgt mit der im SD 55632 $SCS_MEA_FEED_RAPID_IN_PERCENT
+              festgelegten prozentualen Eilgangsgeschwindigkeit.
+	             Ist nur wirksam bei aktiver Kollisionsüberwachung (SD 55740 $SCS_MEA_FUNCTION_MASK, Bit0 = 1).
+
+Bit 6: Werkstückmessen, Messtasteraktivierung -deaktivierung während Spindelpositionierungen
+          	0: Keine Deaktivierung des Werkstückmesstasters vor Spindelpositionierungen.
+          	1: Die Spindelpositionierungen erfolgen zentral im Herstellerzyklus CUST_MEACYC.
+	             Der Maschinenhersteller hat die Möglichkeit den Messtaster vor und nach der Spindelpositionierung
+	             zu deaktivieren und wieder zu aktivieren.
+
+Bit 7: Kinematik vermessen, Normierung auf Basis der Eingangswerte der Rundachsvektoren
+          	0: Normierung auf Basis der berechneten Rundachsvektoren (V1xyz, V2xyz)
+          	1: Normierung auf Basis der im Schwenkdatensatz gespeicherten Rundachsvektoren (V1xyz, V2xyz)
+	             Der Schwenkdatensatz wird unter IBN, "Schwenkdaten" angezeigt.
+
+Bit 8: Kinematik vermessen, Messen mit aktivem Schwenken (TCARR) oder aktivem TRAORI
+           0: Messen ohne aktives Schwenken (TCARR) oder ohne aktives TRAORI
+              Im Zyklus wird beim Messen die entsprechende Orientierungstransformation ausgeschaltet und nach dem Messvorgang wieder eingeschaltet.
+          	1: Messen mit aktivem Schwenken (TCARR) oder mit aktivem TRAORI
+	             Beim Messen bleibt die entsprechende Orientierungstransformation aktiv.
+	             Ist keine Orientierungstransformation aktiv wird der Alarm 61167 ausgegeben.
+
+Bit 9: Anwenderspezifische Normierung der Rundachsvektoren V1xyz und V2xyz
+	            0: Normierung der Rundachsvektoren V1xyz und V2xyz als Einheitsvektor
+	            1: anwenderspezifische Normierung der Rundachsvektoren V1xyz und V2xyz
+	             Bei der anwenderspezifische Normierung ist eine Vektorkomponente immer 1 oder -1.
+	             Die beiden restlichen Vektorkomponenten werden mit einem Faktor entsprechend umgerechnet.
+
+Bit 15: Werkstückmessen, Kalibrieren Radius mit Startpunkt in Ringmitte, BA JOG
+          	0: Der Startpunkt für Kalibrieren Radius muss nicht exakt in der Mitte des Kalibrierringes liegen.
+          	1: Der Startpunkt für Kalibrieren Radius muss die exakte Mitte des Kalibrierringes sein.
+
+Bit 16: Kollisionsüberwachung mittels Werkzeugmesstaster bei Zwischenpositionierung.
+          	In der BA JOG ist die Kollisionsüberwachung immer aktiviert.
+          	0: keine Kollisionsüberwachung
+          	1: Bei Positionierungen, die von den Messzyklen zwischen den Meßpunkten ausgeführt werden
+              erfolgt ein Bewegungsabbruch sobald der Messtaster ein Schaltsignal liefert.
+              Es wird eine Alarmmeldung (Alarm 61302) ausgegeben.
+
+Bit 17: Werkstückmessen, Anzahl der Messwiederholungen wenn der Messtaster nicht schaltet.
+        In der BA JOG erfolgt keine Messwiederholung.
+          	0: max. 4 Messwiederholungen, dann wird ein Messzyklenalarm (Alarm 61301) ausgegeben.
+          	1: Keine Messwiederholung wenn der Messtaster nicht schaltet, es wird ein  Messzyklenalarm
+	             ausgegeben (Alarm 61301).
+
+Bit 19: Werkzeugmessen, Rückzugsgeschwindigkeit von der Messstelle
+          	0: Der Rückzug von der Messstelle erfolgt mit der gleichen Geschwindigkeit wie bei einer
+              Zwischenpositionierung (SD55634   $SCS_MEA_FEED_PLANE_VALUE).
+          	1: Die Rückzuggeschwindigkeit erfolgt mit der im SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT
+              festgelegten prozentualen Eilgangsgeschwindigkeit und ist nur wirksam bei aktiver
+              Kollisionsüberwachung (SD55740 $SCS_MEA_FUNCTION_MASK, Bit16 = 1).
+
+Bit 28: Auswahl Protokoll neu oder fortlaufend für Standardprotokoll Messen im JOG
+          	0: Protokoll neu (Default)
+          	1: fortlaufend, d.h. immer anhängen an vorhandenes Protokoll
+
+Bit 29: Auswahl Dateiformat für Standardprotokoll Messen im JOG
+          	0: Textformat (Default)
+          	1: Tabellenformat
+
+</description>
+</parameter>
+<parameter number="55772" type="BYTE" dim="0" display="DECIMAL">
+<name>J_MEA_SET_PROBE_MONO</name>
+<brief>Wahl des Messtastertyp, in Messen im JOG</brief>
+<description>Wahl des Messtastertyp, in Messen im JOG
+
+=0 Messtastertyp ist Multitaster
+=1 Messtastertyp ist Monotaster
+
+</description>
+</parameter>
+<parameter number="55774" type="STRING" dim="1" display="ASCII">
+<name>J_MEA_PROTOCOL_FILE</name>
+<brief>Name und Pfad für Protokolldatei beim Messen im JOG</brief>
+<description>Name und Pfad für Protokolldatei beim Messen im JOG
+
+</description>
+</parameter>
+<parameter number="55800" type="BYTE" dim="0">
+<name>ISO_M_DRILLING_AXIS_IS_Z</name>
+<brief>Bohrachse ist ebenenabhängig / immer Z</brief>
+<description>Auswahl der Bohrachse
+0: Bohrachse ist senkrecht zur aktiven Ebene
+1: Bohrachse ist unabhängig von der aktiven Ebene immer "Z"
+</description>
+</parameter>
+<parameter number="55802" type="BYTE" dim="0">
+<name>ISO_M_DRILLING_TYPE</name>
+<brief>Gewindebohrart</brief>
+<description>Gewindebohrart
+0: Gewindebohren ohne Ausgleichsfutter
+1: Gewindebohren mit Ausgleichsfutter
+2: Tieflochgewindebohren mit Spänebrechen
+3: Tieflochgewindebohren mit Entspanen
+</description>
+</parameter>
+<parameter number="55804" type="DWORD" dim="0">
+<name>ISO_M_RETRACTION_FACTOR</name>
+<brief>Faktor für Rückzugsdrehzahl (0...200%)</brief>
+<description>Faktor für Rückzugsdrehzahl (0...200%)
+
+</description>
+</parameter>
+<parameter number="55806" type="BYTE" dim="0">
+<name>ISO_M_RETRACTION_DIR</name>
+<brief>Abheberichtung bei G76/G87</brief>
+<description>Abheberichtung bei Feinbohren und Rückwärtssenken G76/G87
+0: G17(-X) G18(-Z) G19(-Y)
+1: G17(+X) G18(+Z) G19(+Y)
+2: G17(-X) G18(-Z) G19(-Y)
+3: G17(+Y) G18(+X) G19(+Z)
+4: G17(-Y) G18(-X) G19(-Z)
+</description>
+</parameter>
+<parameter number="55807" type="DOUBLE" dim="0" display="DECIMAL">
+<name>ISO_M_TAPPING_SET_MC</name>
+<brief>Einstell. Gewindebohren G84: Spindelbetrieb/Lageregelung</brief>
+<description>Einstellung bei Gewindebohren ohne Ausgleichsfutter (G84)
+0= bei G84 Spindelbetrieb wieder aktivieren
+1= bei G84 im lagegeregelten Spindelbetrieb bleiben
+</description>
+</parameter>
+<parameter number="55808" type="DWORD" dim="0">
+<name>ISO_T_RETRACTION_FACTOR</name>
+<brief>Fakor für Rückzugsdrehzahl</brief>
+<description>Fakor (1-200%) für Rückzugsdrehzahl bei Gewindebohren G84/G88
+</description>
+</parameter>
+<parameter number="55810" type="BYTE" dim="0">
+<name>ISO_T_DWELL_TIME_UNIT</name>
+<brief>Bewertung der Verweilzeit</brief>
+<description>Bewertung der Verweilzeit bei Tieflochbohren G83/G87
+0: Sekunden
+1: Umdrehungen
+</description>
+</parameter>
+<parameter number="55820" type="DOUBLE" dim="0" display="DECIMAL">
+<name>FRICT_OPT_RADIUS</name>
+<brief>Kreisradius zur Optimierung der Reibkompensation</brief>
+<description>MEA_FEED_CIRCLE
+Kreisradius zur Optimierung der Reibkompensation
+
+</description>
+</parameter>
+<parameter number="55821" type="DOUBLE" dim="0" display="DECIMAL">
+<name>FRICT_OPT_RADIUS_ROT</name>
+<brief>Kreisradius zur Optimierung der Reibkompensation</brief>
+<description>MEA_FEED_CIRCLE
+Kreisradius zur Optimierung der Reibkompensation
+
+</description>
+</parameter>
+<parameter number="55822" type="DOUBLE" dim="1" display="DECIMAL">
+<name>FRICT_OPT_FEED</name>
+<brief>Vorschübe zur Optimierung der Reibkompensation</brief>
+<description>Settingdatum enthällt die Vorschubwerte für die Optimierung der Reibkompensation.
+
+</description>
+</parameter>
+<parameter number="55823" type="DOUBLE" dim="1" display="DECIMAL">
+<name>FRICT_OPT_FEED_ROT</name>
+<brief>Vorschübe zur Optimierung der Reibkompensation bei Rundachsen</brief>
+<description>Settingdatum enthällt die Vorschubwerte für die Optimierung der Reibkompensation bei Rundachsen.
+
+</description>
+</parameter>
+<parameter number="55824" type="DWORD" dim="0" display="DECIMAL">
+<name>FRICT_OPT_STEP</name>
+<brief>Schrittnummer bei Optimierung der Reibkompensation</brief>
+<description>Schrittnummer bei Optimierung der Reibkompensation
+</description>
+</parameter>
+<parameter number="55826" type="DWORD" dim="0" display="DECIMAL">
+<name>FRICT_OPT_ACT_STEP</name>
+<brief>aktuelle Schrittnummer bei Optimierung der Reibkompensation</brief>
+<description>Zeigt die aktuelle Schrittnummer bei Optimierung der Reibkompensation an
+</description>
+</parameter>
+<parameter number="55828" type="DWORD" dim="0" display="DECIMAL">
+<name>FRICT_OPT_DIR_MINUS</name>
+<brief>Drehrichtung bei Optimierung der Reibkompensation</brief>
+<description>Drehrichtung bei Optimierung der Reibkompensation
+0= fahren in positive Richtung (G03)
+1= fahren in negative Richtung (G02)
+</description>
+</parameter>
+<parameter number="55834" type="DWORD" dim="0" display="DECIMAL">
+<name>AST_MMC_NEWCONF_HANDSHAKE</name>
+<brief>AST Kommunikation mit CYCLE750 zur Abfrage eines NEWCONF</brief>
+<description>AST Kommunikation mit CYCLE750 zur Abfrage eines NEWCONF
+0: Default-Wert,ohne Wirkung
+1: AST Anforderung eines NEWCONF an CYCLE750
+2: CYCLE750 Quittung über NEWCONF an AST
+</description>
+</parameter>
+<parameter number="55835" type="STRING" dim="1" display="ASCII">
+<name>AST_MMCA</name>
+<brief>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"</brief>
+<description>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"
+
+</description>
+</parameter>
+<parameter number="55840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Funktionsmaske Schleifzyklen</brief>
+<description>Funktionsmaske Schleifzyklen
+
+</description>
+</parameter>
+<parameter number="55880" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_CONT_RELEASE_ANGLE</name>
+<brief>Schleifen - Profilieren: Rückzugswinkel</brief>
+<description>Mit diesem Settingdatum wird der Winkel festgelegt, um dem beim Profilieren von der Kontur abgehoben wird.
+</description>
+</parameter>
+<parameter number="55881" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_CONT_RELEASE_DIST</name>
+<brief>Schleifen - Profilieren: Rückzugsbetrag</brief>
+<description>Mit diesem Settingdatum wird der Betrag festgelegt, um dem beim Profilieren in beiden Achsen abgehoben wird.
+</description>
+</parameter>
+<parameter number="55884" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_CONT_BLANK_OFFSET</name>
+<brief>Schleifen - Profilieren: Rohteilaufmaß</brief>
+<description>Mit diesem Settingdatum wird der Abstand von der Schleifscheibe festgelegt, ab dem beim Profilieren von G0 auf G1 umgeschaltet wird.
+</description>
+</parameter>
+</info>

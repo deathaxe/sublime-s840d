@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="29000" type="DWORD" dim="0">
+<name>LOOKAH_NUM_CHECKED_BLOCKS</name>
+<brief>Option data</brief>
+<description>Data for path-related dynamic LookAhead:
+(Maximum) number of blocks surveyed beyond the current block for
+look ahead consideration of speed limits.
+
+The value defines an upper limit. The value should not be set too low
+in order to avoid unnecessary speed reductions.
+Increasing the value above the maximum number of blocks in the IPO buffer 
+( MM_IPO_BUFFER_SIZE ) has no effect.
+A LookAhead buffer is not set up for 0 (working memory is relieved).
+If in this case LookAhead is activated by part program,
+then the speed is reduced to zero at the end of each block.
+
+Unbuffered memory is needed.
+
+Option data
+</description>
+</parameter>
+</info>

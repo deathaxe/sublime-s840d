@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="QECDescr">
+<parameter type="DOUBLE" dim="3">
+<name>$AA_QEC</name>
+<brief>QEC-Kompensationswert</brief>
+<description>$AA_QEC[n,m,a]
+Ergebnis des Lernvorgangs
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$AA_QEC_COARSE_STEPS</name>
+<brief>QEC-Grobquantisierung</brief>
+<description>$AA_QEC_COARSE_STEPS[n,a]
+Kompensationswerte: Grobquantisierung der Kennlinie
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$AA_QEC_FINE_STEPS</name>
+<brief>QEC-Feinquantisierung</brief>
+<description>$AA_QEC_FINE_STEPS[n,a]
+Feinquantisierung der Kennlinie
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_ACCEL_1</name>
+<brief>QEC-Beschleunigungsgrenzwert Bereich 1</brief>
+<description>$AA_QEC_ACCEL_1[n,a]
+Beschleunigung im 1. Knickpunkt laut Definition [mm/s2 o. inch/s2 o. grad/s2]
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_ACCEL_2</name>
+<brief>QEC-Beschleunigungsgrenzwert Bereich 2</brief>
+<description>$AA_QEC_ACCEL_2[n,a]
+Beschleunigung im 2. Knickpunkt laut Definition [mm/s2 o. inch/s2 o. grad/s2]
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_ACCEL_3</name>
+<brief>QEC-Beschleunigungsgrenzwert Bereich 3</brief>
+<description>$AA_QEC_ACCEL_3[n,a]
+Beschleunigung im 3. Knickpunkt laut Definition [mm/s2 o. inch/s2 o. grad/s2]
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_MEAS_TIME_1</name>
+<brief>QEC-Messdauer Bereich 1</brief>
+<description>$AA_QEC_MEAS_TIME_1[n,a]
+Messzeit für Bereich $AA_QEC_ACCEL_1
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_MEAS_TIME_2</name>
+<brief>QEC-Messdauer Bereich 2</brief>
+<description>$AA_QEC_MEAS_TIME_2[n,a]
+Messzeit für Bereich $AA_QEC_ACCEL_2
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_MEAS_TIME_3</name>
+<brief>QEC-Messdauer Bereich 3</brief>
+<description>$AA_QEC_MEAS_TIME_3[n,a]
+Messzeit für Bereich $AA_QEC_ACCEL_3
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_TIME_1</name>
+<brief>QEC-Abklingzeit 1</brief>
+<description>$AA_QEC_TIME_1[n,a]
+1. Filterzeit für Aufschaltglied
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_TIME_2</name>
+<brief>QEC-Abklingzeit 2</brief>
+<description>$AA_QEC_TIME_2[n,a]
+2. Filterzeit für Aufschaltglied
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_LEARNING_RATE</name>
+<brief>QEC-Lernrate</brief>
+<description>$AA_QEC_LEARNING_RATE[n,a]
+Lernrate für Netzwerk
+a: Maschinenachse
+</description>
+</parameter>
+<parameter type="BOOL" dim="2">
+<name>$AA_QEC_DIRECTIONAL</name>
+<brief>QEC-Richtungsabhängigkeit</brief>
+<description>$AA_QEC_DIRECTIONAL[n,a]
+TRUE: richtungabhängige Kompensation
+FALSE: keine richtungabhängige Kompensation
+a: Maschinenachse
+</description>
+</parameter>
+</info>

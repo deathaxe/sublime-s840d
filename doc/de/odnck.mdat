@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="19010" type="BYTE" dim="1" display="HEX" readonly="true">
+<name>SYSTEM_INFO</name>
+<brief>Systeminformation</brief>
+<description>Systeminformation
+Kennung der aktuellen Software
+[0]:	Klassen-Id
+[1]:	Subsystem-Id
+[2]:	ggf. Exportkennung
+[3]:	reserviert
+
+Klassen-Id:
+===========
+ 5   (0x5) 828D
+ 6   (0x6) 840Dsl (SW 4.4 und höher)
+ 7   (0x7) 808D
+15   (0xF) Simulation
+
+Subsystem-ID:
+=============
+bei 808D gilt:
+ 1   (0x01) PPU14*.* M 
+ 2   (0x02) PPU14*.* T 
+ 3   (0x03) reserviert
+ 4   (0x04) PPU16*.* M 
+ 5   (0x05) PPU16*.* T 
+ 6   (0x06) reserviert
+
+bei 828D gilt:
+ 1   (0x01) PPU26*.* T
+ 2   (0x02) PPU26*.* M
+ 3   (0x03) reserviert
+ 4   (0x04) PPU28*.* T
+ 5   (0x05) PPU28*.* M
+ 6   (0x06) reserviert
+ 7   (0x07) PPU24*.* T
+ 8   (0x08) PPU24*.* M
+ 9   (0x09) reserviert
+10   (0x0A) PPU28*.* T Adv.
+11   (0x0B) PPU28*.* M Adv.
+81/1 (0x51) PPU24*.* GC
+81/2 (0x51) PPU24*.* GS
+83/1 (0x53) PPU26*.* GC
+83/2 (0x53) PPU26*.* GS
+85/1 (0x55) PPU28*.* GC
+85/2 (0x55) PPU28*.* GS
+
+bei 840Dsl gilt:
+  4   (0xA4) 31-3
+  5   (0xA5) 31-3e
+
+Exportkennung:
+=============
+ 14 (0x0E) nicht exportbeschränkte Systemsoftware
+
+Dieses Datum ist nicht schreibbar.
+</description>
+</parameter>
+<parameter number="19100" type="BYTE" dim="0">
+<name>NUM_AXES_IN_SYSTEM</name>
+<brief>zusätzlich 1 Achse/Spindel</brief>
+<description>Anzahl der verfügbaren Achsen (IPO-Funktionalität)
+Werden über die kanalspez. MD20070 $MC_AXCONF_MACHAX_USED mehr Achsen aktiviert, als in OD19100 $ON_NUM_AXES_IN_SYSTEM und/oder OD19102 $ON_NUM_ADD_AXES_IN_SYSTEM erlaubt sind, so wird ein Hochlaufalarm ausgelöst und der NC-Start verhindert.
+Hinweis:
+Virtuelle und simulierte Achsen (Istwerterfassung und Sollwertausgabe sind simuliert) werden bei der Berechnung der Achsanzahl nicht berücksichtigt.
+Korrespondiert mit:
+ MD30132 $MA_IS_VIRTUAL_AX
+ MD30130 $MA_CTRLOUT_TYPE
+ MD30240 $MA_ENC_TYPE
+</description>
+</parameter>
+<parameter number="19102" type="BYTE" dim="0">
+<name>NUM_ADD_AXES_IN_SYSTEM</name>
+<brief>zusätzlich 1 Positionierachse/Hilfsspindel</brief>
+<description>Anzahl der verfügbaren Positionier-/Hilfsachsen
+Werden über die kanalspez. MD $MC_AXCONF_MACHAX_USED mehr Achsen aktiviert, als in OD19100 $ON_NUM_AXES_IN_SYSTEM und/oder OD19102 $ON_NUM_ADD_AXES_IN_SYSTEM  erlaubt sind, so wird ein Hochlaufalarm ausgelöst und der NC-Start verhindert.
+</description>
+</parameter>
+<parameter number="19110" type="BYTE" dim="0">
+<name>NUM_IPO_AXES</name>
+<brief>Mehrachsen-Interpolation (mehr als 4 Achsen)</brief>
+<description>Anzahl der gleichzeitig interpolierenden Bahnachsen
+Werden mehr interpolierende Achsen programmiert, als in OD19110 $ON_NUM_IPO_AXES
+erlaubt sind, so wird ein Alarm ausgelöst und der entsprechende Satz wird
+nicht bearbeitet.
+</description>
+</parameter>
+<parameter number="19120" type="BYTE" dim="0">
+<name>NUM_SAFE_AXES</name>
+<brief>SI-Achse/Spindel, zusätzlich je 1 Achse/Spindel</brief>
+<description>Anzahl der Achsen, in denen Sicherheitsfunktionen aktiviert werden können.
+</description>
+</parameter>
+<parameter number="19121" type="BYTE" dim="0">
+<name>NUM_DRIVEBASED_SAFE_AXES</name>
+<brief>Safety Integrated plus /SI-Achse/Spindel</brief>
+<description>Anzahl der Achsen, in denen 'drived based' Sicherheitsfunktionen aktiviert werden können.
+</description>
+</parameter>
+<parameter number="19122" type="BYTE" dim="0">
+<name>NUM_SPL_IO</name>
+<brief>SI, Kennung für Anzahl ext. SPL_I/O</brief>
+<description> Mit dem Wert im Optionsdatum kann die Anzahl der externen SPL-I/Os gewählt werden :
+ = 0 : Die SPL hat keine I/O.
+ = 1 : Die SPL hat maximal 4/4 I/O.
+ = 2 : Die SPL hat maximal 64/64 I/O.
+ = 3 : Die SPL hat maximal 192/192 I/O.
+</description>
+</parameter>
+<parameter number="19142" type="BYTE" dim="0">
+<name>NUM_LEAD_LINK_AXES</name>
+<brief>Anzahl der unterstützten Lead-Link-Achsen</brief>
+<description>Anzahl der von der SW unterstützten Lead-Link-Achsen
+</description>
+</parameter>
+<parameter number="19160" type="BYTE" dim="0">
+<name>NUM_PLC_CTRL_AXES</name>
+<brief>Anzahl der von PLC kontrollierten Achsen</brief>
+<description>Anzahl der von PLC kontrollierten Achsen und fest zugeordneten PLC Achsen
+</description>
+</parameter>
+<parameter number="19200" type="BYTE" dim="0">
+<name>NUM_CHANNELS</name>
+<brief>zusätzlich 1 Bearbeitungskanal</brief>
+<description>Anzahl der aktivierbaren Kanäle
+Werden über das globale MD $MN_ASSIGN_CHAN_TO_MODE_GROUP mehr Kanäle aktiviert, als in OD19200 $ON_NUM_CHANNELS erlaubt sind, so wird ein Hochlaufalarm ausgelöst, der NC-Start verhindert.
+</description>
+</parameter>
+<parameter number="19220" type="BYTE" dim="0">
+<name>NUM_MODE_GROUPS</name>
+<brief>zusätzlich 1 Betriebsartengruppe (BAG)</brief>
+<description>Anzahl der aktivierbaren BAG
+Werden über das globale MD $MN_ASSIGN_CHAN_TO_MODE_GROUP mehr BAG aktiviert, als in $ON_MODE_GROUPS erlaubt sind, so wird ein Hochlaufalarm ausgelöst, der NC-Start verhindert.
+</description>
+</parameter>
+<parameter number="19240" type="BYTE" dim="0">
+<name>USER_MEM_DYNAMIC</name>
+<brief>zusätzlich 4 Mbyte CNC-Anwenderspeicher</brief>
+<description>Optionsdatum zur Freigabe der Ausbaustufen des ungepufferten Anwenderspeichers auf der NC-CPU
+Es gilt:
+verfügbarer Speicher = Grundausbau + OD19240 $ON_USER_MEM_DYNAMIC * 4MB
+Bsp. OD19240 $ON_USER_MEM_DYNAMIC = 10: Die Speichergröße $MN_MM_USER_MEM_DYNAMIC wird um 10 * 4 MB = 40 MB vergrößert.
+
+OD19240 $ON_USER_MEM_DYNAMIC zeigt damit den zum Grundausbau relativen additiven Teil des ungepufferten Anwenderspeichers an.
+</description>
+</parameter>
+<parameter number="19250" type="BYTE" dim="0">
+<name>USER_MEM_BUFFERED</name>
+<brief>zusätzlich 2 Mbyte CNC-Anwenderspeicher</brief>
+<description>Optionsdatum zur Freigabe der Ausbaustufen des gepufferten Anwenderspeichers auf der NC-CPU
+verfügbarer Speicher = Grundausbau + OD19250 $ON_USER_MEM_BUFFERED * 2MB
+
+OD19250 $ON_USER_MEM_BUFFERED zeigt damit den additiven Teil des Speichers relativ zur Grundausführung an
+</description>
+</parameter>
+<parameter number="19270" type="BYTE" dim="0">
+<name>PLC_USER_MEM_SIZE</name>
+<brief>zusätzlich 128 kByte PLC-Anwenderspeicher</brief>
+<description>Optionsdatum zur Freigabe der Ausbaustufen des STEP 7-Anwenderspeichers auf der PLC:
+
+1	128kB
+2	256kB
+3	384kB
+4	512kB (GA)
+.
+.
+12	1536kB (max.)
+</description>
+</parameter>
+<parameter number="19280" type="BYTE" dim="0">
+<name>PLC_C_USER_MEM_SIZE</name>
+<brief>zusätzlich 64 kByte für die PLC-C-Programmierung</brief>
+<description>Optionsdatum zur Freigabe der Speicher-Ausbaustufen für die C-Programmierung
+auf der PLC. ( Rasterung: 64kB )
+0 = kein Speicher
+1 = 64kB
+..
+14 = 896
+</description>
+</parameter>
+<parameter number="19296" type="BYTE" dim="0" display="HEX">
+<name>PERFORMANCE_INDEX</name>
+<brief>Performance-Option</brief>
+<description>Optionsdatum zur Freigabe der Performance-Option
+                zul. IPO-Takt
+ 0x0 (optionsfrei) :&gt;= 8ms
+ 0x1 (1.Stufe)     :&gt;= 6ms
+ 0x2 (2.Stufe)     :&gt;= 4ms
+ 0x4 (3.Stufe)     :&gt;= 2ms
+ 0x8 (4.Stufe)     : &lt;2ms
+</description>
+</parameter>
+<parameter number="19300" type="BYTE" dim="0" display="HEX">
+<name>COMP_MASK</name>
+<brief>Kompensationsoptionen</brief>
+<description>reserviert       TEMP  Temperaturkompensation axial.
+reserviert:      EEC   Spindelsteigungsfehlerkompensation 
+Bit 2            CEC   Durchhangkompensation
+reserviert       QEC   Quadrantenfehlerkompensation mit neuronalem Netz
+reserviert       EGA   elektronischer Gewichtsausgleich
+Bit 5            BiEEC bidirektionale Spindelsteigungsfehlerkompensation
+Bit 6            FRICT Reibkompensation (integriert)
+</description>
+</parameter>
+<parameter number="19308" type="DWORD" dim="0" display="HEX">
+<name>SINAMICS_FUNCTION_MASK</name>
+<brief>Antriebsoptionen</brief>
+<description>Optionsdatum zur Freigabe von SINAMICS Antriebsfunktionen:
+Bit 0 (LSB):  Freigabe "'Advanced Positioning Control' (APC)" (Antriebsparameter r108 Bit 7)
+</description>
+</parameter>
+<parameter number="19310" type="DWORD" dim="0" display="HEX">
+<name>AXIS_FUNCTION_MASK</name>
+<brief>axiale Optionen</brief>
+<description>Optionsdatum zur Freigabe axialer Funktionen:
+Bit 0 (LSB):  Freigabe "Gantryachsen"              ( MD37100 $MA_GANTRY_AXIS_TYPE )
+Bit 1:        Freigabe "Force Control"             ( MD37080 $MA_FOC_ACTIVATION_MODE )
+Bit 2:        Freigabe "Wegschaltsignale"          ( MD10450 $MN_SW_CAM_ASSIGN_TAB )
+-----:        Reserved "prog. Beschleunigung" kein Option seit 10/2000
+Bit 4: 	 Freigabe "Master-Slave" (MD37250 $MA_MS_ASSIGN_MASTER_SPEED_CMD MD37252 $MA_MS_ASSIGN_MASTER_TORQUE_CTR)
+Bit 5: 	 Freigabe "digitale Sollwertumschaltung"
+
+Die aufgeführten Maschinendaten werden im Hochlauf zurückgesetzt und
+Alarm 8040 wird ausgegeben, wenn das entsprechende Bit des Optionsdatums
+nicht gesetzt ist.
+</description>
+</parameter>
+<parameter number="19320" type="DWORD" dim="0" display="HEX">
+<name>TECHNO_FUNCTION_MASK</name>
+<brief>technologische Optionen</brief>
+<description>Optionsdatum zur Freigabe technologiebezogener Funktionen
+-----:(LSB): Reserved "Messzangenfunktion" ( MD21220 $MC_MULTFEED_ASSIGN_FASTIN ) keine Option seit 10/2000
+Bit 1:       Freigabe "Adaptive Control (Auswertung interner Antriebsgrößen)"
+Bit 2:       Freigabe "SINUMERIK HMI OA copy licence WinCC flexible CE" (OP)
+Bit 3:       Freigabe "Pendelfunktionen"   ( MD43780 $SA_OSCILL_IS_ACTIVE )
+Bit 4:       Freigabe "Werkzeugverwaltung" ( MD20310 $MC_TOOL_MANAGEMENT_MASK )
+Bit 5:       Freigabe "Nibbeln/Stanzen" ( MD26012 $MC_PUNCHNIB_ACTIVATION )
+Bit 6:       Freigabe "Konturtunnel-Überwachung" ( MD21050 $MC_CONTOUR_TUNNEL_TOL )
+-----:       Reserved "F-Wort-Interpolation" ( FLIN/FCUB/FPO ) keine Option seit 10/2000
+-----:       Reserved "Countinuous Dressing" ( FTOCON/FTOCOF ) keine Option seit 10/2000
+Bit 9:       Freigabe "Tangentialsteuerung" ( TANON/TANGOF )
+------:      Reserved "Synchronspindel/Mehrkantdrehen" ( COUPON/COUPOF )
+Bit 11:      Freigabe "Bahngeschwindigkeitsabhängige Analogwertausgabe($AC_VACTB/$AC_VACTW)"
+------:      Reserved "Positionsoffset als Ausgang einer Synchronaktion (2D)" ($AA_OFF) keine Option seit 10/2000
+------:      Reserved "Freie Kontureingabe mit Abspanen gegen die Kontur"(Shopmill)
+Bit 14:      Freigabe "Messen Stufe 2" ( MEASA, MEAWA, 1 )
+------:      Reserved "Werkzeug messen (Shopmill)" keine Option seit 07/2004
+Bit 16:      Freigabe "Konturtaschenzyklus mit autom. Restmaterialbearbeitung (ShopMill)"
+Bit 17:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) (ShopMill/ShopTurn)" oder "Simulation Fräsen (HMI-Embedded)"
+Bit 18:      Freigabe "Erweitertes Stillsetzen und Rückziehen" (MD37500 $MA_ESR_REACTION)
+------:      Reserved "Elektronisches Getriebe (EGDEF)"
+------:      Reserved "Teleservice HT6"
+Bit 21:      Freigabe "Schnellabheben von der Kontur (LIFTFAST)"
+Bit 22:      frei
+Bit 23:      Freigabe "Arbeitsplan-Programmierung bei ShopMill/ShopTurn"
+Bit 24:      Freigabe "antriebsautarker Generatorbetrieb" bei SIMODRIVE (MD37500 $MA_ESR_REACTION)
+------:      Reserved "Werkzeugüberwachung ohne aktive WZV" ( MD18080 $MC_TOOL_MANAGEMENT_MASK )
+------:      Reserved "Mehrfachaufspannung (ShopMill)"
+------:      Reserved "NCU-Link mit unterschiedlichen Ipo- und Lagereglertakte (siehe Beschreibung von FAST_IPO_LINK bzw. MD18780 $MN_MM_NCU_LINK_MASK)
+Bit 28:      Freigabe "Anzeige Volumenmodell (ShopTurn)"
+Bit 29:      Freigabe "Online-Überlagerung in Werkzeugrichtung" ($AA_TOFF[])
+Bit 30:      Freigabe "Bearbeitungspaket Fräsen (Pkg/nur Platzhalter für Sammeloption)"
+</description>
+</parameter>
+<parameter number="19321" type="DWORD" dim="0" display="HEX">
+<name>TECHNO_FUNCTION_MASK_1</name>
+<brief>technologische Optionen</brief>
+<description>Optionsdatum zur Freigabe technologiebezogener Funktionen.
+
+Bit 0:(LSB):	Freigabe "Messzyklen (MEACALC)
+Bit 1:		Freigabe "Konturhandrad"
+Bit 2:		Freigabe "Generische Kopplung 'CP-BASIC'"
+Bit 3:		Freigabe "Generische Kopplung 'CP-COMFORT'"
+Bit 4:		Freigabe "Generische Kopplung 'CP-EXPERT'"
+Bit 5:		Freigabe "Generische Kopplung 'CP-STATIC'"
+Bit 6:		Freigabe "Ersatzwerkzeuge für WZV"
+Bit 7:		Freigabe "WZV mit mehreren Magazinen"
+Bit 8:               Freigabe "Überwachung auf max. WZ-Drehzahl/Beschleunigung"
+Bit 9:               Freigabe "Advanced Surface"
+Bit 10:              Freigabe "Bearbeitungspaket Fräsen 3 Achsen (Pkg/nur Platzhalter für Sammeloption)"
+Bit 11:              Freigabe "Bearbeitungspaket Fräsen 5 Achsen (Pkg/nur Platzhalter für Sammeloption)"
+Bit 12:              Freigabe "Siemens Cycles Base Technology"
+Bit 13:              Freigabe "Siemens Cycles Advanced Technology"
+Bit 14:              Freigabe "Balance cutting"
+Bit 15:              Freigabe "SINUMERIK Schleifen Advanced"
+Bit 16:              frei
+Bit 17:              Freigabe "Top Surface"
+Bit 31:		Reserved ""
+</description>
+</parameter>
+<parameter number="19330" type="DWORD" dim="0" display="HEX">
+<name>IPO_FUNCTION_MASK</name>
+<brief>Interpolation</brief>
+<description>Optionsdatum zur Freigabe interpolationsbezogener Funktionen
+-----:(LSB):	Reserved "REPOS per Programm (REPOSx ohne REPOSA)" keine Option seit 10/2000
+Bit 1:       Freigabe "Spline-Interpolation (xSPLINE)"
+Bit 2:	Freigabe "Kompressor 5 Achsbearbeitung (COMPON/COMPCAD/COMPCURV) (SolutionLine: incl. xSPLINE; ab NCK75 nur noch xSPLINE weil COMPx GA ist)"
+Bit 3:       Freigabe "Polynominterpolation (POLY)"
+Bit 4:       Freigabe "3D-Werkzeugkorrektur (CUT3Dx)"
+-----:       Reserved "Leitwertkopplung und Kurventab.interpolation (LEADON, CTAB)"
+-----:       Reserved "Kommandoachsen und -Spindeln"
+Bit 7:       Freigabe "Evolventeninterpolation"
+Bit 8:       Freigabe "Kompressor 3 Achsbearbeitung (COMPON/COMPCAD/COMPCURV) (SolutionLine: incl. xSPLINE; ab NCK75 nur noch xSPLINE weil COMPx GA ist)"
+
+Bit 31:      Reserved ""
+</description>
+</parameter>
+<parameter number="19334" type="DWORD" dim="0" display="HEX">
+<name>SYSTEM_FUNCTION_MASK</name>
+<brief>Systemoptionen</brief>
+<description>-----:(LSB): Reserved "FlashFileSystem (FFS)" ist keine Option, sondern Standard.
+-----:       Reserved "Abarbeiten von Extern (war System 802D)"
+-----:       Reserved "Farbdisplay (war System 802D)"
+-----:       Reserved "war System 802D"
+-----:       Reserved "Zyklen im DRAM"
+-----:       Reserved "Modem (war System 802D)"
+Bit 6:       Freigabe "Daten zur Maschinenwartung (MachineMaintenance)"
+-----:       Reserved "Direkttasten-/Handradanschluss auf MCP mit PROFIBUS DP" (nur PL)
+Bit 8:       Freigabe "Zyklenschutz"
+Bit 9:       Freigabe "Abarbeiten vom externen Speicher (EES)"
+Bit 10:      Freigabe "Automatisches Nachoptimieren mit AST"
+Bit 11:      Freigabe "CNC-Lock Funktion"
+...
+Bit 28:	Reserved
+Bit 29:	Reserved
+Bit 30:	Reserved
+Bit 31:	Reserved
+</description>
+</parameter>
+<parameter number="19340" type="BYTE" dim="0" display="HEX">
+<name>PROG_MASK</name>
+<brief>Programmoptionen</brief>
+<description>Optionsdatum zur Freigabe programmbearbeitungsbezogener Funktionen.
+
+Bit 0 (LSB):	Reserviert, war "Programmvorverarbeitung"
+Bit 1:	Freigabe "Technologiezyklen" und "Synchronaktionen Stufe2"
+Bit 2:	Freigabe "Betriebsartübergreifende Aktionen (ASUP und SYNACT)"
+</description>
+</parameter>
+<parameter number="19400" type="BYTE" dim="0" display="HEX">
+<name>FFW_MODE_MASK</name>
+<brief>Vorsteuerung</brief>
+<description>Reserviert
+</description>
+</parameter>
+<parameter number="19410" type="DWORD" dim="0" display="HEX">
+<name>TRAFO_TYPE_MASK</name>
+<brief>Transformationsoptionen</brief>
+<description>Freigabe der Tranformationen
+Wird versucht eine Transformation zu aktivieren, deren zugehöriges Optionsbit
+nicht gesetzt ist, wird ein alarm ausgegeben.
+
+Es wird ungepufferter Speicher benötigt.
+Setzen eines der Optionsbits erhöht den Speicherbedarf.
+
+Bedeutung der gesetzten Bits in OD19410 $ON_TRAFO_TYPE_MASK:
+
+Bit 0 (LBS): TRAFO5           (5-Achs-Trafo) erlaubt
+Bit 1      : TRANSMIT/TRACYL  (Transmit/Zylindermantelkurven-Transformation) erlaubt
+Bit 2      : Reserved
+Bit 3      : TRAANG           (Transformation schräge Achse) erlaubt
+Bit 4      : TRAOEM           (OEM-Transformationen) erlaubt
+Bit 5      : TRACON           (Verkettete-Transformationen) erlaubt
+Bit 6      : TRAFO7           (7-Achs-Trafo) erlaubt
+Bit 7      : TRANSMIT/TRACYL  (Transmit/Zylindermantelkurven-Transformation, ohne reale Y-Achse) erlaubt
+Bit 8      : TRAANG           (Schräge Achse, feste Winkel) erlaubt
+
+Stand 10/11/94: Transformation Centerless-Schleifen ist keine Option
+</description>
+</parameter>
+<parameter number="19500" type="BOOLEAN" dim="0">
+<name>SAFE_PLC_LOGIC</name>
+<brief>Safety Integrated plus /SI-Logik</brief>
+<description>Grundoption zum Betrieb einer F-PLC.
+</description>
+</parameter>
+<parameter number="19510" type="DWORD" dim="0">
+<name>SAFE_FUNCTION_MASK</name>
+<brief>Funktionen Safety Integrated</brief>
+<description>Optionsdatum zur Freigabe von Funktionen Safety Integrated
+Bit 0 = 0: maximal 3 FSEND- und 3 FRECV-Verbindungen verfügbar
+Bit 0 = 1: mehr als 3 FSEND- und 3 FRECV-Verbindungen verfügbar
+</description>
+</parameter>
+<parameter number="19610" type="DWORD" dim="1" display="HEX">
+<name>TECHNO_EXTENSION_MASK</name>
+<brief>technologische Erweiterungen</brief>
+<description>Optionsdatum zum freischalten von Technologiefunktionen die als nachladbare
+Compile Cyclen erstmalig eingebracht wurden.
+$ON_TECHNO_EXTENTION_MASK[0]
+Bit 0:     0 Laden nur solcher ELF-Files erlaubt, die über ein Bit in ON_TECHNO_EXTENTION_MASK[1] lizensiert sind
+           1 Laden aller ELF-Files erlaubt
+
+Bit 16-32: reserviert für die Benutzung durch OEM-Kunden
+
+$ON_TECHNO_EXTENTION_MASK[1-n]
+   ( von Siemens vermarktete ELF-Files )
+</description>
+</parameter>
+<parameter number="19700" type="BOOLEAN" dim="0">
+<name>ELEC_TRANSFER</name>
+<brief>Elektronischer Transfer</brief>
+<description>Optionsdatum zur Freigabe der Funktionalität "Elektronischer Transfer"
+ Für dies Funktionalität werden die benötigten 'Einzeloptionen' gesetzt,
+   + eine zusätzliche Positionierachsen
+   + Gantry
+   + Synchronactionen Stufe2
+   + Wegschaltsignale/Nocken
+   + Polynominterpolation
+   + Leitwertkopplung
+   + Betriebsartübergreifende Aktionen (ASUP und SYNACT)
+   + PROFIBUS
+
+ sowie die normalerweise als Grundfunktion vorhanden Funktion
+   - Spindel (Zuweisungen in MD35000 $MA_SPIND_ASSIGN_TO_MACHAX nicht möglich)
+   - Werkzeugkorrekturen (G40/G41/G42 nicht möglich)
+
+ ausgeschaltet.
+</description>
+</parameter>
+<parameter number="19701" type="BOOLEAN" dim="0">
+<name>ELEC_TRANSFER_CP</name>
+<brief>Elektronischer Transfer (CP)</brief>
+<description>Optionsdatum zur Freigabe der Funktionalität "Elektronischer Transfer mit CP"
+ Für dies Funktionalität werden die benötigten 'Einzeloptionen' gesetzt,
+   + eine zusätzliche Positionierachse
+   + Gantry
+   + Synchronactionen Stufe2
+   + Wegschaltsignale/Nocken
+   + Polynominterpolation
+   + Generische Kopplung CP-Komfort
+   + Betriebsartübergreifende Aktionen (ASUP und SYNACT)
+   + PROFIBUS
+
+ sowie die normalerweise als Grundfunktion vorhanden Funktion
+   - Spindel (Zuweisungen in MD35000 $MA_SPIND_ASSIGN_TO_MACHAX nicht möglich)
+   - Werkzeugkorrekturen (G40/G41/G42 nicht möglich)
+
+ ausgeschaltet.
+</description>
+</parameter>
+<parameter number="19709" type="BOOLEAN" dim="0">
+<name>PLASTIC</name>
+<brief>Kunststoffpaket IME</brief>
+<description>Optionsdatum zur Freigabe der Funktionalität "SINUMERIK plastic package"
+ Für diese Funktionalität werden die benötigten 'Einzeloptionen' gesetzt,
+   + 3 zusätzliche Achsen
+   + Fahren auf Festanschlag
+   + Gantry
+   + Synchronaktionen Stufe2
+   + Master-Slave für Antriebe
+   + Wegschaltsignale/Nocken
+   + Polynominterpolation
+   + Transformationspaket Handling
+
+ sowie die normalerweise als Grundfunktion vorhandenen Funktionen
+   - Spindel (Zuweisungen in MD35000 $MA_SPIND_ASSIGN_TO_MACHAX nicht möglich)
+   - Werkzeugkorrekturen (G40/G41/G42 nicht möglich)
+
+ ausgeschaltet.
+</description>
+</parameter>
+<parameter number="19710" type="BOOLEAN" dim="0">
+<name>HANDLING</name>
+<brief>Handlingspaket</brief>
+<description>Optionsdatum zur Freigabe der Funktionalität "Handling"
+ Für diese Funktionalität werden die benötigten 'Einzeloptionen' gesetzt,
+   + 3 zusätzliche Achsen
+   + 3 zusätzliche Kanäle
+   + Synchronactionen Stufe2
+   + Transformationspaket Handling
+   + Betriebsartübergreifende Aktionen (ASUP und SYNACT)
+
+ sowie die normalerweise als Grundfunktion vorhanden Funktion
+   - Spindel (Zuweisungen in MD35000 $MA_SPIND_ASSIGN_TO_MACHAX nicht möglich)
+   - Werkzeugkorrekturen (G40/G41/G42 nicht möglich)
+
+ ausgeschaltet.
+</description>
+</parameter>
+<parameter number="19720" type="DWORD" dim="0">
+<name>PLC_FUNCTION_MASK</name>
+<brief>Funktionen der SoftPLC</brief>
+<description>Optionsdatum zur Freigabe von Funktionen der SoftPLC
+Bit 0 (LSB): Freigabe "DB-Adressierung für PROFINET-MSTT"
+Bit 4      : Freigabe "32000 Ladder Steps"
+</description>
+</parameter>
+<parameter number="19730" type="DWORD" dim="1" display="HEX">
+<name>HMI_FUNCTION_MASK</name>
+<brief>Bedienoptionen</brief>
+<description>Optionsdatum zur Freigabe von HMI-Funktionen:
+
+Bit 0 (LSB): Freigabe "Additional languages"                                                     OD19730 $MC_HMI_FUNCTION_MASK[0].0
+-----:       Reserved "external HMI"                                                             OD19730 $MC_HMI_FUNCTION_MASK[0].1
+Bit 2:       Freigabe "Network drive management"                                                 OD19730 $MC_HMI_FUNCTION_MASK[0].2
+Bit 3:       Freigabe "Multi channel step sequence programming"                                  OD19730 $MC_HMI_FUNCTION_MASK[0].3
+Bit 4:       Freigabe "manual machine"                                                           OD19730 $MC_HMI_FUNCTION_MASK[0].4
+Bit 5:       Freigabe "Add. 256 Mbyte HMI user memory on CF-Card of NCU"                         OD19730 $MC_HMI_FUNCTION_MASK[0].5
+Bit 6:       Freigabe "Simulation milling (2D dynamic, 3D static)"                               OD19730 $MC_HMI_FUNCTION_MASK[0].6
+-----:       Reserved "measuring cycles"                                                         OD19730 $MC_HMI_FUNCTION_MASK[0].7
+Bit 8:       Freigabe "SINUMERIK HMI copy license OA"                                            OD19730 $MC_HMI_FUNCTION_MASK[0].8
+Bit 9:       Reserved "war Ethernet 802Dsl pro"                                                  OD19730 $MC_HMI_FUNCTION_MASK[0].9
+Bit 10:      Freigabe "ShopTurn/Mill HMI für 840Di sl incl. HMI Advanced"                        OD19730 $MC_HMI_FUNCTION_MASK[0].10
+Bit 11:      Freigabe "Erweiterte Bedienfunktionen"                                              OD19730 $MC_HMI_FUNCTION_MASK[0].11
+Bit 12:      Freigabe "ShopMill/ShopTurn StepGuide"                                              OD19730 $MC_HMI_FUNCTION_MASK[0].12
+Bit 13:      Freigabe "Kinematik vermessen"                                                      OD19730 $MC_HMI_FUNCTION_MASK[0].13
+Bit 14:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopMill" OD19730 $MC_HMI_FUNCTION_MASK[0].14
+Bit 15:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopTurn" OD19730 $MC_HMI_FUNCTION_MASK[0].15
+Bit 16:      Freigabe "3D-Simulation 1 (Fertigteil)"                                             OD19730 $MC_HMI_FUNCTION_MASK[0].16
+Bit 17:      Freigabe "3D-Simulation 2 (Fertigteil und Arbeitsraum)                              OD19730 $MC_HMI_FUNCTION_MASK[0].17
+Bit 18:      Freigabe "Manuelle Maschine Plus"                                                   OD19730 $MC_HMI_FUNCTION_MASK[0].18
+Bit 19:      Freigabe "SINUMERIK HMI sl copy license OA programming"                             OD19730 $MC_HMI_FUNCTION_MASK[0].19
+------:      Reserved AP61 "SINUMERIK HMI sl copy license OA project"                            OD19730 $MC_HMI_FUNCTION_MASK[0].20
+------:      Reserved AP62 "SINUMERIK HMI sl copy license OA upgrade Programmieren"              OD19730 $MC_HMI_FUNCTION_MASK[0].21
+------:      Reserved AP63 "SINUMERIK HMI sl copy license OA upgrade Projektieren"               OD19730 $MC_HMI_FUNCTION_MASK[0].22
+Bit 23:      Freigabe  "SINUMERIK HMI sl Runtime OA Easy Screen"                                 OD19730 $MC_HMI_FUNCTION_MASK[0].23
+Bit 24:      Freigabe "Bedienen ohne SINUMERIK OP"                                               OD19730 $MC_HMI_FUNCTION_MASK[0].24
+------:      Reserved "Sinumerik *802* Ladder Editor"                                            OD19730 $MC_HMI_FUNCTION_MASK[0].25
+Bit 26:      Freigabe "CCG-Compiler (Nockenschleifen)"                                           OD19730 $MC_HMI_FUNCTION_MASK[0].26
+Bit 27:      Freigabe "CCG-SINUMERIK Operate Runtime OA Solution Partner"                        OD19730 $MC_HMI_FUNCTION_MASK[0].27
+Bit 28:      Freigabe "SINUMERIK HMI sl Runtime OA .net"                                         OD19730 $MC_HMI_FUNCTION_MASK[0].28
+Bit 29:      Freigabe "Access MyMachine /OPC UA"                                                 OD19730 $MC_HMI_FUNCTION_MASK[0].29
+Bit 30:      Reserved "SINUMERIK Operate /NCU (S00 - reserviert wg. SW4.6)"                      OD19730 $MC_HMI_FUNCTION_MASK[0].30
+
+ADD ON
+Bit 0:       Freigabe "MC Information System RCS Host"                                           OD19730 $MC_HMI_FUNCTION_MASK[1].0
+Bit 1:       Freigabe "MC Information System RCS @Event"                                         OD19730 $MC_HMI_FUNCTION_MASK[1].1
+Bit 2:       Freigabe "MC Information System TPM Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].2
+Bit 3:       Freigabe "MC Information System TDI IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].3
+Bit 4:       Freigabe "MC Information System TDI Overview"                                       OD19730 $MC_HMI_FUNCTION_MASK[1].4
+Bit 5:       Freigabe "MC Information System TDI Toolhandling"                                   OD19730 $MC_HMI_FUNCTION_MASK[1].5
+Bit 6:       Freigabe "MC Information System TDI PLANNING"                                       OD19730 $MC_HMI_FUNCTION_MASK[1].6
+Bit 7:       Freigabe "MC Information System TDI Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].7
+Bit 8:       Freigabe "MC Information System TDI Toolplan Generation"                            OD19730 $MC_HMI_FUNCTION_MASK[1].8
+Bit 9:       Freigabe "MC Information System DNC Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].9
+Bit 10:      Freigabe "MC Information System DNC IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].10
+Bit 11:      Freigabe "MC Information System MDA Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].11
+Bit 12:      Freigabe "MC Information System MDA IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].12
+Bit 13:      Freigabe "MC Information System PMT IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].13
+Bit 14:      Freigabe "MC Information System PDA IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].14
+Bit 15:      Freigabe "MC Information System TPM IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].15
+Bit 16:      Freigabe "TRANSLINE 2000 HMI PRO sl"                                                OD19730 $MC_HMI_FUNCTION_MASK[1].16
+Bit 17:      Freigabe "MC Information System ADDM Agent"                                         OD19730 $MC_HMI_FUNCTION_MASK[1].17
+Bit 18:      Freigabe "MC Information System RPC SINUMERIK"                                      OD19730 $MC_HMI_FUNCTION_MASK[1].18
+Bit 19:      Freigabe "MC Information System TDI Statistic"                                      OD19730 $MC_HMI_FUNCTION_MASK[1].19
+Bit 20:      Freigabe "MC Information System TDI Ident Connection"                               OD19730 $MC_HMI_FUNCTION_MASK[1].20
+Bit 21:      Freigabe "Electronic Key System (EKS)"                                              OD19730 $MC_HMI_FUNCTION_MASK[1].21
+------:      Reserved                                                                            OD19730 $MC_HMI_FUNCTION_MASK[1].22
+Bit 23:      Freigabe "integrierter Spindelmonitor (S-Monitor)"                                  OD19730 $MC_HMI_FUNCTION_MASK[1].23
+Bit 24:      Freigabe "DXF-Reader"                                                               OD19730 $MC_HMI_FUNCTION_MASK[1].24
+Bit 25:      Freigabe "Sinumerik 828 Ladder Editor"                                              OD19730 $MC_HMI_FUNCTION_MASK[1].25
+Bit 26:      Freigabe "SINUMERIK SMART Bedienung"                                                OD19730 $MC_HMI_FUNCTION_MASK[1].2
+</description>
+</parameter>
+<parameter number="19732" type="BYTE" dim="0" display="HEX" readonly="true">
+<name>HMI_MASK</name>
+<brief>Bedienoptionen</brief>
+<description>Optionsdatum zur Freigabe von HMI-Funktionen:
+Bit 0 (LSB):  SINUMERIK Operate /NCU.
+Bit 1:        SINUMERIK Operate /PCU 
+Bit 2:        SINUMERIK Operate /PC
+Bit 3:        SINUMERIK PCU-Basesoftware /IPC
+</description>
+</parameter>
+<parameter number="19740" type="DWORD" dim="1" display="HEX">
+<name>DRIVE_MASK</name>
+<brief>Antriebs Grund-Lizenzen Bits</brief>
+<description>Optionsdatum
+</description>
+</parameter>
+<parameter number="19742" type="BYTE" dim="1">
+<name>DRIVE_CNT</name>
+<brief>Antriebs Count-Lizenzen</brief>
+<description>Optionsdatum
+</description>
+</parameter>
+<parameter number="19750" type="DWORD" dim="1" display="HEX">
+<name>DRIVE_EXTENSION_MASK</name>
+<brief>Antriebs OA Lizenzen Bits</brief>
+<description>Optionsdatum
+</description>
+</parameter>
+<parameter number="19830" type="DWORD" dim="0" display="HEX">
+<name>COLLISION_MASK</name>
+<brief>Funktionsumfang der Kollisionsvermeidung</brief>
+<description>Funktionsumfang der Kollisionsvermeidung
+
+Bit 0 (LSB): Kollisionsvermeidung (Maschine, Werkzeug)
+Bit 1:       reserviert
+Bit 2:       reserviert
+
+</description>
+</parameter>
+</info>

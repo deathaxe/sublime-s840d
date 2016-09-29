@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="43100" type="DWORD" dim="0">
+<name>LEAD_TYPE</name>
+<brief>Defines what is used as master value</brief>
+<description>Defines which value is to be used as master value: 
+
+0: Actual value 
+1: Setpoint 
+2: Simulated master value
+</description>
+</parameter>
+<parameter number="43102" type="DOUBLE" dim="0">
+<name>LEAD_OFFSET_IN_POS</name>
+<brief>Offset of master value if coupled to this axis</brief>
+<description>Offset of the master value before use on the coupling. 
+
+If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
+
+Related to .... 
+	SD43104 $SA_LEAD_SCALE_IN_POS
+	SD43106 $SA_LEAD_OFFSET_OUT_POS
+	SD43108 $SA_LEAD_SCALE_OUT_POS
+</description>
+</parameter>
+<parameter number="43104" type="DOUBLE" dim="0">
+<name>LEAD_SCALE_IN_POS</name>
+<brief>Scaling of master value if coupled to this axis</brief>
+<description>Scaling of the master value before use on the coupling. 
+
+If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
+
+Related to .... 
+	SD43102 $SA_LEAD_OFFSET_IN_POS
+	SD43106 $SA_LEAD_OFFSET_OUT_POS
+	SD43108 $SA_LEAD_SCALE_OUT_POS
+</description>
+</parameter>
+<parameter number="43106" type="DOUBLE" dim="0">
+<name>LEAD_OFFSET_OUT_POS</name>
+<brief>Offset of the functional value of the curve table</brief>
+<description>Offset of the master value before use on the coupling. 
+
+If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
+
+Related to .... 
+	SD43102 $SA_LEAD_OFFSET_IN_POS
+	SD43104 $SA_LEAD_SCALE_IN_POS
+	SD43108 $SA_LEAD_SCALE_OUT_POS
+</description>
+</parameter>
+<parameter number="43108" type="DOUBLE" dim="0">
+<name>LEAD_SCALE_OUT_POS</name>
+<brief>Scaling of functional value of the curve table</brief>
+<description>Scaling of the function value before use of the curve table. 
+
+If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
+
+Related to .... 
+	SD43102 $SA_LEAD_OFFSET_IN_POS
+	SD43104 $SA_LEAD_SCALE_IN_POS
+	SD43106 $SA_LEAD_OFFSET_OUT_POS
+</description>
+</parameter>
+<parameter number="43120" type="DWORD" dim="0">
+<name>DEFAULT_SCALE_FACTOR_AXIS</name>
+<brief>Axial default scaling factor with G51 active</brief>
+<description>If no axial scaling factor I, J, or K is programmed in the G51 block, SD43120 $SA_DEFAULT_SCALE_FACTOR_AXIS is active. The scaling factor is only active if MD22914 $MC_AXES_SCALE_ENABLE is set.
+
+Related to:
+	MD22914 $MC_AXES_SCALE_ENABLE,
+	MD22910 $MC_WEIGHTING_FACTOR_FOR_SCALE
+</description>
+</parameter>
+<parameter number="43200" type="DOUBLE" dim="0">
+<name>SPIND_S</name>
+<brief>Speed for spindle start by VDI</brief>
+<description>Spindle speed at spindle start by NC/PLC interface signals &lt;Spindel-start_Rechtslauf/&gt; (Spindle start clockwise rotation) and &lt;Spindel-start_Linkslauf/&gt; (Spindle start counterclockwise rotation).
+
+Example:  SD43200 $SA_SPIND_S[S1] = 600
+Spindle 1 is started at a speed of 600 rpm upon detection of the positive edge of one of the above-mentioned VDI starting signals.
+Speed programming values are entered in the SD by setting bit 4=1 in MD35035 $MA_SPIND_FUNCTION_MASK.
+The SD becomes active in JOG mode as a default speed by setting bit 5=1 in MD35035 $MA_SPIND_FUNCTION_MASK (exception: the value is zero).
+
+Related to:
+     MD35035 $MA_SPIND_FUNCTION_MASK
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43202" type="DOUBLE" dim="0">
+<name>SPIND_CONSTCUT_S</name>
+<brief>Const cut speed for spindle start by VDI</brief>
+<description>Definition of the constant cutting speed for the master spindle.
+The setting data is evaluated at spindle start by the NC/PLC interface signals &lt;Spindel-start_Rechtslauf/&gt; (Spindle start clockwise rotation) and &lt;Spindel-start_Linkslauf/&gt; (Spindle start counterclockwise rotation)
+Cutting speed programming values are entered in the SD by setting bit 8=1 in MD35035 $MA_SPIND_FUNCTION_MASK.
+
+Related to:
+     MD35035 $MA_SPIND_FUNCTION_MASK
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43206" type="DWORD" dim="0" display="DECIMAL">
+<name>SPIND_SPEED_TYPE</name>
+<brief>Spindle speed type for spindle start through VDI</brief>
+<description>Definition of the spindle speed type for the master spindle.
+The range of values and the functionality correspond to the 15th G group "feed type".
+Permissible values are the G values: 93, 94, 95, 96, 961, 97, 971 and 973.
+
+The stated values make a functional distinction between the following variants:
+
+==&gt;	93, 94, 95, 97 and 971: The spindle is started at the speed in SD 43200 $SA_SPIND_S.
+
+==&gt;	96 and 961: The speed of the spindle is derived from the cutting speed of SD 43202 $SA_SPIND_CONSTCUT_S and the radius of the transverse axis.
+
+==&gt;	973: G973 behaves like G97, but the spindle speed limitation is not active
+
+The default value is 94 (corresponds to G94)
+The default value becomes active if the SD is written with impermissible values.
+</description>
+</parameter>
+<parameter number="43210" type="DOUBLE" dim="0">
+<name>SPIND_MIN_VELO_G25</name>
+<brief>Programmed spindle speed limitation G25</brief>
+<description>A minimum spindle speed limit below which the spindle must not fall is entered in SPIND_MIN_VELO_G25. The NCK limits the set spindle speed to this value if it is too low.
+
+The spindle speed may only fall below the minimum as a result of:
+- Spindle offset 0%
+- M5
+- S0
+- NC/PLC interface signal &lt;VorschubHalt-SpindelHalt/&gt; (Spindle stop)
+- NC/PLC interface signal &lt;Reglerfreigabe/&gt; (Servo enable)
+- NC/PLC interface signal &lt;Kanalzustand-Reset/&gt; (Channel status: Reset)
+- NC/PLC interface signal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Delete distance-to-go/Spindle reset)
+- NC/PLC interface signal &lt;Pendeldrehzahl/&gt; (Oscillation speed)
+- Cancel S value
+
+SD irrelevant to ...... 
+	other spindle modes used in open-loop control mode (SPOS, M19, SPOSA)
+Related to:
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+A minimum spindle speed limit below which the spindle must not fall is entered in this SD. The NCK limits the set spindle speed to this value if it is too low.
+The spindle speed may only fall below the minimum as a result of:
+-	Spindelkorrektur 0%
+-	M5
+-	S0
+- NC/PLC interface signal &lt;VorschubHalt-SpindelHalt/&gt; (Spindle stop)
+- NC/PLC interface signal &lt;Reglerfreigabe/&gt; (Servo enable)
+- NC/PLC interface signal &lt;Kanalzustand-Reset/&gt; (Channel status: Reset)
+- NC/PLC interface signal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Delete distance-to-go/Spindle reset)
+- NC/PLC interface signal &lt;Pendeldrehzahl/&gt; (Oscillation speed)
+</description>
+</parameter>
+<parameter number="43220" type="DOUBLE" dim="0">
+<name>SPIND_MAX_VELO_G26</name>
+<brief>Programmable upper spindle speed limitation G26</brief>
+<description>A maximum spindle speed is entered in SD43220 $SA_SPIND_MAX_VELO_G26, which the spindle must not exceed. The NCK limits an excessive spindle speed setpoint to this value.
+
+SD irrelevant for ......
+	all spindle modes except open-loop control mode.
+
+Special cases, errors, ......
+The value in SD43210 $SA_SPIND_MIN_VELO_G26 can be altered by means of:
+
+- G26 S.... in the part program
+- Operator commands via HMI
+
+The value in SD43210 $SA_SPIND_MIN_VELO_G26 is retained after a reset or Power Off.
+
+Related to ....
+SD43210 $SA_SPIND_MIN_VELO_G25 (programmed spindle speed limit G25)
+SD43230 $SA_SPIND_MAX_VELO_LIMS (programmed spindle speed limit G96/961)
+MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43230" type="DOUBLE" dim="0">
+<name>SPIND_MAX_VELO_LIMS</name>
+<brief>Spindle speed limitation with G96</brief>
+<description>Limits the spindle speed with G96, G961, G97 to the stated maximum value [degrees/second]. This setting data can be written from the block with LIMS.
+
+Note:
+	MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be set so that the value written by the part program is transferred into the active file system on reset (that is the value is retained after reset).
+
+Related to .... 
+     SD43210 $SA_SPIND_MIN_VELO_G25 (programmed spindle speed limit G25) 
+     SD43230 $SA_SPIND_MAX_VELO_LIMS (programmed spindle speed limit with G96/961)
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+A limit entered in SPIND_MAX_VELO_LIMS is active at constant cutting speed (G96 and G97) in addition to the constantly active limits. It can also be written in SPIND_MAX_VELO_LIMS in the part program with LIMS=.....
+</description>
+</parameter>
+<parameter number="43235" type="DOUBLE" dim="0">
+<name>SPIND_USER_VELO_LIMIT</name>
+<brief>Maximum spindle speed</brief>
+<description>The user can enter a maximum spindle speed.
+The NCK limits an excessive spindle setpoint speed to this value. The SD is effective immediately.
+Corresponds with:
+	MD35100 $MA_SPIND_VELO_LIMIT (maximum spindle speed)
+	MD35110 $MA_GEAR_STEP_MAX_VELO (maxmum speed for gear stage change)
+</description>
+</parameter>
+<parameter number="43240" type="DOUBLE" dim="0">
+<name>M19_SPOS</name>
+<brief>Spindle position for spindle positioning with M19.</brief>
+<description>Spindle position in [ DEGREES ] for spindle positioning with M19.
+The position approach mode is defined in SD43250 $SA_M19_SPOSMODE.
+
+Default positions must lie in the range 0 &lt;= pos &lt; MD30330 $MA_MODULO_RANGE.
+
+Path defaults (SD43250 $SA_M19_SPOSMODE = 2) can be positive or negative and are only limited by the input format.
+</description>
+</parameter>
+<parameter number="43250" type="DWORD" dim="0">
+<name>M19_SPOSMODE</name>
+<brief>Spindle position approach mode for spindle positioning with M19.</brief>
+<description>Spindle position approach mode for spindle positioning with M19.
+
+In which signify:
+0:	DC    (default) approach position on the shortest path.
+1:	AC    approach position normally.
+2:	IC    approach incrementally (as path), sign gives the traversing direction
+3:	DC    approach position on the shortest path.
+4:	ACP   approach position from the positive direction.
+5:	ACN   approach position from the negative direction.
+</description>
+</parameter>
+<parameter number="43300" type="DWORD" dim="0">
+<name>ASSIGN_FEED_PER_REV_SOURCE</name>
+<brief>Revolutional feedrate for positioning axes/spindles</brief>
+<description>0=	No revolutional feedrate is active.
+
+&gt;0=	Machine axis index of the rotary axis/spindle, from which the revolutional feedrate is derived.
+
+-1=	The revolutional feedrate is derived from the master spindle of the channel in which the axis/spindle is active
+-2=	The revolutional feedrate is derived from the axis with machine axis index == 0 or the axis with an index in MD10002 $MN_AXCONF_LOGIC_MACHAX_TAB == 0.
+-3=	The revolutional feedrate is derived from the master spindle of the channel in which the axis/spindle is active. No revolutional feedrate is active if the master spindle is at a standstill. 
+
+
+Related to .... 
+     SD42600 $SC_JOG_FEED_PER_REV_SOURCE (revolutional feedrate for geometry axes on which a frame with rotation acts in JOG mode.)
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43320" type="DOUBLE" dim="0">
+<name>JOG_POSITION</name>
+<brief>JOG position</brief>
+<description>Position to be approached in JOG. Depending on MD10735 $MN_JOG_MODE_MASK bit 4 axial frames and, with an axis configured as geometry axis, the tool length offset are considered.
+</description>
+</parameter>
+<parameter number="43340" type="DOUBLE" dim="0">
+<name>EXTERN_REF_POSITION_G30_1</name>
+<brief>Reference point position for G30.1</brief>
+<description>Reference point position for G30.1.
+This setting data will be evaluated in CYCLE328.
+</description>
+</parameter>
+<parameter number="43350" type="DOUBLE" dim="0">
+<name>AA_OFF_LIMIT</name>
+<brief>Upper limit of offset value $AA_OFF with clearance control</brief>
+<description>The upper limit of the offset value, which can be defined by means of synchronized actions via the variable $AA_OFF.
+This limit value acts on the absolutely effective amount of offset by means of $AA_OFF.
+
+It is used for clearance control in laser machining:
+The offset value is limited so that the laser head cannot get caught in the plate recesses.
+Whether the offset value lies within the limit range can be queried via system variable $AA_OFF_LIMIT.
+</description>
+</parameter>
+<parameter number="43400" type="BOOLEAN" dim="0">
+<name>WORKAREA_PLUS_ENABLE</name>
+<brief>Working area limitation active in positive direction</brief>
+<description>1: The working area limitation of the axis concerned is active in the positive direction.
+0: The working area limitation of the axis concerned is switched off in the positive direction.
+
+The setting data is parameterized via the operator panel in the operating area "Parameters" by activating/deactivating the working area limitation.
+
+SD irrelevant for ......
+	G code: WALIMOF
+</description>
+</parameter>
+<parameter number="43410" type="BOOLEAN" dim="0">
+<name>WORKAREA_MINUS_ENABLE</name>
+<brief>Working area limitation active in the negative direction</brief>
+<description>1:	The working area limitation of the axis concerned is active in the negative direction.
+0:	The working area limitation of the axis concerned is switched off in the negative direction.
+
+The setting data is parameterized via the operator panel in the operating area "Parameters" by activating/deactivating the working area limitation.
+
+SD irrelevant for ......
+G code: WALIMOF
+</description>
+</parameter>
+<parameter number="43420" type="DOUBLE" dim="0">
+<name>WORKAREA_LIMIT_PLUS</name>
+<brief>Working area limitation plus</brief>
+<description>The working area defined in the basic coordinate system in the positive direction of the axis concerned can be limited with axial working area limitation.
+The setting data can be changed on the operator panel in the operating area "Parameters".
+The positive working area limitation can be changed in the program with G26.
+
+SD irrelevant for ......
+	G code: WALIMOF
+
+Related to .... 
+     SD43400 $SA_WORKAREA_PLUS_ENABLE
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+The working area defined in the Machine in the positive direction of the axis concerned can be limited with axial working area limitation.
+The setting data can be changed on the operator panel in the operating area "Parameters".
+The positive working area limitation can be changed in the program with G26.
+</description>
+</parameter>
+<parameter number="43430" type="DOUBLE" dim="0">
+<name>WORKAREA_LIMIT_MINUS</name>
+<brief>Working area limitation minus</brief>
+<description>The working area defined in the basic coordinate system in the negative direction of the axis concerned can be limited with axial working area limitation.
+The setting data can be changed on the operator panel in the operating area "Parameters".
+The negative working area limitation can be changed in the program with G25.
+
+SD irrelevant for ......
+	G code: WALIMOF
+
+Related to ....
+     SD43410 $SA_WORKAREA_MINUS_ENABLE
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+The working area as defined in the Machine in the negative direction of the axis concerned can be limited with axial working area limitation.
+The setting data can be changed on the operator panel in the operating area "Parameters".
+The negative working area limitation can be changed in the program with G25.
+</description>
+</parameter>
+<parameter number="43500" type="BYTE" dim="0">
+<name>FIXED_STOP_SWITCH</name>
+<brief>Selection of travel to fixed stop</brief>
+<description>The "Travel to fixed stop" function can be selected and deselected with this setting data.
+
+SD=0 Deselect "Travel to fixed stop"
+SD=1 Select "Travel to fixed stop"
+
+The setting data can only be overwritten by the part program with the command FXS[x]=1/0 when software version 2.x is installed.
+
+The status of the setting data is indicated on the operator panel in the "Parameters" area.
+The "Travel to fixed stop" function can be controlled with this setting data.
+Wert	=0:	Deselect "Travel to fixed stop"
+	=1:	Select "Travel to fixed stop"
+The setting data is overwritten by the part program with the command FXS[x]=1/0.
+</description>
+</parameter>
+<parameter number="43510" type="DOUBLE" dim="0">
+<name>FIXED_STOP_TORQUE</name>
+<brief>Fixed stop clamping torque</brief>
+<description>The clamping torque is entered in this setting data as a % of the maximum motor torque (corresponds to % of max. current value with FDD).
+
+The setting data is active only if the fixed stop has been reached.
+
+The fixed stop is considered reached when,
+- with MD: MD37060 $MA_FIXED_STOP_ACKN_MASK, bit 1 = 0 (no acknowledgment required), the interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC
+- with MD37060 $MA_FIXED_STOP_ACKN_MASK, bit 1 = 1 (acknowledgment required), the interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC and acknowledged by interface signal &lt;Festanschlag_erreicht_quittieren/&gt; (Acknowledge fixed stop reached)
+
+The status of the setting data is indicated on the operator panel in the "Parameters" area.
+
+The FXST[x] command effects a block-synchronous change to this setting data. It can also be changed by the user or via the PLC. Otherwise the value is transferred from MD37010 $MA_FIXED_STOP_TORQUE_DEF to the setting data when "Travel to fixed stop" is active.
+
+Related to ....
+	MD37010 $MA_FIXED_STOP_TORQUE_DEF(default setting for clamping torque)
+The clamping torque is entered in this setting data as a % of the maximum motor torque (corresponds to % of max. current value with FDD).
+Note that a clamping torque greater than 100% may only be active briefly, as otherwise the motor will be damaged.
+When the function "Travel to fixed stop" is selected by programming FXS[.], the default setting of MD37010 $MA_FIXED_STOP_TORQUE_DEF is active until programming with FXST[.].
+The FXST[x] command effects a block-synchronous change to this setting data. The user can also change the setting data.
+The SD is already active during travel to the stop.
+The fixed stop is considered reached when, with MD37060 $MA_FIXED_STOP_ACKN_MASK,
+	bit 1 = 0 (no acknowledgment required), the interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC.
+	bit 1 = 1 (acknowledgment required), the interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC
+		  and acknowledged by the NC/PLC interface signal &lt;Festanschlag_erreicht_quittieren/&gt; (Acknowledge fixed stop reached).
+</description>
+</parameter>
+<parameter number="43520" type="DOUBLE" dim="0">
+<name>FIXED_STOP_WINDOW</name>
+<brief>Fixed stop monitoring window</brief>
+<description>The fixed stop monitoring window is entered in this setting data.
+
+The setting data is active only if the fixed stop has been reached.
+
+The fixed stop is considered reached when,
+- with MD37060 $MA_FIXED_STOP_ACKN_MASK, bit 1 = 0 (no acknowledgment required) interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC
+- with MD37060 $MA_FIXED_STOP_ACKN_MASK, bit 1 = 1 (acknowledgment required) interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC and acknowledged by interface signal &lt;Festanschlag_erreicht_quittieren/&gt; (Acknowledge fixed stop reached)
+
+If the position at which the fixed stop was detected leaves the tolerance band by more than the amount specified in SD43520 $SA_FIXED_STOP_WINDOW, then alarm 20093 "Fixed stop monitoring has responded" is output and the "FXS" function is deselected.
+
+The status of the setting data is indicated on the operator panel in the "Parameters" area.
+
+The FXSW[x] command effects a block-synchronous change to this setting data. It can also be changed by the user or via the PLC.
+
+The value is otherwise transferred from MD37020 $MA_FIXED_STOP_WINDOW_DEF to the setting data when "Travel to fixed stop" is active.
+
+Related to .... 
+	MD37020 $MA_FIXED_STOP_WINDOW_DEF (default setting for fixed stop monitoring window)
+</description>
+</parameter>
+<parameter number="43600" type="DOUBLE" dim="0">
+<name>IPOBRAKE_BLOCK_EXCHANGE</name>
+<brief>Block change criterion 'braking ramp'</brief>
+<description>Specifies the application time at single axis interpolation for the block change criterion braking ramp: At 100%, the block change criterion is fulfilled at the time of application of the braking ramp. At 0%, the block change criterion is identical with IPOENDA.
+
+Note:
+MD10710 $MN_PROG_SD_RESET_SAVE_TAB can be set so that the value written by the part program is transferred into the active file system on reset (i.e. the value is retained even after reset).
+</description>
+</parameter>
+<parameter number="43610" type="DOUBLE" dim="0">
+<name>ADISPOSA_VALUE</name>
+<brief>Tolerance window 'braking ramp'</brief>
+<description>In case of single-axis interpolation, this value defines the size of the tolerance window which the axis must have reached in order to enable a block change in case of the block-change criterion 'braking ramp with tolerance window valid' and when reaching the corresponding  % value of the braking ramp (SD43600 $SA_IPOBRAKE_BLOCK_EXCHANGE).
+
+Note:
+By means of the MD 10710 $MN_PROG_SD_RESET_SAVE_TAB,  the user can specify that the value written by the part program is transferred into the active file system in case of a reset (i.e. the value is retained even after the reset).
+</description>
+</parameter>
+<parameter number="43700" type="DOUBLE" dim="0">
+<name>OSCILL_REVERSE_POS1</name>
+<brief>Oscillation reversal point 1</brief>
+<description>Position of the oscillating axis at reversal point 1.
+
+Note:
+MD10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after RESET.)
+
+Application example(s)
+NC language:      OSP1[Axis]=Position
+
+Related to ....
+     SD43710 $SA_OSCILL_REVERSE_POS2
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43710" type="DOUBLE" dim="0">
+<name>OSCILL_REVERSE_POS2</name>
+<brief>Oscillation reversal point 2</brief>
+<description>Position of the oscillating axis at reversal point 2.
+
+Note:
+MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Application example(s)
+NC language:      OSP2[Axis]=Position
+
+Related to ....
+     SD43700 $SA_OSCILL_REVERSE_POS1
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43720" type="DOUBLE" dim="0">
+<name>OSCILL_DWELL_TIME1</name>
+<brief>Hold time at oscillation reversal point 1</brief>
+<description>Hold time of the oscillating axis at reversal point 1.
+
+Note:
+MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Application example(s)
+	NC language:      OST1[Axis]=Position
+
+Related to ....
+     SD43730 $SA_OSCILL_DWELL_TIME2
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43730" type="DOUBLE" dim="0">
+<name>OSCILL_DWELL_TIME2</name>
+<brief>Hold time at oscillation reversal point 2</brief>
+<description>Hold time of the oscillating axis at reversal point 2.
+
+Note:
+MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Application example(s)
+	NC language:      OST2[Axis]=Position
+
+Related to ....
+     SD43720 $SA_OSCILL_DWELL_TIME1
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43740" type="DOUBLE" dim="0">
+<name>OSCILL_VELO</name>
+<brief>Feedrate of reciprocating axis</brief>
+<description>Feed rate of the oscillating axis
+
+Note:
+MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Application example(s)
+	NC language:      FA[Axis]=F value
+
+Related to ....
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43750" type="DWORD" dim="0">
+<name>OSCILL_NUM_SPARK_CYCLES</name>
+<brief>Number of spark-out strokes</brief>
+<description>Number of sparking-out strokes performed after ending the oscillating movement
+
+Application example(s)
+	NC language:      OSNSC[Axis]=Stroke number
+
+Note:
+	MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Related to ....
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43760" type="DOUBLE" dim="0">
+<name>OSCILL_END_POS</name>
+<brief>End position of the reciprocating axis</brief>
+<description>Position the oscillating axis travels to after ending the sparking-out strokes.
+
+Note:
+MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Application example(s)
+	NC language:      OSE[Axis]=Position
+
+Related to ....
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43770" type="DWORD" dim="0" display="HEX">
+<name>OSCILL_CTRL_MASK</name>
+<brief>Oscillation sequence control mask</brief>
+<description>Bit mask:
+Bit no.       | Meaning in OSCILL_CTRL_MASK
+------------------------------------------------------------------------------
+0(LSB)-1     | 0: Stop at the next reversal point if the
+             |    oscillating movement is switched off
+             |    
+             | 1: Stop at reversal point 1 if the
+             |    oscillating movement is switched off
+             | 2: Stop at reversal point 2 if the 
+             |    oscillating movement is switched off
+             | 3: Do not approach a reversal point when the oscillating movement is switched off
+             |    if no sparking-out strokes are programmed
+------------------------------------------------------------------------------
+2            | 1: Approach end position after sparking out
+------------------------------------------------------------------------------
+3            | 1: If the oscillating movement is canceled by delete distance-to-go, 
+             |    then the sparking-out strokes are to be executed afterwards 
+             |    and the end position approached if necessary
+------------------------------------------------------------------------------
+4            | 1: If the oscillating movement is canceled by delete distance-to-go, 
+             |    then the corresponding reversal point 
+             |    is approached on switch off
+------------------------------------------------------------------------------
+5            | 1: Changed feedrate does not become active until the next reversal point
+------------------------------------------------------------------------------
+6            | 1: Path override is active if the feed rate is 0,
+             |    otherwise speed override is active
+------------------------------------------------------------------------------
+7            | 1: In the case of rotary axes DC (shortest path)
+------------------------------------------------------------------------------
+8            | 1: Execute sparking-out stroke as single stroke not as double stroke
+------------------------------------------------------------------------------
+9            | 1: On starting, first approach the starting position, see 
+             |    SD43790 $SA_OSCILL_START_POS
+------------------------------------------------------------------------------
+
+Application example(s)
+NC language:       OSCTRL[Axis]=(setting options, reset options)
+
+Related to ....
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43780" type="BOOLEAN" dim="0">
+<name>OSCILL_IS_ACTIVE</name>
+<brief>Activate oscillation movement</brief>
+<description>Switching the oscillating movement on and off
+
+Note:
+	MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+
+Application example(s)
+	NC language:      OS[Axis]=1, OS[Axis]=0
+
+Related to ....
+     MD10709 $MN_PROG_SD_POWERON_INIT_TAB
+     MD10710 $MN_PROG_SD_RESET_SAVE_TAB
+</description>
+</parameter>
+<parameter number="43790" type="DOUBLE" dim="0">
+<name>OSCILL_START_POS</name>
+<brief>Start position of reciprocating axis</brief>
+<description>Position approached by the oscillating axis at the start of oscillation if this is set in SD43770 $SA_OSCILL_CTRL_MASK.
+
+Note:
+	MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+</description>
+</parameter>
+<parameter number="43900" type="DOUBLE" dim="0">
+<name>TEMP_COMP_ABS_VALUE</name>
+<brief>Position-independent temperature compensation value</brief>
+<description>The position-independent temperature compensation value is defined by SD43900 $SA_TEMP_COMP_ABS_VALUE.
+This value is to be defined by the PLC (user program) as a function of the current temperature.
+The machine axis traverses this additional compensation value as soon as the position-independent temperature compensation has been activated (MD32750 $MA_TEMP_COMP_TYPE = 1 oder 3).
+
+SD irrelevant for ......
+	MD32750 $MA_TEMP_COMP_TYPE = 0 or 2
+
+Related to ....
+	MD32750 $MA_TEMP_COMP_TYPE             Temperature compensation type
+	MD32760 $MA_COMP_ADD_VELO_FACTOR   Velocity overshoot caused by compensation
+</description>
+</parameter>
+<parameter number="43910" type="DOUBLE" dim="0">
+<name>TEMP_COMP_SLOPE</name>
+<brief>Lead angle for position-dependent temperature compensation</brief>
+<description>In the case of position-dependent temperature compensation, the error curve characteristic of the temperature-dependent actual-value deviation can often be approximated by a straight line. This straight line is defined by a reference point P_0 and a slope tan-ß.
+SD43910 $SA_TEMP_COMP_SLOPE defines the slope tan-ß. This slope can be changed by the PLC user program as a function of the current temperature.
+The axis traverses additionally the compensation value calculated for the current actual position as soon as the position-dependent temperature compensation becomes active (MD32750 $MA_TEMP_COMP_TYPE = = 2 or 3).
+MD32760 $MA_COMP_ADD_VELO_FACTOR limits the maximum angle of slope tan-ß_max of the error curve. This maximum angle of slope cannot be exceeded.
+
+SD irrelevant for ......
+	MD32750 $MA_TEMP_COMP_TYPE = 0 or 1
+
+Special cases, errors, ......
+	When SD43910 $SA_TEMP_COMP_SLOPE is greater than tan-ß_max, the slope tan-ß_max is used to calculate the position-dependent temperature compensation value internally. No alarm is output.
+
+Related to .... 
+	MD32750 $MA_TEMP_COMP_TYPE              Temperature compensation type
+
+	SD43920 $SA_TEMP_COMP_REF_POSITION     Reference position for position-dependent temperature compensation
+
+	MD32760 $MA_COMP_ADD_VELO_FACTOR    Velocity overshoot caused by compensation
+</description>
+</parameter>
+<parameter number="43920" type="DOUBLE" dim="0">
+<name>TEMP_COMP_REF_POSITION</name>
+<brief>Ref. position of position-dependent temperature compensation</brief>
+<description>In the case of position-dependent temperature compensation, the error curve characteristic of the temperature-dependent actual-value deviation can often be approximated by a straight line. This straight line is defined by a reference point P_0 and a slope tan-ß.
+SD43920 $SA_TEMP_COMP_REF_POSITION defines the position of the reference point P_0. This reference position can be changed by the PLC user program as a function of the current temperature.
+The axis traverses additionally the compensation value calculated for the current actual position as soon as the position-dependent temperature compensation becomes active (MD32750 $MA_TEMP_COMP_TYPE = 2 or 3).
+
+SD irrelevant for ......
+	MD32750 $MA_TEMP_COMP_TYPE = 0 or 1
+
+Related to .... 
+	MD32750 $MA_TEMP_COMP_TYPE    Temperature compensation type
+	SD43910 $SA_TEMP_COMP_SLOPE  Angle of slope for position-dependent temperature compensation
+</description>
+</parameter>
+</info>

@@ -1,0 +1,1507 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="36901" type="DWORD" dim="0" display="HEX">
+<name>SAFE_FUNCTION_ENABLE</name>
+<brief>Freigabe sicherer Funktionen</brief>
+<description>Mit diesem Datum können für eine Achse/Spindel die Funktionen des sicheren Betriebes freigegeben werden.
+Es können achsspezifisch nur soviele Achsen/Spindeln für den sicheren Betrieb freigegeben werden, wie durch die globale Option freigegeben sind.
+Je mehr Teilfunktionen gesetzt sind, umso mehr Rechenzeit benötigen die sicheren Funktionen.
+
+Bit  0: Freigabe sichere Geschwindigkeit, sicherer Betriebshalt
+Bit  1: Freigabe sichere Endschalter
+Bit  2: reserviert für Funktionen mit Absolutbezug (wie SE/SN)
+Bit  3: Freigabe Istwertsynchronisation 2-Geber-System
+Bit  4: Freigabe externe ESR-Aktivierung (STOP E)
+Bit  5: Freigabe der SG-Korrektur
+Bit  6: Freigabe der externen Stillsetzanforderungen
+Bit  7: Freigabe der Nockensynchronisation
+Bit  8: Freigabe sichere Nocken, Paar 1, Nocke +
+Bit  9: Freigabe sichere Nocken, Paar 1, Nocke -
+Bit 10: Freigabe sichere Nocken, Paar 2, Nocke +
+Bit 11: Freigabe sichere Nocken, Paar 2, Nocke -
+Bit 12: Freigabe sichere Nocken, Paar 3, Nocke +
+Bit 13: Freigabe sichere Nocken, Paar 3, Nocke -
+Bit 14: Freigabe sichere Nocken, Paar 4, Nocke +
+Bit 15: Freigabe sichere Nocken, Paar 4, Nocke -
+Bit 16: Freigabe Synchronisation "n &lt; nx", Hysterese und Filterung
+Bit 23: Freigabe Deaktivieren der SBH/SG-Überwachung während externem Stop A
+
+Sonderfälle:
+- Wenn eines der Bits ab Bit 1 gesetzt ist, dann muss auch Bit 0 gesetzt werden, da die Steuerung bei STOP C, D, E in den sicheren Betriebshalt schaltet (bei Fehler wird Parametrieralarm 27033 angezeigt).
+- Wenn durch die globale Option nicht genügend Achsen/Spindeln für den sicheren Betrieb freigegeben sind, dann kann beim Hochlauf dieses Datum mit dem Wert 0 überschrieben werden.
+
+Korrespondiert mit: Globaler Option
+
+</description>
+</parameter>
+<parameter number="36902" type="BOOLEAN" dim="0">
+<name>SAFE_IS_ROT_AX</name>
+<brief>Rundachse</brief>
+<description>Angabe, ob Achse für sicheren Betrieb eine Rundachse/Spindel oder Linearachse ist.
+
+0:	Linearachse
+1:	Rundachse/Spindel
+
+Der Wert in diesem MD muss gleich sein wie im MD30300 $MA_IS_ROT_AX. Bei einer Abweichung wird ein Parametrierfehler angezeigt.
+</description>
+</parameter>
+<parameter number="36903" type="DWORD" dim="0" display="HEX">
+<name>SAFE_CAM_ENABLE</name>
+<brief>Funktionsfreigabe sichere Nockenspur</brief>
+<description>Mit diesem Datum können für eine Achse/Spindel 30 sichere Nocken für die Funktion "Sichere Nockenspur" freigegeben werden.
+Die Freigaben dürfen nur erteilt werden, wenn die Nockenfreigabe in MD36901 $MA_SAFE_FUNCTION_ENABLE nicht genutzt wird.
+Ist die Funktion "Sichere Nockenspur" freigegeben, so wird die Nockensynchronisation automatisch mit aktiviert.
+Bit  0: Freigabe sichere Nockenspur, Nocke 1
+Bit  1: Freigabe sichere Nockenspur, Nocke 2
+Bit  2: Freigabe sichere Nockenspur, Nocke 3
+Bit  3: Freigabe sichere Nockenspur, Nocke 4
+Bit  4: Freigabe sichere Nockenspur, Nocke 5
+Bit  5: Freigabe sichere Nockenspur, Nocke 6
+Bit  6: Freigabe sichere Nockenspur, Nocke 7
+Bit  7: Freigabe sichere Nockenspur, Nocke 8
+Bit  8: Freigabe sichere Nockenspur, Nocke 9
+Bit  9: Freigabe sichere Nockenspur, Nocke 10
+Bit 10: Freigabe sichere Nockenspur, Nocke 11
+Bit 11: Freigabe sichere Nockenspur, Nocke 12
+Bit 12: Freigabe sichere Nockenspur, Nocke 13
+Bit 13: Freigabe sichere Nockenspur, Nocke 14
+Bit 14: Freigabe sichere Nockenspur, Nocke 15
+Bit 15: Freigabe sichere Nockenspur, Nocke 16
+Bit 16: Freigabe sichere Nockenspur, Nocke 17
+Bit 17: Freigabe sichere Nockenspur, Nocke 18
+Bit 18: Freigabe sichere Nockenspur, Nocke 19
+Bit 19: Freigabe sichere Nockenspur, Nocke 20
+Bit 20: Freigabe sichere Nockenspur, Nocke 21
+Bit 21: Freigabe sichere Nockenspur, Nocke 22
+Bit 22: Freigabe sichere Nockenspur, Nocke 23
+Bit 23: Freigabe sichere Nockenspur, Nocke 24
+Bit 24: Freigabe sichere Nockenspur, Nocke 25
+Bit 25: Freigabe sichere Nockenspur, Nocke 26
+Bit 26: Freigabe sichere Nockenspur, Nocke 27
+Bit 27: Freigabe sichere Nockenspur, Nocke 28
+Bit 28: Freigabe sichere Nockenspur, Nocke 29
+Bit 29: Freigabe sichere Nockenspur, Nocke 30
+
+Korrespondiert mit:
+	MD 36901: $MA_SAFE_FUNCTION_ENABLE
+</description>
+</parameter>
+<parameter number="36904" type="DWORD" dim="0" display="HEX">
+<name>SAFE_ADD_FUNCTION_MASK</name>
+<brief>Freigabe zusätzlicher Funktionen für Safety Integrated</brief>
+<description>Bit 0: NCK-seitig wird bei Stop B und C nicht durch Vorgabe von "Drehzahlsollwert 0" gebremst. Das Abbremsen findet antriebsseitig auf Basis der AUS3-Rampe statt.
+</description>
+</parameter>
+<parameter number="36905" type="DOUBLE" dim="0">
+<name>SAFE_MODULO_RANGE</name>
+<brief>Modulowert Sichere Nocken</brief>
+<description>Istwertbereich, in dem die sicheren Nocken bei Rundachsen gerechnet werden. Die Achse muss eine Rundachse sein (MD36902 $MA_SAFE_IS_ROT_AX = 1).
+
+0: Modulokorrektur nach +/- 2048 Umdrehungen (d. h. nach 737 280 Grad)
+
+&gt;0 und Vielfaches von 360 Grad: Modulokorrektur nach diesem Wert z.B. Wert = 360 --&gt; der Istwertbereich liegt zwischen 0 und 359,999 Grad, d.h. nach jeder Umdrehung wird eine Modulokorrektur durchgeführt.
+
+Sonderfälle:
+- Wenn der Wert dieses Datums nicht 0 bzw. ein Vielfaches von 360 Grad ist, dann kommt es beim Hochlauf zu einem entsprechenden Alarm.
+- Die Nockenpositionen werden ebenfalls im Hochlauf bezüglich des parametrierten Istwertbereiches überprüft. Bei einer fehlerhaften Parametrierung kommt es zu einem entsprechenden Alarm.
+- Die durch MD36905 $MA_SAFE_MODULO_RANGE und MD30330 $MA_MODULO_RANGE eingestellten Istwertbereiche müssen ganzzahlig ohne Rest teilbar sein.
+
+Korrespondiert mit:
+	MD 30330: $MA_MODULO_RANGE
+	MD 36935: $MA_SAFE_CAM_POS_PLUS[n]
+	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+</description>
+</parameter>
+<parameter number="36906" type="BYTE" dim="0">
+<name>SAFE_CTRLOUT_MODULE_NR</name>
+<brief>SI Antriebszuordnung</brief>
+<description>Zuordnung des Antriebs für die SI Bewegungsüberwachungen.
+Der Eintrag verweist auf das Datenfeld MD10393 $MN_SAFE_DRIVE_LOGIC_ADDRESS
+Es muss der gleiche Antrieb zugeordnet werden, der auch über MD30110 $MA_CTRLOUT_MODULE_NR und MD13050 $MN_DRIVE_LOGIC_ADDRESS ausgewählt wurde.
+</description>
+</parameter>
+<parameter number="36907" type="DWORD" dim="0" display="HEX" readonly="true">
+<name>SAFE_DRIVE_PS_ADDRESS</name>
+<brief>PROFIsafe Adresse des Antriebs</brief>
+<description>Dieses NCK-MD enthält die PROFIsafe-Adresse des dieser Achse zugeordneten Antriebs. Dieses MD wird im Hochlauf vom Antrieb ausgelesen. Diese Adresse muss über alle Achsen eindeutig sein.
+Dieses MD ist nicht schreibbar, die PROFIsafe Adresse muss im Antrieb parametriert werden.
+Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[2] ein.
+</description>
+</parameter>
+<parameter number="36909" type="DOUBLE" dim="0" readonly="true">
+<name>SAFE_ENC_MEAS_STEPS_RESOL</name>
+<brief>Auflösung Messschritte bei linearem Absolutwertgeber</brief>
+<description>Einstellung der Auflösung der Absolutlage bei einem linearen Absolutwertgeber.
+
+Diese Information wird im Hochlauf für lineare DRIVE-CLiQ Geber aus Antriebsparameter r0469 ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27036 ausgegeben.
+Der Wert dieses MD fließt in die Checksummenberechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[0] ein.
+
+Korrespondiert mit:
+	MD 36913: $MA_SAFE_ENC_MEAS_STEPS_POS1
+	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+</description>
+</parameter>
+<parameter number="36910" type="BYTE" dim="0">
+<name>SAFE_ENC_SEGMENT_NR</name>
+<brief>Istwertzuordnung: Antriebstyp</brief>
+<description>Nummer des Bussegments, über das der SI-Geber angesprochen wird.
+0:	Lokalbus
+2:	lokaler P-Bus
+4:	reserviert(virtuelle Busse)
+5:	PROFIBUS DP
+
+Safety-Funktionen sind nur mit geeigneten PROFIBUS-Antrieben möglich. s.a. MD30210
+</description>
+</parameter>
+<parameter number="36912" type="BYTE" dim="0">
+<name>SAFE_ENC_INPUT_NR</name>
+<brief>Istwertzuordnung</brief>
+<description>Nummer des Istwerteingangs, über den die sicheren Istwerte erfasst werden.
+
+Korrespondiert mit:
+	p9526, p0189
+</description>
+</parameter>
+<parameter number="36913" type="DWORD" dim="0" readonly="true">
+<name>SAFE_ENC_MEAS_STEPS_POS1</name>
+<brief>Nicht sicherheitsrelevante Messschritte POS1</brief>
+<description>Einstellung der nicht sicherheitsrelevanten Messschritte von Lagewert POS1.
+
+Diese Information wird im Hochlauf für lineare DRIVE-CLiQ Geber aus Antriebsparameter r0473 ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27036 ausgegeben.
+Der Wert dieses MD fließt in die Checksummenberechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[0] ein.
+
+Korrespondiert mit:
+	MD 36909: $MA_SAFE_ENC_MEAS_STEPS_RESOL
+	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+</description>
+</parameter>
+<parameter number="36914" type="BOOLEAN" dim="0">
+<name>SAFE_SINGLE_ENC</name>
+<brief>SI Eingebersystem</brief>
+<description>Kennung, dass SI mit einem Geber durchgeführt wird. Werden für die Safety Integrated Überwachungsfunktionen im NCK und im Antrieb verschiedene Geber verwendet, muss dieses MD auf 0 parametriert werden.
+</description>
+</parameter>
+<parameter number="36916" type="BOOLEAN" dim="0">
+<name>SAFE_ENC_IS_LINEAR</name>
+<brief>Lineargeber</brief>
+<description>Angabe, ob ein linearer oder ein rotatorischer Geber angeschlossen ist.
+
+0:	rotatorischer Geber ist angeschlossen, seine Auflösung wird mit MD36918 $MA_SAFE_ENC_RESOL angegeben und mit MD36920 $MA_SAFE_ENC_GEAR_PITCH, MD36921 $MA_SAFE_ENC_GEAR_DENOM[n] und MD36922 $MA_SAFE_ENC_GEAR_NUMERA[n] auf die Lastseite umgerechnet. Das MD36917 $MA_SAFE_ENC_GRID_POINT_DIST ist ohne Bedeutung.
+
+1:	linearer Geber ist angeschlossen, seine Auflösung wird mit MD36917 $MA_SAFE_ENC_GRID_POINT_DIST angegeben. Die MD36918 $MA_SAFE_ENC_RESOL, MD36920 $MA_SAFE_ENC_GEAR_PITCH, MD36921 $MA_SAFE_ENC_GEAR_DENOM[n] und MD36922 $MA_SAFE_ENC_GEAR_NUMERA[n] sind ohne Bedeutung. Ändert sich der Wert, wird der Alarm 27036 ausgelöst.
+
+Korrespondiert mit:
+bei 0:     
+	MD 36918: $MA_SAFE_ENC_RESOL
+	MD 36920: $MA_SAFE_ENC_GEAR_PITCH
+	MD 36921: $MA_SAFE_ENC_GEAR_DENOM[n]
+	MD 36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
+
+bei 1:
+	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+</description>
+</parameter>
+<parameter number="36917" type="DOUBLE" dim="0">
+<name>SAFE_ENC_GRID_POINT_DIST</name>
+<brief>Teilungsperiode Linearmaßstab</brief>
+<description>Angabe der Gitterteilung des verwendeten Linearmaßstabes.
+
+Nicht relevant bei einem rotatorischen Geber
+</description>
+</parameter>
+<parameter number="36918" type="DWORD" dim="0">
+<name>SAFE_ENC_RESOL</name>
+<brief>Geberstriche pro Umdrehung</brief>
+<description>Angabe der Striche pro Umdrehung bei einem rotatorischen Geber.
+
+Nicht relevant bei einem linearen Geber
+</description>
+</parameter>
+<parameter number="36919" type="BYTE" dim="0" readonly="true">
+<name>SAFE_ENC_PULSE_SHIFT</name>
+<brief>Schiebefaktor der Geber-Vervielfachung</brief>
+<description>Schiebefaktor der Vervielfachung (Hochauflösung) des Gebers, der für die Safety Integrated Überwachungsfunktionen im NCK verwendet wird. So oft muss der Geberwert durch 2 dividiert werden, um die Anzahl der Geberstriche zu erhalten. Ein Schiebefaktor von 11 entspricht einer Gebervervielfachung um den Faktor 2048. Stellt der Antrieb diese Information zur Verfügung (r0979[3,13,23]), wird dieses MD automatisch nach dem Hochlauf des Antriebs intern belegt. Ändert sich dabei der Wert, wird der Alarm 27036 ausgelöst.
+</description>
+</parameter>
+<parameter number="36920" type="DOUBLE" dim="0">
+<name>SAFE_ENC_GEAR_PITCH</name>
+<brief>Spindelsteigung</brief>
+<description>Übersetzung des Getriebes zwischen Geber und Last bei einer Linearachse mit rotatorischem Geber.
+</description>
+</parameter>
+<parameter number="36921" type="DWORD" dim="1">
+<name>SAFE_ENC_GEAR_DENOM</name>
+<brief>Nenner Getriebe Geber/Last</brief>
+<description>Nenner des Getriebes zwischen Geber und Last, d.h. der Nenner des Bruches Anzahl Geberumdrehungen / Anzahl Lastumdrehungen
+n = 0, 1, ... ,7 steht für Getriebestufe 1, 2, ... 8
+
+Der aktuelle Wert wird über sicherheitsgerichtete Eingangssignale (SGE) angewählt.
+
+Korrespondiert mit:
+	MD 36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
+</description>
+</parameter>
+<parameter number="36922" type="DWORD" dim="1">
+<name>SAFE_ENC_GEAR_NUMERA</name>
+<brief>Zähler Getriebe Geber/Last</brief>
+<description>Zähler des Getriebes zwischen Geber und Last, d.h. der Zähler des Bruches Anzahl Geberumdrehungen / Anzahl Lastumdrehungen
+n = 0, 1, ... 7 steht für Getriebestufe 1, 2, ... 8
+
+Der aktuelle Wert wird über sicherheitsgerichtete Eingangssignale (SGE) angewählt.
+
+Korrespondiert mit:
+	MD 36921: $MA_SAFE_ENC_GEAR_DENOM[n]
+</description>
+</parameter>
+<parameter number="36923" type="DOUBLE" dim="1" readonly="true">
+<name>SAFE_INFO_ENC_RESOL</name>
+<brief>Sichere Geberauflösung</brief>
+<description>Anzeigedatum:
+Auflösung des verwendeten Gebers in der jeweiligen Getriebestufe für die Safety Integrated Überwachungsfunktionen. Mit dieser Genauigkeit können bei einem Eingebersystem sichere Positionen überwacht werden. Werden im Antrieb und im NCK unterschiedliche Geber für die Safety Integrated Überwachungsfunktionen verwendet, ist dieses MD 0.
+</description>
+</parameter>
+<parameter number="36924" type="DWORD" dim="1" readonly="true">
+<name>SAFE_ENC_NUM_BITS</name>
+<brief>Bitinformationen des redundanten Istwertes</brief>
+<description>Informationen über den redundanten Istwert:
+- Feldindex 0: Anzahl der gültigen Bits des redundanten Istwertes
+- Feldindex 1: Anzahl der Bits der Feinauflösung des redundanten Istwertes
+- Feldindex 2: Anzahl der relevanten Bits des redundanten Istwertes
+- Feldindex 3: Höchstwertiges Bit der redundanten Groblage
+Diese Informationen werden im Hochlauf ausgelesen (für DRIVE-CLiQ Geber aus den Antriebsparametern p0470, p0471, p0472 und p0475, für SMI/SMC/SME-Geber gelten die Standardwerte) und mit den letzten hier gespeicherten Werten verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27035 bzw. 27036 ausgegeben. Die Werte von MD36924 $MA_SAFE_ENC_NUM_BITS[0,1] fließen in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein. Die Werte von MD36924 $MA_SAFE_ENC_NUM_BITS[2,3] fließen in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[0] ein.
+Ist die Kombination einiger Werte fehlerhaft bzw. ist die Anzahl der relevanten Bits (Index 2) gleich 0, so wird Alarm 27038 ausgegeben.
+</description>
+</parameter>
+<parameter number="36925" type="DWORD" dim="0">
+<name>SAFE_ENC_POLARITY</name>
+<brief>Richtungsumkehr Istwert</brief>
+<description>Mit diesem Datum kann eine Richtungsumkehr des Istwertes eingestellt werden.
+
+-1:	Richtungsumkehr
+0:	keine Richtungsumkehr oder 
+1:	keine Richtungsumkehr
+</description>
+</parameter>
+<parameter number="36927" type="BYTE" dim="0" readonly="true">
+<name>SAFE_ENC_MOD_TYPE</name>
+<brief>Geberauswertungstyp</brief>
+<description>Typ der für Safety Integrated benutzten Geberauswertung dieser Achse.
+1 = Sensor Module (SMI,SMC,SME)
+2 = DRIVE-CLiQ Geber
+3 = EnDatV2.2-Umsetzer
+Dieser Typ wird im Hochlauf aus Antriebsparameter r9527 ausgelesen. Ist kein gültiger Wert eingetragen, so wird Alarm 27038 ausgegeben. Enthält der Antriebsparameter einen gültigen Wert, so wird dieser mit dem letzten in diesem MD gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27035 augegeben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
+</description>
+</parameter>
+<parameter number="36928" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_ENC_IDENT</name>
+<brief>Geberidentifikation</brief>
+<description>Identifikation der für Safety Integrated benutzten Geberauswertung dieser Achse. Diese Identifikation wird im Hochlauf von der Geberauswertung ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
+
+Korrespondiert mit:
+	r9881: SI Motion Sensor Module Node Identifier Zweiter Kanal
+</description>
+</parameter>
+<parameter number="36929" type="DWORD" dim="0" display="HEX" readonly="true">
+<name>SAFE_ENC_CONF</name>
+<brief>Konfiguration des redundanten Istwertes</brief>
+<description>Konfiguration des redundanten Istwertes bei DRIVE-CLiQ Geber:
+Bit 0: Vorwärts-/ Rückwärtszähler
+     = 0: Rückwärtszähler
+     = 1: Vorwärtszähler
+Bit 1: Geber-CRC: Verarbeitung der redundanten Groblage
+     = 0: höchstwertiges Byte zuerst
+     = 1: niederwertigstes Byte zuerst
+Bit 2: redundante Groblage MSB/LSB-bündig
+     = 0: redundante Groblage LSB-bündig
+     = 1: redundante Groblage MSB-bündig
+Bit 4: Binärer Vergleich nicht möglich
+     = 0: Binärer Vergleich möglich
+     = 1: Binärer Vergleich nicht möglich
+Diese Information wird im Hochlauf aus Antriebsparameter r0474 ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27035 ausgegeben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
+Ist im Antriebsparameter r0474 ein unbekanntes Bit gesetzt, so wird Alarm 27038 ausgegeben. Die Alarmausgabe an dieser Stelle kann über das MD10096 $MN_SAFE_DIAGNOSIS_MASK, Bit 3 = 1 ausgeblendet werden.
+</description>
+</parameter>
+<parameter number="36930" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_TOL</name>
+<brief>Stillstandstoleranz</brief>
+<description>Angabe der Toleranz für den sicheren Betriebshalt.
+
+Wenn bei angewähltem sicheren Betriebshalt die Differenz zwischen Lagegrenzwert und Lageistwert größer als diese Toleranz wird, dann löst die Steuerung den Alarm 27010 mit STOP B aus. Der Lagegrenzwert ist der Lageistwert zum Zeitpunkt der Anwahl des sicheren Betriebshalts.
+
+Korrespondiert mit:
+	MD 36956: $MA_SAFE_PULSE_DISABLE_DELAY
+</description>
+</parameter>
+<parameter number="36931" type="DOUBLE" dim="1">
+<name>SAFE_VELO_LIMIT</name>
+<brief>Grenzwert für sichere Geschwindigkeit</brief>
+<description>Festlegung der Grenzwerte für die sicheren Geschwindigkeiten 1, 2, 3 und 4.
+
+Wenn SG1, SG2, SG3 oder SG4 angewählt ist und die aktuelle Geschwindigkeit diesen Grenzwert überschreitet, dann löst die Steuerung den Alarm 27011 mit der in MD36961 $MA_SAFE_VELO_STOP_MODE oder MD36963 $MA_SAFE_VELO_STOP_REACTION projektierten Stopreaktion aus.
+
+n = 0, 1, 2, 3 steht für Grenzwert von SG1, SG2, SG3, SG4
+
+Sonderfälle:
+- Bei aktivem SBH/SG und einem 1-Geber-System wird die Geschwindigkeit entsprechend der Geber-Grenzfrequenz überwacht. Beim Überschreiten wird ein entsprechender Alarm ausgegeben.
+
+Korrespondiert mit:
+	MD 36961: $MA_SAFE_VELO_STOP_MODE
+	MD 36963: $MA_SAFE_VELO_STOP_REACTION
+</description>
+</parameter>
+<parameter number="36932" type="DOUBLE" dim="1">
+<name>SAFE_VELO_OVR_FACTOR</name>
+<brief>SG-Korrekturwerte</brief>
+<description>Für den Grenzwert der sicheren Geschwindigkeit 2 und 4 können über SGEs Korrekturen ausgewählt und der zugehörige Korrekturwert (Prozentwert) über dieses MD eingestellt werden.
+
+n = 0, 1, ... , 15 steht für Korrektur 0, 1, ... 15
+
+Hinweis:
+Die Funktion "Korrektur sichere Geschwindigkeit" wird über MD36901 $MA_SAFE_FUNCTION_ENABLE freigegeben
+Für die Grenzwerte der sicheren Geschwindigkeit 1 und 3 ist diese Korrektur wirkungslos.
+
+Korrespondiert mit:
+	MD 36978: $MA_SAFE_OVR_INPUT[n]
+	MD 36931: $MA_SAFE_VELO_LIMIT[n]
+</description>
+</parameter>
+<parameter number="36933" type="DOUBLE" dim="1">
+<name>SAFE_DES_VELO_LIMIT</name>
+<brief>SG-Sollgeschwindigkeitsbegrenzung</brief>
+<description>Bewertungsfaktoren zur Bestimmung der Sollgeschwindigkeitsgrenze.
+Die Auswahl des aktiven Bewertungsfaktors erfolgt über die achsspezifische NC/PLC-Nahtstelle &lt;SG-Sollwertbegrenzung/&gt; .
+
+Parametrierung:
+Zur optimalen Einstellung dieses MD ist ggf. ein mehrmaliges Ändern notwendig, um die Dynamik der Antriebe zu berücksichtigen.
+
+Wirkung bei SI-Überwachung mit NCK-Beteiligung:
+- Bei Eingabe von 0% ist die Sollgeschwindigkeitsbegrenzung inaktiv.
+- Bei Eingabe von 100% wird der Sollwert auf die aktive SG-Stufe begrenzt.
+- Der aktive Istgeschwindigkeitsgrenzwert wird mit dem ausgewählten Faktor bewertet und als Sollwertgrenze dem Interpolator vorgegeben.
+- Bei SBH-Anwahl wird Sollwert 0 vorgegeben.
+- Dieses Datum wird nicht in den Kreuzvergleich mit dem Antrieb einbezogen.
+- Dieses Datum wird nicht in die achsspezifische Checksumme MD36998 $MA_SAFE_ACT_CHECKSUM[] eingerechnet, da es sich um eine 1-kanalige Funktion handelt.
+
+Wirkung bei antriebsintegrierten SI-Überwachungen:
+- Voraussetzung ist, dass im NCK die Anbindung über SIC aktiviert wurde (MD37950 $MA_SAFE_INFO_ENABLE, Bit 0).
+- Bei Eingabe von 0% ist die NCK-seitige Beeinflussung der Sollwertgrenze inaktiv. Die Sollwertgrenze entspricht dem über SIC vom Antrieb gelesenen Wert.
+- Bei Eingabe von Werten &gt; 0% ist die NCK-seitige Sollgeschwindigkeitsbegrenzung aktiv. Sie wirkt auf die Sollwertgrenze, die über SIC vom Antrieb gelesen wird.
+- Der über SIC vom Antrieb gelesene Wert wird mit dem ausgewählten Faktor bewertet und als Sollwertgrenze dem Interpolator vorgegeben.
+- Die im Antrieb parametrierbare Sollwertbegrenzung (p9533) ist unabhängig von der NCK-seitigen Begrenzung aktiv.
+
+Sonderfälle:
+- Wird vom PLC-Anwenderprogramm keine Vorgabe zur Auswahl des Bewertungsfaktors gemacht, wirkt der MD-Wert aus MD36933 $MA_SAFE_DES_VELO_LIMIT[0].
+</description>
+</parameter>
+<parameter number="36934" type="DOUBLE" dim="1">
+<name>SAFE_POS_LIMIT_PLUS</name>
+<brief>Oberer Grenzwert für sichere Endlage</brief>
+<description>Angabe des oberen Grenzwertes für die sichere Endlage 1 und 2.
+
+Wenn SE1 oder SE2 angewählt ist und die aktuelle Istposition größer wird als dieser Grenzwert, dann löst die Steuerung den Alarm 27012 mit der in MD36962 $MA_SAFE_POS_STOP_MODE projektierten Stopreaktion aus und geht in SBH über. Bei Verletzung von SBH folgt die Stopreaktion STOP B und A.
+
+n = 0, 1 steht für oberer Grenzwert von SE1, SE2
+
+Korrespondiert mit:
+	MD 36962: $MA_SAFE_POS_STOP_MODE
+	MD 36935: $MA_SAFE_POS_LIMIT_MINUS[n]
+	MD 36901: $MA_SAFE_FUNCTION_ENABLE
+
+Sonderfälle:
+- Wenn im MD36934 $MA_SAFE_POS_LIMIT_PLUS[n] ein kleinerer oder gleicher Wert eingetragen wird wie im MD36935 $MA_SAFE_POS_LIMIT_MINUS[n], dann wird ein Parametrierfehler angezeigt.
+</description>
+</parameter>
+<parameter number="36935" type="DOUBLE" dim="1">
+<name>SAFE_POS_LIMIT_MINUS</name>
+<brief>Unterer Grenzwert für sichere Endlage</brief>
+<description>Angabe des unteren Grenzwertes für die sichere Endlage 1 und 2.
+
+Wenn SE1 oder SE2 angewählt ist und die aktuelle Istposition kleiner wird als dieser Grenzwert, dann löst die Steuerung den Alarm 27012 mit der in MD36962 $MA_SAFE_POS_STOP_MODE projektierten Stopreaktion aus und geht in SBH über. Bei Verletzung von SBH folgt die Stopreaktion STOP B und A.
+
+n = 0, 1 steht für unterer Grenzwert von SE1, SE2
+
+Korrespondiert mit:
+	MD 36962: $MA_SAFE_POS_STOP_MODE
+	MD 36934: $MA_SAFE_POS_LIMIT_PLUS[n]
+
+Sonderfälle:
+- Wenn im MD36934 $MA_SAFE_POS_LIMIT_PLUS[n] ein kleinerer oder gleicher Wert eingetragen wird wie im MD36935 $MA_SAFE_POS_LIMIT_MINUS[n], dann wird ein Parametrierfehler angezeigt.
+</description>
+</parameter>
+<parameter number="36936" type="DOUBLE" dim="1">
+<name>SAFE_CAM_POS_PLUS</name>
+<brief>Plusnocken-Position für sichere Nocken</brief>
+<description>Angabe der Plusnocken-Position für die sicheren Nocken SN1 +, SN2 +, SN3 +, ...
+
+Für die Funktion "Sichere Nocken" gilt:
+Wenn bei aktiviertem sicheren Nocken (MD36901 $MA_SAFE_FUNCTION_ENABLE) die Istposition größer als dieser Wert ist, wird das entsprechende sicherheitsgerichtete Ausgangssignal (SGA) auf 1 gesetzt. Unterschreitet die Istposition diesen Wert, wird der SGA auf 0 gesetzt.
+
+n = 0, 1, 2, 3 steht für Plusnocken-Position von SN1 +, SN2 +, SN3 +, SN4 +
+
+Für die Funktion "Sichere Nockenspur" gilt:
+Ist die Funktion "Sichere Nockenspur" freigegeben (MD36903 $MA_SAFE_CAM_ENABLE), so werden die sicherheitsgerichteten Ausgangssignale "Nockenspur" und "Nockenbereich" entsprechend der Parametrierung in MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[n] gesetzt.
+n = 0 ... 29 steht für Plusnocken-Position von SN1+, SN2+, ..., SN30+.
+
+Korrespondiert mit:
+	MD 36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
+	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+
+</description>
+</parameter>
+<parameter number="36937" type="DOUBLE" dim="1">
+<name>SAFE_CAM_POS_MINUS</name>
+<brief>Minusnocken-Position für sichere Nocken</brief>
+<description>Angabe der Minusnocken-Position für die sicheren Nocken SN1 -, SN2 -, SN3 -, ...
+
+Für die Funktion "Sichere Nocken" gilt:
+Wenn bei aktiviertem sicheren Nocken (MD36901 $MA_SAFE_FUNCTION_ENABLE) die Istposition größer als dieser Wert ist, wird das entsprechende sicherheitsgerichtete Ausgangssignal (SGA) auf 1 gesetzt. Unterschreitet die Istposition diesen Wert, wird der SGA auf 0 gesetzt.
+
+n = 0, 1, 2, 3 steht für Minusnocken-Position von SN1 -, SN2 -, SN3 -, SN4 -
+
+Für die Funktion "Sichere Nockenspur" gilt:
+Ist die Funktion "Sichere Nockenspur" freigegeben (MD36903 $MA_SAFE_CAM_ENABLE), so werden die sicherheitsgerichteten Ausgangssignale "Nockenspur" und "Nockenbereich" entsprechend der Parametrierung in MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[n] gesetzt.
+n = 0 ... 29 steht für Minusnocken-Position von SN1 -, SN2 -, ..., SN30 -.
+
+Korrespondiert mit:
+	MD 36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
+	MD 36936: $MA_SAFE_CAM_POS_PLUS[n]
+	MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+
+</description>
+</parameter>
+<parameter number="36938" type="DWORD" dim="1">
+<name>SAFE_CAM_TRACK_ASSIGN</name>
+<brief>Nockenspurzuordnung</brief>
+<description>Zuordnung der einzelnen Nocken zu den maximal 4 Nockenspuren inklusive Festlegung des Zahlenwertes für den SGA "Nockenbereich".
+
+&gt;Die "Hunderter"-Stelle legt fest, welcher Nockenspur der Nocken zugewiesen ist. Gültige Werte sind 1, 2, 3 oder 4.
+Die "Zehner"- und "Einer"-Stelle enthält den Zahlenwert, der als SGA "Nockenbereich" an die sichere Logik gemeldet werden soll und dort verarbeitet wird. Gültige Werte sind 0 bis 14, wobei jeder Zahlenwert pro Nockenspur nur einmal verwendet werden darf.
+
+Der gültige Wertebereich dieses Maschinendatums ist daher:
+100...114, 200...214, 300...314, 400...414
+
+Beispiele:
+MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[0] = 207: Der Nocken 1 (Index 0) wird der Nockenspur 2 zugewiesen.
+Ist die Position im Bereich dieses Nockens, wird im SGA "Nockenbereich" der 2.Nockenspur die 7 eingetragen.
+MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[5] = 100: Der Nocken 6 (Index 5) wird der Nockenspur 1 zugewiesen.
+Ist die Position im Bereich dieses Nockens, wird im SGA "Nockenbereich" der 1.Nockenspur die 0 eingetragen..
+
+Korrespondiert mit:
+	MD 36936: $MA_SAFE_CAM_POS_PLUS[n]
+	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+
+</description>
+</parameter>
+<parameter number="36940" type="DOUBLE" dim="0">
+<name>SAFE_CAM_TOL</name>
+<brief>Toleranz für sichere Nocken</brief>
+<description>Durch unterschiedlichen Einbauort der Geber und unterschiedliche Takt- und Laufzeiten schalten die Nockensignale der beiden Überwachungskanäle niemals genau auf der gleichen Position und niemals genau gleichzeitig.
+
+Dieses Datum gibt die Toleranz als lastseitigen Weg und für alle Nocken an, innerhalb dessen die Überwachungskanäle unterschiedliche Signalzustände des gleichen Nockens haben können, ohne dass der Alarm 27001 ausgelöst wird.
+
+Empfehlung:
+Gleicher Wert wie in MD36942 $MA_SAFE_POS_TOL eingeben oder geringfügig größer.
+</description>
+</parameter>
+<parameter number="36942" type="DOUBLE" dim="0">
+<name>SAFE_POS_TOL</name>
+<brief>Toleranz Istwertvergleich (kreuzweise)</brief>
+<description>Durch unterschiedlichen Einbauort der Geber, Lose, Torsion, Spindelsteigungsfehler usw. können die beiden von NCK und Antrieb zum gleichen Zeitpunkt erfassten Istpositionen voneinander abweichen.
+
+In diesem Datum wird die Toleranz für den kreuzweisen Vergleich der Istpositionen in den beiden Überwachungskanälen eingegeben.
+
+Sonderfälle:
+- Für die Festlegung dieses Toleranzwertes sind in erster Linie die Werte aus der maschinenspezifischen Risikoanalyse zu berücksichtigen.
+- Beim Überschreiten dieser Toleranz erfolgt die Stopreaktion STOP F.
+</description>
+</parameter>
+<parameter number="36944" type="DOUBLE" dim="0">
+<name>SAFE_REFP_POS_TOL</name>
+<brief>Toleranz Istwertvergleich (referenzieren)</brief>
+<description>Mit diesem Datum wird die Toleranz für die Überprüfung der Istwerte nach dem Referenzieren (bei einem inkrementellen Geber) bzw. beim Einschalten (bei einem Absolutgeber) angegeben.
+Durch das Referenzieren wird eine absolute Istposition der Achse ermittelt. Aus der letzten abgespeicherten Stillstandsposition vor dem Ausschalten der Steuerung und dem seit dem Einschalten zurückgelegten Weg ergibt sich eine zweite absolute Istposition. Mit diesen beiden Absolutpositionen, dem gefahrenen Weg und diesem Datum überprüft die Steuerung die Istwerte nach dem Referenzieren.
+
+Bei der Ermittlung der Toleranzwerte müssen folgende Beeinflussungen berücksichtigt werden:
+Lose, Spindelsteigungsfehler, Kompensationen (max. Kompensationswerte bei SSFK, Durchhang- und Temperaturkompensation), Temperaturfehler, Torsion (2-Geber-System), Getriebetoleranz bei Schaltgetrieben, gröbere Auflösung (2-Geber-System), Pendelweg bei Schaltgetrieben
+
+Hinweis:
+Wenn sich die beiden absoluten Istpositionen bei gegebener Anwenderzustimmung um mehr als den Wert in diesem Datum unterscheiden, wird der Alarm 27001 mit Fehlercode 1003 angezeigt und es ist eine erneute Anwenderzustimmung für das Referenzieren erforderlich.
+</description>
+</parameter>
+<parameter number="36945" type="DOUBLE" dim="0">
+<name>SAFE_VELO_X_FILTER_TIME</name>
+<brief>Filterzeit n &lt; nx</brief>
+<description>Einstellung der Filterzeit zur Bildung des SGA "n &lt; nx"
+
+Die Filterung muss durch Setzen von Bit 16 in MD36901 $MA_SAFE_FUNCTION_ENABLE aktiviert werden.
+Mit Defaultwert 0 ist keine Filterung wirksam.
+Durch die Parametrierung einer Filterzeit ungleich 0 vergrößert sich die Reaktionszeit des SGA "n &lt; nx".
+
+Korrespondiert mit:
+	MD 36946: $MA_SAFE_VELO_X
+	MD 36947: $MA_SAFE_VELO_X_HYSTERESIS
+
+</description>
+</parameter>
+<parameter number="36946" type="DOUBLE" dim="0">
+<name>SAFE_VELO_X</name>
+<brief>Geschwindigkeitsgrenze n &lt; nx</brief>
+<description>Mit diesem Datum wird die Grenzgeschwindigkeit n_x für den SGA "n &lt; nx" festgelegt.
+Bei Unterschreiten dieser Geschwindigkeitsgrenze wird der SGA "n &lt; nx" gesetzt.
+Hat dieses Maschinendatum den Wert 0, so ist die Funktion "n &lt; nx" nicht aktiv.
+Hinweis:
+Zur Auswertung des SGA "n &lt; nx" muss über MD36985 $MA_SAFE_VELO_X_STATUS_OUTPUT eine Peripherie-Zuordnung vorgenommen werden.
+</description>
+</parameter>
+<parameter number="36947" type="DOUBLE" dim="0">
+<name>SAFE_VELO_X_HYSTERESIS</name>
+<brief>Geschwindigkeitshysterese n &lt; nx</brief>
+<description>Einstellung der Hystereseschwelle zur Bildung des SGA "n &lt; nx".
+
+Neben der Hysterese wird dieses MD auch benutzt, um die Geschwindigkeit in den beiden Überwachungskanälen an der Schwelle nx zu überprüfen. Sie darf maximal um den Wert dieses MD unterschiedlich sein, sonst wird ein Stop F mit Fehlerkennung 2 ausgegeben.
+Es muss gelten: MD36947 $MA_SAFE_VELO_X_HYSTERESIS kleiner oder gleich 1/2 MD36946 $MA_SAFE_VELO_X.
+
+Die Funktion "Synchronisation "n &lt; nx", Hysterese und Filterung" muss aktiv sein (MD36901 $MA_SAFE_FUNCTION_ENABLE, Bit 16 = 1).
+
+Korrespondiert mit:
+	MD 36945: $MA_SAFE_VELO_X_FILTER_TIME
+	MD 36946: $MA_SAFE_VELO_X
+
+</description>
+</parameter>
+<parameter number="36948" type="DOUBLE" dim="0">
+<name>SAFE_STOP_VELO_TOL</name>
+<brief>Geschwindigkeitstoleranz für Sichere Überwachung auf Beschleunigung</brief>
+<description>Toleranz Istgeschwindigkeit für Sichere Überwachung auf Beschleunigung (SBR).
+Nach Aktivierung der sicheren Überwachung auf Beschleunigung (durch Auslösen eines Stop B oder C) wird die Istgeschwindigkeit mit dieser Toleranz beaufschlagt.
+Die Istgeschwindigkeit darf nicht größer werden als die dadurch vorgegebene Grenze.
+Andernfalls wird ein Stop A ausgelöst. Dadurch wird ein Beschleunigen des Antriebs schnellstmöglich aufgedeckt.
+</description>
+</parameter>
+<parameter number="36949" type="DOUBLE" dim="0">
+<name>SAFE_SLIP_VELO_TOL</name>
+<brief>Geschwindigkeitstoleranz Schlupf</brief>
+<description>Geschwindigkeitsdifferenz, die bei einem 2-Gebersystem zwischen Motor- und Lastseite toleriert wird, ohne dass der kreuzweise Datenvergleich zwischen Antrieb und NCK einen Fehler meldet.
+
+MD36949 $MA_SAFE_SLIP_VELO_TOL wird nur ausgewertet, wenn MD36901 $MA_SAFE_FUNCTION_ENABLE, Bit3 gesetzt ist.
+</description>
+</parameter>
+<parameter number="36950" type="DOUBLE" dim="0">
+<name>SAFE_MODE_SWITCH_TIME</name>
+<brief>Toleranzzeit bei SGE-Umschaltung</brief>
+<description>Aufgrund von unterschiedlichen Laufzeiten bei der Datenübertragung der SGEs in den beiden Überwachungskanälen werden SGE-Umschaltungen nicht gleichzeitig wirksam. Der kreuzweise Datenvergleich würde in diesem Fall einen Fehler melden.
+
+Mit diesem Datum wird angegeben, wie lange nach SGE-Umschaltungen kein kreuzweiser Datenvergleich von Istwerten und Überwachungsergebnissen durchgeführt wird (die Maschinendaten werden weiter verglichen!). Die angewählten Überwachungen laufen in beiden Überwachungskanälen ungestört weiter.
+
+Eine sichere Funktion wird in einem Überwachungskanal sofort aktiv, wenn die Anwahl oder Umschaltung in diesem Kanal erkannt wird.
+
+Die unterschiedliche Laufzeit wird hauptsächlich von der PLC-Zykluszeit bestimmt.
+
+Systembedingte Mindest-Toleranzzeit: 2 x PLC-Zykluszeit (maximaler Zyklus) + 1 x IPO-Taktzeit
+Zusätzlich müssen die Laufzeitunterschiede in der externen Beschaltung (z.B. Relais-Schaltzeiten) berücksichtigt werden.
+</description>
+</parameter>
+<parameter number="36951" type="DOUBLE" dim="0">
+<name>SAFE_VELO_SWITCH_DELAY</name>
+<brief>Verzögerungszeit Geschwindigkeits-Umschaltung</brief>
+<description>Beim Übergang von einer größeren auf eine kleinere sichere Geschwindigkeit oder bei der Anwahl des sicheren Betriebshalt bei aktiver sicherer Geschwindigkeit wird ein Timer mit diesem Wert gestartet.
+Der parametrierte Wert muss so klein wie möglich gewählt werden.
+
+Während der Timer läuft, wird auf den zuletzt angewählten Geschwindigkeits-Grenzwert weiterhin überwacht. In dieser Zeit kann die Achse/Spindel z.B. über das PLC-Anwenderprogramm abgebremst werden, ohne dass die Überwachung einen Fehler meldet und eine Stopreaktion auslöst.
+
+Sonderfälle:
+- Der Timer wird sofort abgebrochen, wenn auf eine höhere oder gleichgroße ( wie die bisher aktive) SG-Grenze umgeschaltet wird.
+- Der Timer wird sofort abgebrochen, wenn auf "nicht sicheren Betrieb" (SGE "Abwahl SBH/SG=1) umgeschaltet wird.
+- Der Timer wird nachgetriggert (erneut gestartet), wenn während des Timerlaufs auf eine kleinere als die bisher aktive SG-Grenze oder auf SBH umgeschaltet wird.
+</description>
+</parameter>
+<parameter number="36952" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_C</name>
+<brief>Übergangszeit STOP C auf sicheren Stillstand</brief>
+<description>In diesem Datum wird die Zeit angegeben, nach der auf sicheren Betriebshalt geschaltet wird, wenn ein STOP C ausgelöst wurde.
+Der parametrierte Wert muss so klein wie möglich gewählt werden.
+
+Nachdem die Zeit abgelaufen ist, wird auf sicheren Betriebshalt überwacht. Konnte die Achse/Spindel noch nicht stillgesetzt werden, wird STOP B ausgelöst.
+</description>
+</parameter>
+<parameter number="36953" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_D</name>
+<brief>Übergangszeit STOP D auf sicheren Stillstand</brief>
+<description>In diesem Datum wird die Zeit angegeben, nach der auf sicheren Betriebshalt geschaltet wird, wenn ein STOP D ausgelöst wurde.
+Der parametrierte Wert muss so klein wie möglich gewählt werden.
+
+Nachdem die Zeit abgelaufen ist, wird auf sicheren Betriebshalt überwacht. Konnte die Achse/Spindel noch nicht stillgesetzt werden, wird STOP B ausgelöst.
+</description>
+</parameter>
+<parameter number="36954" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_E</name>
+<brief>Übergangszeit STOP E auf sicheren Stillstand</brief>
+<description>In diesem Datum wird die Zeit angegeben, nach der auf sicheren Betriebshalt geschaltet wird, wenn ein STOP E ausgelöst wurde.
+Der parametrierte Wert muss so klein wie möglich gewählt werden.
+
+Nachdem die Zeit abgelaufen ist, wird auf sicheren Betriebshalt überwacht. Konnte die Achse/Spindel noch nicht stillgesetzt werden, wird STOP B ausgelöst.
+</description>
+</parameter>
+<parameter number="36955" type="DOUBLE" dim="0">
+<name>SAFE_STOP_SWITCH_TIME_F</name>
+<brief>Übergangszeit STOP F auf STOP B</brief>
+<description>Zeit, nach der bei Stop F mit aktiven Überwachungsfunktionen auf Stop B weitergeschaltet wird.
+Der parametrierte Wert muss so klein wie möglich gewählt werden.
+Während dieser Zeit kann z.B. über Synchronaktionen eine andere Bremsreaktion aktiviert werden.
+
+Die Umschaltung erfolgt auch dann, wenn während dieser Zeit ein Stop C/D/E auftritt.
+</description>
+</parameter>
+<parameter number="36956" type="DOUBLE" dim="0">
+<name>SAFE_PULSE_DISABLE_DELAY</name>
+<brief>Verzögerungszeit Impulslöschung</brief>
+<description>Bei STOP B wird mit "Drehzahlsollwert 0" (bzw. AUS3-Rampe) gebremst und nach der mit diesem Datum definierten Verzögerungszeit in STOP A zur Impulslöschung übergegangen.
+Der parametrierte Wert muss so klein wie möglich gewählt werden.
+
+Sonderfälle:
+- Die Impulslöschung wird früher als in diesem Datum definiert durchgeführt, wenn über MD36960 $MA_SAFE_STANDSTILL_VELO_TOL oder über MD36620 $MA_SERVO_DISABLE_DELAY_TIME die Bedingung für die Impulslöschung vorliegt.
+- Wenn die Zeitstufe in diesem Datum auf Null eingestellt wird, so wird bei STOP B sofort auf STOP A (sofortige Impulslöschung) übergegangen.
+
+Korrespondiert mit:
+	MD 36960: $MA_SAFE_STANDSTILL_VELO_TOL
+	MD 36620: $MA_SERVO_DISABLE_DELAY_TIME
+	MD 36060: $MA_STANDSTILL_VELO_TOL
+</description>
+</parameter>
+<parameter number="36957" type="DOUBLE" dim="0">
+<name>SAFE_PULSE_DIS_CHECK_TIME</name>
+<brief>Zeit für Prüfung der Impulslöschung</brief>
+<description>Angabe der Zeit, nach der bei einer Anforderung zur Impulslöschung die Impulse gelöscht sein müssen.
+
+Die Zeit zwischen dem Löschen des SGA "Impulse freigeben" und dem Erkennen der Impulslöschung über den SGE "Status Impulse gelöscht" darf den Wert dieses Datums nicht überschreiten.
+
+Hinweis:
+Bei Überschreitung dieser Zeit wird STOP A ausgelöst.
+</description>
+</parameter>
+<parameter number="36958" type="DOUBLE" dim="0">
+<name>SAFE_ACCEPTANCE_TST_TIMEOUT</name>
+<brief>Zeitlimit für Abnahmetestdauer</brief>
+<description>Es kann NCK-seitig ein Zeitlimit für die Dauer eines Abnahmetests vorgegeben werden.
+
+Dauert ein Abnahmetest länger als die in diesem MD vorgegebene Zeit, wird der Test vom NCK beendet.
+Der Abnahmeteststatus wird NCK-seitig auf Null gesetzt. Ist der Abnahmeteststatus zurückgesetzt, werden NCK- und antriebsseitig SI-PowerOn-Alarme wieder von Reset-quittierbar auf PowerOn-quittierbar umgesetzt.
+Vom NCK wird der Alarm 27007 und vom Antrieb die Meldung C01799 gelöscht.
+
+Dieses MD wird auch verwendet, um die Zeitdauer eines Abnahmetests SE (Sichere Endlagen) zu begrenzen. Nach Ablauf der parametrierten Zeit wird der Abnahmetest SE abgebrochen und der Alarm 27008 gelöscht. Die Software-Endlagen wirken dann wieder so, wie es in den Maschinendaten vorgegeben ist.
+</description>
+</parameter>
+<parameter number="36960" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_VELO_TOL</name>
+<brief>Abschaltdrehzahl Impulslöschung</brief>
+<description>Geschwindigkeit, unterhalb der eine Achse/Spindel als "stillstehend" betrachtet wird und bei STOP B die Impulse gelöscht werden (durch Übergang zu STOP A).
+
+Korrespondiert mit:
+	MD 36956: $MA_SAFE_PULSE_DISABLE_DELAY
+</description>
+</parameter>
+<parameter number="36961" type="BYTE" dim="0">
+<name>SAFE_VELO_STOP_MODE</name>
+<brief>Stopreaktion sichere Geschwindigkeit</brief>
+<description>Beim Überschreiten eines Grenzwertes für die sichere Geschwindigkeit 1, 2, 3 oder 4 wird die in
+diesem Datum angegebene Stopreaktion ausgelöst.
+
+= 0, 1, 2, 3 entspricht STOP A, B, C, D gemeinsam für jede SG-Stufe
+= 5 bedeutet, dass die Stopreaktion SG-spezifisch im MD36963 $MA_SAFE_VELO_STOP_REACTION projektiert werden kann.
+Die Einerstelle legt die Auswahl der Stop-Reaktion bei Überschreiten der sicheren Geschwindigkeit fest.
+Die Zehnerstelle definiert das Verhalten beim Kommunikationsausfall zum Antrieb, wenn in MD10089 $MN_SAFE_PULSE_DIS_TIME_BUSFAIL eine Zeit größer als 0 parametriert wurde.
+
+0:	Stop A
+1:	Stop B
+2:	Stop C
+3:	Stop D
+4:	Stop E
+5:	MD36961 $MA_SAFE_VELO_STOP_MODE ungültig, Stop-Reaktion wird über MD36963 $MA_SAFE_VELO_STOP_REACTION parametriert.
+10:	Stop A, zusätzlich wird beim Kommunikationsausfall zum Antrieb und aktivem SG die Impulslöschung nicht sofort durchgeführt.
+11:	Stop B, zusätzlich wird beim Kommunikationsausfall zum Antrieb und aktivem SG die Impulslöschung nicht sofort durchgeführt.
+12:	Stop C, zusätzlich wird beim Kommunikationsausfall zum Antrieb und aktivem SG die Impulslöschung nicht sofort durchgeführt.
+13:	Stop D, zusätzlich wird beim Kommunikationsausfall zum Antrieb und aktivem SG die Impulslöschung nicht sofort durchgeführt.
+14:	Stop E, zusätzlich wird beim Kommunikationsausfall zum Antrieb und aktivem SG die Impulslöschung nicht sofort durchgeführt.
+
+Sonderfälle:
+- Beim Wert 5 in diesem MD wird die Stopreaktion für jede SG-Stufe selektiv in MD36963 $MA_SAFE_VELO_STOP_REACTION festgelegt.
+
+Korrespondiert mit:
+	MD 36931: $MA_SAFE_VELO_LIMIT[n]
+	MD 36963: $MA_SAFE_VELO_STOP_REACTION[n]
+</description>
+</parameter>
+<parameter number="36962" type="BYTE" dim="0">
+<name>SAFE_POS_STOP_MODE</name>
+<brief>Stopreaktion sichere Endlage</brief>
+<description>Beim Überfahren einer sicheren Endlage 1 oder 2 wird die in diesem Datum angegebene Stopreaktion ausgelöst.
+
+2:	Stop C
+3:	Stop D
+4:	Stop E
+
+Korrespondiert mit:
+	MD 36934: $MA_SAFE_POS_LIMIT_PLUS[n]
+	MD 36935: $MA_SAFE_POS_LIMIT_MINUS[n]
+</description>
+</parameter>
+<parameter number="36963" type="BYTE" dim="1">
+<name>SAFE_VELO_STOP_REACTION</name>
+<brief>Stopreaktion sichere Geschwindigkeit</brief>
+<description>Beim Überschreiten eines Grenzwertes bei der sicheren Geschwindigkeit 1, 2, 3 oder 4 wird die in diesem Datum angegebene Stopreaktion ausgelöst.
+
+n = 0, 1, 2, 3  steht für SG1, SG2, SG3, SG4
+
+Die Einerstelle legt die SG-spezifische Auswahl der Stop-Reaktion bei Überschreiten der sicheren Geschwindigkeit fest.
+Die Zehnerstelle definiert das Verhalten beim Kommunikationsausfall zum Antrieb SG-spezifisch, wenn in MD10089 $MN_SAFE_PULSE_DIS_TIME_BUSFAIL eine Zeit größer als 0 parametriert wurde.
+
+Wert     bedeutet
+ 0:	Stop A
+ 1:	Stop B
+ 2:	Stop C
+ 3:	Stop D
+ 4:	Stop E
+10:	Stop A, zusätzlich wird beim Kommunikationsausfall zum Antrieb die Impulslöschung nicht sofort durchgeführt, wenn diese SG-Stufe aktiv ist.
+11:	Stop B, zusätzlich wird beim Kommunikationsausfall zum Antrieb die Impulslöschung nicht sofort durchgeführt, wenn diese SG-Stufe aktiv ist.
+12:	Stop C, zusätzlich wird beim Kommunikationsausfall zum Antrieb die Impulslöschung nicht sofort durchgeführt, wenn diese SG-Stufe aktiv ist.
+13:	Stop D, zusätzlich wird beim Kommunikationsausfall zum Antrieb die Impulslöschung nicht sofort durchgeführt, wenn diese SG-Stufe aktiv ist.
+14:	Stop E, zusätzlich wird beim Kommunikationsausfall zum Antrieb die Impulslöschung nicht sofort durchgeführt, wenn diese SG-Stufe aktiv ist.
+
+Hinweis:
+Dieses MD ist nur dann aktiv, wenn MD36961 $MA_SAFE_VELO_STOP_MODE und Antriebsparameter p9561 den Wert 5 haben.
+
+Korrespondiert mit:
+	MD 10089: $MN_SAFE_PULSE_DIS_TIME_BUSFAIL
+	MD 36961: $MA_SAFE_VELO_STOP_MODE
+</description>
+</parameter>
+<parameter number="36964" type="BYTE" dim="0">
+<name>SAFE_IPO_STOP_GROUP</name>
+<brief>Gruppierung Safety-IPO-Reaktion</brief>
+<description>Dieses MD ist nur wirksam bei Safety-Integrated-Achsen/Spindeln.
+Es beeinflusst die kanalweite IPO-Reaktions-Verteilung von Safety Integrated:
+
+0 =	Voreinstellung: Alle anderen Achsen/Spindeln im Kanal bekommen die IPO-Stop-Reaktion dieser Achse mitgeteilt.
+
+1 =	Bei internen Stops werden die mit der betroffenen Achse interpolierenden Achsen bzw. Bearbeitungs-Spindeln zusätzlich über die ausgelösten Safety-Alarme beeinflusst. Andere Achsen/Spindeln im Kanal dagegen laufen ungestört weiter.
+	Bei externen Stops (ohne Alarm) bleiben alle anderen Achsen/Spindeln vom Stop der Safety-Achse/Spindel unbeeinflusst. Dies erlaubt es z.B., die Impulse einer Spindel sicher zu löschen (mittels externem Stop A), um diese Spindel von Hand drehen zu können, und die Achsen trotzdem sicher überwacht zu bewegen.
+	Sollen die anderen Achsen/Spindeln in manchen Bearbeitungssituationen trotzdem zusammen mit der Safety-Achse/Spindel anhalten, so muss der Anwender dies in eigener Verantwortung mittels PLC- oder Synchronaktions-Verknüpfungen realisieren.
+</description>
+</parameter>
+<parameter number="36965" type="BOOLEAN" dim="0">
+<name>SAFE_PARK_ALARM_SUPPRESS</name>
+<brief>Alarmunterdrückung bei Parkende Achse</brief>
+<description>Dieses MD ist nur wirksam bei Safety-Integrated-Achsen/Spindeln.
+
+0 =	Voreinstellung: Die Alarme 27000/A01797 werden bei Anwahl Parken angezeigt.
+1 =	Die Alarme 27000/A01797 werden bei Anwahl Parken nicht angezeigt. Dies ist bei Achsen notwendig, die während des Bearbeitungsprozesses geberseitig abgetrennt sind (z.B. Abricht-Achsen). Bei anschließender Abwahl des Parkbetriebs werden die Alarme angezeigt.
+
+
+</description>
+</parameter>
+<parameter number="36966" type="DOUBLE" dim="0">
+<name>SAFE_BRAKETEST_TORQUE</name>
+<brief>Haltemoment Bremsentest (NC-geführt)</brief>
+<description>Vorgabe des Moments bzw. der Kraft für die NC-geführte Funktionsprüfung der Bremsenmechanik.
+
+Dieses Moment bzw. diese Kraft wird während des Tests gegen die geschlossene Bremse aufgebracht, ohne dass sich die Achse bewegen darf.
+Der hier eingetragene prozentuale Wert bezieht sich auf den Antriebsparameter p2003 der Achse.
+
+Es gelten folgende Randbedingungen:
+Beträgt das aktuelle Moment bei Anwahl des Bremsentest (also mit geöffneter Bremse) mehr als 85% des Testmoments, wird der Bremsentest mit Alarm 20095 abgebrochen. Damit wird sicher gestellt, dass der Motor auch bei defekter Bremse die Achse halten kann.
+Wird der Bremsentest unter Verwendung des Antriebsparameters p1532 (MD36968 $MA_SAFE_BRAKETEST_CONTROL Bit0 = 0) durchgeführt, erhöht sich die benötigte Sicherheitsreserve um das Doppelte der Differenz zwischen dem aktuellen Haltemoment und dem Wert im Parameter p1532.
+
+Freigabe der entsprechenden Testfunktion über MD37000 $MA_FIXED_STOP_MODE Bit 1.
+
+Korrespondiert mit:
+	MD 36969: $MA_SAFE_BRAKETEST_TORQUE_NORM
+</description>
+</parameter>
+<parameter number="36967" type="DOUBLE" dim="0">
+<name>SAFE_BRAKETEST_POS_TOL</name>
+<brief>Positionstoleranz Bremsentest (NC-geführt)</brief>
+<description>Maximale Positionstoleranz für die Funktionsprüfung der Bremsenmechanik.
+
+Weicht die Achsposition um mehr als diese Toleranz von der Position bei Anwahl des Bremsentests ab, so wird die Funktionsprüfung der Bremsenprüfung abgebrochen.
+
+Freigabe der entsprechenden Testfunktion über MD37000 $MA_FIXED_STOP_MODE, Bit 1.
+</description>
+</parameter>
+<parameter number="36968" type="DWORD" dim="0" display="HEX">
+<name>SAFE_BRAKETEST_CONTROL</name>
+<brief>Erweiterte Einstellungen für den Bremsentest</brief>
+<description>Erweiterte Einstellungen für den NC-geführten Bremsentest.
+
+Bit 0: Auswahl des Mittelwertes für die Momentenbegrenzung
+= 0:	Als Mittelwert der Momentenbegrenzung wird der Antriebsparameter p1532 verwendet
+= 1:	Als Mittelwert der Momentenbegrenzung wird das gemessene Moment zum Zeitpunkt der Anwahl des Bremsentests verwendet
+Bit 1: Kriterium für das Erreichen der Momentengrenze in PLC
+= 0:	Der Momentengrenzwert muss während des programmierten Verfahrwegs erreicht werden
+= 1:	Der Momentengrenzwert muss während der programmierten Zeit (PLC) erreicht werden
+</description>
+</parameter>
+<parameter number="36969" type="DOUBLE" dim="0" readonly="true">
+<name>SAFE_BRAKETEST_TORQUE_NORM</name>
+<brief>Bezugsgröße für Haltemoment Bremsentest</brief>
+<description>Einstellung der Bezugsgröße für Drehmomente
+Alle relativ angegebenen Drehmomente beziehen sich auf diese Bezugsgröße.
+Bei diesem MD handelt es sich um ein Abbild des Antriebsparameters p2003
+</description>
+</parameter>
+<parameter number="36970" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SVSS_DISABLE_INPUT</name>
+<brief>Eingangszuordnung SBH/SG-Abwahl</brief>
+<description>Mit diesem Datum wird der NCK-Eingang zur An-/Abwahl der Funktionen SBH und SG definiert.
+
+Signal          bedeutet
+= 0	SG oder SBH ist angewählt
+= 1	SG und SBH sind abgewählt
+
+Aufbau (allgemein):
+
+Die Maschinendaten zur Zuordnung der sicherheitsgerichteten Eingänge sind folgendermaßen aufgebaut:
+
+$MA_SAFE_..._INPUT = is mm xx nnH
+
+     Bitposition   zulässige Werte  Bedeutung
+i    31...28       = 0              Signal nicht invertieren vor Verarbeitung
+                   = 8              Signal invertieren vor Verarbeitung
+s    27...24       = 4              Zuordnung zu SPL-Schnittstelle
+mm   23...16       = 1              Adressierung der internen SPL-Schnittstelle $A_OUTSI
+                   = 2              Adressierung der externen SPL-Schnittstelle $A_INSE
+xx   15...8        = 1...6          Nummer des Systemvariablenworts
+nn    7...0        = 1...20H        Bitnummer im Systemvariablenwort
+
+Sonderfälle:
+- Eingabe von 0 bedeutet: es ist keine Zuordnung vorhanden, der Eingang bleibt fest auf 0, SG und SBH sind nicht abwählbar.
+- Eingabe von 80 00 00 00 bedeutet: es ist keine Zuordnung vorhanden, der Eingang bleibt fest auf 1
+- Mehrere Eingangssignale können auf die gleiche Systemvariable parametriert werden.
+</description>
+</parameter>
+<parameter number="36971" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SS_DISABLE_INPUT</name>
+<brief>Eingangszuordnung SBH-Abwahl</brief>
+<description>Zuordnung des NCK-Eingangs für die Abwahl der Funktion sicherer Betriebshalt.
+
+Aufbau: siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+Eingangszuordnung zu den sicheren Funktionen, wenn entweder sichere Geschwindigkeit oder sicherer Betriebshalt aktiviert wurde.
+
+Signal           bedeutet
+= 0	sicherer Betriebshalt wird angewählt
+= 1	sicherer Betriebshalt wird abgewählt  (nur wenn von anderen Funktionen kein STOP C, D oder E ausgelöst wurde)
+
+Sonderfälle:
+- Wenn SG und SBH abgewählt wurden (siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT), dann ist dieser Eingang ohne Bedeutung.
+</description>
+</parameter>
+<parameter number="36972" type="DWORD" dim="1" display="HEX">
+<name>SAFE_VELO_SELECT_INPUT</name>
+<brief>Eingangszuordnung SG-Auswahl</brief>
+<description>Mit diesem Datum werden die beiden Eingänge zur Auswahl von SG1, SG2, SG3 oder SG4 definiert.
+
+Aufbau: siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+n = 1, 0 steht für Bit 1, 0 zur Auswahl von SG1 bis SG4
+
+Zuordnung der Eingangsbits zu den sicheren Geschwindigkeiten:
+
+Bit 1            Bit 0              ausgewählte SG
+0                  0                    SG1
+0                  1                    SG2
+1                  0                    SG3
+1                  1                    SG4
+</description>
+</parameter>
+<parameter number="36973" type="DWORD" dim="0" display="HEX">
+<name>SAFE_POS_SELECT_INPUT</name>
+<brief>Eingangszuordnung SE-Auswahl</brief>
+<description>Mit diesem Datum wird der Eingang für die Auswahl der sicheren Endlage 1 oder 2 definiert.
+
+Aufbau: siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+Signal  bedeutet
+= 0	SE1 ist aktiv
+= 1	SE2 ist aktiv
+</description>
+</parameter>
+<parameter number="36974" type="DWORD" dim="1" display="HEX">
+<name>SAFE_GEAR_SELECT_INPUT</name>
+<brief>Eingangszuordnung Übersetzungsanwahl</brief>
+<description>Eingangszuordnung für die Auswahl der Übersetzung (Getriebestufe).
+
+Aufbau: siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+n = 2, 1, 0 steht für Bit 2, 1, 0 zur Auswahl der Getriebestufe 1 bis 8
+
+Bit 2               Bit 1              Bit 0            aktive Getriebestufe
+0                     0                    0                   Stufe 1
+0                     0                    1                   Stufe 2
+0                     1                    0                   Stufe 3
+...                  ...                  ...                      ...
+1                     1                    1                   Stufe 8
+</description>
+</parameter>
+<parameter number="36977" type="DWORD" dim="1" display="HEX">
+<name>SAFE_EXT_STOP_INPUT</name>
+<brief>Eingangszuordnung externe Bremsanforderung</brief>
+<description>Mit diesem Datum werden die NCK-Eingänge zur An-/Abwahl der externen Bremsanforderungen definiert.
+
+n = 0, 1, 2, 3 steht für die verschiedenen Bremsarten
+
+n = 0: Zuordnung für "Abwahl externer Stop A" (SH, Impulslöschung)
+n = 1: Zuordnung für "Abwahl externer Stop C" (Bremsen an der Stromgrenze/AUS3-Rampe)
+n = 2: Zuordnung für "Abwahl externer Stop D" (Bahnbremsen)
+n = 3: Zuordnung für "Abwahl externer Stop E" (ESR + Bahnbremsen)
+
+Aufbau: siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+Sonderfälle:
+- Das Signal "Abwahl externer Stop A" kann nicht invertiert parametriert werden. Im Fehlerfall wird ein Parametrierfehler gemeldet.
+</description>
+</parameter>
+<parameter number="36978" type="DWORD" dim="1" display="HEX">
+<name>SAFE_OVR_INPUT</name>
+<brief>Eingangszuordnung SG-Override</brief>
+<description>Zuordnung der NCK-Eingänge für die Korrektur des Grenzwertes der sicheren Geschwindigkeit 2 und 4.
+
+Aufbau: siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
+
+n = 3, 2, 1, 0 steht für zur Korrektur-Auswahl Bit 3, 2, 1, 0
+
+Zuordnung der Eingangsbits zu den SG-Korrekturwerten:
+
+Bit 3        Bit 2         Bit 1        Bit 0
+    0            0             0            0    Korrektur 0 ist angewählt
+
+    0            0             0            1    Korrektur 1 ist angewählt
+
+bis ...
+
+    1            1             1            1    Korrektur 15 ist angewählt
+
+Der Korrekturfaktor selbst (Prozentwert) wird über folgende Maschinendaten festgelegt:
+MD 36932: $MA_SAFE_VELO_OVR_FACTOR[n]
+
+Hinweis:
+Die Funktion "Korrektur sichere Geschwindigkeit" wird über MD36901 $MA_SAFE_FUNCTION_ENABLE, Bit 5 freigegeben.
+
+Korrespondiert mit:
+	MD 36932: $MA_SAFE_VELO_OVR_FACTOR[n]
+</description>
+</parameter>
+<parameter number="36980" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SVSS_STATUS_OUTPUT</name>
+<brief>Ausgangszuordnung SBH/SG aktiv</brief>
+<description>Zuordnung des Ausgangs für die Meldung des Zustands der Funktion sichere Geschwindigkeit und sicherer Betriebshalt.
+
+Signal  bedeutet:
+= 0	SG und SBH sind nicht aktiv
+= 1	SG oder SBH ist aktiv
+
+Aufbau (allgemein):
+
+Die Maschinendaten zur Zuordnung der sicherheitsgerichteten Ausgänge sind folgendermaßen aufgebaut:
+
+$MA_SAFE_..._OUTPUT = is mm xx nnH
+
+     Bitposition   zulässige Werte  Bedeutung
+i    31...28       = 0              Signal nicht invertieren vor Ausgabe
+                   = 8              Signal invertieren vor Ausgabe
+s    27...24       = 4              Zuordnung zu SPL-Schnittstelle
+mm   23...16       = 1              Adressierung der internen SPL-Schnittstelle $A_INSI
+xx   15...0        = 1...6          Nummer des Systemvariablenworts
+nn    7...0        = 1...20H        Bitnummer im Systemvariablen-Wort
+
+Sonderfälle:
+- Eingabe von 0 bedeutet:
+  Es ist keine Zuordnung vorhanden, der Ausgang wird nicht beeinflusst
+- Eingabe von 80 00 00 00 bedeutet: es ist keine Zuordnung vorhanden, der Ausgang bleibt fest auf 1
+- Wird ein einzelnes Ausgangssignal auf eine Systemvariable gelegt, so gilt:
+  Ist das MD-Bit 31 gesetzt, so wird das Signal invertiert verarbeitet.
+- Werden mehrere Ausgangssignale auf die gleiche Systemvariable gelegt, so gilt:
+  Ist das MD-Bit 31 gesetzt, so wird das betreffende Signal zunächst invertiert. Die (ggf.invertierten) Ausgangssignale werden dann UND-verknüpft, das Ergebnis wird in die Systemvariable eingetragen.
+</description>
+</parameter>
+<parameter number="36981" type="DWORD" dim="0" display="HEX">
+<name>SAFE_SS_STATUS_OUTPUT</name>
+<brief>Ausgangszuordnung SBH aktiv</brief>
+<description>Mit diesem Datum wird der Ausgang oder die Systemvariable für die Meldung "SBH aktiv" bestimmt.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Signal  bedeutet
+= 0	SBH ist nicht aktiv
+= 1	SBH ist aktiv
+</description>
+</parameter>
+<parameter number="36982" type="DWORD" dim="1" display="HEX">
+<name>SAFE_VELO_STATUS_OUTPUT</name>
+<brief>Ausgangszuordnung aktive SG-Auswahl</brief>
+<description>Mit diesem Datum werden die Ausgänge oder die Systemvariablen für die Meldungen "SG aktiv Bit 0" und "SG aktiv Bit 1" bestimmt.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 1, 0              steht für SG aktiv Bit 1, 0
+
+SG aktiv
+Bit 1  Bit 0  bedeutet:
+= 0    = 0    SG1 aktiv, wenn SBH/SG aktiv und SBH nicht aktiv ist
+              SBH aktiv, wenn SBH/SG aktiv und SBH aktiv ist
+= 1    = 0    SG2 aktiv
+= 0    = 1    SG3 aktiv
+= 1    = 1    SG4 aktiv
+</description>
+</parameter>
+<parameter number="36985" type="DWORD" dim="0" display="HEX">
+<name>SAFE_VELO_X_STATUS_OUTPUT</name>
+<brief>Ausgangszuordnung n &lt; n_x</brief>
+<description>Mit diesem Datum wird der Ausgang oder die Systemvariable für die Meldung "n &lt; nx" bestimmt.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Signal  bedeutet
+= 0	Istdrehzahl größer als Grenzgeschwindigkeit in MD36946 $MA_SAFE_VELO_X
+
+= 1	Istdrehzahl kleiner oder gleich als Grenzgeschwindigkeit
+
+Korrespondiert mit:
+	MD 36946: $MA_SAFE_VELO_X
+</description>
+</parameter>
+<parameter number="36987" type="DWORD" dim="0" display="HEX">
+<name>SAFE_REFP_STATUS_OUTPUT</name>
+<brief>Ausgangszuordnung Achse sicher referenziert</brief>
+<description>Mit diesem Datum wird der Ausgang für die Meldung "Achse sicher referenziert" angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Signal      bedeutet
+= 0	Achse ist nicht sicher referenziert (d.h. die sichere Endlagenüberwachung ist inaktiv!)
+= 1	Achse ist sicher referenziert
+</description>
+</parameter>
+<parameter number="36988" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_PLUS_OUTPUT</name>
+<brief>Ausgangszuordnung SN1 + bis SN4 +</brief>
+<description>Mit diesem Datum werden die Ausgänge für die Nockensignale SN1 + bis SN4 + angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht der Zuordnung für Plusnocken SN1 +, SN2 +, SN3 +, SN4 +
+
+Signal  bedeutet
+= 0	Achse steht links vom Nocken (Istwert &lt; Nockenposition)
+= 1	Achse steht rechts vom Nocken (Istwert &gt; Nockenposition)
+
+Sonderfälle:
+- Wenn ein Nocken negiert und mit einem weiteren Nocken auf einen Ausgang gelegt wird, dann wird UND-verknüpft und es entsteht ein einziges Nockensignal zur Bereichserkennung.
+</description>
+</parameter>
+<parameter number="36989" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_MINUS_OUTPUT</name>
+<brief>Ausgangszuordnung SN1 - bis SN4 -</brief>
+<description>Mit diesem Datum werden die Ausgänge für die Minusnocken SN1 - bis SN4 - definiert.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht der Zuordnung für Minusnocken SN1 -, SN2 -, SN3 -, SN4 -
+
+Signal  bedeutet
+= 0	Achse steht links vom Nocken (Istwert &lt; Nockenposition)
+= 1	Achse steht rechts vom Nocken (Istwert &gt; Nockenposition)
+
+Sonderfälle:
+- Wenn ein Nocken negiert und mit einem weiteren Nocken auf einen Ausgang gelegt wird, dann wird UND-verknüpft und es entsteht ein einziges Nockensignal zur Bereichserkennung.
+</description>
+</parameter>
+<parameter number="36990" type="DWORD" dim="1" display="HEX">
+<name>SAFE_ACT_STOP_OUTPUT</name>
+<brief>Ausgangszuordnung des aktiven Stop</brief>
+<description>Zuordnung der Ausgangssignale für die Anzeige des momentan aktiven Stops.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Index 0: Zuordnung für "Stop A/B aktiv"
+Index 1: Zuordnung für "Stop C aktiv"
+Index 2: Zuordnung für "Stop D aktiv"
+Index 3: Zuordnung für "Stop E aktiv"
+</description>
+</parameter>
+<parameter number="36992" type="DOUBLE" dim="0" readonly="true">
+<name>SAFE_CROSSCHECK_CYCLE</name>
+<brief>Anzeige achsspezifischer kreuzweiser Vergleichstakt</brief>
+<description>Anzeigedatum:
+Effektiver achsspezifischer Vergleichstakt in Sekunden.
+Der Takt ergibt sich aus MD10091 $MN_INFO_SAFETY_CYCLE_TIME und der Anzahl der kreuzweise zu vergleichenden Daten.
+</description>
+</parameter>
+<parameter number="36993" type="STRING" dim="1" readonly="true">
+<name>SAFE_CONFIG_CHANGE_DATE</name>
+<brief>Datum/Uhrzeit letzte Änderung SI-Achs-MD</brief>
+<description>Anzeigedatum:
+Datum und Uhrzeit der letzten Konfigurationsänderung sicherheitsrelevanter NCK-Achs-Maschinendaten.
+Aufgezeichnet werden Änderungen der Maschinendaten, die in die achsspezifischen Checksummen MD36998 $MA_SAFE_ACT_CHECKSUM[] eingerechnet werden.
+</description>
+</parameter>
+<parameter number="36994" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_PREV_CONFIG</name>
+<brief>Daten vorherige Safety-Achs-Konfiguration</brief>
+<description>Zwischenspeicher zur Ablage vorheriger Safety-Konfigurationsdaten
+Index [0]: Zustandsmerker der Änderungshistorie
+Index [1]: vorheriger Wert Funktionsfreigabe
+Index [2]: vorheriger Wert Soll-Prüfsumme MD36999 $MA_SAFE_DES_CHECKSUM[0]
+Index [3]: letzter Wert Funktionsfreigabe vor Laden von Standarddaten
+Index [4]: letzter Wert Soll-Prüfsumme MD36999 $MA_SAFE_DES_CHECKSUM[0] vor Laden von Standarddaten
+Index [5]: vorheriger Wert Soll-Prüfsumme MD36999 $MA_SAFE_DES_CHECKSUM[1]
+Index [6]: letzter Wert Soll-Prüfsumme MD36999 $MA_SAFE_DES_CHECKSUM[1] vor Laden von Standarddaten
+Index [7]: vorheriger Wert Soll-Prüfsumme MD36999 $MA_SAFE_DES_CHECKSUM[2]
+Index [8]: letzter Wert Soll-Prüfsumme MD36999 $MA_SAFE_DES_CHECKSUM[2] vor Laden von Standarddaten
+</description>
+</parameter>
+<parameter number="36995" type="DWORD" dim="0">
+<name>SAFE_STANDSTILL_POS</name>
+<brief>Stillstandsposition</brief>
+<description>In diesem MD wird die aktuelle Stillstandsposition angezeigt.
+
+Um beim nächsten Einschalten der Steuerung das Referenzieren der Achse auf Plausibilität prüfen zu können, wird die aktuelle Achsposition bei folgenden Ereignissen nichtflüchtig gespeichert:
+- bei der Anwahl des sicheren Betriebshaltes (SBH)
+- zyklisch bei aktiviertem SE/SN
+
+Sonderfälle:
+- Wenn das MD manuell geändert wird, dann wird dies beim nächsten Einschalten und Prüfen auf Plausibilität erkannt. Nach dem Referenzieren ist wieder eine Anwenderzustimmung erforderlich.
+</description>
+</parameter>
+<parameter number="36997" type="DWORD" dim="0" display="HEX">
+<name>SAFE_ACKN</name>
+<brief>Anwenderzustimmung</brief>
+<description>In diesem Datum wird der Status der Anwenderzustimmung angezeigt.
+
+Die Anwenderzustimmung kann vom Anwender über ein entsprechendes Bild gegeben bzw. weggenommen werden.
+
+Wenn softwareintern erkannt wird, dass der Bezug zur Maschine verlorengegangen ist, dann wird sie "automatisch" weggenommen (z.B. beim Getriebeschalten, oder wenn beim Referenzieren der Plausibilitätsvergleich mit der abgespeicherten Stillstandsposition fehlschlägt).
+
+Sonderfälle:
+- Wenn das MD manuell geändert wird, dann wird dies beim nächsten Einschalten und Prüfen auf Plausibilität erkannt. Nach dem Referenzieren ist wieder eine Anwenderzustimmung erforderlich.
+</description>
+</parameter>
+<parameter number="36998" type="DWORD" dim="1" display="HEX" readonly="true">
+<name>SAFE_ACT_CHECKSUM</name>
+<brief>Ist-Prüfsumme</brief>
+<description>Hier wird die nach PowerOn oder bei RESET berechnete Ist-Prüfsumme über die aktuellen Werte der sicherheitsrelevanten Maschinendaten eingetragen.
+Zuordnung der Feldindizes:
+Index 0: achsspezifische Überwachungsfunktionen
+Index 1: HW-Komponentenkennungen
+Index 2: Antriebszuordnung
+</description>
+</parameter>
+<parameter number="36999" type="DWORD" dim="1" display="HEX">
+<name>SAFE_DES_CHECKSUM</name>
+<brief>Soll-Prüfsumme</brief>
+<description>In diesem Datum steht die bei der letzten Maschinenabnahme gespeicherte Soll-Prüfsumme über die aktuellen Werte der sicherheitsrelevanten Maschinendaten.
+Zuordnung der Feldindizes:
+Index 0: achsspezifische Überwachungsfunktionen
+Index 1: HW-Komponentenkennungen
+Index 2: Antriebszuordnung
+</description>
+</parameter>
+<parameter number="37900" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_TRACK_OUTPUT</name>
+<brief>Ausgangszuordnung Nockenspur 1 bis 4</brief>
+<description>Mit diesem Datum werden die Ausgänge für Nockenspur 1 bis 4 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht der Zuordnung für Nockenspur 1 bis 4
+
+Signal  bedeutet
+= 0	Achse steht nicht auf einem Nocken der Nockenspur
+= 1	Achse steht auf einem Nocken der Nockenspur
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+
+</description>
+</parameter>
+<parameter number="37901" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_1</name>
+<brief>Ausgangszuordnung Nockenbereich für Nockenspur 1</brief>
+<description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 1 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht den 4 Bits für die Bereichsangabe auf Nockenspur 1
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Nockenbereich 0 ist aktiv
+  0      0       0      1      Nockenbereich 1 ist aktiv
+bis ...
+  1      1       1      1      Nockenbereich 15 ist aktiv
+
+Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal  bedeutet
+= 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 1 zugewiesen wurde
+= 15  	Achse steht im Bereich rechts vom positionsmäßig größten Nocken der Nockenspur 1
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
+
+Korrespondiert mit:
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+
+</description>
+</parameter>
+<parameter number="37902" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_2</name>
+<brief>Ausgangszuordnung Nockenbereich für Nockenspur 2</brief>
+<description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 2 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht den 4 Bits für die Bereichsangabe auf Nockenspur 2
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Nockenbereich 0 ist aktiv
+  0      0       0      1      Nockenbereich 1 ist aktiv
+bis ...
+  1      1       1      1      Nockenbereich 15 ist aktiv
+
+Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal  bedeutet
+= 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 2 zugewiesen wurde
+= 15  	Achse steht im Bereich rechts vom positionsmäßig größten Nocken der Nockenspur 2
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
+
+Korrespondiert mit:
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+
+</description>
+</parameter>
+<parameter number="37903" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_3</name>
+<brief>Ausgangszuordnung Nockenbereich für Nockenspur 3</brief>
+<description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 3 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht den 4 Bits für die Bereichsangabe auf Nockenspur 3
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Nockenbereich 0 ist aktiv
+  0      0       0      1      Nockenbereich 1 ist aktiv
+bis ...
+  1      1       1      1      Nockenbereich 15 ist aktiv
+
+Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal  bedeutet
+= 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 3 zugewiesen wurde
+= 15  	Achse steht im Bereich rechts vom positionsmäßig größten Nocken der Nockenspur 3
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
+
+Korrespondiert mit:
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+
+</description>
+</parameter>
+<parameter number="37904" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_OUTPUT_4</name>
+<brief>Ausgangszuordnung Nockenbereich für Nockenspur 4</brief>
+<description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 4 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+n = 0, 1, 2, 3 entspricht den 4 Bits für die Bereichsangabe auf Nockenspur 4
+
+Bit 3  Bit 2   Bit 1  Bit 0
+  0      0       0      0      Nockenbereich 0 ist aktiv
+  0      0       0      1      Nockenbereich 1 ist aktiv
+bis ...
+  1      1       1      1      Nockenbereich 15 ist aktiv
+
+Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+
+Signal  bedeutet
+= 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 4 zugewiesen wurde
+= 15  	Achse steht im Bereich rechts vom positionsmäßig größten Nocken der Nockenspur 4
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
+
+Korrespondiert mit:
+	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+
+</description>
+</parameter>
+<parameter number="37906" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_1</name>
+<brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 1</brief>
+<description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 1 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 1.
+
+Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal  bedeutet
+= 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
+= 1	Achse steht auf Nocken mit Nockenbereichsnummer n
+
+Beispiel:
+Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse auf dem Nocken steht, dem durch Parametrierung die Nockenbereichsnummer 5 auf Nockenspur 1 zugewiesen ist.
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Ist die Nockenbereichsnummer n auf Nockenspur 1 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
+
+</description>
+</parameter>
+<parameter number="37907" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_2</name>
+<brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 2</brief>
+<description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 2 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 2.
+
+Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal  bedeutet
+= 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
+= 1	Achse steht auf Nocken mit Nockenbereichsnummer n
+
+Beispiel:
+Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse auf dem Nocken steht, dem durch Parametrierung die Nockenbereichsnummer 5 auf Nockenspur 2 zugewiesen ist.
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Ist die Nockenbereichsnummer n auf Nockenspur 2 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
+
+</description>
+</parameter>
+<parameter number="37908" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_3</name>
+<brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 3</brief>
+<description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 3 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 3.
+
+Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal  bedeutet
+= 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
+= 1	Achse steht auf Nocken mit Nockenbereichsnummer n
+
+Beispiel:
+Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse auf dem Nocken steht, dem durch Parametrierung die Nockenbereichsnummer 5 auf Nockenspur 3 zugewiesen ist.
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Ist die Nockenbereichsnummer n auf Nockenspur 3 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
+
+</description>
+</parameter>
+<parameter number="37909" type="DWORD" dim="1" display="HEX">
+<name>SAFE_CAM_RANGE_BIN_OUTPUT_4</name>
+<brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 4</brief>
+<description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 4 angegeben.
+
+Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
+
+Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 4.
+
+Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
+MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+
+Signal  bedeutet
+= 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
+= 1	Achse steht auf Nocken mit Nockenbereichsnummer n
+
+Beispiel:
+Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse auf dem Nocken steht, dem durch Parametrierung die Nockenbereichsnummer 5 auf Nockenspur 4 zugewiesen ist.
+
+Hinweis:
+Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
+Ist die Nockenbereichsnummer n auf Nockenspur 4 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
+
+</description>
+</parameter>
+<parameter number="37920" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_VELO_LIMIT</name>
+<brief>Umschaltdrehzahl Sicherer Betriebshalt</brief>
+<description>Geschwindigkeit, unterhalb der eine Achse/Spindel als "stillstehend" betrachtet wird und eine Umschaltung auf Sicheren Betriebshalt durchgeführt wird.
+
+Korrespondiert mit:
+	MD 37922: $MA_SAFE_STANDSTILL_DELAY
+	p9567, p9569
+</description>
+</parameter>
+<parameter number="37922" type="DOUBLE" dim="0">
+<name>SAFE_STANDSTILL_DELAY</name>
+<brief>Verzögerungszeit Umschaltung auf Sicheren Betriebshalt</brief>
+<description>Wird beim Übergang auf SBH Stillstand erkannt (siehe MD37920 $MA_SAFE_STANDSTILL_VELO_LIMIT), so wird spätestens nach dieser Übergangszeit SBH aktiv. Die Übergangszeiten von Stop C, D und E sowie von SG nach SBH werden in diesem Fall abgebrochen, bzw. durch diese Verzögerungszeit abgelöst.
+
+Korrespondiert mit:
+	MD 37920: $MA_SAFE_STANDSTILL_VELO_LIMIT
+	p9567, p9569
+</description>
+</parameter>
+<parameter number="37950" type="DWORD" dim="0" display="HEX">
+<name>SAFE_INFO_ENABLE</name>
+<brief>SIC/SCC- und PROFIsafe-Freigabe</brief>
+<description>MD zur Freigabe der Auswertung des SIC/SCC-Telegramms zwischen Steuerung und Antrieb und zur Freigabe der Übertragung des PROFIsafe-Telegramms zwischen F-PLC und Antrieb.
+Bit 0: Freigabe der Auswertung des Safety Info Channel / Safety Control Channel (SIC/SCC)
+       Bei Achsen mit NC-Safety-Funktionalität wird über SIC/SCC ausschliesslich der antriebsintegrierte Bremsentest unterstützt.
+Bit 1: Freigabe der PROFIsafe-Kommunikation zwischen F-PLC und Antrieb
+</description>
+</parameter>
+<parameter number="37952" type="BYTE" dim="0">
+<name>PROFISAFE_MODULE_NR</name>
+<brief>PROFIsafe Modul-Nummer</brief>
+<description>Nummer zur Auswahl einer logischen Basisadresse aus MD13372 $MN_SAFE_PS_DRIVE_LOGIC_ADDR.
+</description>
+</parameter>
+<parameter number="37954" type="BYTE" dim="0">
+<name>SAFE_INFO_MODULE_NR</name>
+<brief>SIC/SCC Modul-Nummer</brief>
+<description>Nummer zur Auswahl einer logischen Basisadresse aus MD13374 $MN_SAFE_INFO_DRIVE_LOGIC_ADDR.
+</description>
+</parameter>
+</info>

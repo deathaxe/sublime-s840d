@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="52000" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_COORDINATE_SYSTEM</name>
+<brief>Coordinate system position</brief>
+<description>With this MD you adapt the operator panel of the coordinate system to the machine's coordinate system. Depending on the selected position, all help screens, the sequence graphic, the simulation and the input fields with the circular direction specified will change automatically.
+Also note MD 52210 $MCS_FUNCTION_MASK_DISP, bit 1.
+
+
+</description>
+</parameter>
+<parameter number="52001" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_COORDINATE_SYSTEM_2</name>
+<brief>Coordinate system for turning on milling machines</brief>
+<description>With this MD you specify the coordinate system for turning operations on milling machines.
+See also MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
+
+
+</description>
+</parameter>
+<parameter number="52005" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_PLANE_MILL</name>
+<brief>Plane selection Milling</brief>
+<description>Plane selection Milling
+0: plane selection on the operator panel
+17: always G17
+18: always G18
+19: always G19
+
+</description>
+</parameter>
+<parameter number="52006" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_PLANE_TURN</name>
+<brief>Plane selection Turning</brief>
+<description>Plane selection Turning
+0: plane selection on the operator panel
+17: always G17
+18: always G18
+19: always G19
+
+</description>
+</parameter>
+<parameter number="52010" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_NUM_AXIS_BIG_FONT</name>
+<brief>Number of actual values with large font</brief>
+<description>Number of actual values with large font
+
+</description>
+</parameter>
+<parameter number="52011" type="BYTE" dim="0" display="DECIMAL">
+<name>ADJUST_NUM_AXIS_BIG_FONT</name>
+<brief>Adapt number of act val w large font dynamically to no. of geometry axes</brief>
+<description>Adapt the number of actual values with large font if the number of geometry axes changes, e.g. due to transformations like TRANSMIT or TRACYL.
+0 = Only MD 52010 "DISP_NUM_AXIS_BIG_FONT" is valid. The number is assigned as a fixed value.
+1 = Only the geometry axes are displayed in large font. MD 52010 "DISP_NUM_AXIS_BIG_FONT" is ignored.
+2 = The number of geometry axes plus the content of MD 52010 "DISP_NUM_AXIS_BIG_FONT"  are displayed in large font.
+
+</description>
+</parameter>
+<parameter number="52200" type="BYTE" dim="0" display="DECIMAL">
+<name>TECHNOLOGY</name>
+<brief>Technology</brief>
+<description>Technology
+0: no specific configuration
+1: turning
+2: milling
+3: cylindrical grinding
+4: surface grinding
+Also note MD 52201 $MCS_TECHNOLOGY_EXTENSION
+</description>
+</parameter>
+<parameter number="52201" type="BYTE" dim="0" display="DECIMAL">
+<name>TECHNOLOGY_EXTENSION</name>
+<brief>Extended technology</brief>
+<description>Extended technology
+0: no specific configuration
+1: turning
+2: milling
+3: cylindrical grinding
+4: surface grinding
+Also note MD 52200 $MCS_TECHNOLOGY.
+Example:
+Turning machine with milling technology
+MD 52200 $MCS_TECHNOLOGY = 1
+MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
+</description>
+</parameter>
+<parameter number="52205" type="BYTE" dim="0" display="DECIMAL">
+<name>NUM_AXIS_USED</name>
+<brief>Number of axes used in channel</brief>
+<description>Number of axes used in channel (axis gaps are also counted).
+
+</description>
+</parameter>
+<parameter number="52206" type="BYTE" dim="1" display="DECIMAL">
+<name>AXIS_USAGE</name>
+<brief>Meaning of the axes in the channel</brief>
+<description>Significance of the axes in the channel
+0 = no special significance)
+1 = tool spindle (driven tool)
+2 = auxiliary spindle (driven tool)
+3 = main spindle (turning)
+4 = separate C axis of the main spindle (turning)
+5 = counterspindle (turning)
+6 = separate C axis of the counterspindle (turning)
+7 = linear axis of the counterspindle (turning)
+8 = tailstock (turning)
+9 = steady rest (turning)
+10 = B axis in the head (turning)
+11 = reserved
+12 = B axis in the counterspindle (turning)
+13 = transverse travel X of the counterspindle (turning)
+
+</description>
+</parameter>
+<parameter number="52207" type="DWORD" dim="1" display="HEX">
+<name>AXIS_USAGE_ATTRIB</name>
+<brief>Axis attributes</brief>
+<description>Attributes of the axes
+Bit 0: rotates around 1st geometry axis (for rotary axes)
+Bit 1: rotates around 2nd geometry axis (for rotary axes)
+Bit 2: rotates around 3rd) geometry axis (for rotary axes
+Bit 3: Positive direction of rotation is counter-clockwise (for rotary axes)
+          The rotary axes are always viewed in the negative geometry axis direction.
+          For turning machines, a spindle is always viewed from the interior.
+Bit 4: Displayed direction of rotation for M3 is counter-clockwise (for spindles)
+          The viewing direction can be selected. Either viewed outward from the inside or from the outside toward the spindle.
+          However, the same selection must be made for all spindles.
+Bit 5: Direction of rotation M3 corresponds to minus rotary axis (for spindles)
+          This bit must be set in the same way as PLC bit DBnn.DBX17.6!
+          (nn = 31 + machine axis index)
+Bit 6: Display rotary axis as offset target for measuring
+Bit 7: Offer rotary axis in position pattern
+          The orientation of the axis is defined using bits 0 - 2.
+          If one of the bits 10 - 12 is set, these bits specify the orientation of the axis for position patterns.
+Bit 8: Offer rotary axis for blank clamp on milling machines)
+          The orientation of the axis is defined using bits 0 - 2.
+Bit 9: Spindle is not SPOS capable
+Bit 10: Rotary axis rotates around 1st geometry axis (only for position pattern)
+Bit 11: Rotary axis rotates around 2nd geometry axis (only for position pattern)
+Bit 12: Rotary axis rotates around 3rd geometry axis (only for position pattern)
+Note: For bits 0 - 2 and 10 - 12, only the 1st set bit is ever active.
+
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="52210" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DISP</name>
+<brief>Function mask Display</brief>
+<description>Function mask for display
+Bit 0: Dimension system for programs always in the basic system
+Bit 1: Face view when turning in the school coordinate system
+Bit 2: Hide softkey "T,S,M" in the jog area
+Bit 3: Generate automatic end-of-program in MDI (using the "Delete blocks" softkey)
+Bit 4: Display follow-on tool in the T,F,S window
+Bit 5: Hide "Actual Machine values" softkey
+Bit 6: Hide tool radius/diameter in the T,F,S window
+Bit 7: Hide tool lengths in the T,F,S window
+Bit 8: Hide tool icon in the T,F,S window
+Bit 9: Display "Simple input" selection
+Bit 10: Do not offer channel in the job lists
+Bit 11: For Work, activate the display of the logical spindles
+Bit 12: Hide mold making view for G code
+
+</description>
+</parameter>
+<parameter number="52211" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DISP_ZOA</name>
+<brief>Function screen for displaying overview of work offsets</brief>
+<description>Function mask for displaying overview of work offsets
+Bit 0: Display Machine position
+Bit 1: Reserved
+Bit 2: Display DRF offset
+Bit 3: Display $AA_OFF position offset
+Bit 4: Display $P_PARTFRAME
+Bit 5: Display $P_SETFRAME
+Bit 6: Display $P_EXTSFRAME
+Bit 7: Display $P_ISO1FRAME
+Bit 8: Display $P_ISO2FRAME
+Bit 9: Display $P_ISO3FRAME
+Bit 10: Display $P_ACTBFRAME
+Bit 11: Display $P_IFRAME
+Bit 12: Display $P_TOOLFRAME
+Bit 13: Display $P_WPFRAME
+Bit 14: Display $P_TRAFRAME
+Bit 15: Display $P_PFRAME
+Bit 16: Display $P_ISO4FRAME
+Bit 17: Display $P_CYCFRAME
+Bit 18: Display sum of work offsets
+Bit 19: Display offset of active tool
+Bit 20: Display Work position
+Bit 21: Display BCS position
+
+</description>
+</parameter>
+<parameter number="52212" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TECH</name>
+<brief>Function mask Cross-technology</brief>
+<description>Function mask for all technologies
+Bit 0:	Enable swivel with tool carrier
+	0: Swivel plane/ tool with tool carrier not enabled
+	1: Swivel plane/ tool with tool carrier enabled 
+	Only swivel plane enabled, alignment of turning tool controlled by bit 10
+Bit 1:	Optimized travel along software limit switches (ShopMill/ShopTurn)
+	0: No optimized travel along software limit switches
+	1: Optimized travel along software limit switches
+	With optimized travel along the software limit switches, in the swiveled state (with table kinematics) any traversing motions which would go
+	 beyond the software limit switches are truncated. This avoids the alarm 10720 "Axis software limit switches".
+Bit 2:	Special approach logic for step drill (ShopTurn)
+	0: Special approach logic for step drill disabled
+	1: Special approach logic for step drill active
+	When navigating around the retraction planes, the longest cutting edge (with the same cutting edge position as the active cutting edge) in the same machining direction is 
+	always taken into account.
+Bit 3:	Call block search cycle for ShopMill/ShopTurn
+	0: In the block search cycle PROG_EVENT.SPF, the cycles E_S_ASUP and F_S_ASUP are not called
+	1: In the block search cycle PROG_EVENT.SPF, the cycles E_S_ASUP (milling technology) and F_S_ASUP (turning technology) are called. After the block search,
+	the cycles E_S_ASUP and F_S_ASUP ensure the output of tool and machine commands.
+	The corresponding cycle is also called with a block search of a G code program.
+	The bit must be set when ShopMill/ShopTurn is used!
+Bit 4:	Approach logic via cycle (ShopTurn)
+	0: Approach logic via NC function
+	1: Approach logic via ShopTurn cycle
+	The approach logic via the ShopTurn cycle is only required for diagnostic purposes.
+Bit 5: 	Call SERUPRO block search function
+	0: In the block search cycle PROG_EVENT.SPF, the cycle CYCLE207 is not called.
+	1: In the block search cycle PROG_EVENT.SPF, the cycle for SERUPRO (CYCLE207) is called (for block search with SERUPRO program test).
+	After the block search with program test (SERUPRO), cycle CYCLE207 ensures the output of the collected machine commands.
+Bit 6: 	Work offset ZV can only be entered as an increment (ShopTurn)
+	0: Parameter ZV, active work offset can be entered as an increment and as an absolute
+	1: Parameter ZV, active work offset can only be entered as an increment (ShopTurn)
+Bit 7: 	Detect expiry of tool lives in the program (ShopMill/ShopTurn)
+	0: The tool life is only taken into account when the tool is loaded
+	1: The tool life is taken into account when changing the machining steps (even if there is no tool change).
+Bit 8: 	Manual machine function active (ShopMill/ShopTurn)
+	0: Manual machine function is not activated
+	1: Manual machine function is active
+Bit 9: 	Selection/deselection of work offset via softkey
+	0: The WO selection/deselection softkey is not available in the work offset table of the settable WOs.
+	1:  The WO selection/deselection softkey is available in the work offset table of the settable WOs.
+Bit 10: 	Align turning tool via kinematic transformation
+	0: Turning tools aligned via tool carrier
+	1: Turning tools aligned via kinematic transformation
+Bit 11:	Disable position check for drilling and milling tools (ShopTurn)
+	0: Cutting edge position check is active for drilling and milling tools
+	1: No cutting edge position check for drilling and milling tools
+	The check of the position of the cutting edge can be disabled for drilling and milling tools if this is necessary on account of the machine design.
+Bit 12:	Alarm with positive Z offset (ShopTurn)
+	0: No alarm with positive Z offset
+	1: Alarm with positive Z offset
+	With a positive Z offset (TRANS), the alarm 62201 "Z offset not active on retraction planes!" is output.
+	The positive Z offset can be dangerous if it shifts the machining position out of the 
+	retraction area, as this can lead to collisions during approach or retraction 
+Bit 13:	Approach tool change point Y in Machine (ShopTurn)
+	0 = The tool change point in the Machine is only approached to 0 in the Y direction if MD 52241 $MCS_TOOL_CHANGE_POS_Y = 0).
+	1 = Tool change point in the MCS is always approached in the Y direction (see MD 52241 $MCS_TOOL_CHANGE_POS_Y).
+
+
+
+
+</description>
+</parameter>
+<parameter number="52214" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL</name>
+<brief>Function mask Milling</brief>
+<description>Function mask for milling
+Bit 0:	Enable cylinder surface transformation (ShopMill)
+	0: Softkey not enabled for cylinder surface transformation
+	1: Cylinder surface transformation enabled
+Bit 1:	Offer fixed table for blank clamping (on milling machines)
+	0: Fixed table not offered for blank clamping
+	1: Offer fixed table for blank clamping
+	(This bit must only be set if the machine has a rotary axis and a fixed table for blank clamping.)
+Bit 2:	Special handling of side mill/saw for polyhedron
+	0: No special handling of side mill/saw for polyhedron
+	1: Special handling of side mill/saw for polyhedron
+	With this tool type, the first infeed is selected so that the upper edge of the tool exactly touches reference point Z0.
+	At the end of machining, it is completely drawn out laterally from the blank spigot.
+	This can create an internal polyhedron on a shaft.
+Bit 3:	Enable inside/rear machining (ShopTurn)
+	0: Inside/rear machining not enabled
+	1: Enable inside/rear machining in ShopTurn screen forms (applies in ShopTurn screen forms which define the machining planes)
+Bit 4:	Enable spindle clamping (C axis) (ShopTurn)
+	0: The parameter "Clamp/release spindle" is not shown in drilling or milling screen forms. ShopTurn clamps the spindle automatically if this is advantageous for
+	machining.
+	1: The parameter "Clamp/release spindle" is shown in drilling and milling screen forms. The operator decides on the machining for which the spindle is clamped. 
+	If you have implemented the function "Clamp/release spindle" by using the machine manufacturer cycle CUST_TECHCYC.SPF, you can activate the parameter "Clamp/release spindle" 
+	in drilling and milling screen forms with this machine data.
+Bit 5:	Enable spindle control of tool spindle via user interface
+	0: Enable spindle control via the NC/PLC interface
+	1: Enable spindle control via user interface
+Bit 6:	Enable spindle control of turning spindle via user interface
+	0: Enable spindle control via the NC/PLC interface
+	1: Enable spindle control via user interface
+
+
+</description>
+</parameter>
+<parameter number="52216" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DRILL</name>
+<brief>Function mask Drilling</brief>
+<description>Function screen form, drilling
+Bit 0:	CYCLE84 Show input fields, Technology
+	0: Hide input fields
+	1: Show input fields
+Bit 1:	CYCLE840 Show input fields, Technology
+	0: Hide input fields
+	1: Show input fields
+Bit 2:	Thread tapping also without encoder (ShopMill/ShopTurn)
+	0: Thread tapping only possible with encoder
+	1: Thread tapping also possible without encoder
+	The setting depends on whether the machine has an encoder for the tool spindle.
+Bit 3:  	Constant cutting speed in relation to the diameter of the centering (ShopMill/ShopTurn)
+	0: Constant cutting speed in relation to the diameter of the tool
+	1: Constant cutting speed in relation to the diameter of the centering
+
+</description>
+</parameter>
+<parameter number="52218" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TURN</name>
+<brief>Function mask Turning</brief>
+<description>Function screen form, turning
+Bit 0:	Enable zoom under manual for tool measurement
+	0: No zoom under manual for tool measurement
+	1: Enable zoom under manual for tool measurement
+Bit 1:	Enable parts gripper for cut-off
+	0: No parts gripper for cut-off
+	1:Enable parts gripper for cut-off
+Bit 2:	Enable tailstock
+	0: Tailstock not enabled
+	1: The tailstock can be selected in the program.
+Bit 3:	Enable spindle control of main spindle via user interface
+	0: Enable spindle control via the NC/PLC interface
+	1: Enable spindle control via the use interface
+Bit 4:	Enable spindle control of counterspindle via user interface
+	0: Enable spindle control via the NC/PLC interface
+	1: Enable spindle control via the use interface
+Bit 5:	Enable spindle control of tool spindle via user interface
+	0: Enable spindle control via the NC/PLC interface
+	1: Enable spindle control via the use interface
+Bit 6:	Enable balance cutting for dual-channel stock removal
+	0: No enable of the balance cutting function for dual-channel stock removal
+	1: Enable of balance cutting for dual-channel stock removal
+	In balance cutting, stock is removed from both sides of the workpiece simultaneously. This enables work to be performed with a higher feedrate.
+Bit 7:	Retraction during stock removal along the contour with G1
+	0: Retraction during stock removal along the contour with rapid traverse (G0)
+	1: Retraction during stock removal along the contour with feedrate (G1)
+Bit 8:	Enter spindle chuck data in the program
+	0: The spindle chuck data are taken from the corresponding input screen form in the parameter area.
+	1: Enter spindle chuck data in the program
+Bit 9:	Additional entry of tailstock data in the program
+	0: The tailstock data are taken from the spindle chuck data in the parameter area.
+	1: Additional entry of tailstock data in the program
+	This bit is only effective if bit 8 is also set.
+Bit 10:	Enable convex thread
+	0: Convex thread not enabled with longitudinal thread cutting
+	1: Convex thread enabled with longitudinal thread cutting
+Bit 11:	Reserved
+Bit 12:	Deactivate thread synchronization
+	0: Thread synchronization is possible
+	1: Deactivate the thread synchronization function
+	The operator screen form to set the synchronization point is not displayed, and in the thread cycles
+	the thread first cut is not calculated with the synchronization point.
+Bit 13:	Stock removal along the contour with CYCLE95 (828D programGUIDE without Advanced Technology)
+	0: The screen form for CYCLE952 is opened with the softkey contour turning/stock removal.
+	1:  The screen form for CYCLE95 is opened with the softkey contour turning/stock removal.
+	Secondary conditions:
+	- 828D
+	- programGUIDE
+	- Without Advanced Technology option
+
+
+
+</description>
+</parameter>
+<parameter number="52229" type="BYTE" dim="0" display="HEX">
+<name>ENABLE_QUICK_M_CODES</name>
+<brief>Enable fast M functions</brief>
+<description>Enable fast M functions
+Bit 0:	Coolant        OFF
+Bit 1:	Coolant 1     ON
+Bit 2:	Coolant 2     ON
+Bit 3:	Coolant 1 and 2  ON
+</description>
+</parameter>
+<parameter number="52230" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_ALL_COOLANTS_OFF</name>
+<brief>M code for all coolants OFF</brief>
+<description>M code for all coolants OFF
+</description>
+</parameter>
+<parameter number="52231" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_COOLANT_1_ON</name>
+<brief>M code for coolant 1 ON</brief>
+<description>M code for coolant 1 ON
+</description>
+</parameter>
+<parameter number="52232" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_COOLANT_2_ON</name>
+<brief>M code for coolant 2 ON</brief>
+<description>M code for coolant 2 ON
+</description>
+</parameter>
+<parameter number="52233" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_COOLANT_1_AND_2_ON</name>
+<brief>M code for both coolants ON</brief>
+<description>M code for coolant 1 + 2 ON
+
+</description>
+</parameter>
+<parameter number="52240" type="STRING" dim="1" display="ASCII">
+<name>NAME_TOOL_CHANGE_PROG</name>
+<brief>Tool change program for G code steps</brief>
+<description>Tool change program for G code steps.
+When inserting a tool using the "Select tool" softkey, the T command is transferred into the program.
+If the MD contains a text, this is automatically inserted as an autonomous block after the T command.
+For example, the tool change command "M6" can be entered here or a machine-manufacturer specific tool change program.
+
+</description>
+</parameter>
+<parameter number="52241" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TOOL_CHANGE_POS_Y</name>
+<brief>Tool change position Y in the Machine (ShopTurn)</brief>
+<description>Tool change position Y in Machine (ShopTurn)
+In ShopTurn, the tool change point in X and Z can be specified in the Machine or Work.
+When the tool change point is approached, the Y axis is simultaneously traversed to the value in the Machine specified in this MD.
+
+</description>
+</parameter>
+<parameter number="52242" type="BYTE" dim="0" display="DECIMAL">
+<name>TURN_TOOL_FIXING</name>
+<brief>Tool adapter for turning tools</brief>
+<description>Tool adapter for turning tools:
+0 = turning tool in the tool spindle
+1 = turning tool fixed at the tool spindle box
+2 = turning tool in the tool spindle or fixed at the tool spindle box
+
+</description>
+</parameter>
+<parameter number="52244" type="DOUBLE" dim="0" display="DECIMAL">
+<name>SUB_SPINDLE_PARK_POS_Y</name>
+<brief>Parking position of the Y axis with counterspindle in the Machine</brief>
+<description>Parking position of the Y axis with counterspindle in the Machine
+</description>
+</parameter>
+<parameter number="52248" type="DOUBLE" dim="0" display="DECIMAL">
+<name>REV_2_BORDER_TOOL_LENGTH</name>
+<brief>Limit value tool length X for 2nd turret</brief>
+<description>Limit value of tool length X for the 2nd turret:
+Limit value = 0: only one turret available 
+Tool length X &lt; limit value: tool belongs to 1st turret/multifix
+Tool length X &gt;= limit value: tool belongs to 2nd turret/multifix
+</description>
+</parameter>
+<parameter number="52250" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_CHUCK_OPEN</name>
+<brief>M code for Open chuck with non-rotating spindle</brief>
+<description>M code for Open chuck with non-rotating spindle.
+Example: "M34" or "M1=34"
+
+Elements:
+  [0]: Main spindle
+  [1]: Counterspindle
+
+</description>
+</parameter>
+<parameter number="52251" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_CHUCK_OPEN_ROT</name>
+<brief>M code for Open chuck with rotating spindle</brief>
+<description>M code for Open chuck with rotating spindle.
+Example: "M34" or "M1=34"
+
+Elements:
+  [0]: Main spindle
+  [1]: Counterspindle
+
+</description>
+</parameter>
+<parameter number="52252" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_CHUCK_CLOSE</name>
+<brief>M code for Close chuck</brief>
+<description>M code for Close chuck
+Example: "M34" or "M1=34"
+
+Elements:
+  [0]: Main spindle
+  [1]: Counterspindle
+
+</description>
+</parameter>
+<parameter number="52253" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_TAILSTOCK_FORWARD</name>
+<brief>M code for quill forward</brief>
+<description>M code for quill forward.
+E.g.: "M55" or "M1=55"
+
+Elements:
+  [0]: Quill opposite main spindle
+  [1]: Quill opposite counterspindle
+
+</description>
+</parameter>
+<parameter number="52254" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_TAILSTOCK_BACKWARD</name>
+<brief>M code for quill backward</brief>
+<description>M code for quill backward.
+E.g.: "M54" or "M1=54"
+
+Elements:
+  [0]: Quill opposite main spindle
+  [1]: Quill opposite counterspindle
+
+</description>
+</parameter>
+<parameter number="52260" type="BYTE" dim="0" display="DECIMAL">
+<name>MACHINE_JOG_INTERRUPT_PRIO</name>
+<brief>Priority for start ASUB under machine JOG</brief>
+<description>Priority for start ASUB under machine JOG
+</description>
+</parameter>
+<parameter number="52270" type="DWORD" dim="0" display="HEX">
+<name>TM_FUNCTION_MASK</name>
+<brief>Function mask Tool management</brief>
+<description>Function screen form for tool management
+Bit 0:	Create tool on magazine location not allowed. Tools can only be created outside the magazine.
+Bit 1:	Load/unload disabled if machine is not in reset. Tools can only be loaded/unloaded if the appropriate channel is in reset state.
+Bit 2:	Load/unload disabled on emergency stop. Tools can only be loaded/unloaded if emergency stop is not active.
+Bit 3:	Load/unload or relocate tool to/from buffer is disabled. Tools cannot be loaded/ unloaded or relocated in the buffer (spindle/gripper).
+Bit 4:	Loading is executed directly into the spindle. Tools are loaded exclusively directly into the spindle.
+Bit 5:	Use grinding configuration file for creating the tool lists. Only grinding tools are offered.
+Bit 6:	Relocating a tool to/from the buffer (spindle/gripper) is permitted despite a block (see bit3).
+Bit 7:	Create tool using the tool number. Specify the tool's T number when creating the tool.
+Bit 8:	Hide Relocate tool. The function 'Relocate tool' is hidden on the user interface.
+Bit 9:	Hide Position magazine. The function 'Position magazine' is hidden on the user interface.
+Bit 10:	Reactivate tool using Position magazine. Prior to reactivation, the tool is positioned on the loading position.
+Bit 11:	Reactivate tool in all monitoring modes. When reactivating a tool, all monitoring modes enabled in the NC are
+	reactivated for this tool, even the monitoring modes, which have not been set for the relevant tool, but are available in the background only.
+Bit 12:	Hide Reactivate tool. The function 'Reactivate tool' is hidden on the user interface.
+
+</description>
+</parameter>
+<parameter number="52271" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TM_MAG_PLACE_DISTANCE</name>
+<brief>Distance betw. indiv. magazine locations</brief>
+<description>Distance between individual magazine locations.
+Is used for graphical display of magazine and tools in tool management.
+</description>
+</parameter>
+<parameter number="52272" type="BYTE" dim="0" display="DECIMAL">
+<name>TM_TOOL_LOAD_DEFAULT_MAG</name>
+<brief>Default magazine for tool loading</brief>
+<description>Default magazine for tool loading
+0 = no default magazine
+</description>
+</parameter>
+<parameter number="52273" type="BYTE" dim="0" display="DECIMAL">
+<name>TM_TOOL_MOVE_DEFAULT_MAG</name>
+<brief>Default magazine for tool relocation</brief>
+<description>Default magazine for tool relocation
+0 = no default magazine
+</description>
+</parameter>
+<parameter number="52274" type="BYTE" dim="0" display="DECIMAL">
+<name>TM_TOOL_LOAD_STATION</name>
+<brief>Number of load station</brief>
+<description>Number of the loading station
+0 = All configured stations are taken into account
+</description>
+</parameter>
+<parameter number="52281" type="DWORD" dim="1" display="DECIMAL">
+<name>TOOL_MCODE_FUNC_ON</name>
+<brief>M code for tool-specific function ON</brief>
+<description>M code for tool-specific function ON
+Value -1 means that the M function is not output. If both M commands of a function equal -1, the corresponding field will not be displayed in the user interface
+</description>
+</parameter>
+<parameter number="52282" type="DWORD" dim="1" display="DECIMAL">
+<name>TOOL_MCODE_FUNC_OFF</name>
+<brief>M code for tool-specific function OFF</brief>
+<description>M code for tool-specific function OFF
+Value -1 means that the M function is not output. If both M commands of a function equal -1, the corresponding field will not be displayed in the user interface
+</description>
+</parameter>
+<parameter number="52290" type="BYTE" dim="0" display="HEX">
+<name>SIM_DISPLAY_CONFIG</name>
+<brief>Location of status display of the channel in the simulation (OP019 only)</brief>
+<description>Location of status display of the channel in the simulation
+
+Only one of the 4 corners can be selected:
+  Bit 0 = Top left corner
+  Bit 1 = Top right corner
+  Bit 2 = Bottom left corner
+  Bit 3 = Bottom right corner
+
+This MD is active only on the OP019.
+
+</description>
+</parameter>
+<parameter number="52480" type="STRING" dim="1" display="ASCII">
+<name>MILL_PARALLEL_AX1_NAME</name>
+<brief>Channel axis name of the first parallel axis for CYCLE69</brief>
+<description>Channel axis name of the first parallel axis (tool axis) for CYCLE69.
+The first parallel axis is the third geometry axis, if no geometry axis exchange is active (e.g. axis ZZ with G17)
+The channel axis name must differ from the geometry axis name (e.g. channel axis name ZZ, geometry axis name Z)
+
+</description>
+</parameter>
+<parameter number="52481" type="STRING" dim="1" display="ASCII">
+<name>MILL_PARALLEL_AX2_NAME</name>
+<brief>Channel axis name of the second parallel axis for CYCLE69</brief>
+<description>Channel axis name of the second parallel axis (in tool direction) for CYCLE69
+</description>
+</parameter>
+<parameter number="52482" type="STRING" dim="1" display="ASCII">
+<name>MILL_PARALLEL_AX3_NAME</name>
+<brief>Channel axis name of the third parallel axis for CYCLE69</brief>
+<description>Channel axis name of the third parallel axis (in tool direction) for CYCLE69
+
+</description>
+</parameter>
+<parameter number="52483" type="STRING" dim="1" display="ASCII">
+<name>MILL_ROUND_AX_NAME</name>
+<brief>Channel axis name of the rotary axis for CYCLE69</brief>
+<description>Channel axis name of the rotary axis for CYCLE69
+The parallel axes cycle (CYCLE69) can also support a rotary axis during positioning (e.g. rotary table B).
+</description>
+</parameter>
+<parameter number="52485" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL_PARAXES</name>
+<brief>Function mask for parallel axes cycle - CYCLE69</brief>
+<description>Function mask Parallel axes CYCLE69
+Bit 0: always traverse parallel axes individually (e.g. when clamping the parallel axes with M command)
+Bit 1: 
+Bit 2: workpiece reference value (compensation value) still effective after reset 
+          Value is globally accepted in data management in CYCLE69
+</description>
+</parameter>
+<parameter number="52740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<description>Function mask for measuring cycles
+
+Bit 0: 	Workpiece measurement, probe input
+          	0: Workpiece probe connected at probe input 1
+          	1: Workpiece probe connected at probe input 2
+
+Bit 1: 	Workpiece measurement, turning technology, using a third geometry axis (Y axis) using
+         turning measuring cycles
+          	0: Y axis not used or not supported
+          	1: Values entered for the turning measuring cycles refer to the Y axis.
+	This means that the turning measuring cycles can use the Y axis as a measuring or bypass axis.
+              When measuring in the Y axis, correction of the tool length or work offset is always realized in the components of the second geometry axis (X axis).
+              Note: the values entered for the Y axis always refer to the diameter.
+
+Bit 2: 	Correction angle calculated with/without active orientation transformation
+          	0: Correction angle calculated (_MEA_CORR_ANGLE[1]) only with active orientation transformation (TCARR, CYCLE800 or TRAORI)
+          	1: Correction angle calculated (_MEA_CORR_ANGLE[1]) even without active orientation transformation
+          	   and SD42940 $SC_TOOL_LENGTH_CONST 1000s digit = 1 (calculation of the tool orientation) is set
+
+Bit 16: 	Tool measurement, probe input
+          	0: Tool probe connected at probe input 1
+          	1: Tool probe connected at probe input 2
+
+
+</description>
+</parameter>
+<parameter number="52750" type="DOUBLE" dim="0" display="DECIMAL">
+<name>J_MEA_FIXPOINT</name>
+<brief>Z value for measuring fixed point</brief>
+<description>Z value for measuring against fixed point
+</description>
+</parameter>
+<parameter number="52751" type="DOUBLE" dim="1" display="DECIMAL">
+<name>J_MEA_MAGN_GLAS_POS</name>
+<brief>Zoom-in position for tool measurement</brief>
+<description>Zoom-in position for tool measurement
+  [0] = Position in the 1st axis
+  [1] = Position in the 2nd axis
+</description>
+</parameter>
+<parameter number="52780" type="BYTE" dim="0" display="DECIMAL">
+<name>J_MEA_T_PROBE_APPR_MODE</name>
+<brief>Approach mode tool measurement in JOG</brief>
+<description>Approach mode tool measurement in JOG
+=0: technology-dependent approach to the tool probe
+      Turning technology: manual approach
+      Milling technology	: automatic approach
+=1: technology independent approach to the tool probe
+      Manual approach to the tool probe
+=2: technology-independent approach to the tool probe
+      Automatic approach to the tool probe
+
+</description>
+</parameter>
+<parameter number="52800" type="BYTE" dim="0">
+<name>ISO_M_ENABLE_POLAR_COORD</name>
+<brief>Polar coordinates</brief>
+<description>Polar coordinates
+0: OFF
+1: ON
+</description>
+</parameter>
+<parameter number="52802" type="BYTE" dim="0">
+<name>ISO_ENABLE_INTERRUPTS</name>
+<brief>Interrupt process</brief>
+<description>Interrupt process
+0: OFF
+1: ON
+</description>
+</parameter>
+<parameter number="52804" type="BYTE" dim="0">
+<name>ISO_ENABLE_DRYRUN</name>
+<brief>Machining skipped at DRYRUN</brief>
+<description>Maching skipped during tapping G74/G84 at DRYRUN
+0: OFF
+1: ON
+</description>
+</parameter>
+<parameter number="52806" type="BYTE" dim="0">
+<name>ISO_SCALING_SYSTEM</name>
+<brief>Basic system</brief>
+<description>Basic system: 
+0: not defined
+1: METRIC
+2: INCH
+</description>
+</parameter>
+<parameter number="52808" type="BYTE" dim="0">
+<name>ISO_SIMULTAN_AXES_START</name>
+<brief>Simultaneous approach to the boring position on all programmed axes</brief>
+<description>Simultaneous approach to the boring position on all programmed axes
+0: OFF
+1: ON
+</description>
+</parameter>
+<parameter number="52810" type="BYTE" dim="0">
+<name>ISO_T_DEEPHOLE_DRILL_MODE</name>
+<brief>Deep hole drilling with chipbreaking/stock removal</brief>
+<description>Select the type of deep hole drilling
+0: deep hole drilling with chipbreaking
+1: deep hole drilling with stock removal
+</description>
+</parameter>
+<parameter number="52840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Function mask for grinding</brief>
+<description>Function mask for grinding
+Bit 7:	Retraction while profiling with G1
+	0: Retraction while profiling with rapid traverse (G0)
+	1: Retraction while profiling with feedrate (G1)
+
+
+</description>
+</parameter>
+<parameter number="52842" type="BYTE" dim="0" display="DECIMAL">
+<name>GRIND_DIAMETER_LENGTH</name>
+<brief>Number of diameter length</brief>
+<description>Grinding technology: Number of the tool length for the grinding wheel diameter:
+1: Length 1 is grinding wheel diameter
+2: Length 2 is grinding wheel diameter
+
+</description>
+</parameter>
+<parameter number="52843" type="BYTE" dim="0" display="DECIMAL">
+<name>GRIND_WIDTH_LENGTH</name>
+<brief>Number of grinding wheel width</brief>
+<description>Grinding technology: Number of the tool length for the grinding wheel width:
+1: Length 1 is grinding wheel width
+2: Length 2 is grinding wheel width
+
+</description>
+</parameter>
+</info>

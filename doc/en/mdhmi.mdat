@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="9006" type="DWORD" dim="0" display="DECIMAL">
+<name>DISPLAY_SWITCH_OFF_INTERVAL</name>
+<brief>Time for screen saver</brief>
+<description>This machine data defines the time in minutes after which the screen automatically 
+switches to dark if no key has been pressed on the keyboard in the meantime.
+The value 0 disables automatic light/dark switching.
+Note:
+The screen is only switched light/dark automatically when IS screen dark = 0.
+Related to:
+IS screen dark (DB19, ... DBX0.1)
+</description>
+</parameter>
+<parameter number="9009" type="BYTE" dim="0" display="DECIMAL">
+<name>KEYBOARD_STATE</name>
+<brief>Keyboard shift behavior at booting</brief>
+<description>This machine date defines the Shift behavior (SW-CAPSLOCK) of the keyboard.
+Basic configuration of the Shift behavior of the keyboard
+ 0: SW-CAPSLOCK OFF
+ 2: SW-CAPSLOCK ON
+</description>
+</parameter>
+<parameter number="9032" type="STRING" dim="1" display="ASCII">
+<name>HMI_MONITOR</name>
+<brief>Define PLC data for HMI screen info</brief>
+<description>Pointer, with offset, to a PLC data block. This is required to report 
+HMI monitor information to the PLC, e.g active HMI task.
+ Format: PLC-specific format for specifying a data block with byte offset, 
+e.g. DB60.DBB10 for data block 60, byte 10.
+ The monitor information reported by the HMI has a maximum length of 8 bytes.
+</description>
+</parameter>
+<parameter number="9056" type="DWORD" dim="0" display="DECIMAL">
+<name>ALARM_ROTATION_CYCLE</name>
+<brief>Rotation cycle time for alarm display</brief>
+<description>Rotation cycle time in the alarm display:
+ &lt;500: no rotation in the alarm line
+ 500 - 10000: cycle duration of alarm rotation in milliseconds
+If a valid cycle time has been set, all alarms are displayed in the alarm line one after the other.
+Each alarm is displayed for the specified time until it is replaced by the next alarm.
+If no alarm is present, cycle alarms or program messages are displayed, if required. However, these do not rotate.
+</description>
+</parameter>
+<parameter number="9057" type="BOOLEAN" dim="0" display="DECIMAL">
+<name>ENABLE_CHANNEL_MSG_FILTER</name>
+<brief>Filter program messages channel specifically</brief>
+<description>0: The program messages of all channels are displayed in the alarm/message line.
+With multiple NCUs, the alarms and messages of all NCUs are displayed by default.
+The display can be restricted to the current NCU by the setting ServerMode Enabled=false in slaesvcconf.xml.
+1: Only the program messages of the current channel of the current NCU are displayed. 
+</description>
+</parameter>
+<parameter number="9100" type="BYTE" dim="0" display="DECIMAL">
+<name>CHANGE_LANGUAGE_MODE</name>
+<brief>Language selection mode</brief>
+<description>Language selection mode is defined:
+ 1 = directly via selection list
+ 2 = via setting of the 1st and 2nd language
+</description>
+</parameter>
+<parameter number="9102" type="BYTE" dim="0" display="DECIMAL">
+<name>SHOW_TOOLTIP</name>
+<brief>Display tooltip</brief>
+<description>If the MD has been set to 1, tooltips will be displayed.
+</description>
+</parameter>
+<parameter number="9103" type="BYTE" dim="0" display="DECIMAL">
+<name>TOOLTIP_TIME_DELAY</name>
+<brief>Time delay tooltip display</brief>
+<description>Time delay for display of the tooltips in seconds.
+</description>
+</parameter>
+<parameter number="9104" type="BYTE" dim="0" display="DECIMAL">
+<name>ANIMATION_TIME_DELAY</name>
+<brief>Time delay before animation of help screens</brief>
+<description>Time delay until the start of animation of help screens in seconds.
+The setting is not active for help screens that are exclusively animated.
+</description>
+</parameter>
+<parameter number="9105" type="BYTE" dim="0" display="DECIMAL">
+<name>HMI_WIDE_SCREEN</name>
+<brief>Display of the HMI as wide screen with OEM area always visible</brief>
+<description>Display of the HMI as wide screen. Above the HMI there is a separate application field that is designed by the machine manufacturer.
+</description>
+</parameter>
+<parameter number="9106" type="BYTE" dim="0" display="DECIMAL">
+<name>SERVE_EXTCALL_PROGRAMS</name>
+<brief>Process EXTCALL calls</brief>
+<description>0-3: Type of processing of external programs
+0: HMI ignores EXTCALL instructions and selection via PLC.
+1: HMI processes EXTCALL instructions and selection via PLC.
+2: HMI processes EXTCALL instructions and ignores selection via PLC.
+3: HMI ignores EXTCALL instructions and processes selection via PLC.
+</description>
+</parameter>
+<parameter number="9107" type="BYTE" dim="0" display="HEX">
+<name>DRV_DIAG_DO_AND_COMP_NAMES</name>
+<brief>Expanded drive diagnostics: DO and components</brief>
+<description>0: DO and component type names
+1: Real DO names and component type names
+2: DO type names and real component names
+3: Reale DO names and real component names
+</description>
+</parameter>
+<parameter number="9108" type="BYTE" dim="0" display="DECIMAL">
+<name>SINUMERIK_INTEGRATE</name>
+<brief>Activating SINUMERIK Integrate products</brief>
+<description>If the machine data has been set to 1, the SINUMERIK Integrate softkey appears as the operating area.
+</description>
+</parameter>
+<parameter number="9110" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_HMI_EXIT</name>
+<brief>Protection level of exit softkey</brief>
+<description>Protection level for the exit softkey (HMI restart) in the operating area menu
+</description>
+</parameter>
+<parameter number="9900" type="BOOLEAN" dim="0" display="DECIMAL">
+<name>MD_TEXT_SWITCH</name>
+<brief>Plaintexts instead of MD identifier</brief>
+<description>If the MD has been set to 1, clear text is displayed on the operator panel instead of the machine data identifiers.
+</description>
+</parameter>
+<parameter number="9990" type="DWORD" dim="0" display="HEX">
+<name>SW_OPTIONS</name>
+<brief>Enable HMI software options</brief>
+<description>Here you can enable the HMI software options
+</description>
+</parameter>
+</info>

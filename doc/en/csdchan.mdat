@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="55200" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAX_INP_FEED_PER_REV</name>
+<brief>Upper limit feedrate/rev</brief>
+<description>Feedrate input upper limit for mm/rev
+</description>
+</parameter>
+<parameter number="55201" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAX_INP_FEED_PER_TIME</name>
+<brief>Upper limit feedrate/min</brief>
+<description>Feedrate input upper limit for mm/min
+</description>
+</parameter>
+<parameter number="55202" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAX_INP_FEED_PER_TOOTH</name>
+<brief>Upper limit feedrate/tooth</brief>
+<description>Feedrate input upper limit for mm/tooth
+</description>
+</parameter>
+<parameter number="55212" type="BYTE" dim="0" display="HEX">
+<name>FUNCTION_MASK_TECH_SET</name>
+<brief>Function mask Cross-technology</brief>
+<description>Function mask Cross-technology
+Bit 0: Tool preselection active
+Bit 1: Calculate thread depth from thread pitch
+Bit 2: Refer to Table for thread diameter and depth
+</description>
+</parameter>
+<parameter number="55214" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL_SET</name>
+<brief>Function mask Milling</brief>
+<description>Function mask Milling
+Bit 0: Default setting - milling cycles with synchronous operation
+Bit 2: Depth calculation in milling cycles without parameter SC
+</description>
+</parameter>
+<parameter number="55216" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DRILL_SET</name>
+<brief>Function mask Drilling</brief>
+<description>Screen form for drilling
+Bit 1:     Boring CYCLE86: Take into consideration rotation of the tool plane when positioning the spindle
+Bit 2:     Boring CYCLE86: When positioning the spindle, take into account swiveled table kinematics (toolholder)
+Bit 3:     Tapping CYCLE84: Monitoring machine data 31050 and 31060 of the spindle
+Bit 4:     Tapping CYCLE840: Monitoring machine data 31050 and 31060 of the spindle
+Bit 6:     Boring CYCLE86: Adapt spindle position to the orientation of the tool
+             Tool orientation can be realized using TOOLCARR or TRAORI before the cycle is called.
+             If bit6=1, then bits 1 and 2 are no longer effective.
+Bit 7:    Boring CYCLE86: Adapt the direction of the retraction path in the plane to active mirroring
+	0: Retraction in the plane is realized as programmed
+	1: When mirroring is active, when retracting in the plane, the direction is adapted in the cycle to the active mirroring.
+</description>
+</parameter>
+<parameter number="55218" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TURN_SET</name>
+<brief>Function mask Turning</brief>
+<description>Function mask Turning
+Bit 0: New thread table during thread cutting
+Bit 1:	Reserved (CYCLE93)
+Bit 2:	Reserved (CYCLE93)
+Bit 3: Chamfer in CYCLE930 as chamfer length (CHF)
+</description>
+</parameter>
+<parameter number="55220" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL_TOL_SET</name>
+<brief>Function mask High Speed Settings CYCLE832</brief>
+<description>Function screen form, High Speed Settings CYCLE832
+Bit 0: Display input fields, technology
+=0: Hide input fields, technology
+=1: Display input fields technology
+Bit 1: Enter orientation tolerance (OTOL) as factor of tolerance (CTOL) or directly enter
+Bit 1 is only relevant for machines with orientation transformation that has been setup
+=0: Orientation tolerance (OTOL) is calculated as factor of the entered tolerance
+=1: Directly enter orientation tolerance (OTOL) into the input screen form
+The factor to calculate the orientation tolerance is saved in the following setting data
+$SCS_MILL_TOL_FACTOR_ROUGH for the machining type, roughing G group 59 DYNROUGH
+$SCS_MILL_TOL_FACTOR_SEMIFIN for the machining type, semi-finishing G group 59 DYNSEMIFIN
+$SCS_MILL_TOL_FACTOR_FINISH for the machining type, finishing G group 59 DYNFINISH
+</description>
+</parameter>
+<parameter number="55221" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_SWIVEL_SET</name>
+<brief>Function mask Swivel CYCLE800</brief>
+<description>Function mask for swivel CYCLE800
+The settings of the function mask (bits 0 to 4) for swivel act on all swivel data sets
+Bit 0: Show "No swivel" input field
+=0: Hide "No swivel" input field
+=1: Show "No swivel" input field
+Bit 1: Retract "fixed point 1/2" instead of "Z", "Z XY"
+=0: Selection text retract "Z" or retract "Z XY"
+=1: Selection text retract "fixed point 1" or retract "fixed point 2"
+Bit 2: Select permit "deselection" of the swivel data set
+=0: Select "deselection" of the swivel data set not permitted (hide)
+=1: Select permit "deselection" of the swivel data set
+Bit 3: Show active swivel plane under swivel in JOG
+=0: Hide active swivel plane under swivel in JOG
+=1: Show active swivel plane under swivel in JOG
+Bit 4: Evaluate input values for swiveling in the pole position of the machine kinematics
+Starting from the pole position of the machine kinematics, the input values when swiveling
+are evaluated so that continuous swiveling around the pole axis is possible
+Pole axis is the 2nd rotary axis of the swivel data set that rotates around the tool axis
+Example: rotary axis C rotates around Z for G17./
+Additional settings of the pole axis:
+- Angular range (traversing range) of &gt;360 degrees in the swivel data set
+- It is not permissible for the rotary axis to be declared as the modulo axis. $MA_ROT_IS_MODULO[AX]=0
+Pole position means that the 1st rotary axis of the swivel data set is located in the initial setting
+=0: Evaluation of the input values when swiveling in the pole position
+=1: No evaluation of the input values when swiveling in the pole position (compatibility)
+Bit 5 Align tool (turning technology) using frame calculation (TCOFRY) or absolute (TCOABS)
+The tool orientation of the orientable tool carrier is calculated
+either using a frame calculation (TCOFRY for G18) or in absolute terms with TCOABS
+For B axis kinematics of a turning machine, the tool spindle in the initial setting of the kinematics
+can be set up parallel to either Z or to X. See also "Swivel data" under Commissioning.
+For new systems being commissioned, it is recommended to set bit 5=1:
+=0: Align tool using frame calculation (TCOFRY for G18)
+=1: Align tool in absolute terms (TCOABS)
+Bit 6: Do not offer "direct" swivel mode under swivel in JOG
+=0: "Direct" swivel mode is offered under swivel in JOG
+=1: "Direct" swivel mode is not offered under swivel in JOG
+Bit 7: Swivel plane: Direction selection in initial setting of the kinematics
+Behavior with swivel plane in initial setting of the kinematics if the NCK calculates two solutions:
+=0 With selected direction + or -, both calculated solutions of the rotary axes are approached.
+=1 With selected direction + or -, only one of the calculated solutions of the rotary axes is approached.
+Compatibility for powerline up to SW 7.x and for Solutionline up to SW 1.x
+Bit 8: Handling of the work offsets of the rotary axes during swivel
+=0 Work offset of the rotary axes of the swivel data set traversed as an offset
+=1 Work offset of the rotary axes of the swivel data set is only taken into account in the Work (compatibility)
+Setting is in conjunction with MD21186 $MC_TOCARR_ROT_OFFSET_FROM_FR
+
+
+
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="55230" type="DOUBLE" dim="0" display="DECIMAL">
+<name>CIRCLE_RAPID_FEED</name>
+<brief>Positional feed on circular paths</brief>
+<description>Rapid traverse feedrate in mm/min for positioning on circle path
+</description>
+</parameter>
+<parameter number="55232" type="DOUBLE" dim="0" display="DECIMAL">
+<name>SUB_SPINDLE_REL_POS</name>
+<brief>Retract position Z for counterspindle</brief>
+<description>Z retraction position for the counterspindle
+</description>
+</parameter>
+<parameter number="55260" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAJOG_SAFETY_CLEARANCE</name>
+<brief>Safety clearance for machine JOG</brief>
+<description>Safety clearance for machine JOG
+</description>
+</parameter>
+<parameter number="55261" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MAJOG_RELEASE_PLANE</name>
+<brief>Retraction plane for machine JOG</brief>
+<description>Retraction plane for machine JOG
+</description>
+</parameter>
+<parameter number="55300" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_SAFETY_CLEARANCE</name>
+<brief>Simple input: Safety clearance</brief>
+<description>Simple input: safety clearance
+The input field for the safety clearance is not available in the simple input screen forms.
+Instead, the value of this setting date is always used.
+
+</description>
+</parameter>
+<parameter number="55301" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_DWELL_TIME</name>
+<brief>Simple input: dwell time</brief>
+<description>Simple input: dwell time in seconds
+The input fields for dwell times are not available in the simple input screen forms.
+Instead, the value of this setting data is always used.
+</description>
+</parameter>
+<parameter number="55305" type="DOUBLE" dim="0">
+<name>EASY_DRILL_DEEP_FD1</name>
+<brief>Simple input: percentage 1st feedrate deep-hole drilling</brief>
+<description>Simple input: percentage 1st feedrate deep-hole drilling
+The input field for this percentage is not available in the simple input screen forms.
+Instead, the value of this setting data is always used.
+
+</description>
+</parameter>
+<parameter number="55306" type="DOUBLE" dim="0">
+<name>EASY_DRILL_DEEP_DF</name>
+<brief>Simple input: percentage infeed deep-hole drilling</brief>
+<description>Simple input: percentage infeed deep-hole drilling
+The input field for this percentage is not available in the simple input screen forms.
+Instead, the value of this setting data is always used.
+
+</description>
+</parameter>
+<parameter number="55307" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_DRILL_DEEP_V1</name>
+<brief>Simple input: min. depth infeed deep-hole drilling</brief>
+<description>Simple input: min. depth infeed deep-hole drilling
+The input field for the minimum depth infeed is not available in the simple input screen forms.
+Instead, the value of this setting data is always used.
+
+</description>
+</parameter>
+<parameter number="55308" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_DRILL_DEEP_V2</name>
+<brief>Simple input: absolute retraction value deep-hole drilling</brief>
+<description>Simple input: absolute retraction value deep-hole drilling
+The input field for the absolute retraction value is not available in the simple input screen forms.
+Instead, the value of this setting data is always used
+
+</description>
+</parameter>
+<parameter number="55309" type="DOUBLE" dim="0" display="DECIMAL">
+<name>EASY_THREAD_RETURN_DIST</name>
+<brief>Simple input: return distance thread tapping</brief>
+<description>Simple input: return distance thread tapping
+The input field for the return distance is not available in the simple input screen forms.
+Instead, the value of this setting data is always used.
+
+</description>
+</parameter>
+<parameter number="55405" type="STRING" dim="1">
+<name>MILL_TRAORI_USERCYCLE_NAME</name>
+<brief>Program name 5-axis manufact. cycle when calling cycle High Speed Settings</brief>
+<description>Program name of the manufacturer cycle when the High Speed Settings cycle calls 5-axis machining (TRAORI).
+</description>
+</parameter>
+<parameter number="55410" type="DWORD" dim="0" display="HEX">
+<name>MILL_SWIVEL_ALARM_MASK</name>
+<brief>Hide and unhide cycle alarms for CYCLE800</brief>
+<description>Display of cycle alarms in CYCLE800
+Bit 0: Display alarm 62186: Active work offset G54 ff. and base (basic reference) contain rotations
+Bit 1: Display alarm 62187: Active base and basic reference (G500) contain rotations
+Bit 2: Display alarm 61148: Swivel plane not possible with active turning tool
+
+</description>
+</parameter>
+<parameter number="55420" type="BYTE" dim="0" display="DECIMAL">
+<name>MILL_SWIVEL_RESET_RETRACT</name>
+<brief>Initial setting swivel: retract</brief>
+<description>Initial setting swivel: retract
+With this setting data, the status adopted by the toggler "Retract" in the mask "Swivel plane" when activating the "Initial setting" softkey can be set:
+  0 = no change
+  1 = no
+  2 = Z
+  3 = Z XY
+  4 = Tool direction max.
+  5 = Tool direction inc.
+
+</description>
+</parameter>
+<parameter number="55421" type="BYTE" dim="0" display="DECIMAL">
+<name>MILL_SWIVEL_RESET_TRACK</name>
+<brief>Initial setting swivel: tool correction</brief>
+<description>Initial setting swivel: Tool correction
+With this setting data, the status adopted by the toggler "Tool correction" in the mask "Swivel plane" after activating the softkey "Initial setting" can be set:
+  0 = no change
+  1 = do not correct
+  2 = correct
+
+</description>
+</parameter>
+<parameter number="55422" type="BYTE" dim="0" display="DECIMAL">
+<name>MILL_SWIVEL_RESET_MODE</name>
+<brief>Initial setting swivel: swivel mode</brief>
+<description>Initial setting for swivel: Swivel mode
+With this setting data, the state of the "Swivel mode" toggler in the "Swivel plane" mask can be set with the "Initial setting" softkey:
+  0 = axis by axis
+  1 = direct
+
+
+
+</description>
+</parameter>
+<parameter number="55440" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_NORM</name>
+<brief>Rotary axes tolerance factor for CYCLE832 (High Speed Settings), G group 59</brief>
+<description>Settings at deselection of CYCLE832 of G group 59
+</description>
+</parameter>
+<parameter number="55441" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_ROUGH</name>
+<brief>Rotary axes tolerance factor for roughing CYCLE832 of G group 59</brief>
+<description>Rotary axes tolerance factor for roughing CYCLE832 of G group 59
+</description>
+</parameter>
+<parameter number="55442" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_SEMIFIN</name>
+<brief>Rotary axes tolerance factor for prefinishing CYCLE832 of G group 59</brief>
+<description>Rotary axes tolerance factor for prefinishing CYCLE832 of G group 59
+</description>
+</parameter>
+<parameter number="55443" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_FACTOR_FINISH</name>
+<brief>Rotary axes tolerance factor for finishing CYCLE832 of G group 59</brief>
+<description>Rotary axes tolerance factor for finishing CYCLE832 of G group 59
+</description>
+</parameter>
+<parameter number="55445" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_NORM</name>
+<brief>Tolerance value on deselecting High Speed Settings cycle CYCLE832</brief>
+<description>Tolerance value on deselecting High Speed Settings cycle CYCLE832
+</description>
+</parameter>
+<parameter number="55446" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_ROUGH</name>
+<brief>Tolerance value for roughing CYCLE832 (High Speed Settings)</brief>
+<description>Tolerance value for roughing CYCLE832
+</description>
+</parameter>
+<parameter number="55447" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_SEMIFIN</name>
+<brief>Tolerance value for smooth-finishing CYCLE832 (High Speed Settings)</brief>
+<description>Tolerance value for prefinishing CYCLE832
+</description>
+</parameter>
+<parameter number="55448" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_TOL_VALUE_FINISH</name>
+<brief>Tolerance value for finishing CYCLE832 (High Speed Settings)</brief>
+<description>Tolerance value for finishing CYCLE832
+</description>
+</parameter>
+<parameter number="55460" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_CONT_INITIAL_RAD_FIN</name>
+<brief>Contour pocket milling: approach circle radius finishing</brief>
+<description>This data affects the radius of the approach circle during contour pocket finishing.
+0: the radius is selected to maintain a safety clearance to the finishing allowance in the starting point.
+&gt;0: the radius is selected to maintain the value of this setting data to the finishing allowance in the starting point.
+</description>
+</parameter>
+<parameter number="55480" type="BYTE" dim="0" display="DECIMAL">
+<name>DRILLING_AXIS_IS_Z</name>
+<brief>Drilling axis depends on plane or always Z</brief>
+<description>Drilling axis depends on plane (G17, G18, G19) or always Z
+</description>
+</parameter>
+<parameter number="55481" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_GG12</name>
+<brief>Setting tapping G group 12: block change behavior at exact stop</brief>
+<description>Settings for tapping G group 12 cycle CYCLE84 and CYCLE840:
+G group 12: block change behavior at exact stop (G60)
+
+</description>
+</parameter>
+<parameter number="55482" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_GG21</name>
+<brief>Setting tapping G group 21: acceleration profile</brief>
+<description>Settings for tapping G group 21 cycle CYCLE84
+G group 21: acceleration profile (SOFT, BRISK, ...)
+</description>
+</parameter>
+<parameter number="55483" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_GG24</name>
+<brief>Setting tapping G group 24: precontrol</brief>
+<description>Settings for tapping G group 24 cycle CYCLE84 and CYCLE840:
+G group 24: precontrol  (FFWON, FFWOF )
+
+</description>
+</parameter>
+<parameter number="55484" type="DOUBLE" dim="1" display="DECIMAL">
+<name>DRILL_TAPPING_SET_MC</name>
+<brief>Setting tapping: spindle operation at MCALL</brief>
+<description>Setting for tapping cycle CYCLE84 spindle operation at MCALL
+0= reactivate spindle operation at MCALL
+1= maintain position-controlled spindle operation at MCALL
+</description>
+</parameter>
+<parameter number="55489" type="DOUBLE" dim="0" display="DECIMAL">
+<name>DRILL_MID_MAX_ECCENT</name>
+<brief>Max. center offset f. center boring</brief>
+<description>Maximum center offset for center boring
+</description>
+</parameter>
+<parameter number="55490" type="DOUBLE" dim="0" display="DECIMAL">
+<name>DRILL_SPOT_DIST</name>
+<brief>Preboring depth drill and thread milling</brief>
+<description>Preboring depth for drill and thread milling
+</description>
+</parameter>
+<parameter number="55500" type="BYTE" dim="0" display="DECIMAL">
+<name>TURN_FIN_FEED_PERCENT</name>
+<brief>Roughing feedrate for complete machining in %</brief>
+<description>When selecting Complete machining (roughing and finishing), the percentage of the entered feedrate F as specified in this setting data is used for finishing.
+</description>
+</parameter>
+<parameter number="55505" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_ROUGH_O_RELEASE_DIST</name>
+<brief>Return distance stock removal for external machining</brief>
+<description>Using this setting data, you enter the clearance, by which the tool is retracted from the contour when removing stock from an outer corner. This is not applicable for removing stock from a contour
+ 1: The safety clearance is used as clearance.
+</description>
+</parameter>
+<parameter number="55506" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_ROUGH_I_RELEASE_DIST</name>
+<brief>Return distance stock removal for internal machining</brief>
+<description>Using this setting data, you enter the clearance, by which the tool is retracted from the contour when removing stock from an inner corner. This is not applicable for removing stock from a contour.
+-1: The safety clearance is used as clearance.
+</description>
+</parameter>
+<parameter number="55510" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_GROOVE_DWELL_TIME</name>
+<brief>Tool clearance time for grooving at the base (neg. value=rotations)</brief>
+<description>If a tool clearance time occurs in a cycle, e.g. deep hole drilling, grooving, the value of this setting data is used
+- negative value in spindle revolutions
+- positive value in seconds
+</description>
+</parameter>
+<parameter number="55515" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_THREAD_RELEASE_DIST</name>
+<brief>Return distance for thread cutting</brief>
+<description>In this setting data you can specify the distance to the workpiece, to which the tool is returned between the infeeds during thread cutting.
+</description>
+</parameter>
+<parameter number="55540" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_CTRL_DIST</name>
+<brief>Path for cut-off check</brief>
+<description>Path for cut-off check
+</description>
+</parameter>
+<parameter number="55541" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_CTRL_FEED</name>
+<brief>Feedrate for cut-off check</brief>
+<description>Feedrate for cut-off check
+</description>
+</parameter>
+<parameter number="55542" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_CTRL_FORCE</name>
+<brief>Force for cut-off check in %</brief>
+<description>Force in percent for cut-off check
+</description>
+</parameter>
+<parameter number="55543" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_PART_OFF_RETRACTION</name>
+<brief>Retraction path prior to cut-off with counterspindle</brief>
+<description>Retraction path prior to cut-off with counterspindle
+</description>
+</parameter>
+<parameter number="55550" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_DIST</name>
+<brief>Counterspindle: path for travel to fixed stop </brief>
+<description>In this setting data you specify the distance to the programmed target position, after which the counterspindle travels with a special feedrate during travel to fixed stop (see 55551 $SCS_TURN_FIXED_STOP_FEED).
+</description>
+</parameter>
+<parameter number="55551" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_FEED</name>
+<brief>Counterspindle: feedrate for travel to fixed stop </brief>
+<description>In this setting data you specify the feedrate with which the counterspindle travels to a fixed stop. In setting data 55550 $SCS_TURN_FIXED_STOP_DIST you specify the distance after which the tool travels in this feedrate.
+</description>
+</parameter>
+<parameter number="55552" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_FORCE</name>
+<brief>Counterspindle: force for travel to fixed stop in %</brief>
+<description>In this setting data you specify at which percentage of the driving force the counterspindle is to stop during travel to fixed stop.
+</description>
+</parameter>
+<parameter number="55553" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_FIXED_STOP_RETRACTION</name>
+<brief>Counterspindle: retraction path prior to chucking after fixed stop</brief>
+<description>Retraction path prior to chucking after travel to fixed stop
+</description>
+</parameter>
+<parameter number="55580" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_RELEASE_ANGLE</name>
+<brief>Contour turning: retraction angle</brief>
+<description>This setting data defines the angle by which the tool is retracted from the contour during contour turning roughing.
+</description>
+</parameter>
+<parameter number="55581" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_RELEASE_DIST</name>
+<brief>Contour turning: retraction value</brief>
+<description>This setting data defines the value by which the tool is retracted in both axes during contour turning roughing.
+</description>
+</parameter>
+<parameter number="55582" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_TRACE_ANGLE</name>
+<brief>Contour turning: minimum angle for rounding along contour</brief>
+<description>This setting data specifies the angle between the cutting edge and the contour, at which the contour is rounded in order to remove residual material.
+</description>
+</parameter>
+<parameter number="55583" type="BYTE" dim="0" display="DECIMAL">
+<name>TURN_CONT_VARIABLE_DEPTH</name>
+<brief>Contour turning: percentage for variable cutting depth</brief>
+<description>Percentage for variable cutting depth during contour turning
+</description>
+</parameter>
+<parameter number="55584" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_BLANK_OFFSET</name>
+<brief>Contour turning: blank allowance</brief>
+<description>This setting data specifies the distance to the blank, after which contour turning is switched from G0 to G1 in order to adjust any possible blank allowances.
+</description>
+</parameter>
+<parameter number="55585" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_INTERRUPT_TIME</name>
+<brief>Contour turning: feed interrupt time (neg. values = revolutions)</brief>
+<description>Feed interrupt time during contour turning, contour grooving and plunge turning
+- negative value in spindle revolutions
+- positive value in seconds
+This setting data is effective only if setting data 55586 is $SCS_TURN_CONT_INTER_RETRACTION = 0.
+</description>
+</parameter>
+<parameter number="55586" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_INTER_RETRACTION</name>
+<brief>Contour turning: retraction path after feed interrupt</brief>
+<description>Retraction path feed interrupt during contour turning, contour grooving and plunge turning:
+&gt;0: retraction path after feed interrupt (setting data 55585 $SCS_TURN_CONT_INTERRUPT_TIME is ineffective!)
+=0: no retraction path
+</description>
+</parameter>
+<parameter number="55587" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_MIN_REST_MAT_AX1</name>
+<brief>Contour turning: minimum difference dimension residual machining axis 1</brief>
+<description>This MD defines the limit value for stock removal of residual material in the direction of the 1st axis.
+Example:
+If this MD is set to 50% and if the finishing allowance is 0.5mm, the residual material which is thinner than 0.25mm is not removed in a separate machining step, but during finishing.
+</description>
+</parameter>
+<parameter number="55588" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_MIN_REST_MAT_AX2</name>
+<brief>Contour turning: minimum difference dimension residual machining axis 2</brief>
+<description>This MD defines the limit value for stock removal of residual material in the direction of the 2nd axis.
+Example:
+If this MD is set to 50% and if the finishing allowance is 0.5mm, the residual material which is thinner than 0.25mm is not removed in a separate machining step, but during finishing.
+</description>
+</parameter>
+<parameter number="55595" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_TOOL_BEND_RETR</name>
+<brief>Contour plunge turning: retraction path due to tool bending</brief>
+<description>Retraction due to tool bending during plunge turning
+</description>
+</parameter>
+<parameter number="55596" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TURN_CONT_TURN_RETRACTION</name>
+<brief>Contour plunge turning: retraction depth prior to turning</brief>
+<description>Retraction depth prior to plunge turning
+</description>
+</parameter>
+<parameter number="55613" type="BYTE" dim="0">
+<name>MEA_RESULT_DISPLAY</name>
+<brief>Selection of measurement result display</brief>
+<description>Measurement results screen display
+
+=0: 	No measurement results screen
+=1: 	The measurement results screen is visible for a fixed time of 8 seconds
+=3:  	When the measurement results screen is visible, the cycle is stopped by an internal M0;
+        	on NC start the measuring cycle is resumed and the measurement results screen is deselected.
+=4:  	The measurement results screen only appears in the case of cycle alarms 61303, 61304, 61305, 61306.
+</description>
+</parameter>
+<parameter number="55614" type="BYTE" dim="0">
+<name>MEA_RESULT_MRD</name>
+<brief>Program control of the display of the measurement result image MRD</brief>
+<description>Setting of the program control of the display of the measurement result image MRD
+0= Hide measurement result image
+1= Show measurement result image
+</description>
+</parameter>
+<parameter number="55618" type="BYTE" dim="0">
+<name>MEA_SIM_ENABLE</name>
+<brief>Setting measuring cycles under a simulated environment</brief>
+<description>Setting measuring cycles under a simulated environment
+
+=0: The measuring cycles are terminated without function.
+=1: The measuring cycles are executed.
+    - Simulation in HMI Operate:
+      The traversing motion is visualized.
+      No measurement results and measurement result display are available.
+    - SinuTrain:
+      Measurement results and measurement result display are available.
+      The traversing motion is visualized using simultaneous recording.
+    -For systems, that only operate with simulated axes
+      (e.g. virtual machine, test rack):
+      Measurement results and measurement results display are available.
+      The traversing motion is visualized with simultaneous recording.
+
+      In this case, the following settings must be observed:
+      MD10360 $MN_FASTIO_DIG_NUM_OUTPUTS &gt;=1
+      MD13230 $MN_MEAS_PROBE_SOURCE = 1 to 4
+
+= 2 to 8: reserved
+= 9 internal
+
+
+</description>
+</parameter>
+<parameter number="55619" type="DOUBLE" dim="0">
+<name>MEA_SIM_MEASURE_DIFF</name>
+<brief>Value for simulated error of measurement</brief>
+<description>With this parameter simulated measurement errors can be specified on the measuring points.
+
+Provided that SD55618  $SCS_MEA_SIM_ENABLE=1 is used and that the measuring cycles are executed in a
+simulated environment of HMI a measurement difference can be
+entered in this parameter. The value of the measurement difference must be smaller than the measuring path in parameter _FA!
+Otherwise cycle alarm 61301 "Probe does not switch" is output during active simulation.
+</description>
+</parameter>
+<parameter number="55622" type="DWORD" dim="0">
+<name>MEA_EMPIRIC_VALUE_NUM</name>
+<brief>Number of empirical values</brief>
+<description>Number of empirical values
+</description>
+</parameter>
+<parameter number="55623" type="DOUBLE" dim="1">
+<name>MEA_EMPIRIC_VALUE</name>
+<brief>Empirical value memory</brief>
+<description>In its default setting the empirical value memory consists of 20 memory elements.
+Using parameter $SCS_MEA_EMPIRIC_VALUE_NUM the number of memory elements
+can be defined! Currently, however, these 20 memory elements cannot be changed!
+In the empirical value memory, empirical values can be stored which are cleared with the currently calculated
+difference between the setpoint and the actual value.
+Using parameter _EVNUM the empirical value element to be cleared is addressed!
+</description>
+</parameter>
+<parameter number="55624" type="DWORD" dim="0">
+<name>MEA_AVERAGE_VALUE_NUM</name>
+<brief>Number of mean values</brief>
+<description>Number of mean values
+</description>
+</parameter>
+<parameter number="55625" type="DOUBLE" dim="1">
+<name>MEA_AVERAGE_VALUE</name>
+<brief>Mean value memory</brief>
+<description>In its default setting the mean value memory consists of 20 memory elements.
+Using parameter $SCS_MEA_AVERAGE_VALUE_NUM the number of memory elements
+can be defined! Currently, however, these 20 memory elements cannot be changed!
+In the mean value memory, the mean values calculated in connection with functionality
+"Automatic tool offset with mean value creation" are stored.
+Using parameter _EVNUM the mean value element to be used is addressed!
+
+</description>
+</parameter>
+<parameter number="55628" type="DOUBLE" dim="0">
+<name>MEA_TP_FEED_MEASURE</name>
+<brief>Feed for calibrating a tool probe</brief>
+<description>MEA_TP_FEED_MEASURE
+Feed for calibrating a tool probe with stationary spindle in AUTO and JOG
+
+</description>
+</parameter>
+<parameter number="55630" type="DOUBLE" dim="0">
+<name>MEA_FEED_MEASURE</name>
+<brief>Feed for calibrating a workpiece probe</brief>
+<description>MEA_FEED_MEASURE
+Feed for calibrating a workpiece probe in Automatic and JOG
+
+</description>
+</parameter>
+<parameter number="55632" type="DOUBLE" dim="0">
+<name>MEA_FEED_RAPID_IN_PERCENT</name>
+<brief>Rapid traverse velocity in per cent, for intermediate positioning</brief>
+<description>Traverse velocities for positioning in the measuring cycle between the measuring positions,
+with rapid traverse velocity in per cent, with collision detection not active
+
+Note:
+If necessary, adapt the value of the rapid traverse velocity in per cent to the probe type used and to the
+
+machine characteristics! This means that the maximum deflection of the actual probe type must be considered!!
+Explanations:
+In the measuring cycles any intermediate positions are calculated prior to the actual set of measurements. These positions can be approached
+
+- with collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1 or
+- without collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0).
+Depending on this setting different velocities are used for the approach:
+- with collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1):
+	With SD55634 $SCS_MEA_FEED_PLAN_VALUE the traversing feed is performed in the plane and
+	with SD55636 $SCS_MEA_FEED_FEEDAX_VALUE during traversing in the feed axis (applicate).
+	If the probe switches when these intermediate positions are approached, the movement is stopped and the alarm "Probe collision" is output.
+- without collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0):
+	The intermediate positions are approached with the maximum axis velocity (rapid traverse) in per cent as specified in SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT.
+	With  SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=0 and SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=100 the maximum axis velocity is effective.
+</description>
+</parameter>
+<parameter number="55634" type="DOUBLE" dim="0">
+<name>MEA_FEED_PLANE_VALUE</name>
+<brief>Traverse velocity for intermediate positioning in the plane</brief>
+<description>MEA_FEED_MEASURE
+Measure measuring feed of workpiece in Automatic and JOG
+
+</description>
+</parameter>
+<parameter number="55636" type="DOUBLE" dim="0">
+<name>MEA_FEED_FEEDAX_VALUE</name>
+<brief>Positioning velocity in the infeed axis</brief>
+<description>Traversing speed for intermediate positioning in the measuring cycle in the infeed axis, with and without collision detection
+
+Note:
+If necessary, adapt the value of the speed in the infeed axis to the probe type used and to the
+machine characteristics! This means that the maximum deflection of the actual probe type must be considered!!
+
+Explanations:
+In the measuring cycles any intermediate positions are calculated prior to the actual set of measurements. These positions can be approached
+- with collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1) or
+
+- without collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0).
+Depending on this setting different speeds are used for the approach:
+- with collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=1):
+	With SSD55636 $SCS_MEA_FEED_FEEDAX_VALUE the traversing feed is performed in the infeed axis (applicate).
+	If the probe switches when these intermediate positions are approached, the movement is stopped and the alarm "Probe collision" is output.
+- without collision detection (SD55740 $SCS_MEA_FUNCTION_MASK Bit0/Bit16=0):
+	The intermediate positions are approached with the maximum axis velocity (rapid traverse) in per cent as specified in SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT.
+	With SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=0 and SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=100 the maximum axis velocity is effective.
+</description>
+</parameter>
+<parameter number="55638" type="DOUBLE" dim="0">
+<name>MEA_FEED_FAST_MEASURE</name>
+<brief>Rapid measuring feed</brief>
+<description>Rapid measuring feed
+
+Note:
+If necessary, adjust the value of the velocity to the probe type used and to the machine characteristics!
+This means that the maximum deflection of the actual probe type must be considered!!
+The use of "Rapid measuring feed" depends of SD55740 $SCS_MEA_FUNCTION_MASK Bit4!
+</description>
+</parameter>
+<parameter number="55640" type="DOUBLE" dim="0">
+<name>MEA_FEED_CIRCLE</name>
+<brief>Circular feed for measuring circle segment</brief>
+<description>MEA_FEED_CIRCLE
+Circular feed for measuring circle segment
+
+</description>
+</parameter>
+<parameter number="55642" type="DOUBLE" dim="0">
+<name>MEA_EDGE_SAVE_ANG</name>
+<brief>Additional safe angle for measuring corner</brief>
+<description>Set $SCS_MEA_EDGE_SAVE_ANG=10 for compatibility programs.
+The set angle is added to the measured angle as a safety angle.
+
+
+</description>
+</parameter>
+<parameter number="55644" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MEA_KIN_DM_TOL</name>
+<brief>Measure kinematics: Tolerance of diameter of calibration ball</brief>
+<description>Measure kinematics: Tolerance of diameter of calibration ball
+If $SCS_MEA_KIN_DM_TOL &gt; 0, the measurement of the kinematics (CYCLE996) also checks whether the measured diameter
+of the calibration ball lies within the tolerance value in $SCS_MEA_KIN_DM_TOL.
+
+
+
+</description>
+</parameter>
+<parameter number="55645" type="BYTE" dim="1" display="DECIMAL">
+<name>MEA_KIN_MODE</name>
+<brief>Freie Komponente des Linearvektor</brief>
+<description>Freie Komponente des Linearvektor
+  0 = alle Komponenten des Linearvektors berechnen
+  1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  4 = freie Komponente für X aus aktiver Trafo beibehalten
+  5 = freie Komponente für Y aus aktiver Trafo beibehalten
+  6 = freie Komponente für Z aus aktiver Trafo beibehalten
+  10 = Vektorkette schließen
+
+</description>
+</parameter>
+<parameter number="55646" type="DOUBLE" dim="1" display="DECIMAL">
+<name>MEA_KIN_VALUE</name>
+<brief>Kinematik komplett vermessen: Wert des Linearvektors</brief>
+<description>Kinematik komplett vermessen: Wert des Linearvektors
+
+</description>
+</parameter>
+<parameter number="55647" type="DOUBLE" dim="0">
+<name>MEA_KIN_MIN_ANG_TRIANGLE</name>
+<brief>Minimaler Innenwinkel des Messdreiecks</brief>
+<description>Minimaler Innenwinkel des Messdreiecks
+
+</description>
+</parameter>
+<parameter number="55730" type="STRING" dim="1" display="ASCII">
+<name>MEA_PROTOCOL_USER_EXT</name>
+<brief>File extension for application protocol</brief>
+<description>File extension for application protocol
+
+</description>
+</parameter>
+<parameter number="55740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<description>Function mask for measuring cycles
+
+Bit 0: Collision monitoring using workpiece probe for intermediate positioning
+       In JOG mode, collision monitoring is always activated.
+          	0: No collision monitoring
+          	1: For positioning operations executed by the measuring cycles between the measurement points,
+              motion is interrupted, as soon as the probe supplies a switching signal.
+              An alarm message is output (Alarm 61302).
+
+Bit 1:	Workpiece measurement with 3D-probe, coupling of the spindle alignment with the coordinate rotation around the
+       infeed axis of the active plane (Z axis for G17)
+        In JOG mode, the coupling is always activated.
+          	0: no coupling between the spindle alignment and coordinate rotation
+	The trigger data are automatically corrected.
+          	1: For 3D and star probes (tool type 710, 714) the spindle is aligned depending
+              on the coordinate rotation around the infeed axis of the active plane.
+              The positioning direction of the spindle is defined by SD55740 $SCS_MEA_FUNCTION_MASK bit2.
+
+          Caution
+             The coupling or the correction calculation is canceled via the measuring cycle without issuing an alarm message if one of the following conditions applies:
+	            - No TRAORI orientation transformation and no tool holder that can be oriented, TCARR (CYCLE800) is active and, in addition to the rotation around Z, additional rotations are active that are not
+               identical between measurement and calibration.
+             - The working spindle is not position-controlled (SPOS not possible).
+	            - The spindle position between calibration and measurement is not identical.
+
+Bit 2: Workpiece measurement, for coupling of the spindle position, reverse the positioning direction,
+	      Function refers to SD55740 $SCS_MEA_FUNCTION_MASK, bit1 = 1
+          	0: Spindle positioning is based on the standard.
+          	1: Spindle positioning is realized in the opposite direction (adapted angular values).
+
+	        Example:
+   	  Angle of the coordinate rotation in the plane 90°
+	      if bit2 = 0 then spindle is positioned to 270°
+	      if bit2 = 1 then spindle is positioned to 90°
+
+Bit 3: Workpiece measurement, number of repeated measurements if the probe does not switch
+          	In the JOG mode, the measurement is not repeated.
+          	0: Measurements are repeated up to 4 times, then a measuring cycle alarm (alarm 61301) is output.
+          	1: Measurement is not repeated if the probe does not switch, a measuring cycle alarm
+	             is output (alarm 61301).
+
+Bit 4:	Workpiece measurement, 1st probing for each measurement with fast measuring feedrate
+          	0: When measuring, the measurement velocity saved in the calibration data is effective.
+          	1: "Fast measuring feed rate (SD 55638 $SCS_MEA_FEED_FAST_MEASURE)
+              is used. After the first probing, the probe retracts through 2 mm.
+ 	           After this, the measurement is realized with the measurement velocity saved in the calibration data.
+              The "Fast measurement feedrate" function is not executed if the measurement distance &lt; 1mm!
+
+Bit 5: Workpiece measurement, fast retraction after measuring
+          	0: The retraction after measurement is realized with the same velocity as for
+              intermediate positioning (SD 55634   $SCS_MEA_FEED_PLANE_VALUE).
+	             Is only active when collision monitoring is active (SD55740 $SCS_MEA_FUNCTION_MASK, bit0 = 1).
+          	1: The retraction after measurement is realized with the percentage rapid traverse velocity defined in SD 55632 $SCS_MEA_FEED_RAPID_IN_PERCENT
+              .
+	             Is only active when collision monitoring is active (SD 55740 $SCS_MEA_FUNCTION_MASK, bit0 = 1).
+
+Bit 6: Workpiece measurement, probe activation-deactivation while the spindle is being positioned
+          	0: Workpiece probe is not deactivated before positioning the spindle.
+          	1: Spindle positioning is realized centrally in the manufacturer's cycle CUST_MEACYC.
+	             The machine manufacturer has the option of activating and reactivating
+	             the probe before and after spindle positioning.
+
+Bit 7: Kinematic measurement, scaling based on the input values of the rotary axis vectors
+          	0: Scaling based on the calculated rotary axis vectors (V1xyz, V2xyz)
+          	1: Scaling based on the rotary axis vectors saved in the swivel data set (V1xyz, V2xyz)
+	The swivel data set is displayed under commissioning, "Swivel data".
+
+ Bit 8: Kinematic measurement: measuring with active swivel (TCARR) or active TRAORI
+           0: Measurement without active swivel (TCARR) or without active TRAORI
+              In the cycle, when measuring, the corresponding orientation transformation is deactivated, and reactivated after the measurement has been made.
+          	1: Measurement with active swivel (TCARR) or with active TRAORI
+	             For measurement, the corresponding orientation transformation remains active.
+	             If no orientation transformation is active, then alarm 61167 is output.
+
+Bit 9: User-specific scaling of rotary axis vectors V1xyz und V2xyz
+	            0: Scaling of rotary axis vectors V1xyz und V2xyz as unit vector
+	            1: User-specific scaling of rotary axis vectors V1xyz and V2xyz
+	             With user-specific scaling, one vector component is always 1 or -1.
+	             The other two vector components are correspondingly converted by a factor.
+
+Bit 15: Workpiece measurement, calibration radius with starting point at the center of the ring, JOG mode
+          	0: The starting point for calibration, radius need not be precisely located at the center of the calibration ring.
+          	1: The starting point for calibration, radius must be precisely located at the center of the calibration ring.
+
+Bit 16: Collision monitoring using tool probe for intermediate positioning.
+          	In JOG mode, collision monitoring is always activated.
+          	0: No collision monitoring
+          	1: For positioning operations which are executed by measuring cycles between the measurement
+              points, motion is interrupted as soon as the probe supplies a switching signal.
+              An alarm message is output (alarm 61302).
+
+Bit 17: Workpiece measurement, number of repeated measurements if the probe does not switch.
+        In JOG mode, a measurement is not repeated.
+          	0: Measurements are repeated a maximum of 4 times, then a measuring cycle alarm (alarm 61301) is output.
+          	1: The measurement is not repeated if the probe does not switch, a measuring cycle alarm
+	             is output (alarm 61301).
+
+Bit 19: Tool measurement: retraction velocity from the measuring point
+          	0: The retraction from the measuring point is realized with the same velocity as for
+              intermediate positioning (SD55634   $SCS_MEA_FEED_PLANE_VALUE).
+          	1: The retraction velocity is realized with the percentage rapid traverse velocity specified in SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT
+              and is only effective when collision monitoring is active
+              (SD55740 $SCS_MEA_FUNCTION_MASK, bit16 = 1).
+
+Bit 28: Selection of new or continuous protocol for standard protocol measurement in JOG
+          	0: New protocol (default)
+          	1: Continuous, that means it is always appended to an existing protocol
+
+Bit 29: File format selection for standard protocol measurement in JOG
+          	0: Text format (default)
+          	1: Table format
+
+</description>
+</parameter>
+<parameter number="55772" type="BYTE" dim="0" display="DECIMAL">
+<name>J_MEA_SET_PROBE_MONO</name>
+<brief>Selection of the probe type, in "Measure in JOG"</brief>
+<description>Selection of the probe type, in "Measure in JOG"
+
+=0 probe type is multiprobe
+=1 probe type is monoprobe
+
+</description>
+</parameter>
+<parameter number="55774" type="STRING" dim="1" display="ASCII">
+<name>J_MEA_PROTOCOL_FILE</name>
+<brief>Name and path of protocol file for measurement in JOG</brief>
+<description>Name and path of protocol file for measurement in JOG
+
+</description>
+</parameter>
+<parameter number="55800" type="BYTE" dim="0">
+<name>ISO_M_DRILLING_AXIS_IS_Z</name>
+<brief>Drilling axis depends on the plane / always Z</brief>
+<description>Selection of the drilling axis
+0: drilling axis is vertical to the active plane
+1: drilling axis is always "Z", independently of the active plane
+</description>
+</parameter>
+<parameter number="55802" type="BYTE" dim="0">
+<name>ISO_M_DRILLING_TYPE</name>
+<brief>Tapping type</brief>
+<description>Tapping type
+0: tapping without compensating chuck
+1: tapping with compensating chuck
+2: deep hole tapping with chip breakage
+3: deep hole tapping with stock removal
+</description>
+</parameter>
+<parameter number="55804" type="DWORD" dim="0">
+<name>ISO_M_RETRACTION_FACTOR</name>
+<brief>Factor for retraction speed (0...200%)</brief>
+<description>Factor for retraction speed (0...200%)
+
+</description>
+</parameter>
+<parameter number="55806" type="BYTE" dim="0">
+<name>ISO_M_RETRACTION_DIR</name>
+<brief>Retraction direction at G76/87</brief>
+<description>Retraction direction for precision drilling and reverse countersinking G76/G87
+0: G17(-X) G18(-Z) G19(-Y)
+1: G17(+X) G18(+Z) G19(+Y)
+2: G17(-X) G18(-Z) G19(-Y)
+3: G17(+Y) G18(+X) G19(+Z)
+4: G17(-Y) G18(-X) G19(-Z)
+</description>
+</parameter>
+<parameter number="55807" type="DOUBLE" dim="0" display="DECIMAL">
+<name>ISO_M_TAPPING_SET_MC</name>
+<brief>Einstell. Gewindebohren G84: Spindelbetrieb/Lageregelung</brief>
+<description>Einstellung bei Gewindebohren ohne Ausgleichsfutter (G84)
+0= bei G84 Spindelbetrieb wieder aktivieren
+1= bei G84 im lagegeregelten Spindelbetrieb bleiben
+</description>
+</parameter>
+<parameter number="55808" type="DWORD" dim="0">
+<name>ISO_T_RETRACTION_FACTOR</name>
+<brief>Factor for retraction speed</brief>
+<description>Factor (1-200%) for retraction speed at tapping G84/G88
+</description>
+</parameter>
+<parameter number="55810" type="BYTE" dim="0">
+<name>ISO_T_DWELL_TIME_UNIT</name>
+<brief>Dwell time evaluation</brief>
+<description>Dwell time evaluation for deep hole drilling G83/G87
+0: seconds
+1: revolutions
+</description>
+</parameter>
+<parameter number="55820" type="DOUBLE" dim="0" display="DECIMAL">
+<name>FRICT_OPT_RADIUS</name>
+<brief>Circle radius for optimizing friction compensation</brief>
+<description>MEA_FEED_CIRCLE
+Circle radius for optimizing friction compensation
+
+</description>
+</parameter>
+<parameter number="55821" type="DOUBLE" dim="0" display="DECIMAL">
+<name>FRICT_OPT_RADIUS_ROT</name>
+<brief>Circle radius for optimizing friction compensation</brief>
+<description>MEA_FEED_CIRCLE
+Circle radius for optimizing friction compensation
+
+</description>
+</parameter>
+<parameter number="55822" type="DOUBLE" dim="1" display="DECIMAL">
+<name>FRICT_OPT_FEED</name>
+<brief>Feedrates for optimizing friction compensation</brief>
+<description>Setting data contains feedrate values for optimizing friction compensation.
+
+</description>
+</parameter>
+<parameter number="55823" type="DOUBLE" dim="1" display="DECIMAL">
+<name>FRICT_OPT_FEED_ROT</name>
+<brief>Feedrates for optimizing friction compensation for rotary axes</brief>
+<description>Setting data contains the feedrate values for optimizing friction compensation for rotary axes.
+
+</description>
+</parameter>
+<parameter number="55824" type="DWORD" dim="0" display="DECIMAL">
+<name>FRICT_OPT_STEP</name>
+<brief>Step number for optimizing friction compensation</brief>
+<description>Step number for optimizing friction compensation
+</description>
+</parameter>
+<parameter number="55826" type="DWORD" dim="0" display="DECIMAL">
+<name>FRICT_OPT_ACT_STEP</name>
+<brief>Current step number for optimizing friction compensation</brief>
+<description>Displays current step number for optimizing friction compensation
+</description>
+</parameter>
+<parameter number="55828" type="DWORD" dim="0" display="DECIMAL">
+<name>FRICT_OPT_DIR_MINUS</name>
+<brief>Direction of rotation for optimizing friction compensation</brief>
+<description>Direction of rotation for optimizing friction compensation
+0= Travel in positive direction (G03)
+1= Travel in negative direction (G02)
+</description>
+</parameter>
+<parameter number="55834" type="DWORD" dim="0" display="DECIMAL">
+<name>AST_MMC_NEWCONF_HANDSHAKE</name>
+<brief>AST Kommunikation mit CYCLE750 zur Abfrage eines NEWCONF</brief>
+<description>AST Kommunikation mit CYCLE750 zur Abfrage eines NEWCONF
+0: Default-Wert,ohne Wirkung
+1: AST Anforderung eines NEWCONF an CYCLE750
+2: CYCLE750 Quittung über NEWCONF an AST
+</description>
+</parameter>
+<parameter number="55835" type="STRING" dim="1" display="ASCII">
+<name>AST_MMCA</name>
+<brief>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"</brief>
+<description>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"
+
+</description>
+</parameter>
+<parameter number="55840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Function mask for grinding cycles</brief>
+<description>Function mask for grinding cycles
+
+</description>
+</parameter>
+<parameter number="55880" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_CONT_RELEASE_ANGLE</name>
+<brief>Grinding - profiling: retraction angle</brief>
+<description>This setting data specifies the angle of retraction from the contour during profiling.
+</description>
+</parameter>
+<parameter number="55881" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_CONT_RELEASE_DIST</name>
+<brief>Grinding - profiling: retraction value</brief>
+<description>This setting data defines the value by which the tool is retracted in both axes during profiling.
+</description>
+</parameter>
+<parameter number="55884" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_CONT_BLANK_OFFSET</name>
+<brief>Grinding - profiling: blank allowance</brief>
+<description>This setting data specifies the distance from the grinding wheel at which there is a switch from G0 to G1 during profiling.
+</description>
+</parameter>
+</info>

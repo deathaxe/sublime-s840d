@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="9006" type="DWORD" dim="0" display="DECIMAL">
+<name>DISPLAY_SWITCH_OFF_INTERVAL</name>
+<brief>Zeit für Bildschirmdunkelschaltung</brief>
+<description>Mit diesem Maschinendatum wird die Zeitdauer in Minuten festgelegt, nach deren Ablauf der Bildschirm automatisch 
+dunkelgeschaltet wird, falls zwischenzeitlich an der Tastatur kein Tastendruck erfolgt ist.
+Mit Wert 0 ist die automatische Hell-/Dunkelschaltung ausgeschaltet.
+Hinweis:
+Die automatische Hell-/Dunkelschaltung des Bildschirms wird nur durchgeführt, wenn das NST Bildschirm dunkel = 0 ist.
+korrespondierend mit:
+NST Bildschirm dunkel (DB19, ... DBX0.1)
+</description>
+</parameter>
+<parameter number="9009" type="BYTE" dim="0" display="DECIMAL">
+<name>KEYBOARD_STATE</name>
+<brief>Tastatur-Shift-Verhalten bei Hochlauf</brief>
+<description>Mit diesem Maschinendatum wird das Shift-Verhalten (SW-CAPSLOCK) der Tastatur festgelegt.
+Grundkonfiguration für das Shift-Verhalten der Tastatur
+ 0: SW-CAPSLOCK aus
+ 2: SW-CAPSLOCK ein
+</description>
+</parameter>
+<parameter number="9032" type="STRING" dim="1" display="ASCII">
+<name>HMI_MONITOR</name>
+<brief>PLC-Datum für HMI-Bildinfo festlegen</brief>
+<description>Offsetbehafteter Zeiger auf einen PLC-Datenbaustein. Dieser wird benötigt, um Monitorinformationen des HMI 
+an die PLC zu melden, z.B.aktive HMI-Task.
+ Format: PLC-spezifisches Format zur Angabe eines Datenbausteins mit Byteoffset 
+z.B. DB60.DBB10 für Datenbaustein 60, Byte 10
+ Die vom HMI gemeldete Monitorinformation beträgt maximal 8 Byte.
+</description>
+</parameter>
+<parameter number="9056" type="DWORD" dim="0" display="DECIMAL">
+<name>ALARM_ROTATION_CYCLE</name>
+<brief>Rotationszykluszeit für die Alarmanzeige</brief>
+<description>Zykluszeit der Rotation in der Alarmanzeige:
+ &lt;500: keine Rotation in der Alarmzeile
+ 500 - 10000: Zyklusdauer der Alarmrotation in Milisekunden
+Ist eine gültige Zykluszeit eingestellt, so werden alle Alarme nacheinander in der Alarmzeile angezeigt.
+Jeder Alarm bleibt die angegebene Zeit in der Anzeige, bevor er vom nächsten Alarm verdrängt wird.
+Steht kein Alarm an, so werden ggf. Zyklenalarme oder Programmmeldungen angezeigt. Diese rotieren jedoch nicht.
+</description>
+</parameter>
+<parameter number="9057" type="BOOLEAN" dim="0" display="DECIMAL">
+<name>ENABLE_CHANNEL_MSG_FILTER</name>
+<brief>Programmmeldungen kanalspezifisch filtern</brief>
+<description>0: Es werden die Programmmeldungen aller Kanäle in der Alarm-/Meldezeile angezeigt
+Bei mehreren NCUs werden standardmäßig die Alarme und Meldungen aller  NCUs angezeigt, mit der 
+Einstellung ServerMode Enabled=false in slaesvcconf.xml kann dies auf die aktuelle NCU eingeschränkt sein.
+1: Es werden nur die Programmmeldungen des aktuellen Kanals der aktuellen NC angezeigt. 
+</description>
+</parameter>
+<parameter number="9100" type="BYTE" dim="0" display="DECIMAL">
+<name>CHANGE_LANGUAGE_MODE</name>
+<brief>Sprachauswahlmodus</brief>
+<description>Sprachauswahlmodus wird festgelegt:
+ 1 = direkt über die Auswahlliste
+ 2 = über die Einstellung 1. und 2. Sprache
+</description>
+</parameter>
+<parameter number="9102" type="BYTE" dim="0" display="DECIMAL">
+<name>SHOW_TOOLTIP</name>
+<brief>Tooltipp anzeigen</brief>
+<description>Wenn das Maschinendatum auf 1 gesetzt ist, werden Tooltipps angezeigt.
+</description>
+</parameter>
+<parameter number="9103" type="BYTE" dim="0" display="DECIMAL">
+<name>TOOLTIP_TIME_DELAY</name>
+<brief>Zeitverzögerung Anz. Tooltipps</brief>
+<description>Zeitverzögerung für die Anzeige  der Tooltipps in Sekunden.
+</description>
+</parameter>
+<parameter number="9104" type="BYTE" dim="0" display="DECIMAL">
+<name>ANIMATION_TIME_DELAY</name>
+<brief>Zeitverzögerung Animation Hilfebilder</brief>
+<description>Zeitverzögerung bis zum Einsetzen der Animation bei Hilfebildern in Sekunden.
+Bei Hilfebildern, die ausschließlich animiert sind, wirkt die Einstellung nicht.
+</description>
+</parameter>
+<parameter number="9105" type="BYTE" dim="0" display="DECIMAL">
+<name>HMI_WIDE_SCREEN</name>
+<brief>Anzeige des HMI als Widescreen mit immer sichtbarem OEM-Bereich</brief>
+<description>Anzeige des HMI als Widescreen. Es gibt über dem HMI einen separaten Applikationsbereich, der vom Maschinenhersteller gestaltet wird.
+</description>
+</parameter>
+<parameter number="9106" type="BYTE" dim="0" display="DECIMAL">
+<name>SERVE_EXTCALL_PROGRAMS</name>
+<brief>EXTCALL-Aufrufe bearbeiten</brief>
+<description>0-3: Art der Bearbeitung von externen Programmen
+0: HMI ignoriert EXTCALL-Anweisungen und  Anwahl über PLC.
+1: HMI bearbeitet EXTCALL-Anweisungen und Anwahl über PLC.
+2: HMI bearbeitet EXTCALL-Anweisungen und ignoriert Anwahl über PLC.
+3: HMI ignoriert EXTCALL-Anweisungen und bearbeitet Anwahl über PLC.
+</description>
+</parameter>
+<parameter number="9107" type="BYTE" dim="0" display="HEX">
+<name>DRV_DIAG_DO_AND_COMP_NAMES</name>
+<brief>Erweiterte Antriebsdiagnose: DO- und Komponenten</brief>
+<description>0:  DO- und Komponenten-Typnamen
+1: Reale DO-Namen und Komponenten-Typnamen
+2: DO-Typnamen und Reale Komponentennamen
+3: Reale DO-Namen und reale Komponentennamen
+</description>
+</parameter>
+<parameter number="9108" type="BYTE" dim="0" display="DECIMAL">
+<name>SINUMERIK_INTEGRATE</name>
+<brief>Aktivierung der SINUMERIK Integrate Produkte</brief>
+<description>Wenn das Maschinendatum auf 1 gesetzt wird, erscheint der Softkey SINUMERIK Integrate im Bedienbereich.
+</description>
+</parameter>
+<parameter number="9110" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_HMI_EXIT</name>
+<brief>Schutzstufe Exit-Softkey</brief>
+<description>Schutzstufe für den Exit-Softkey (HMI-Neustart) im Bedienbereichsmenü
+</description>
+</parameter>
+<parameter number="9900" type="BOOLEAN" dim="0" display="DECIMAL">
+<name>MD_TEXT_SWITCH</name>
+<brief>Klartexte anstatt MD-Bezeichner</brief>
+<description>Wenn das Maschinendatum auf 1 gesetzt ist, werden an der Bedientafel Klartexte statt der Maschinendatenbezeichner angezeigt.
+</description>
+</parameter>
+<parameter number="9990" type="DWORD" dim="0" display="HEX">
+<name>SW_OPTIONS</name>
+<brief>HMI-SW-Optionen freischalten</brief>
+<description>HMI-SW-Optionen können hier freigeschaltet werden
+</description>
+</parameter>
+</info>

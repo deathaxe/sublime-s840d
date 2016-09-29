@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="41010" type="DOUBLE" dim="0">
+<name>JOG_VAR_INCR_SIZE</name>
+<brief>Größe des variablen Inkrements bei JOG</brief>
+<description>Mit dem Settingdatum wird die Anzahl der Inkremente bei Anwahl des variablen Inkrements (INCvar) festgelegt. Diese Inkrementgröße wird jeweils bei Betätigung der Verfahrtaste bzw. bei Verdrehung des Handrades je Rasterstellung von der Achse im JOG- Betrieb verfahren, wenn das variable Inkrement angewählt ist (PLC-Nahtstellensignal "aktive Maschinenfunktion: INC variabel" bei Maschinen- oder Geometrieachse ist 1-Signal). Die eingegebene Inkrementgröße gilt auch bei DRF.
+
+Hinweis:
+	Zu beachten ist, dass die Inkrementgröße beim inkrementellen Verfahren und beim Handradverfahren wirkt. Daher könnte bei Eingabe eines großen Inkrementwertes bei Verdrehung des Handrades ein großer Verfahrweg der Achse erfolgen (abhängig vom MD31090 $MA_JOG_INCR_WEIGHT).
+
+SD irrelevant bei ......
+JOG-kontinuierlich
+
+korrespondierend mit ....
+	NC/PLC-Nahtstellensignal &lt;Geometrieachse1-3aktiveMaschinenfunktion-VarINC/&gt; (Geometrieachse 1-3 aktive Maschinenfunktion: Var. INC) bzw. NC/PLC-Nahtstellensignal &lt;aktiveMaschinenfunktion-VarINC/&gt; (aktive Maschinenfunktion: Var. INC)
+	MD31090 $MA_JOG_INCR_WEIGHT (Bewertung eines Inkrementes für INC/Handrad)
+Mit dem Settingdatum wird die Anzahl der  Inkremente bei Anwahl des variablen Inkrements  (INCvar) festgelegt. Diese Inkrementgröße wird jeweils bei Betätigung der Verfahrtaste bzw. bei Verdrehung des Handrades je Rasterstellung von der Achse im JOG-Betrieb verfahren, wenn das variable Inkrement angewählt ist (NC/PLC-Nahtstellensignal "aktive Maschinenfunktion: INC variabel" bei Maschinen- oder Geometrieachse ist 1-Signal).
+Hinweis: Zu beachten ist, dass die Inkrementgröße beim inkrementellen Verfahren und beim Handradverfahren wirkt. 
+</description>
+</parameter>
+<parameter number="41050" type="BOOLEAN" dim="0">
+<name>JOG_CONT_MODE_LEVELTRIGGRD</name>
+<brief>Tipp-/ Dauerbetrieb bei JOG kontinuierlich</brief>
+<description>1:	Tippbetrieb für JOG-kontinuierlich 
+	Beim Tippbetrieb (Grundstellung) verfährt die Achse solange wie die Verfahrtaste gedrückt wird, sofern zuvor keine Achsbegrenzung erreicht wird. Bei Loslassen der Verfahrtaste wird die Achse bis zum Stillstand abgebremst und die Bewegung gilt als beendet.
+
+0:	Dauerbetrieb für JOG-kontinuierlich
+	Beim Dauerbetrieb wird die Verfahrbewegung mit der ersten steigenden Flanke der Verfahrtaste gestartet und auch nach Loslassen der Verfahrtaste beibehalten. Die Achse kann mit erneutem Drücken der Verfahrtaste (zweite steigende Flanke) wieder gestoppt werden.
+
+SD irrelevant bei ......
+Inkrementellem Verfahren (JOG-INC)
+Referenzpunktfahren (JOG-REF)
+</description>
+</parameter>
+<parameter number="41100" type="BYTE" dim="0" display="HEX">
+<name>JOG_REV_IS_ACTIVE</name>
+<brief>JOG: Umdrehungs.- / Linearvorschub</brief>
+<description>Bit 0 = 0:
+	Das Verhalten ist abhängig:
+	- bei einer Achse/Spindel:
+		vom axialen SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE
+	- bei einer Geometrieachse, auf die ein Frame mit Rotation wirkt:
+		vom kanalspezifischen SD42600 $SC_JOG_FEED_PER_REV_SOURCE
+	- bei einer Orientierungsachse:
+		vom kanalspezifischen SD42600 $SC_JOG_FEED_PER_REV_SOURCE
+Bit 0 = 1:
+	Es soll bei einer JOG-Bewegung mit Umdrehungsvorschub in Abhängigkeit von der Masterspindel verfahren werden.
+	Dabei ist zu berücksichtigen:
+	- Ist eine Spindel selbst die Masterspindel, so wird diese ohne Umdrehungsvorschub verfahren.
+	- Steht die Masterspindel und ist das SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE (bei einer Achse/Spindel) bzw. SD42600 $SC_JOG_FEED_PER_REV_SOURCE (bei einer Geometrieachse, auf die ein Frame mit Rotation wirkt, bzw. bei einer Orientierungsachse) = -3, so wird ohne Umdrehungsvorschub verfahren.
+
+Bit 1 = 0:
+	Auch bei Eilgang wird die Achse/Spindel, Geometrieachse bzw. Orientierungsachse mit Umdrehungsvorschub verfahren (Anwahl siehe Bit 0).
+Bit 1 = 1:
+	Bei Eilgang wird die Achse/Spindel, Geometrieachse bzw. Orientierungsachse immer ohne Umdrehungsvorschub verfahren.
+
+Bit 2 = 0:
+	Auch beim JOG-Handradfahren wird die Achse/Spindel, Geometrieachse bzw. Orientierungsachse mit Umdrehungsvorschub verfahren (Anwahl siehe Bit 0).
+Bit 2 = 1:
+	Beim JOG-Handradfahren wird die Achse/Spindel, Geometrieachse bzw. Orientierungsachse immer ohne  Umdrehungsvorschub verfahren.
+
+Bit 3 = 0:
+	Auch beim DRF-Handradfahren wird die Achse/Spindel mit Umdrehungsvorschub verfahren (Anwahl siehe Bit 0).
+Bit 3 = 1:
+	Beim DRF-Handradfahren wird die Achse/Spindel immer ohne Umdrehungsvorschub verfahren.
+</description>
+</parameter>
+<parameter number="41110" type="DOUBLE" dim="0">
+<name>JOG_SET_VELO</name>
+<brief>Achsgeschwindigkeit bei JOG</brief>
+<description>Wert ungleich 0:
+Die eingegebene Geschwindigkeit gilt bei Linearachsen für Fahren im JOG-Betrieb, wenn für die entsprechende Achse der Linearvorschub (G94) aktiv ist (SD41100 $SN_JOG_REV_IS_ACTIVE = 0).
+Die Achsgeschwindigkeit wirkt:
+- bei kontinuierlichem Verfahren
+- bei inkrementellem Verfahren (INC1, ... INCvar)
+- bei Verfahren mit Handrad
+Der eingegebene Wert ist gemeinsam für alle Linearachsen gültig und darf die maximal zulässige Achsgeschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
+Bei DRF wird die mit SD41110 $SN_JOG_SET_VELO vorgegebene Geschwindigkeit mit dem
+MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR reduziert.
+
+Wert = 0:
+Falls in dem Settingdatum 0 eingetragen ist, wirkt als Linearvorschub im JOG- Betrieb das
+MD32020 $MA_JOG_VELO "Konventionelle Achsgeschwindigkeit". Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit (axiales MD) festgelegt werden.
+
+SD irrelevant bei ......
+- bei Linearachsen, falls SD41100 $SN_JOG_REV_IS_ACTIVE = 1
+- bei Rundachsen (hier wirkt SD41130 $SN_JOG_ROT_AX_SET_VELO)
+
+Anwendungsbeispiel(e)
+Der Bediener kann hiermit anwendungsspezifisch eine JOG-Geschwindigkeit vorgeben.
+
+korrespondierend mit ....
+	SD41100 $SN_JOG_REV_IS_ACTIVE (Umdrehungsvorschub bei JOG aktiv)
+	axiales MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit)
+	axiales MD32000 $MA_MAX_AX_VELO (Maximale Achsgeschwindigkeit)
+	axiales MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (Verhältnis JOG-Geschwindigkeit zu Handradgeschwindigkeit (DRF))
+	SD41130 $SN_JOG_ROT_AX_SET_VELO (JOG-Geschwindigkeit bei Rundachsen)
+Wert &gt; 0:
+Die eingegebene Geschwindigkeit gilt für alle Linearachsen im JOG-Betrieb, wenn diese über die "Verfahrtasten Plus bzw. Minus" manuell verfahren werden.
+Die Achsgeschwindigkeit wirkt:
+	-	beim kontinuierlichen Verfahren
+	-	beim inkrementellen Verfahren (INC1, ... INCvar)
+Der eingegebene Wert darf die maximal zulässige Achsgeschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
+
+Wert = 0:
+Es wirkt als Vorschub im JOG-Betrieb das jeweilige achsspezifische MD32020 $MA_JOG_VELO "Konventionelle Achsgeschwindigkeit". Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit festgelegt werden.
+</description>
+</parameter>
+<parameter number="41120" type="DOUBLE" dim="0">
+<name>JOG_REV_SET_VELO</name>
+<brief>Umdrehungsvorschub der Achsen bei JOG</brief>
+<description>Wert ungleich 0:
+Die eingegebene Geschwindigkeit gilt bei Achsen für Fahren im JOG-Betrieb, wenn für die entsprechende Achse der Umdrehungsvorschub (G95) aktiv ist (SD41100 $SN_JOG_REV_IS_ACTIVE = 1). Die Achsgeschwindigkeit wirkt:
+- bei kontinuierlichem Verfahren
+- bei inkrementellem Verfahren (INC1, ... INCvar)
+- bei Verfahren mit Handrad. Der eingegebene Wert ist gemeinsam für alle Achsen gültig und darf die maximal zulässige Achsgeschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
+
+Wert = 0:
+Falls in dem Settingdatum 0 eingetragen ist, wirkt als Umdrehungsvorschub im JOG-Betrieb das MD32050 $MA_JOG_REV_VELO "Umdrehungsvorschub bei JOG".
+Hiermit kann für jede Achse eine eigene Umdrehungsgeschwindigkeit (axiales MD) festgelegt werden.
+
+SD irrelevant bei ......
+- bei Achsen, falls SD41100 $SN_JOG_REV_IS_ACTIVE = 0
+
+Anwendungsbeispiel(e)
+Der Bediener kann hiermit anwendungsspezifisch eine JOG-Geschwindigkeit vorgeben.
+
+korrespondierend mit ....
+	axiales SD41100 $SN_JOG_REV_IS_ACTIVE (Umdrehungsvorschub bei JOG aktiv)
+	axiales MD32050 $MA_JOG_REV_VELO (Umdrehungsvorschub bei JOG)
+	axiales MD32000 $MA_MAX_AX_VELO (Maximale Achsgeschwindigkeit)
+</description>
+</parameter>
+<parameter number="41130" type="DOUBLE" dim="0">
+<name>JOG_ROT_AX_SET_VELO</name>
+<brief>Achsgeschwindigkeit der Rundachsen bei JOG-Betrieb</brief>
+<description>Wert ungleich 0:
+Die eingegebene Geschwindigkeit gilt bei Rundachsen im JOG-Betrieb (bei kontinuierlichem Verfahren, bei inkrementellem Verfahren, beim Verfahren mit Handrad). Der eingegebene Wert ist gemeinsam für alle Rundachsen und darf die maximal zulässige Achsgeschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
+
+Bei DRF ist die mit dem SD41130 $SN_JOG_ROT_AX_SET_VELO vorgegebene Geschwindigkeit mit dem MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR zu reduzieren.
+
+Wert = 0:
+Wird in dem Settingdatum der Wert 0 eingetragen, so wirkt als Geschwindigkeit im JOG-Betrieb für die Rundachsen das axiale MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit). Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit festgelegt werden.
+
+Anwendungsbeispiel(e)
+Der Bediener kann hiermit anwendungsspezifisch eine JOG-Geschwindigkeit vorgeben.
+
+korrespondierend mit ....
+	MD32020 $MA_JOG_VELO (Konventionelle Geschwindigkeit)
+	MD32000 $MA_MAX_AX_VELO (Maximale Achsgeschwindigkeit)
+	MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (Verhältnis JOG-Geschwindigkeit zu Handradgeschwindigkeit (DRF)
+wie SD41110 $SN_JOG_SET_VELO - jedoch für alle Rundachsen statt Linearachsen
+</description>
+</parameter>
+<parameter number="41200" type="DOUBLE" dim="0">
+<name>JOG_SPIND_SET_VELO</name>
+<brief>Drehzahl für Spindel-JOG-Betrieb</brief>
+<description>Wert ungleich 0:
+Die eingegebene Geschwindigkeit gilt bei Spindeln im JOG-Betrieb, wenn diese über die "Verfahrtasten Plus bzw. Minus" bzw. über Handrad manuell verfahren werden. Die Geschwindigkeit wirkt:
+- bei kontinuierlichem Verfahren
+- bei inkrementellem Verfahren (INC1, ... INCvar)
+- bei Verfahren mit Handrad. Der eingegebene Wert ist gemeinsam für alle Spindeln gültig und darf die maximal zulässige Geschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
+
+Wert = 0:
+Falls in dem Settingdatum 0 eingetragen ist, wirkt als JOG-Geschwindigkeit das MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit). Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit (axiales MD) festgelegt werden.
+Bei Verfahren der Spindel mit JOG werden die Maximaldrehzahlen der aktiven Getriebestufe (MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT) berücksichtigt.
+
+SD irrelevant bei ......
+Achsen Anwendungsbeispiel(e). Der Bediener kann hiermit anwendungsspezifisch eine JOG-Geschwindigkeit für die Spindeln vorgeben.
+
+korrespondierend mit ....
+	axiales MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit)
+	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT (Maximaldrehzahl der Getriebestufen)
+Wert &gt; 0:
+Die eingegebene Geschwindigkeit gilt bei Spindeln im JOG-Betrieb, wenn diese über die "Verfahrtasten Plus bzw. Minus" manuell verfahren werden.
+Die Geschwindigkeit wirkt:
+	-	bei kontinuierlichen Verfahren
+	-	bei inkrementellen Verfahren (INC1, ..., INCvar)
+Der eingegebene Wert darf die maximal zulässige Geschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
+
+Wert = 0:
+Falls in dem Settingdatum 0 eingetragen ist, wirkt als JOG-Geschwindigkeit das 
+MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit). Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit (achsspezifisches MD) festgelegt werden.
+Bei Verfahren der Spindel mit JOG werden die Maximaldrehzahlen der aktiven Getriebestufe (MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT) berücksichtigt. 
+</description>
+</parameter>
+<parameter number="41300" type="BOOLEAN" dim="1">
+<name>CEC_TABLE_ENABLE</name>
+<brief>Freigabe der Kompensationstabelle</brief>
+<description>1:	Die Auswertung der Kompensationstabelle [t] ist freigegeben.
+
+	Die Kompensationstabelle geht nun in die Kompensationswertberechnung der Kompensationsachse ein.
+	Die Kompensationsachse $AN_CEC_OUTPUT_AXIS kann der Tabellenprojektierung entnommen werden.
+
+	Der wirksame Gesamtkompensationswert in der Kompensationsachse kann durch gezielte Aktivierung von Tabellen (aus NC-Teileprogramm oder PLC-Anwenderprogramm heraus) der jeweiligen Bearbeitung angepasst werden.
+
+	Die Funktion wird erst wirksam, wenn folgende Voraussetzungen erfüllt sind:
+- die Option "Interpolatorische Kompensation" ist gesetzt
+- die zugehörigen Kompensationstabellen in den NC-Anwenderspeicher geladen und freigegeben wurden (SD41300 $SN_CEC_TABLE_ENABLE[t] = 1)
+- das jeweilige Lagemesssystem referiert ist (NC/PLC-Nahtstellensignal &lt;ReferiertSynchronisiert1bzw2/&gt; (Referiert/Synchronisiert 1 bzw. 2) = 1).
+
+0:	Die Auswertung der Durchhangkompensations-Tabelle [t] ist nicht freigegeben.
+
+korrespondierend mit ....
+	MD18342 $MN_MM_CEC_MAX_POINTS[t]           Anzahl der Stützpunkte bei Durchhangkompensation
+	SD41300 $SN_CEC_TABLE_ENABLE[t]            Auswertung der Durchhangkompensationstabelle t freigeben
+	NC/PLC-Nahtstellensignal &lt;Referiert-Synchronisiert1/&gt; (Referiert/Synchronisiert 1)
+	NC/PLC-Nahtstellensignal &lt;Referiert-Synchronisiert2/&gt; (Referiert/Synchronisiert 2)
+</description>
+</parameter>
+<parameter number="41310" type="DOUBLE" dim="1">
+<name>CEC_TABLE_WEIGHT</name>
+<brief>Gewichtungsfaktor Kompensationstabelle</brief>
+<description>Der in der Tabelle [t] hinterlegte Kompensationswert wird mit dem Gewichtungsfaktor multipliziert.
+Bei der Wahl des Gewichtungsfaktor sollte beachtet werden, dass der Gesamtkompensationswert in der Kompensationsachse
+nicht den Maximalwert (MD18342 $MN_CEC_MAX_SUM) überschreitet. Mit [t] = Index der Kompensationstabelle (siehe MD18342 $MN_MM_CEC_MAX_POINTS)
+
+Falls beispielsweise das Gewicht der an der Maschine verwendeten Werkzeuge oder zu bearbeitenden Werkstücke sehr unterschiedlich ist und sich durch eine Amplitudenänderung auf die Fehlerkurve auswirkt, kann dies durch Änderung des Gewichtungsfaktor korrigiert werden. Bei der Durchhangkompensation kann der Gewichtungsfaktor der Tabelle werkzeugspezifisch bzw. werkstückspezifisch vom PLC-Anwenderprogramm oder aus dem NC-Programm durch Überschreiben des Settingdatums verändert werden. Wird jedoch durch die unterschiedlichen Gewichte der Verlauf der Fehlerkurve erheblich verändert, so sind unterschiedliche Kompensationstabellen zu verwenden.
+
+korrespondierend mit ....
+	SD41300 $SN_CEC_TABLE_ENABLE[t]  Auswertung der Durchhangkompensationstabelle t freigeben
+
+	MD18342 $MN_CEC_MAX_SUM          Maximaler Kompensationswert bei Durchhangkompensation
+</description>
+</parameter>
+<parameter number="41320" type="DOUBLE" dim="1">
+<name>CEC_0</name>
+<brief>Kompensationswert 1</brief>
+<description>Der Wert diese SD wird zum Kompensationswert $AN_CEC[t,0] addiert.
+
+
+korrespondierend mit ....
+ $AN_CEC[t,0]  Kompensationswert
+
+</description>
+</parameter>
+<parameter number="41321" type="DOUBLE" dim="1">
+<name>CEC_1</name>
+<brief>Kompensationswert 2</brief>
+<description>Der Wert diese SD wird zum Kompensationswert $AN_CEC[t,1] addiert.
+
+
+korrespondierend mit ....
+ $AN_CEC[t,1]  Kompensationswert
+
+</description>
+</parameter>
+<parameter number="41330" type="DOUBLE" dim="1">
+<name>CEC_BAS_0</name>
+<brief>Abstand Messpunkt 1 in der Basisachse</brief>
+<description>Der Wert des SD wird zur Berechnung von $SN_CEC genutzt.
+Wird nach Berechnung von $SN_CEC gelöscht.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41331" type="DOUBLE" dim="1">
+<name>CEC_BAS_1</name>
+<brief>Abstand Messpunkt 2 in der Basisachse</brief>
+<description>Der Wert des SD wird zur Berechnung von $SN_CEC genutzt.
+Wird nach Berechnung von $SN_CEC gelöscht.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41335" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_BAS_STORE_0</name>
+<brief>Gespeicherter Abstand Messpunkt 1 in der Basisachse</brief>
+<description>Speichert den Wert von $SN_CEC_BAS nach der Berechnung von $SN_CEC.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_0[t]  Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41336" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_BAS_STORE_1</name>
+<brief>Gespeicherter Abstand Messpunkt 2 in der Basisachse</brief>
+<description>Speichert den Wert von $SN_CEC_BAS nach der Berechnung von $SN_CEC.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41340" type="DOUBLE" dim="1">
+<name>CEC_COMP_0</name>
+<brief>Zylinderfehler 1 in der Kompensationsachse</brief>
+<description>Der Wert des SD wird zur Berechnung von $SN_CEC genutzt.
+Wird nach Berechnung von $SN_CEC gelöscht.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41341" type="DOUBLE" dim="1">
+<name>CEC_COMP_1</name>
+<brief>Zylinderfehler 2 in der Kompensationsachse</brief>
+<description>Der Wert des SD wird zur Berechnung von $SN_CEC genutzt.
+Wird nach Berechnung von $SN_CEC gelöscht.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]   Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41350" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_COMP_STORE_0</name>
+<brief>Gespeicherter Zylinderfehler 1 in der Kompensationsachse</brief>
+<description>Speichert den Wert von $SN_CEC_COMP nach der Berechnung von $SN_CEC.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]  Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41351" type="DOUBLE" dim="1" readonly="true">
+<name>CEC_COMP_STORE_1</name>
+<brief>Gespeicherter Zylinderfehler 2 in der Kompensationsachse</brief>
+<description>Speichert den Wert von $SN_CEC_COMP nach der Berechnung von $SN_CEC.
+
+
+korrespondierend mit ....
+	$SN_CEC_0[t], $SN_CEC_1[t]   Kompensationswerte
+
+</description>
+</parameter>
+<parameter number="41355" type="BOOLEAN" dim="1">
+<name>CEC_CALC</name>
+<brief>Die 0/1-Flanke startet die Berechnung von $SN_CEC_0[t] und $SN_CEC_1[t].</brief>
+<description>Start der Berechnung von $SN_CEC.
+
+
+korrespondierend mit ....
+	$SN_CEC_BAS_0[t], $SN_CEC_BAS_1[t]   Abstand Messpunkt in der Bassisachse
+	$SN_CEC_COMP_0[t], $SN_CEC_COMP_1[t] Zylinderfehler in der Kompensationsachse
+
+</description>
+</parameter>
+<parameter number="41356" type="BOOLEAN" dim="1">
+<name>CEC_CALC_ADD</name>
+<brief>Berechnung von $SN_CEC_0[t] u. $SN_CEC_1[t] absolut oder additiv</brief>
+<description>Die Verechnung von $SN_CEC_0[t] u. $SN_CEC_1[t] kann absolut oder additiv erfolgen:
+
+FALSE: Absolut, die berechneten Wert von $SN_CEC_0[t] und $SN_CEC_1[t] werden absolut eingerechnet.
+TRUE:  Additiv, die berechneten Wert von $SN_CEC_0[t] und $SN_CEC_1[t] werden auf die vorhandenen Werten aufaddiert.
+
+korrespondierend mit ....
+	$SN_CEC_BAS_0[t], $SN_CEC_BAS_1[t]    Abstand Messpunkt in der Bassisachse
+	$SN_CEC_COMP_0[t], $SN_CEC_COMP_1[t]  Zylinderfehler in der Kompensationsachse
+
+</description>
+</parameter>
+<parameter number="41500" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_1</name>
+<brief>Schaltpunkte bei fallender Nocke  1-8</brief>
+<description>In das Maschinendatum wird die Nockenposition der Minusnocken 1 - 8 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 1, 2, ... , 8
+
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Minus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 1 nach 0.
+</description>
+</parameter>
+<parameter number="41501" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_1</name>
+<brief>Schaltpunkte bei steigender Nockenflanke  1-8</brief>
+<description>In das Maschinendatum wird die Nockenposition der Plusnocken 1 - 8 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 1, 2, ... , 8
+
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Plus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 0 nach 1.
+</description>
+</parameter>
+<parameter number="41502" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_2</name>
+<brief>Schaltpunkte bei fallender Nockenflanke 9-16</brief>
+<description>In das Maschinendatum wird die Nockenposition der Minusnocken 9 - 16 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 9, 10, ... , 16
+
+Schaltpunkte mit fallender Flanke der Nocken 9 - 16
+Beim Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Minus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 1 nach 0.
+</description>
+</parameter>
+<parameter number="41503" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_2</name>
+<brief>Schaltpunkte bei steigender Nockenflanke 9-16</brief>
+<description>In das Maschinendatum wird die Nockenposition der Plusnocken 9 - 16 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 9, 10, ... , 16
+
+Schaltpunkte mit steigender Flanke der Nocken 9 - 16
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Plus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 0 nach 1.
+</description>
+</parameter>
+<parameter number="41504" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_3</name>
+<brief>Schaltpunkte bei fallender Nockenflanke 17-24</brief>
+<description>In das Maschinendatum wird die Nockenposition der Minusnocken 17 - 24 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 17, 18, ... , 24
+
+Schaltpunkte mit fallender Flanke der Nocken 17 - 24
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Minus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 1 nach 0.
+</description>
+</parameter>
+<parameter number="41505" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_3</name>
+<brief>Schaltpunkte bei steigender Nockenflanke 17-24</brief>
+<description>In das Maschinendatum wird die Nockenposition der Plusnocken 17 - 24 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 17, 18, ... , 24
+
+Schaltpunkte mit steigender Flanke der Nocken 17 - 24
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Plus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 0 nach 1.
+</description>
+</parameter>
+<parameter number="41506" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_POS_TAB_4</name>
+<brief>Schaltpunkte bei fallender Nockenflanke 25-32</brief>
+<description>In das Maschinendatum wird die Nockenposition der Minusnocken 25 - 32 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 25, 26, ... , 32
+
+Schaltpunkte mit fallender Flanke der Nocken 25 - 32
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Minus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 1 nach 0.
+</description>
+</parameter>
+<parameter number="41507" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_POS_TAB_4</name>
+<brief>Schaltpunkte bei steigender Nockenflanke 25-32</brief>
+<description>In das Maschinendatum wird die Nockenposition der Plusnocken 25 - 32 eingetragen.
+Die Positionen werden im Maschinenkoordinatensystem eingetragen.
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 25, 26, ... , 32
+
+Schaltpunkte mit steigender Flanke der Nocken 25 - 32
+Bei Überfahren der eingestellten Schaltpunkte in positiver Achsrichtung schalten die zugehörigen "Plus"-Nockensignale in der PLC-Nahtstelle ( und evtl. applizierte schnelle Ausgangssignale ) von 0 nach 1.
+</description>
+</parameter>
+<parameter number="41520" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_1</name>
+<brief>Vorhaltezeit zu  '-'-Schaltpunkten der Nocken 1-8</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Nocken 1-8 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:            Vorhaltezeit
+Negativer Wert:            Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 1, 2, ... , 8
+
+Das Settingdatum wirkt additiv zu dem MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n].
+
+korrespondierend mit ....
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Minusnocken 1 - 16)
+</description>
+</parameter>
+<parameter number="41521" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_1</name>
+<brief>Vorhaltezeit zu  '+'-Schaltpunkten der Nocken 1-8</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Plusnocken 1-8 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:          Vorhaltezeit
+Negativer Wert:          Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 1, 2, ... , 8
+
+Das Settingdatum wirkt additiv zu dem MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n].
+
+korrespondierend mit ....
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Plusnocken 1- 16)
+</description>
+</parameter>
+<parameter number="41522" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_2</name>
+<brief>Vorhaltezeiten zu  '-'-Schaltpunkten der Nocken 9-16</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Minusnocken 9 - 16 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:       Vorhaltezeit
+Negativer Wert:       Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 9, 10, ... , 16
+
+Das Settingdatum wirkt additiv zu dem MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n+8].
+
+korrespondierend mit ....
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Minusnocken 1 - 16)
+</description>
+</parameter>
+<parameter number="41523" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_2</name>
+<brief>Vorhaltezeit zu '+'-Schaltpunkten der Nocken 9-16</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Plusnocken 9 - 16 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:    Vorhaltezeit
+Negativer Wert:    Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 9, 10, ... , 16
+
+Das Settingdatum wirkt additiv zu dem MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n+8].
+
+korrespondierend mit ....
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Plusnocken 1- 16)
+</description>
+</parameter>
+<parameter number="41524" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_3</name>
+<brief>Vorhaltezeit zu '-'-Schaltpunkten den Nocken 17-24</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Minusnocken 17-24 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:       Vorhaltezeit
+Negativer Wert:       Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 17, 18, ... , 24
+
+Das Settingdatum wirkt additiv zu dem MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n].
+
+korrespondierend mit ....
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Minusnocken 1 - 16)
+</description>
+</parameter>
+<parameter number="41525" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_3</name>
+<brief>Vorhaltezeiten zu '+'-Schaltpunkten der Nocken 17-24</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Plusnocken 17-24 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:      Vorhaltezeit
+Negativer Wert:      Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 0, 1, ... , 7 entspricht Nockenpaar 17, 18, ... , 24
+
+Das Settingdatum wirkt additiv zu dem MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n].
+
+korrespondierend mit ....
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Plusnocken 1- 16)
+</description>
+</parameter>
+<parameter number="41526" type="DOUBLE" dim="1">
+<name>SW_CAM_MINUS_TIME_TAB_4</name>
+<brief>Vorhaltezeit zu  '-'-Schaltpunkten der Nocken 25-32</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Minusnocken 25 - 32 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:        Vorhaltezeit
+Negativer Wert:        Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 25, 26, ... , 32
+
+Das Settingdatum wirkt additiv zu dem MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n+8].
+
+korrespondierend mit ....
+	MD10460 $MN_SW_CAM_MINUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Minusnocken 1 - 16)
+</description>
+</parameter>
+<parameter number="41527" type="DOUBLE" dim="1">
+<name>SW_CAM_PLUS_TIME_TAB_4</name>
+<brief>Vorhaltezeiten zu '+'-Schaltpunkten den Nocken 25-32</brief>
+<description>In das Settingdatum kann zur Kompensation von Verzögerungszeiten jedem Plusnocken 25 - 32 eine Vorhalte- bzw. Verzögerungszeit zugeordnet werden.
+
+Die Schaltflanke des zugehörigen Nockensignals wird um die eingegebene Zeit vorverlegt bzw. verzögert.
+
+Positiver Wert:     Vorhaltezeit
+Negativer Wert:     Verzögerungszeit
+
+Der Index [n] des Settingdatums adressiert das Nockenpaar:
+n = 8, 9, ... , 15 entspricht Nockenpaar 25, 26, ... , 32
+
+Das Settingdatum wirkt additiv zu dem MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n+8].
+
+korrespondierend mit ....
+	MD10461 $MN_SW_CAM_PLUS_LEAD_TIME[n] (Vorhalte- bzw. Verzögerungszeit an den Plusnocken 1- 16)
+</description>
+</parameter>
+<parameter number="41600" type="DOUBLE" dim="1">
+<name>COMPAR_THRESHOLD_1</name>
+<brief>Schwellwert des 1. Komperators</brief>
+<description>Mit COMPAR_THRESHOLD_1[b] werden für die einzelnen Eingangsbits[b] des Komperatorbytes 1 die Schwellwerte festgelegt.
+
+Das Ausgangsbit n des 1. Komparators entsteht durch Vergleich des Schwellwertes n gemäß dem in Bit n von COMPAR_TYPE_1 vorgegebenen Vergleichstyp.
+
+z.B.:   
+	COMPAR_ASSIGN_ANA_INPUT_1[2] = 4
+	COMPAR_TRESHOLD_1[2]         = 5000.0
+	COMPAR_TYPE_1                = 5
+	Das 3. Ausgangsbit von Komparator 1 wird gesetzt, wenn der Eingangswert an AnalogIn 4 größer oder gleich 5 Volt wird.
+
+Index [b]: Bit 0 - 7
+
+korrespondierend mit ....
+	MD10530 $MN_COMPAR_ASSIGN_ANA_INPUT_1
+	MD10531 $MN_COMPAR_ASSIGN_ANA_INPUT_2
+	MD10540 $MN_COMPAR_TYPE_1
+	MD10541 $MN_COMPAR_TYPE_2
+</description>
+</parameter>
+<parameter number="41601" type="DOUBLE" dim="1">
+<name>COMPAR_THRESHOLD_2</name>
+<brief>Schwellwert des 2. Komperators</brief>
+<description>Mit COMPAR_THRESHOLD_1[b] werden für die einzelnen Eingangsbits[b] des Komperatorbytes 1 die Schwellwerte festgelegt.
+Das Ausgangsbit n des 1. Komparators entsteht durch Vergleich des Schwellwertes n gemäß dem in Bit n von COMPAR_TYPE_2 vorgegebenen Vergleichstyp.
+
+
+Index [b]: Bit 0 - 7
+
+korrespondierend mit ....
+	MD10530 $MN_COMPAR_ASSIGN_ANA_INPUT_1
+	MD10531 $MN_COMPAR_ASSIGN_ANA_INPUT_2
+	MD10540 $MN_COMPAR_TYPE_1
+	MD10541 $MN_COMPAR_TYPE_2
+</description>
+</parameter>
+<parameter number="41610" type="DOUBLE" dim="0">
+<name>CORR_TRAFO_LIN_MAX</name>
+<brief>Maximal zulässiger Korrekturwert für Offsetvektoren bei CORRTRAFO</brief>
+<description>Mit der Funktion CORRTRAFO zur Maschinenvermessung können Offsetvektoren im kinematischen Modell einer Maschine modifiziert werden.
+Dieses Settingdatum begrenzt die maximal zulässige Änderung in jeder Komponente eines solchen Vektors auf den angegebenen Maximalwert.
+</description>
+</parameter>
+<parameter number="41611" type="DOUBLE" dim="0">
+<name>CORR_TRAFO_DIR_MAX</name>
+<brief>Maximal zulässige Winkelabweichung für Richtungsvektoren bei CORRTRAFO</brief>
+<description>Mit der Funktion CORRTRAFO zur Maschinenvermessung können die Richtungsvektoren von rotatorischen Achsen im kinematischen Modell einer Maschine modifiziert werden.
+Dieses Settingdatum begrenzt die maximal zulässige Winkeländerung eines solchen Vektors auf den angegebenen Maximalwert.
+</description>
+</parameter>
+<parameter number="41700" type="DWORD" dim="1">
+<name>AXCT_SWWIDTH</name>
+<brief>Achs-Container Drehungsvorgabe</brief>
+<description>Anzahl der Einträge (Slots), um welche die Einträge im Achscontainer bei Vollzug der Drehung weitergeschaltet werden. Der Wert wird modulo der tatsächlich existierenden Einträge interpretiert. Negative Werte kehren die Drehrichtung um.
+
+Korrespondiert mit Achscontainer-Drehbefehl, Containerachsen.
+Dieses Maschinendatum wird über NCU-Link verteilt.
+
+Diese SD ist entgegen der Definition für Settingdaten nicht sofort, sondern erst mit NEWCONF wirksam.
+</description>
+</parameter>
+</info>

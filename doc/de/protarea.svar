@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="protArea">
+<parameter type="BOOL" dim="1">
+<name>$SN_PA_ACTIV_IMMED</name>
+<brief>Schutzbereich sofort aktiv</brief>
+<description>$SN_PA_ACTIV_IMMED[n]
+n: Nummer des Schutzbereichs
+Schutzbereich sofort nach Hochlauf aktiv
+TRUE: Der Schutzbereich ist nach dem Hochlaufen der
+Steuerung und dem Referieren der Achsen sofort aktiv
+FALSE: Der Schutzbereich ist nicht sofort aktiv
+
+Hinweis: Diese Variable ist nur als Systemvariable beschreibbar und wird nicht
+durch die NC-Sprachbefehle zwischen NPROTDEF(..) und EXECUTE(n) beeinflusst.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="CHAR" dim="1">
+<name>$SN_PA_T_W</name>
+<brief>Werkstück-/Werkzeugbezog. Schutzbereich</brief>
+<description>$SN_PA_T_W[n]
+n: Nummer des Schutzbereichs
+
+Werkstück-/Werkzeugbezogener Schutzbereich
+0: werkstückbezogener Schutzbereich
+3: werkzeugbezogener Schutzbereich
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$SN_PA_ORI</name>
+<brief>Orientierung des Schutzbereiches</brief>
+<description>$SN_PA_ORI[n]
+n: Nummer des Schutzbereichs
+
+Orientierung des Schutzbereiches
+0: Polygonzug in der Ebene aus der 1. und 2. Geo-Achse (G17)
+1: Polygonzug in der Ebene aus der 3. und 1. Geo-Achse (G18)
+2: Polygonzug in der Ebene aus der 2. und 3. Geo-Achse (G19)
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$SN_PA_LIM_3DIM</name>
+<brief>Wirksamkeit Appl-Begrenzung Schutzbereich</brief>
+<description>$SN_PA_LIM_3DIM[n]
+n: Nummer des Schutzbereichs
+
+Kennung für Begrenzung des Schutzbereichs in der Achse, die
+senkrecht zum Polygonzug steht
+0: keine Begrenzung
+1: Begrenzung in positive Richtung
+2: Begrenzung in negative Richtung
+3: Begrenzung in beide Richtungen
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$SN_PA_PLUS_LIM</name>
+<brief>Begrenzung Schutzbereich-Applikate plus</brief>
+<description>$SN_PA_PLUS_LIM[n]
+n: Nummer des Schutzbereichs
+
+Positive Begrenzung der Schutzbereiche in der Achse, die
+senkrecht zum Polygonzug steht
+Nur wirksam wenn $SN_PA_LIM_3DIM[n]=1 oder = 3.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$SN_PA_MINUS_LIM</name>
+<brief>Begrenzung Schutzbereich-Applikate minus</brief>
+<description>$SN_PA_MINUS_LIM[n]
+n: Nummer des Schutzbereichs
+
+Negative Begrenzung des Schutzbereiches in Minus-Richtung in der Achse, die
+senkrecht zum Polygonzug steht
+Nur wirksam wenn $SN_PA_LIM_3DIM[n]=2 oder = 3.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$SN_PA_CONT_NUM</name>
+<brief>Anzahl der gültigen Konturelemente</brief>
+<description>$SN_PA_CONT_NUM[n]
+n: Nummer des Schutzbereichs
+
+Anzahl der gültigen Konturelemente
+Schutzbereiche sind erst mit mindestens 2 Konturelemente vollständig beschrieben.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$SN_PA_CONT_TYP</name>
+<brief>Typ des Konturelements</brief>
+<description>$SN_PA_CONT_TYP[n,m]
+n: Nummer des Schutzbereichs
+m: Nummer des Konturelements
+
+Typ (G1, G2, G3) des Konturelements
+=0: Kontur nicht definiert
+=1: Gerade
+=2: Kreiselement (im Uhrzeigersinn)
+=3: Kreiselement (gegen Uhrzeigersinn)
+Der Endpunkt wird durch $SN_PA_CONT_ORD bzw. $SN_PA_CONT_ABS bestimmt. Beim Konturtyp G2 und G3 bestimmt $SN_PA_CENT_ORD bzw. $SN_PA_CENT_ABS den Mittelpunkt des Kreiselements.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SN_PA_CONT_ORD</name>
+<brief>Endpunkt des Konturelements (Ordinate)</brief>
+<description>$SN_PA_CONT_ORD[n,m]
+n: Nummer des Schutzbereichs
+m: Nummer des Konturelements
+
+Endpunkt des Konturelements (Ordinate)
+s. auch Beschreibung zu $SN_PA_CONT_TYP
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SN_PA_CONT_ABS</name>
+<brief>Endpunkt des Konturelements (Abszisse)</brief>
+<description>$SN_PA_CONT_ABS[n,m]
+n: Nummer des Schutzbereichs
+m: Nummer des Konturelements
+
+Endpunkt des Konturelements (Abszisse)
+s. auch Beschreibung zu $SN_PA_CONT_TYP
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SN_PA_CENT_ORD</name>
+<brief>Mittelpunkt des Konturelements (Ordinate)</brief>
+<description>$SN_PA_CENT_ORD[n,m]
+n: Nummer des Schutzbereichs
+m: Nummer des Konturelements
+
+Mittelpunkt des Konturelements (Ordinate)
+Nur von Bedeutung, wenn $SN_PA_CONT_TYP[n,m] = 2 oder = 3 ist.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SN_PA_CENT_ABS</name>
+<brief>Mittelpunkt des Konturelements (Abszisse)</brief>
+<description>$SN_PA_CENT_ABS[n,m]
+n: Nummer des Schutzbereichs
+m: Nummer des Konturelements
+
+Mittelpunkt des Konturelements (Abszisse)
+Nur von Bedeutung, wenn $SN_PA_CONT_TYP[n,m] = 2 oder = 3 ist.
+
+Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
+
+Hinweis: Diese Variable wird mit der Datensicherung gesichert.
+Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
+</description>
+</parameter>
+</info>

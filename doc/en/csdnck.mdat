@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="54215" type="DWORD" dim="0" display="HEX">
+<name>TM_FUNCTION_MASK_SET</name>
+<brief>Function mask Tool management</brief>
+<description>Function mask, tool management
+Bit 0:	Diameter display for rotary tools. It is not the radius value but the diameter that is displayed for rotary tools.
+Bit 1:	Default direction of rotation for all turning tools is M4. Direction of rotation M4 is assigned by default when turning tools are created.
+Bit 2:	Create tool without suggesting name.
+Bit 3:	Input disable for tool name and tool type in the case of loaded tools. Once tools have been loaded, the tool name and the tool type cannot be changed.
+Bit 4:	Input disable for loaded tools unless the channel is not in reset.
+Bit 5:	Accrue tool wear entries additively. Tool wear data entries are added to the existing wear value.
+Bit 6:	Entry of tool ID in numerical format. The tool ID may only be entered using numbers. 
+Bit 7:	Hide tool monitoring parameters. The tool monitoring parameters are hidden on the user interface.
+Bit 8:	Diameter display for transverse axis geometry. The geometry value for the transverse axis is displayed as the diameter value.
+Bit 9:	Diameter display for transverse axis wear. The wear value for the transverse axis is displayed as the diameter value.
+Bit 10:	Enable loading / relocation of tool in buffer locations. The magazine number can be entered in the load dialog box. The magazine number 9998 is then used to access the buffer location.
+Bit 11:	Creation of new tools in gripper locations is disabled.
+Bit 12:	Measuring tools are not are not unloaded when the "Unload all" function is executed.
+</description>
+</parameter>
+<parameter number="54480" type="STRING" dim="1" display="ASCII">
+<name>AST_MMC_HANDLER_NAME</name>
+<brief>Zuordnung einer HMI-Operate-Instanz für AST-Kommandos</brief>
+<description>Name des zugeordneten HMI-Operate (Masters)
+Es muss ein Operate als Master bestimmt werden.
+
+</description>
+</parameter>
+<parameter number="54481" type="BOOLEAN" dim="0">
+<name>AST_MMC_DEFAULT_IS_PCU</name>
+<brief>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST</brief>
+<description>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST
+Selektion des Operate- Typs
+
+
+</description>
+</parameter>
+<parameter number="54600" type="DOUBLE" dim="1">
+<name>MEA_WP_BALL_DIAM</name>
+<brief>Effective diameter of the probe sphere for the workpiece probe</brief>
+<description>Effective sphere diameter of the probe sphere for the workpiece probe.
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+
+</description>
+</parameter>
+<parameter number="54601" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_MINUS_DIR_AX1</name>
+<brief>Trigger point of the 1st measuring axis in negative direction</brief>
+<description>Trigger point of the 1st measuring axis (abscissa) in negative traversing direction (X at G17) of the workpiece probe.
+The term "negative traversing direction" refers to the currently active workpiece zero point reference! 
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54602" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_PLUS_DIR_AX1</name>
+<brief>Trigger point of the 1st measuring axis in positive direction</brief>
+<description>Trigger point of the 1st measuring axis (abscissa) in positive traversing direction (X at G17) of the workpiece probe.
+The term "positive traversing direction" refers to the currently active workpiece zero point reference! 
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54603" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_MINUS_DIR_AX2</name>
+<brief>Trigger point of the 2nd measuring axis in negative direction</brief>
+<description>Trigger point of the 2nd measuring axis (ordinate) in negative traversing direction (Y at G17) of the workpiece probe.
+The term "negative traversing direction" refers to the currently active workpiece zero point reference! 
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+
+</description>
+</parameter>
+<parameter number="54604" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_PLUS_DIR_AX2</name>
+<brief>Trigger point of the 2nd measuring axis in positive direction</brief>
+<description>Trigger point of the 2nd measuring axis (ordinate) in positive traversing direction (Y at G17) of the workpiece probe.
+The term "positive traversing direction" refers to the currently active workpiece zero point reference! 
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54605" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_MINUS_DIR_AX3</name>
+<brief>Trigger point of the 3rd measuring axis in negative direction</brief>
+<description>Trigger point of the 3rd measuring axis (applicate) in negative traversing direction (Z at G17) of the workpiece probe.
+The term "negative traversing direction" refers to the currently active workpiece zero point reference! 
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+
+</description>
+</parameter>
+<parameter number="54606" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_PLUS_DIR_AX3</name>
+<brief>Trigger point of the 3rd measuring axis in positive direction</brief>
+<description>Trigger point of the 3rd measuring axis (applicate) in positive traversing direction (Z at G17) of the workpiece probe.
+The term "positive traversing direction" refers to the currently active workpiece zero point reference! 
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54607" type="DOUBLE" dim="1">
+<name>MEA_WP_POS_DEV_AX1</name>
+<brief>Position deviation of the probe sphere in the 1st measuring axis</brief>
+<description>The position deviation in the 1st measuring axis represents a geometrical offset of the center point of the probe sphere
+related to the electrical center point of the probe in this axis!
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+
+</description>
+</parameter>
+<parameter number="54608" type="DOUBLE" dim="1">
+<name>MEA_WP_POS_DEV_AX2</name>
+<brief>Position deviation of the probe sphere in the 2nd measuring axis</brief>
+<description>The position deviation in the 2nd measuring axis represents a geometrical offset of the center point of the probe sphere
+related to the electrical center point of the probe in this axis!
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+
+</description>
+</parameter>
+<parameter number="54609" type="DOUBLE" dim="1">
+<name>MEA_WP_STATUS_RT</name>
+<brief>Calibration status axis positions</brief>
+<description>Calibration status of the axis positions reserved for internal use!
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54610" type="DOUBLE" dim="1">
+<name>MEA_WP_STATUS_GEN</name>
+<brief>Calibration status in general</brief>
+<description>Calibration status in general reserved for internal use!
+The value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54611" type="DOUBLE" dim="1">
+<name>MEA_WP_FEED</name>
+<brief>Measuring feed for calibration</brief>
+<description>Measure workpiece measuring feed for calibration
+This measuring feed is used for all subsequent workpiece measuring programs in conjunction with the probe field.
+
+
+
+</description>
+</parameter>
+<parameter number="54612" type="BYTE" dim="0">
+<name>MEA_INPUT_PIECE_PROBE_SUB</name>
+<brief>Workpiece probe available/active on the counterspindle</brief>
+<description>CNC measurement input for workpiece probe with reference to the counterspindle
+
+ $SNS_MEA_INPUT_PIECE_PROBE_SUB[?????]
+	=0: 	Toolsetter no.= n+1, with reference to the main spindle,
+		 CNC measurement input corresponds to the value of $MCS_MEA_FUNCTION_MASK bit0
+	=10: 	Toolsetter no.= n+1, with reference to the counterspindle,
+		units digit =0, corresponds to CNC measurement input 1
+	=11: 	Toolsetter no.= n+1, with reference to the counterspindle,
+		units digit =1, corresponds to CNC measurement input 2
+
+
+
+
+
+
+
+Workpiece probe available/active on the counterspindle
+
+=0: Workpiece probe not available/active on the counterspindle
+=1: Workpiece probe available/active on the counterspindle
+</description>
+</parameter>
+<parameter number="54615" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_BASE_AX1</name>
+<brief>Calibration groove base of the 1st measuring axis</brief>
+<description>Calibration groove base of the 1st measuring axis (abscissa, Z at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+</description>
+</parameter>
+<parameter number="54617" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_PLUS_DIR_AX1</name>
+<brief>Calibration groove edge in positive direction of the 1st measuring axis</brief>
+<description>Calibration groove edge in positive direction of the 1st measuring axis (abscissa, Z at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+
+</description>
+</parameter>
+<parameter number="54618" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_MINUS_DIR_AX1</name>
+<brief>Calibration groove edge in negative direction of the 1st measuring axis</brief>
+<description>Calibration groove edge in negative direction of the 1st measuring axis (abscissa, Z at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+</description>
+</parameter>
+<parameter number="54619" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_BASE_AX2</name>
+<brief>Calibration groove base of the 2nd measuring axis</brief>
+<description>Calibration groove base of the 2nd measuring axis (ordinate, X at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+</description>
+</parameter>
+<parameter number="54620" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_UPPER_AX2</name>
+<brief>Calibration groove upper edge of the 2nd measuring axis</brief>
+<description>Calibration groove upper edge of the 2nd measuring axis (ordinate, X at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+
+</description>
+</parameter>
+<parameter number="54621" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_PLUS_DIR_AX2</name>
+<brief>Calibration groove edge in positive direction of the 2nd measuring axis</brief>
+<description>Calibration groove edge in positive direction of the 2nd measuring axis (ordinate, X at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+</description>
+</parameter>
+<parameter number="54622" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_MINUS_DIR_AX2</name>
+<brief>Calibration groove edge in negative direction of the 2nd measuring axis</brief>
+<description>Calibration groove edge in negative direction of the 2nd measuring axis (ordinate, X at G18)
+This parameter is a geometrical component of the calibration groove and must be supplied by the user!
+</description>
+</parameter>
+<parameter number="54625" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_MINUS_DIR_AX1</name>
+<brief>Trigger point of the 1st measuring axis in negative direction</brief>
+<description>Trigger point of the 1st measuring axis in negative direction (abscissa, X at G17, Z at G18)
+The trigger point refers to the machine coordinate system (Machine).
+Prior to calibration the approximate trigger point must be entered in the machine coordinate system!
+The exact value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54626" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_PLUS_DIR_AX1</name>
+<brief>Trigger point of the 1st measuring axis in positive direction</brief>
+<description>Trigger point of the 1st measuring axis in positive direction (abscissa, X at G17, Z at G18)
+The trigger point refers to the machine coordinate system (Machine).
+Prior to calibration the approximate trigger point must be entered in the machine coordinate system!
+The exact value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54627" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_MINUS_DIR_AX2</name>
+<brief>Trigger point of the 2nd measuring axis in negative direction</brief>
+<description>Trigger point of the 2nd measuring axis in negative direction (ordinate, Y at G17, X at G18)
+The trigger point refers to the machine coordinate system (Machine).
+Prior to calibration the approximate trigger point must be entered in the machine coordinate system!
+The exact value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54628" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_PLUS_DIR_AX2</name>
+<brief>Trigger point of the 2nd measuring axis in positive direction</brief>
+<description>Trigger point of the 2nd measuring axis in positive direction (ordinate, Y at G17, X at G18)
+The trigger point refers to the machine coordinate system (Machine).
+Prior to calibration the approximate trigger point must be entered in the machine coordinate system!
+The exact value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54629" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_MINUS_DIR_AX3</name>
+<brief>Trigger point of the 3rd measuring axis in negative direction</brief>
+<description>Trigger point of the 3rd measuring axis in negative direction (applicate, Z at G17, Y at G18)
+The trigger point refers to the machine coordinate system (Machine).
+Prior to calibration the approximate trigger point must be entered in the machine coordinate system!
+The exact value of this parameter is created by the operation "Calibrate workpiece probe"!
+</description>
+</parameter>
+<parameter number="54630" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_PLUS_DIR_AX3</name>
+<brief>Trigger point of the 3rd measuring axis in positive direction</brief>
+<description>Trigger point of the 3rd measuring axis in positive direction (ordinate, Y at G17, X at G18)
+The trigger point refers to the machine coordinate system (Machine).
+Prior to calibration, the approximate trigger point must be entered in the machine coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54631" type="DOUBLE" dim="1">
+<name>MEA_TP_EDGE_DISK_SIZE</name>
+<brief>Tool probe edge length/wheel diameter</brief>
+<description>Effective edge length or grinding wheel diameter of the tool probe.
+This data is important for the "Milling" technology when measuring the length of milling tools.
+
+</description>
+</parameter>
+<parameter number="54632" type="DWORD" dim="1">
+<name>MEA_TP_AX_DIR_AUTO_CAL</name>
+<brief>Automatic tool probe calibration, enable axes/directions </brief>
+<description>Enabling axes and traversing directions for the "Automatic calibration" of milling tool probes in the machine coordinate system (Machine).
+The default setting refers in X and Y to the plus and minus directions respectively, in Z only to the minus direction.
+The parameter is divided into six components, the functions of which are assigned to calibration data records 1 to 6.
+
+Meaning of the parameter components
+ Decimal position:
+ Units          1st geometry axis (X)
+ Tens:         2nd geometry axis (Y)
+ Hundreds: 3rd geometry axis (Z)
+ Value:
+ =0: axis not enabled
+ =1: only minus direction possible
+ =2: only plus direction possible
+ =3: both directions possible
+</description>
+</parameter>
+<parameter number="54633" type="DOUBLE" dim="1">
+<name>MEA_TP_TYPE</name>
+<brief>Tool probe type cube / wheel</brief>
+<description>Tool probe type
+
+0:     cube
+101: wheel in XY, working plane G17
+201: wheel in ZX, working plane G18
+301: wheel in YZ, working plane G19
+</description>
+</parameter>
+<parameter number="54634" type="DOUBLE" dim="1">
+<name>MEA_TP_CAL_MEASURE_DEPTH</name>
+<brief>Distance between the upper tool probe edge and the lower milling tool edge</brief>
+<description>Distance between the upper tool probe edge and the lower milling tool edge.
+For tool probe calibration this distance defines the calibration depth and
+for milling tool measuring the measuring depth!
+This parameter does not apply to turning tool measuring!
+</description>
+</parameter>
+<parameter number="54635" type="DOUBLE" dim="1">
+<name>MEA_TP_STATUS_GEN</name>
+<brief>Calibration status in general</brief>
+<description>Calibration status general, reserved for internal use
+The value of this parameter is assigned when the "Calibrate tool probe" procedure is executed.
+
+</description>
+</parameter>
+<parameter number="54636" type="DOUBLE" dim="1">
+<name>MEA_TP_FEED</name>
+<brief>Measuring feed for tool probe calibration in the Machine</brief>
+<description>Measuring feed for tool probe calibration in Machine
+This measuring feed is used for all subsequent tool measuring programs in conjunction with the probe field.
+
+</description>
+</parameter>
+<parameter number="54640" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_MINUS_DIR_AX1</name>
+<brief>Trigger point of the 1st measuring axis in negative direction</brief>
+<description>Trigger point of the 1st measuring axis in negative direction (abscissa, X at G17, Z at G18)
+The trigger point refers to the workpiece coordinate system (Work).
+Prior to calibration the approximate trigger point must be entered in the workpiece coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54641" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_PLUS_DIR_AX1</name>
+<brief>Trigger point of the 1st measuring axis in positive direction</brief>
+<description>Trigger point of the 1st measuring axis in positive direction (abscissa, X at G17, Z at G18)
+The trigger point refers to the workpiece coordinate system (Work).
+Prior to calibration the approximate trigger point must be entered in the workpiece coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54642" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_MINUS_DIR_AX2</name>
+<brief>Trigger point of the 2nd measuring axis in negative direction</brief>
+<description>Trigger point of the 2nd measuring axis in negative direction (ordinate, Y at G17, X at G18)
+The trigger point refers to the workpiece coordinate system (Work).
+Prior to calibration the approximate trigger point must be entered in the workpiece coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54643" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_PLUS_DIR_AX2</name>
+<brief>Trigger point of the 2nd measuring axis in positive direction</brief>
+<description>Trigger point of the 2nd measuring axis in positive direction (ordinate, Y at G17, X at G18)
+The trigger point refers to the workpiece coordinate system (Work).
+Prior to calibration the approximate trigger point must be entered in the workpiece coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54644" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_MINUS_DIR_AX3</name>
+<brief>Trigger point of the 3rd measuring axis in negative direction</brief>
+<description>Trigger point of the 3rd measuring axis in negative direction (applicate, Z at G17, Y at G18)
+The trigger point refers to the workpiece coordinate system (Work).
+Prior to calibration the approximate trigger point must be entered in the workpiece coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54645" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_PLUS_DIR_AX3</name>
+<brief>Trigger point of the 3rd measuring axis in positive direction</brief>
+<description>Trigger point of the 3rd measuring axis in positive direction (applicate, Z at G17, Y at G18)
+The trigger point refers to the workpiece coordinate system (Work).
+Prior to calibration the approximate trigger point must be entered in the workpiece coordinate system!
+The exact value of this parameter is created by the operation "Calibrate tool probe"!
+</description>
+</parameter>
+<parameter number="54646" type="DOUBLE" dim="1">
+<name>MEA_TPW_EDGE_DISK_SIZE</name>
+<brief>Tool probe edge length/wheel diameter</brief>
+<description>Effective edge length or grinding wheel diameter of the tool probe.
+Milling tools are normally measured with wheel-shaped probes while turning tools
+are measured with square probes.
+</description>
+</parameter>
+<parameter number="54647" type="DWORD" dim="1">
+<name>MEA_TPW_AX_DIR_AUTO_CAL</name>
+<brief>Automatic tool probe calibration, enable axes/directions </brief>
+<description>Enabling axes and traversing directions for "Automatic calibration" in the workpiece coordinate system (Work) of milling tool probes.
+The default setting refers in X and Y to the plus and minus direction respectively, in Z only to the minus direction.
+The parameter is divided into six components, the functions of which are assigned to calibration data records 1 to 6.
+
+Meaning of the parameter components
+ Decimal position:
+ Units          1st geometry axis (X)
+ Tens:         2nd geometry axis (Y)
+ Hundreds: 3rd geometry axis (Z)
+ Value:
+ =0: axis not enabled
+ =1: only minus direction possible
+ =2: only plus direction possible
+ =3: both directions possible
+</description>
+</parameter>
+<parameter number="54648" type="DOUBLE" dim="1">
+<name>MEA_TPW_TYPE</name>
+<brief>Tool probe type cube / wheel</brief>
+<description>Tool probe type
+
+0:     cube
+101: wheel in XY, working plane G17
+201: wheel in ZX, working plane G18
+301: wheel in YZ, working plane G19
+
+</description>
+</parameter>
+<parameter number="54649" type="DOUBLE" dim="1">
+<name>MEA_TPW_CAL_MEASURE_DEPTH</name>
+<brief>Distance between the upper tool probe edge and the lower milling tool edge</brief>
+<description>Distance between the upper tool probe edge and the lower milling tool edge.
+For tool probe calibration this distance defines the calibration depth and
+for milling tool measuring the measuring depth!
+This parameter does not apply to turning tool measuring!
+</description>
+</parameter>
+<parameter number="54650" type="DOUBLE" dim="1">
+<name>MEA_TPW_STATUS_GEN</name>
+<brief>Calibration status in general</brief>
+<description>Calibration status general, reserved for internal use
+The value of this parameter is assigned when the "Calibrate tool probe" procedure is executed.
+
+</description>
+</parameter>
+<parameter number="54651" type="DOUBLE" dim="1">
+<name>MEA_TPW_FEED</name>
+<brief>Measuring feed for tool probe calibration in the Work</brief>
+<description>Measuring feed for tool probe calibration in Work
+This measuring feed is used for all subsequent tool measuring programs in conjunction with the probe field.
+
+</description>
+</parameter>
+<parameter number="54652" type="BYTE" dim="1">
+<name>MEA_INPUT_TOOL_PROBE_SUB</name>
+<brief>Tool probe available/active on the counterspindle</brief>
+<description>CNC measurement input for tool probe with reference to the counterspindle
+
+ $SNS_MEA_INPUT_TOOL_PROBE_SUB[[n]
+	=0: 	Toolsetter no.= n+1, with reference to the main spindle,
+		 CNC measurement input corresponds to the value of $MCS_MEA_FUNCTION_MASK, bit16
+		(Input values 1 to 9 have the same functional effect as input 0!)
+	=10: 	Toolsetter no.= n+1, with reference to the counterspindle,
+		units digit =0 corresponds to CNC measurement input 1
+	=11: 	Toolsetter no.= n+1, with reference to the counterspindle,
+		units digit =1 corresponds to CNC measurement input 2
+</description>
+</parameter>
+<parameter number="54670" type="DOUBLE" dim="1">
+<name>MEA_CM_MAX_PERI_SPEED</name>
+<brief>Max. permissible peripheral speed of the tool to be measured</brief>
+<description>Max. permissible peripheral speed of the tool to be measured when the spindle rotates.
+
+Monitoring parameter for tool measuring with rotating spindle
+
+</description>
+</parameter>
+<parameter number="54671" type="DOUBLE" dim="1">
+<name>MEA_CM_MAX_REVOLUTIONS</name>
+<brief>Maximum tool speed for tool measuring</brief>
+<description>Max. permissible tool speed for tool measuring with rotating spindle.
+The speed is automatically reduced when this value is exceeded.
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54672" type="DOUBLE" dim="1">
+<name>MEA_CM_MAX_FEEDRATE</name>
+<brief>Maximum feed for contact of the tool with the probe</brief>
+<description>Max. permissible feed for contact of the tool to be measured with the probe when the spindle rotates.
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54673" type="DOUBLE" dim="1">
+<name>MEA_CM_MIN_FEEDRATE</name>
+<brief>Minimum feed for 1st contact of the tool with the probe</brief>
+<description>Min. feed for first contact of the tool to be measured with the probe when the spindle rotates.
+Too small feeds for large tool radii are thus avoided!
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54674" type="DOUBLE" dim="1">
+<name>MEA_CM_SPIND_ROT_DIR</name>
+<brief>Direction of spindle rotation for tool measuring</brief>
+<description>Direction of spindle rotation for tool measuring with rotating spindle (default: 4 = M4)
+Notice: if the spindle is already rotating when the measuring cycle is called, the direction of rotation is maintained
+                independently of $SNS_MEA_CM_SPIND_ROT_DIR!
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54675" type="DOUBLE" dim="1">
+<name>MEA_CM_FEEDFACTOR_1</name>
+<brief>Feedrate factor 1, for tool measuring</brief>
+<description>Feedrate factor 1, for tool measuring with rotating spindle
+  =0: single probing with the feedrate calculated by the cycle (but at least with the value of $SNS_MEA_CM_MIN_FEEDRATE)
+&gt;=1: first probing with calculated feedrate (but at least with the value of $SNS_MEA_CM_MIN_FEEDRATE).
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54676" type="DOUBLE" dim="1">
+<name>MEA_CM_FEEDFACTOR_2</name>
+<brief>Feedrate factor 2, for tool measuring</brief>
+<description>Feedrate factor 2, for tool measuring with rotating spindle
+
+  =0: second probing with the feedrate calculated by the cycle (only effective with MEA_CM_FEEDFACTOR_1 &gt; 0)
+&gt;=1: second probing with calculated feedrate, feedrate factor 2
+       Third probing with calculated feedrate (tool speed is influenced by SD54749 $SNS_MEA_FUNCTION_MASK_TOOL, Bit 12)
+
+Notice: - Feedrate factor 2 should be smaller than feedrate factor 1!
+                - If the value of feedrate factor 2 is 0, a third probing will not be not performed!
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54677" type="DOUBLE" dim="1">
+<name>MEA_CM_MEASURING_ACCURACY</name>
+<brief>Required measuring accuracy, for tool measuring</brief>
+<description>Required measuring accuracy for tool measuring
+The value of this parameter always refers to the last contact of the tool with the probe!
+
+Monitoring parameter for tool measuring with rotating spindle
+</description>
+</parameter>
+<parameter number="54689" type="BYTE" dim="0">
+<name>MEA_T_PROBE_MANUFACTURER</name>
+<brief>Tool probe type (manufacturer)</brief>
+<description>Tool probe type (manufacturer)
+These indications are required for tool measuring with rotating spindle.
+
+=0: no indication
+=1: TT130 (Heidenhain)
+=2: TS27R (Renishaw)
+</description>
+</parameter>
+<parameter number="54691" type="BYTE" dim="0">
+<name>MEA_T_PROBE_OFFSET</name>
+<brief>Measurement result offset for tool measuring</brief>
+<description>Measurement result offset for tool measuring with rotating spindle.
+
+=0: no offset
+=1: cycle-internal offset (only effective with SD54690 $SNS_MEA_T_PROBE_MANUFACTURER&lt;&gt;0)
+=2: offset through user-defined offset table
+</description>
+</parameter>
+<parameter number="54692" type="DOUBLE" dim="0">
+<name>MEA_T_CIRCULAR_ARC_DIST</name>
+<brief>Distance between meas. pts with meas. function "Check teeth individually"</brief>
+<description>The data value is used for measuring the tool radius with the function "Check teeth individually".
+The distance (measured at the circumference of the tool) between the points at which measurements are made to find the "highest point on the longest tooth" must be entered.
+If the data value is ZERO, then the search for the "highest point on the longest tooth" is not made with a stationary spindle,
+instead the value is measured by sampling while the spindle is rotating.
+
+</description>
+</parameter>
+<parameter number="54693" type="BYTE" dim="0">
+<name>MEA_T_MAX_STEPS</name>
+<brief>Max. number of contacts for measuring function "Check teeth individually"</brief>
+<description>Maximum number of contacts for finding the "highest point on the longest tooth" when measuring the tool radius.
+If the data value is ZERO, then the search for the "highest point on the longest tooth" is not made with a stationary spindle,
+instead the value is measured by sampling while the spindle is rotating.
+
+</description>
+</parameter>
+<parameter number="54695" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD1</name>
+<brief>Offset table (measure tool radius with rotating spindle)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[0]        ... this element always has value ZERO
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[1]        ... 1st tool radius
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[2]        ... 2nd tool radius
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[3]        ... 3rd tool radius
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[4]        ... 4th tool radius
+</description>
+</parameter>
+<parameter number="54696" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD2</name>
+<brief>Offset table 1st peripheral speed (radius)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[0]        ... 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[1]        ... offset value for radius regarding 1st radius and 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[2]        ... offset value for radius regarding 2nd radius and 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[3]        ... offset value for radius regarding 3rd radius and 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[4]        ... offset value for radius regarding 4th radius and 1st peripheral speed
+</description>
+</parameter>
+<parameter number="54697" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD3</name>
+<brief>Offset table 2nd peripheral speed (radius)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[0]        ... 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[1]        ... offset value for radius regarding 1st radius and 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[2]        ... offset value for radius regarding 2nd radius and 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[3]        ... offset value for radius regarding 3rd radius and 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[4]        ... offset value for radius regarding 4th radius and 2nd peripheral speed
+</description>
+</parameter>
+<parameter number="54698" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD4</name>
+<brief>Offset table 3rd peripheral speed (radius)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[0]        ... 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[1]        ... offset value for radius regarding 1st radius and 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[2]        ... offset value for radius regarding 2nd radius and 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[3]        ... offset value for radius regarding 3rd radius and 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[4]        ... offset value for radius regarding 4th radius and 3rd peripheral speed
+</description>
+</parameter>
+<parameter number="54699" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD5</name>
+<brief>Offset table 4th peripheral speed (radius)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[0]        ... 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[1]        ... offset value for radius regarding 1st radius and 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[2]        ... offset value for radius regarding 2nd radius and 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[3]        ... offset value for radius regarding 3rd radius and 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[4]        ... offset value for radius regarding 4th radius and 4th peripheral speed
+</description>
+</parameter>
+<parameter number="54700" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD6</name>
+<brief>Offset table 5th peripheral speed (radius)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[0]        ... 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[1]        ... offset value for radius regarding 1st radius and 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[2]        ... offset value for radius regarding 2nd radius and 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[3]        ... offset value for radius regarding 3rd radius and 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[4]        ... offset value for radius regarding 4th radius and 5th peripheral speed
+</description>
+</parameter>
+<parameter number="54705" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN1</name>
+<brief>Offset table (measure tool length with rotating spindle)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[0]        ... this element always has value ZERO
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[1]        ... 1st tool radius
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[2]        ... 2nd tool radius
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[3]        ... 3rd tool radius
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[4]        ... 4th tool radius
+</description>
+</parameter>
+<parameter number="54706" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN2</name>
+<brief>Offset table 1st peripheral speed (length)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[0]        ... 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[1]        ... offset value for radius regarding 1st radius and 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[2]        ... offset value for radius regarding 2nd radius and 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[3]        ... offset value for radius regarding 3rd radius and 1st peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[4]        ... offset value for radius regarding 4th radius and 1st peripheral speed
+</description>
+</parameter>
+<parameter number="54707" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN3</name>
+<brief>Offset table 2nd peripheral speed (length)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[0]        ... 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[1]        ... offset value for radius regarding 1st radius and 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[2]        ... offset value for radius regarding 2nd radius and 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[3]        ... offset value for radius regarding 3rd radius and 2nd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[4]        ... offset value for radius regarding 4th radius and 2nd peripheral speed
+</description>
+</parameter>
+<parameter number="54708" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN4</name>
+<brief>Offset table 3rd peripheral speed (length)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[0]        ... 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[1]        ... offset value for radius regarding 1st radius and 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[2]        ... offset value for radius regarding 2nd radius and 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[3]        ... offset value for radius regarding 3rd radius and 3rd peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[4]        ... offset value for radius regarding 4th radius and 3rd peripheral speed
+</description>
+</parameter>
+<parameter number="54709" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN5</name>
+<brief>Offset table 4th peripheral speed (length)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[0]        ... 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[1]        ... offset value for radius regarding 1st radius and 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[2]        ... offset value for radius regarding 2nd radius and 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[3]        ... offset value for radius regarding 3rd radius and 4th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[4]        ... offset value for radius regarding 4th radius and 4th peripheral speed
+</description>
+</parameter>
+<parameter number="54710" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN6</name>
+<brief>Offset table 5th peripheral speed (length)</brief>
+<description>Parameter for user-defined measurement result offset for tool measuring with rotating spindle
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[0]        ... 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[1]        ... offset value for radius regarding 1st radius and 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[2]        ... offset value for radius regarding 2nd radius and 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[3]        ... offset value for radius regarding 3rd radius and 5th peripheral speed
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[4]        ... offset value for radius regarding 4th radius and 5th peripheral speed
+</description>
+</parameter>
+<parameter number="54740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<description>Function screen form for measuring cycles
+
+Bit 0: Repeat measurement, workpiece measurement with offset in a tool,
+           after tolerance exceeded for dimension difference (TDIF) or confidence range (TSA)
+          	0: When one of the tolerances is exceeded, the measurement is not repeated and an appropriate alarm
+ 	is displayed (alarm 61303 or 61306).
+          	1: When one of the tolerances is exceeded, a measurement is repeated up to four times.
+	When, for all repeat measurements, one of the tolerances is exceeded, then an appropriate alarm is displayed (alarm 61303 or 61306).
+
+Bit 1: Repeat measurement, workpiece measurement with offset in a tool, program stop at M0,
+           After every repeat measurement with tolerance of dimension difference (TDIF) or confidence range (TSA) exceeded and alarm output
+           Bit 1 only effective in conjunction with bit 0 = 1.
+          	0: If one of the tolerances is exceeded, the measurement is not repeated and an appropriate alarm
+ 	is displayed (alarm 61303 or 61306).
+          	1: If one of the tolerances is exceeded, the measurement is repeated up to four times.
+	In the case of a tolerance being repeatedly exceeded, using an appropriate alarm output
+	and M0, the measurement is interrupted (alarm 62303 or 62306).
+                 With "NC-START", the alarm can be acknowledged, and the next repeat measurement started.
+
+Bit 2: Workpiece measurement with offset in a tool, programmed stop at M0 after tolerance exceeded
+            from lower limit workpiece (TLL) or upper limit workpiece (TUL) and alarm output
+          	0: If one of the tolerances is exceeded, an appropriate reset alarm is displayed
+	    (alarm 61304 or 61305). A tool correction (offset) is not executed.
+          	1: If one of the tolerances is exceeded, then using an appropriate alarm output
+	and M0, the sequence is canceled (alarm 62304 or 62305).
+                 Using "NC-START" these alarms can be acknowledged, and the sequence restarted. The correction (offset) in the tool is executed.
+
+Bit 3: Accept the calibrated radius of the workpiece probe in the tool data
+          	0: Do not accept the calibrated radius of the workpiece probe in the tool data.
+          	1: Accept the calibrated radius of the workpiece probe in the tool data.
+
+Bit 4: For mixed technologies, turning-milling or milling-turning, the plane between calibrating and
+           measuring can be different.
+          	0: When measuring workpieces, it is not permissible to have different planes for calibration and measurement.
+                  If the planes differ, alarm 61341 is output during the cycle runtime.
+          	1: When measuring workpieces, different planes for calibration and measurement are permissible.
+	For example: Calibration in G17 and measurement under turning in G18.
+
+Bit 16: Repeat measurement, tool measurement, after tolerances of the dimension difference are exceeded (TDIF)
+            or confidence range (TSA) exceeded
+          	0: If one of the tolerances is exceeded, the measurement is not repeated, and an appropriate alarm is displayed (alarm 61303 or 61306).
+          	1: When one of the tolerances is exceeded, the measurement is repeated up to four times.
+	If, for all repeat measurements, one of the tolerances is exceeded, then an appropriate alarm is displayed (alarm 61303 or 61306).  	
+
+Bit 17: Repeat measurement, tool measurement, programmed stop at M0 after tolerance exceeded, dimension difference (TDIF) or confidence range (TSA) and alarm output
+          	0: If one of the tolerances is exceeded, the measurement is not repeated, and an appropriate alarm is displayed (alarm 61303 or 61306).
+          	1: If one of the tolerances is exceeded, the measurement is repeated up to four times.
+	In the case that the tolerance is exceeded again, using an appropriate alarm output and M0 measurement is canceled (alarm 62303 or 62306).
+                 Using "NC-START", the alarm can be acknowledged, and the next repeat measurement started.
+
+Bit 19: Tool measurement, milling technology, reducing the spindle speed at the last probing
+           	0: The last probing is realized without reducing the spindle speed.
+           	1: At the last probing, the spindle speed is automatically reduced.
+
+
+</description>
+</parameter>
+<parameter number="54750" type="DWORD" dim="0" display="HEX">
+<name>MEA_ALARM_MASK</name>
+<brief>Expert mode for cycle alarms</brief>
+<description>Bit 0  - 15 reserved for workpiece measurement
+Bit 16 - 31 reserved for tool measurement
+</description>
+</parameter>
+<parameter number="54760" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK_PIECE</name>
+<brief>Setting f. input screen, measuring cycles in Automatic, workpiece measuring</brief>
+<description>	Setting for the input screen form, measuring cycles in automatic, workpiece measurement
+
+Bit1	Display Selection of softkey 3D measurement
+Bit3	Enable Selection of probe calibration data field
+Bit4	Select Calibrate input measuring feed 1)
+Bit6	Enable Selection of WO compensation in basic frame (SETFRAME)
+Bit7	Enable Selection of WO compensation in channel-specific basic frame
+Bit8	Enable Selection of WO compensation in global basic frame
+Bit9	Enable Selection of WO compensation in settable frame
+Bit10 Enable Selection of WO compensation, coarse and fine
+Bit11 Select Tool offset geometry and wear
+Bit12 Select Tool offset, not inverted and inverted
+Bit13 Select Tool offset L1, R or L1, L2, L3 R
+Bit14 Select Tool offset work offset (_TZL)
+Bit15 Select Tool offset dimensional difference check (_TDIF)
+Bit16 Select Workpiece measurement with spindle reversal
+Bit17 Select Align workpiece probe in switching direction
+Bit18 Select Number of measurements (_NMSP)
+Bit19 Select Offset with averaging (_TMV) 1)
+Bit20 Select Empirical values (_EVNUM)
+Bit21 Select Additive setup offset
+Bit22 Select Calibrate to unknown or known center point
+Bit24 Select Calibrate with/without positional deviation
+Bit25 Select Work offset when measuring the angularity of the spindle
+Bit26 Select Do not enable tool offset
+
+
+	If WO compensation bit 6..10 is not selected, then list "Measure only"..
+	If WO compensation bit 6..10 is selected, then always also list compensation in active WO in the input screen
+	For averaging, display the following parameters: _K _TMV, _EVNUM
+
+	1) Input measuring feed applies to automatic and JOG
+
+</description>
+</parameter>
+<parameter number="54762" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK_TOOL</name>
+<brief>Setting for input screen, measuring cycles in Automatic, tool measuring</brief>
+<description>Setting for input mask, Measuring cycles in Automatic, Tool measurement
+	54762 MEA_FUNCTION_MASK_TOOL
+
+Bit3	Enable selection of tool probe calibration data field
+Bit4	Select Calibrate input measuring feed (VMS) 1)
+Bit5	Select Input feed and spindle speeds for contacting
+Bit7	Select Measure in Machine and Work
+Bit8	Select Measure absolute and incremental
+Bit9	Select Tool offset geometry and wear
+Bit10 Select measuring function "Check teeth individually"
+Bit11 Select Spindle reversal when calibrating on the plane
+Bit12	Select Number of measurements (_NMSP)
+Bit13	Select Empirical values (_EVNUM)
+
+	1) Measuring feed input applies to Automatic and JOG
+
+
+</description>
+</parameter>
+<parameter number="54764" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK_TURN</name>
+<brief>Setting for input mask, Measuring cycles in Automatic, Workpiece turning</brief>
+<description>	54764 MEA_FUNCTION_MASK_TURN
+
+	Setting for input mask, Measuring cycles Turning in Automatic
+
+Bit0	Measure inside/outside diameter with reversal
+Bit1	Measure inside/outside diameter "travel under turning center"?
+
+
+</description>
+</parameter>
+<parameter number="54780" type="DWORD" dim="0" display="HEX">
+<name>J_MEA_FUNCTION_MASK_PIECE</name>
+<brief>Settings for input screen Workpiece measurement in JOG</brief>
+<description>Settings for input mask Workpiece measuring in JOG
+
+Bit2	Activate compensation for electronic workpiece probe
+Bit3	Select probe calibration data field, enable
+Bit5	Select WO as basis for measuring
+Bit6 Select WO compensation in basic frame, enable
+Bit7 Select WO compensation in channel basic frame, enable
+Bit8 Select WO compensation in global basic frame, enable
+Bit9 Select WO compensation in settable frame, enable
+Bit16 Select Workpiece measurement with spindle reversal
+Bit17 Select Align workpiece probe in switching direction
+</description>
+</parameter>
+<parameter number="54782" type="DWORD" dim="0" display="HEX">
+<name>J_MEA_FUNCTION_MASK_TOOL</name>
+<brief>Settings for input screen Tool measuring in JOG</brief>
+<description>Settings for input mask Tool measuring in JOG
+
+Bit2	Enable automatic tool measurement
+Bit3	Enable selection of tool probe calibration data field
+Bit10 Select measuring function "Check teeth individually"
+Bit 11 Select spindle reversal when calibrating on the plane
+
+</description>
+</parameter>
+<parameter number="54840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Function mask for grinding cycles</brief>
+<description>Function mask for grinding cycles
+
+</description>
+</parameter>
+</info>

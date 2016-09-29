@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="waLimCS">
+<parameter type="INT" dim="1">
+<name>$P_WORKAREA_CS_COORD_SYSTEM</name>
+<brief>Coordinate system to which the working area limitation applies</brief>
+<description>Coordinate system in which the group is to apply.
+The following values apply:
+   Working area limitation in the WCS
+   Working area limitation in the SZS
+</description>
+</parameter>
+<parameter type="BOOL" dim="2">
+<name>$P_WORKAREA_CS_PLUS_ENABLE</name>
+<brief>Coordinate system-specific working area limitation plus valid</brief>
+<description>TRUE: The coordinate system-specific working area limitation in the plus direction is valid for the stated axis of the stated group. (See $P_WORKAREA_CS_LIMIT_PLUS[ groupNo, ax])
+</description>
+</parameter>
+<parameter type="BOOL" dim="2">
+<name>$P_WORKAREA_CS_MINUS_ENABLE</name>
+<brief>Coordinate system-specific working area limitation minus valid</brief>
+<description>TRUE: The coordinate system-specific working area limitation in the minus direction is valid for the stated axis of the stated group. (See $P_WORKAREA_CS_LIMIT_MINUS[ groupNo, ax])
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$P_WORKAREA_CS_LIMIT_PLUS</name>
+<brief>Coordinate system-specific working area limitation positive</brief>
+<description>The coordinate system-specific working area limitation in the plus direction for the stated axis of the stated group. This value is evaluated only if $P_WORKAREA_CS_PLUS_ENABLE = TRUE.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$P_WORKAREA_CS_LIMIT_MINUS</name>
+<brief>Coordinate system-specific working area limitation negative</brief>
+<description>The coordinate system-specific working area limitation in the minus direction for the stated axis of the stated group. This value is evaluated only if $P_WORKAREA_CS_MINUS_ENABLE = TRUE.
+</description>
+</parameter>
+</info>

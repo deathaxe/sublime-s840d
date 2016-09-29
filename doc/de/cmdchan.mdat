@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="52000" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_COORDINATE_SYSTEM</name>
+<brief>Lage des Koordinatensystems</brief>
+<description>Mit diesem MD passen Sie das Koordinatensystem der Bedienoberfläche an das Koordinatensystem der Maschine an. In der Bedienoberfläche ändern sich automatisch je nach gewählter Lage alle Hilfebilder, die Ablaufgrafik, die Simulation und die Eingabefelder mit Kreisrichtungsangabe.
+Das Maschinendatum wird in den Zyklen ausgewertet.
+Beachten Sie auch MD 52210 $MCS_FUNCTION_MASK_DISP, Bit 1.
+
+</description>
+</parameter>
+<parameter number="52001" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_COORDINATE_SYSTEM_2</name>
+<brief>Koordinatensystem für Drehen auf Fräsmaschinen</brief>
+<description>Mit diesem MD legen Sie das Koordinatensystem für Drehbearbeitungen auf Fräsmaschinen fest.
+Beachten Sie auch MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
+
+
+</description>
+</parameter>
+<parameter number="52005" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_PLANE_MILL</name>
+<brief>Ebenenauswahl Fräsen</brief>
+<description>Ebenenauswahl Fräsen
+0: Ebenenauswahl in der Bedienoberfläche
+17: immer G17
+18: immer G18
+19: immer G19
+
+</description>
+</parameter>
+<parameter number="52006" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_PLANE_TURN</name>
+<brief>Ebenenauswahl Drehen</brief>
+<description>Ebenenauswahl Drehen
+0: Ebenenauswahl in der Bedienoberfläche
+17: immer G17
+18: immer G18
+19: immer G19
+
+</description>
+</parameter>
+<parameter number="52010" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_NUM_AXIS_BIG_FONT</name>
+<brief>Anzahl der Istwerte mit großem Font</brief>
+<description>Anzahl der Istwerte mit großem Font
+
+</description>
+</parameter>
+<parameter number="52011" type="BYTE" dim="0" display="DECIMAL">
+<name>ADJUST_NUM_AXIS_BIG_FONT</name>
+<brief>Anzahl Istwerte mit großem Font dynamisch an Anzahl Geoachsen anpassen</brief>
+<description>Anzahl der Istwerte mit großem Font anpassen, wenn sich die Anzahl der Geoachsen ändert, z.B. durch Transformationen, wie TRANSMIT oder TRACYL.
+0 = nur MD 52010 "DISP_NUM_AXIS_BIG_FONT" ist gültig. Die Anzahl ist damit fest vorgegeben.
+1 = nur die Geoachsen werden mit großem Font dargestellt. MD 52010 "DISP_NUM_AXIS_BIG_FONT" wird ignoriert.
+2 = Anzahl der Geoachsen plus Inhalt MD 52010 "DISP_NUM_AXIS_BIG_FONT"  werden mit großem Font dargestellt.
+
+</description>
+</parameter>
+<parameter number="52200" type="BYTE" dim="0" display="DECIMAL">
+<name>TECHNOLOGY</name>
+<brief>Technologie</brief>
+<description>Technologie
+0: keine spezifische Konfiguration 
+1: Drehen
+2: Fräsen
+3: Rundschleifen
+4: Flachschleifen
+Beachten Sie auch MD 52201 $MCS_TECHNOLOGY_EXTENSION.
+</description>
+</parameter>
+<parameter number="52201" type="BYTE" dim="0" display="DECIMAL">
+<name>TECHNOLOGY_EXTENSION</name>
+<brief>erweiterte Technologie</brief>
+<description>erweiterte Technologie
+0: keine spezifische Konfiguration 
+1: Drehen
+2: Fräsen
+Beachten Sie auch MD 52200 $MCS_TECHNOLOGY.
+Beispiel:
+Drehmaschine mit Frästechnologie
+MD 52200 $MCS_TECHNOLOGY = 1
+MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
+</description>
+</parameter>
+<parameter number="52205" type="BYTE" dim="0" display="DECIMAL">
+<name>NUM_AXIS_USED</name>
+<brief>Anzahl im Kanal verwendeter Achsen</brief>
+<description>Anzahl im Kanal verwendeter Achsen (Achslücken werden mitgezählt).
+
+</description>
+</parameter>
+<parameter number="52206" type="BYTE" dim="1" display="DECIMAL">
+<name>AXIS_USAGE</name>
+<brief>Bedeutung der Achsen im Kanal</brief>
+<description>Bedeutung der Achsen im Kanal
+0 = keine spezielle Bedeutung
+1 = Werkzeugspindel (angetriebenes Werkzeug)
+2 = Vorsatzspindel (angetriebenes Werkzeug)
+3 = Hauptspindel (Drehen)
+4 = separate C-Achse der Hauptspindel (Drehen)
+5 = Gegenspindel (Drehen)
+6 = separate C-Achse der Gegenspindel (Drehen)
+7 = Linearachse der Gegenspindel (Drehen)
+8 = Reitstock (Drehen)
+9 = Lünette (Drehen)
+10 = B-Achse im Kopf (Drehen und Rundschleifen)
+11 = reserviert
+12 = B-Achse in Gegenspindel (Drehen)
+13 = Querhub X der Gegenspindel (Drehen)
+
+</description>
+</parameter>
+<parameter number="52207" type="DWORD" dim="1" display="HEX">
+<name>AXIS_USAGE_ATTRIB</name>
+<brief>Attribute der Achsen</brief>
+<description>Attribute der Achsen
+Bit 0: Dreht um 1. Geometrieachse (bei Rotationsachsen)
+Bit 1: Dreht um 2. Geometrieachse (bei Rotationsachsen)
+Bit 2: Dreht um 3. Geometrieachse (bei Rotationsachsen)
+Bit 3: Positive Drehrichtung ist linksherum (bei Rotationsachsen)
+          Es wird immer in der negativen Geometrieachsrichtung auf die Rotationsachsen geschaut.
+          Bei Drehmaschinen wird immer aus dem Innenraum auf eine Spindel geschaut.
+Bit 4: Angezeigte Drehrichtung bei M3 ist linksherum (bei Spindeln)
+          Die Blickrichtung kann gewählt werden. Entweder aus dem Innenraum heraus oder von außen auf die Spindel.
+          Es muss jedoch für alle Spindeln die gleiche Auswahl getroffen werden.
+Bit 5: Drehrichtung M3 entspricht Rotationsachse minus (bei Spindeln)
+          Dieses Bit muss analog zum PLC-Bit DBnn.DBX17.6 eingestellt werden!
+          (nn = 31 + Maschinenachsindex)
+Bit 6: Rotationsachse als Korrekturziel für Messen anzeigen
+Bit 7: Rotationsachse in Positionsmuster anbieten
+          Die Orientierung der Achse wird mit den Bits 0 - 2 festgelegt.
+          Ist eines der Bits 10 - 12 gesetzt, so legen diese Bits die Orientierung der Achse für Positionsmuster fest.
+Bit 8: Rotationsachse für Rohteilaufspannung anbieten (an Fräsmaschinen)
+          Die Orientierung der Achse wird mit den Bits 0 - 2 festgelegt.
+Bit 9: Spindel ist nicht SPOS-fähig
+Bit 10: Rotationsachse dreht um 1. Geoachse (nur für Positionsmuster)
+Bit 11: Rotationsachse dreht um 2. Geoachse (nur für Positionsmuster)
+Bit 12: Rotationsachse dreht um 3. Geoachse (nur für Positionsmuster)
+
+Anmerkung:
+Bei den Bits 0 - 2 bzw. 10 - 12 wirkt jeweils nur das 1. gesetzte Bit.
+
+Anmerkung für Positionsmuster mit Rundachsen:
+Wenn eines der Bits 10 - 12 gesetzt ist, dann haben diese Bits Vorrang gegenüber den Bits 0 - 2.
+
+</description>
+</parameter>
+<parameter number="52210" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DISP</name>
+<brief>Funktionsmaske Anzeige</brief>
+<description>Funktionsmaske Anzeige
+Bit 0: Maßsystem für Programme immer im Grundsystem
+Bit 1: Stirnansicht beim Drehen im Schulkoordinatensystem
+Bit 2: Softkey "T,S,M" im Bereich Jog ausblenden 
+Bit 3: Automatisch Programmende in MDA generieren (mit Softkey "Sätze Löschen")
+Bit 4: Folgewerkzeug im T,F,S-Fenster anzeigen
+Bit 5: Softkey "Istwerte MKS" ausblenden
+Bit 6: Werkzeugradius/-durchmesser im T,F,S-Fenster ausblenden
+Bit 7: Werkzeuglängen im T,F,S-Fenster ausblenden
+Bit 8: Werkzeugicon im T,F,S-Fenster ausblenden
+Bit 9: Auswahl "Eingabe einfach" anzeigen
+Bit 10: Kanal nicht in Joblisten anbieten
+Bit 11: Für WKS die Anzeige der logischen Spindeln aktivieren
+Bit 12: Formenbauansicht für G-Code ausblenden
+
+</description>
+</parameter>
+<parameter number="52211" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DISP_ZOA</name>
+<brief>Funktionsmaske Anzeige Übersicht Nullpunktverschiebungen</brief>
+<description>Funktionsmaske Anzeige Übersicht Nullpunktverschiebungen
+Bit 0: MKS-Position anzeigen
+Bit 1: reserviert
+Bit 2: DRF-Verschiebung anzeigen
+Bit 3: $AA_OFF-Positionsoffset anzeigen
+Bit 4: $P_PARTFRAME anzeigen
+Bit 5: $P_SETFRAME anzeigen
+Bit 6: $P_EXTSFRAME anzeigen
+Bit 7: $P_ISO1FRAME anzeigen
+Bit 8: $P_ISO2FRAME anzeigen
+Bit 9: $P_ISO3FRAME anzeigen
+Bit 10: $P_ACTBFRAME anzeigen
+Bit 11: $P_IFRAME anzeigen
+Bit 12: $P_TOOLFRAME anzeigen
+Bit 13: $P_WPFRAME anzeigen
+Bit 14: $P_TRAFRAME anzeigen
+Bit 15: $P_PFRAME anzeigen
+Bit 16: $P_ISO4FRAME anzeigen
+Bit 17: $P_CYCFRAME anzeigen
+Bit 18: Summe der Nullpunktverschiebungen anzeigen
+Bit 19: Verschiebung aktives Werkzeug anzeigen
+Bit 20: WKS-Position anzeigen
+Bit 21: BKS-Position anzeigen
+Bit 22: $P_GFRAME anzeigen
+</description>
+</parameter>
+<parameter number="52212" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TECH</name>
+<brief>Funktionsmaske Technologieübergreifend</brief>
+<description>Funktionsmaske Technologieübergreifend
+Bit 0:	Freigabe Schwenken mit Toolcarrier
+	0: Schwenken Ebene/ Werkzeug mit Toolcarrier nicht freigegeben
+	1: Schwenken Ebene/ Werkzeug mit Toolcarrier freigegeben 
+	Nur Schwenken Ebene freigeben, Ausrichten Drehwerkzeug wird über Bit 10 gesteuert
+Bit 1:	Optimiertes Fahren entlang Software-Endschaltern (ShopMill/ShopTurn)
+	0: Kein optimiertes Fahren entlang Software-Endschaltern
+	1: Optimiertes Fahren entlang Software-Endschaltern
+	Beim optimierten Fahren entlang der Software-Endschalter werden im geschwenkten Zustand (bei Tischkinematiken) ggf. Verfahrbewegungen, die über die 
+	Software-Endschalter hinausgehen würden, abgeschnitten. Hierdurch wird der Alarm 10720 "Achse Sofwareendschalter" vermieden.
+Bit 2: 	Spezielle Anfahrlogik für Stufenbohrer (ShopTurn)
+	0: Spezielle Anfahrlogik für Stufenbohrer abgeschaltet
+	1: Spezielle Anfahrlogik für Stufenbohrer aktiv
+	Beim Umfahren der Rückzugsebenen wird immer die längste Schneide (mit der gleichen Schneidenlage, wie die aktive Schneide) in der gleichen Bearbeitungsrichtung 
+	berücksichtigt.
+Bit 3:	Satzsuchlauf-Zyklus für ShopMill/ShopTurn aufrufen
+	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF werden die Zyklen E_S_ASUP bzw. F_S_ASUP nicht aufgerufen
+	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF werden die Zyklen E_S_ASUP  Technologie Fräsen) bzw. F_S_ASUP (Technologie Drehen) aufgerufen. Die Zyklen 
+	E_S_ASUP bzw. F_S_ASUP sorgen nach Satzsuchlauf für die Ausgabe von Werkzeug- und Maschinenbefehlen.
+	Der entsprechende Zyklus wird auch bei einem Satzsuchlauf auf ein G-Code-Programm aufgerufen.
+	Das Bit muss bei Verwendung von ShopMill/ShopTurn gesetzt werden!
+Bit 4:	Anfahrlogik über Zyklus (ShopTurn)
+	0: Anfahrlogik über NC-Funktion
+	1: Anfahrlogik über ShopTurn-Zyklus
+	Die Anfahrlogik über den ShopTurn-Zyklus wird nur zu Diagnosezwecken benötigt.
+Bit 5: 	Satzsuchlauf-Funktion SERUPRO aufrufen
+	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der Zyklus CYCLE207 nicht aufgerufen.
+	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird (bei Satzsuchlauf mit Programmtest - SERUPRO) der Zyklus für SERUPRO (CYCLE207) aufgerufen.
+	Der Zyklus CYCLE207 sorgt nach Satzsuchlauf mit Programmtest (SERUPRO) für die Ausgabe der aufgesammelten Maschinenbefehle.
+Bit 6: 	Nullpunktverschiebungswert ZV nur inkrementell eingebbar (ShopTurn)
+	0: Parameter ZV, aktive Nullpunktverschiebung kann inkrementell und absolut eingegeben werden
+	1: Parameter ZV, aktive Nullpunktverschiebung nur inkrementell eingebbar (ShopTurn)
+Bit 7: 	Ablauf der Standzeit von Werkzeugen im Programm erkennen (ShopMill/ShopTurn)
+	0: Die Standzeit des Werkzeugs wird nur beim Einwechseln des Werkzeugs berücksichtigt
+	1: Die Standzeit des Werkzeugs wird beim Wechsel von Bearbeitungsschritten berücksichtigt (auch, wenn kein Werkzeugwechsel erfolgt).
+Bit 8: 	Funktion Manuelle Maschine aktiv (ShopMill/ShopTurn)
+	0: Funktion Manuelle Maschine ist nicht aktiviert
+	1: Funktion Manuelle Maschine ist aktiv
+Bit 9: 	An-/Abwahl der Nullpunktverschiebung über Softkey
+	0: Der Softkey NPV Anwahl/-Abwahl ist in der Nullpunktverschiebungs-Tabelle der einstellbaren NPV nicht verfügbar.
+	1: Der Softkey NPV Anwahl/-Abwahl ist in der Nullpunktverschiebungs-Tabelle der einstellbaren NPV verfügbar.
+Bit 10: 	Ausrichten Drehwerkzeug über kinematische Transformation
+	0: Ausrichten von Drehwerkzeugen über Toolcarrier
+	1: Ausrichten von Drehwerkzeugen über kinematische Transformation 
+Bit 11:	Lagen-Check für Bohr- und Fräs- Werkzeuge abschalten(ShopTurn)
+	0: Schneidenlagen-Check, für Bohr- und Fräswerkzeuge ist aktiv
+	1: Kein Schneidenlagen-Check, für Bohr- und Fräswerkzeuge
+	Der Check der Schneidenlage kann für Bohr- und Fräswerkzeuge abgeschaltet werden, wenn dies aufgrund des Maschinenaufbaus erforderlich ist.
+Bit 12:	Alarm bei positiver Z-Verschiebung (ShopTurn)
+	0: kein Alarm bei positiver Z-Verschiebung
+	1: Alarm bei positiver Z-Verschiebung
+	Bei einer positiven Z-Verschiebung (TRANS) wird der Alarm 62201 "Z-Verschiebung wirkt nicht auf die Rückzugsebenen!" ausgegeben.
+	Die positive Z-Verschiebung kann gefährlich sein, wenn hierdurch die Bearbeitungsposition aus dem Rückzugsbereich geschoben wird, da dies zu Kollisionen beim An- oder 
+	Abfahren führen kann.
+Bit 13:	Werkzeugwechselpunkt Y im MKS anfahren (ShopTurn)
+	0: Der Werkzeugwechselpunkt wird in Y-Richtung im WKS auf 0 angefahren (gilt nur, wenn das MD 52241 $MCS_TOOL_CHANGE_POS_Y = 0 ist).
+	1: Der Werkzeugwechselpunkt wird in Y-Richtung immer im MKS angefahren (siehe MD 52241 $MCS_TOOL_CHANGE_POS_Y).
+Bit 14: Bei Anfahrlogik Werkzeugposition nur mit Schneide prüfen (ShopTurn)
+	0: Die Anfahrlogik prüft die Werkzeugposition immer.
+	1: Die Anfahrlogik prüft die Werkzeugposition nur, wenn eine Schneide aktiv ist.
+
+</description>
+</parameter>
+<parameter number="52214" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL</name>
+<brief>Funktionsmaske Fräsen</brief>
+<description>Funktionsmaske Fräsen
+Bit 0:	Freigabe Zylindermanteltransformation (ShopMill)
+	0: Softkey für Zylindermanteltransformation nicht freigegeben
+	1: Zylindermanteltransformation freigegeben
+Bit 1:	Festen Tisch für Rohteilaufspannung anbieten (an Fräsmaschinen)
+	0: keinen festen Tisch für Rohteilaufspannung anbieten
+	1: Festen Tisch für Rohteilaufspannung anbieten
+	(Dieses Bit muss nur gesetzt werden, wenn es an der Maschine eine Rotationsachse und einen festen Tisch für die Rohteilaufspannung gibt.)
+Bit 2:	Sonderbehandlung von Scheibenfräser/Säge beim Mehrkant
+	0: keine Sonderbehandlung von Scheibenfräser/Säge beim Mehrkant
+	1: Sonderbehandlung von Scheibenfräsern/Säge beim Mehrkant
+	Bei diesen Werkzeugtypen wird die erste Zustellung so gewählt, dass die Oberkante des Werkzeugs genau den Bezugspunkt Z0 berührt.
+	Am Ende der Bearbeitung wird seitlich komplett aus dem Rohteilzapfen herausgezogen.
+	Hiermit kann auf einer Welle ein innenliegender Mehrkant erzeugt werden.
+Bit 3:	Freigabe Bearbeitung innen/hinten (ShopTurn)
+	0: Bearbeitung innen/hinten nicht freigegeben
+	1: Bearbeitung innen/hinten in ShopTurn-Masken freigeben (gilt in ShopTurn-Masken, welche die Bearbeitungsebene selber festlegen)
+Bit 4:	Freigabe Spindel klemmen (C-Achse) (ShopTurn)
+	0: Parameter "Spindel klemmen/lösen" wird nicht in den Bohr- und Fräs-Masken angezeigt. ShopTurn klemmt die Spindel automatisch, wenn es für die Bearbeitung sinnvoll 
+	ist.
+	1: Parameter "Spindel klemmen/lösen" wird in den Bohr- und Fräs-Masken angezeigt. Der Bediener entscheidet, bei welcher Bearbeitung die Spindel geklemmt wird. 
+	Wenn Sie die Funktion "Spindel klemmen/lösen" mittels des Maschinenherstellerzyklus CUST_TECHCYC.SPF realisiert haben, können Sie mit diesem Maschinendatum den 
+	Parameter "Spindel klemmen/lösen" in den Bohr- und Fräs-Masken aktivieren.
+Bit 5:	Freigabe Spindelsteuerung Werkzeugspindel über Oberfläche
+	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
+	1: Freigabe Spindelsteuerung über die Bedienoberfläche
+Bit 6:	Freigabe Spindelsteuerung Drehspindel über Oberfläche
+	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
+	1: Freigabe Spindelsteuerung über die Bedienoberfläche
+
+
+</description>
+</parameter>
+<parameter number="52216" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_DRILL</name>
+<brief>Funktionsmaske Bohren</brief>
+<description>Funktionsmaske Bohren
+Bit 0:	CYCLE84 Eingabefelder Technologie  einblenden 
+	0: Eingabefelder ausblenden
+	1: Eingabefelder einblenden
+Bit 1:	CYCLE840 Eingabefelder Technologie einblenden
+	0: Eingabefelder ausblenden
+	1: Eingabefelder einblenden
+Bit 2:	Gewindebohren auch ohne Geber (ShopMill/ShopTurn)
+	0: Gewindebohren nur mit Geber möglich
+	1: Gewindebohren auch ohne Geber möglich
+	Die Einstellung hängt davon ab, ob an der Maschine für die Werkzeugspindel ein Geber vorhanden ist.
+Bit 3:  	Konstante Schnittgeschwindigkeit bezogen auf Durchmesser der Zentrierung (ShopMill/ShopTurn)
+	0: Konstante Schnittgeschwindigkeit bezogen auf Durchmesser des Werkzeugs
+	1: Konstante Schnittgeschwindigkeit bezogen auf Durchmesser der Zentrierung
+
+</description>
+</parameter>
+<parameter number="52218" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TURN</name>
+<brief>Funktionsmaske Drehen</brief>
+<description>Funktionsmaske Drehen
+Bit 0:	Freigabe Lupe unter Manuell für Werkzeugmessen
+	0: Keine Lupe unter Manuell für Werkzeugmessen
+	1: Freigabe Lupe unter Manuell für Werkzeugmessen
+Bit 1:	Freigabe Teilefänger beim Abstich
+	0: Kein Teilefänger beim Abstich
+	1:Teilefänger beim Abstich freigegeben
+Bit 2:	Freigabe Reitstock
+	0: Reitstock nicht freigegeben
+	1: Der Reitstock kann im Programm angewählt werden.
+Bit 3:	Freigabe Spindelsteuerung Hauptspindel über Oberfläche
+	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
+	1: Freigabe Spindelsteuerung über die Bedienoberfläche
+Bit 4:	Freigabe Spindelsteuerung Gegenspindel über Oberfläche
+	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
+	1: Freigabe Spindelsteuerung über die Bedienoberfläche
+Bit 5: 	Freigabe Spindelsteuerung Werkzeugspindel über Oberfläche
+	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
+	1: Freigabe Spindelsteuerung über die Bedienoberfläche
+Bit 6: 	Freigabe Balance Cutting für zweikanaliges Abspanen
+	0: keine Freigabe der Funktion Balance Cutting für zweikanaliges Abspanen
+	1: Freigabe der Funktion Balance Cutting für zweikanaliges Abspanen
+	Beim Balance Cutting wird das Abspanen gleichzeitig an beiden Seiten des Werkstücks ausgeführt. Hierdurch kann mit erhöhtem Vorschub gearbeitet werden.
+Bit 7:	Abfahren beim Konturabspanen mit G1
+	0: Abfahren beim Konturabspanen mit Eilgang (G0)
+	1: Abfahren beim Konturabspanen mit Vorschub (G1)
+Bit 8:	Eingabe der Spindelfutterdaten im Programm
+	0: Die Spindelfutterdaten werden aus der entsprechenden Eingabemaske im Bereich Parameter genommen.
+	1: Eingabe der Spindelfutterdaten im Programm
+Bit 9:	Zusätzliche Eingabe der Reitstockdaten im Programm
+	0: Die Reitstockdaten werden aus den Spindelfutterdaten im Bereich Parameter genommen.
+	1: Zusätzliche Eingabe der Reitstockdaten im Programm
+	Dieses Bit wirkt nur, wenn auch das Bit 8 gesetzt ist.
+Bit 10:	Freigabe balliges Gewinde
+	0: balliges Gewinde beim Gewindedrehen Längs nicht freigegeben
+	1: balliges Gewinde beim Gewindedrehen Längs freigegeben
+Bit 11:	reserviert
+Bit 12:	Gewindesynchronisation abschalten
+	0: Gewindesynchronisation ist möglich
+	1: Funktion Gewindesynchronisation abschalten
+	Die Bedienmaske zum Setzen des Synchronisationspunktes wird nicht angezeigt und in den Gewindezyklen erfolgt keine Berechnung des Gewindeanschnitts mit dem 
+	Synchronisationspunkt.
+Bit 13:	Konturabspanen mit CYCLE95 (828D programGUIDE ohne Advanced Technology)
+	0: Mit dem Softkey Konturdrehen/Abspanen wird die Maske für den CYCLE952 geöffnet.
+	1: Mit dem Softkey Konturdrehen/Abspanen wird die Maske für den CYCLE95 geöffnet.
+	Randbedingungen:
+	- 828D
+	- programGUIDE
+	- ohne Option Advanced Technology
+
+
+
+</description>
+</parameter>
+<parameter number="52229" type="BYTE" dim="0" display="HEX">
+<name>ENABLE_QUICK_M_CODES</name>
+<brief>Freigabe schneller M-Funktionen</brief>
+<description>Freigabe schneller M-Funktionen
+Bit 0:	Kühlmittel        AUS
+Bit 1:	Kühlmittel 1     EIN
+Bit 2:	Kühlmittel 2     EIN
+Bit 3:	Kühlmittel 1 und 2  EIN
+</description>
+</parameter>
+<parameter number="52230" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_ALL_COOLANTS_OFF</name>
+<brief>M-Code für alle Kühlmittel AUS</brief>
+<description>M-Code für alle Kühlmittel AUS
+</description>
+</parameter>
+<parameter number="52231" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_COOLANT_1_ON</name>
+<brief>M-Code für Kühlmittel 1 EIN</brief>
+<description>M-Code für Kühlmittel 1 EIN
+</description>
+</parameter>
+<parameter number="52232" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_COOLANT_2_ON</name>
+<brief>M-Code für Kühlmittel 2 EIN</brief>
+<description>M-Code für Kühlmittel 2 EIN
+</description>
+</parameter>
+<parameter number="52233" type="DWORD" dim="0" display="DECIMAL">
+<name>M_CODE_COOLANT_1_AND_2_ON</name>
+<brief>M-Code für beide Kühlmittel EIN</brief>
+<description>M-Code für Kühlmittel 1 + 2 EIN
+
+</description>
+</parameter>
+<parameter number="52240" type="STRING" dim="1" display="ASCII">
+<name>NAME_TOOL_CHANGE_PROG</name>
+<brief>Werkzeugwechselprogramm für G-Code-Schritte</brief>
+<description>Werkzeugwechselprogramm für G-Code-Schritte.
+Beim Einfügen eines Werkzeugs mit dem Softkey "Werkzeug auswählen" wird der T-Befehl in das Programm übernommen.
+Wenn das MD einen Text enthält, so wird dieser automatisch als eigenständiger Satz hinter dem T-Befehl eingefügt.
+Hier kann z.B. der Werkzeugwechselbefehl "M6" oder ein maschinenherstellerspezifisches Werkzeugwechselprogramm eingetragen werden.
+
+</description>
+</parameter>
+<parameter number="52241" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TOOL_CHANGE_POS_Y</name>
+<brief>Werkzeugwechselposition Y im MKS (ShopTurn)</brief>
+<description>Werkzeugwechselposition Y im MKS (ShopTurn)
+Bei ShopTurn kann der Werkzeugwechselpunkt in X und Z im MKS oder WKS angegeben werden.
+Beim Anfahren des Werkzeugwechselpunktes wird die Y-Achse gleichzeitig auf den in diesem MD angegebenen Wert im MKS gefahren.
+
+</description>
+</parameter>
+<parameter number="52242" type="BYTE" dim="0" display="DECIMAL">
+<name>TURN_TOOL_FIXING</name>
+<brief>Werkzeugaufnahme für Drehwerkzeuge</brief>
+<description>Werkzeugaufnahme für Drehwerkzeuge:
+0 = Drehwerkzeuge in Werkzeugspindel
+1 = Drehwerkzeuge fest am Werkzeugspindelkasten
+2 = Drehwerkzeuge in Werkzeugspindel oder fest am Werkzeugspindelkasten
+
+</description>
+</parameter>
+<parameter number="52244" type="DOUBLE" dim="0" display="DECIMAL">
+<name>SUB_SPINDLE_PARK_POS_Y</name>
+<brief>Parkposition der Y-Achse bei Gegenspindel im MKS</brief>
+<description>Parkposition der Y-Achse bei Gegenspindel im MKS
+</description>
+</parameter>
+<parameter number="52248" type="DOUBLE" dim="0" display="DECIMAL">
+<name>REV_2_BORDER_TOOL_LENGTH</name>
+<brief>Grenzwert Werkzeuglänge X für 2. Revolver</brief>
+<description>Grenzwert der Werkzeuglänge X für den 2. Revolver:
+Grenzwert = 0: Es gibt nur einen Revolver 
+Werkzeuglänge X &lt; Grenzwert: Werkzeug gehört zum 1. Revolver/Multifix
+Werkzeuglänge X &gt;= Grenzwert: Werkzeug gehört zum 2. Revolver/Multifix
+</description>
+</parameter>
+<parameter number="52250" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_CHUCK_OPEN</name>
+<brief>M-Code für Futter öffnen bei stehender Spindel</brief>
+<description>M-Code für Futter öffnen bei stehender Spindel.
+Z.B.: "M34" oder "M1=34"
+
+Elemente:
+  [0]: Hauptspindel
+  [1]: Gegenspindel
+
+</description>
+</parameter>
+<parameter number="52251" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_CHUCK_OPEN_ROT</name>
+<brief>M-Code für Futter öffnen bei drehender Spindel</brief>
+<description>M-Code für Futter öffnen bei drehender Spindel.
+Z.B.: "M34" oder "M1=34"
+
+Elemente:
+  [0]: Hauptspindel
+  [1]: Gegenspindel
+
+</description>
+</parameter>
+<parameter number="52252" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_CHUCK_CLOSE</name>
+<brief>M-Code für Futter schließen</brief>
+<description>M-Code für Futter schließen
+Z.B.: "M34" oder "M1=34"
+
+Elemente:
+  [0]: Hauptspindel
+  [1]: Gegenspindel
+
+</description>
+</parameter>
+<parameter number="52253" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_TAILSTOCK_FORWARD</name>
+<brief>M-Code für Pinole vor</brief>
+<description>M-Code für Pinole vor.
+Z.B.: "M55" oder "M1=55"
+
+Elemente:
+  [0]: Pinole gegenüber der Hauptspindel
+  [1]: Pinole gegenüber der Gegenspindel
+
+</description>
+</parameter>
+<parameter number="52254" type="STRING" dim="1" display="ASCII">
+<name>M_CODE_TAILSTOCK_BACKWARD</name>
+<brief>M-Code für Pinole zurück</brief>
+<description>M-Code für Pinole zurück.
+Z.B.: "M54" oder "M1=54"
+
+Elemente:
+  [0]: Pinole gegenüber der Hauptspindel
+  [1]: Pinole gegenüber der Gegenspindel
+
+</description>
+</parameter>
+<parameter number="52260" type="BYTE" dim="0" display="DECIMAL">
+<name>MACHINE_JOG_INTERRUPT_PRIO</name>
+<brief>Priorität für den Start-Asup unter Maschine JOG</brief>
+<description>Priorität für den Start-Asup unter Maschine JOG
+</description>
+</parameter>
+<parameter number="52270" type="DWORD" dim="0" display="HEX">
+<name>TM_FUNCTION_MASK</name>
+<brief>Funktionsmaske Werkzeugverwaltung</brief>
+<description>Funktionsmaske Werkzeugverwaltung
+Bit 0:	Werkzeug anlegen auf Magazinplatz nicht zugelassen. Werkzeuge können nur außerhalb des Magazins angelegt werden.
+Bit 1:	Be-/Entladesperre wenn Maschine nicht im Reset. Werkzeuge können nur be-/entladen werden, wenn der entsprechende Kanal im Resetzustand ist.
+Bit 2:	Be-/Entladesperre bei Notaus. Werkzeuge können nur be-/entladen werden, wenn der Notaus nicht aktiv ist.
+Bit 3:	Werkzeug in/aus Zwischenspeicher be-/entladen oder umsetzen gesperrt. Werkzeuge können nicht in Zwischenspeicher (Spindel/Greifer) be-/entladen oder umgesetzt werden.
+Bit 4:	Beladen erfolgt direkt in Spindel. Das Beladen von Werkzeugen erfolgt ausschließlich direkt in die Spindel.
+Bit 5:	Schleifkonfigurationsdatei für den Aufbau der Werkzeuglisten verwenden. Es werden ausschließlich Schleifwerkzeuge angeboten.
+Bit 6:	Umsetzen eines Werkzeugs in/aus Zwischenspeicher (Spindel/Greifer) ist trotz Sperre (siehe Bit3) zugelassen.
+Bit 7:	Werkzeug über die T-Nummer anlegen. Beim Werkzeug anlegen muss die T-Nummer des Werkzeugs eingegeben werden.
+Bit 8:	Werkzeug umsetzen ausblenden. Die Funktion 'Werkzeug umsetzen' wird in der Bedienoberfläche ausgeblendet.
+Bit 9:	Magazin positionieren ausblenden. Die Funktion 'Magazin positionieren' wird in der Bedienoberfläche ausgeblendet.
+Bit 10:	Werkzeug reaktivieren mit Magazin positionieren. Vor dem Reaktivieren wird das Werkzeug auf die Beladestelle positioniert.
+Bit 11:	Werkzeug reaktivieren in allen Überwachungsarten. Beim Reaktivieren eines Werkzeugs werden alle in der NC freigegebenen Überwachungsarten zu diesem Werkzeug reaktiviert. D.h. auch die Überwachungsarten, die 
+	für das jeweilige Werkzeug nicht eingestellt sind, sondern nur im Hintergrund liegen.
+Bit 12:	Werkzeug reaktivieren ausblenden. Die Funktion 'Werkzeug reaktivieren' wird in der Bedienoberfläche ausgeblendet.
+
+</description>
+</parameter>
+<parameter number="52271" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TM_MAG_PLACE_DISTANCE</name>
+<brief>Abstand der einzelnen Magazinplätze</brief>
+<description>Abstand der einzelnen Magazinplätze.
+Wird verwendet für die grafische Darstellung des Magazins und der Werkzeuge in der Werkzeugverwaltung.
+</description>
+</parameter>
+<parameter number="52272" type="BYTE" dim="0" display="DECIMAL">
+<name>TM_TOOL_LOAD_DEFAULT_MAG</name>
+<brief>Defaultmagazin für das Beladen von Werkzeugen</brief>
+<description>Default-Magazin für das Beladen von Werkzeugen
+0 = Kein Default-Magazin
+</description>
+</parameter>
+<parameter number="52273" type="BYTE" dim="0" display="DECIMAL">
+<name>TM_TOOL_MOVE_DEFAULT_MAG</name>
+<brief>Defaultmagazin für das Umsetzen von Werkzeugen</brief>
+<description>Default-Magazin für das Umsetzen von Werkzeugen
+0 = Kein Default-Magazin
+</description>
+</parameter>
+<parameter number="52274" type="BYTE" dim="0" display="DECIMAL">
+<name>TM_TOOL_LOAD_STATION</name>
+<brief>Nummer der Beladestation</brief>
+<description>Nummer der Beladestation
+0 = alle konfigurierten Stationen werden berücksichtigt
+</description>
+</parameter>
+<parameter number="52281" type="DWORD" dim="1" display="DECIMAL">
+<name>TOOL_MCODE_FUNC_ON</name>
+<brief>M-Code für werkzeugspezifische Funktion EIN</brief>
+<description>M-Code für werkzeugspezifische Funktion EIN
+Der Wert -1 bedeutet, dass die M-Funktion nicht ausgegeben wird. Sind beide M-Befehle einer Funktion =-1, so wird das zugehörige Feld in der Oberfläche nicht angezeigt
+</description>
+</parameter>
+<parameter number="52282" type="DWORD" dim="1" display="DECIMAL">
+<name>TOOL_MCODE_FUNC_OFF</name>
+<brief>M-Code für werkzeugspezifische Funktion AUS</brief>
+<description>M-Code für werkzeugspezifische Funktion AUS
+Der Wert -1 bedeutet, dass die M-Funktion nicht ausgegeben wird. Sind beide M-Befehle einer Funktion =-1, so wird das zugehörige Feld in der Oberfläche nicht angezeigt.
+</description>
+</parameter>
+<parameter number="52290" type="BYTE" dim="0" display="HEX">
+<name>SIM_DISPLAY_CONFIG</name>
+<brief>Anzeigeort der Statusanzeige des Kanals in der Simulation (nur OP019)</brief>
+<description>Anzeigeort der Statusanzeige des Kanals in der Simulation 
+
+Es kann eine der 4 Ecken ausgewählt werden:
+  Bit 0 = Ecke links/oben
+  Bit 1 = Ecke rechts/oben
+  Bit 2 = Ecke links/unten
+  Bit 3 = Ecke rechts/unten
+
+Dieses MD wirkt nur auf dem OP019.
+
+</description>
+</parameter>
+<parameter number="52480" type="STRING" dim="1" display="ASCII">
+<name>MILL_PARALLEL_AX1_NAME</name>
+<brief>Kanalachsname der ersten parallelen Achse für CYCLE69</brief>
+<description>Kanalachsname der ersten parallelen Achse (Werkzeugachse) für CYCLE69.
+Die erste parallele Achse ist die dritte Geometrieachse, wenn kein Geometrieachstausch aktiv ist (z.B. Achse ZZ bei G17)
+Der Kanalachsname muss unterschiedlich zum Name der Geometrieachse sein (z.B.Kanalachsname ZZ, Name der Geometrieachse Z)
+
+</description>
+</parameter>
+<parameter number="52481" type="STRING" dim="1" display="ASCII">
+<name>MILL_PARALLEL_AX2_NAME</name>
+<brief>Kanalachsname der zweiten parallelen Achse für CYCLE69</brief>
+<description>Kanalachsname der zweiten parallelen Achse (in Werkzeugrichtung) für CYCLE69
+</description>
+</parameter>
+<parameter number="52482" type="STRING" dim="1" display="ASCII">
+<name>MILL_PARALLEL_AX3_NAME</name>
+<brief>Kanalachsname der dritten parallelen Achse für CYCLE69</brief>
+<description>Kanalachsname der dritten parallelen Achse (in Werkzeugrichtung) für CYCLE69
+
+</description>
+</parameter>
+<parameter number="52483" type="STRING" dim="1" display="ASCII">
+<name>MILL_ROUND_AX_NAME</name>
+<brief>Kanalachsname der Rundachse für CYCLE69</brief>
+<description>Kanalachsname der Rundachse für CYCLE69
+Der Zyklus parallele Achsen (CYCLE69) kann bei Positionieren auch eine Rundachse unterstützen (z.B Rundtisch B).
+</description>
+</parameter>
+<parameter number="52485" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_MILL_PARAXES</name>
+<brief>Funktionsmaske für Zyklus Parallele Achsen - CYCLE69</brief>
+<description>Funktionsmaske parallele Achsen CYCLE69
+Bit 0: parallele Achsen immer einzeln verfahren, (z.B. bei Klemmung der parallelen Achsen mit M-Befehl)
+Bit 1: 
+Bit 2: Wert des Werkstückbezugs (Kompensationswert) auch nach Reset wirksam 
+          Wert wird im CYCLE69 global in Datenhaltung übernommen
+</description>
+</parameter>
+<parameter number="52740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Funktionsmaske Messzyklen, Werkstück- Werkzeugmessen</brief>
+<description>Funktionsmaske Messzyklen
+
+Bit 0: 	Werkstückmessen, Messtastereingang
+          	0: Werkstückmesstaster am Messtastereingang 1 angeschlossen
+          	1: Werkstückmesstaster am Messtastereingang 2 angeschlossen
+
+Bit 1: 	Werkstückmessen, Technologie Drehen, Verwendung einer dritten Geometrieachse (Y-Achse) durch die 
+         Drehmesszyklen
+          	0: keine Verwendung oder Unterstützung der Y-Achse
+          	1: Wertvorgaben für die Drehmesszyklen beziehen sich auf die Y-Achse.
+	             Das heißt, die Y-Achse kann als Mess- oder Umfahrachse von den Drehmesszyklen verwendet werden.
+              Die Korrektur von Werkzeuglänge oder Nullpunktverschiebung erfolgt beim Messen in der Y-Achse immer in  die Komponenten der zweiten Geometrieachse (X-Achse).
+              Hinweis: Die Wertvorgaben für die Y-Achse sind Durchmesserbezogen.
+
+Bit 2: 	Berechnung Korrekturwinkel mit/ohne aktiver Orientierungstransformation
+          	0: Berechnung Korrekturwinkel (_MEA_CORR_ANGLE[1]) nur bei aktiver Orientierungstransformation (TCARR, CYCLE800 oder TRAORI)
+          	1: Berechnung Korrekturwinkel (_MEA_CORR_ANGLE[1]) auch wenn keine Orientierungstransformation aktiv ist
+          	   und SD42940 $SC_TOOL_LENGTH_CONST 1000er-Stelle =1 (Berechnung der Werkzeugorientierung) gesetzt ist
+
+Bit 16: 	Werkzeugmessen, Messtastereingang
+          	0: Werkzeugmesstaster am Messtastereingang 1 angeschlossen
+          	1: Werkzeugmesstaster am Messtastereingang 2 angeschlossen
+
+
+</description>
+</parameter>
+<parameter number="52750" type="DOUBLE" dim="0" display="DECIMAL">
+<name>J_MEA_FIXPOINT</name>
+<brief>Z-Wert für Messen Festpunkt</brief>
+<description>Z-Wert für Messen gegen Festpunkt
+</description>
+</parameter>
+<parameter number="52751" type="DOUBLE" dim="1" display="DECIMAL">
+<name>J_MEA_MAGN_GLAS_POS</name>
+<brief>Lupenposition zum Werkzeugmessen</brief>
+<description>Lupenposition zum Werkzeugmessen:
+  [0] = Position in der 1. Achse
+  [1] = Position in der 2. Achse
+</description>
+</parameter>
+<parameter number="52780" type="BYTE" dim="0" display="DECIMAL">
+<name>J_MEA_T_PROBE_APPR_MODE</name>
+<brief>Anfahrmodus Werkzeug messen im JOG</brief>
+<description>Anfahrmodus Werkzeug messen im JOG
+=0: technologieabhängiges Anfahren an den Werkzeugmesstaster
+      Technologie Drehen: manuelles Anfahren
+      Technologie Fräsen	: automatisches Anfahren
+=1: technologieunabhängiges Anfahren an den Werkzeugmesstaster
+      Manuelles Anfahren an den Werkzeugmesstaster
+=2: technologieunabhängiges Anfahren an den Werkzeugmesstaster
+      Automatisches Anfahren an den Werkzeugmesstaster
+
+</description>
+</parameter>
+<parameter number="52800" type="BYTE" dim="0">
+<name>ISO_M_ENABLE_POLAR_COORD</name>
+<brief>Polarkoordinaten</brief>
+<description>Polarkoordinaten 
+0: AUS 
+1: EIN
+</description>
+</parameter>
+<parameter number="52802" type="BYTE" dim="0">
+<name>ISO_ENABLE_INTERRUPTS</name>
+<brief>Interruptverarbeitung</brief>
+<description>Interruptverarbeitung
+0: AUS 
+1: EIN
+</description>
+</parameter>
+<parameter number="52804" type="BYTE" dim="0">
+<name>ISO_ENABLE_DRYRUN</name>
+<brief>Bearbeitungsübersprung bei DRYRUN</brief>
+<description>Bearbeitungsübersprung Gewindeborhen G74/G84 bei DRYRUN
+0: AUS
+1: EIN
+</description>
+</parameter>
+<parameter number="52806" type="BYTE" dim="0">
+<name>ISO_SCALING_SYSTEM</name>
+<brief>Grundsystem</brief>
+<description>Grundsystem: 
+0: nicht definiert
+1: METRIC
+2: INCH
+</description>
+</parameter>
+<parameter number="52808" type="BYTE" dim="0">
+<name>ISO_SIMULTAN_AXES_START</name>
+<brief>simultanes Anfahren der Bohrposition aller programmierten Achsen</brief>
+<description>simultanes Anfahren der Bohrposition aller programmierten Achsen
+0: AUS
+1: EIN
+</description>
+</parameter>
+<parameter number="52810" type="BYTE" dim="0">
+<name>ISO_T_DEEPHOLE_DRILL_MODE</name>
+<brief>Tieflochbohren mit Spänebrechen/Entspanen</brief>
+<description>Auswahl der Tieflochbohrart
+0: Tieflochbohren mit Spänebrechen
+1: Tieflochbohren mit Entspanen
+</description>
+</parameter>
+<parameter number="52840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Funktionsmaske Schleifen</brief>
+<description>Funktionsmaske Schleifen
+Bit 7:	Abfahren beim Profilieren mit G1
+	0: Abfahren beim Profilieren mit Eilgang (G0)
+	1: Abfahren beim Profilieren mit Vorschub (G1)
+
+
+</description>
+</parameter>
+<parameter number="52842" type="BYTE" dim="0" display="DECIMAL">
+<name>GRIND_DIAMETER_LENGTH</name>
+<brief>Nummer der Durchmesserlänge</brief>
+<description>Technologie Schleifen: Nummer der Werkzeuglänge für den Scheibendurchmesser:
+1: Länge 1 ist Scheibendurchmesser
+2: Länge 2 ist Scheibendurchmesser
+
+</description>
+</parameter>
+<parameter number="52843" type="BYTE" dim="0" display="DECIMAL">
+<name>GRIND_WIDTH_LENGTH</name>
+<brief>Nummer der Scheibenbreite</brief>
+<description>Technologie Schleifen: Nummer der Werkzeuglänge für die Scheibenbreite:
+1: Länge 1 ist Scheibenbreite
+2: Länge 2 ist Scheibenbreite
+
+</description>
+</parameter>
+</info>

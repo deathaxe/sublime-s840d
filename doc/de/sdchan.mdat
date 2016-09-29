@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="42000" type="DOUBLE" dim="0">
+<name>THREAD_START_ANGLE</name>
+<brief>Startwinkel bei Gewinde</brief>
+<description>Mit Hilfe dieses Settingdatums kann bei mehrgängigem Gewindeschneiden der Versatz der einzelnen Gewindegänge programmiert werden.
+Dieses SD kann über den Befehl SF vom Teileprogramm aus verändert werden.
+
+Anmerkung:
+Über das MD10710 $MN_PROG_SD_RESET_SAVE_TAB kann eingestellt werden, dass der vom Teileprogramm geschriebene Wert bei Reset in das aktive Filesystem übernommen wird (d.h. der Wert bleibt über Reset hinweg erhalten).
+</description>
+</parameter>
+<parameter number="42010" type="DOUBLE" dim="1">
+<name>THREAD_RAMP_DISP</name>
+<brief>Beschleunigungsverhalten der Achse beim Gewindeschneiden</brief>
+<description>Das SD wirkt beim Gewindeschneiden mit G33 (G34, G35).
+Es besitzt zwei Elemente, die das Verhalten beim Hochlauf der Gewindeachse  (1. Element)  und beim Bremsen/Überschleifen (2. Element) festlegen.
+Die Werte besitzen für den Gewindeein- und auslauf gleiche Eigenschaften:
+
+&lt; 0:
+	Start/Bremsen der Gewindeachse erfolgt mit projektierter Beschleunigung. Der Ruck wirkt entsprechend der aktuellen Programmierung von BRISK/SOFT. Das Verhalten ist kompatibel zum bisherigen MD 20650__THREAD_START_IS_HARD = FALSE.
+
+0:
+	Start/Bremsen der Vorschubachse beim Gewindeschneiden erfolgt sprungförmig. Das Verhalten ist kompatibel zum bisherigen MD 20650__THREAD_START_IS_HARD = TRUE.
+
+&gt; 0:
+	Es wird der maximale Gewindehochlauf- bzw. Bremsweg vorgegeben. Der vorgegebene Weg kann ggf. zu einer Beschleunigungsüberlastung der Achse führen. Das SD wird bei der Programmierung von DITR (Displacement Thread Ramp) aus dem Satz beschrieben.
+
+Anmerkung:
+Über das MD10710 $MN_PROG_SD_RESET_SAVE_TAB kann eingestellt werden, dass der vom Teileprogramm geschriebene Wert bei RESET in das aktive Filesystem übernommen wird (d.h. der Wert bleibt über RESET hinweg erhalten.
+</description>
+</parameter>
+<parameter number="42100" type="DOUBLE" dim="0">
+<name>DRY_RUN_FEED</name>
+<brief>Probelaufvorschub</brief>
+<description>In dieses Settingdatum ist der Vorschub für aktiven Probelauf einzutragen. Das Settingdatum kann über die Bedientafel im Bedienbereich "Parameter" verändert werden.
+Der eingetragene Probelaufvorschub wird immer als Linearvorschub (G94) interpretiert. Wird über die PLC-Nahtstelle der Probelaufvorschub aktiviert, so wird nach Reset als Bahnvorschub nicht der programmierte, sondern der Probelaufvorschub verwendet. Ist die programmierte Geschwindigkeit größer als die hier hinterlegte Geschwindigkeit, so wird mit der programmierten Geschwindigkeit verfahren.
+
+Anwendungsbeispiel(e)
+Einfahren von Programmen.
+
+korrespondierend mit ....
+	NC/PLC-Nahtstellensignal &lt;Probelaufvorschub_aktivieren/&gt; (Probelaufvorschub aktivieren)
+	NC/PLC-Nahtstellensignal &lt;Probelaufvorschub_angewaehlt/&gt; (Probelaufvorschub angewählt)
+</description>
+</parameter>
+<parameter number="42101" type="BYTE" dim="0">
+<name>DRY_RUN_FEED_MODE</name>
+<brief>Mode für Testlauf Geschwindigkeit</brief>
+<description>Mit dem SD kann die Wirkungsweise der Testlaufgeschwindigkeit, die mit dem SD42100 $SC_DRY_RUN_FEED angegeben wird, eingestellt werden.
+
+Möglich sind hierbei die Werte:
+0:
+	Es wird das Maximum des SD42100 $SC_DRY_RUN_FEED und der programmierten Geschwindigkeit wirksam. Dies ist die Standardeinstellung und entspricht dem Verhalten bis SW 5.
+1:
+	Es wird das Minimum des SD42100 $SC_DRY_RUN_FEED und der programmierten Geschwindigkeit wirksam.
+2:
+	Es wird direkt das SD42100 $SC_DRY_RUN_FEED, unabhängig von der programmierten Geschwindigkeit, wirksam.
+
+Die Werte 3...9 sind für Erweiterungen reserviert.
+
+10:
+	Wie Projektierung 0 außer Gewindeschneiden (G33, G34, G35) und Gewindebohren (G331, G332, G63). Diese Funktionen werden wie programmiert ausgeführt.
+11:
+	Wie Projektierung 1 außer Gewindeschneiden (G33, G34, G35) und Gewindebohren (G331, G332, G63). Diese Funktionen werden wie programmiert ausgeführt.
+12:
+	Wie Projektierung 2 außer Gewindeschneiden (G33, G34, G35) und Gewindebohren (G331, G332, G63). Diese Funktionen werden wie programmiert ausgeführt.
+</description>
+</parameter>
+<parameter number="42110" type="DOUBLE" dim="0">
+<name>DEFAULT_FEED</name>
+<brief>Defaultwert für Bahnvorschub</brief>
+<description>Defaultwert für Bahnvorschub. Die Auswertung des Settingdatums erfolgt beim Teileprogrammstart unter Berücksichtigung des zu diesem Zeitpunkt wirksamen Vorschubtyps (siehe MD20150 $MC_GCODE_RESET_VALUES bzw. MD20154 $MC_EXTERN_GCODE_RESET_VALUES).
+</description>
+</parameter>
+<parameter number="42120" type="DOUBLE" dim="0">
+<name>APPROACH_FEED</name>
+<brief>Bahnvorschub in Anfahrsätzen</brief>
+<description>Defaultwert für Bahnvorschub in Anfahrsätzen (nach Repos, Satzsuchlauf, SERUPRO usw).
+
+Der Inhalt dieses Settingdatums wird nur verwendet, wenn er ungleich Null ist.
+
+Er wird bewertet, wie ein bei G94 programmiertes F-Wort.
+</description>
+</parameter>
+<parameter number="42121" type="DOUBLE" dim="0">
+<name>AX_ADJUST_FEED</name>
+<brief>Bahnvorschub in Justier Bewegungen</brief>
+<description>Defaultwert für Bahnvorschub in Justierbewegungen der Tangentialachsen beim
+Einschalten einer Tangentialachskopplung während oder nach dem Satzsuchlauf.
+
+Der Inhalt dieses Settingdatums wird nur verwendet, wenn er ungleich Null ist und das Bit7 = 0
+des MD $MN_SEARCH_RUN_MODE gesetzt ist.
+
+Er wird bewertet, wie ein bei G94 programmiertes F-Wort.
+</description>
+</parameter>
+<parameter number="42122" type="DOUBLE" dim="0">
+<name>OVR_RAPID_FACTOR</name>
+<brief>Zusätzlicher Eilgang-Override über Bedienung vorgebbar</brief>
+<description>Zusätzlicher kanalspezifischer Eilgang-Override in %. Der Wert wird abhängig von der BTSS-Variablen enablOvrRapidFactor auf die Bahn und beim Joggen von Geometrieachsen eingerechnet. Der Wert wirkt multiplikativ zu den übrigen Eilgang-relevanten Overrides (Eilgang-Override von der Maschinensteuertafel, Override-Vorgabe über Synchronaktionen $AC_OVR).
+</description>
+</parameter>
+<parameter number="42125" type="DWORD" dim="0">
+<name>SERUPRO_SYNC_MASK</name>
+<brief>Synchronisation in Anfahrsätzen</brief>
+<description>Mit dem Setting-Datum SERUPRO_SYNC_MASK kann für den Suchlauf-Typ-SERUPRO ein synchronisiertes Anfahren eingestellt werden.
+SERUPRO benutzt die Funktion REPOS um von der aktuellen Maschinenposition zum Zielsatz des Suchlaufs zu kommen. Zwischen dem Wiederanfahrsatz und dem Zielsatz kann via SERUPRO_SYNC_MASK eine Synchronisation zwischen den Kanälen erzwungen werden, die der Verwendung von WAIT-Marken entsprechen würden.
+
+Bemerkung: 
+Zwischen Wiederanfahrsatz und Zielsatz kann der Anwender im Teileprogramm keine WAIT-Marken programmieren.
+SERUPRO_SYNC_MASK aktiviert diese internen WAIT-Marke, und bestimmt für diesen Kanal, auf welche anderen Kanäle gewartet werden soll.
+
+Beispiel für Kanal 3:    SD42125 $SC_SERUPRO_SYNC_MASK= 0x55
+Jetzt wird im Serupro-Anfahren zwischen Wiederanfahrsatz und Zielsatz ein neuer Satz eingefügt, dessen Funktion folgender Programmierung entspricht: WAITM( 101, 1,3,5,7), d.h. eine WAIT-Marke synchronisiert die Kanäle 1, 3, 5 und 7.
+
+Die verwendete internen WAIT-Marke kann vom Anwender nicht explizit programmiert werden.
+
+Achtung: 
+Der Anwender kann analog zum Teileprogramm den Fehler machen, dass er in einem Kanal den Marker nicht setzt, damit warten die anderen Kanäle natürlich für immer!
+
+Bemerkung: 
+Die Bitmaske kann einen Kanal enthalten, der nicht existiert (Kanallücken), ohne dass es zum Dead-Lock kommt.
+Beispiel für Kanal 3:    SD42125 $SC_SERUPRO_SYNC_MASK= 0x55  und Kanal 5 existiert nicht, so wird WAITM( 101, 1,3,7) eingesetzt.
+Bemerkung: Der Satzinhalt entspricht "WAITM( 101, 1,3,5,7)", der Anwender sieht diesen Satzinhalt nicht, er sieht REPOSA!
+Bemerkung: 
+	SERUPRO_SYNC_MASK wird ausgewertet, sobald der Teileprogrammbefehl REPOSA interpretiert wird.
+SERUPRO_SYNC_MASK kann noch verändert werden, wenn SERUPRO im Zustand "Suchziel gefunden" steht.
+Wird REPOSA bereits abgearbeitet, kann eine Änderung von SERUPRO_SYNC_MASK nur dann wirksam werden, wenn ein neues REPOS aufgezogen wird. Dies geschieht z.B. durch:
+- Starten eines neuen ASUPs.
+- STOP-JOG-AUTO-START
+- STOP - Anwahl eines neuen REPOS-Modes RMI/RMN/RME/RMB - START
+Bemerkung: 
+Verwendet man das Prog-Event zum Suchlauf und steht der NCK auf Alarm 10208 so wirkt eine Veränderung von SERUPRO_SYNC_MASK nicht, außer man zieht ein neues REPOS auf.
+SERUPRO_SYNC_MASK == 0   es wird kein (!) Satz eingefügt.
+Bemerkung:  
+	Wird in SD42125 $SC_SERUPRO_SYNC_MASK das Bit für den aktuellen Kanal nicht gesetzt so wird kein (!) Satz eingefügt.
+Beispiel: 
+Wird in Kanal-1 SD42125 $SC_SERUPRO_SYNC_MASK= 0xE programmiert, so wird  kein (!) Satz eingefügt.
+Diese Belegung ist für eine kommende Funktion reserviert!
+</description>
+</parameter>
+<parameter number="42140" type="DWORD" dim="0">
+<name>DEFAULT_SCALE_FACTOR_P</name>
+<brief>Default Skalierungsfaktor für Adresse P</brief>
+<description>Wenn kein Skalierungsfaktor P im Satz programmiert ist, wirkt der Wert aus diesem Maschinendatum.
+
+Korrespondiert mit:
+	WEIGHTING_FACTOR_FOR_SCALE
+</description>
+</parameter>
+<parameter number="42150" type="DOUBLE" dim="0">
+<name>DEFAULT_ROT_FACTOR_R</name>
+<brief>Default Rotationsfaktor für Adresse R</brief>
+<description>Wenn kein Faktor für Rotation R im Satz programmiert ist, wirkt der Wert aus diesem Maschinendatum.
+</description>
+</parameter>
+<parameter number="42160" type="DOUBLE" dim="1">
+<name>EXTERN_FIXED_FEEDRATE_F1_F9</name>
+<brief>Feste Vorschübe F1 - F9</brief>
+<description>Feste Vorschubwerte für die Programmierung mit F1 - F9. Ist das Maschinendatum $MC_FEEDRATE_F1_F9_ON = TRUE gesetzt, werden mit der Programmierung von F1 - F9 die Vorschubwerte aus den SD42160 $SC_EXTERN_FIXED_FEEDRATE_F1_F9[0] - SD42160  $SC_EXTERN_FIXED_FEEDRATE_F1_F9[8] gelesen und als Bearbeitungsvorschub aktiviert.
+In SD42160 $SC_EXTERN_FIXED_FEEDRATE_F1_F9[0], muss der Eilgang Vorschub eingetragen werden.
+</description>
+</parameter>
+<parameter number="42162" type="DOUBLE" dim="0">
+<name>EXTERN_DOUBLE_TURRET_DIST</name>
+<brief>Werkzeugabstand des Doppelrevolverkopfes</brief>
+<description>Abstand der beiden Werkzeuge eines Doppelrevolverkopfes. 
+Der Abstand wird mit G68 als additive Nullpunktverschiebung aktiviert, wenn MD10812 $MN_EXTERN_DOUBLE_TURRET_ON = TRUE gesetzt ist.
+</description>
+</parameter>
+<parameter number="42200" type="BOOLEAN" dim="0">
+<name>SINGLEBLOCK2_STOPRE</name>
+<brief>Debugmode für SBL2 aktivieren</brief>
+<description>Wert = TRUE:
+Bei aktivem SBL2 (Einzelsatz mit Stopp nach jedem Satz) wird mit jedem Satz ein Vorlaufstopp ausgeführt. Dadurch wird die Vorausbearbeitung der Teileprogrammsätze unterdrückt. Diese Variante des SBL2 ist nicht konturtreu.
+Das bedeutet, dass bedingt durch den Vorlaufstopp u.U. ein anderer Konturverlauf generiert wird als ohne Einzelsatz oder mit SBL1.
+
+Anwendung: Debug-Mode zum Austesten von Teileprogrammen.
+</description>
+</parameter>
+<parameter number="42300" type="DOUBLE" dim="1">
+<name>COUPLE_RATIO_1</name>
+<brief>Übersetzung für Synchronspindelbetrieb, Zähler, Nenner</brief>
+<description>Mit diesen Settingdaten werden die Übersetzungsparameter für die mit den kanalspez. MD21300 $MC_COUPLE_AXIS_1[n] fest projektierte Kopplung bestimmt.
+
+Der lineare Zusammenhang zwischen Leit- und Folgespindel wird durch das Übersetzungsverhältnis k_Ü festgelegt. Dieses wird mit Hilfe von zwei Übersetzungsparametern als Zähler [n=0] und Nenner [n=1] vorgegeben. Damit ist eine sehr genaue Vorgabe für das Übersetzungsverhältnis möglich.
+
+k_Ü = Übersetzungsparameter Zähler / Übersetzungsparameter Nenner
+
+	= SD42300 $SC_COUPLE_RATIO[0] / SD42300 $SC_COUPLE_RATIO[1]
+
+Mit der Sprachanweisung COUPDEF können die Übersetzungsparameter im NC-Teileprogramm verändert werden, sofern dies nicht mit dem kanalspez. MD21340 $MC_COUPLE_IS_WRITE_PROT_1 nicht verriegelt ist.
+Die parametrierten Werte der SD42300 $SC_COUPLE_RATIO_1 werden jedoch nicht verändert!
+Die Berechnung von k_Ü wird mit POWER ON angestoßen.
+
+SD irrelevant bei ......
+anwenderdefinierte Kopplung
+
+korrespondierend mit ....
+	Das SD42300 $SC_COUPLE_RATIO_1 wirkt derzeit wie ein Maschinendatum (z.B. nach POWER ON aktiv). Daher erfolgt die Anzeige bzw. Eingabe entsprechend wie bei den kanalspezifischen Maschinendaten.
+</description>
+</parameter>
+<parameter number="42400" type="DOUBLE" dim="0">
+<name>PUNCH_DWELLTIME</name>
+<brief>Verweilzeit für Stanzen und Nibbeln</brief>
+<description>Über dieses Datum wird die Verweilzeit zwischen dem Erreichen der Position und dem Auslösen des Hubes eingestellt.
+Der eingestellte Wert wird auf ganzzahlige Vielfache des Interpolationstaktes gerundet (d. h. der hier eingestellte Wert kann gegenüber dem tatsächlich zur Ausführung kommenden geringfügig abweichen).
+
+Anmerkung:
+Über das MD10710 $MN_PROG_SD_RESET_SAVE_TAB kann eingestellt werden, dass der vom Teileprogramm geschriebene Wert bei Reset in das aktive Filesystem übernommen wird (d.h. der Wert bleibt über Reset hinweg erhalten)
+</description>
+</parameter>
+<parameter number="42402" type="DOUBLE" dim="0">
+<name>NIBPUNCH_PRE_START_TIME</name>
+<brief>Verzögerungszeit (Stanzen/Nibbeln) mit G603</brief>
+<description>Die Wirkung dieses Settingdatums ist identisch mit der des MD26018 $MC_NIBBLE_PRE_START_TIME. Es dient in erster Linie dazu, die Vorauslösezeit aus dem NC-Programm heraus zu verändern, um diese an unterschiedliche Blechgrößen und -dicken anpassen zu können. Das Settingdatum wird allerdings nur dann wirksam, wenn das Maschinendatum Null gesetzt wurde.
+
+korrespondierend mit .... NIBBLE_PRESTART_TIME
+</description>
+</parameter>
+<parameter number="42404" type="DOUBLE" dim="0">
+<name>MINTIME_BETWEEN_STROKES</name>
+<brief>Mindestzeit zwischen 2 Hüben in Sekunden</brief>
+<description>Mindestzeit zwischen 2 Hüben in Sekunden
+</description>
+</parameter>
+<parameter number="42440" type="BOOLEAN" dim="0">
+<name>FRAME_OFFSET_INCR_PROG</name>
+<brief>Nullpunktsverschiebungen in Frames</brief>
+<description>0:	Bei inkrementeller Programmierung einer Achse wird nach einem Framewechsel nur das programmierte Positionsdelta gefahren. Nullpunktverschiebungen in FRAMES werden dann nur bei absoluter Positionsangabe herausgefahren.
+
+1:	Bei inkrementeller Programmierung einer Achse werden nach einem Framewechsel Änderungen von Nullpunktverschiebungen herausgefahren. (Standardverhalten bis SW 3)
+
+korrespondierend mit ....
+	SD42442 $SC_TOOL_OFFSET_INCR_PROG
+</description>
+</parameter>
+<parameter number="42442" type="BOOLEAN" dim="0">
+<name>TOOL_OFFSET_INCR_PROG</name>
+<brief>Werkzeuglängenkorrekturen</brief>
+<description>0:	Bei inkrementeller Programmierung einer Achse wird nach einem Framewechsel nur das programmierte Positionsdelta gefahren. Werkzeuglängenkorrekturen in FRAMES werden dann nur bei absoluter Positionsangabe herausgefahren.
+
+1:	Bei inkrementeller Programmierung einer Achse werden nach einem Werkzeugwechsel Werkzeuglängenkorrekturen herausgefahren. (Standardverhalten bis SW 3)
+
+korrespondierend mit ....
+	SD42440 $SC_FRAME_OFFSET_INCR_PROG
+</description>
+</parameter>
+<parameter number="42444" type="BOOLEAN" dim="0">
+<name>TARGET_BLOCK_INCR_PROG</name>
+<brief>Aufsetzmodus nach Suchlauf mit Berechnung</brief>
+<description>Erfolgt die erste Programmierung einer Achse nach "Suchlauf mit Berechnung an Satzendpunkt" inkrementell, so wird in Abhängigkeit von SD42444 $SC_TARGET_BLOCK_INCR_PROG der inkrementelle Wert auf den bis Suchziel aufgesammelten Wert addiert:
+SD = TRUE  : inkrementeller Wert wird auf aufgesammelte Position addiert
+SD = FALSE : inkrementeller Wert wird auf aktuellen Istwert addiert
+
+Das Settingdatum wird mit dem NC-Start für die Ausgabe der Aktionssätze ausgewertet.
+</description>
+</parameter>
+<parameter number="42450" type="DOUBLE" dim="0">
+<name>CONTPREC</name>
+<brief>Konturgenauigkeit</brief>
+<description>Konturgenauigkeit. Mit dem Settingdatum kann angegeben werden, welche Genauigkeit für die Bahn der Geometrieachsen auf gekrümmten Konturen eingehalten werden soll. Je kleiner der Wert und je kleiner der KV-Faktor der Geometrieachsen, umso stärker wird der Bahnvorschub auf gekrümmten Konturen abgesenkt.
+
+korrespondierend mit ....
+	MD20470 $MC_CPREC_WITH_FFW
+	SD42460 $SC_MINFEED
+</description>
+</parameter>
+<parameter number="42460" type="DOUBLE" dim="0">
+<name>MINFEED</name>
+<brief>Mindestbahnvorschub bei CPRECON</brief>
+<description>Mindest-Bahnvorschub bei aktiver Funktion "Konturgenauigkeit". Der Vorschub wird nicht unter diesen Wert begrenzt, es sei denn, ein niedrigerer F-Wert wurde programmiert oder die Achsdynamiken lassen ihn nicht zu.
+
+korrespondierend mit ....
+	MD20470 $MC_CPREC_WITH_FFW
+	SD42450 $SC_CONTPREC
+</description>
+</parameter>
+<parameter number="42465" type="DOUBLE" dim="0">
+<name>SMOOTH_CONTUR_TOL</name>
+<brief>maximale Konturabweichung beim Überschleifen</brief>
+<description>Mit diesem Settingdatum wird die maximale Toleranz beim Überschleifen für die Kontur festgelegt.
+
+Korrespondiert mit: 
+	MD20480 $MC_SMOOTHING_MODE,
+	SD42466 $SC_SMOOTH_ORI_TOL
+</description>
+</parameter>
+<parameter number="42466" type="DOUBLE" dim="0">
+<name>SMOOTH_ORI_TOL</name>
+<brief>maximale Abweichung der WZ-Orientierung beim Überschleifen</brief>
+<description>Mit diesem Settingdatum wird die maximale Toleranz beim Überschleifen
+für die Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale
+erlaubte Winkelabweichung der Werkzeugorientierung bestimmt.
+Dieses Datum ist nur wirksam, falls eine Orientierungstransformation
+aktiv ist.
+
+Korrespondiert mit: 
+	MD20480 $MC_SMOOTHING_MODE,
+	SD42465 $SC_SMOOTH_CONTUR_TOL
+</description>
+</parameter>
+<parameter number="42470" type="DOUBLE" dim="0">
+<name>CRIT_SPLINE_ANGLE</name>
+<brief>Ecken-Grenzwinkel für Kompressor</brief>
+<description>Das Settingdatum definiert den Grenzwinkel, ab dem ein Satzübergang durch den Kompressor COMPCAD als Ecke interpretiert wird. Sinnvoll sind Werte zwischen 10 und 40 Grad. Erlaubt sind Werte von 0 bis 89 Grad einschließlich.
+Der Winkel dient nur als ungefähres Maß für die Eckenerkennung. Der Kompressor kann aufgrund von Plausibilitätsbetrachtungen auch flachere Satzübergänge als Ecken klassifizieren und auch größere Winkel als Ausreißer eliminieren.
+</description>
+</parameter>
+<parameter number="42471" type="DOUBLE" dim="0">
+<name>MIN_CURV_RADIUS</name>
+<brief>Minimaler Krümmungsradius</brief>
+<description>Das Settingdatum gibt einen typischen Werkzeugradius an. Es wird nur beim Kompressor COMPCAD ausgewertet. Je kleiner der Wert, umso genauer, aber auch umso langsamer wird ein Programm abgearbeitet.
+</description>
+</parameter>
+<parameter number="42472" type="DOUBLE" dim="1">
+<name>MIN_SURF_RADIUS</name>
+<brief>Minimaler Krümmungsradius für COMPSURF</brief>
+<description>Das Settingdatum gibt einen typischen Werkzeugradius an. Es wird nur beim Kompressor COMPSURF ausgewertet. Je kleiner der Wert, umso genauer, aber auch umso langsamer wird ein Programm abgearbeitet.
+</description>
+</parameter>
+<parameter number="42473" type="DWORD" dim="0">
+<name>ACTNUM_SURF_GROUPS</name>
+<brief>Aktuell gewünschte Dimensionierung der Funktion COMPSURF bzgl. Achsgruppen.</brief>
+<description>Das Settingdatum dimensioniert die Funktion COMPSURF bzgl. Achsgruppen für die folgende Bearbeitung. Werte größer als $MC_MM_MAXNUM_SURF_GROUPS werden ohne Alarm begrenzt.
+
+Korrespondiert mit:
+	MD28072 $MC_MM_MAXNUM_SURF_GROUPS
+</description>
+</parameter>
+<parameter number="42474" type="DWORD" dim="1">
+<name>SURF_SMOOTHING_LEVEL</name>
+<brief>Optimierungslevel der Funktion COMPSURF.</brief>
+<description>Das Settingdatum legt die Glättungsstufe der Funktion COMPSURF fest. Je höher der Wert, umso glatter werden Oberflächen auf Kosten der Genauigkeit.
+
+Korrespondiert mit:
+	MD28072 $MC_MM_MAXNUM_SURF_GROUPS
+</description>
+</parameter>
+<parameter number="42475" type="DOUBLE" dim="0">
+<name>COMPRESS_CONTUR_TOL</name>
+<brief>maximale Konturabweichung beim Kompressor</brief>
+<description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Kontur festgelegt.
+</description>
+</parameter>
+<parameter number="42476" type="DOUBLE" dim="0">
+<name>COMPRESS_ORI_TOL</name>
+<brief>maximale Abweichung der Werkzeugorientierung beim Kompressor</brief>
+<description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale erlaubte Winkelabweichung der Werkzeugorientierung bestimmt.
+Dieses Datum ist nur wirksam, falls eine Orientierungstransformation aktiv ist.
+</description>
+</parameter>
+<parameter number="42477" type="DOUBLE" dim="0">
+<name>COMPRESS_ORI_ROT_TOL</name>
+<brief>maximale Abweichung der Werkzeugdrehung beim Kompressor</brief>
+<description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Drehung der Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale erlaubte Winkelabweichung der Drehung des Werkzeugs bestimmt.
+Dieses Datum ist nur wirksam, falls eine Orientierungstransformation aktiv ist.
+Eine Drehung der Werkzeugorientierung ist nur bei 6-Achs Maschinen möglich.
+</description>
+</parameter>
+<parameter number="42480" type="BOOLEAN" dim="0">
+<name>STOP_CUTCOM_STOPRE</name>
+<brief>Alarmreaktion bei Werkzeugradiuskorrektur und Vorlaufstop</brief>
+<description>Ist dieses Settingdatum TRUE, wird die Satzbearbeitung bei Vorlaufstop und aktiver Werkzeugradiuskorrektur angehalten und erst nach einer Bedienerquittung (START) wieder fortgesetzt.
+Ist es FALSE wird die Bearbeitung an einer derartigen Programmstelle nicht unterbrochen.
+</description>
+</parameter>
+<parameter number="42490" type="BOOLEAN" dim="0">
+<name>CUTCOM_G40_STOPRE</name>
+<brief>Abfahrverhalten der Werkzeugradiuskorrektur bei Vorlaufstop</brief>
+<description>FALSE:
+Steht bei aktiver Werkzeugradiuskorrektur vor dem Abwahlsatz (G40) ein Vorlaufstop (programmiert oder von der Steuerung intern erzeugt), so wird vom letzten Endpunkt vor dem Vorlaufstop ausgehend zunächst der Startpunkt des Abwahlsatzes angefahren. Anschließend wird der Abwahlsatz selbst abgearbeitet, d.h. aus dem Abwahlsatz entstehen in der Regel zwei Verfahrsätze. In diesen Sätzen ist keine Werkzeugradiuskorrektur mehr aktiv. Das Verhalten ist damit identisch zu dem vor Einführung dieses Settingdatums.
+TRUE:
+Steht bei aktiver Werkzeugradiuskorrektur vor dem Abwahlsatz (G40) ein Vorlaufstop (programmiert oder von der Steuerung intern erzeugt), so wird vom letzten Endpunkt vor dem Vorlaufstop ausgehend mit einer Geraden der Endpunkt des Abwahlsatzes angefahren.
+</description>
+</parameter>
+<parameter number="42494" type="DWORD" dim="0">
+<name>CUTCOM_ACT_DEACT_CTRL</name>
+<brief>An-/Abfahrverhalten bei 2-1/2D-Werkzeugradiuskorrektur</brief>
+<description>Dieses Settingdatum steuert das An- bzw. Abfahrverhaltens bei der Werkzeugradiuskorrektur für die Fälle, in denen der Aktivierungs- bzw. Deaktivierungs- satz keine Verfahrinformation enthält. Es wird nur bei der 2-1/2D-WRK
+(CUT2D bzw. CUT2DF) ausgewertet.
+Es ist folgendermaßen dezimal kodiert:
+N   N   N   N
+|   |   |   |____  Anfahrverhalten bei Werkzeugen mit Schneidenlage
+|   |   |          (Drehwerkzeuge)
+|   |   |______  Anfahrverhalten bei Werkzeugen ohne Schneidenlage
+|   |            (Fräswerkzeuge)
+|   |________  Abfahrverhalten bei Werkzeugen mit Schneidenlage
+|              (Drehwerkzeuge)
+|__________  Abfahrverhalten bei Werkzeugen ohne Schneidenlage
+             (Fräswerkzeuge)
+Enthält die maßgebliche Stelle eine 1, wird immmer an- bzw. abgefahren, auch dann wenn G41/G42 bzw. G40 alleine im Satz steht.
+ z.B.
+	N100 x10 y0
+	N110 G41
+	N120 x20
+
+Wird in vorstehendem Beispiel ein Werkzeugradius von 10mm angenommen, wird im Satz N110 auf die Position x10 y10 verfahren.
+Enthält die maßgebliche Stelle eine 2, wird nur dann an- bzw. abgefahren, wenn im Aktivierungs- / Deaktivierungssatz mindestens eine Geometrieachse programmiert ist. Will man mit dieser Einstellung das gleiche Ergebnis wie im Beispiel oben erreichen, muss das Programm deshalb z.B. wie folgt geändert werden:
+
+	N100 x10 y0
+	N110 G41 x10
+	N120 x20
+
+Fehlt hier die Achsangabe x10 im Satz N110, wird die Aktivierung der WRK um einen Satz verzögert, d.h. der Aktivierungsatz wäre der Satz N120.
+Enthält die maßgebliche Stelle ein 3, wird in einem Deaktivierungssatz (G40) nicht abgefahren, falls nur die Geometrieachse senkrecht zur Korrekturebene programmiert ist. In diesem Fall wird zunächst die Bewegung senkrecht zur Korrektureben ausgeführt. Anschließend folgt die Abfahrbewegung in der Korrekturebene. In diesem Fall muss der Satz nach G40 eine Bewegungsinformation in der Korrektureben enthalten. Die Anfahrbewegungen für die Werte 2 und 3 sind identisch.
+Enthält die maßgebliche Stelle eine andere Zahl als 1, 2 oder 3, also insbesondere den Wert 0, wird in einem Satz, der keine Verfahrinformation enthält, nicht an- bzw. abgefahren.
+Zum Begriff "Werkzeuge mit Schneidenlage":
+Das sind Werkzeuge mit Werkzeugnummern zwischen 400 und 599 (Dreh- und Schleifwerkzeuge), deren Schneidenlage einen Wert zwischen 1 und 8 hat. Dreh- und Schleifwerkzeuge mit Schneidenlage 0 oder 9 bzw. anderen, nicht definierten Werten, werden wie Fräswerkzeuge behandelt.
+
+Hinweis: 
+	Wird der Wert dieses Settingdatums innerhalb eines Programmes verändert, so empfiehlt es sich, vor dem Beschreiben einen Vorlaufstop (stopre) zu programmieren, da sonst die Gefahr besteht, dass in davor liegenden Programmteilen der neue Wert verwendet wird. Der umgekehrte Fall ist unkritisch, d.h. wird das Settingdatum beschrieben, greifen nachfolgende NC-Sätze mit Sicherheit auf den geänderte Wert zu.
+</description>
+</parameter>
+<parameter number="42496" type="BOOLEAN" dim="0">
+<name>CUTCOM_CLSD_CONT</name>
+<brief>Verhalten der Werkzeugradiuskorrektur bei geschlossener Kontur</brief>
+<description>FALSE: 
+	FALL A: Ergeben sich bei einer (nahezu) geschlossenen Kontur, die aus zwei aufeinanderfolgenden Kreissätzen oder einem Kreis- und einem Linearsatz besteht, bei Korrektur an der Innenseite zwei Schnittpunkte, so wird entsprechend dem Standardverfahren der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzanfang liegt.
+	Ein Kontur wird dann als (nahezu) geschlossen betrachtet, wenn der Abstand zwischen dem Startpunkt des ersten Satzes und dem Endpunkt des zweiten Satzes kleiner ist als 10% des wirksamen Korrekturradius aber nicht größer als 1000 Weginkremente (entspr. 1mm bei 3 Nachkommastellen).
+	FALL B: Schneidet bei der Korrektur an der Innenseite und einem Satzübergang zwischen einer Geraden und einem Kreis mit einem Öffnungswinkel vom mehr als etwa 315 Grad die Offsetkurve der Geraden die Offsetkurve des Kreises in zwei Punkten, so wird entsprechend dem Standardverfahren der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzanfang liegt.
+TRUE:  
+	FALL A: In der gleichen Situation wie oben beschrieben wird der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzende liegt.
+	FALL B: In der gleichen Situation wie oben beschrieben wird der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzende liegt. Dies jedoch nur dann, wenn der Betrag der dadurch verursachten Konturverletzung kleiner ist als die wirksame Konturtoleranz. Zur wirksamen Konturtoleranz siehe die Beschreibung "Kontur/Orientierungstoleranz" in FB1. Die aktuell wirksame Toleranz kann mit $AC_CTOL gelesen werden. Ist die derart programmierte Toleranz Null, wirkt eine fest eingestellte Toleranz von 0.002mm.
+	Maßgebend ist der Toleranzwert, der bei Aktivierung der Werkzeugradiuskorrektur mit G41 bzw. G42 gültig ist.
+</description>
+</parameter>
+<parameter number="42500" type="DOUBLE" dim="0">
+<name>SD_MAX_PATH_ACCEL</name>
+<brief>maximale Bahnbeschleunigung</brief>
+<description>Settingdatum für zusätzliche Begrenzung der (tangentialen) Bahnbeschleunigung
+
+korrespondierend mit ...
+	MD32300 $MA_MAX_AX_ACCEL
+	SD42502 $SC_IS_SD_MAX_PATH_ACCEL
+</description>
+</parameter>
+<parameter number="42502" type="BOOLEAN" dim="0">
+<name>IS_SD_MAX_PATH_ACCEL</name>
+<brief>Auswerten SD42500 $SC_SD_MAX_PATH_ACCEL</brief>
+<description>SD42500 $SC_SD_MAX_PATH_ACCEL wird eingerechnet, wenn SD42502 $SC_IS_SD_MAX_PATH_ACCEL=TRUE ist.
+
+korrespondierend mit ...
+	SD42500 $SC_SD_MAX_PATH_ACCEL
+</description>
+</parameter>
+<parameter number="42510" type="DOUBLE" dim="0">
+<name>SD_MAX_PATH_JERK</name>
+<brief>maximaler bahnbezogener Ruck als Settingdatum</brief>
+<description>Maximaler bahnbezogener Ruck kann zusätzlich zu MD20600 $MC_MAX_PATH_JERK den Ruck begrenzen.
+
+
+korrespondierend mit ...
+	MD20600 $MC_MAX_PATH_JERK
+	SD42512 $SC_IS_SD_MAX_PATH_JERK
+</description>
+</parameter>
+<parameter number="42512" type="BOOLEAN" dim="0">
+<name>IS_SD_MAX_PATH_JERK</name>
+<brief>Auswerten SD42510 $SC_SD_MAX_PATH_JERK</brief>
+<description>SD42510 $SC_SD_MAX_PATH_JERK wird eingerechnet, wenn SD42512 $SC_IS_SD_MAX_PATH_JERK=TRUE ist.
+
+korrespondierend mit ...
+	SD42510 $SC_SD_MAX_PATH_JERK (SD für zusätzliche Begrenzung des (tangentialen) Bahnrucks)
+</description>
+</parameter>
+<parameter number="42520" type="DOUBLE" dim="0">
+<name>CORNER_SLOWDOWN_START</name>
+<brief>Beginn der Vorschubreduzierung bei G62.</brief>
+<description>Bahnweglänge, ab der der Vorschub vor der Ecke bei G62 reduziert wird.
+</description>
+</parameter>
+<parameter number="42522" type="DOUBLE" dim="0">
+<name>CORNER_SLOWDOWN_END</name>
+<brief>Ende der Vorschubreduzierung bei G62.</brief>
+<description>Bahnweglänge, bis zu der der Vorschub nach einer Ecke bei G62 reduziert bleibt.
+</description>
+</parameter>
+<parameter number="42524" type="DOUBLE" dim="0">
+<name>CORNER_SLOWDOWN_OVR</name>
+<brief>Override zur Vorschubreduzierung bei G62.</brief>
+<description>Override, mit dem der Vorschub an der Ecke bei G62 multipliziert wird.
+</description>
+</parameter>
+<parameter number="42526" type="DOUBLE" dim="0">
+<name>CORNER_SLOWDOWN_CRIT</name>
+<brief>Eckenerkennung bei G62.</brief>
+<description>Winkel, ab dem eine Ecke bei der Vorschubreduzierung mit G62 berücksichtigt wird.
+Z.B. SD42526 $SC_CORNER_SLOWDOWN_CRIT = 90: alle Ecken mit 90Grad oder spitzer, werden bei G62 langsamer gefahren.
+</description>
+</parameter>
+<parameter number="42528" type="DOUBLE" dim="0">
+<name>CUTCOM_DECEL_LIMIT</name>
+<brief>Vorschubabsenkung an Kreisen bei Werkzeugradiuskorrektur</brief>
+<description>Das Settingdatum begrenzt die Vorschubabsenkung des Werkzeugmittelpunkts an innengekrümmten Kreisabschnitten bei aktiver Werkzeugradiuskorrektur und angewähltem  CFC bzw. CFIN.
+Bei CFC wird der Vorschub an der Kontur vorgegeben. An innengekrümmten Kreisbögen ergibt sich aus dem Verhältnis von Konturkrümmung und Krümmung der Werkzeugmittelpunktsbahn eine Vorschubabsenkung des Werkzeugmittelpunktes. Das Settingdatum begrenzt diesen Effekt. Damit kann Freischneiden und Heißlaufen des Werkzeugs verringert werden.
+Bei Konturen mit veränderlicher Krümmung wird eine mittlere Krümmung verwendet.
+
+0:	liefert das bisherige Verhalten: Bei einem Verhältnis von Konturradius zum Radius der Werkzeugmittelpunktsbahn kleiner gleich 0.01 wird der Vorschub auf die Werkzeugmittelpunktsbahn angewendet. Weniger ausgeprägte Vorschubreduzierungen werden durchgeführt.
+&gt;0:	die Vorschubabsenkung wird auf den programmierten Faktor begrenzt. Bei 0.01 bedeutet dies, dass der Vorschub der Werkzeugmittelpunktsbahn ggf. nur 1 Prozent des programmierten Vorschubwertes beträgt.
+1:	Der Vorschub des Werkzeugmittelpunkts wird an innengekrümmten Konturen gleich dem programmierten Vorschub (das Verhalten entspricht dann CFTCP).
+</description>
+</parameter>
+<parameter number="42600" type="DWORD" dim="0">
+<name>JOG_FEED_PER_REV_SOURCE</name>
+<brief>Steuerung Umdrehungsvorschub in JOG</brief>
+<description>In der Betriebsart JOG Umdrehungsvorschub für Geometrieachsen auf die ein Frame mit Rotation wirkt:
+0=	Es ist kein Umdrehungsvorschub aktiv
+
+&gt;0=	Maschinenachsindex der Rundachse/Spindel, von der der Umdrehungsvorschub abgeleitet wird
+
+-1=	Umdrehungsvorschub abgeleitet von der Masterspindel des Kanals, in dem die Achse/Spindel aktiv ist
+-2=	von der Achse mit Maschinenachsindex == 0, wird der Umdrehungsvorschub abgeleitet
+-3=	Umdrehungsvorschub abgeleitet von der Masterspindel des Kanals in dem die Achse/Spindel aktiv ist. Bei stehender Masterspindel ist kein Umdrehungsvorschub angewählt.
+
+korrespondierend mit ....
+	SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE (Umdrehungsvorschub für Positionsachsen/Spindeln)
+
+</description>
+</parameter>
+<parameter number="42650" type="DWORD" dim="0" display="HEX">
+<name>CART_JOG_MODE</name>
+<brief>Koordinatensystem für kartesisches Handverfahren</brief>
+<description>Damit kann das Bezugskoordinatensystem beim Kartesischen Handverfahren eingestellt werden. Die Bits 0 bis 7 sind hierbei für die Auswahl des Koordinatensystems für die Translation, die Bits 8 bis 15 sind für die Auswahl des Bezugssystems für die Orientierung vorgesehen.
+
+Wenn kein Bit gesetzt ist, oder nur ein Bit entweder für die Translation, oder für die Orientierung gesetzt ist, wird das Kartesische Handverfahren nicht aktiv. Das bedeutet, dass immer ein Bit für die Translation und die Orientierung gesetzt werden muss. Wenn mehr als ein Bit für die Translation oder die Orientierung gesetzt wird, wird das Kartesische Handverfahren ebenfalls nicht aktiv.
+
+Die Bedeutung der einzelnen Bits ist folgendermaßen festgelegt :
+
+Bit  0 : Translation im Basiskoordinatensystem
+Bit  1 : Translation im Werkstückkoordinatensystem
+Bit  2 : Translation im Werkzeugkoordinatensystem
+Bit  3 : reserviert
+Bit  4 : reserviert
+Bit  5 : reserviert
+Bit  6 : reserviert
+Bit  7 : reserviert
+
+Bit  8 : Orientierung im Basiskoordinatensystem
+Bit  9 : Orientierung im Werkstückkoordinatensystem
+Bit 10 : Orientierung im Werkzeugkoordinatensystem
+Bit 11 : reserviert
+Bit 12 : reserviert
+Bit 13 : reserviert
+Bit 14 : reserviert
+Bit 15 : reserviert
+</description>
+</parameter>
+<parameter number="42660" type="DWORD" dim="0" display="DECIMAL">
+<name>ORI_JOG_MODE</name>
+<brief>Definition virtueller Kinematik für JOG</brief>
+<description>Damit kann eine virtuelle Kinematik definiert werden, die für das Handverfahren von Orientierungen wirksam wird.
+Dieses Settingdatum wird nur von der generischen 5/6-Achs Transformation ausgewertet. Für OEM Transformationen hat dieses Datum keine Bedeutung.
+Es gibt folgende Einstellmöglichkeiten:
+
+0:	Die virtuelle Kinematik wird durch die Transformation festgelegt.
+1:	Beim Joggen werden Eulerwinkel  verfahren, d.h. die 1. Achse dreht um die z-Richtung, die 2. Achse dreht um die x-Richtung und die evtl. vorhandene 3. Achse dreht um die neue z-Richtung.
+2:	Beim Joggen werden RPY-Winkel verfahren mit der Drehreihenfolge XYZ,  d.h. die 1. Achse dreht um die x-Richtung, die 2. Achse um die y-Richtung und die evtl. vorhandende 3. Achse dreht um die neue z-Richtung.
+3:	Beim Joggen werden RPY-Winkel verfahren mit der Drehreihenfolge ZYX,  d.h. die 1. Achse dreht um die z-Richtung, die 2. Achse um die y-Richtung und die evtl. vorhandende 3. Achse dreht um die neue x-Richtung.
+4:	Die Drehfolge der Rundachsen wird über das MD21120 $MC_ORIAX_TURN_TAB_1 eingestellt.
+5:	Die Drehfolge der Rundachsen wird über das MD21130 $MC_ORIAX_TURN_TAB_2 eingestellt.
+</description>
+</parameter>
+<parameter number="42664" type="DOUBLE" dim="1">
+<name>OFF_ORI_LIMIT</name>
+<brief>Maximale Winkel für die Überlagerung der Orientierung</brief>
+<description>Damit können maximale Winkel für die maximal mögliche Überlagerung der aktuellen Werkzeugorientierung mit den Systemvariablen $AC_OFF_O, $AC_OFF_R., $AC_OFF_LEAD, $AC_OFF_TILT und $AC_OFF_THETA vorgegeben werden.
+$AC_OFF_ORI_LIMIT[0]: Maximaler Winkel für den Vektor der Werkzeugorientierung
+$AC_OFF_ORI_LIMIT[1]: Maximaler Winkel für den Drehvektor (nur bei 6-Achs Kinematiken)
+Falls eine Überlagerung der Werkzeugorientierung vorgegeben wird, die grösser ist als die maximalen Winkel wird dies in der Systemvariable $AC_OFF_ORI_LIMIT angezeigt.
+</description>
+</parameter>
+<parameter number="42670" type="DOUBLE" dim="0">
+<name>ORIPATH_SMOOTH_DIST</name>
+<brief>Wegstrecke zur Glättung der Orientierung</brief>
+<description>Wegstrecke über die ein Sprung der Werkzeugorientierung bei bahnrelativer Orientierungsinterpolation ORIPATH geglättet wird. Innerhalb dieser Wegstrecke gibt es eine Abweichung von dem mit LEAD/TILT programmierten Bezug der Orientierung zur Bahntangente und Flächennormalvektor.
+Wird für diese Weglänge Null eingegeben (SD42670 $SC_ORIPATH_SMOOTH_DIST = 0.0), wird zur Glättung der Orientierung ein Zwischensatz eingefügt. Dies bedeutet, dass die Bahnbewegung in einer Ecke stehen bleibt und sich dann die Orientierung separat gedreht wird.
+</description>
+</parameter>
+<parameter number="42672" type="DOUBLE" dim="0">
+<name>ORIPATH_SMOOTH_TOL</name>
+<brief>Toleranz zur Glättung der Orientierung</brief>
+<description>Maximaler Winkel (in Grad) für die Abweichung der Werkzeugorientierung bei bahnrelativer Orientierungsinterpolation ORIPATH. Diese Winkeltoleranz wird verwendet zur Glättung eines "Knicks" im Orientierungsverlauf.
+</description>
+</parameter>
+<parameter number="42674" type="DOUBLE" dim="0">
+<name>ORI_SMOOTH_DIST</name>
+<brief>Wegstrecke zur Glättung der Orientierung beim Überschleifen</brief>
+<description>Wegstrecke über die ein Knick der Werkzeugorientierung an einem Satzübergang mit dem G-Code OSD geglättet wird.
+</description>
+</parameter>
+<parameter number="42676" type="DOUBLE" dim="0">
+<name>ORI_SMOOTH_TOL</name>
+<brief>Toleranz zur Glättung der Orientierung beim Überschleifen</brief>
+<description>Maximaler Winkel (in Grad) für die Abweichung der Werkzeugorientierung beim Überschleifen der Orientierung mit dem G-Code OST bei einem Knick des Orientierungsverlaufs an Satzübergängen.
+</description>
+</parameter>
+<parameter number="42678" type="DOUBLE" dim="0">
+<name>ORISON_TOL</name>
+<brief>Toleranz zur Glättung der Orientierung</brief>
+<description>Maximaler Winkel (in Grad) für die Abweichung der Werkzeugorientierung beim Glätten der Orientierung mit dem G-Code ORISON über mehrere Sätze hinweg.
+Die Toleranzvorgabe mit dem SD42678 $SC_ORISON_TOL ist nur dann gültig, falls keine programmierte Orientierungstoleranz (OTOL) aktiv ist.
+Dieses Verhalten ist die Standardeinstellung. Mit dem MD20478 $MC_ORISON_MODE kann dies jedoch verändert werden.
+</description>
+</parameter>
+<parameter number="42690" type="DOUBLE" dim="1">
+<name>JOG_CIRCLE_CENTRE</name>
+<brief>Kreismittelpunkt</brief>
+<description>Mit diesem Settingdatum wird beim Joggen von Kreisen der Kreismittelpunkt im Werkstückkoordinatensystem definiert.
+Ausgewertet werden jeweils nur die Mittelpunktkoordinaten der Geometrieachsen der aktiven Ebene, nicht die Koordinate der senkrecht zur Ebene stehenden Geometrieachse. Dieses Settingdatum wird über die Bedienoberfläche geschrieben.
+Per default ist die Koordinate einer Achse mit Durchmesserprogrammierung im Durchmesser, dies kann über das MD20360 $MC_TOOL_PARAMETER_DEF_MASK, Bit 13 = 1 auf Radiusangabe geändert werden.
+</description>
+</parameter>
+<parameter number="42691" type="DOUBLE" dim="0">
+<name>JOG_CIRCLE_RADIUS</name>
+<brief>Kreisradius</brief>
+<description>Mit diesem Settingdatum wird beim Joggen von Kreisen der Kreisradius, im Werkstückkoordinatensystem, des maximalen Kreises bei Innenbearbeitung, bzw. des minimalen Kreises bei Außenbearbeitung definiert. Dieses Settingdatum wird über die Bedienoberfläche geschrieben.
+</description>
+</parameter>
+<parameter number="42692" type="DWORD" dim="0" display="HEX">
+<name>JOG_CIRCLE_MODE</name>
+<brief>Mode Joggen von Kreisen</brief>
+<description>Mit diesem Settingdatum wird beim Joggen von Kreisen eingestellt:
+
+Bit 0 = 0 : 
+	Fahren nach + erzeugt ein Verfahren auf einer Kreisbahn gegen den Uhrzeigersinn, ein Fahren nach - verfährt im Uhrzeigersinn.
+Bit 0 = 1 : 
+	Fahren nach + erzeugt ein Verfahren auf einer Kreisbahn im Uhrzeigersinn, ein Fahren nach - verfährt gegen den Uhrzeigersinn.
+Bit 1 = 0 : 
+	Es wird bei der Abprüfung der Begrenzung durch den vorgegebenen Kreis bzw. das durch Start- und Endwinkel begrenzte Kreissegment der Werkzeugradius nicht berücksichtigt.
+Bit 1 = 1 : 
+	Es wird bei der Abprüfung der Begrenzung durch den vorgegebenen Kreis bzw. das durch Start- und Endwinkel begrenzte Kreissegment der Werkzeugradius berücksichtigt.
+Bit 2 = 0 : 
+	Es findet eine Innenbearbeitung statt. Der Kreisradius in SD42691 $SC_JOG_CIRCLE_RADIUS ist der maximal mögliche Radius.
+Bit 2 = 1 : 
+	Es findet eine Außenbearbeitung statt. Der Kreisradius in SD42691 $SC_JOG_CIRCLE_RADIUS ist der minimal mögliche Radius.
+Bit 3 = 0 : 
+	Bei einem Vollkreis wird der Radius vom Kreismittelpunkt ausgehend in Richtung der Ordinate (2. Geometrieachse) der Ebene vergrößert
+Bit 3 = 1 : 
+	Bei einem Vollkreis wird der Radius vom Kreismittelpunkt ausgehend in Richtung der Abszisse (1. Geometrieachse) der Ebene vergrößert
+Dieses Settingdatum sollte über die Bedienoberfläche geschrieben werden.
+</description>
+</parameter>
+<parameter number="42693" type="DOUBLE" dim="0">
+<name>JOG_CIRCLE_START_ANGLE</name>
+<brief>Kreisstartwinkel</brief>
+<description>Mit diesem Settingdatum wird beim Joggen von Kreisen der
+Startwinkel definiert. Der Startwinkel bezieht sich auf die Abszisse der aktuellen Ebene. Ein Verfahren ist nur innerhalb des zwischen
+Start- und Endwinkel liegenden Bereichs möglich. Das SD42692 $SC_JOG_CIRCLE_MODE, Bit 0 definiert dabei die Richtung vom Start- zum Endwinkel. Sind Start- und Endwinkel gleich Null, so wirkt keine Begrenzung. Dieses
+Settingdatum wird über die Bedienoberfläche geschrieben.
+</description>
+</parameter>
+<parameter number="42694" type="DOUBLE" dim="0">
+<name>JOG_CIRCLE_END_ANGLE</name>
+<brief>Kreisendwinkel</brief>
+<description>Mit diesem Settingdatum wird beim Joggen von Kreisen der
+Endwinkel definiert. Der Endwinkel bezieht sich auf die Abszisse der aktuellen Ebene. Ein Verfahren ist nur innerhalb des zwischen
+Start- und Endwinkel liegenden Bereichs möglich. Das SD42692 $SC_JOG_CIRCLE_MODE, Bit 0 definiert dabei die Richtung vom Start- zum Endwinkel. Sind Start- und Endwinkel gleich Null, so wirkt keine Begrenzung. Dieses
+Settingdatum wird über die Bedienoberfläche geschrieben.
+</description>
+</parameter>
+<parameter number="42700" type="STRING" dim="0">
+<name>EXT_PROG_PATH</name>
+<brief>Programmpfad für externen Unterprogrammaufruf EXTCALL</brief>
+<description>Der Gesamtpfad ergibt sich aus der Stringverkettung von SD42700 $SC_EXT_PROG_PATH + programmierter Unterprogrammbezeichner
+</description>
+</parameter>
+<parameter number="42750" type="BOOLEAN" dim="0">
+<name>ABSBLOCK_ENABLE</name>
+<brief>Basissatzanzeige freigeben</brief>
+<description>Wert 0: Basissätze mit Absolutwerten (Basissatzanzeige) sperren
+Wert 1: Basissätze mit Absolutwerten (Basissatzanzeige) freigeben
+</description>
+</parameter>
+<parameter number="42800" type="BYTE" dim="1">
+<name>SPIND_ASSIGN_TAB</name>
+<brief>Spindelnummernumsetzer.</brief>
+<description>Der Spindelumsetzer setzt die programmierte (= logische) Spindelnummer auf die physikalische (= interne, projektierte) Spindelnummer um.
+Der Index des Settingdatums (SD) entspricht der programmierten Spindelnummer bzw. der programmierten Adresserweiterung.
+Der Inhalt des jeweiligen SD ist die physikalische, tatsächlich vorhandene Spindel.
+
+Sonderfälle, Fehler, ......
+Hinweise:
+- Der Index Null (SPIND_ASSIGN_TAB[0]) dient ausschließlich der Anzeige der im Kanal angewählten Masterspindel und darf nicht überschrieben werden.
+- Änderungen des Spindelumsetzers wirken sofort. Es ist deshalb nicht empfehlenswert, den Spindelumsetzer von HMI oder PLC während eines laufenden Teileprogramms für die im Teileprogramm verwendeten Spindeln zu verändern.
+- Nach "SRAM-Löschen" sind logische und physikalische Spindeln identisch.
+</description>
+</parameter>
+<parameter number="42900" type="BOOLEAN" dim="0">
+<name>MIRROR_TOOL_LENGTH</name>
+<brief>Vorzeichenwechsel Werkzeuglänge beim Spiegeln</brief>
+<description>TRUE:
+Wird ein Frame mit Spiegeln aktiviert, werden die Werkzeuglängekomponenten
+($TC_DP3[..., ...] bis $TC_DP5[..., ...]) und die Komponenten des Basismaßes
+($TC_DP21[..., ...] bis $TC_DP23[..., ...]), deren zugehörige Achsen
+gespiegelt sind, ebenfalls gespiegelt, d.h. ihr Vorzeichen wird invertiert.
+Die Verschleißwerte werden nicht mitgespiegelt. Sollen diese ebenfalls
+gespiegelt werden, muss das SD42910 $SC_MIRROR_TOOL_WEAR gesetzt sein.
+
+FALSE:
+Die Vorzeichen der Werkzeuglängekomponenten sind unabhängig davon, ob ein Frame mit Spiegeln aktiv ist.
+</description>
+</parameter>
+<parameter number="42910" type="BOOLEAN" dim="0">
+<name>MIRROR_TOOL_WEAR</name>
+<brief>Vorzeichenwechsel Werkzeugverschleiß beim Spiegeln</brief>
+<description>TRUE:  
+	Wird ein Frame mit Spiegeln aktiviert, werden die Vorzeichen der Verschleißwerte der entsprechenden Komponenten invertiert. Die Ver- schleißwerte der Komponenten, die nicht gespiegelten Achsen zugeordnet sind, bleiben unverändert.
+
+FALSE: 
+	Die Vorzeichen der Verschleißwerte sind unabhängig davon, ob ein Frame mit Spiegeln aktiv ist.
+</description>
+</parameter>
+<parameter number="42920" type="BOOLEAN" dim="0">
+<name>WEAR_SIGN_CUTPOS</name>
+<brief>Vorzeichen des Verschleißes bei Werkzeugen mit Schneidenlage</brief>
+<description>TRUE:
+Das Vorzeichen des Verschleißes der Werkzeuglängenkomponenten hängt bei Werkzeugen mit relevanter Schneidenlage (Dreh- und Schleifwerkzeuge) von der Schneidenlage ab.
+Das Vorzeichen wird in den folgenden mit X bezeichneten Fällen invertiert:
+Schneidenlage     Länge 1        Länge 2
+1
+2                       X
+3                       X              X
+4                                      X
+5
+6
+7                       X
+8                                      X
+9
+Das Vorzeichen des Verschleißwertes der Länge 3 wird durch dieses Settingdatum nicht beeinflusst.
+Das SD42930 $SC_WEAR_SIGN wirkt zusätzlich zu diesem Settingdatum
+
+FALSE:
+Das Vorzeichen des Verschleißes der Werkzeuglängenkomponenten sind unabhängig von der Schneidenlage.
+</description>
+</parameter>
+<parameter number="42930" type="BOOLEAN" dim="0">
+<name>WEAR_SIGN</name>
+<brief>Vorzeichen des Verschleißes</brief>
+<description>TRUE:
+Das Vorzeichen des Verschleißes der Werkzeuglängenkomponenten und des Werkzeugradius wird invertiert, d.h. bei einer positiven Eingabe wird das Gesamtmaß verringert.
+
+FALSE:
+Das Vorzeichen des Verschleißes der Werkzeuglängenkomponenten und des Werkzeugradius wird nicht invertiert.
+</description>
+</parameter>
+<parameter number="42935" type="DWORD" dim="0">
+<name>WEAR_TRANSFORM</name>
+<brief>Transformationen für Werkzeugkomponenten</brief>
+<description>Dieses Settingdatum ist Bit-codiert.
+Es legt fest, welche der drei Verschleißkomponenten
+
+Verschleiß
+($TC_DP12 - $TC_DP14),
+
+Summenkorrekturen fein ($TC_SCPx3 - $TC_SCPx5)
+
+und Summenkorrekturen grob ($TC_ECPx3 - $TC_ECPx5)
+
+einer Adaptertransformation und einer Transformation durch einen orientierbaren Werkzeugträger unterworfen wird, wenn aus der G-Code-Gruppe 56 einer der beiden G-Codes TOWMCS bzw. TOWWCS aktiv ist. Ist der Grundstellungs-G-Code TOWSTD aktiv, wird dieses Settingdatum nicht wirksam.
+
+Es gilt dabei die folgende Zuordnung:
+Bit 0 = TRUE: Transformationen nicht auf $TC_DP12 - $TC_DP14 anwenden.
+Bit 1 = TRUE: Transformationen nicht auf $TC_SCPx3 - $TC_SCPx5 anwenden.
+Bit 2 = TRUE: Transformationen nicht auf $TC_ECPx3 - $TC_ECPx5 anwenden.
+Die nicht genannten Bits sind (derzeit) nicht belegt.
+</description>
+</parameter>
+<parameter number="42940" type="DWORD" dim="0">
+<name>TOOL_LENGTH_CONST</name>
+<brief>Wechsel der Werkzeuglängenkomponenten bei Ebenenwechsel</brief>
+<description>Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeuglängenkomponenten (Länge, Verschleiß und Basismaß) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert.
+Die Zuordnung der Werkzeuglängekomponenten zu den Geometrieachsen ergibt sich aus dem Wert des Settingdatums gemäß den folgenden Tabellen.
+Die Zuordnung der Werkzeugorientierungskomponenten wird durch dieses Settingdatum nicht beeinflusst. Gegebenenfalls müssen die Settingdaten SD42945 $SC_TOOL_ORI_CONST_M und SD42947 $SC_TOOL_ORI_CONST_T entsprechend gesetzt werden.
+Bei der Zuordnung wird zwischen Dreh- und Schleifwerkzeugen (Werkzeugtypen 400 bis 599) und anderen Werkzeugen (typischerweise Fräswerkzeuge) unterschieden.
+Bei der Darstellung in den Tabellen wird davon ausgegangen, dass die Geometrieachsen 1 bis 3 mit X, Y und Z bezeichnet sind. Für die Zuordnung einer Korrektur zu einer Achse ist jedoch nicht der Achsbezeichner, sondern die Achsreihenfolge maßgebend.
+
+Zuordnung für Dreh- und Schleifwerkzeuge (Werkzeugtypen 400 bis 599):
+Inhalt       Länge 1         Länge 2         Länge 3
+ 17             Y               X               Z
+ 18*            X               Z               Y
+ 19             Z               Y               X
+-17             X               Y               Z
+-18             Z               X               Y
+-19             Y               Z               X
+* Jeder Wert ungleich 0, der nicht gleich einem der sechs aufgeführten Werte ist, wird wie der Wert 18 bewertet.
+Bei den Werten mit gleichem Betrag aber unterschiedlichem Vorzeichen ist die Zuordnung der Länge 3 jeweils gleich, die Längen 1 und 2 sind getauscht. Zuordnung für alle Werkzeugen, die keine Dreh- oder Schleifwerkzeuge sind (Werkzeugtypen &lt; 400 oder&gt; 599):
+Inhalt       Länge 1        Länge 2          Länge 3
+ 17*            Z              Y                X
+ 18             Y              X                Z
+ 19             X              Z                Y
+-17             Z              X                Y
+-18             Y              Z                X
+-19             X              Y                Z
+* Jeder Wert ungleich 0, der nicht gleich einem der sechs aufgeführten Werte ist, wird wie der Wert 17 bewertet.
+Bei den Werten mit gleichem Betrag aber unterschiedlichem Vorzeichen ist die Zuordnung der Länge 1 jeweils gleich, die Längen 2 und 3 sind getauscht.
+
+Ist die 100er-Stelle des Settingdatums gleich 1, wird das Vorzeichen der zweiten Längenkomponente invertiert.
+
+Hat das Settingdatum SD42950 $SC_TOOL_LENGTH_TYPE den Wert 3, wirkt dieses Settingdatum nur auf Fräswerkzeuge. Zusammen mit dem Settingdatum SD42942 $SC_TOOL_LENGTH_CONST_T können die Längenzuordnungen dann getrennt für Dreh- bzw. Fräswerkzeuge eingestellt werden.
+</description>
+</parameter>
+<parameter number="42942" type="DWORD" dim="0">
+<name>TOOL_LENGTH_CONST_T</name>
+<brief>Wechsel der Werkzeuglängenkomponenten für Drehwerkzeuge bei Ebenenwechsel</brief>
+<description>Dieses Settingdatum wird nur dann ausgewertet, wenn das SD42950 $SC_TOOL_LENGTH_TYPE den Wert 3 hat. Unter dieser Voraussetzung hat es folgende Bedeutung:
+Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeuglängenkomponenten (Länge, Verschleiß und Basismaß) von Drehwerkzeugen (Werkzeugtyp 400 bis 599) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert.
+Die Zuordnung der Werkzeugorientierungskomponenten wird durch dieses Settingdatum nicht beeinflusst. Gegebenenfalls muss das Settingdatum SD42957 $SC_TOOL_ORI_CONST_T entsprechend gesetzt werden.
+Die Zuordnung der Werkzeuglängekomponenten zu den Geometrieachsen ergibt sich aus dem Wert des Settingdatums gemäß der folgenden Tabelle.
+Bei der Darstellung in der Tabelle wird davon ausgegangen, dass die Geometrieachsen 1 bis 3 mit X, Y und Z bezeichnet sind. Für die Zuordnung einer Korrektur zu einer Achse ist jedoch nicht der Achsbezeichner, sondern die Achsreihenfolge maßgebend.
+
+Inhalt       Länge 1         Länge 2         Länge 3
+ 17             Y               X               Z
+ 18*            X               Z               Y
+ 19             Z               Y               X
+-17             X               Y               Z
+-18             Z               X               Y
+-19             Y               Z               X
+* Jeder Wert ungleich 0, der nicht gleich einem der sechs aufgeführten Werte ist, wird wie der Wert 18 bewertet.
+Bei den Werten mit gleichem Betrag aber unterschiedlichem Vorzeichen ist die Zuordnung der Länge 3 jeweils gleich, die Längen 1 und 2 sind getauscht.
+
+Ist die 100er-Stelle des Settingdatums gleich 1, wird das Vorzeichen der zweiten Längenkomponente invertiert.
+</description>
+</parameter>
+<parameter number="42950" type="DWORD" dim="0">
+<name>TOOL_LENGTH_TYPE</name>
+<brief>Zuordnung der Werkzeuglängenkompensation unabh. vom Werkzeugtyp</brief>
+<description>Dieses Settingdatum legt die Zuordnung der Werkzeuglängenkomponenten zu den Geometrieachsen unabhängig vom Werkzeugtyp fest. Es kann die Werte 0 bis 3 annehmen. Jeder andere Wert wird wie der Wert 0 behandelt.
+Wert
+0:	Die Zuordnung erfolgt standardmäßig. Es wird zwischen Dreh- und Schleifwerkzeugen (Werkzeugtypen 400 bis 599) und anderen Werkzeugen (Fräswerkzeugen) unterschieden.
+
+1:	Die Zuordnung der Werkzeuglängenkomponenten erfolgt unabhängig vom tatsächlichen Werkzeugtyp immer wie bei Fräswerkzeugen.
+
+2.	Die Zuordnung der Werkzeuglängenkomponenten erfolgt unabhängig vom tatsächlichen Werkzeugtyp immer wie bei Drehwerkzeugen.
+
+3.	Die Zuordnung der Werkzeuglängenkomponenten erfolgt getrennt für Dreh- und Schleifwerkzeuge (Werkzeugtypen 400 bis 599) einerseits und alle anderen Werkzeuge (Fräswerkzeuge) andererseits.
+
+     Die Zuordnung der Werkzeugkomponenten wird dabei folgendermaßen festgelegt:
+     Fräswerkzeuge:
+        Die Zuordnung der Werkzeuglängenkomponenten wird durch SD42940 $SC_TOOL_LENGTH_CONST bestimmt.
+
+     Drehwerkzeuge:
+        Die Zuordnung der Werkzeuglängenkomponenten wird durch SD42942 $SC_TOOL_LENGTH_CONST_T bestimmt.
+
+Das Settingdatum wirkt auch auf die den Längenkomponenten zugeordneten Verschleißwerte.
+Ist das SD42940 $SC_TOOL_LENGTH_CONST gesetzt, so wird in den dort definierten Tabellen unabhängig vom tatsächlichen Werkzeugtyp auf die durch SD42950 $SC_TOOL_LENGTH_TYPE definierte Tabelle für Fräs- bzw. Drehwerkzeuge zugegriffen, falls der Wert des letzteren gleich 1 oder 2 ist.
+</description>
+</parameter>
+<parameter number="42954" type="DWORD" dim="0">
+<name>TOOL_ORI_CONST_M</name>
+<brief>Wechsel der Werkzeugorientierungskomp. für Fräswerkzeuge bei Ebenenwechsel</brief>
+<description>Ist dieses Settingdatum ungleich Null, so wird für Fräswerkzeuge (alle Werkzeugtypen außer 400 bis 599) ein rechtshändiges, orthogonales Werkzeugkoordinatensystem definiert, das beim Wechsel der Bearbeitungsebene (G17 - G19) unverändert bleibt. Es hat keine Bedeutung für Dreh- und Schleifwerkzeuge.
+Das Orientierungskoordinatensystem wird bestimmt durch den Orientierungsvektor und einen darauf senkrecht stehenden Orientierungsnormalenvektor. Es wird vervollständigt durch einen dritten Vektor, den sogenannten Binormalenvektor, der sich aus dem Kreuzprodukt aus Orientierungsnormalenvektor und Orientierungsvektor ergibt.
+Die Grundorientierung wird dabei durch die Einer- und Zehnerstelle des Settingdatums bestimmt. Zulässig sind außer dem Wert 0 nur die Werte 17, 18 und 19. Alle andern Werte werden so behandelt, als sei der Wert 17.
+
+           Orientierungs-    Orientierungs-      Binormalen-  
+Inhalt        vektor         normalenvektor        vektor     
+ 17*        (0, 0, 1)          (0, 1, 0)          (1, 0, 0)   
+ 18         (0, 1, 0)          (1, 0, 0)          (0, 0, 1)   
+ 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)   
+* Jeder Wert ungleich 0, der nicht gleich einem der drei aufgeführten Werte ist, wird wie der Wert 17 bewertet.
+Ist n der Inhalt 100er-Stelle des Settingdatums, wird das Koordinatensystem mit dem Winkel n * 90 Grad um den Orientierungsvektor gedreht. Für n sind die Werte 0 bis 3 zulässig. Größere Werte werden wie der Wert 0 bewertet.
+Ist das Vorzeichen des Settingdatums negativ, wird das Koordinatensystem um 180 Grad um die Achse gedreht, die durch die ursprüngliche Lage des Orientierungsnormlenvektors (d.h. vor einer eventuellen Drehung wegen n ungleich 0) definiert ist.
+Beispiel:
+Ist der Inhalt des Settingdatums -18, so gilt:
+Orientierungsvektor          (0, -1,  0)
+Orientierungsnormalenvektor  (1,  0,  0)
+Binormalenvektor             (0 , 0, -1)
+
+Behandlung von Werkzeugen mit explizit programmierter Werkzeugorientierung mittels Schneidendaten ($TC_DPV..):
+Bei den Werkzeugen, bei denen die Orientierung auf diese Art definiert ist, wird dieses Settingdatum normalerweise ignoriert, d.h. die programmierten Orientierungsvektoren werden abhängig von der aktiven Bearbeitungsebene (G17 - G19) den Geometrieachsen zugeordnet.
+Soll das Settingdatum auch für solche Werkzeuge wirksam sein, muss die 1000er-Stelle gleich 1 sein. Dabei werden die 100er-Stelle und das Vorzeichen nicht ausgewertet, d.h. das Settingdatum definiert ausschließlich, wie die Orientierungskomponenten den Geometrieachsrichtungen zugeordnet werden. Es werden keine zusätzlichen Drehungen ausgeführt.
+</description>
+</parameter>
+<parameter number="42956" type="DWORD" dim="0">
+<name>TOOL_ORI_CONST_T</name>
+<brief>Wechsel der Werkzeugorientierungskomp. für Drehwerkzeuge bei Ebenenwechsel</brief>
+<description>Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeugorientierungskomponenten von Dreh- und Schleifwerkzeugen (Werkzeugtyp 400 bis 599) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert. Es hat keine Bedeutung für Werkzeuge, die keine Dreh- oder Schleifwerkzeuge sind.
+Das Orientierungskoordinatensystem wird bestimmt durch den Orientierungsvektor und einen darauf senkrecht stehenden Orientierungsnormalenvektor. Es wird vervollständigt durch einen dritten Vektor, den sogenannten Binormalenvektor, der sich aus dem Kreuzprodukt aus Orientierungsnormalenvektor und Orientierungsvektor ergibt.
+Die Grundorientierung wird dabei durch die Einer- und Zehnerstelle des Settingdatums bestimmt. Zulässig sind außer dem Wert 0 nur die Werte 17, 18 und 19. Alle andern Werte werden so behandelt, als sei der Wert 18.
+
+           Orientierungs-    Orientierungs-      Binormalen-  
+Inhalt        vektor         normalenvektor        vektor     
+ 17         (0, 0, 1)          (0, 1, 0)          (1, 0, 0)   
+ 18*        (0, 1, 0)          (1, 0, 0)          (0, 0, 1)   
+ 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)   
+* Jeder Wert ungleich 0, der nicht gleich einem der drei aufgeführten Werte ist, wird wie der Wert 18 bewertet.
+Ist n der Inhalt 100er-Stelle des Settingdatums, wird das Koordinatensystem mit dem Winkel n * 90 Grad um den Orientierungsvektor gedreht. Für n sind die Werte 0 bis 3 zulässig. Größere Werte werden wie der Wert 0 bewertet.
+Ist das Vorzeichen des Settingdatums negativ, wird das Koordinatensystem um 180 Grad um die Achse gedreht, die durch die ursprüngliche Lage des Orientierungsnormlenvektors (d.h. vor einer eventuellen Drehung wegen n ungleich 0) definiert ist.
+Beispiel:
+Ist der Inhalt des Settingdatums -18, so gilt:
+Orientierungsvektor          (0, -1,  0)
+Orientierungsnormalenvektor  (1,  0,  0)
+Binormalenvektor             (0 , 0, -1)
+
+Behandlung von Werkzeugen mit explizit programmierter Werkzeugorientierung mittels Schneidendaten ($TC_DPV..):
+Bei der Werkzeugen, bei denen die Orientierung auf diese Art definiert ist, wird dieses Settingdatum normalerweise ignoriert, d.h. die programmierten Orientierungsvektoren werden abhängig von der aktiven Bearbeitungsebene (G17 - G19) den Geometrieachsen zugeordnet.
+Soll das Settingdatum auch für solche Werkzeuge wirksam sein, muss die 1000er-Stelle gleich 1 sein. Dabei werden die 100er-Stelle und das Vorzeichen nicht ausgewertet, d.h. das Settingdatum definiert ausschließlich, wie die Orientierungskomponenten den Geometrieachsrichtungen zugeordnet werden. Es werden keine zusätzlichen Drehungen ausgeführt.
+</description>
+</parameter>
+<parameter number="42960" type="DOUBLE" dim="1">
+<name>TOOL_TEMP_COMP</name>
+<brief>Temperaturkompensation bezogen auf das Werkzeug</brief>
+<description>Temperaturkompensationswert bezogen auf das Werkzeug. Der Kompensationswert wirkt vektoriell entsprechend der aktuellen Drehung der Werkzeugrichtung.
+Dieses Settingdatum wird nur ausgewertet, wenn die Temperaturkompensation für Werkzeuge mit dem MD20390 $MC_TOOL_TEMP_COMP_ON aktiviert wurde.
+
+Außerdem muss der Temperaturkompensationstyp für die "Korrektur in Werkzeugrichtung" MD32750 $MA_TEP_COMP_TYPE das Bit 2 gesetzt werden.
+
+Die "Temperaturkompensation" ist eine Option, die vorher freigeschaltet werden muss.
+</description>
+</parameter>
+<parameter number="42970" type="DOUBLE" dim="1">
+<name>TOFF_LIMIT</name>
+<brief>Obergrenze des Korrekturwertes $AA_TOFF</brief>
+<description>Obergrenze des Korrekturwertes, der mittels Synchronaktionen über die Systemvariable $AA_TOFF vorgegeben werden kann.
+
+Dieser Grenzwert wirkt auf den absolut wirksamen Korrekturbetrag durch $AA_TOFF.
+
+Über die Systemvariable $AA_TOFF_LIMIT kann abgefragt werden, ob sich der Korrekturwert im Grenzbereich befindet.
+</description>
+</parameter>
+<parameter number="42974" type="BOOLEAN" dim="0">
+<name>TOCARR_FINE_CORRECTION</name>
+<brief>Feinverschiebung TCARR ein / aus</brief>
+<description>TRUE:   
+	Bei der Aktivierung eines orientierbaren Werkzeugträgers werden die Feinverschiebungswerte berücksichtigt.
+
+FALSE:  
+	Bei der Aktivierung eines orientierbaren Werkzeugträgers werden die Feinverschiebungswerte nicht berücksichtigt.
+</description>
+</parameter>
+<parameter number="42980" type="DWORD" dim="0">
+<name>TOFRAME_MODE</name>
+<brief>Framdefinition bei TOFRAME, TOROT und PAROT</brief>
+<description>Dieses Settingdatum legt die Richtung der Geometrieachsen der Bearbeitungsebene (bei G17 XY), bei der Framedefinition mittels TOFRAME, TOROT (TOROTY, TOROTX) oder bei PAROT fest.
+Bei einer Frameberechnung wird die Werkzeugrichtung (bei G17 Z) eindeutig so festgelegt, das Werkzeugrichtung und Applikate (Z bei G17) des Frames parallel sind und senkrecht auf der Bearbeitungebene stehen.
+Die Drehung um die Werkzeugachse ist zunächst beliebig. Mit diesem Settingdatum kann diese freie Drehung so bestimmt werden, dass der neu definierte Frame von einem vorher aktiven Frame möglichst wenig abweicht.
+In allen Fällen, in denen das Settingdatum ungleich Null ist, bleibt ein aktiver Frame unverändert, wenn die Werkzeugrichtung (bei G17 Z) des alten und des neuen Frame übereinstimmen.
+
+SD42980 $SC_TOFRAME_MODE&gt;= 2000:
+Aus den Rotationen und Translationen der Framekette wird bei TOROT (bzw. TOROTY und TOROTX) ein Frame im Systemframe Werkzeugbezug ($P_TOOLFRAME) berechnet.
+Das Maschinendatum 21110 $MC_X_AXIS_IN_OLD_X_Z_PLANE wird nicht ausgewertet.
+
+Die folgenden Erläuterungen beziehen sich auf die G17-Ebene mit den Achsen XY in der Bearbeitungsebene und der Werkzeugachse Z.
+
+SD42980 $SC_TOFRAME_MODE = 2000:
+Die Rotation um die Z-Achse wird so gewählt, dass der Winkel zwischen der neuen X-Achse und der alten X-Z-Ebene den gleichen Betrag hat wie der Winkel zwischen der neuen Y-Achse und der alten Y-Z-Ebene.Diese Einstellung entspricht dem Mittelwert der beiden Einstellungen, die sich bei den Werten 2001 bzw 2002 dieses Settingdatums ergeben würden. 
+Sie wird auch wirksam, wenn die Einerstelle einen Wert größer 2 hat.
+
+SD42980 $SC_TOFRAME_MODE = 2001:
+Die neue X-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der X-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer Y-Achse minimal.
+
+SD42980 $SC_TOFRAME_MODE = 2002: 
+Die neue Y-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der Y-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer X-Achse minimal.
+
+Alle anderen Einstellungen des SD42980 $SC_TOFRAME_MODE (0,1,2,...1000,1001..) sollten bei Neuinbetriebnahmen nicht verwendet werden.
+
+Aus Kompatibilitätsgründen sind diese Einstellungen weiterhin gültig:
+0: Die Orientierung des Koordinatensystems wird durch den Wert des Maschindatums 21110 $MC_X_AXIS_IN_OLD_X_Z_PLANE bestimmt.
+1: Die neue X-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der X-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer Y-Achse minimal.
+2: Die neue Y-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der Y-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer X-Achse minimal.
+3: Es wird der Mittelwert der beiden Einstellungen, die sich nach 1 bzw. 2 ergeben gewählt.
+Addition von 100: Bei einem Ebenewechsel von G17 nach G18 oder G19 wird eine Werkzeugmatrix erzeugt, bei der die neuen Achsrichtungen parallel zu den alten Richtungen sind.Die Achsen sind entsprechend zyklisch vertauscht (Standarttransformation bei Ebenenwechsel).Ist die Hunderter-Stelle gleich Null, wird bei G18 und G19 eine Matrix geliefert, die aus der Einheitsmatrix durch eine einfache Drehung um 90 Grad um die X-Achse (G18) bzw. um -90 Grad um die Y-Achse (G19) hervorgeht. Damit ist jeweils eine Achse antiparallel zu einer Ausgangsachse. Diese Einstellung ist notwendig, um zu älteren Softwareständen kompatibel zu bleiben.
+Addition von 1000: Der Tool-Frame wird mit eventuell aktiven Basis-Frames und einstellbaren Frames verkettet. Damit ist das Verhalten kompatibel zu früheren Softwareständen (vor 5.3). Ist die Tausender-Stelle nicht gesetzt, wird der Tool-Frame so berechnet, dass evtl. aktive Basisframes und einstellbare Frames berücksichtigt werden.
+</description>
+</parameter>
+<parameter number="42984" type="STRING" dim="0">
+<name>CUTDIRMOD</name>
+<brief>Modifikation von $P_AD[2] bzw. $P_AD[11]</brief>
+<description>Gibt an, ob die Schneidenlage und die Schnittrichtung beim Lesen der zugehörigen Systemvariablen $P_AD[2] bzw. $P_AD[11] modifiziert werden soll
+Die Modifikation ergibt sich, indem der Vektor der Schneidenlage bzw. die Schnittrichtung in der aktiven Bearbeitungsebene (G17-G19) um einen bestimmten Winkel gedreht wird. Der resultierende Ausgabewert ist dann immer die Schneidenlage bzw. Schnittrichtung, die sich durch die Drehung ergeben hat, bzw. der der gedrehte Wert am nächsten liegt. Der Drehwinkel kann mit einer der folgenden sechs Möglichkeiten bestimmt werden:
+1:	Der String ist leer. Die genannten Daten werden unverändert ausgegeben.
+2:	Der Inhalt des Strings ist "P_TOTFRAME". Die resultierende Drehung wird aus dem Gesamtframe ermittelt.
+3:	Der Inhalt des Strings ist ein gültiger Framename (z.B. $P_NCBFRAME[3]). Die resultierende Drehung wird dann aus diesem Frame berechnet.
+4:	Der Inhalt des Strings ist von der Form "Frame1 : Frame2". Die resultierende Drehung wird aus der der Teilframekette ermittelt, die sich durch Verkettung aller Frames von Frame1 bis Frame2 (jeweils einschließlich) ergibt. Frame1 und Frame2 sind dabei gültige Framenamen wie z.B $P_PFRAME oder $P_CHBFRAME[5]"
+5:	Der Inhalt des Frames ist der gültige Name einer Rundachse (Maschinenachse). Die resultierende Drehung wird aus der programmierten Endposition dieser Rundachse ermittelt. Zusätzlich kann ein Offset (in Grad) angegeben werden (z.B "A+90).
+6:	Die Drehung wird explizit programmiert (in Grad).
+
+Optional kann als erstes Zeichen des Strings ein Vorzeichen (+ oder - Zeichen) geschrieben werden. Ein Pluszeichen hat auf die Winkelberechnung keinen Einfluss, bei einem Minuszeichen wird das Vorzeichen des berechneten Winkels invertiert.
+</description>
+</parameter>
+<parameter number="42990" type="DWORD" dim="0">
+<name>MAX_BLOCKS_IN_IPOBUFFER</name>
+<brief>maximale Anzahl der Sätze im Ipo-Puffer</brief>
+<description>Mit diesem Settingdatum kann die maximale Anzahl der Sätze im Interpolationspuffers begrenzt werden. Dabei ist die maximale Zahl durch das MD28060 $MC_MM_IPO_BUFFER_SIZE festgelegt.
+Ein negativer Wert bedeutet dabei, dass keine Begrenzung der Anzahl der Sätze im Ipo-Puffer wirksam wird und die Anzahl der Sätze allein durch das MD28060 $MC_MM_IPO_BUFFER_SIZE bestimmt wird (Standard Einstellung).
+</description>
+</parameter>
+<parameter number="42995" type="DOUBLE" dim="0">
+<name>CONE_ANGLE</name>
+<brief>Kegelwinkel</brief>
+<description>Mit diesem Settingdatum wird beim Kegeldrehen der Kegelwinkel beschrieben. Dieses Settingdatum wird über die Bedienoberfläche geschrieben.
+</description>
+</parameter>
+<parameter number="42996" type="DWORD" dim="0" display="HEX">
+<name>JOG_GEOAX_MODE_MASK</name>
+<brief>Mode Joggen von Geometrieachsen</brief>
+<description>Mit diesem Settingdatum wird beim Joggen von Geometrieachsen eingestellt:
+
+Bit 0 = 1 : 
+	Eine Verfahranforderung für die 1. Geometrieachse wird invertiert, d.h. eine Verfahranforderung nach + löst eine Verfahrbewegung nach - aus.
+Bit 1 = 1 : 
+	Eine Verfahranforderung für die 2. Geometrieachse wird invertiert, d.h. eine Verfahranforderung nach + löst eine Verfahrbewegung nach - aus.
+Bit 2 = 1: 
+	Eine Verfahranforderung für die 3. Geometrieachse wird invertiert, d.h. eine Verfahranforderung nach + löst eine Verfahrbewegung nach - aus.
+</description>
+</parameter>
+<parameter number="42998" type="DOUBLE" dim="0">
+<name>CUTMOD_PLANE_TOL</name>
+<brief>Abweichung Schneidplatten- / Bearbeitungsebene</brief>
+<description>Dieses Settingdatum gibt an, um wieviel Grad die Schneidplatte eines Werkzeugs beim Aufruf der Funktion CUTMOD bzw. CUTMODK maximal aus der Bearbeitungsebene gedreht sein darf, d.h es gibt die maximale Abweichung des Winkels Gamma von einer der beiden Standardpositionen 0 bzw. 180 Grad an.
+Ist der Wert dieses Settingdatums 0, darf der Betrag des genannnten Winkels maximal 89 Grad sein.
+</description>
+</parameter>
+<parameter number="42999" type="DOUBLE" dim="0">
+<name>ORISOLH_INCLINE_TOL</name>
+<brief>Abweichung Schneidplatten- / Bearbeitungsebene bei ORISOLH</brief>
+<description>Dieses Settingdatum gibt die maximal zulässige Neigung der Schneidplatte gegenüber der Bearbeitungsebene (im Standardfall G18) beim Aufruf der Funktion ORISOLH für "Werkzeug schwenken direkt" an.
+
+</description>
+</parameter>
+</info>

@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="54215" type="DWORD" dim="0" display="HEX">
+<name>TM_FUNCTION_MASK_SET</name>
+<brief>Funktionsmaske Werkzeugverwaltung</brief>
+<description>Funktionsmaske Werkzeugverwaltung
+Bit 0:	Durchmesseranzeige für rotierende Werkzeuge. Für rotierende Werkzeuge wird nicht der Radiuswert, sondern der Durchmesser angezeigt.
+Bit 1:	Defaultdrehrichtung für alle Drehwerkzeuge ist M4. Beim Anlegen von Drehwerkzeugen wird die Drehrichtung mit M4 vorbelegt.
+Bit 2:	Werkzeug anlegen ohne Namensvorschlag.
+Bit 3:	Eingabesperre Werkzeugname und Werkzeugtyp bei beladenen Werkzeugen. Bei beladenen Werkzeugen können der Werkzeugname und der Werkzeugtyp nicht mehr geändert werden.
+Bit 4:	Eingabesperre für beladene Werkzeuge, wenn der Kanal nicht im Reset ist.
+Bit 5:	Werkzeugverschleißeingaben additiv verrechnen. Die Eingabe von Verschleißdaten erfolgt additiv zum bereits bestehenden Verschleißwert.
+Bit 6:	Numerische Eingabe des Werkzeugidents. Für die Eingabe des Werkzeugidents werden ausschließlich Zahlen zugelassen. 
+Bit 7:	Werkzeugüberwachungsparameter ausblenden. Die Werkzeugüberwachungsparameter werden in der Bedienoberfläche ausgeblendet.
+Bit 8:	Durchmesseranzeige für Planachse - Geometrie. Der Geometriewert der Planachse wird als Durchmesserwert angezeigt.
+Bit 9:	Durchmesseranzeige für Planachse - Verschleiß. Der Verschleißwert der Planachse wird als Durchmesserwert angezeigt.
+Bit 10:	Werkzeug beladen/umsetzen auf Zwischenspeicherplätze freischalten. Im Beladendialog kann die Magazinnummer eingegeben werden. Über die Magazinnummer 9998 kann damit auf den Zwischenspeicher zugegriffen werden.
+Bit 11:	Anlegen neuer Werkzeuge auf den Greiferplätzen ist gesperrt.
+Bit 12:	Messwerkzeuge werden bei der Ausführung der Funktion "Alle entladen" nicht entladen.
+</description>
+</parameter>
+<parameter number="54480" type="STRING" dim="1" display="ASCII">
+<name>AST_MMC_HANDLER_NAME</name>
+<brief>Zuordnung einer HMI-Operate-Instanz für AST-Kommandos</brief>
+<description>Name des zugeordneten HMI-Operate (Masters)
+Es muss ein Operate als Master bestimmt werden.
+
+</description>
+</parameter>
+<parameter number="54481" type="BOOLEAN" dim="0">
+<name>AST_MMC_DEFAULT_IS_PCU</name>
+<brief>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST</brief>
+<description>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST
+Selektion des Operate- Typs
+
+
+</description>
+</parameter>
+<parameter number="54600" type="DOUBLE" dim="1">
+<name>MEA_WP_BALL_DIAM</name>
+<brief>Wirksamer Durchmesser der Messtasterkugel des Werkstückmesstasters</brief>
+<description>Wirksamer Kugeldurchmesser der Messtasterkugel des Werkstückmesstasters.
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54601" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_MINUS_DIR_AX1</name>
+<brief>Triggerpunkt der 1. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 1. Messachse (Abszisse) in negativer Verfahrrichtung  (X bei G17) des Werkstückmesstasters.
+Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54602" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_PLUS_DIR_AX1</name>
+<brief>Triggerpunkt der 1. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 1. Messachse (Abszisse) in positiver Verfahrrichtung  (X bei G17) des Werkstückmesstasters.
+Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54603" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_MINUS_DIR_AX2</name>
+<brief>Triggerpunkt der 2. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 2. Messachse (Ordinate) in negativer Verfahrrichtung  (Y bei G17) des Werkstückmesstasters.
+Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54604" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_PLUS_DIR_AX2</name>
+<brief>Triggerpunkt der 2. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 2. Messachse (Ordinate) in positiver Verfahrrichtung  (Y bei G17) des Werkstückmesstasters.
+Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54605" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_MINUS_DIR_AX3</name>
+<brief>Triggerpunkt der 3. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 3. Messachse (Applikate) in negativer Verfahrrichtung  (Z bei G17) des Werkstückmesstasters.
+Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54606" type="DOUBLE" dim="1">
+<name>MEA_WP_TRIG_PLUS_DIR_AX3</name>
+<brief>Triggerpunkt der 3. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 3. Messachse (Applikate) in positiver Verfahrrichtung  (Z bei G17) des Werkstückmesstasters.
+Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54607" type="DOUBLE" dim="1">
+<name>MEA_WP_POS_DEV_AX1</name>
+<brief>Lageabweichung der Messtasterkugel in der 1. Messachse</brief>
+<description>Die Lageabweichung in der 1.Messachse, stellt einen geometrischen Versatz des Mittelpunktes der Messtasterkugel,
+bezogen auf den elektischen Mittelpunkt des Messtasters in dieser Achse dar!
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54608" type="DOUBLE" dim="1">
+<name>MEA_WP_POS_DEV_AX2</name>
+<brief>Lageabweichung der Messtasterkugel in der 2. Messachse</brief>
+<description>Die Lageabweichung in der 2.Messachse, stellt einen geometrischen Versatz des Mittelpunktes der Messtasterkugel,
+bezogen auf den elektischen Mittelpunkt des Messtasters in dieser Achse dar!
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54609" type="DOUBLE" dim="1">
+<name>MEA_WP_STATUS_RT</name>
+<brief>Kalibrierstatus Achspositionen</brief>
+<description>Kalibrierstatus der Achspositionen, reserviert für interne Verwendung!
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54610" type="DOUBLE" dim="1">
+<name>MEA_WP_STATUS_GEN</name>
+<brief>Kalibrierstatus allgemein</brief>
+<description>Kalibrierstatus allgemein, reserviert für interne Verwendung!
+Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54611" type="DOUBLE" dim="1">
+<name>MEA_WP_FEED</name>
+<brief>Messvorschub beim Kalibrieren</brief>
+<description>Messvorschub Werkstück messen beim Kalibrieren
+Dieser Messvorschub wird für alle nachfolgenden Werkstückmessprogramme in Verbindung mit dem Messtasterfeld verwendet.
+
+
+
+</description>
+</parameter>
+<parameter number="54612" type="BYTE" dim="0">
+<name>MEA_INPUT_PIECE_PROBE_SUB</name>
+<brief>Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv</brief>
+<description>CNC-Messeingang für Werkstück-Messtaster mit Bezug auf die Gegenspindel 
+
+ $SNS_MEA_INPUT_PIECE_PROBE_SUB[?????]
+	=0: 	Toolsetter-Nr.= n+1, mit Bezug zur Hauptspindel,
+		 CNC-Messeingang entspricht dem Wert von $MCS_MEA_FUNCTION_MASK, Bit0
+	=10: 	Toolsetter-Nr.= n+1, mit Bezug zur Gegenspindel,
+		Einerstelle =0, entspricht CNC-Messeingang 1
+	=11: 	Toolsetter-Nr.= n+1, mit Bezug zur Gegenspindel,
+		Einerstelle =1, entspricht CNC-Messeingang 2
+
+
+
+
+
+
+
+Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv 
+
+=0: Werkstück-Messtaster nicht an der Gegenspindel vorhanden/aktiv
+=1: Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv
+</description>
+</parameter>
+<parameter number="54615" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_BASE_AX1</name>
+<brief>Kalibriernutboden der 1. Messachse</brief>
+<description>Kalibriernutboden in der 1. Messachse (Abszisse, Z bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+</description>
+</parameter>
+<parameter number="54617" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_PLUS_DIR_AX1</name>
+<brief>Kalibriernutkante in positiver Richtung der 1. Messachse</brief>
+<description>Kalibriernutkante in positiver Richtung der 1. Messachse (Abszisse, Z bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+
+</description>
+</parameter>
+<parameter number="54618" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_MINUS_DIR_AX1</name>
+<brief>Kalibriernutkante in negativer Richtung der 1. Messachse</brief>
+<description>Kalibriernutkante in negativer Richtung der 1. Messachse (Abszisse, Z bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+</description>
+</parameter>
+<parameter number="54619" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_BASE_AX2</name>
+<brief>Kalibriernutboden der 2. Messachse</brief>
+<description>Kalibriernutboden in der 2. Messachse (Ordinate, X bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+</description>
+</parameter>
+<parameter number="54620" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_UPPER_AX2</name>
+<brief>Kalibriernutoberkante der 2. Messachse</brief>
+<description>Kalibriernutoberkante in der 2. Messachse (Ordinate, X bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+
+</description>
+</parameter>
+<parameter number="54621" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_PLUS_DIR_AX2</name>
+<brief>Kalibriernutkante in positiver Richtung der 2. Messachse</brief>
+<description>Kalibriernutkante in positiver Richtung der 2. Messachse (Ordinate, X bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+</description>
+</parameter>
+<parameter number="54622" type="DOUBLE" dim="1">
+<name>MEA_CAL_EDGE_MINUS_DIR_AX2</name>
+<brief>Kalibriernutkante in negativer Richtung der 2. Messachse</brief>
+<description>Kalibriernutkante in negativer Richtung der 2. Messachse (Ordinate, X bei G18)
+Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
+</description>
+</parameter>
+<parameter number="54625" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_MINUS_DIR_AX1</name>
+<brief>Triggerpunkt der 1. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 1. Messachse in negativer Richtung (Abszisse, X bei G17,  Z bei G18)
+Der Triggerpunkt steht im Bezug zum Maschinenkoordinatensystem (MKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Maschinenkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54626" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_PLUS_DIR_AX1</name>
+<brief>Triggerpunkt der 1. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 1. Messachse in positiver Richtung (Abszisse, X bei G17,  Z bei G18)
+Der Triggerpunkt steht im Bezug zum Maschinenkoordinatensystem (MKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Maschinenkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54627" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_MINUS_DIR_AX2</name>
+<brief>Triggerpunkt der 2. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 2. Messachse in negativer Richtung (Ordinate, Y bei G17,  X bei G18)
+Der Triggerpunkt steht im Bezug zum Maschinenkoordinatensystem (MKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Maschinenkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54628" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_PLUS_DIR_AX2</name>
+<brief>Triggerpunkt der 2. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 2. Messachse in positiver Richtung (Ordinate, Y bei G17,  X bei G18)
+Der Triggerpunkt steht im Bezug zum Maschinenkoordinatensystem (MKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Maschinenkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54629" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_MINUS_DIR_AX3</name>
+<brief>Triggerpunkt der 3. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 3. Messachse in negativer Richtung (Applikate, Z bei G17,  Y bei G18)
+Der Triggerpunkt steht im Bezug zum Maschinenkoordinatensystem (MKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Maschinenkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54630" type="DOUBLE" dim="1">
+<name>MEA_TP_TRIG_PLUS_DIR_AX3</name>
+<brief>Triggerpunkt der 3. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 3. Messachse in positiver Richtung (Ordinate, Y bei G17,  X bei G18)
+Der Triggerpunkt steht im Bezug zum Maschinenkoordinatensystem (MKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Maschinenkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54631" type="DOUBLE" dim="1">
+<name>MEA_TP_EDGE_DISK_SIZE</name>
+<brief>Werkzeugmesstaster Kantenlaenge/Scheibendurchmesser</brief>
+<description>Wirksame Kantenlänge oder Scheibendurchmesser des Werkzeugmesstasters
+Dieses Datum ist bei der Technologie "Fräsen" bei der Längenvermessung von Fräswerkzeugen von Bedeutung.
+
+</description>
+</parameter>
+<parameter number="54632" type="DWORD" dim="1">
+<name>MEA_TP_AX_DIR_AUTO_CAL</name>
+<brief>Automatisches Kalibrieren Werkzeugmesstaster, Freigabe Achsen/Richtungen</brief>
+<description>Freigabe von Achsen und Verfahrrichtungen für das "Automatische Kalibrieren" im Maschinenkoordinatensystem (MKS) von Fräswerkzeugmesstastern.
+Der Defaulteinstellung entspricht in X und Y jeweils Plus- und Minus-Richtung, in Z nur in Minus-Richtung.
+Der Parameter unterteilt sich in sechs Elemente, welche funktionell den Kalibrierdatensätzen 1 - 6 zugeordnet sind!
+
+Bedeutung je Parameterelement
+ Dezimalstelle:
+ Einer          1. Geometrieachse (X)
+ Zehner:      2. Geometrieachse (Y)
+ Hunderter: 3. Geometrieachse (Z)
+ Wert:
+ =0: Achse nicht freigegeben
+ =1:  nur Minus-Richtung möglich
+ =2:  nur Plus-Richtung möglich
+ =3:  beide Richtungen möglich
+</description>
+</parameter>
+<parameter number="54633" type="DOUBLE" dim="1">
+<name>MEA_TP_TYPE</name>
+<brief>Werkzeugmesstastertyp Würfel / Scheibe</brief>
+<description>Werkzeugmesstastertyp
+
+0:     Würfel
+101: Scheibe in XY, Arbeitsebene G17
+201: Scheibe in ZX, Arbeitsebene G18
+301: Scheibe in YZ, Arbeitsebene G19
+</description>
+</parameter>
+<parameter number="54634" type="DOUBLE" dim="1">
+<name>MEA_TP_CAL_MEASURE_DEPTH</name>
+<brief>Abstand zwischen Werkzeugmesstasteroberkante und Fräswerkzeugunterkante</brief>
+<description>Abstand zwischen Werkzeugmesstasteroberkante und Fräswerkzeugunterkante.
+Für die Werkzeugmesstasterkalibrierung definiert dieser Abstand die Kalibriertiefe und
+bei der Fräswerkzeugmvermessung die Messtiefe!
+Zur Vermessung von Drehwerkzeugen hat dieser Parameter keine Bedeutung!
+</description>
+</parameter>
+<parameter number="54635" type="DOUBLE" dim="1">
+<name>MEA_TP_STATUS_GEN</name>
+<brief>Kalibrierstatus allgemein</brief>
+<description>Kalibrierstatus allgemein, reserviert für interne Verwendung!
+Der Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54636" type="DOUBLE" dim="1">
+<name>MEA_TP_FEED</name>
+<brief>Messvorschub beim Werkzeugmesstaster kalibrieren im MKS</brief>
+<description>Messvorschub beim Werkzeugmesstaster kalibrieren im MKS
+Dieser Messvorschub wird für alle nachfolgenden Werzeugmessprogramme in Verbindung mit dem Messtasterfeld verwendet.
+
+</description>
+</parameter>
+<parameter number="54640" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_MINUS_DIR_AX1</name>
+<brief>Triggerpunkt der 1. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 1. Messachse in negativer Richtung (Abszisse, X bei G17,  Z bei G18)
+Der Triggerpunkt steht im Bezug zum Werkstückkoordinatensystem (WKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Werkstückkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54641" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_PLUS_DIR_AX1</name>
+<brief>Triggerpunkt der 1. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 1. Messachse in positiver Richtung (Abszisse, X bei G17,  Z bei G18)
+Der Triggerpunkt steht im Bezug zum Werkstückkoordinatensystem (WKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Werkstückkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54642" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_MINUS_DIR_AX2</name>
+<brief>Triggerpunkt der 2. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 2. Messachse in negativer Richtung (Ordinate, Y bei G17,  X bei G18)
+Der Triggerpunkt steht im Bezug zum Werkstückkoordinatensystem (WKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Werkstückkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54643" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_PLUS_DIR_AX2</name>
+<brief>Triggerpunkt der 2. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 2. Messachse in positiver Richtung (Ordinate, Y bei G17,  X bei G18)
+Der Triggerpunkt steht im Bezug zum Werkstückkoordinatensystem (WKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Werkstückkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54644" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_MINUS_DIR_AX3</name>
+<brief>Triggerpunkt der 3. Messachse in negativer Richtung</brief>
+<description>Triggerpunkt der 3. Messachse in negativer Richtung (Applikate, Z bei G17,  Y bei G18)
+Der Triggerpunkt steht im Bezug zum Werkstückkoordinatensystem (WKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Werkstückkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54645" type="DOUBLE" dim="1">
+<name>MEA_TPW_TRIG_PLUS_DIR_AX3</name>
+<brief>Triggerpunkt der 3. Messachse in positiver Richtung</brief>
+<description>Triggerpunkt der 3. Messachse in positiver Richtung (Applikate, Z bei G17,  Y bei G18)
+Der Triggerpunkt steht im Bezug zum Werkstückkoordinatensystem (WKS).
+Vor dem Kalibrieren ist der ungefähre Triggerpunkt im Werkstückkoordinatensystem einzutragen!
+Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+</description>
+</parameter>
+<parameter number="54646" type="DOUBLE" dim="1">
+<name>MEA_TPW_EDGE_DISK_SIZE</name>
+<brief>Werkzeugmesstaster Kantenlaenge/Scheibendurchmesser</brief>
+<description>Wirksame Kantenlänge oder Scheibendurchmesser des Werkzeugmesstasters.
+Die Vermessung von Fräswerkzeuge erfolgt im Normalfall mit scheibenförmigen und von Drehwerkzeugen
+mit quadratischen Messtastern.
+</description>
+</parameter>
+<parameter number="54647" type="DWORD" dim="1">
+<name>MEA_TPW_AX_DIR_AUTO_CAL</name>
+<brief>Automatisches Kalibrieren Werkzeugmesstaster, Freigabe Achsen/Richtungen</brief>
+<description>Freigabe von Achsen und Verfahrrichtungen für das "Automatische Kalibrieren" im Werkstückkoordinatensystem (WKS) von Fräswerkzeugmesstastern.
+Der Defaulteinstellung entspricht in X und Y jeweils Plus- und Minus-Richtung, in Z nur in Minus-Richtung.
+Der Parameter unterteilt sich in sechs Elemente, welche funktionell den Kalibrierdatensätzen 1 - 6 zugeordnet sind!
+
+Bedeutung je Parameterelement
+ Dezimalstelle:
+ Einer          1. Geometrieachse (X)
+ Zehner:      2. Geometrieachse (Y)
+ Hunderter: 3. Geometrieachse (Z)
+ Wert:
+ =0: Achse nicht freigegeben
+ =1:  nur Minus-Richtung möglich
+ =2:  nur Plus-Richtung möglich
+ =3:  beide Richtungen möglich
+</description>
+</parameter>
+<parameter number="54648" type="DOUBLE" dim="1">
+<name>MEA_TPW_TYPE</name>
+<brief>Werkzeugmesstastertyp Würfel / Scheibe</brief>
+<description>Werkzeugmesstastertyp
+
+0:     Würfel
+101: Scheibe in XY, Arbeitsebene G17
+201: Scheibe in ZX, Arbeitsebene G18
+301: Scheibe in YZ, Arbeitsebene G19
+
+</description>
+</parameter>
+<parameter number="54649" type="DOUBLE" dim="1">
+<name>MEA_TPW_CAL_MEASURE_DEPTH</name>
+<brief>Abstand zwischen Werkzeugmesstasteroberkante und Fräswerkzeugunterkante</brief>
+<description>Abstand zwischen Werkzeugmesstasteroberkante und Fräswerkzeugunterkante.
+Für die Werkzeugmesstasterkalibrierung definiert dieser Abstand die Kalibriertiefe und
+bei der Fräswerkzeugmvermessung die Messtiefe!
+Zur Vermessung von Drehwerkzeugen hat dieser Parameter keine Bedeutung!
+</description>
+</parameter>
+<parameter number="54650" type="DOUBLE" dim="1">
+<name>MEA_TPW_STATUS_GEN</name>
+<brief>Kalibrierstatus allgemein</brief>
+<description>Kalibrierstatus allgemein, reserviert für interne Verwendung!
+Der Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
+
+</description>
+</parameter>
+<parameter number="54651" type="DOUBLE" dim="1">
+<name>MEA_TPW_FEED</name>
+<brief>Messvorschub beim Werkzeugmesstaster kalibrieren im WKS</brief>
+<description>Messvorschub beim Werkzeugmesstaster kalibrieren im WKS
+Dieser Messvorschub wird für alle nachfolgenden Werzeugmessprogramme in Verbindung mit dem Messtasterfeld verwendet.
+
+</description>
+</parameter>
+<parameter number="54652" type="BYTE" dim="1">
+<name>MEA_INPUT_TOOL_PROBE_SUB</name>
+<brief>Werkzeug-Messtaster an der Gegenspindel vorhanden/aktiv</brief>
+<description>CNC-Messeingang für Werkzeug-Messtaster mit Bezug auf die Gegenspindel 
+
+ $SNS_MEA_INPUT_TOOL_PROBE_SUB[n]
+	=0: 	Toolsetter-Nr.= n+1, mit Bezug zur Hauptspindel,
+		 CNC-Messeingang entspricht dem Wert von $MCS_MEA_FUNCTION_MASK, Bit16
+		(Eingabewerte von 1 bis 9, haben die gleiche funktionelle Wirkung wie Eingabe 0!)
+	=10: 	Toolsetter-Nr.= n+1, mit Bezug zur Gegenspindel,
+		Einerstelle =0, entspricht CNC-Messeingang 1
+	=11: 	Toolsetter-Nr.= n+1, mit Bezug zur Gegenspindel,
+		Einerstelle =1, entspricht CNC-Messeingang 2
+</description>
+</parameter>
+<parameter number="54670" type="DOUBLE" dim="1">
+<name>MEA_CM_MAX_PERI_SPEED</name>
+<brief>Maximal zulässige Umfangsgeschwindigkeit des zu messenden Werkzeuges</brief>
+<description>Maximal zulässige Umfangsgeschwindigkeit des zu messenden Werkzeuges, bei drehender Spindel.
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+
+</description>
+</parameter>
+<parameter number="54671" type="DOUBLE" dim="1">
+<name>MEA_CM_MAX_REVOLUTIONS</name>
+<brief>Maximale Werkzeugdrehzahl zum Werkzeugmessen</brief>
+<description>Maximal zulässige Werkzeugdrehzahl für das Werkzeugmessen mit drehender Spindel,
+bei Überschreitung wird die Drehzahl automatisch reduziert.
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54672" type="DOUBLE" dim="1">
+<name>MEA_CM_MAX_FEEDRATE</name>
+<brief>Maximaler Vorschub zum Antasten vom Werkzeug an den Messtaster</brief>
+<description>Maximaler zulässiger Vorschub zum Antasten des zu messenden Werkzeuges an den Messtaster, bei drehender Spindel.
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54673" type="DOUBLE" dim="1">
+<name>MEA_CM_MIN_FEEDRATE</name>
+<brief>Mindestvorschub zum 1. Antasten des Werkzeuges an den Messtaster</brief>
+<description>Mindestvorschub zum ersten Antasten des zu messenden Werkzeuges an den Messtaster, bei drehender Spindel.
+Damit werden zu kleine Vorschübe bei großen Werkzeugradien verhindert!
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54674" type="DOUBLE" dim="1">
+<name>MEA_CM_SPIND_ROT_DIR</name>
+<brief>Drehrichtung der Spindel zum Werkzeugmessen</brief>
+<description>Drehrichtung der Spindel zum Werkzeugmessen,  bei drehender Spindel (Vorbesetzung: 4 = M4)
+Achtung: Wenn bei Aufruf des Messzyklus die Spindel bereits dreht, bleibt diese
+                Drehrichtung, unabhängig von $SNS_MEA_CM_SPIND_ROT_DIR, erhalten!
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54675" type="DOUBLE" dim="1">
+<name>MEA_CM_FEEDFACTOR_1</name>
+<brief>Vorschubfaktor 1, für das Werkzeugmessen</brief>
+<description>Vorschubfaktor 1, zum Werkzeugmessen  bei drehender Spindel
+  =0: Nur einmaliges Antasten mit vom Zyklus errechnetem Vorschub (jedoch mindestens mit dem Wert von $SNS_MEA_CM_MIN_FEEDRATE)
+&gt;=1: Erstes Antasten mit errechnetem Vorschub (jedoch mindestens mit dem Wert von $SNS_MEA_CM_MIN_FEEDRATE).
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54676" type="DOUBLE" dim="1">
+<name>MEA_CM_FEEDFACTOR_2</name>
+<brief>Vorschubfaktor 2,  für das Werkzeugmessen</brief>
+<description>Vorschubfaktor 2, zum Werkzeugmessen  bei drehender Spindel
+
+  =0: Zweites Antasten mit dem vom Zyklus errechnetem Vorschub (nur wirksam bei  MEA_CM_FEEDFACTOR_1 &gt; 0)
+&gt;=1: Zweites Antasten mit dem errechnetem Vorschub, Vorschubfaktor 2
+       Drittes Antasten mit errechnetem Vorschub. (Werkzeugdrehzahl wird beeinflusst durch SD54749 $SNS_MEA_FUNCTION_MASK_TOOL, Bit 12)
+
+Achtung: - Der Vorschubfaktor 2, sollte kleiner als der Vorschubfaktor 1 sein!
+                - Wenn der Vorschubfaktor 2 den Wert = 0 besitzt, erfolgt kein drittes Antasten!
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54677" type="DOUBLE" dim="1">
+<name>MEA_CM_MEASURING_ACCURACY</name>
+<brief>Geforderte Messgenauigkeit, für das  Werkzeugmessen</brief>
+<description>Geforderte Messgenauigkeit beim Werkzeugmessen
+Der Wert dieses Parameters bezieht sich immer auf das letzte Antasten des Werkzeuges an den Messtaster!
+
+Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
+</description>
+</parameter>
+<parameter number="54689" type="BYTE" dim="0">
+<name>MEA_T_PROBE_MANUFACTURER</name>
+<brief>Werkzeugmesstastertyp (Hersteller)</brief>
+<description>Werkzeugmesstastertyp (Hersteller)
+Die Angaben sind erforderlich für das Werkzeugmessen mit drehender Spindel.
+
+=0: Keine Angabe
+=1: TT130 (Heidenhain)
+=2: TS27R (Renishaw)
+</description>
+</parameter>
+<parameter number="54691" type="BYTE" dim="0">
+<name>MEA_T_PROBE_OFFSET</name>
+<brief>Messergebniskorrektur für das Werkzeugmessen</brief>
+<description>Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel.
+
+=0: Keine Korrektur
+=1: Zyklusinterne Korrektur (nur wirksam wenn SD54690 $SNS_MEA_T_PROBE_MANUFACTURER&lt;&gt;0)
+=2: Korrektur über anwenderdefinierte Korrekturtabelle
+</description>
+</parameter>
+<parameter number="54692" type="DOUBLE" dim="0">
+<name>MEA_T_CIRCULAR_ARC_DIST</name>
+<brief>Abstand der Messpunkte bei Messfunktion "Zähne einzeln prüfen"</brief>
+<description>Das Datum wird beim Werkzeugmessen Radius bei der Funktion "Zähne einzeln prüfen" verwendet.
+Einzugeben ist der Abstand (gemessen auf dem Umfang des Werkzeugs), bei dem Messpunkte aufgenommen werden, um den "höchsten Punkt auf dem längsten Zahn" zu finden.
+Ist der Wert des Datums NULL, dann wird nicht mit stehender Spindel nach dem "höchsten Punkt auf dem längsten Zahn" gesucht, sondern
+es wird der Messwert vom Antasten mit drehender Spindel genommen.
+
+</description>
+</parameter>
+<parameter number="54693" type="BYTE" dim="0">
+<name>MEA_T_MAX_STEPS</name>
+<brief>Maximale Anzahl der Antastungen bei Messfunktion "Zähne einzeln prüfen"</brief>
+<description>Maximale Anzahl der Antastungen zum Finden des "höchsten Punktes auf dem längsten Zahn" beim Werkzeugmessen Radius
+Ist der Wert des Datums NULL, dann wird nicht mit stehender Spindel nach dem "höchsten Punkt auf dem längsten Zahn" gesucht, sondern
+es wird der Messwert vom Antasten mit drehender Spindel genommen.
+
+</description>
+</parameter>
+<parameter number="54695" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD1</name>
+<brief>Korrekturtabelle (Werkzeugradius messen mit drehender Spindel)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[0]        ... dieses Element enthält immer den Wert NULL
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[1]        ... 1.Werkzeugradius
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[2]        ... 2.Werkzeugradius
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[3]        ... 3.Werkzeugradius
+$SNS_MEA_RESULT_OFFSET_TAB_RAD1[4]        ... 4.Werkzeugradius
+</description>
+</parameter>
+<parameter number="54696" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD2</name>
+<brief>Korrekturtabelle 1. Umfangsgeschwindigkeit (Radius)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[0]        ... 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[1]        ... Korrekturwert für Radius bezüglich 1.Radius und 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[2]        ... Korrekturwert für Radius bezüglich 2.Radius und 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[3]        ... Korrekturwert für Radius bezüglich 3.Radius und 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD2[4]        ... Korrekturwert für Radius bezüglich 4.Radius und 1.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54697" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD3</name>
+<brief>Korrekturtabelle 2. Umfangsgeschwindigkeit (Radius)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[0]        ... 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[1]        ... Korrekturwert für Radius bezüglich 1.Radius und 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[2]        ... Korrekturwert für Radius bezüglich 2.Radius und 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[3]        ... Korrekturwert für Radius bezüglich 3.Radius und 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD3[4]        ... Korrekturwert für Radius bezüglich 4.Radius und 2.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54698" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD4</name>
+<brief>Korrekturtabelle 3. Umfangsgeschwindigkeit (Radius)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[0]        ... 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[1]        ... Korrekturwert für Radius bezüglich 1.Radius und 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[2]        ... Korrekturwert für Radius bezüglich 2.Radius und 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[3]        ... Korrekturwert für Radius bezüglich 3.Radius und 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD4[4]        ... Korrekturwert für Radius bezüglich 4.Radius und 3.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54699" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD5</name>
+<brief>Korrekturtabelle 4. Umfangsgeschwindigkeit (Radius)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[0]        ... 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[1]        ... Korrekturwert für Radius bezüglich 1.Radius und 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[2]        ... Korrekturwert für Radius bezüglich 2.Radius und 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[3]        ... Korrekturwert für Radius bezüglich 3.Radius und 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD5[4]        ... Korrekturwert für Radius bezüglich 4.Radius und 4.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54700" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_RAD6</name>
+<brief>Korrekturtabelle 5. Umfangsgeschwindigkeit (Radius)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[0]        ... 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[1]        ... Korrekturwert für Radius bezüglich 1.Radius und 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[2]        ... Korrekturwert für Radius bezüglich 2.Radius und 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[3]        ... Korrekturwert für Radius bezüglich 3.Radius und 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_RAD6[4]        ... Korrekturwert für Radius bezüglich 4.Radius und 5.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54705" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN1</name>
+<brief>Korrekturtabelle (Werkzeuglänge messen mit drehender Spindel)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[0]        ... dieses Element enthält immer den Wert NULL
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[1]        ... 1.Werkzeugradius 
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[2]        ... 2.Werkzeugradius
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[3]        ... 3.Werkzeugradius
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[4]        ... 4.Werkzeugradius
+</description>
+</parameter>
+<parameter number="54706" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN2</name>
+<brief>Korrekturtabelle 1. Umfangsgeschwindigkeit (Länge)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[0]        ... 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[1]        ... Korrekturwert für Länge bezüglich 1.Radius und 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[2]        ... Korrekturwert für Länge bezüglich 2.Radius und 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[3]        ... Korrekturwert für Länge bezüglich 3.Radius und 1.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN2[4]        ... Korrekturwert für Länge bezüglich 4.Radius und 1.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54707" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN3</name>
+<brief>Korrekturtabelle 2. Umfangsgeschwindigkeit (Länge)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[0]        ... 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[1]        ... Korrekturwert für Länge bezüglich 1.Radius und 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[2]        ... Korrekturwert für Länge bezüglich 2.Radius und 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[3]        ... Korrekturwert für Länge bezüglich 3.Radius und 2.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN3[4]        ... Korrekturwert für Länge bezüglich 4.Radius und 2.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54708" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN4</name>
+<brief>Korrekturtabelle 3. Umfangsgeschwindigkeit (Länge)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel ,
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[0]        ... 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[1]        ... Korrekturwert für Länge bezüglich 1.Radius und 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[2]        ... Korrekturwert für Länge bezüglich 2.Radius und 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[3]        ... Korrekturwert für Länge bezüglich 3.Radius und 3.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN4[4]        ... Korrekturwert für Länge bezüglich 4.Radius und 3.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54709" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN5</name>
+<brief>Korrekturtabelle 4. Umfangsgeschwindigkeit (Länge)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel ,
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[0]        ... 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[1]        ... Korrekturwert für Länge bezüglich 1.Radius und 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[2]        ... Korrekturwert für Länge bezüglich 2.Radius und 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[3]        ... Korrekturwert für Länge bezüglich 3.Radius und 4.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN5[4]        ... Korrekturwert für Länge bezüglich 4.Radius und 4.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54710" type="DOUBLE" dim="1">
+<name>MEA_RESULT_OFFSET_TAB_LEN6</name>
+<brief>Korrekturtabelle 5. Umfangsgeschwindigkeit (Länge)</brief>
+<description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[0]        ... 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[1]        ... Korrekturwert für Länge bezüglich 1.Radius und 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[2]        ... Korrekturwert für Länge bezüglich 2.Radius und 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[3]        ... Korrekturwert für Länge bezüglich 3.Radius und 5.Umfangsgeschwindigkeit
+$SNS_MEA_RESULT_OFFSET_TAB_LEN6[4]        ... Korrekturwert für Länge bezüglich 4.Radius und 5.Umfangsgeschwindigkeit
+</description>
+</parameter>
+<parameter number="54740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Funktionsmaske Messzyklen, Werkstück- Werkzeugmessen</brief>
+<description>Funktionsmaske Messzyklen
+
+Bit 0:  Messwiederholung Werkstückmessen mit Korrektur in ein Werkzeug,
+           nach Toleranzüberschreitung von Massdifferenz (TDIF) oder Vertrauensbereich  (TSA)
+          	0: Bei Überschreitung einer der Toleranzen erfolgt keine Messwiederholung und ein entsprechender Alarm
+ 	    wird angezeigt (Alarm 61303 oder 61306).
+          	1: Bei Überschreitung einer der Toleranzen erfolgen bis zu vier Messwiederholungen.
+	    Wird bei allen Wiederholungen eine der Toleranzen überschritten, wird ein entsprechender Alarm angezeigt (Alarm 61303 oder 61306).
+
+Bit 1:  Messwiederholung Werkstückmessen mit Korrektur in ein Werkzeug, programmierter Halt an M0,
+           nach jeder Wiederholung mit Toleranzüberschreitung von Maßdifferenz (TDIF) oder Vertrauensbereich (TSA) und Alarmausgabe
+           Bit 1 wirkt nur im Zusammenhang mit Bit 0 = 1.
+          	0: Bei Überschreitung einer der Toleranzen erfolgt keine Messwiederholung und ein entsprechender Alarm
+ 	    wird angezeigt (Alarm 61303 oder 61306).
+          	1: Bei Überschreitung einer der Toleranzen erfolgen bis zu vier Messwiederholungen.
+	    Im Fall der wiederholten Toleranzüberschreitung, wird durch eine entsprechende Alarmausgabe
+	    und M0 unterbrochen (Alarm 62303 oder 62306).
+                 Mit "NC-START" kann der Alarm quittiert und die nächste Messwiederholung gestartet werden.
+
+Bit 2:  Werkstückmessen mit Korrektur in ein Werkzeug, programmierter Halt an M0 nach Toleranzüberschreitung 
+            von Untergrenze Werkstück (TLL) oder Obergrenze Werkstück  (TUL) und Alarmausgabe
+          	0: Bei Überschreitung einer der Toleranzen wird ein entsprechender Reset-Alarm angezeigt
+	    (Alarm 61304 oder 61305). Es wird keine Werkzeugkorrektur ausgeführt.
+          	1: Bei Überschreitung einer der Toleranzen wird durch eine entsprechende Alarmausgabe
+	    und M0 der Ablauf unterbrochen (Alarm 62304 oder 62305).
+                 Mit "NC-START" können diese Alarme quittiert und wieder gestartet werden. Die Korrektur ins Werkzeug wird ausgeführt.
+
+Bit 3:   kalibrierten Radius des Werkstückmesstasters in die Werkzeugdaten übernehmen
+          	0: Den kalibrierten Radius des Werkstückmesstasters nicht in die Werkzeugdaten übernehmen.
+          	1: Den kalibrierten Radius des Werkstückmesstasters in die Werkzeugdaten übernehmen.
+
+Bit 4:  Bei gemischter Technologie Dreh- Fräsen oder Fräs- Drehen kann die Ebene zwischen Kalibrieren und
+           Messen unterschiedlich sein.
+          	0: Beim Werkstückmessen sind unterschiedliche Ebenen zwischen Kalibrieren und Messen nicht 
+                  zulässig. Sind die Ebenen unterschiedlich, wird zur Zyklenlaufzeit der Alarm 61341 ausgegeben.
+          	1: Beim Werkstückmessen sind unterschiedliche Ebenen zwischen Kalibrieren und Messen zulässig.
+	    Zum Beispiel: Kalibrieren in G17 und Messen unter Drehen in G18.
+
+Bit 16: Messwiederholung Werkzeugmessen, nach Überschreitung der Toleranzen Massdiffernz (TDIF)
+            oder Vertrauensbereich  (TSA)
+          	0: Bei Überschreitung einer der Toleranzen erfolgt keine Messwiederholung und ein entsprechender Alarm wird angezeigt (Alarm 61303 oder 61306).
+          	1: Bei Überschreitung einer der Toleranzen erfolgen bis zu vier Messwiederholungen.
+	    Wird bei allen Wiederholungen eine der Toleranzen überschritten, wird ein entsprechender Alarm angezeigt (Alarm 61303 oder 61306).  	
+
+Bit 17: Messwiederholung Werkzeugmessen, programmierter Halt an M0 nach Toleranzüberschreitung Maßdifferenz (TDIF) oder Vertrauensbereich (TSA) und Alarmausgabe
+          	0: Bei Überschreitung einer der Toleranzen erfolgt keine Messwiederholung und ein entsprechender Alarm wird angezeigt (Alarm 61303 oder 61306).
+          	1: Bei Überschreitung einer der Toleranzen erfolgen bis zu vier Messwiederholungen.
+	    Im Fall der wiederholten Toleranzüberschreitung, wird durch eine entsprechende Alarmausgabe und M0 unterbrochen (Alarm 62303 oder 62306).
+                 Mit "NC-START" kann der Alarm quittiert und die nächste Messwiederholung gestartet werden.
+
+Bit 19: Werkzeugmessen Technologie Fräsen, Reduzierung der Spindeldrehzahl beim letzten Antasten
+           	0: Das letzte Antasten erfolgt ohne Reduzierung der Spindeldrehzahl.
+           	1: Beim letzten Antasten erfolgt eine automatische Reduzierung der Spindeldrehzahl.
+
+
+</description>
+</parameter>
+<parameter number="54750" type="DWORD" dim="0" display="HEX">
+<name>MEA_ALARM_MASK</name>
+<brief>Expertenmodus für Zyklenalarme</brief>
+<description>Bit 0  - 15 reserviert für Werkstückmessen
+Bit 16 -31 reserviert für Werkzeugmessen
+</description>
+</parameter>
+<parameter number="54760" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK_PIECE</name>
+<brief>Einstellung zur Eingabemaske, Messzyklen in Automatik, Werkstückmessung</brief>
+<description>	Einstellung zur Eingabemaske, Messzyklen in Automatik, Werkstückmessung
+
+Bit1	Auswahl Softkey 3D Messen einblenden
+Bit3	Auswahl Messtasterkalibrierdatenfeld, freigeben
+Bit4	Auswahl Kalibrieren Eingabe Messvorschub 1)
+Bit6	Auswahl NPV-Korrektur in Basisbezug (SETFRAME), freigeben
+Bit7	Auswahl NPV-Korrektur in kanalspezifische Basisframe, freigeben
+Bit8	Auswahl NPV-Korrektur in globale Basisframe, freigeben
+Bit9	Auswahl NPV-Korrektur in einstellbare Frame, freigeben
+Bit10 Auswahl NPV-Korrektur grob und fein freigeben
+Bit11 Auswahl Werkzeugkorrektur Geometrie und Verschleiß
+Bit12 Auswahl Werkzeugkorrektur nicht invertiert und invertiert
+Bit13 Auswahl Werkzeugkorrektur L1, R oder L1, L2, L3 R
+Bit14 Auswahl Werkzeugkorrektur Nullkorrektur (_TZL)
+Bit15 Auswahl Werkzeugkorrektur Maßdifferenzkontrolle (_TDIF)
+Bit16 Auswahl Werkstückmessen mit Spindelumschlag
+Bit17 Auswahl Werkstückmesstaster in Schaltrichtung ausrichten
+Bit18 Auswahl Anzahl der Messungen (_NMSP)
+Bit19 Auswahl Korrektur mit Mittelwertbildung (_TMV) 1)
+Bit20 Auswahl Erfahrungswerte (_EVNUM)
+Bit21 Auswahl Summen- Einrichtekorrektur
+Bit22 Auswahl Kalibrieren auf unbekannten oder auf bekannten Mittelpunkt
+Bit24 Auswahl Kalibrieren mit /ohne Lageabweichung
+Bit25 Auswahl Nullkorrektur bei Messen der Winkligkeit der Spindel freigeben
+Bit26 Auswahl Werkzeugkorrektur nicht freigeben
+
+
+	wenn Auswahl NV-Korrektur bit 6..10 nicht ausgewählt, dann "nur Messen" anbieten.
+	wenn Auswahl NV-Korrektur bit6..10 ausgewählt, in Eingabemaske immer Korrektur in aktive NV mit anbieten
+	Bei Mittelwertbildung folgende Parameter anzeigen : _K _TMV, _EVNUM
+
+	1) Eingabe Messvorschub gilt für Automatik und JOG
+
+</description>
+</parameter>
+<parameter number="54762" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK_TOOL</name>
+<brief>Einstellung zur Eingabemaske, Messzyklen in Automatik, Werkzeugmessung</brief>
+<description>Einstellung zur Eingabemaske, Messzyklen in Automatik, Werkzeugmessung
+	54762 MEA_FUNCTION_MASK_TOOL
+
+Bit3	Auswahl Werkzeugmesstaster-Kalibrierdatenfeld, freigeben
+Bit4	Auswahl Kalibrieren Eingabe Messvorschub (VMS) 1)
+Bit5	Auswahl Eingabe Vorschub und Spindeldrehzahlen beim Antasten
+Bit7	Auswahl Messen in MKS und WKS
+Bit8	Auswahl Messen absolut und  inkrementell
+Bit9	Auswahl Werkzeugkorrektur Geometrie und Verschleiß
+Bit10 Auswahl Messfunktion "Zähne einzeln prüfen"
+Bit11 Auswahl Spindelumschlag beim Kalibrieren in der Ebene
+Bit12 Auswahl Anzahl der Messungen (_NMSP)
+Bit13 Auswahl Erfahrungswerte  (_EVNUM)
+
+	1) Eingabe Messvorschub gilt für Automatik und JOG
+
+
+</description>
+</parameter>
+<parameter number="54764" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK_TURN</name>
+<brief>Einstellung zur Eingabemaske, Messzyklen in Automatik, Werkstück Drehen</brief>
+<description>	54764 MEA_FUNCTION_MASK_TURN
+
+	Einstellung zur Eingabemaske, Messzyklen Drehen in Automatik 
+
+Bit0	Messen Durchmesser innen/außen mit Umschlag
+Bit1	Messen Durchmesser innen/außen "unter Drehmitte fahren?
+
+
+</description>
+</parameter>
+<parameter number="54780" type="DWORD" dim="0" display="HEX">
+<name>J_MEA_FUNCTION_MASK_PIECE</name>
+<brief>Einstellungen zur Eingabemaske Werkstückmessen im JOG</brief>
+<description>Einstellungen zur Eingabemaske Werkstückmessen im JOG
+
+Bit2	Abgleich für elektronischen Werkstückmesstaster aktivieren
+Bit3	Auswahl Messtasterkalibrierdatenfeld, freigeben
+Bit5	Auswahl NPV als Messgrundlage
+Bit6 Auswahl NPV-Korrektur in Basisbezug, freigeben
+Bit7 Auswahl NPV-Korrektur in Kanal-Basisframe, freigeben
+Bit8 Auswahl NPV-Korrektur in globale Basisframe, freigeben
+Bit9 Auswahl NPV-Korrektur in einstellbare Frame, freigeben
+Bit16 Auswahl Werkstückmessen mit Spindelumschlag
+Bit17 Auswahl Werkstückmesstaster in Schaltrichtung ausrichten
+</description>
+</parameter>
+<parameter number="54782" type="DWORD" dim="0" display="HEX">
+<name>J_MEA_FUNCTION_MASK_TOOL</name>
+<brief>Einstellungen zur Eingabemaske Werkzeugmessen im JOG</brief>
+<description>Einstellungen zur Eingabemaske Werkzeugmessen im JOG
+
+bit2	Automatisches Werkzeugmessen freigeben
+bit3	Auswahl Werkzeugmesstaster-Kalibrierdatenfeld, freigeben
+Bit10 Auswahl Messfunktion "Zähne einzeln prüfen"
+Bit11 Auswahl Spindelumschlag beim Kalibrieren in der Ebene
+
+</description>
+</parameter>
+<parameter number="54840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Funktionsmaske Schleifzyklen</brief>
+<description>Funktionsmaske Schleifzyklen
+
+</description>
+</parameter>
+</info>

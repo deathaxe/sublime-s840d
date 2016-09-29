@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="protAreaChan">
+<parameter type="BOOL" dim="1">
+<name>$SC_PA_ACTIV_IMMED</name>
+<brief>Protection zone immediately active</brief>
+<description>$SC_PA_ACTIV_IMMED[n]
+n: Number of the protection area
+
+Protection area immediately active after boot
+TRUE: The protection area is activated immediately after
+the control has booted and the axes have been referenced
+FALSE: The protection area is not immediately active
+
+Note: This variable can only be written as a system variable and is not affected by
+the NC commands between NPROTDEF(..) and EXECUTE(n).
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+</description>
+</parameter>
+<parameter type="CHAR" dim="1">
+<name>$SC_PA_T_W</name>
+<brief>Protection zone specific to workpiece/tool</brief>
+<description>$SC_PA_T_W[n]
+n: Number of the protection area
+
+Protection area specific to workpiece/tool
+0: Workpiece-specific protection area
+3: Tool-specific protection area
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$SC_PA_ORI</name>
+<brief>Orientation of protection zone</brief>
+<description>$SC_PA_ORI[n]
+n: Number of the protection area
+
+Orientation of protection area
+0: Polygon curve in the plane formed by the 1st and 2nd geo axes (G17)
+1: Polygon curve in the plane formed by the 3rd and 1st geo axes (G18)
+2: Polygon curve in the plane formed by the 2nd and 3rd geo axes (G19)
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$SC_PA_LIM_3DIM</name>
+<brief>Scope of application-limiting protection zone</brief>
+<description>$SC_PA_LIM_3DIM[n]
+n: Number of the protection area
+
+Identifier for limitation of protection area in the axis
+perpendicular to the polygon curve
+0: No limitation
+1: Limitation in the positive direction
+2: Limitation in the negative direction
+3: Limitation in both directions
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$SC_PA_PLUS_LIM</name>
+<brief>Limitation of protection zone applicate plus</brief>
+<description>$SC_PA_PLUS_LIM[n]
+n: Number of the protection area
+
+Positive limitation of protection areas in the axis
+perpendicular to the polygon curve.
+Effective only if $SC_PA_LIM_3DIM[n]=1 or = 3.
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$SC_PA_MINUS_LIM</name>
+<brief>Limitation of protection zone applicate minus</brief>
+<description>$SC_PA_MINUS_LIM[n]
+n: Number of the protection area
+
+Negative limitation of protection area in minus direction in the axis
+perpendicular to the polygon curve
+Effective only if $SC_PA_LIM_3DIM[n]=2 or = 3.
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$SC_PA_CONT_NUM</name>
+<brief>Number of valid contour elements</brief>
+<description>$SC_PA_CONT_NUM[n]
+n: Number of the protection area
+
+Number of valid contour elements
+Protection areas need at least 2 contour elements for a complete description.
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$SC_PA_CONT_TYP</name>
+<brief>Type of the contour element</brief>
+<description>$SC_PA_CONT_TYP"[n,m]
+n: Number of the protection area
+m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+
+Type (G1, G2, G3) of contour element
+=0: Contour not defined
+=1: Straight
+=2: Circle element (clockwise)
+=3: Circle element (counterclockwise)
+The end point is determined by $SC_PA_CONT_ORD or $SC_PA_CONT_ABS. With contour types G2 and G3, $SC_PA_CENT_ORD or $SC_PA_CENT_ABS determines the center point of the circle element.
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SC_PA_CONT_ORD</name>
+<brief>End point of contour element (ordinate)</brief>
+<description>$SC_PA_CONT_ORD[n,m]
+n: Number of the protection area
+m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+
+End point of contour element (ordinate)
+See also description of $SC_PA_CONT_TYP
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SC_PA_CONT_ABS</name>
+<brief>End point of contour element (abscissa)</brief>
+<description>$SC_PA_CONT_ABS[n,m]
+n: Number of the protection area
+m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+
+End point of contour element (abscissa)
+See also description of $SC_PA_CONT_TYP
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SC_PA_CENT_ORD</name>
+<brief>Center point of contour element (ordinate)</brief>
+<description>$SC_PA_CENT_ORD[n,m]
+n: Number of the protection area
+m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+
+Center point of contour element (ordinate)
+Relevant only if $SC_PA_CONT_TYP[n,m] = 2 or = 3.
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$SC_PA_CENT_ABS</name>
+<brief>Center point of contour element (abscissa)</brief>
+<description>$SC_PA_CENT_ABS[n,m]
+n: Number of the protection area
+m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+
+Center point of contour element (abscissa)
+Relevant only if $SC_PA_CONT_TYP[n,m] = 2 or = 3.
+
+Note: This variable is not restored during REORG.
+
+Note: This variable is saved during data backup.
+Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
+            CHAx: x=channel no.
+</description>
+</parameter>
+</info>

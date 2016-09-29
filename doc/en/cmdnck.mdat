@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info>
+<parameter number="51000" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM</name>
+<brief>Display resolution in mm</brief>
+<description>Display resolution in mm
+</description>
+</parameter>
+<parameter number="51001" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_FEED_PER_REV</name>
+<brief>Display resolution in mm feedrate/rev</brief>
+<description>Display resolution in mm feedrate/rev
+</description>
+</parameter>
+<parameter number="51002" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_FEED_PER_TIME</name>
+<brief>Display resolution in mm feedrate/min</brief>
+<description>Display resolution in mm feedrate/min
+</description>
+</parameter>
+<parameter number="51003" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_FEED_PER_TOOTH</name>
+<brief>Display resolution in mm feedrate/tooth</brief>
+<description>Display resolution in mm feedrate/tooth
+</description>
+</parameter>
+<parameter number="51004" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_MM_CONST_CUT_RATE</name>
+<brief>Display resolution constant cutting speed m/min</brief>
+<description>Display resolution constant cutting speed m/min
+</description>
+</parameter>
+<parameter number="51010" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH</name>
+<brief>Display resolution in inch</brief>
+<description>Display resolution in inch
+</description>
+</parameter>
+<parameter number="51011" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_FEED_P_REV</name>
+<brief>Display resolution in inch feedrate/rev</brief>
+<description>Display resolution in inch feedrate/rev
+</description>
+</parameter>
+<parameter number="51012" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_FEED_P_TIME</name>
+<brief>Display resolution in inch feedrate/min</brief>
+<description>Display resolution in inch feedrate/min
+</description>
+</parameter>
+<parameter number="51013" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_FEED_P_TOOTH</name>
+<brief>Display resolution in inch feedrate/tooth</brief>
+<description>Display resolution in inch feedrate/tooth
+</description>
+</parameter>
+<parameter number="51014" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_INCH_CUT_RATE</name>
+<brief>Display resolution constant cutting speed ft/min</brief>
+<description>Display resolution constant cutting speed ft/min
+</description>
+</parameter>
+<parameter number="51020" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_ANGLE</name>
+<brief>Display resolution of angle</brief>
+<description>Display resolution of angle
+</description>
+</parameter>
+<parameter number="51021" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_SPINDLE</name>
+<brief>Display resolution of spindles</brief>
+<description>Decimal places in speed entry field
+</description>
+</parameter>
+<parameter number="51022" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_ROT_AX_FEED</name>
+<brief>Display resolution of rotary axis feedrate</brief>
+<description>Display resolution of rotary axis feedrate
+</description>
+</parameter>
+<parameter number="51023" type="BYTE" dim="0" display="DECIMAL">
+<name>ACT_VALUE_SPIND_MODE</name>
+<brief>Only display spindles in actual values window when in axis mode</brief>
+<description>This affects the display of the spindles in the axis actual values window. If the value is set to 1, only those spindles in axis mode are displayed, those in spindle mode are shown as gaps. If the value is set to 0, all spindles are displayed.
+</description>
+</parameter>
+<parameter number="51024" type="BYTE" dim="0" display="HEX">
+<name>BLOCK_SEARCH_MODE_MASK_JS</name>
+<brief>Bit mask for available search modes (ShopMill, ShopTurn single-channel)</brief>
+<description>Bit mask for available search modes (ShopMill, ShopTurn single-channel)
+Bit 0:	Block search with calculation without approach
+Bit 1:	Block search with calculation with approach
+Bit 2:	reserved
+Bit 3:	Skip EXTCALL programs
+Bit 4:	reserved
+Bit 5:	Block search with test run
+
+</description>
+</parameter>
+<parameter number="51025" type="BYTE" dim="0" display="DECIMAL">
+<name>FRAMES_ACT_IMMEDIATELY</name>
+<brief>Activate active offset immediately</brief>
+<description>Active data (frames) are activated immediately after change
+</description>
+</parameter>
+<parameter number="51026" type="BYTE" dim="0" display="DECIMAL">
+<name>AXES_SHOW_GEO_FIRST</name>
+<brief>Actual value display with leading geometry axes</brief>
+<description>When the machine data value is 1, the geometry axes of the channel are displayed first.
+</description>
+</parameter>
+<parameter number="51027" type="BYTE" dim="0" display="DECIMAL">
+<name>ONLY_MKS_DIST_TO_GO</name>
+<brief>Distance-to-go display in Work window</brief>
+<description>Distance-to-go display in Work window
+</description>
+</parameter>
+<parameter number="51028" type="BYTE" dim="0" display="HEX">
+<name>BLOCK_SEARCH_MODE_MASK</name>
+<brief>Bit mask for available block search modes</brief>
+<description>Bit mask for available search modes
+Bit 0:	Block search with calculation but no approach
+Bit 1:	Block search with calculation and approach
+Bit 3:	Skip EXTCALL programs
+Bit 4:	Block search without calculation
+Bit 5:	Block search with test run
+
+</description>
+</parameter>
+<parameter number="51029" type="BYTE" dim="0" display="DECIMAL">
+<name>MAX_SKP_LEVEL</name>
+<brief>Maximum number of skip levels in the NC program</brief>
+<description>The machine data defines how many skip levels are made available for operation.
+</description>
+</parameter>
+<parameter number="51030" type="DWORD" dim="0" display="DECIMAL">
+<name>SPIND_MAX_POWER</name>
+<brief>Maximum value of spindle power rating display</brief>
+<description>Maximum value of the permissible spindle power rating in percent; the display bar in the machine image is shown in green within the range between 0 and the value stored in SPIND_MAX_POWER.
+
+</description>
+</parameter>
+<parameter number="51031" type="DWORD" dim="0" display="DECIMAL">
+<name>SPIND_POWER_RANGE</name>
+<brief>Display range of spindle power rating display</brief>
+<description>Scale end value for spindle power rating in percent; value must be equal to or greater than SPIND_MAX_POWER.
+The display bar in the machine image is shown in red in the range between the values of  SPIND_MAX_POWER and SPIND_POWER_RANGE.
+</description>
+</parameter>
+<parameter number="51032" type="BYTE" dim="0" display="DECIMAL">
+<name>STAT_DISPLAY_BASE</name>
+<brief>Number basis for display of articulated joint STAT</brief>
+<description>Number basis for display of articulated joint STAT
+00: no display
+02: binary value display
+10: decimal value display
+16: hexadecimal value display
+
+</description>
+</parameter>
+<parameter number="51033" type="BYTE" dim="0" display="DECIMAL">
+<name>TU_DISPLAY_BASE</name>
+<brief>Number basis for display of rotary axis position TU</brief>
+<description>Number basis for display of rotary axis position TU
+00: no display
+02: binary value display
+10: decimal value display
+16: hexadecimal value display
+</description>
+</parameter>
+<parameter number="51034" type="DWORD" dim="0" display="HEX">
+<name>TEACH_MODE</name>
+<brief>Teach mode to be activated</brief>
+<description>Teach mode to be activated
+Bit 0: default teach-in
+           Taught-in block is transferred to the program using the Accept softkey.
+Bit 1: transfer of teach block can be blocked by the PLC.
+           SINUMERIK  840D sl:
+              DB19.DBX13.0 = 0 block is transferred.
+              DB19.DBX13.0 = 1 block is not transferred.
+           SINUMERIK  828D:
+              DB1700.DBX1000.0 = 0 block is transferred.
+              DB1700.DBX1000.0 = 1 block is not transferred.
+Bit 2: block selection only explicitly
+Bits 16-31 are reserved for the OEM.
+</description>
+</parameter>
+<parameter number="51035" type="DOUBLE" dim="0" display="DECIMAL">
+<name>WRITE_FRAMES_FINE_LIMIT</name>
+<brief>Input limit for all WO fine</brief>
+<description>Input limit for all work offsets fine
+</description>
+</parameter>
+<parameter number="51036" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_COORDINATE_REL</name>
+<brief>Enable REL coordinate system</brief>
+<description>Display REL coordinate system
+0 = No relative coordinate system selectable
+1 = REL coordinate system can be selected as an alternative to the work/SZS coordinate system
+</description>
+</parameter>
+<parameter number="51037" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_COORDINATE_ACS</name>
+<brief>Enable settable coordinate system</brief>
+<description>Activate settable coordinate system
+0 = WCS coordinate system is displayed
+1 = SZS coordinate system is displayed
+     (SZS is WCS reduced by the offset components defined in MD24030)
+</description>
+</parameter>
+<parameter number="51038" type="BYTE" dim="0" display="DECIMAL">
+<name>SET_ACT_VALUE</name>
+<brief>Set actual value selection</brief>
+<description>Set actual value selection
+0 = Set actual value is not offered.
+1 = if a user frame (settable work offset e.g. G54) is active, it will be used. In G500 Set actual values is not offered (system frame is no longer used).
+</description>
+</parameter>
+<parameter number="51039" type="DWORD" dim="0" display="HEX">
+<name>PROGRAM_CONTROL_MODE_MASK</name>
+<brief>Options for machine - program influence</brief>
+<description>Options for machine - program influence:
+Bit 0: program test function available
+</description>
+</parameter>
+<parameter number="51040" type="BYTE" dim="0" display="HEX">
+<name>SWITCH_TO_MACHINE_MASK</name>
+<brief>Automatic operating area switchover to machine</brief>
+<description>Automatic area switchover dependent upon machine
+Bit 0: No automatic switch to Machine operating area when the program is selected in the Program Manager.
+Bit 1: No automatic switch to Machine operating area when the operating mode is changed over via the machine control panel (MCP).
+Bit 2: No automatic switch to Machine operating area when the program is selected in the Programs operating area.
+Bit 3: No automatic start of block search when the program is selected / executed in the Programs operating area.
+</description>
+</parameter>
+<parameter number="51041" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_PROGLIST_USER</name>
+<brief>Activation of PLC program list, USER area</brief>
+<description>Activates the PLC program list of the USER area. The programs entered there can be selected by the PLC for processing.
+
+</description>
+</parameter>
+<parameter number="51042" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_PROGLIST_INDIVIDUAL</name>
+<brief>Activation of PLC program list, INDIVIDUAL area</brief>
+<description>Activates the PLC program list of the INDIVIDUAL area. The programs entered here can be selected by the PLC for processing.
+
+</description>
+</parameter>
+<parameter number="51043" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_PROGLIST_MANUFACT</name>
+<brief>Activation of PLC program list, MANUFACTURER area</brief>
+<description>Activates the PLC program list of the MANUFACTURER area. The programs entered here can be selected by the PLC for processing.
+
+</description>
+</parameter>
+<parameter number="51044" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_SHOW_SBL2</name>
+<brief>Display protection level SBL2</brief>
+<description>Display protection level SBL2
+</description>
+</parameter>
+<parameter number="51045" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TEACH_IN</name>
+<brief>Protection level TEACH IN</brief>
+<description>Protection level TEACH IN
+</description>
+</parameter>
+<parameter number="51046" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_CLEAR_RPA</name>
+<brief>Protection level delete R variables</brief>
+<description>Protection level delete R variables
+</description>
+</parameter>
+<parameter number="51047" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_READ_GUD_LUD</name>
+<brief>Read user variable protection level</brief>
+<description>Read user variable protection level
+</description>
+</parameter>
+<parameter number="51048" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_GUD_LUD</name>
+<brief>Write protection level of user variables</brief>
+<description>Write protection level of user variables
+</description>
+</parameter>
+<parameter number="51049" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PRG_COND</name>
+<brief>Write program control protection level</brief>
+<description>Write program control protection level
+</description>
+</parameter>
+<parameter number="51050" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PROGRAM</name>
+<brief>Write part program protection level</brief>
+<description>Write part program protection level
+</description>
+</parameter>
+<parameter number="51051" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_RPA</name>
+<brief>Protection level write R variables</brief>
+<description>Protection level write R variables
+</description>
+</parameter>
+<parameter number="51052" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_SEA</name>
+<brief>Protection level write setting data</brief>
+<description>Protection level write setting data
+</description>
+</parameter>
+<parameter number="51053" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_BASEFRAME</name>
+<brief>Write basic work offset protection level</brief>
+<description>Write basic work offset (basic frame) protection level
+</description>
+</parameter>
+<parameter number="51054" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CYCFRAME</name>
+<brief>Write cycle frame protection level</brief>
+<description>Write cycle frame protection level
+</description>
+</parameter>
+<parameter number="51055" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_EXTFRAME</name>
+<brief>Write external WO protection level</brief>
+<description>Write external work offset protection level
+</description>
+</parameter>
+<parameter number="51056" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PARTFRAME</name>
+<brief>Write table reference protection level</brief>
+<description>Write table reference protection level
+</description>
+</parameter>
+<parameter number="51057" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_SETFRAME</name>
+<brief>Write basic reference protection level</brief>
+<description>Write basic reference protection level
+</description>
+</parameter>
+<parameter number="51058" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TOOLFRAME</name>
+<brief>Write basic tool reference protection level</brief>
+<description>Write basic tool reference protection level
+</description>
+</parameter>
+<parameter number="51059" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TRAFRAME</name>
+<brief>Write transformation frame protec. level</brief>
+<description>Write transformation frame protec. level
+</description>
+</parameter>
+<parameter number="51060" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_USERFRAME</name>
+<brief>Write settable work offset protection level</brief>
+<description>Write settable work offset (G54 ... G599) protection level
+</description>
+</parameter>
+<parameter number="51061" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_WPFRAME</name>
+<brief>Write workpiece reference protection level</brief>
+<description>Write workpiece reference protection level
+</description>
+</parameter>
+<parameter number="51062" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_FINE</name>
+<brief>Write protection level for fine offset of all work offsets </brief>
+<description>Write protection level for fine offset of all work offsets
+</description>
+</parameter>
+<parameter number="51063" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_SET_ACT_VALUE</name>
+<brief>Set actual value protection level</brief>
+<description>Set actual value protection level
+</description>
+</parameter>
+<parameter number="51064" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_PROGLIST</name>
+<brief>Write protection level of program list in USER area</brief>
+<description>Minimum protection level required to change the program list in the USER area (program manager)
+</description>
+</parameter>
+<parameter number="51065" type="BYTE" dim="0" display="DECIMAL">
+<name>NUM_DISPLAYED_CHANNELS</name>
+<brief>Number of channels displayed simultaneously</brief>
+<description>Setting of the number of channels to be displayed simultaneously in the machine operating area and in the multi-channel editor.
+</description>
+</parameter>
+<parameter number="51066" type="STRING" dim="0" display="ASCII">
+<name>ORDER_DISPLAYED_CHANNELS</name>
+<brief>Channel numbers of the channels displayed</brief>
+<description>Contains the numbers of the channels to be displayed under machine in the multi-channel view, in the desired order and separated by commas, semicolons or spaces.
+</description>
+</parameter>
+<parameter number="51067" type="BYTE" dim="0" display="DECIMAL">
+<name>ENABLE_HANDWHEEL_WINDOW</name>
+<brief>Show handwheel window</brief>
+<description>If the machine data is set to 0, the window for handwheel assignment is hidden
+</description>
+</parameter>
+<parameter number="51068" type="BYTE" dim="0" display="DECIMAL">
+<name>SPIND_DRIVELOAD_FROM_PLC1</name>
+<brief>Machine axis index of spindle 1 utilization display from PLC</brief>
+<description>Machine axis index of a spindle (analog), which refers to the data for the utilization display in the T,F,S window from the PLC (DB19.DBB6).
+
+
+</description>
+</parameter>
+<parameter number="51069" type="BYTE" dim="0" display="DECIMAL">
+<name>SPIND_DRIVELOAD_FROM_PLC2</name>
+<brief>Machine axis index of spindle 2 utilization display from PLC</brief>
+<description>Machine axis index of a spindle (analog), which refers to the data for the utilization display in the T,F,S window from the PLC (DB19.DBB7).
+</description>
+</parameter>
+<parameter number="51070" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_CAL_TOOL_PROBE</name>
+<brief>Protection level for calibration of the tool probe (ShopTurn)</brief>
+<description>Protection level for calibration of the tool probe (ShopTurn)
+</description>
+</parameter>
+<parameter number="51071" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_ACTIVATE_CTRL_E</name>
+<brief>Protection level of Ctrl-Energy</brief>
+<description>Protection level for activating, disabling and enabling energy saving profiles.
+</description>
+</parameter>
+<parameter number="51072" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_EDIT_CTRL_E</name>
+<brief>Protection level of Ctrl-Energy for changing profiles</brief>
+<description>Protection level of Ctrl-Energy: Definition of energy saving profiles
+</description>
+</parameter>
+<parameter number="51073" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_SET_SOFTKEY_ACCESS</name>
+<brief>Protection level of "Adapt softkeys"</brief>
+<description>Protection level for the softkey "Adapt softkeys", which is used to change the access levels of other softkeys.
+</description>
+</parameter>
+<parameter number="51160" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CA_MACH_JOG</name>
+<brief>Write protection level collision monitoring machine jog</brief>
+<description>This machine data defines the protection level from which the machine/machine collision monitoring can be activated or deactivated under jog.
+
+</description>
+</parameter>
+<parameter number="51161" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CA_MACH_AUTO</name>
+<brief>Write protection level, collision monitoring machine automatic</brief>
+<description>This machine data defines the protection level from which the machine/machine collision monitoring can be activated or deactivated under automatic.
+
+</description>
+</parameter>
+<parameter number="51162" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_CA_TOOL</name>
+<brief>Write protection level collision monitoring tool</brief>
+<description>This machine data defines the protection level from which the collision monitoring for tools can be activated or deactivated.
+
+</description>
+</parameter>
+<parameter number="51198" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_READ_TM_ALL_PARAM</name>
+<brief>Protection level tool management details - read all parameters</brief>
+<description>Protection level tool management details - read all parameters
+</description>
+</parameter>
+<parameter number="51199" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_GRIND</name>
+<brief>Protection level of tool management for writing grinding data</brief>
+<description>Protection level of tool management for writing grinding data
+</description>
+</parameter>
+<parameter number="51200" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_GEO</name>
+<brief>Write tool offset geometry data protection level</brief>
+<description>Write tool offset geometry data protection level
+</description>
+</parameter>
+<parameter number="51201" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_WEAR</name>
+<brief>Write tool offset wear data protection level</brief>
+<description>Write tool offset wear data protection level
+</description>
+</parameter>
+<parameter number="51202" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_WEAR_DELTA</name>
+<brief>Protection level for tool offset restricted writing of wear data</brief>
+<description>Protection level for restricted writing of tool wear values
+S. MD 51213: TM_WRITE_WEAR_DELTA_LIMIT
+</description>
+</parameter>
+<parameter number="51203" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_SC</name>
+<brief>Write tool offset sum offset protection level</brief>
+<description>Write tool offset sum offset protection level
+</description>
+</parameter>
+<parameter number="51204" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_EC</name>
+<brief>Write tool offset use offsets protection level</brief>
+<description>Write tool offset use offsets protection level
+</description>
+</parameter>
+<parameter number="51205" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_SUPVIS</name>
+<brief>Write tool offset monitoring data protection level</brief>
+<description>Write tool offset monitoring data protection level
+One authorization applies to all limit values: quantity, service life, wear and the monitoring type.
+</description>
+</parameter>
+<parameter number="51206" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_ASSDNO</name>
+<brief>Write tool offset unique D number protection level</brief>
+<description>Write tool offset unique D number protection level
+</description>
+</parameter>
+<parameter number="51207" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_WGROUP</name>
+<brief>Write tool offset wear groups protection level</brief>
+<description>Write tool offset wear groups (magazine location / magazine) protection level
+</description>
+</parameter>
+<parameter number="51208" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_ADAPT</name>
+<brief>Write tool offset adapter data protection level</brief>
+<description>Write tool offset tool adapter geometry data protection level
+
+</description>
+</parameter>
+<parameter number="51209" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_NAME</name>
+<brief>Write tool offset tool name protection level</brief>
+<description>Write tool offset tool name and duplo data protection level
+</description>
+</parameter>
+<parameter number="51210" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_TYPE</name>
+<brief>Write tool offset tool type protection level</brief>
+<description>Write tool offset tool type protection level
+</description>
+</parameter>
+<parameter number="51211" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_READ_TM</name>
+<brief>Read tool offset data protection level</brief>
+<description>Read tool offset data protection level
+</description>
+</parameter>
+<parameter number="51212" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TM_WRITE_WEAR_ABS_LIMIT</name>
+<brief>Maximum tool wear value</brief>
+<description>Using TM_WRITE_WEAR_ABS_LIMIT, the max. possible value of a tool wear is limited absolutely, independently of the current protection level (keyswitch position), i.e. also independently of ACCESS_WRITE_TM_WEAR. Absolute and incremental wear limitation can be combined, i.e. the wear can be changed incrementally up to the absolute limit. See MD 51213.
+The value 0 disables the limitation of the wear input.
+
+</description>
+</parameter>
+<parameter number="51213" type="DOUBLE" dim="0" display="DECIMAL">
+<name>TM_WRITE_WEAR_DELTA_LIMIT</name>
+<brief>Maximum difference value restricted tool wear input</brief>
+<description>When entering tool offsets, the value of the change from the previous value to the new value cannot exceed the value set here.
+With TM_WRITE_WEAR_DELTA_LIMIT, the change to a tool wear can be limited incrementally, if the current protection level is the same as or higher than the one set in ACCESS_WRITE_TM_WEAR_DELTA. With the current protection level being the same or higher than ACCESS_WRITE_TM_WEAR, an incremental limitation is no longer performed. Absolute and
+incremental wear limitation can be combined, i.e. the wear can be changed up to the absolute limit. See MD 51212
+The value 0 disables limitation of the wear input.
+
+</description>
+</parameter>
+<parameter number="51214" type="BYTE" dim="0" display="HEX">
+<name>TM_WRITE_LIMIT_MASK</name>
+<brief>Validity of the restricted tool wear input</brief>
+<description>Validity of the restricted tool wear input
+Bit 0:	use for cutting edge data, wear
+Bit 1:	use for SC data, sum offsets
+Bit 2:	use for EC data, use offsets
+Bit 0+1+2:	use for all data, wear, SC, EC
+
+</description>
+</parameter>
+<parameter number="51215" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_TM_ALL_PARAM</name>
+<brief>Protection level TM details - write all parameters</brief>
+<description>Protection level TM details - write all parameters
+</description>
+</parameter>
+<parameter number="51216" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_CREATE</name>
+<brief>Protection level TM create tool</brief>
+<description>Protection level TM create tool
+</description>
+</parameter>
+<parameter number="51217" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_DELETE</name>
+<brief>Protection level TM delete tool</brief>
+<description>Protection level TM delete tool
+</description>
+</parameter>
+<parameter number="51218" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_LOAD</name>
+<brief>Protection level TM load tool</brief>
+<description>Protection level TM load tool
+</description>
+</parameter>
+<parameter number="51219" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_UNLOAD</name>
+<brief>Protection level TM unload tool</brief>
+<description>Protection level TM unload tool
+</description>
+</parameter>
+<parameter number="51220" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_MOVE</name>
+<brief>Protection level TM relocate tool</brief>
+<description>Protection level TM relocate tool
+</description>
+</parameter>
+<parameter number="51221" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_REACTIVATE</name>
+<brief>Protection level TM reactivate tool</brief>
+<description>Protection level TM reactivate tool
+</description>
+</parameter>
+<parameter number="51222" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOL_MEASURE</name>
+<brief>Protection level TM measure tool</brief>
+<description>Protection level TM measure tool
+Direct jump from tool list to measuring screen
+</description>
+</parameter>
+<parameter number="51223" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOLEDGE_CREATE</name>
+<brief>Protection level TM create tool cutting edge</brief>
+<description>Protection level TM create tool cutting edge
+</description>
+</parameter>
+<parameter number="51224" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_TOOLEDGE_DELETE</name>
+<brief>Protection level TM delete tool cutting edge</brief>
+<description>Protection level TM delete tool cutting edge
+</description>
+</parameter>
+<parameter number="51225" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_TM_MAGAZINE_POS</name>
+<brief>Protection level TM position magazine</brief>
+<description>Protection level TM position magazine
+</description>
+</parameter>
+<parameter number="51226" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_SIM</name>
+<brief>Function mask Simulation</brief>
+<description>Function mask for simulation
+Bit 0: No automatic start when simulation is selected
+Bit 1: Deactivate simulation
+Bit 4: Ignore frame components in X and Y (compatibility)
+Bit 5: Turning tool can be rotated in the tool spindle
+Bit 6: Enable handwheel as simulation override (values from DB19.DBW400)
+Bit 7: Interpret handwheel values from DB19.DBW400 as absolute values
+Bit 10: Hide zero point symbol
+</description>
+</parameter>
+<parameter number="51228" type="DWORD" dim="0" display="HEX">
+<name>FUNCTION_MASK_TECH</name>
+<brief>Function mask Cross-technology</brief>
+<description>Function mask, all technologies
+Bit 0: G code programming without multi-channel data
+	If bit 0 = 1, no multi-channel data will be offered for job lists which only contain G code programs.
+Bit 1: Enable print function of Editor
+</description>
+</parameter>
+<parameter number="51230" type="BOOLEAN" dim="0">
+<name>ENABLE_LADDER_DB_ADDRESSES</name>
+<brief>DB address activation in the PLC ladder viewer</brief>
+<description>DB address activation in the PLC ladder viewer
+
+</description>
+</parameter>
+<parameter number="51231" type="BOOLEAN" dim="0">
+<name>ENABLE_LADDER_EDITOR</name>
+<brief>PLC ladder editor activation</brief>
+<description>PLC ladder editor activation
+</description>
+</parameter>
+<parameter number="51233" type="BOOLEAN" dim="0">
+<name>ENABLE_GSM_MODEM</name>
+<brief>GSM modem activation for Easy Message</brief>
+<description>GSM modem activation for Easy Message
+</description>
+</parameter>
+<parameter number="51235" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_RESET_SERV_PLANNER</name>
+<brief>Protection level for acknowledgement of maintenance tasks</brief>
+<description>Protection level for acknowledgement of maintenance tasks
+</description>
+</parameter>
+<parameter number="51300" type="BYTE" dim="0" display="DECIMAL">
+<name>MAXNUM_WAITM_USER</name>
+<brief>Number of wait marks available to the end user</brief>
+<description>Number of wait marks available to the end user
+
+</description>
+</parameter>
+<parameter number="51600" type="BYTE" dim="0">
+<name>MEA_CAL_WP_NUM</name>
+<brief>Number of calibration data fields for workpiece probes</brief>
+<description>The workpiece probe calibration data refer to the workpiece coordinate system (Work) !
+In the data fields, the workpiece probe calibration data of the technologies Milling and
+Turning are stored!
+</description>
+</parameter>
+<parameter number="51601" type="BYTE" dim="0">
+<name>MEA_CAL_EDGE_NUM</name>
+<brief>Number of geometry data fields of gauging block, workpiece probe</brief>
+<description>The gauging block is exclusively used to calibrate the workpiece probe of the Turning technology!
+</description>
+</parameter>
+<parameter number="51602" type="BYTE" dim="0">
+<name>MEA_CAL_TP_NUM</name>
+<brief>Number of calibration data fields for tool probes</brief>
+<description>The value of this parameter corresponds to the number of tool probe calibration data records
+set up for the machine coordinate system (Machine).
+</description>
+</parameter>
+<parameter number="51603" type="BYTE" dim="0">
+<name>MEA_CAL_TPW_NUM</name>
+<brief>Number of calibration data fields for tool probes</brief>
+<description>The value of this parameter corresponds to the number of tool probe calibration data records
+set up for the workpiece coordinate system (Work).
+</description>
+</parameter>
+<parameter number="51618" type="DOUBLE" dim="0">
+<name>MEA_CM_ROT_AX_POS_TOL</name>
+<brief>Tolerance of rotary axis positions - measuring with orientable toolholder</brief>
+<description>Parameter for measuring with orientable tool carrier
+Entries in parameter $MN_MEA_CM_ROT_AX_POS_TOL are effective only if $MNS_MEA_FUNCTION_MASK bit2 or bit16 is set by MD 51740.
+The real angle position of the rotary axes can deviate from the programmed one (exact stop fine window).
+This deviation depends on the position control features of the axis. The maximum deviation expected on the concrete axis
+must be entered in this parameter. When the tolerance is exceeded, alarm 61442 "Toolholder not in parallel with the geometry axes" is displayed.
+</description>
+</parameter>
+<parameter number="51740" type="DWORD" dim="0" display="HEX">
+<name>MEA_FUNCTION_MASK</name>
+<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<description>Function mask for measuring cycles
+
+Bit 0:	Workpiece measurement, calibration status monitoring
+          	0: Calibration monitoring not active
+          	1: Calibration monitoring active
+              Between calibration and measurement, the status of the following states is monitored:
+              - Working plane (G17, 18, 19)
+              - Probe type (3D probe, type 710, mono probe, type 712, L probe, type 713, star probe, type 714)
+              - Length reference of the probe (center of the probe ball, probe ball circumference)
+	 - The following alarms 61341, 61419, 61420 can be output.
+          	Note: - these monitoring functions are always active when "measuring in JOG".
+		     - See also SD54740 $SNS_MEA_FUNCTION_MASK, bit 4.
+
+Bit 1: 	Workpiece measurement, milling technology, length reference of the workpiece probe
+          	0: Tool length in the infeed axis, referred to the center of the probe ball (TCP)
+          	1: Tool length in the infeed axis, referred to the circumference of the probe ball
+
+Bit 2:	Workpiece measurement, taking into account the orientation of tool carriers (kinematic type "T", 	swivel head) for the tool offset
+          	0: The tool components are corrected according to the orientation of the tool carrier
+              when measuring. This is valid for the orientations 0°, 90°, 180° and 270°.
+          	1: The tool components are corrected according to the orientation of the tool carrier
+                 in the initial setting.
+
+Bit 4:	Workpiece measurement, milling technology, probe is permanently fixed to the machine
+          	0: When measuring, the workpiece probe is located in a tool spindle.
+          	1: The workpiece probe is permanently fixed to the machine.
+                 Not all measurement variants are available. If an inadmissible measurement variant is selected,
+	alarm 61373 is output.
+
+Bit 5:	Effect of the feedrate override in measuring blocks (MEAS) of measuring cycles
+          	0: Measuring blocks (MEAS) are traversed in the measuring cycles with the current feedrate override (compatibility).
+          	1: Measuring blocks (MEAS) are traversed in the measuring cycles with 100% feedrate override if the feedrate override is set &gt;0.
+
+Bit 15:	Workpiece measurement, traverse measuring block with path behavior G60, exact stop at the end of the block
+             0: The measuring block is traversed in continuous-path mode G64.
+             1: The measuring block is traversed with path behavior G60, exact stop at the end of the block.
+
+Bit 16:	Tool measurement, turning technology, taking into account the orientation of the tool carrier	(kinematic type "T", swivel head)
+          	0: The tool component is corrected according to the orientation of the tool carrier
+                  when measuring.
+          	1: The tool component is corrected according to the orientation of the tool carrier
+                  in the initial setting.
+
+
+
+
+
+</description>
+</parameter>
+<parameter number="51750" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST</name>
+<brief>Measuring path for measuring with ShopMill, in automatic mode</brief>
+<description>This parameter defines the measuring path in front of and behind the measuring setpoint.
+It is only used by old ShopMill measuring cycles (powerline).
+</description>
+</parameter>
+<parameter number="51751" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST_MANUELL</name>
+<brief>Measuring path, for "Measure in JOG"</brief>
+<description>This parameter defines the measuring path in front of and behind the measuring setpoint.
+</description>
+</parameter>
+<parameter number="51752" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST_TOOL_LENGTH</name>
+<brief>Measuring path for tool length measuring, for "Measure in JOG"</brief>
+<description>This parameter defines the measuring path in front of and behind the measuring setpoint.
+
+</description>
+</parameter>
+<parameter number="51753" type="DOUBLE" dim="0">
+<name>J_MEA_M_DIST_TOOL_RADIUS</name>
+<brief>Measuring path for tool radius measuring, for "Measure in JOG"</brief>
+<description>This parameter defines the measuring path in front of and behind the measuring setpoint.
+
+</description>
+</parameter>
+<parameter number="51755" type="DOUBLE" dim="0">
+<name>J_MEA_MEASURING_FEED</name>
+<brief>Measuring feed for workpiece measurement and calibr., for "Measure in JOG"</brief>
+<description>Measuring feed for workpiece measurem. and calibration of the workpiece probe, for "Measure in JOG"
+</description>
+</parameter>
+<parameter number="51757" type="DOUBLE" dim="0">
+<name>J_MEA_COLL_MONIT_FEED</name>
+<brief>Feedrate in the plane w. active collision detection, for "Measure in JOG"</brief>
+<description>Feedrate in the working plane w. active collision detection
+
+</description>
+</parameter>
+<parameter number="51758" type="DOUBLE" dim="0">
+<name>J_MEA_COLL_MONIT_POS_FEED</name>
+<brief>Infeed rate with active collision detection, for "Measure in JOG"</brief>
+<description>Feedrate of the infeed axis with active collision detection, for "Measure in JOG".
+
+</description>
+</parameter>
+<parameter number="51770" type="DOUBLE" dim="1">
+<name>J_MEA_CAL_RING_DIAM</name>
+<brief>Calibration ring diameter, for "Measure in JOG"</brief>
+<description>Calibration ring diameter, for probe sphere calibration in the plane, for "Measure in JOG"
+</description>
+</parameter>
+<parameter number="51772" type="DOUBLE" dim="1">
+<name>J_MEA_CAL_HEIGHT_FEEDAX</name>
+<brief>Calibration height in the infeed axis, for probe length calibration</brief>
+<description>Calibration height in the infeed axis for probe length calibration, for "Measure in JOG"
+The calibration height must be entered with reference to the the workpiece coordinate system (Work)!
+
+</description>
+</parameter>
+<parameter number="51780" type="DOUBLE" dim="1">
+<name>J_MEA_T_PROBE_DIAM_RAD</name>
+<brief>Diameter of the tool probe for radius measurement, for "Measure in JOG"</brief>
+<description>Effective grinding wheel diameter of the tool probe for radius measurement on milling tools, for "Measure in JOG"
+</description>
+</parameter>
+<parameter number="51781" type="DOUBLE" dim="1">
+<name>MEA_T_PROBE_THICKNESS</name>
+<brief>Tool probe thickness</brief>
+<description>Tool probe thickness for automatic approach of turning tools to the probes at milling/turning machines
+</description>
+</parameter>
+<parameter number="51784" type="DWORD" dim="1">
+<name>J_MEA_T_PROBE_APPR_AX_DIR</name>
+<brief>Approach direction in the plane on the tool probe, for "Measure in JOG"</brief>
+<description>Approach direction in the plane on the tool probe, for "Measure in JOG"
+= -2 negative direction 2nd measuring axis
+= -1 negative direction 1st measuring axis
+=  0 or 1 positive direction 1st measuring axis
+=  2 psoitive direction 2nd measuring axis
+</description>
+</parameter>
+<parameter number="51786" type="DOUBLE" dim="0">
+<name>J_MEA_T_PROBE_MEASURE_DIST</name>
+<brief>Measur. path for tool measurem. w. stationary spindle, for "Measure in JOG"</brief>
+<description>Measuring path for tool probe calibration and tool measuring with stationary spindle, in front of and behind the expected switching position.
+</description>
+</parameter>
+<parameter number="51840" type="DWORD" dim="0" display="HEX">
+<name>GRIND_FUNCTION_MASK</name>
+<brief>Function mask for grinding cycles</brief>
+<description>Function mask for grinding cycles
+Bit 0: Reference point for recording dresser/grinding wheel is a work offset
+          0: Deselect work offset as reference point
+          1: Select work offset as reference point
+Bit 1:  Reserved
+</description>
+</parameter>
+</info>
