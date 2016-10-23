@@ -190,7 +190,7 @@ N10 REPEATB _LBL1 P=.10 ; comment
 
 ; invalid repeat count (can't be matched without drawbacks)
 N10 REPEATB _LBL1 P=1.0 ; comment
-;   ^^^^^^^^^^^^^^^^^^ meta.control.repeatb
+;   ^^^^^^^^^^^^^^^^^^^ meta.control.repeatb
 ;  <- comment.blockno
 ;   ^^^^^^^ keyword.control.repeatb
 ;           ^^^^^ entity.name.tag.repeat-label
@@ -198,3 +198,14 @@ N10 REPEATB _LBL1 P=1.0 ; comment
 ;                  ^ keyword.operator.assignment
 ;                   ^^^ constant.numeric
 ;                       ^^^^^^^^^ comment.line
+; REPEAT .. UNTIL section
+N10 REPEAT ; comment
+;   ^^^^^^ meta.section.repeat
+;  <- comment.blockno
+;   ^^^^^^ keyword.control.repeat
+
+N10 UNTIL _VAR < 10 ; comment
+;   ^^^^^^^^^^^^^^^ meta.section.repeat
+;   ^^^^^^^^^^^^^^^ meta.control.until
+;  <- comment.blockno
+;   ^^^^^ keyword.control.until

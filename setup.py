@@ -27,7 +27,7 @@ def init_default_settings(scope):
         # avoid tab stops end ensure newline at eof
         settings.set("ensure_newline_at_eof_on_save", True)
         settings.set("translate_tabs_to_spaces", True)
-        settings.set("use_tab_stops", False)
+        settings.set("use_tab_stops", True)
 
         # Define the format of binary numbers for the Hex-Bin-System plugin
         # Binaries look like 'B101110'

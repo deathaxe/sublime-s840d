@@ -67,8 +67,8 @@ N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 N40 PROC name (VAR REAL DATA = 10.0) SBLOF DISPLOF ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
 ;       ^^^^^^^ meta.definition.procedure.name
-;              ^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
-;                                  ^^^^^^^^^^^^^^ meta.definition.procedure.attributes
+;              ^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;                                   ^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.procedure
@@ -78,9 +78,9 @@ N40 PROC name (VAR REAL DATA = 10.0) SBLOF DISPLOF ; comment
 ;                       ^^^^ variable.parameter
 ;                            ^ keyword.operator.assignment
 ;                              ^^^^ constant.numeric
-;                                   ^ punctuation.definition.parameters.end
-;                                     ^^^^^ storage.modifier
-;                                           ^^^^^^ storage.modifier
+;                                  ^ punctuation.definition.parameters.end
+;                                    ^^^^^ storage.modifier
+;                                          ^^^^^^^ storage.modifier
 ;                                                  ^ comment.line
 
 ; valid procedure definition with attributes
@@ -136,7 +136,7 @@ N90 PROC name invalid (VAR BOOL - DATA) ; comment
 ;                      ^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
+;        ^^^^ entity.name.procedure
 ;             ^^^^^^^ invalid.illegal
 ;                     ^ punctuation.definition.parameters.begin
 ;                      ^ storage.modifier
@@ -152,7 +152,7 @@ N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
+;        ^^^^ entity.name.procedure
 ;             ^^^^^^^ invalid.illegal
 ;                     ^ punctuation.definition.parameters.begin
 ;                      ^ storage.modifier

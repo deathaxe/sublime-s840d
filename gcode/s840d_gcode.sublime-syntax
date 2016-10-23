@@ -361,14 +361,14 @@ contexts:
     - match: (?i:CTABDEF)\b
       scope: keyword.control.ctab.s840d_gcode
       push:
-        - meta_scope: meta.control.ctabdef.s840d_gcode
+        - meta_scope: meta.section.ctab.s840d_gcode
         - include: stmt-ctab-body
         - include: function-call-arguments
 
   stmt-ctab-body:
     - match: $
       set:
-        - meta_content_scope: meta.block.s840d_gcode
+        - meta_content_scope: meta.section.ctab.s840d_gcode
         - match: (?i:CTABEND)\b
           set: assert-line-end
         - include: main-sublevel
@@ -382,7 +382,7 @@ contexts:
     - match: (?i:FOR)\b
       scope: keyword.control.for.s840d_gcode
       set:
-        - meta_scope: meta.control.for.s840d_gcode
+        - meta_scope: meta.section.for.s840d_gcode meta.control.for.s840d_gcode
         - include: stmt-for-body
         - match: (?i:TO)\b
           scope: keyword.control.to.s840d_gcode
@@ -392,7 +392,7 @@ contexts:
   stmt-for-body:
     - match: $
       set:
-        - meta_content_scope: meta.block.s840d_gcode
+        - meta_content_scope: meta.section.for.s840d_gcode
         - match: (?i:ENDFOR)\b
           scope: keyword.control.endfor.s840d_gcode
           set: assert-line-end    # leave for-body
@@ -433,7 +433,7 @@ contexts:
     - match: (?i:IF)\b
       scope: keyword.control.if.s840d_gcode
       push: # push required for multible if ... goto statements
-        - meta_scope: meta.control.if.s840d_gcode
+        - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
         - include: stmt-if-goto
         - include: stmt-if-body
         - include: expressions
@@ -447,7 +447,7 @@ contexts:
   stmt-if-body:
     - match: $
       set:
-        - meta_content_scope: meta.block.s840d_gcode
+        - meta_content_scope: meta.section.if.s840d_gcode
         - match: (?i:ENDIF)\b
           scope: keyword.control.endif.s840d_gcode
           set: assert-line-end    # leave if-body
@@ -610,13 +610,14 @@ contexts:
     - match: (?i:LOOP)\b
       scope: keyword.control.loop.s840d_gcode
       set:
+        - meta_scope: meta.section.loop.s840d_gcode
         - include: stmt-loop-body
         - include: illegal
 
   stmt-loop-body:
     - match: $
       set:
-        - meta_content_scope: meta.block.s840d_gcode
+        - meta_content_scope: meta.section.loop.s840d_gcode
         - match: (?i:ENDLOOP)\b
           scope: keyword.control.endloop.s840d_gcode
           set: assert-line-end    # leave loop-body
@@ -667,6 +668,15 @@ contexts:
             - include: expressions-line
         - include: line-end-or-illegal
 
+    # REPEAT ... UNTIL
+    - match: (?i:REPEAT)\b(?=\s*(?:;|$))
+      scope: keyword.control.repeat.s840d_gcode
+      set:
+        - meta_scope: meta.section.repeat.s840d_gcode
+        - include: stmt-repeat-body
+        - include: comment-line
+        - include: illegal
+
     # REPEAT <LBL_S> <LBL_E> P=<count>
     - match: (?i:REPEAT)\b
       scope: keyword.control.repeat.s840d_gcode
@@ -681,18 +691,17 @@ contexts:
             - meta_content_scope: meta.control.repeat.s840d_gcode
             - include: iso-repeat-count
             - include: expressions-line
-        - include: stmt-repeat-body
-        - include: comment-line
-        - include: illegal
+        - include: line-end-or-illegal
 
   stmt-repeat-body:
     - match: $
       set:
-        - meta_content_scope: meta.block.s840d_gcode
+        - meta_content_scope: meta.section.repeat.s840d_gcode
         - match: (?i:UNTIL)\b
           scope: keyword.control.until.s840d_gcode
           set:
-            - meta_content_scope: meta.control.repeat.s840d_gcode
+            - meta_scope: meta.control.until.s840d_gcode
+            - meta_content_scope: meta.section.repeat.s840d_gcode
             - include: expressions-line
         - include: main-sublevel
 
@@ -770,7 +779,7 @@ contexts:
     - match: (?i:WHILE)\b
       scope: keyword.control.while.s840d_gcode
       set:
-        - meta_scope: meta.control.while.s840d_gcode
+        - meta_scope: meta.section.while.s840d_gcode
         - include: stmt-while-body
         - include: expressions
         - include: illegal
@@ -778,7 +787,7 @@ contexts:
   stmt-while-body:
     - match: $
       set:
-        - meta_content_scope: meta.block.s840d_gcode
+        - meta_content_scope: meta.section.while.s840d_gcode
         - match: (?i:ENDWHILE)\b
           scope: keyword.control.endwhile.s840d_gcode
           set: assert-line-end    # leave loop-body
