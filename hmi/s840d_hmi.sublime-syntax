@@ -89,6 +89,7 @@ contexts:
     - match: //[Aa]\b
       scope: keyword.class.begin.s840d_hmi
       push:
+        - meta_scope: meta.class.array.s840d_hmi
         - match: \(
           scope: punctuation.definition.parameters.begin.s840d_hmi
           set:
@@ -129,6 +130,7 @@ contexts:
     - match: //[Bb]\b
       scope: keyword.class.begin.s840d_hmi
       push:
+        - meta_scope: meta.class.subprogram.s840d_hmi
         - match: \(
           scope: punctuation.definition.parameters.begin.s840d_hmi
           set:
@@ -164,6 +166,7 @@ contexts:
     - match: //[Gg]\b
       scope: keyword.class.begin.s840d_hmi
       push:
+        - meta_scope: meta.class.grid.s840d_hmi
         - match: \(
           scope: punctuation.definition.parameters.begin.s840d_hmi
           set: class-grid-attr-name
@@ -330,6 +333,7 @@ contexts:
     - match: '//M'
       scope: keyword.class.begin.s840d_hmi
       push:
+        - meta_scope: meta.class.dialog.s840d_hmi
         - match: \(
           scope: punctuation.definition.parameters.begin.s840d_hmi
           set: class-dialog-attr-name
