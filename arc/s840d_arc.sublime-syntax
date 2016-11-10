@@ -25,32 +25,32 @@
 name: S840D Archive
 file_extensions:
   - arc
-first_line_match: '(?i:%_N_[\w_]+\b)'
+first_line_match: (?i:%_N_[\w_]+)\b
 scope: source.s840d_arc
 contexts:
   main:
     # RunMyHmi / EasyScreen
-    - match: (?i:%_N_[\w_]+_COM)
+    - match: (?i:%_N_[\w_]+_COM)\b
       scope: constant.language.filename.s840d_arc
       push:
         - meta_scope: source.s840d_hmi
         - match: (?=%)
           pop: true
         - include: header_path
-        - include: 'scope:source.s840d_hmi'
+        - include: scope:source.s840d_hmi
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
-    - match: (?i:%_N_[\w_]+_(?:[MS]PF|INI|DEF|TEA))
+    - match: (?i:%_N_[\w_]+_(?:[MS]PF|INI|DEF|TEA))\b
       scope: constant.language.filename.s840d_arc
       push:
         - meta_scope: source.s840d_gcode
         - match: (?=%)
           pop: true
         - include: header_path
-        - include: 'scope:source.s840d_gcode'
+        - include: scope:source.s840d_gcode
 
   header_path:
-    - match: '^\s*(;\$PATH=)(/_N_[\w_/]+)'
+    - match: ^\s*(;\$PATH=)(/_N_[\w_/]+)\b
       captures:
         1: constant.language.archive.s840d_arc
         2: constant.language.archive.pathname.s840d_arc

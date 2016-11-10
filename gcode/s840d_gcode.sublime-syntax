@@ -43,7 +43,7 @@ variables:
   #      VX is a custom positioning axis
   axis: (?:[BCEQUWXYZ]C?|AX?|V[ABCXYZ]?)
   # loating point values
-  float: '(?:\d+\.?\d*|\.\d+)(EX[-+]?\d{1,2})?'
+  float: (?:\d+\.?\d*|\.\d+)(EX[-+]?\d{1,2})?
   # normal identifiers start with 2 letters or '_' optinally followed by :alnum:
   ident: '[A-Za-z_]{2}\w*\b'
   # macro names start with letter or '_' optinally followed by :alnum:
@@ -60,7 +60,7 @@ contexts:
   main:
     - include: iso-blockno
     - include: comment-disabled
-    - match: '(\w+)(:)|(?=\S)'
+    - match: (\w+)(:)|(?=\S)
       captures:
         1: entity.name.tag.label.s840d_gcode
         2: punctuation.label.seperator.s840d_gcode
@@ -72,7 +72,7 @@ contexts:
   main-sublevel:
     - include: iso-blockno
     - include: comment-disabled
-    - match: '(\w+)(:)|(?=\S)'
+    - match: (\w+)(:)|(?=\S)
       captures:
         1: entity.name.tag.label.s840d_gcode
         2: punctuation.label.seperator.s840d_gcode
@@ -226,7 +226,7 @@ contexts:
     - include: line-end-or-illegal
 
   stmt-def-value:
-    - match: '='
+    - match: =
       scope: keyword.operator.assignment.s840d_gcode
       set:
         - meta_scope: meta.definition.value.s840d_gcode
@@ -518,7 +518,7 @@ contexts:
     # G-function:   G0
     # T-function:   T100
     # D-call:       D1 DL1
-    - match: '(?:[GT]|DL?)\d+'
+    - match: (?:[GT]|DL?)\d+
       scope: support.function.iso.s840d_gcode
       push: iso-value-void
     # FUNCTIONS
@@ -527,7 +527,7 @@ contexts:
     # H-function:   H=20
     # T-function:   T=100  T="100"
     # D-function:   D=5 DL=5
-    - match: '(?:[GTMH]|DL?)(?=\s*=)'
+    - match: (?:[GTMH]|DL?)(?=\s*=)
       scope: support.function.iso.s840d_gcode
       push: iso-value-int
     # POSITIONS
@@ -631,7 +631,7 @@ contexts:
   stmt-procedure-call:
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
-    - match: '(?={{ident}}\s*(?:$|;))'
+    - match: (?={{ident}}\s*(?:$|;))
       set:
         - include: line-end
         - include: iso-gcode
@@ -643,7 +643,7 @@ contexts:
         - include: constants
         - include: illegal-keywords
         - include: comment
-        - match: '\S+'
+        - match: \S+
           scope: entity.name.procedure.s840d_gcode
           pop: true
 
@@ -897,7 +897,7 @@ contexts:
       - meta_scope: constant.numeric.hexadecimal.s840d_gcode
       - match: '''|$'
         pop: true
-      - match: '\H'
+      - match: \H
         scope: invalid.illegal.s840d_gcode
 
 ###############################################################################
@@ -946,7 +946,7 @@ contexts:
     - match: '[-+/\*]'
       scope: keyword.operator.arithmetic.s840d_gcode
     # curly brackets are used for templates
-    - match: '\{[^\}]*\}'
+    - match: \{[^\}]*\}
       scope: invalid.illegal.s840d_gcode
 
   operators-litheral:
@@ -963,7 +963,7 @@ contexts:
 
   after-assignment:
     # string chaining after assignment is allowed
-    - match: '<<'
+    - match: <<
       scope: keyword.operator.assignment.s840d_gcode
       set: after-operator
     - include: after-operator
@@ -1068,7 +1068,7 @@ contexts:
       scope: support.function.nck.s840d_gcode
       push: function-call-arguments
     # unknown function is handled as subprogram (SPF)
-    - match: '({{ident}})\s*(\()'
+    - match: ({{ident}})\s*(\()
       captures:
         1: entity.name.procedure.s840d_gcode
         2: punctuation.arguments.begin.s840d_gcode
@@ -1117,7 +1117,7 @@ contexts:
     - match: '{{axis}}\d*\b'
       scope: support.variable.axis.s840d_gcode
       push: array-index
-    - match: 'S\d*\b'
+    - match: S\d*\b
       scope: support.variable.spindle.s840d_gcode
       push: array-index
 

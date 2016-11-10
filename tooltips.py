@@ -355,7 +355,7 @@ def dump_vars():
     """
     path = os.path.join(sublime.packages_path(), package_name())
     # dump only, if package is not packed as suplime-package
-    if not os.path.exists(path):
+    if not os.path.isdir(path):
         return
 
     with sqlite3.connect(doc_cache) as sql:

@@ -30,7 +30,7 @@ scope: source.s840d_hmi
 ###############################################################################
 
 variables:
-  softkey: '\b(?i:[HV]S[1-8]|RECALL)\b'
+  softkey: \b(?i:[HV]S[1-8]|RECALL)\b
 
 ###############################################################################
 # MAIN CONTEXT
@@ -59,7 +59,7 @@ contexts:
           pop: true
 
     # file contains list of strings
-    - match: '(?=\d{1,6}\s+[01]\s+[01]\s+\".*?\")'
+    - match: (?=\d{1,6}\s+[01]\s+[01]\s+\".*?\")
       push:
         - meta_content_scope: meta.stringlist.s840d_hmi
         - include: comment
@@ -109,7 +109,7 @@ contexts:
         - match: \)|$
           scope: punctuation.definition.array.row.end.s840d_hmi
           pop: true
-        - match: '/'
+        - match: /
           scope: punctuation.definition.seperator.s840d_hmi
         - include: string
         - include: number
@@ -330,7 +330,7 @@ contexts:
 ###############################################################################
 
   class-dialog:
-    - match: '//M'
+    - match: //[Mm]\b
       scope: keyword.class.begin.s840d_hmi
       push:
         - meta_scope: meta.class.dialog.s840d_hmi
@@ -418,7 +418,7 @@ contexts:
 ###############################################################################
 
   class-menu:
-    - match: '//[Ss]\b'
+    - match: //[Ss]\b
       scope: keyword.class.begin.s840d_hmi
       push:
         - match: \(
@@ -442,7 +442,7 @@ contexts:
 ###############################################################################
 
   class-name:
-    - match: '\b\w+\b'
+    - match: \b\w+\b
       scope: entity.name.class.s840d_hmi
 
   attr-seperator:
@@ -474,7 +474,7 @@ contexts:
   def-operand-name:
     - meta_scope: meta.definition.operand.s840d_hmi
     - include: comment
-    - match: '\b\w+\b'
+    - match: \b\w+\b
       scope: variable.other.s840d_hmi
       set: def-operand-arraysize
 
@@ -491,7 +491,7 @@ contexts:
     - include: def-operand-assign
 
   def-operand-assign:
-    - match: '='
+    - match: =
       scope: keyword.operator.assignment.s840d_hmi
       set:
         - meta_content_scope: meta.definition.operand.s840d_hmi
@@ -632,7 +632,7 @@ contexts:
       scope: entity.name.softkey.s840d_hmi
       push:
         - meta_scope: meta.definition.softkey.s840d_hmi
-        - match: '='
+        - match: =
           scope: keyword.operator.assignment.s840d_hmi
           set: def-softkey-attr
         - include: line-end
@@ -883,7 +883,7 @@ contexts:
               set: def-method-press-body
             - match: '{{softkey}}'
               scope: entity.name.softkey.s840d_hmi
-            - match: '\b(?i:P[UD]|S[LRUD])\b'
+            - match: \b(?i:P[UD]|S[LRUD])\b
               scope: entity.name.key.s840d_hmi
             - include: illegal
         - include: line-end
@@ -1080,9 +1080,9 @@ contexts:
   operator:
     - match: =(?!=)
       scope: keyword.operator.assignment.s840d_hmi
-    - match: '<<'
+    - match: <<
       scope: keyword.operator.assignment.s840d_hmi
-    - match: '<>|==|>=|<=|<|>'
+    - match: <>|==|>=|<=|<|>
       scope: keyword.operator.relational.s840d_hmi
     - match: '[-+/\*]'
       scope: keyword.operator.arithmetic.s840d_hmi
@@ -1094,7 +1094,7 @@ contexts:
       scope: keyword.operator.binary.s840d_hmi
 
   operand:
-    - match: '\b\w+\b'
+    - match: \b\w+\b
       scope: variable.other.s840d_hmi
       push: operand-index
 
@@ -1102,7 +1102,7 @@ contexts:
     - match: '{{softkey}}'
       scope: entity.name.softkey.s840d_hmi
       push:
-        - match: '\.'
+        - match: \.
           scope: punctuation.member.seperator.s840d_hmi
           set:
             # list of valid attributes
@@ -1173,7 +1173,7 @@ contexts:
     - include: operand-members
 
   operand-members:
-    - match: '\.'
+    - match: \.
       scope: punctuation.member.seperator.s840d_hmi
       set:
         # list of valid attributes
