@@ -1,6 +1,7 @@
-import sublime, sublime_plugin
 import math
 import re
+import sublime
+import sublime_plugin
 # import cProfile, pstats
 
 REGEX_LABEL = re.compile(r'^(\w+:)')
@@ -48,7 +49,6 @@ class S840dMinifyCommand(S840dTextCommand):
         # run only for SINUMERIK code
         if not self.is_scope_s840d():
             return
-
         view = self.view
         # get a copy of the file content
         region = sublime.Region(0, view.size())
@@ -63,7 +63,6 @@ class S840dMinifyCommand(S840dTextCommand):
         text = re.sub(r'[\t ]{2,}', ' ', text)
         # replace view's content
         view.replace(edit, region, text)
-
         view.set_viewport_position([0, 0], False)
 
         # pr.disable()
@@ -95,9 +94,7 @@ class S840dBeautifyCommand(S840dTextCommand):
         # run only for SINUMERIK code
         if not self.is_scope_s840d():
             return
-
         view = self.view
-
         # read settings
         self.tab_size = view.settings().get('tab_size', 2)
         # get a copy of the file content
@@ -108,12 +105,10 @@ class S840dBeautifyCommand(S840dTextCommand):
         self.bln_size = 0
         for row in rows:
             self.bln_size = max(self.bln_size, len(self.__blockno(row)))
-
         # reindent the code
         repl = ''
         for row in rows:
             repl += self.__indentdify(row.strip()) + '\n'
-
         # surround IF condition with parentheses
         # this is not required but looks better
         repl = re.sub(r'(?im)^([ ]*IF)\b[ ]*([\w\d\$].*?(?=GOTO|;|$))', r'\1 (\2) ', repl)
@@ -129,7 +124,6 @@ class S840dBeautifyCommand(S840dTextCommand):
         repl = re.sub(r'[ ]*([-+*/=><,]+)[ ]*', r'\1', repl)
         # one whitespace after keyword
         repl = re.sub(r'(?im)\b(IF|FOR|LOOP|UNTIL|WHILE)\b[ ]*', r'\1 ', repl)
-
         # replace view's content and keep the last empty line only
         view.replace(edit, view_region, repl.strip() + '\n')
         view.set_viewport_position([0, 0], False)
@@ -148,7 +142,6 @@ class S840dBeautifyCommand(S840dTextCommand):
                 while text[col] >= '0' and text[col] <= '9':
                     col += 1
                 block_no = text[:col]
-
         return block_no
 
     def __indentdify(self, text):
@@ -160,9 +153,7 @@ class S840dBeautifyCommand(S840dTextCommand):
         """
         if not text:
             return ''
-
         indents = 0
-
         # block number
         block_no = self.__blockno(text)
         if block_no:
@@ -171,7 +162,6 @@ class S840dBeautifyCommand(S840dTextCommand):
             text = text[col+1:].lstrip()
         else:
             block_no = ' ' * self.bln_size
-
         # goto label
         label = ''
         match = REGEX_LABEL.match(text)
@@ -179,25 +169,20 @@ class S840dBeautifyCommand(S840dTextCommand):
             col = len(match.group(1))
             label = text[:col] + ' '
             text = text[col:].lstrip()
-
         # block start
         if REGEX_BLOCK_BEGIN.match(text):
             indents = self.indents
             if text.upper().find('GOTO') == -1:
                 self.indents += self.tab_size
-
         else:
             # intermediate keyword
             if 'ELSE' == text[:4].upper():
                 indents = max(0, self.indents - self.tab_size)
-
             else:
                 # block end
                 if REGEX_BLOCK_END.match(text):
                     self.indents = max(0, self.indents - self.tab_size)
-
                 indents = self.indents
-
         return block_no + label + ' ' * max(0, indents - len(label)) + text
 
 
@@ -212,11 +197,9 @@ class S840dRenumberCommand(S840dTextCommand):
 
     def run(self, edit):
         """API entry point to run 's840d_renumber' command."""
-
         # run only for SINUMERIK code
         if not self.is_scope_s840d():
             return
-
         view = self.view
         # build whole content's region
         view_region = sublime.Region(0, view.size())
@@ -237,24 +220,20 @@ class S840dRenumberCommand(S840dTextCommand):
                 # unindented line comment
                 if row[0] in ';%':
                     repl += row
-
                 else:
                     i = 0
                     # skip leading white space
                     while row[i] in ' \t':
                         i += 1
-
                     # indented header
                     if row[i] == '%':
                         repl += row
-
                     # indented line comment
                     elif row[i] == ';':
                         # insert spaces instead of 'Nxxx '
                         repl += ' ' * (3 + num_digits) + row
-
                     # skip existing block number
-                    elif row[i] in 'Nn':
+                    elif row[i] in 'Nn' and row[i+1] in ('0123456789'):
                         i += 1
                         while row[i] >= '0' and row[i] <= '9':
                             i += 1
@@ -262,18 +241,14 @@ class S840dRenumberCommand(S840dTextCommand):
                         # as it will be added anyway in the next step
                         if row[i] == ' ':
                             i += 1
-
-                        repl += 'N' + str(blockno) + ' ' + row[i:]
+                        repl = ''.join([repl, 'N', str(blockno), ' ', row[i:]])
                         blockno += blockno_step
-
                     # ordinary block
                     else:
-                        repl += 'N' + str(blockno) + ' ' + row
+                        repl = ''.join([repl, 'N', str(blockno), ' ', row])
                         blockno += blockno_step
-
             # finalize the row
             repl += '\n'
-
         # replace view's content and keep the last empty line only
         view.replace(edit, view_region, repl.strip() + '\n')
         view.set_viewport_position([0, 0], False)

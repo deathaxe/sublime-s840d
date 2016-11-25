@@ -18,7 +18,7 @@ def init_default_settings(syntax):
     """
     file_name = syntax + ".sublime-settings"
     file_path = os.path.join(sublime.packages_path(), "User", file_name)
-    if not os.path.exists(file_path):
+    if not os.path.isfile(file_path):
 
         settings = sublime.load_settings(file_name)
 
