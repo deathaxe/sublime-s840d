@@ -24,61 +24,61 @@ N20PROC name ; comment
 ;      ^^^^^ meta.definition.procedure.name
 ; <- comment.blockno
 ;  ^ keyword.control.proc
-;       ^ entity.name.procedure
+;       ^ entity.name.function
 ;            ^ comment.line
 
 ; valid procedure defintion with parameters
 N30 PROC name(VAR BOOL DATA) ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
-;       ^^^^^^ meta.definition.procedure.name
-;             ^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;       ^^^^^ meta.definition.procedure.name
+;            ^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
-;            ^ punctuation.definition.parameters.begin
+;        ^ entity.name.function
+;            ^ punctuation.section.parens.begin
 ;             ^ storage.modifier
 ;                 ^ storage.type
 ;                      ^ variable.parameter
-;                          ^ punctuation.definition.parameters.end
+;                          ^ punctuation.section.parens.end
 ;                            ^ comment.line
 
 ; valid procedure definition with parameters and attributes
 N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
-;       ^^^^^^^ meta.definition.procedure.name
-;              ^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;       ^^^^^^ meta.definition.procedure.name
+;             ^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
 ;                                ^^^^^^^^^^^^^^ meta.definition.procedure.attributes
-;                           ^^^^ meta.definition.array
+;                           ^^^^ meta.brackets.dimension
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
-;             ^ punctuation.definition.parameters.begin
+;        ^ entity.name.function
+;             ^ punctuation.section.parens.begin
 ;              ^^^ storage.modifier
 ;                  ^^^^ storage.type
 ;                       ^^^^ variable.parameter
-;                           ^ punctuation.definition.array.begin
-;                              ^ punctuation.definition.array.end
-;                               ^ punctuation.definition.parameters.end
+;                           ^ punctuation.section.brackets.dimension.begin
+;                              ^ punctuation.section.brackets.dimension.end
+;                               ^ punctuation.section.parens.end
 ;                                 ^ storage.modifier
 ;                                       ^ storage.modifier
 ;                                               ^ comment.line
 
 ; valid procedure definition with parameters and attributes
-N40 PROC name (VAR REAL DATA = 10.0) SBLOF DISPLOF ; comment
+N40 PROC name (VAR REAL DATA = -1.0) SBLOF DISPLOF ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
-;       ^^^^^^^ meta.definition.procedure.name
-;              ^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;       ^^^^^^ meta.definition.procedure.name
+;             ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
 ;                                   ^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
-;             ^ punctuation.definition.parameters.begin
+;        ^ entity.name.function
+;             ^ punctuation.section.parens.begin
 ;              ^^^ storage.modifier
 ;                  ^^^^ storage.type
 ;                       ^^^^ variable.parameter
 ;                            ^ keyword.operator.assignment
 ;                              ^^^^ constant.numeric
-;                                  ^ punctuation.definition.parameters.end
+;                                  ^ punctuation.section.parens.end
 ;                                    ^^^^^ storage.modifier
 ;                                          ^^^^^^^ storage.modifier
 ;                                                  ^ comment.line
@@ -90,7 +90,7 @@ N50 PROC name SBLOF ACTBLOCNO ; comment
 ;             ^^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
+;        ^ entity.name.function
 ;             ^ storage.modifier
 ;                   ^ storage.modifier
 ;                             ^ comment.line
@@ -101,7 +101,7 @@ N70 PROC name FOOBAR ; comment
 ;       ^^^^^^^^^^^^ meta.definition.procedure.name
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
+;        ^ entity.name.function
 ;             ^^^^^^ invalid.illegal
 ;                    ^ comment.line
 
@@ -112,7 +112,7 @@ N70 PROC name SBLOF FOOBAR DISPLOF ; comment
 ;             ^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
+;        ^ entity.name.function
 ;             ^^^^^ storage.modifier
 ;                   ^^^^^^ invalid.illegal
 ;                          ^^^^^^^ storage.modifier
@@ -125,39 +125,39 @@ N80 PROC name SBLOF (VAR BOOL DATA) ; comment
 ;             ^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^ entity.name.procedure
+;        ^ entity.name.function
 ;             ^ storage.modifier
 ;                   ^^^^^^^^^^^^^^ invalid.illegal
 ;                                   ^ comment.line
 
 N90 PROC name invalid (VAR BOOL - DATA) ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
-;       ^^^^^^^^^^^^^^^ meta.definition.procedure.name
-;                      ^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;       ^^^^^^^^^^^^^^ meta.definition.procedure.name
+;                     ^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^^^^ entity.name.procedure
+;        ^^^^ entity.name.function
 ;             ^^^^^^^ invalid.illegal
-;                     ^ punctuation.definition.parameters.begin
+;                     ^ punctuation.section.parens.begin
 ;                      ^ storage.modifier
 ;                          ^ storage.type
 ;                               ^ invalid.illegal
 ;                                 ^ variable.parameter
-;                                     ^ punctuation.definition.parameters.end
+;                                     ^ punctuation.section.parens.end
 
 N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure
-;       ^^^^^^^^^^^^^^^ meta.definition.procedure.name
-;                      ^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
+;       ^^^^^^^^^^^^^^ meta.definition.procedure.name
+;                     ^^^^^^^^^^^^^^^^^ meta.definition.procedure.parameters
 ;                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.procedure.attributes
 ; <- comment.blockno
 ;   ^ keyword.control.proc
-;        ^^^^ entity.name.procedure
+;        ^^^^ entity.name.function
 ;             ^^^^^^^ invalid.illegal
-;                     ^ punctuation.definition.parameters.begin
+;                     ^ punctuation.section.parens.begin
 ;                      ^ storage.modifier
 ;                          ^ storage.type
 ;                               ^ invalid.illegal
 ;                                 ^ variable.parameter
-;                                     ^ punctuation.definition.parameters.end
+;                                     ^ punctuation.section.parens.end
 ;                                             ^^^^^^ invalid.illegal

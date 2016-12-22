@@ -17,7 +17,7 @@ N10 CALL
 N15 CALL _PNAME
 ;   ^^^^^^^^^^^ meta.control.call
 ;   ^^^^ keyword.control.call
-;        ^^^^^^ variable.other
+;        ^^^^^^ variable.function
 
 ; function name provided as string
 N20 CALL "/_N_CUS_DIR/_N_L320_SPF"
@@ -36,9 +36,9 @@ N25 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
 ;                      ^ punctuation.definition.string.end
 ;                        ^^ keyword.operator.assignment
 ;                           ^^^ support.function
-;                              ^ punctuation.arguments.begin
+;                              ^ punctuation.section.parens.begin
 ;                               ^^^^ variable.other
-;                                   ^ punctuation.arguments.end
+;                                   ^ punctuation.section.parens.end
 ;                                     ^^ keyword.operator.assignment
 ;                                        ^ punctuation.definition.string.begin
 ;                                         ^^^^ string.quoted.double
@@ -92,7 +92,7 @@ N45 CALL BLOCK _STARTBLK TO _ENDBLK
 N50 CALL _CYCLE BLOCK "N100" TO "N200"
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
 ;   ^^^^ keyword.control.call
-;        ^ variable.other
+;        ^ variable.function
 ;               ^^^^^ keyword.control.block
 ;                      ^ string.quoted.double
 ;                            ^^ keyword.control.to
@@ -102,7 +102,7 @@ N50 CALL _CYCLE BLOCK "N100" TO "N200"
 N55 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
 ;   ^^^^ keyword.control.call
-;        ^ variable.other
+;        ^ variable.function
 ;               ^^^^^ keyword.control.block
 ;                     ^ variable.other
 ;                               ^^ keyword.control.to
@@ -112,7 +112,7 @@ N55 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
 N60 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
 ;   ^^^^ keyword.control.call
-;        ^ variable.other
+;        ^ variable.function
 ;               ^^^^^ keyword.control.block
 ;                     ^ variable.other
 ;                               ^^ keyword.control.to
@@ -123,17 +123,17 @@ N60 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
 N65 CALL $P_INCOAP_S160[_S160NFWFC] BLOCK $P_INCOAP_S32[_S32SFC] TO $P_INCOAP_S32[_S32EFC]
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
 ;   ^^^^ keyword.control.call
-;        ^ punctuation.variable.nck
+;        ^ punctuation.definition.variable.nck
 ;         ^^^^^^^^^^^^^ support.variable.nck
-;                      ^ punctuation.index.begin
+;                      ^ punctuation.section.brackets.index.begin
 ;                       ^^^^^^^^^^ variable.other
-;                                 ^ punctuation.index.end
+;                                 ^ punctuation.section.brackets.index.end
 
 ; invalid cycle and block identifiers
 N65 CALL L350 BLOCK N20 TO "N"<<50
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.call
 ;   ^^^^ keyword.control.call
-;        ^^^^ entity.name.procedure
+;        ^^^^ variable.function
 ;             ^^^^^ keyword.control.block
 ;                   ^^^ invalid.illegal
 ;                       ^^ keyword.control.to
@@ -145,24 +145,24 @@ N65 CALL L350 BLOCK N20 TO "N"<<50
 N100 PCALL /_N_MPF_DIR/WELLE(ARG1,20,TRUE)
 ;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.path-call
 ;    ^^^^^ keyword.control.pcall
-;          ^^^^^^^^^^^^^^^^^ string.unquoted
-;                           ^ punctuation.arguments.begin
+;          ^^^^^^^^^^^^^^^^^ variable.function
+;                           ^ punctuation.section.parens.begin
 ;                            ^^^^ variable.other
-;                                ^ punctuation.arguments.seperator
+;                                ^ punctuation.separator.arguments
 ;                                 ^^ constant.numeric
-;                                   ^ punctuation.arguments.seperator
-;                                    ^^^^ constant.boolean
-;                                        ^ punctuation.arguments.end
+;                                   ^ punctuation.separator.arguments
+;                                    ^^^^ constant.language.boolean
+;                                        ^ punctuation.section.parens.end
 
 ; path call with variable as path identifier
 N100 PCALL PATHTOPROG(ARG1,20,TRUE)
 ;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.path-call
 ;    ^^^^^ keyword.control.pcall
-;          ^^^^^^^^^^ entity.name.procedure
-;                    ^ punctuation.arguments.begin
+;          ^^^^^^^^^^ variable.function
+;                    ^ punctuation.section.parens.begin
 ;                     ^^^^ variable.other
-;                         ^ punctuation.arguments.seperator
+;                         ^ punctuation.separator.arguments
 ;                          ^^ constant.numeric
-;                            ^ punctuation.arguments.seperator
-;                             ^^^^ constant.boolean
-;                                 ^ punctuation.arguments.end
+;                            ^ punctuation.separator.arguments
+;                             ^^^^ constant.language.boolean
+;                                 ^ punctuation.section.parens.end

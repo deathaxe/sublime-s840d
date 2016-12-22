@@ -25,6 +25,7 @@
 
 # http://facelessuser.github.io/sublime-markdown-popups/textmate_scopes/
 # https://manual.macromates.com/en/language_grammars#naming_conventions
+# https://www.sublimetext.com/docs/3/scope_naming.html
 name: S840D G-Code
 file_extensions:
   - def
@@ -63,7 +64,7 @@ contexts:
     - match: (\w+)(:)|(?=\S)
       captures:
         1: entity.name.tag.label
-        2: punctuation.label.seperator
+        2: punctuation.terminator.tag.label
       push:
         - include: definitions
         - include: statements
@@ -75,7 +76,7 @@ contexts:
     - match: (\w+)(:)|(?=\S)
       captures:
         1: entity.name.tag.label
-        2: punctuation.label.seperator
+        2: punctuation.terminator.tag.label
       push:
         - include: statements
         - include: line-end
@@ -106,7 +107,7 @@ contexts:
 
   after-operator:
     - match: '[-+]'
-      scope: constant.numeric.sign
+      scope: constant.numeric
       pop: true
     - include: axis-variables
     - include: scope-end
@@ -134,33 +135,37 @@ contexts:
   stmt-proc-name:
     - meta_content_scope: meta.definition.procedure.name
     - match: 'L\d+\b|{{ident}}'
-      scope: entity.name.procedure
-      set: stmt-proc-parameters
+      scope: entity.name.function
+      set:
+        - include: line-end
+        - match: \(
+          scope: punctuation.section.parens.begin
+          set: stmt-proc-parameters
+        - match: (?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b
+          scope: meta.definition.procedure.attributes storage.modifier
+          set: stmt-proc-attribute
+        - match: \s+
+          scope: meta.definition.procedure.name
+        - match: \S+
+          scope: meta.definition.procedure.name invalid.illegal
     - include: line-end-or-illegal
 
   stmt-proc-parameters:
-    - meta_content_scope: meta.definition.procedure.name
-    - match: \(
-      scope: punctuation.definition.parameters.begin
-      set: stmt-proc-parameters-body
-    - match: (?=(?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN]))
-      set: stmt-proc-attribute
-    - include: line-end-or-illegal
-
-  stmt-proc-parameters-body:
-    - meta_content_scope: meta.definition.procedure.parameters
+    - meta_scope: meta.definition.procedure.parameters meta.parens
     - match: \)
-      scope: punctuation.definition.parameters.end
+      scope: punctuation.section.parens.end
       set: stmt-proc-attribute
     - match: ','
-      scope: punctuation.definition.parameters.seperator
-    - include: storage-modifier-var
+      scope: punctuation.separator.parameters
+    - match: (?i:VAR\b)
+      scope: storage.modifier.var
     - include: storage-types
     - include: constants
-    - include: operators
+    - include: operators-assignment
+    - include: illegal-operators
     - match: '{{ident}}'
       scope: variable.parameter
-      push: array-size
+      push: array-dimension
     - include: line-end-or-illegal
 
   stmt-proc-attribute:
@@ -215,13 +220,13 @@ contexts:
       scope: variable.other
       push:
         - match: \[
-          scope: punctuation.definition.array.begin
+          scope: punctuation.section.brackets.dimension.begin
           set:
-            - meta_scope: meta.definition.array
+            - meta_scope: meta.brackets.dimension
             - match: \]
-              scope: punctuation.definition.array.end
+              scope: punctuation.section.brackets.dimension.end
               set: stmt-def-value
-            - include: array-size-body
+            - include: array-dimension-body
         - include: stmt-def-value
     - include: line-end-or-illegal
 
@@ -237,7 +242,7 @@ contexts:
 
   stmt-def-end:
     - match: ','
-      scope: punctuation.definition.variable.seperator
+      scope: punctuation.separator.variable
       set: stmt-def-variable
     - include: line-end-or-illegal
 
@@ -313,7 +318,7 @@ contexts:
       set:
         - meta_scope: meta.control.path-call
         - match: /[/\w]+
-          scope: string.unquoted
+          scope: variable.function
           push: function-call-arguments
         - include: iso-cycle
         - include: expressions-line
@@ -479,7 +484,7 @@ contexts:
 
   iso-cycle:
     - match: L\d+\b
-      scope: entity.name.procedure
+      scope: variable.function
       push: function-call-arguments
 
   iso-gcode:
@@ -536,7 +541,7 @@ contexts:
     - match: ({{axis}})\s*(\[)
       captures:
         1: support.variable.iso.pos
-        2: punctuation.index.begin
+        2: punctuation.section.brackets.index.begin
       push: array-index-body
     # PARAMETERS
     # feed rate:      F[X1]=2000
@@ -544,7 +549,7 @@ contexts:
     - match: ([FIJKOS])\s*(\[)
       captures:
         1: support.variable.iso.param
-        2: punctuation.index.begin
+        2: punctuation.section.brackets.index.begin
       push: array-index-body
     # FUNCTIONS
     # G-function:   G[0]=20
@@ -555,7 +560,7 @@ contexts:
     - match: ([GMHTD])\s*(\[)
       captures:
         1: support.function.iso
-        2: punctuation.index.begin
+        2: punctuation.section.brackets.index.begin
       push: array-index-body
 
   iso-parameter:
@@ -644,7 +649,7 @@ contexts:
         - include: illegal-keywords
         - include: comment
         - match: \S+
-          scope: entity.name.procedure
+          scope: variable.function
           pop: true
 
 ###############################################################################
@@ -799,15 +804,15 @@ contexts:
 
   expressions-group:
     - match: \(
-      scope: punctuation.expressions-group.begin
+      scope: punctuation.section.group.begin
       push:
-        - meta_content_scope: meta.expressions-group
-        - match: '[-+]?(?=\S)'
-          scope: constant.numeric.sign
+        - meta_content_scope: meta.group
+        - match: '[-+]|(?=\S)'
+          scope: constant.numeric
           set:
-            - meta_content_scope: meta.expressions-group
+            - meta_content_scope: meta.group
             - match: \)
-              scope: punctuation.expressions-group.end
+              scope: punctuation.section.group.end
               pop: true
             - include: expressions-line
         - include: line-end
@@ -831,19 +836,25 @@ contexts:
 
   comment-block:
     - match: \(
+      scope: punctuation.definition.comment.begin
       push:
         - meta_scope: comment.block
         - match: \)
+          scope: punctuation.definition.comment.end
           pop: true
         - include: ignore-parens
 
   comment-line:
-    - match: ;.*
-      scope: comment.line
+    - match: (;).*
+      captures:
+        0: comment.line
+        1: punctuation.definition.comment
 
   comment-disabled:
-    - match: /.*
-      scope: comment.disabled
+    - match: (/).*
+      captures:
+        0: comment.line.disabled
+        1: punctuation.definition.comment
 
   constants:
     - include: numbers
@@ -858,13 +869,13 @@ contexts:
         - meta_scope: string.quoted.double
         # embedded double quotes
         - match: \'"\'
-          scope: constant.character.escape.double-quoted
+          scope: constant.character.escape.quoted.double
         # embedded line feed
         - match: '%[Nn]'
-          scope: constant.character.escape.double-quoted
+          scope: constant.other.linefeed
         # embedded sprint format parameter
         - match: '%\d*\.*\d*[DdFfSsXx]?\b'
-          scope: constant.character.escape.double-quoted
+          scope: constant.other.placeholder
         # valid end of double quoted string
         - match: '"'
           scope: punctuation.definition.string.end
@@ -877,7 +888,7 @@ contexts:
   booleans:
     # language constants
     - match: (?i:FALSE|TRUE)\b
-      scope: constant.boolean
+      scope: constant.language.boolean
 
   numbers:
     # decimal numbers
@@ -926,10 +937,25 @@ contexts:
 ###############################################################################
 
   operators:
-    - include: operators-unary
-    - include: operators-litheral
+    - include: operators-arithmetic
+    - include: operators-assignment
+    - include: operators-logical
+    # curly brackets are used for templates
+    - match: \{[^\}]*\}
+      scope: invalid.illegal
 
-  operators-unary:
+  operators-arithmetic:
+    # aritmetic operators
+    - match: '[-+/\*]'
+      scope: keyword.operator.arithmetic
+    - match: (?i:MOD|DIV)\b
+      scope: keyword.operator.arithmetic
+    # special SINUMERIK arithmetic operator
+    # found in CST cycles
+    - match: (?i:_DEC[1-9])\b
+      scope: keyword.operator.arithmetic
+
+  operators-assignment:
     # assignment
     - match: =(?!=)
       scope: keyword.operator.assignment
@@ -938,28 +964,16 @@ contexts:
     - match: '<<|:'
       scope: keyword.operator.assignment
       push: after-operator
+
+  operators-logical:
     # relational operators
     - match: '[=<>]=|<>|[<>](?!<)'
-      scope: keyword.operator.relational
+      scope: keyword.operator.logical
       push: after-operator
-    # aritmetic operators
-    - match: '[-+/\*]'
-      scope: keyword.operator.arithmetic
-    # curly brackets are used for templates
-    - match: \{[^\}]*\}
-      scope: invalid.illegal
-
-  operators-litheral:
-    - match: (?i:B_AND|B_OR|B_XOR|B_NOT)\b
-      scope: keyword.operator.binary
     - match: (?i:AND|OR|XOR|NOT)\b
-      scope: keyword.operator.boolean
-    - match: (?i:MOD|DIV)\b
-      scope: keyword.operator.arithmetic
-    # special SINUMERIK arithmetic operator
-    # found in CST cycles
-    - match: (?i:_DEC[1-9])\b
-      scope: keyword.operator.arithmetic
+      scope: keyword.operator.logical
+    - match: (?i:B_AND|B_OR|B_XOR|B_NOT)\b
+      scope: keyword.operator.bitwise
 
   after-assignment:
     # string chaining after assignment is allowed
@@ -983,7 +997,7 @@ contexts:
         - meta_scope: meta.definition.access
         # allowed access levels are 0..7
         - match: \b[0-7]\b
-          scope: constant.numeric.access
+          scope: constant.numeric.integer
           pop: true
         # macro defined value
         - match: '{{macro}}'
@@ -1002,7 +1016,7 @@ contexts:
         - meta_scope: meta.definition.limit
         # decimal numbers allowed here
         - match: '[-+]?{{float}}'
-          scope: constant.numeric.limit
+          scope: constant.numeric.float
           pop: true
         # macro defined value
         - match: '{{macro}}'
@@ -1021,17 +1035,13 @@ contexts:
         - meta_scope: meta.definition.unit
         # allowed units are 0...156
         - match: \b(?:1(?:[0-4][0-9]|5[0-6])|\d{1,2})\b
-          scope: constant.numeric.unit
+          scope: constant.numeric.integer
           pop: true
         # macro defined value
         - match: '{{macro}}'
           scope: entity.name.macro.unit
           pop: true
         - include: illegal-pop
-
-  storage-modifier-var:
-    - match: (?i:VAR\b)?
-      scope: storage.modifier.var
 
 ###############################################################################
 # SINUMERIK storage types
@@ -1048,12 +1058,12 @@ contexts:
           scope: punctuation.definition.string-size.begin
           set:
             - meta_scope: storage.type.string
-            - meta_content_scope: meta.definition.string-size
+            - meta_content_scope: meta.string-size
             - match: \]
               scope: punctuation.definition.string-size.end
               pop: true
             - match: \d+\b
-              scope: constant.numeric.size
+              scope: constant.numeric.integer
             - match: '{{macro}}'
               scope: entity.name.macro.size
         - include: scope-end
@@ -1063,34 +1073,40 @@ contexts:
 ###############################################################################
 
   function-call:
+    - include: nc-function-call
+    - include: generic-function-call
+
+  nc-function-call:
     # known NC functions
     - match: (?:A(?:BS|C|C(?:[NP]|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:C(?:DAT|POSI)|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|O(?:NT(?:DCON|PRON)|RROF|S|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|ROT|SCALE|T(?:A(?:B|B(?:DEL|EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|RANS))|D(?:AC|C|EL(?:DL|ETE|M(?:L(?:OWNER|RES)|T)|OBJ|T|T(?:C|OOLENV))|I(?:C|SABLE)|RIVEA)|E(?:G(?:DE[FL]|OF[CS])|NABLE|X(?:EC(?:STRING|TAB|UTE)|P|TCALL))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN]))|GE(?:OAX|T|T(?:ACT(?:T|TD)|[DT]|DNO|EXET|FREELOC|SELT|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|HOLES[12]|I(?:C|N(?:DEX|IT|T(?:ERSEC|TOAX)|VFRAME)|POBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|L(?:E(?:ADO[FN]|NTOAX)|FPOS|N|OCK)|M(?:A(?:SL(?:DE[FL]|O(?:[FN]|FS))|TCH|XVAL)|IN(?:DEX|VAL)|MC|ODAXVAL|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|PRO(?:T|TDEF)|UMBER)|P(?:[MR]|O(?:CKET[34]|L(?:FM(?:ASK|LIN)|YPATH)|S(?:M|MT)|T)|ROTS|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRNON|U)|R(?:AC|E(?:AD|LEASE|P|SE(?:T|TMON))|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T|T(?:AL|DNO|INT|M|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|P(?:I|RINT)|QRT|T(?:ART|R(?:INGIS|LEN))|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|UNLOCK|W(?:AIT(?:[CEMPS]|MC)|RITE))\b
       scope: support.function.nck
       push: function-call-arguments
+
+  generic-function-call:
     # unknown function is handled as subprogram (SPF)
-    - match: ({{ident}})\s*(\()
+    - match: ({{macro}})\s*(\()
       captures:
-        1: entity.name.procedure
-        2: punctuation.arguments.begin
+        1: variable.function
+        2: punctuation.section.parens.begin
       push: function-call-arguments-body
 
   function-call-arguments:
     - match: \(
-      scope: punctuation.arguments.begin
+      scope: punctuation.section.parens.begin
       push: function-call-arguments-body
     - include: scope-end
 
   function-call-arguments-body:
     - meta_content_scope: meta.arguments
-    - match: '[-+]?(?=\S)'
-      scope: constant.numeric.sign
+    - match: '[-+]|(?=\S)'
+      scope: constant.numeric
       set:
         - meta_content_scope: meta.arguments
         - match: \)
-          scope: punctuation.arguments.end
+          scope: punctuation.section.parens.end
           set: illegal-brackets-pop
         - match: ','
-          scope: punctuation.arguments.seperator
+          scope: punctuation.separator
           push: after-operator
         - include: frame-constants
         - include: expressions-line
@@ -1139,7 +1155,7 @@ contexts:
 
   nc-variables:
     - match: \$
-      scope: support.variable.nck punctuation.variable.nck
+      scope: support.variable.nck punctuation.definition.variable.nck
       push:
         # SINUMERIK PI constant
         - match: (?:PI)\b
@@ -1181,22 +1197,22 @@ contexts:
 # everything withing [ ... ]
 ###############################################################################
 
-  array-size:
+  array-dimension:
     - match: \[
-      scope: punctuation.definition.array.begin
+      scope: punctuation.section.brackets.dimension.begin
       push:
-        - meta_scope: meta.definition.array
+        - meta_scope: meta.brackets.dimension
         - match: \]|$
-          scope: punctuation.definition.array.end
+          scope: punctuation.section.brackets.dimension.end
           pop: true
-        - include: array-size-body
+        - include: array-dimension-body
     - include: scope-end
 
-  array-size-body:
+  array-dimension-body:
     - match: ','
-      scope: punctuation.definition.array.seperator
+      scope: punctuation.separator.dimension
     - match: \d+\b
-      scope: constant.numeric.size
+      scope: constant.numeric.integer
     - match: '{{ident}}'
       scope: entity.name.macro
     - include: line-end-or-illegal
@@ -1208,24 +1224,24 @@ contexts:
 
   array-index:
     - match: \[
-      scope: punctuation.index.begin
+      scope: punctuation.section.brackets.index.begin
       set: array-index-begin
     - include: scope-end
 
   array-index-begin:
-    - meta_scope: meta.index
-    - match: '[-+]?(?=\S)'
-      scope: constant.numeric.sign
+    - meta_scope: meta.brackets.index
+    - match: '[-+]|(?=\S)'
+      scope: constant.numeric
       set: array-index-body
     - include: line-end
 
   array-index-body:
-    - meta_content_scope: meta.index
+    - meta_content_scope: meta.brackets.index
     - match: \]|$
-      scope: punctuation.index.end
+      scope: punctuation.section.brackets.index.end
       pop: true
     - match: ','
-      scope: punctuation.index.seperator
+      scope: punctuation.separator.array-index
       push: after-operator
     - include: frame-constants
     - include: trafo-constants
@@ -1301,3 +1317,7 @@ contexts:
       scope: invalid.illegal.keywords.control
     - match: (?i:AXIS|BOOL|FRAME|INT|REAL|STRING|TR|FI|RT|SC|MI|NCK|CHAN|AP[RWX][BP]?|LL[IU]|PHU|SYN(?:[RW]|RW)|VAR|INI(?:CF|RE|PO)|PRLOC)\b
       scope: invalid.illegal.keywords.storage
+
+  illegal-operators:
+    - match: (?i:[-+/\*<>=]MOD|DIV|_DEC[1-9]|(?:B_)?(?:AND|OR|XOR|NOT))\b
+      scope: invalid.illegal.operator
