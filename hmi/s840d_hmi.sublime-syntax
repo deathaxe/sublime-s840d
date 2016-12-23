@@ -91,30 +91,35 @@ contexts:
       push:
         - meta_scope: meta.class.array
         - match: \(
-          scope: punctuation.definition.parameters.begin
+          scope: punctuation.section.parens.begin
           set:
+            - meta_content_scope: meta.class.array.parameters.name meta.parens
             - match: \)|$
-              scope: punctuation.definition.parameters.end
+              scope: punctuation.section.parens.end
               set: class-array-body
             - include: class-name
         - include: illegal-pop
 
   class-array-body:
-    - meta_scope: meta.class.array
-    - include: class-end
+    - meta_content_scope: meta.class.array.body
+    - match: (?=//)
+      set:
+        - meta_scope: meta.class.array.end
+        - include: class-end-pop
     - match: \(
-      scope: punctuation.definition.array.row.begin
+      scope: punctuation.section.parens.begin
       push:
-        - meta_scope: meta.class.array.row
+        - meta_scope: meta.class.array.row meta.parens
         - match: \)|$
-          scope: punctuation.definition.array.row.end
+          scope: punctuation.section.parens.end
           pop: true
         - match: /
-          scope: punctuation.definition.seperator
+          scope: punctuation.separator
         - include: string
         - include: number
         - include: boolean
         - include: illegal
+    - include: comment
     - include: illegal
 
 ###############################################################################
@@ -132,18 +137,23 @@ contexts:
       push:
         - meta_scope: meta.class.subprogram
         - match: \(
-          scope: punctuation.definition.parameters.begin
+          scope: punctuation.section.parens.begin
           set:
+            - meta_content_scope: meta.class.subprogram.parameters.name meta.parens
             - match: \)|$
-              scope: punctuation.definition.parameters.end
+              scope: punctuation.section.parens.end
               set: class-block-body
             - include: class-name
         - include: illegal-pop
 
   class-block-body:
-    - meta_scope: meta.class.subprogram
-    - include: class-end
+    - meta_content_scope: meta.class.subprogram.body
+    - match: (?=//)
+      set:
+        - meta_scope: meta.class.subprogram.end
+        - include: class-end-pop
     - include: def-method-sub
+    - include: comment
     - include: illegal
 
 ###############################################################################
@@ -155,7 +165,7 @@ contexts:
 #   (type/min,max//description,column title/attribute/picture/
 #    variable/column width/Offset1, Offset2, Offset3)
 #
-#   //G(NAME)
+#   //G(NAME/TYPE/ROWCOUNT/FIXED ROW/FIXED COL)
 #   (../../..)  ; column 1
 #   (../../..)  ; column 2
 #   ...
@@ -168,56 +178,66 @@ contexts:
       push:
         - meta_scope: meta.class.grid
         - match: \(
-          scope: punctuation.definition.parameters.begin
+          scope: punctuation.section.parens.begin
           set: class-grid-attr-name
         - include: class-grid-attr-end
 
   class-grid-attr-name:
+    - meta_scope: meta.parens
+    - meta_content_scope: meta.class.grid.parameters.name
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-grid-attr-type
     - include: class-name
     - include: class-grid-attr-end
 
   class-grid-attr-type:
+    - meta_content_scope: meta.class.grid.parameters.type meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-grid-attr-rowcount
     - include: number
     - include: class-grid-attr-end
 
   class-grid-attr-rowcount:
+    - meta_content_scope: meta.class.grid.parameters.row.count meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-grid-attr-fixed-row
     - include: number
     - include: class-grid-attr-end
 
   class-grid-attr-fixed-row:
+    - meta_content_scope: meta.class.grid.parameters.row.fixed meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-grid-attr-fixed-col
     - match: '[01]'
-      scope: constant.numeric
+      scope: constant.numeric.integer
     - include: boolean
     - include: class-grid-attr-end
 
   class-grid-attr-fixed-col:
+    - meta_content_scope: meta.class.grid.parameters.col.fixed meta.parens
     - match: '[01]'
-      scope: constant.numeric
+      scope: constant.numeric.integer
     - include: boolean
     - include: class-grid-attr-end
 
   class-grid-attr-end:
     - match: \)|$
-      scope: punctuation.definition.parameters.end
+      scope: punctuation.section.parens.end
       set: class-grid-body
     - include: illegal
 
   class-grid-body:
-    - meta_scope: meta.class.grid
-    - include: class-end
+    - meta_content_scope: meta.class.grid.body
+    - match: (?=//)
+      set:
+        - meta_scope: meta.class.grid.end
+        - include: class-end-pop
     - include: def-column
+    - include: comment
     - include: illegal
 
 ###############################################################################
@@ -234,30 +254,31 @@ contexts:
 
   def-column:
     - match: \(
-      scope: punctuation.definition.parameters.begin
+      scope: meta.column punctuation.section.parens.begin
       push: def-column-type
 
   def-column-type:
-    - meta_content_scope: meta.definition.column
+    - meta_scope: meta.parens
+    - meta_content_scope: meta.column.type
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-limits
     - include: storage-type
     - include: def-column-end
 
   def-column-limits:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.limits meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-default
     - include: attr-seperator
     - include: number
     - include: def-column-end
 
   def-column-default:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.default meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-captions
     - include: string
     - include: number
@@ -265,18 +286,18 @@ contexts:
 
   # texts (tooltip, title)
   def-column-captions:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.captions meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-attributes
     - include: attr-seperator
     - include: string
     - include: def-column-end
 
   def-column-attributes:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.attributes meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-picture
     - include: attr-seperator
     - include: attribute-accesslevel
@@ -285,38 +306,38 @@ contexts:
     - include: def-column-end
 
   def-column-picture:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.picture meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-address
     - include: string
     - include: def-column-end
 
   def-column-address:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.address meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-width
     - include: string
     - include: def-column-end
 
   def-column-width:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.width meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-column-offsets
     - include: number
     - include: def-column-end
 
   def-column-offsets:
-    - meta_content_scope: meta.definition.column
+    - meta_content_scope: meta.column.offsets meta.parens
     - include: attr-seperator
     - include: number
     - include: def-column-end
 
   def-column-end:
     - match: \)|$
-      scope: punctuation.definition.parameters.end
+      scope: punctuation.section.parens.end
       pop: true
     - include: illegal
 
@@ -335,57 +356,65 @@ contexts:
       push:
         - meta_scope: meta.class.dialog
         - match: \(
-          scope: punctuation.definition.parameters.begin
+          scope: punctuation.section.parens.begin
           set: class-dialog-attr-name
         - include: class-dialog-attr-end
 
   class-dialog-attr-name:
+    - meta_scope: meta.parens
+    - meta_content_scope: meta.class.dialog.parameters.name
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-caption
     - include: class-name
     - include: class-dialog-attr-end
 
   class-dialog-attr-caption:
+    - meta_content_scope: meta.class.dialog.parameters.caption meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-picture
     - include: string
     - include: class-dialog-attr-end
 
   class-dialog-attr-picture:
+    - meta_content_scope: meta.class.dialog.parameters.picture meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-dimension
     - include: string
     - include: class-dialog-attr-end
 
   class-dialog-attr-dimension:
+    - meta_content_scope: meta.class.dialog.parameters.dimension meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-variable
     - include: attr-seperator
     - include: number
     - include: class-dialog-attr-end
 
   class-dialog-attr-variable:
+    - meta_content_scope: meta.class.dialog.parameters.variable meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-picture-position
     - include: string
     - include: class-dialog-attr-end
 
   class-dialog-attr-picture-position:
+    - meta_content_scope: meta.class.dialog.parameters.picture-position meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-attribute
     - include: attr-seperator
     - include: number
     - include: class-dialog-attr-end
 
   class-dialog-attr-attribute:
+    - meta_content_scope: meta.class.dialog.parameters.attribute meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: class-dialog-attr-end
     - include: attribute-accesslevel
     - include: attribute-allignment
@@ -396,16 +425,20 @@ contexts:
 
   class-dialog-attr-end:
     - match: \)|$
-      scope: punctuation.definition.parameters.end
+      scope: punctuation.section.parens.end
       set: class-dialog-body
     - include: illegal
 
   class-dialog-body:
-    - meta_scope: meta.class.dialog
-    - include: class-end
+    - meta_content_scope: meta.class.dialog.body
+    - match: (?=//)
+      set:
+        - meta_scope: meta.class.dialog.end
+        - include: class-end-pop
     - include: def-operand
     - include: def-softkey
     - include: def-methods
+    - include: comment
     - include: illegal
 
 ###############################################################################
@@ -421,20 +454,27 @@ contexts:
     - match: //[Ss]\b
       scope: keyword.class.begin
       push:
+        - meta_scope: meta.class.menu
         - match: \(
-          scope: punctuation.definition.parameters.begin
+          scope: punctuation.section.parens.begin
           set:
+            - meta_scope: meta.parens
+            - meta_content_scope: meta.class.menu.parameters.name
             - match: \)|$
-              scope: punctuation.definition.parameters.end
+              scope: punctuation.section.parens.end
               set: class-menu-body
             - include: class-name
         - include: class-menu-body
 
   class-menu-body:
-    - meta_scope: meta.class.menu
-    - include: class-end
+    - meta_content_scope: meta.class.menu.body
+    - match: (?=//)
+      set:
+        - meta_scope: meta.class.menu.end
+        - include: class-end-pop
     - include: def-softkey
     - include: def-methods
+    - include: comment
     - include: illegal
 
 ###############################################################################
@@ -447,16 +487,13 @@ contexts:
 
   attr-seperator:
     - match: ','
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
 
-  class-end:
-    - include: comment
-    - match: (?=//)
-      set:
-        - match: //(?i:END)\b
-          scope: keyword.class.end
-          pop: true
-        - include: illegal
+  class-end-pop:
+    - match: //(?i:END)\b
+      scope: keyword.class.end
+      pop: true
+    - include: illegal
 
 ###############################################################################
 # INPUT / OPERAND
@@ -479,16 +516,17 @@ contexts:
       set: def-operand-arraysize
 
   def-operand-arraysize:
-    - meta_content_scope: meta.definition.operand
     - match: \(
-      scope: punctuation.definition.arraysize.begin
+      scope: punctuation.section.parens.begin
       set:
+        - meta_scope: meta.definition.operand.array-size meta.parens
         - match: \)
-          scope: punctuation.definition.arraysize.end
+          scope: punctuation.section.parens.end
           set: def-operand-assign
         - include: number
         - include: line-end
-    - include: def-operand-assign
+    - match: (?=\S)
+      set: def-operand-assign
 
   def-operand-assign:
     - match: =
@@ -496,23 +534,24 @@ contexts:
       set:
         - meta_content_scope: meta.definition.operand
         - match: \(
-          scope: punctuation.definition.parameters.begin
+          scope: punctuation.section.parens.begin
           set: def-operand-type
         - include: def-operand-seperator
     - include: def-operand-seperator
 
   def-operand-type:
-    - meta_content_scope: meta.definition.operand
+    - meta_scope: meta.parens
+    - meta_content_scope: meta.definition.operand.type
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-limits
     - include: storage-type
     - include: def-operand-end
 
   def-operand-limits:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.limits meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-default
     - match: '%\w+'
       scope: entity.name.grid
@@ -523,9 +562,9 @@ contexts:
     - include: def-operand-end
 
   def-operand-default:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.default meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-captions
     - include: string
     - include: number
@@ -533,18 +572,18 @@ contexts:
 
   # texts (description, caption/picture, shortcut, unit)
   def-operand-captions:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.captions meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-attributes
     - include: attr-seperator
     - include: string
     - include: def-operand-end
 
   def-operand-attributes:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.attributes meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-picture
     - include: attr-seperator
     - include: attribute-accesslevel
@@ -556,26 +595,26 @@ contexts:
     - include: def-operand-end
 
   def-operand-picture:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.picture meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-address
     - include: string
     - include: def-operand-end
 
   def-operand-address:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.address meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-captionpos
     - include: string
     - include: def-operand-end
 
   # caption position (left, top, width, height)
   def-operand-captionpos:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.position.caption meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-inputpos
     - include: attr-seperator
     - include: number
@@ -583,25 +622,25 @@ contexts:
 
   # input control position (left, top, width, height)
   def-operand-inputpos:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.position.input meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-colors
     - include: attr-seperator
     - include: number
     - include: def-operand-end
 
   def-operand-colors:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.colors meta.parens
     - match: /
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-helpfile
     - include: attr-seperator
     - include: number
     - include: def-operand-end
 
   def-operand-helpfile:
-    - meta_content_scope: meta.definition.operand
+    - meta_content_scope: meta.definition.operand.helpfile meta.parens
     - include: attr-seperator
     - include: number
     - include: string
@@ -609,13 +648,13 @@ contexts:
 
   def-operand-end:
     - match: \)
-      scope: punctuation.definition.parameters.end
+      scope: punctuation.section.parens.end
       set: def-operand-seperator
     - include: line-end
 
   def-operand-seperator:
     - match: ','
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-operand-name
     - include: line-end
 
@@ -640,42 +679,43 @@ contexts:
   def-softkey-attr:
     - meta_content_scope: meta.definition.softkey
     - match: \(
-      scope: punctuation.definition.parameters.begin
+      scope: punctuation.section.parens.begin
       set: def-softkey-attr-caption
     - include: line-end
 
   def-softkey-attr-caption:
-    - meta_content_scope: meta.definition.softkey
+    - meta_scope: meta.parens
+    - meta_content_scope: meta.definition.softkey.caption
     - match: ','
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-softkey-attr-accesslevel
     - match: \[
-      scope: punctuation.caption-group.begin
+      scope: punctuation.section.caption-group.begin
       push:
         - meta_scope: meta.caption-group
         - match: \]
-          scope: punctuation.caption-group.end
+          scope: punctuation.section.caption-group.end
           pop: true
         - include: expressions
     - include: string
     - include: def-softkey-end
 
   def-softkey-attr-accesslevel:
-    - meta_content_scope: meta.definition.softkey
+    - meta_content_scope: meta.definition.softkey.accesslevel
     - match: ','
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-softkey-attr-state
     - include: attribute-accesslevel
     - include: def-softkey-end
 
   def-softkey-attr-state:
-    - meta_content_scope: meta.definition.softkey
+    - meta_content_scope: meta.definition.softkey.state
     - include: attribute-state
     - include: def-softkey-end
 
   def-softkey-end:
     - match: \)|$
-      scope: punctuation.definition.parameters.end
+      scope: punctuation.section.parens.end
       pop: true
     - include: illegal
 
@@ -710,7 +750,7 @@ contexts:
       push: def-method-activate-body
 
   def-method-activate-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_ACTIVATE)\b
       scope: keyword.definition.method.end
       pop: true
@@ -731,17 +771,18 @@ contexts:
       scope: keyword.definition.method.change
       push:
         - match: \(
-          scope: punctuation.definition.arguments.begin
+          scope: punctuation.section.parens.begin
           set:
+            - meta_scope: meta.parens
             - match: \)|$
-              scope: punctuation.definition.arguments.end
+              scope: punctuation.section.parens.end
               set: def-method-change-body
             - include: operand
             - include: illegal
         - include: def-method-change-body
 
   def-method-change-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_CHANGE)\b
       scope: keyword.definition.method.end_change
       pop: true
@@ -763,7 +804,7 @@ contexts:
       push: def-method-focus-body
 
   def-method-focus-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_FOCUS)\b
       scope: keyword.definition.method.end_focus
       pop: true
@@ -785,7 +826,7 @@ contexts:
       push: def-method-load-body
 
   def-method-load-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_LOAD)\b
       scope: keyword.definition.method.end_load
       pop: true
@@ -807,7 +848,7 @@ contexts:
       push: def-method-unload-body
 
   def-method-unload-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_UNLOAD)\b
       scope: keyword.definition.method.end_unload
       pop: true
@@ -830,29 +871,31 @@ contexts:
 
   def-method-output-argument:
     - match: \(
-      scope: punctuation.definition.arguments.begin
+      scope: punctuation.section.parens.begin
       set: def-method-output-argument-name
     - include: line-end
 
   def-method-output-argument-name:
+    - meta_scope: meta.parens
     - match: ','
-      scope: punctuation.definition.seperator
+      scope: punctuation.separator
       set: def-method-output-argument-version
     - include: operand
     - include: def-method-output-argument-end
 
   def-method-output-argument-version:
+    - meta_content_scope: meta.parens
     - include: number
     - include: def-method-output-argument-end
 
   def-method-output-argument-end:
     - match: \)|$
-      scope: punctuation.definition.arguments.end
+      scope: punctuation.section.parens.end
       set: def-method-output-body
     - include: illegal
 
   def-method-output-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_OUTPUT)\b
       scope: keyword.definition.method.end_output
       pop: true
@@ -876,10 +919,11 @@ contexts:
       scope: keyword.definition.method.press
       push:
         - match: \(
-          scope: punctuation.definition.arguments.begin
+          scope: punctuation.section.parens.begin
           set:
+            - meta_scope: meta.method.parameters meta.parens
             - match: \)|$
-              scope: punctuation.definition.arguments.end
+              scope: punctuation.section.parens.end
               set: def-method-press-body
             - match: '{{softkey}}'
               scope: entity.name.softkey
@@ -889,7 +933,7 @@ contexts:
         - include: line-end
 
   def-method-press-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_PRESS)\b
       scope: keyword.definition.method.end_press
       pop: true
@@ -910,17 +954,18 @@ contexts:
       scope: keyword.definition.method.sub
       push:
         - match: \(
-          scope: punctuation.definition.arguments.begin
+          scope: punctuation.section.parens.begin
           set:
+            - meta_scope: meta.method.parameters meta.parens
             - match: \)|$
-              scope: punctuation.definition.arguments.end
+              scope: punctuation.section.parens.end
               set: def-method-sub-body
             - include: operand
             - include: illegal
         - include: def-method-sub-body
 
   def-method-sub-body:
-    - meta_scope: meta.method
+    - meta_content_scope: meta.block.method
     - match: \b(?i:END_SUB)\b
       scope: keyword.definition.method.end_sub
       pop: true
@@ -979,42 +1024,42 @@ contexts:
   # is used for snippet parameters
   placeholder:
     - match: \{
-      scope: punctuation.group.begin
+      scope: punctuation.section.group.begin
       push:
         - meta_scope: invalid.illegal
         - match: \}
-          scope: punctuation.group.end
+          scope: punctuation.section.group.end
           pop: true
     - match: \}
       scope: invalid.illegal
 
   attribute-accesslevel:
     - match: \b[Aa][Cc][0-7]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.accesslevel
 
   attribute-allignment:
     - match: \b[Aa][Ll][0-2]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.allignment
 
   attribute-changeblock:
     - match: \b[Cc][Bb][01]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.changeblock
 
   attribute-fontsize:
     - match: \b[Ff][Ss][12]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.fontsize
 
   attribute-limit:
     - match: \b[Ll][Ii][0-3]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.limit
 
   attribute-state:
     - match: \b[Ss][Ee][0-3]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.state
 
   attribute-writeability:
     - match: \b[Ww][Rr][0-5]\b
-      scope: constant.language.attribute
+      scope: constant.language.attribute.writeability
 
   boolean:
     - match: \b(?i:TRUE|FALSE)\b
@@ -1037,14 +1082,14 @@ contexts:
   function-arguments:
     - meta_scope: meta.function-call
     - match: \(
-      scope: punctuation.function-call.arguments.begin
+      scope: punctuation.section.parens.begin
       push:
-        - meta_scope: meta.function-call.arguments
+        - meta_scope: meta.parens
         - match: \)
-          scope: punctuation.function-call.arguments.end
+          scope: punctuation.section.parens.end
           pop: true
         - match: ','
-          scope: punctuation.function-call.arguments.seperator
+          scope: punctuation.separator
         - include: expressions
         - include: illegal
     - match: (?=\S)
@@ -1052,11 +1097,11 @@ contexts:
 
   group:
     - match: \(
-      scope: punctuation.group.begin
+      scope: punctuation.section.group.begin
       push:
         - meta_scope: meta.group
         - match: \)
-          scope: punctuation.group.end
+          scope: punctuation.section.group.end
           pop: true
         - include: expressions
         - include: illegal
@@ -1103,7 +1148,7 @@ contexts:
       scope: entity.name.softkey
       push:
         - match: \.
-          scope: punctuation.member.seperator
+          scope: punctuation.accessor
           set:
             # list of valid attributes
             - match: \b(?i:ac|s[te])\b
@@ -1126,11 +1171,11 @@ contexts:
           scope: punctuation.definition.string.end
           pop: true
         - match: \'"\'
-          scope: constant.character.escape.double-quoted
+          scope: constant.character.escape.quoted.double
         - match: \'
-          scope: constant.character.escape.single-quoted
+          scope: constant.character.escape.quoted.single
         - match: '%[Nn]'
-          scope: constant.character.escape.linefeed
+          scope: constant.other.linefeed
     - match: \$\d+\b
       scope: support.variable.textid
 
@@ -1164,17 +1209,18 @@ contexts:
 
   operand-index:
     - match: \[
-      scope: punctuation.index.begin
+      scope: punctuation.section.brackets.begin
       set:
+        - meta_scope: meta.brackets meta.index
         - match: \]
-          scope: punctuation.index.end
+          scope: punctuation.section.brackets.end
           set: operand-members
         - include: expressions
     - include: operand-members
 
   operand-members:
     - match: \.
-      scope: punctuation.member.seperator
+      scope: punctuation.accessor
       set:
         # list of valid attributes
         - match: \b(?i:a[cl]|bc|cb|f[cs]|gt|hlp|l[it]|m(?:ax|in)|[su]t|typ|v(?:a[lr]|ld)|wr)\b
