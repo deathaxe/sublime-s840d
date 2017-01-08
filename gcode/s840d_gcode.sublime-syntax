@@ -379,15 +379,13 @@ contexts:
         - meta_scope: meta.control.case
         - match: (?i:OF)\b
           scope: keyword.control.of
-          set: stmt-case-of
+          set: [stmt-case-of, after-operator]
         - include: expressions-line
 
   stmt-case-of:
     - meta_content_scope: meta.control.case
     - include: stmt-case-default
     - include: stmt-goto
-    - match: '[-+]'
-      scope: constant.numeric
     - include: numbers
     - match: '{{ident}}(?=\s+(?i:GOTO))'
       scope: entity.name.macro
@@ -849,17 +847,14 @@ contexts:
   expressions-group:
     - match: \(
       scope: punctuation.section.group.begin
-      push:
-        - meta_content_scope: meta.group
-        - match: '[-+]|(?=\S)'
-          scope: constant.numeric
-          set:
-            - meta_content_scope: meta.group
-            - match: \)
-              scope: punctuation.section.group.end
-              pop: true
-            - include: expressions-line
-        - include: line-end
+      push: [expressions-group-body, after-operator]
+
+  expressions-group-body:
+    - meta_content_scope: meta.group
+    - match: \)
+      scope: punctuation.section.group.end
+      pop: true
+    - include: expressions-line
 
   expressions-line:
     - include: expressions
@@ -1137,24 +1132,19 @@ contexts:
   function-call-arguments:
     - match: \(
       scope: punctuation.section.parens.begin
-      push: function-call-arguments-body
+      push: [function-call-arguments-body, after-operator]
     - include: scope-end
 
   function-call-arguments-body:
     - meta_content_scope: meta.arguments
-    - match: '[-+]|(?=\S)'
-      scope: constant.numeric
-      set:
-        - meta_content_scope: meta.arguments
-        - match: \)
-          scope: punctuation.section.parens.end
-          set: illegal-brackets-pop
-        - match: ','
-          scope: punctuation.separator
-          push: after-operator
-        - include: frame-constants
-        - include: expressions-line
-    - include: line-end
+    - match: \)
+      scope: punctuation.section.parens.end
+      set: illegal-brackets-pop
+    - match: ','
+      scope: punctuation.separator
+      push: after-operator
+    - include: frame-constants
+    - include: expressions-line
 
 ###############################################################################
 # known variables
@@ -1269,18 +1259,11 @@ contexts:
   array-index:
     - match: \[
       scope: punctuation.section.brackets.index.begin
-      set: array-index-begin
+      set: [array-index-body, after-operator]
     - include: scope-end
 
-  array-index-begin:
-    - meta_scope: meta.brackets.index
-    - match: '[-+]|(?=\S)'
-      scope: constant.numeric
-      set: array-index-body
-    - include: line-end
-
   array-index-body:
-    - meta_content_scope: meta.brackets.index
+    - meta_scope: meta.brackets.index
     - match: \]|$
       scope: punctuation.section.brackets.index.end
       pop: true
