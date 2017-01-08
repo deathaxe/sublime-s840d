@@ -164,10 +164,9 @@ contexts:
     - match: \)
       scope: punctuation.section.parens.end
       set: stmt-extern-parameters-end
-    - match: (?i:VAR\b)
-      scope: storage.modifier.var
     - include: seperator-comma
     - include: storage-types
+    - include: storage-modifiers
     - include: line-end-or-illegal
 
   stmt-extern-parameters-end:
@@ -207,10 +206,9 @@ contexts:
     - match: \)
       scope: punctuation.section.parens.end
       set: stmt-proc-attribute
-    - match: (?i:VAR\b)
-      scope: storage.modifier.var
     - include: seperator-comma
     - include: storage-types
+    - include: storage-modifiers
     - include: constants
     - include: operators-assignment
     - include: illegal-operators
@@ -1092,6 +1090,10 @@ contexts:
 ###############################################################################
 # SINUMERIK storage types
 ###############################################################################
+
+  storage-modifiers:
+  - match: (?i:VAR\b)
+    scope: storage.modifier.var
 
   storage-types:
     - match: (?i:AXIS|BOOL|FRAME|INT|REAL|CHAR)\b
