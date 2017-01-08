@@ -267,16 +267,7 @@ contexts:
   stmt-def-variable:
     - match: '{{ident}}'
       scope: variable.other
-      push:
-        - match: \[
-          scope: punctuation.section.brackets.dimension.begin
-          set:
-            - meta_scope: meta.brackets.dimension
-            - match: \]
-              scope: punctuation.section.brackets.dimension.end
-              set: stmt-def-value
-            - include: array-dimension-body
-        - include: stmt-def-value
+      push: [stmt-def-value, array-dimension]
     - include: line-end-or-illegal
 
   stmt-def-value:
@@ -1240,12 +1231,12 @@ contexts:
 
   array-dimension:
     - match: \[
-      scope: punctuation.section.brackets.dimension.begin
+      scope: punctuation.section.brackets.begin
       push:
-        - meta_scope: meta.brackets.dimension
-        - match: \]|$
-          scope: punctuation.section.brackets.dimension.end
-          pop: true
+        - meta_scope: meta.brackets
+        - match: \]
+          scope: punctuation.section.brackets.end
+          set: illegal-brackets-pop
         - include: array-dimension-body
     - include: scope-end
 
@@ -1264,15 +1255,15 @@ contexts:
 
   array-index:
     - match: \[
-      scope: punctuation.section.brackets.index.begin
+      scope: punctuation.section.brackets.begin
       set: [array-index-body, after-operator]
     - include: scope-end
 
   array-index-body:
-    - meta_scope: meta.brackets.index
-    - match: \]|$
-      scope: punctuation.section.brackets.index.end
-      pop: true
+    - meta_scope: meta.brackets
+    - match: \]
+      scope: punctuation.section.brackets.end
+      set: illegal-brackets-pop
     - include: seperator-comma-minus
     - include: frame-constants
     - include: trafo-constants
@@ -1302,23 +1293,24 @@ contexts:
 ###############################################################################
 
   illegal:
-    - include: illegal-paren
-    - include: illegal-square
+    - include: illegal-brackets
     - match: \S
       scope: invalid.illegal
 
   illegal-pop:
     - include: line-end
-    - include: illegal-paren
-    - include: illegal-square
+    - include: illegal-brackets-pop
     - match: \S+
       scope: invalid.illegal
       pop: true
 
   illegal-brackets-pop:
+    - include: illegal-brackets
+    - include: scope-end
+
+  illegal-brackets:
     - include: illegal-paren
     - include: illegal-square
-    - include: scope-end
 
   illegal-paren:
     - match: \(
