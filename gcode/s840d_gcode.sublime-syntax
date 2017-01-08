@@ -51,6 +51,8 @@ variables:
   macro: '[A-Za-z_]\w+\b'
   # labels must start with 2 letters or '_' optinally followed by :alnum:
   label: '[A-Za-z_]{2}\w*\b'
+  # cycle names or ISO cylce L0815
+  cycle: '[A-Za-z_]{2}\w*\b|L\d{1,4}\b'
 
 ###############################################################################
 # MAIN CONTEXT
@@ -117,10 +119,52 @@ contexts:
 ###############################################################################
 
   definitions:
-    - include: stmt-proc
     - include: stmt-def
     - include: stmt-define
     - include: stmt-redef
+    - include: stmt-proc
+    - include: stmt-extern
+
+###############################################################################
+# EXTERN PROCEDURE DEFINITION
+# TESTS: syntax_test_extern.spf
+###############################################################################
+
+  stmt-extern:
+    - match: (?i:EXTERN)\b
+      scope: meta.definition.extern keyword.control.extern
+      set: stmt-extern-name
+
+  stmt-extern-name:
+    - meta_content_scope: meta.definition.extern.name
+    - match: '({{cycle}})\s*([^\(;]*)'
+      captures:
+        1: variable.function
+        2: invalid.illegal
+      set: stmt-extern-parameters
+    - include: line-end-or-illegal
+
+  stmt-extern-parameters:
+    - match: \(
+      scope: punctuation.section.parens.begin
+      set: stmt-extern-parameters-body
+    - include: line-end-or-illegal
+
+  stmt-extern-parameters-body:
+    - meta_scope: meta.definition.extern.parameters meta.parens
+    - match: \)
+      scope: punctuation.section.parens.end
+      set: stmt-extern-parameters-end
+    - match: ','
+      scope: punctuation.separator.parameters
+    - match: (?i:VAR\b)
+      scope: storage.modifier.var
+    - include: storage-types
+    - include: line-end-or-illegal
+
+  stmt-extern-parameters-end:
+    - meta_content_scope: meta.definition.extern
+    - include: line-end-or-illegal
 
 ###############################################################################
 # PROCEDURE DEFINITION
@@ -573,7 +617,7 @@ contexts:
   iso-procedures:
     # SINUMERIK command with ISO style parameters
     #   e.g.: TRANS X0 Y0.4
-    - match: (?:A(?:CTBLOCNO|MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|XTOCHAN)|B(?:AUTO|LSYNC|NAT|RISK|SPLINE|TAN)|C(?:DO[FN]|F(?:C|I(?:N|NE)|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|R(?:OTS|PL)|SPLINE|UT(?:2(?:D|DF)|3D(?:[CF]|C(?:C|CD)|F[FS])|CONO[FN]))|D(?:EL(?:AYFSTO[FN]|DTG)|I(?:AM(?:90|C(?:HAN|YCOF)|O[FN])|S(?:C|PLO[FN]))|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|GO(?:N|NSY(?:N|NE))|NAT|TAN|XTERN)|F(?:CUB|[DL]|DA|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TO(?:C|CO[FN]))|G(?:ORAP|P|WPSO[FN])|I(?:CYCO[FN]|NVC(?:CW|W)|PTR(?:LOCK|UNLOCK))|KON(?:T|T[CT])|L(?:F(?:O[FN]|TXT|WP)|I(?:FTFAST|MS)|ONGHOLE)|M(?:EA(?:FRAME|SURE)|IRROR)|N(?:EWCONF|ORM)|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CDS]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CPST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS|SRANGE)|R(?:E(?:PRO|SETON)|OTA)|T(?:P|PG0))|QECLRNOF|R(?:DISABLE|EPOS(?:[AHLQ]|QA)|M[BEIN]|O(?:T|TS)|POSHA|TLIO[FN])|S(?:AVE|BLO[FN]|C(?:ALE|C)|ETTCOR|LOT[12]|O(?:FT|N|NS)|P(?:ATH|CO[FN]|IF[12]|LINEPATH|[NP]|OF)|T(?:ARTFIFO|OP(?:FIFO|R(?:E|EOF)))|UPA|VC|YNFCT)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OLENV|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|NS))|UPATH|W(?:AL(?:CS(?:[0-9]|10)|IMO[FN])|RTPTR))\b
+    - match: (?:A(?:CTBLOCNO|MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|XTOCHAN)|B(?:AUTO|LSYNC|NAT|RISK|SPLINE|TAN)|C(?:DO[FN]|F(?:C|I(?:N|NE)|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|R(?:OTS|PL)|SPLINE|UT(?:2(?:D|DF)|3D(?:[CF]|C(?:C|CD)|F[FS])|CONO[FN]))|D(?:EL(?:AYFSTO[FN]|DTG)|I(?:AM(?:90|C(?:HAN|YCOF)|O[FN])|S(?:C|PLO[FN]))|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|GO(?:N|NSY(?:N|NE))|NAT|TAN)|F(?:CUB|[DL]|DA|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TO(?:C|CO[FN]))|G(?:ORAP|P|WPSO[FN])|I(?:CYCO[FN]|NVC(?:CW|W)|PTR(?:LOCK|UNLOCK))|KON(?:T|T[CT])|L(?:F(?:O[FN]|TXT|WP)|I(?:FTFAST|MS)|ONGHOLE)|M(?:EA(?:FRAME|SURE)|IRROR)|N(?:EWCONF|ORM)|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CDS]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CPST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS|SRANGE)|R(?:E(?:PRO|SETON)|OTA)|T(?:P|PG0))|QECLRNOF|R(?:DISABLE|EPOS(?:[AHLQ]|QA)|M[BEIN]|O(?:T|TS)|POSHA|TLIO[FN])|S(?:AVE|BLO[FN]|C(?:ALE|C)|ETTCOR|LOT[12]|O(?:FT|N|NS)|P(?:ATH|CO[FN]|IF[12]|LINEPATH|[NP]|OF)|T(?:ARTFIFO|OP(?:FIFO|R(?:E|EOF)))|UPA|VC|YNFCT)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OLENV|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|NS))|UPATH|W(?:AL(?:CS(?:[0-9]|10)|IMO[FN])|RTPTR))\b
       scope: support.function.iso
       push:
         # some compatibility hacks to avoid invalid illegals
