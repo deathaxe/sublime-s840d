@@ -114,6 +114,15 @@ contexts:
     - include: axis-variables
     - include: scope-end
 
+  seperator-comma:
+    - match: ','
+      scope: punctuation.separator.comma
+
+  seperator-comma-minus:
+    - match: ','
+      scope: punctuation.separator.comma
+      push: after-operator
+
 ###############################################################################
 # DEFINITIONS
 ###############################################################################
@@ -155,10 +164,9 @@ contexts:
     - match: \)
       scope: punctuation.section.parens.end
       set: stmt-extern-parameters-end
-    - match: ','
-      scope: punctuation.separator.parameters
     - match: (?i:VAR\b)
       scope: storage.modifier.var
+    - include: seperator-comma
     - include: storage-types
     - include: line-end-or-illegal
 
@@ -199,10 +207,9 @@ contexts:
     - match: \)
       scope: punctuation.section.parens.end
       set: stmt-proc-attribute
-    - match: ','
-      scope: punctuation.separator.parameters
     - match: (?i:VAR\b)
       scope: storage.modifier.var
+    - include: seperator-comma
     - include: storage-types
     - include: constants
     - include: operators-assignment
@@ -286,7 +293,7 @@ contexts:
 
   stmt-def-end:
     - match: ','
-      scope: punctuation.separator.variable
+      scope: punctuation.separator.comma
       set: stmt-def-variable
     - include: line-end-or-illegal
 
@@ -1140,9 +1147,7 @@ contexts:
     - match: \)
       scope: punctuation.section.parens.end
       set: illegal-brackets-pop
-    - match: ','
-      scope: punctuation.separator
-      push: after-operator
+    - include: seperator-comma-minus
     - include: frame-constants
     - include: expressions-line
 
@@ -1243,8 +1248,7 @@ contexts:
     - include: scope-end
 
   array-dimension-body:
-    - match: ','
-      scope: punctuation.separator.dimension
+    - include: seperator-comma-minus
     - match: \d+\b
       scope: constant.numeric.integer
     - match: '{{ident}}'
@@ -1267,9 +1271,7 @@ contexts:
     - match: \]|$
       scope: punctuation.section.brackets.index.end
       pop: true
-    - match: ','
-      scope: punctuation.separator.array-index
-      push: after-operator
+    - include: seperator-comma-minus
     - include: frame-constants
     - include: trafo-constants
     - include: expressions-line
