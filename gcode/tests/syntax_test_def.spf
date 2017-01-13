@@ -82,6 +82,29 @@ N10 DEF INT VAR=0, VAR2[10] = 20 , VAR3 = 40 ; comment
 ;                                         ^^ constant.numeric
 ;                                            ^^^^ comment.line
 
+; initialized array value
+N10 DEF REAL VAR[4]=(0.6,0.7,0.5,0.7), VAR2[9] = SET(0)
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
+;                   ^^^^^^^^^^^^^^^^^ meta.group
+;   ^^^ keyword.control.def
+;       ^^^ storage.type
+;           ^^^^ variable.other
+;               ^ punctuation.section.brackets.begin
+;                ^ constant.numeric.integer
+;                 ^ punctuation.section.brackets.end
+;                  ^ keyword.operator.assignment
+;                   ^ punctuation.section.group.begin
+;                    ^^^ constant.numeric
+;                       ^ punctuation.separator.comma
+;                        ^^^ constant.numeric
+;                           ^ punctuation.separator.comma
+;                            ^^^ constant.numeric
+;                               ^ punctuation.separator.comma
+;                                ^^^ constant.numeric
+;                                   ^ punctuation.section.group.end
+;                                    ^ punctuation.separator.comma
+;                                      ^^^^ variable.other
+
 ; illegal array definition
 N10 DEF INT VAR2[10][10] = 20 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable

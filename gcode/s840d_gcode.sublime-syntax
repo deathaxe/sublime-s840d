@@ -274,7 +274,15 @@ contexts:
     - match: =
       scope: keyword.operator.assignment
       set:
-        - meta_scope: meta.definition.value
+        - match: \(
+          scope: punctuation.section.group.begin
+          set:
+            - meta_scope: meta.group
+            - match: \)
+              scope: punctuation.section.group.end
+              set: stmt-def-end
+            - include: seperator-comma-minus
+            - include: expressions
         # maybe only numbers, macros and SET(...)
         - include: expressions
         - include: stmt-def-end
@@ -283,7 +291,7 @@ contexts:
   stmt-def-end:
     - match: ','
       scope: punctuation.separator.comma
-      set: stmt-def-variable
+      pop: true
     - include: line-end-or-illegal
 
 ###############################################################################
