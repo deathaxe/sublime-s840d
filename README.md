@@ -1,5 +1,6 @@
 # [CNC Sinumerik 840D language support][home]
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/tag/deathaxe/sublime-s840d.svg?style=flat-square)](https://github.com/deathaxe/sublime-s840d/releases)
+[![The MIT License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Package Control](https://packagecontrol.herokuapp.com/downloads/CNC SINUMERIK 840D language support.svg?style=flat-square)](https://packagecontrol.io/packages/CNC SINUMERIK 840D language support)
 
 This package provides syntax highlighting support for the
