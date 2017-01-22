@@ -252,9 +252,9 @@ contexts:
 
   stmt-def:
     - match: (?i:DEF)\b
-      scope: keyword.control.def
+      scope: meta.definition.variable keyword.control.def
       set:
-        - meta_scope: meta.definition.variable
+        - meta_content_scope: meta.definition.variable.storage
         - include: storage-modifier-scope
         - include: storage-modifier-access
         - include: storage-modifier-init
@@ -262,36 +262,42 @@ contexts:
         - include: storage-modifier-sync
         - include: storage-modifier-unit
         - include: storage-types
-        - include: stmt-def-variable
+        - match: (?=\S)
+          set: stmt-def-operand
+        - include: line-end
 
-  stmt-def-variable:
+  stmt-def-operand:
+    - meta_content_scope: meta.definition.variable.operand
     - match: '{{ident}}'
       scope: variable.other
-      push: [stmt-def-value, array-dimension]
-    - include: line-end-or-illegal
+      set: [stmt-def-value, array-dimension]
+    - include: stmt-def-end
 
   stmt-def-value:
-    - match: =
-      scope: keyword.operator.assignment
+    - meta_content_scope: meta.definition.variable.operand
+    - match: (?==)
+      set: stmt-def-value-body
+    - include: stmt-def-end
+
+  stmt-def-value-body:
+    - meta_content_scope: meta.definition.variable.value
+    - match: \(
+      scope: meta.group punctuation.section.group.begin
       set:
-        - match: \(
-          scope: punctuation.section.group.begin
-          set:
-            - meta_scope: meta.group
-            - match: \)
-              scope: punctuation.section.group.end
-              set: stmt-def-end
-            - include: seperator-comma-minus
-            - include: expressions
-        # maybe only numbers, macros and SET(...)
+        - meta_content_scope: meta.group meta.definition.variable.value
+        - match: \)
+          scope: punctuation.section.group.end
+          set: stmt-def-end
+        - include: seperator-comma-minus
         - include: expressions
-        - include: stmt-def-end
+    - include: expressions
     - include: stmt-def-end
 
   stmt-def-end:
+    - meta_content_scope: meta.definition.variable
     - match: ','
       scope: punctuation.separator.comma
-      pop: true
+      set: stmt-def-operand
     - include: line-end-or-illegal
 
 ###############################################################################

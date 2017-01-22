@@ -17,6 +17,11 @@ N10 DEF
 ;   ^^^ meta.definition.variable
 ;   ^^^ keyword.control.def
 
+N10 DEF INT
+;   ^^^^^^^ meta.definition.variable
+;   ^^^ keyword.control.def
+;       ^^^ storage.type
+
 DEF INT VAR = 0 ; comment
 ;             <- meta.definition.variable
 ; <- keyword.control.def
@@ -83,12 +88,17 @@ N10 DEF INT VAR=0, VAR2[10] = 20 , VAR3 = 40 ; comment
 ;                                            ^^^^ comment.line
 
 ; initialized array value
-N10 DEF REAL VAR[4]=(0.6,0.7,0.5,0.7), VAR2[9] = SET(0)
+N10 DEF REAL VAR[4]=(0.6,0.7,0.5,0.7), VAR2[9] = SET(0) ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
+;      ^^^^^^ meta.definition.variable.storage
+;            ^^^^^^ meta.definition.variable.operand
+;                  ^^^^^^^^^^^^^^^^^^ meta.definition.variable.value
+;                                      ^^^^^^^ meta.definition.variable.operand
+;                                              ^^^^^^^^^^^^^^^^^^ meta.definition.variable.value
 ;                   ^^^^^^^^^^^^^^^^^ meta.group
 ;   ^^^ keyword.control.def
 ;       ^^^ storage.type
-;           ^^^^ variable.other
+;            ^^^ variable.other
 ;               ^ punctuation.section.brackets.begin
 ;                ^ constant.numeric.integer
 ;                 ^ punctuation.section.brackets.end
