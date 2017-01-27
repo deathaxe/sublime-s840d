@@ -165,6 +165,7 @@ contexts:
         - include: storage-types
         - include: storage-modifiers
         - include: line-end-or-illegal
+    - include: line-end-or-illegal
 
 ###############################################################################
 # PROCEDURE DEFINITION
@@ -173,47 +174,46 @@ contexts:
 
   stmt-proc:
     - match: (?i:PROC)\b
-      scope: meta.definition.procedure keyword.control.proc
+      scope: meta.function keyword.control.proc
       set: stmt-proc-name
 
   stmt-proc-name:
-    - meta_content_scope: meta.definition.procedure.name
-    - match: 'L\d+\b|{{ident}}'
+    - meta_content_scope: meta.function.name
+    - match: '{{cycle}}'
       scope: entity.name.function
       set:
-        - include: line-end
-        - match: \(
-          scope: punctuation.section.parens.begin
+        - meta_content_scope: meta.function.name
+        - match: (?=\()
           set: stmt-proc-parameters
-        - match: (?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b
-          scope: meta.definition.procedure.attributes storage.modifier
-          set: stmt-proc-attribute
-        - match: \s+
-          scope: meta.definition.procedure.name
-        - match: \S+
-          scope: meta.definition.procedure.name invalid.illegal
+        - match: (?=(?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b)
+          set: stmt-proc-attributes
+        - include: line-end-or-illegal
     - include: line-end-or-illegal
 
   stmt-proc-parameters:
-    - meta_scope: meta.definition.procedure.parameters meta.parens
-    - match: \)
-      scope: punctuation.section.parens.end
-      set: stmt-proc-attribute
-    - include: seperator-comma
-    - include: storage-types
-    - include: storage-modifiers
-    - include: constants
-    - include: operators-assignment
-    - include: illegal-operators
-    - match: '{{ident}}'
-      scope: variable.parameter
-      push: array-dimension
+    - match: \(
+      scope: punctuation.definition.parameters.begin
+      set:
+        - meta_scope: meta.function.parameters
+        - match: \)
+          scope: punctuation.definition.parameters.end
+          set: stmt-proc-attributes
+        - include: seperator-comma
+        - include: storage-types
+        - include: storage-modifiers
+        - include: constants
+        - include: operators-assignment
+        - include: illegal-operators
+        - match: '{{ident}}'
+          scope: variable.parameter
+          push: array-dimension
+        - include: line-end-or-illegal
     - include: line-end-or-illegal
 
-  stmt-proc-attribute:
-    - meta_content_scope: meta.definition.procedure.attributes
+  stmt-proc-attributes:
+    - meta_content_scope: meta.function.attributes
     - match: (?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b
-      scope: storage.modifier
+      scope: storage.modifier.function
     - include: line-end-or-illegal
 
 ###############################################################################
