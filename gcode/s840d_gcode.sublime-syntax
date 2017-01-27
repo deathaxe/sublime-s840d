@@ -141,11 +141,11 @@ contexts:
 
   stmt-extern:
     - match: (?i:EXTERN)\b
-      scope: meta.definition.extern keyword.control.extern
+      scope: meta.function keyword.control.extern
       set: stmt-extern-name
 
   stmt-extern-name:
-    - meta_content_scope: meta.definition.extern.name
+    - meta_content_scope: meta.function.name
     - match: '({{cycle}})\s*([^\(;]*)'
       captures:
         1: variable.function
@@ -155,23 +155,16 @@ contexts:
 
   stmt-extern-parameters:
     - match: \(
-      scope: punctuation.section.parens.begin
-      set: stmt-extern-parameters-body
-    - include: line-end-or-illegal
-
-  stmt-extern-parameters-body:
-    - meta_scope: meta.definition.extern.parameters meta.parens
-    - match: \)
-      scope: punctuation.section.parens.end
-      set: stmt-extern-parameters-end
-    - include: seperator-comma
-    - include: storage-types
-    - include: storage-modifiers
-    - include: line-end-or-illegal
-
-  stmt-extern-parameters-end:
-    - meta_content_scope: meta.definition.extern
-    - include: line-end-or-illegal
+      scope: punctuation.definition.parameters.begin
+      set:
+        - meta_scope: meta.function.parameters
+        - match: \)
+          scope: punctuation.definition.parameters.end
+          set: line-end-or-illegal
+        - include: seperator-comma
+        - include: storage-types
+        - include: storage-modifiers
+        - include: line-end-or-illegal
 
 ###############################################################################
 # PROCEDURE DEFINITION

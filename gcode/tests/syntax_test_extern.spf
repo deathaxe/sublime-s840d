@@ -6,77 +6,77 @@
 ; ==================================================
 
 N100 EXTERN
-;    ^^^^^^ meta.definition.extern
+;    ^^^^^^ meta.function
 ;    ^^^^^^ keyword.control.extern
 
 N110 EXTERN PROGRAM illegal ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.extern
-;          ^^^^^^^^^^^^^^^^ meta.definition.extern.name
+;    ^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^^^^^^^^ meta.function.name
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function
 ;                   ^^^^^^^ invalid.illegal
 ;                           ^^^^^^^^^ comment.line
 
 N120 EXTERN PROGRAM() ; comment
-;    ^^^^^^^^^^^^^^^^ meta.definition.extern
-;          ^^^^^^^^ meta.definition.extern.name
-;                  ^^ meta.definition.extern.parameters
+;    ^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^ meta.function.name
+;                  ^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function
-;                  ^ punctuation.section.parens.begin
-;                   ^ punctuation.section.parens.end
+;                  ^ punctuation.definition.parameters.begin
+;                   ^ punctuation.definition.parameters.end
 ;                     ^^^^^^^^^ comment.line
 
 N120 EXTERN PROGRAM () ; comment
-;    ^^^^^^^^^^^^^^^^^ meta.definition.extern
-;          ^^^^^^^^^ meta.definition.extern.name
-;                   ^^ meta.definition.extern.parameters
+;    ^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^ meta.function.name
+;                   ^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function
-;                   ^ punctuation.section.parens.begin
-;                    ^ punctuation.section.parens.end
+;                   ^ punctuation.definition.parameters.begin
+;                    ^ punctuation.definition.parameters.end
 ;                      ^^^^^^^^^ comment.line
 
 N130 EXTERN PROGRAM(AXIS,VAR BOOL) ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.extern
-;          ^^^^^^^^ meta.definition.extern.name
-;                  ^^^^^^^^^^^^^^^ meta.definition.extern.parameters
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^ meta.function.name
+;                  ^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function
-;                  ^ punctuation.section.parens.begin
+;                  ^ punctuation.definition.parameters.begin
 ;                   ^^^^ storage.type
 ;                       ^ punctuation.separator.comma
 ;                        ^^^ storage.modifier.var
 ;                            ^^^^ storage.type
-;                                ^ punctuation.section.parens.end
+;                                ^ punctuation.definition.parameters.end
 ;                                  ^^^^^^^^^ comment.line
 
 N140 EXTERN PROGRAM ( AXIS , VAR BOOL ) ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.extern
-;          ^^^^^^^^^ meta.definition.extern.name
-;                   ^^^^^^^^^^^^^^^^^^^ meta.definition.extern.parameters
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^ meta.function.name
+;                   ^^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function
-;                   ^ punctuation.section.parens.begin
+;                   ^ punctuation.definition.parameters.begin
 ;                     ^^^^ storage.type
 ;                          ^ punctuation.separator.comma
 ;                            ^^^ storage.modifier.var
 ;                                ^^^^ storage.type
-;                                     ^ punctuation.section.parens.end
+;                                     ^ punctuation.definition.parameters.end
 ;                                       ^^^^^^^^^ comment.line
 
 N140 EXTERN PROGRAM ILLEAGAL ( AXIS , VAR BOOL ) ILLEGAL ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.extern
-;          ^^^^^^^^^^^^^^^^^^ meta.definition.extern.name
-;                            ^^^^^^^^^^^^^^^^^^ meta.definition.extern.parameters
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^^^^^^^^^^ meta.function.name
+;                            ^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function
-;                   ^^^^^^^^^ invalid.illegal
-;                            ^ punctuation.section.parens.begin
+;                   ^^^^^^^^ invalid.illegal
+;                            ^ punctuation.definition.parameters.begin
 ;                              ^^^^ storage.type
 ;                                   ^ punctuation.separator.comma
 ;                                     ^^^ storage.modifier.var
 ;                                         ^^^^ storage.type
-;                                              ^ punctuation.section.parens.end
+;                                              ^ punctuation.definition.parameters.end
 ;                                                ^^^^^^^ invalid.illegal
 ;                                                        ^^^^^^^^^ comment.line
