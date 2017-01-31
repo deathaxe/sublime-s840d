@@ -22,7 +22,7 @@
 # IN THE SOFTWARE.
 ###############################################################################
 ---
-name: S840D RunMyHmi
+name: S840D RunMyScreens
 file_extensions:
   - com
 scope: source.s840d_hmi
@@ -45,7 +45,7 @@ contexts:
     - match: '%\w+'
       scope: invalid.illegal
 
-    # file contains EasyScreen/RunMyHmi
+    # file contains EasyScreen/RunMyScreens
     - match: (?=//[ABGMS]\b)
       push:
         - include: comment
