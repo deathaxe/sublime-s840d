@@ -100,15 +100,15 @@ class S840dBeautifyCommand(S840dTextCommand):
         # get a copy of the file content
         view_region = sublime.Region(0, view.size())
         # replace tabs with spaces
-        rows = view.substr(view_region).replace('\t', ' ' * self.tab_size).split('\n')
+        lines = view.substr(view_region).replace('\t', ' ' * self.tab_size).split('\n')
         # find longest block number
         self.bln_size = 0
-        for row in rows:
-            self.bln_size = max(self.bln_size, len(self.__blockno(row)))
+        for line in lines:
+            self.bln_size = max(self.bln_size, len(self.__blockno(line)))
         # reindent the code
         repl = ''
-        for row in rows:
-            repl += self.__indentdify(row.strip()) + '\n'
+        for line in lines:
+            repl += self.__indentdify(line.strip()) + '\n'
         # surround IF condition with parentheses
         # this is not required but looks better
         repl = re.sub(r'(?im)^([ ]*IF)\b[ ]*([\w\d\$].*?(?=GOTO|;|$))', r'\1 (\2) ', repl)
@@ -187,8 +187,7 @@ class S840dBeautifyCommand(S840dTextCommand):
 
 
 class S840dRenumberCommand(S840dTextCommand):
-    """
-    Add or update block numbers.
+    """Add or update block numbers.
 
     Each CNC block normally starts with a number for identification.
     After editing the numbers may be mixed up. This command helps to
@@ -197,58 +196,87 @@ class S840dRenumberCommand(S840dTextCommand):
 
     def run(self, edit):
         """API entry point to run 's840d_renumber' command."""
-        # run only for SINUMERIK code
-        if not self.is_scope_s840d():
-            return
         view = self.view
-        # build whole content's region
-        view_region = sublime.Region(0, view.size())
-        # create a list of rows
-        rows = view.substr(view_region).split('\n')
-        # determine first block number so that all blocknumbers
-        # will have the same amount of digits
-        blockno_step = 10
-        num_digits = int(math.log10(len(rows) * blockno_step))
+        settings = view.settings()
+        increment = settings.get('s840d_block_increment', 10)
+        selections = view.sel()
+        visible = view.visible_region()
+
+        # update the whole file
+        if len(selections) == 1 and selections[0].empty():
+            region = sublime.Region(0, view.size())
+            self.renumber_region(edit, region, increment)
+        else:
+            # update selected regions
+            for sel in selections:
+                if not sel.empty():
+                    self.renumber_region(edit, sel, increment)
+        # restore visible region
+        view.set_viewport_position(visible, False)
+
+    def renumber_region(self, edit, region, increment):
+        """Add or update block numbers for a region.
+
+        Args:
+            edit (Edit):     The edit control from Sublime API
+            region (Region): The region to update
+            increment (int): The increment
+
+        Returns:
+            Nothing
+        """
+        view = self.view
+        # expand region to beginning of first line
+        region.a = view.line(region.a).a
+        # expand region to the end of the last line with one or more characters
+        # being selected
+        last = view.line(region.b)
+        region.b = last.b if region.b > last.a else last.a - 1
+        # create a list of lines
+        lines = view.substr(region).splitlines()
+        if len(lines) < 2:
+            return
+        # determine first block number so that all blocknumbers will have the
+        # same amount of digits
+        num_digits = int(math.log10(len(lines) * increment))
         blockno = 10 ** num_digits
-        # Add block numbers to each row which is not
-        # empty or a comment. Try to keep indented
-        # comments in position with blocks
+        # Add block numbers to each line which is not empty or a comment. Try to
+        # keep indented comments in position with blocks
         repl = ''
-        for row in rows:
-            # not an empty row
-            if row:
+        for line in lines:
+            # not an empty line
+            if line:
                 # unindented line comment
-                if row[0] in ';%':
-                    repl += row
+                if line[0] in ';%':
+                    repl += line
                 else:
                     i = 0
                     # skip leading white space
-                    while row[i] in ' \t':
+                    while line[i] in ' \t':
                         i += 1
                     # indented header
-                    if row[i] == '%':
-                        repl += row
+                    if line[i] == '%':
+                        repl += line
                     # indented line comment
-                    elif row[i] == ';':
+                    elif line[i] == ';':
                         # insert spaces instead of 'Nxxx '
-                        repl += ' ' * (3 + num_digits) + row
+                        repl += ' ' * (3 + num_digits) + line
                     # skip existing block number
-                    elif row[i] in 'Nn' and row[i+1] in ('0123456789'):
+                    elif line[i] in 'Nn' and line[i+1] in '0123456789':
                         i += 1
-                        while row[i] >= '0' and row[i] <= '9':
+                        while line[i] >= '0' and line[i] <= '9':
                             i += 1
                         # skip one whitespace after block number
                         # as it will be added anyway in the next step
-                        if row[i] == ' ':
+                        if line[i] == ' ':
                             i += 1
-                        repl = ''.join([repl, 'N', str(blockno), ' ', row[i:]])
-                        blockno += blockno_step
+                        repl = ''.join([repl, 'N', str(blockno), ' ', line[i:]])
+                        blockno += increment
                     # ordinary block
                     else:
-                        repl = ''.join([repl, 'N', str(blockno), ' ', row])
-                        blockno += blockno_step
-            # finalize the row
+                        repl = ''.join([repl, 'N', str(blockno), ' ', line])
+                        blockno += increment
+            # finalize the line
             repl += '\n'
         # replace view's content and keep the last empty line only
-        view.replace(edit, view_region, repl.strip() + '\n')
-        view.set_viewport_position([0, 0], False)
+        view.replace(edit, region, repl.strip())
