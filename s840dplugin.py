@@ -233,7 +233,7 @@ class S840dRenumberCommand(S840dTextCommand):
         last = view.line(region.b)
         region.b = last.b if region.b > last.a else last.a - 1
         # create a list of lines
-        lines = view.substr(region).splitlines()
+        lines = view.substr(region).splitlines(keepends=True)
         if len(lines) < 2:
             return
         # determine first block number so that all blocknumbers will have the
@@ -242,41 +242,37 @@ class S840dRenumberCommand(S840dTextCommand):
         blockno = 10 ** num_digits
         # Add block numbers to each line which is not empty or a comment. Try to
         # keep indented comments in position with blocks
-        repl = ''
+        repl = []
         for line in lines:
-            # not an empty line
-            if line:
-                # unindented line comment
-                if line[0] in ';%':
-                    repl += line
-                else:
-                    i = 0
-                    # skip leading white space
-                    while line[i] in ' \t':
-                        i += 1
-                    # indented header
-                    if line[i] == '%':
-                        repl += line
-                    # indented line comment
-                    elif line[i] == ';':
-                        # insert spaces instead of 'Nxxx '
-                        repl += ' ' * (3 + num_digits) + line
-                    # skip existing block number
-                    elif line[i] in 'Nn' and line[i+1] in '0123456789':
-                        i += 1
-                        while line[i] >= '0' and line[i] <= '9':
-                            i += 1
-                        # skip one whitespace after block number
-                        # as it will be added anyway in the next step
-                        if line[i] == ' ':
-                            i += 1
-                        repl = ''.join([repl, 'N', str(blockno), ' ', line[i:]])
-                        blockno += increment
-                    # ordinary block
-                    else:
-                        repl = ''.join([repl, 'N', str(blockno), ' ', line])
-                        blockno += increment
-            # finalize the line
-            repl += '\n'
+            # empty line or unindented line comment
+            if not line or line[0] in ';%\n':
+                repl.append(line)
+                continue
+            i = 0
+            # skip leading white space
+            while line[i] in ' \t':
+                i += 1
+            # indented header or whitespace only line
+            if line[i] == '%\n':
+                repl.append(line)
+            # indented line comment
+            elif line[i] == ';':
+                # insert spaces instead of 'Nxxx '
+                repl.append(' ' * (3 + num_digits) + line)
+            # skip existing block number
+            elif line[i] in 'Nn' and line[i+1].isdigit():
+                i += 1
+                while line[i].isdigit():
+                    i += 1
+                # skip one whitespace after block number as it will be added anyway
+                # in the next step
+                if line[i] == ' ':
+                    i += 1
+                repl.append(''.join(['N', str(blockno), ' ', line[i:]]))
+                blockno += increment
+            # ordinary block
+            else:
+                repl.append(''.join(['N', str(blockno), ' ', line]))
+                blockno += increment
         # replace view's content and keep the last empty line only
-        view.replace(edit, region, repl.strip())
+        view.replace(edit, region, ''.join(repl))
