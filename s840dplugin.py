@@ -9,6 +9,11 @@ REGEX_BLOCK_BEGIN = re.compile(r'(?i)^(?:IF|FOR|LOOP|REPEAT(?:\s*(?:;|$))|WHILE)
 REGEX_BLOCK_END = re.compile(r'(?i)^(?:END(?:IF|FOR|LOOP|WHILE)|UNTIL)\b')
 
 
+def is_s840d_gcode(view):
+    """Return True, if view shows G-Code."""
+    return view.scope_name(0).find('source.s840d_gcode') >= 0
+
+
 class S840dTextCommand(sublime_plugin.TextCommand):
     """Base class for all S840D text commands.
 
@@ -19,18 +24,26 @@ class S840dTextCommand(sublime_plugin.TextCommand):
     Basically it is used to show the commands in the command pallet
     only, if an s840d file is open.
     """
-
     def is_visible(self):
         """API method to decide when to show the command.
 
-        Show the command in command pallet only, if open document is
-        a valid SINUMERIK 840D source file.
+        Show the command in command pallet only, if open document is a valid
+        SINUMERIK 840D source file.
         """
-        return self.is_scope_s840d()
+        return is_s840d_gcode(self.view)
 
-    def is_scope_s840d(self):
-        """Check if the current view shows a G-Code file."""
-        return (self.view.scope_name(0).find('source.s840d_gcode') >= 0)
+    def backup_viewport(self):
+        """Backup cursor and viewport position."""
+        _, vp_y = self.view.viewport_position()
+        row, _ = self.view.rowcol(self.view.sel()[0].begin())
+        return (row, vp_y)
+
+    def restore_viewport(self, row, vp_y):
+        """Restore cursor and viewport position."""
+        self.view.sel().clear()
+        self.view.sel().add(self.view.text_point(row, 0))
+        # Use x=0.01 as workaround for a bug in ST3
+        self.view.set_viewport_position(xy=(0.01, vp_y), animate=False)
 
 
 class S840dMinifyCommand(S840dTextCommand):
@@ -39,17 +52,15 @@ class S840dMinifyCommand(S840dTextCommand):
     Remove all comments and block numbers as well as all unrequired
     whitespaces to make the code as small as possible.
     """
-
     def run(self, edit):
         """API entry point to run 's840d_minify' command."""
 
         # pr = cProfile.Profile()
         # pr.enable()
 
-        # run only for SINUMERIK code
-        if not self.is_scope_s840d():
-            return
         view = self.view
+        # backup cursor and viewport position
+        row, vp_y = self.backup_viewport()
         # get a copy of the file content
         region = sublime.Region(0, view.size())
         text = view.substr(region)
@@ -63,7 +74,8 @@ class S840dMinifyCommand(S840dTextCommand):
         text = re.sub(r'[\t ]{2,}', ' ', text)
         # replace view's content
         view.replace(edit, region, text)
-        view.set_viewport_position([0, 0], False)
+        # restore cursor and viewport position
+        self.restore_viewport(row, vp_y)
 
         # pr.disable()
         # sortby = 'cumulative'
@@ -91,10 +103,9 @@ class S840dBeautifyCommand(S840dTextCommand):
         # pr = cProfile.Profile()
         # pr.enable()
 
-        # run only for SINUMERIK code
-        if not self.is_scope_s840d():
-            return
         view = self.view
+        # backup cursor and viewport position
+        row, vp_y = self.backup_viewport()
         # read settings
         self.tab_size = view.settings().get('tab_size', 2)
         # get a copy of the file content
@@ -126,14 +137,16 @@ class S840dBeautifyCommand(S840dTextCommand):
         repl = re.sub(r'(?im)\b(IF|FOR|LOOP|UNTIL|WHILE)\b[ ]*', r'\1 ', repl)
         # replace view's content and keep the last empty line only
         view.replace(edit, view_region, repl.strip() + '\n')
-        view.set_viewport_position([0, 0], False)
+        # restore cursor and viewport position
+        self.restore_viewport(row, vp_y)
 
         # pr.disable()
         # sortby = 'cumulative'
         # ps = pstats.Stats(pr).sort_stats(sortby)
         # ps.print_stats()
 
-    def __blockno(self, text):
+    @staticmethod
+    def __blockno(text):
         """Extract the block number."""
         block_no = ''
         if text:
@@ -176,7 +189,7 @@ class S840dBeautifyCommand(S840dTextCommand):
                 self.indents += self.tab_size
         else:
             # intermediate keyword
-            if 'ELSE' == text[:4].upper():
+            if text[:4].upper() == 'ELSE':
                 indents = max(0, self.indents - self.tab_size)
             else:
                 # block end
@@ -193,28 +206,42 @@ class S840dRenumberCommand(S840dTextCommand):
     After editing the numbers may be mixed up. This command helps to
     update the block numbers.
     """
+    def run(self, edit, start=None, increment=None):
+        """Load settings and add or update block numbers of selected regions.
 
-    def run(self, edit):
-        """API entry point to run 's840d_renumber' command."""
-        view = self.view
-        settings = view.settings()
-        increment = settings.get('s840d_block_increment', 10)
-        selections = view.sel()
-        visible = view.visible_region()
+        Args:
+            edit (Edit): The current edit token
+            start (int): An optional number to start counting with
+            increment(int): An optional step width to increment blocks with
 
-        # update the whole file
+        Returns:
+            None
+        """
+        # load settings if start is not provided by command
+        if not start:
+            start = self.view.settings().get(
+                's840d_gcode_block_start', 0)
+        if not increment:
+            increment = self.view.settings().get(
+                's840d_gcode_block_increment', 10)
+
+        # backup cursor and viewport position
+        row, vp_y = self.backup_viewport()
+        selections = self.view.sel()
         if len(selections) == 1 and selections[0].empty():
-            region = sublime.Region(0, view.size())
-            self.renumber_region(edit, region, increment)
+            # update the whole file
+            region = sublime.Region(0, self.view.size())
+            self.renumber_region(edit, region, start, increment)
         else:
             # update selected regions
-            for sel in selections:
-                if not sel.empty():
-                    self.renumber_region(edit, sel, increment)
-        # restore visible region
-        view.set_viewport_position(visible, False)
+            for selection in selections:
+                if not selection.empty():
+                    self.renumber_region(edit, selection, start, increment)
 
-    def renumber_region(self, edit, region, increment):
+        # restore cursor and viewport position
+        self.restore_viewport(row, vp_y)
+
+    def renumber_region(self, edit, region, start, increment):
         """Add or update block numbers for a region.
 
         Args:
@@ -225,21 +252,21 @@ class S840dRenumberCommand(S840dTextCommand):
         Returns:
             Nothing
         """
-        view = self.view
         # expand region to beginning of first line
-        region.a = view.line(region.a).a
+        region.a = self.view.line(region.a).a
         # expand region to the end of the last line with one or more characters
         # being selected
-        last = view.line(region.b)
+        last = self.view.line(region.b)
         region.b = last.b if region.b > last.a else last.a - 1
         # create a list of lines
-        lines = view.substr(region).splitlines(keepends=True)
-        if len(lines) < 2:
+        lines = self.view.substr(region).splitlines(keepends=True)
+        line_count = len(lines)
+        if line_count < 2:
             return
         # determine first block number so that all blocknumbers will have the
         # same amount of digits
-        num_digits = int(math.log10(len(lines) * increment))
-        blockno = 10 ** num_digits
+        blockno = start if start else 10 ** int(
+            math.log10(line_count * increment))
         # Add block numbers to each line which is not empty or a comment. Try to
         # keep indented comments in position with blocks
         repl = []
@@ -258,7 +285,7 @@ class S840dRenumberCommand(S840dTextCommand):
             # indented line comment
             elif line[i] == ';':
                 # insert spaces instead of 'Nxxx '
-                repl.append(' ' * (3 + num_digits) + line)
+                repl.append(' ' * (3 + len(blockno)) + line)
             # skip existing block number
             elif line[i] in 'Nn' and line[i+1].isdigit():
                 i += 1
@@ -275,4 +302,33 @@ class S840dRenumberCommand(S840dTextCommand):
                 repl.append(''.join(['N', str(blockno), ' ', line]))
                 blockno += increment
         # replace view's content and keep the last empty line only
-        view.replace(edit, region, ''.join(repl))
+        self.view.replace(edit, region, ''.join(repl))
+
+
+class S840dRenumberInputCommand(sublime_plugin.WindowCommand):
+    """Sublime Text Window Command to invoke renumbering."""
+
+    def is_visible(self):
+        """API method to decide when to show the command.
+
+        Show the command in command pallet only, if open document is a valid
+        SINUMERIK 840D source file.
+        """
+        return is_s840d_gcode(self.window.active_view())
+
+    def run(self):
+        """Show input panel to enter first block number."""
+        self.window.show_input_panel(
+            'First Block Number:',
+            self.window.active_view().settings().get(
+                's840d_gcode_block_start', ''),
+            self.on_done, None, None)
+
+    def on_done(self, start_block):
+        """Check user input and call renumber."""
+        try:
+            start_block = int(start_block)
+        except ValueError:
+            start_block = 0
+        self.window.active_view().run_command(
+            's840d_renumber', {'start': start_block})
