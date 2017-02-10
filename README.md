@@ -8,12 +8,12 @@ This package provides syntax highlighting support for the SINUMERIK 840D
 Computerized Numerical Control to the [SublimeText 3 Editor][1].
 
 
-## Screenshot:
+#### G-Code example
 
 ![gcode](example.jpg)
 
 
-## Features:
+## 🚀 Features
 
 #### NC cycles
 
@@ -57,9 +57,9 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
   * embedds NC cycles and RunMyHmi syntax highlighting
 
 
-## Installing
+## 💾 Installation
 
-### Using Package Control
+### Package Control
 
 For all Sublime Text 3 users install via [Package Control][2] is recommended.
 
@@ -68,7 +68,7 @@ For all Sublime Text 3 users install via [Package Control][2] is recommended.
   3. Look for `CNC SINUMERIK 840D language support` and install it.
 
 
-### Using Git
+### Manual Installation
 
 Clone the repository in your Sublime Text Packages directory, located somewhere
 in user's "Home" directory:
@@ -77,15 +77,12 @@ in user's "Home" directory:
 git clone git://github.com/deathaxe/sublime-s840d.git "CNC Sinumerik 840D language support"
 ```
 
-
-### Manual Install
-
-Download the latest source from GitHub
+You can also download the latest source from GitHub
 [https://github.com/deathaxe/sublime-s840d][zip] and extract the whole content
 into the _"Packages/CNC Sinumerik 840D language support"_ directory.
 
 
-## Settings
+## ⚙ Settings
 
 All settings are organized per view and can therefore be placed to any valid
 Sublime Text settings file or may be applied temporarily for single views.
@@ -126,7 +123,7 @@ If not explicitly called with `"increment": 0815` the `s840d_renumber` command
 will use this setting to increment the block numbers.
 
 
-## License
+## © License
 The code is available at [GitHub][home] under [MIT licence][lic].
 
 
