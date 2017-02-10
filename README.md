@@ -85,7 +85,13 @@ Download the latest source from GitHub
 into the _"Packages/CNC Sinumerik 840D language support"_ directory.
 
 
-### Setup
+## Settings
+
+All settings are organized per view and can therefore be placed to any valid
+Sublime Text settings file or may be applied temporarily for single views.
+
+
+#### Basic Setup
 
 If `s840d_arc.sublime-settings`, `s840d_gcode.sublime-settings` or
 `s840d_hmi.sublime-settings` don't exist in the user folder they will be
@@ -101,6 +107,23 @@ settings:
 They are all required to ensure NC will read the resulting file correctly. You
 can override these settings by creating your own syntax specific setting
 `Preferences -> Settings - Syntax Specific`
+
+
+#### G-Code block start
+
+`"s840d_gcode_block_start": 0`
+
+If not explicitly called with `"start": 0815` the `s840d_renumber` command will
+use this setting as first block number. With default value `0` the first block
+number is automatically selected to so all block numbers have same length.
+
+
+#### G-Code block increment
+
+`"s840d_gcode_block_increment": 10`
+
+If not explicitly called with `"increment": 0815` the `s840d_renumber` command
+will use this setting to increment the block numbers.
 
 
 ## License
