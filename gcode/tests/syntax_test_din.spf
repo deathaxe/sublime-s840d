@@ -17,16 +17,16 @@ N10 G = 10 ; comment
 ;       ^^ constant.numeric
 N10 G[0]=1 ; comment
 ;   ^ support.function.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;     ^ constant.numeric
-;      ^ punctuation.index.end
+;      ^ punctuation.section.brackets.end
 ;       ^ keyword.operator.assignment
 ;        ^ constant.numeric
 N10 G[0] = 1 ; comment
 ;   ^ support.function.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;     ^ constant.numeric
-;      ^ punctuation.index.end
+;      ^ punctuation.section.brackets.end
 ;        ^ keyword.operator.assignment
 ;          ^ constant.numeric
 N10 G0=10 ; comment
@@ -55,16 +55,16 @@ N10 M10 = 10 ; comment
 ;         ^^ constant.numeric
 N10 M[10]=10 ; comment
 ;   ^ support.function.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;     ^^ constant.numeric
-;       ^ punctuation.index.end
+;       ^ punctuation.section.brackets.end
 ;        ^ keyword.operator.assignment
 ;         ^^ constant.numeric
 N10 M[ 10 ] = 10 ; comment
 ;   ^ support.function.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;      ^^ constant.numeric
-;         ^ punctuation.index.end
+;         ^ punctuation.section.brackets.end
 ;           ^ keyword.operator.assignment
 ;             ^^ constant.numeric
 N10 M1[10]=10 ; comment
@@ -110,16 +110,16 @@ N10 H10 = 10 ; comment
 ;         ^^ constant.numeric
 N10 H[10]=10 ; comment
 ;   ^ support.function.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;     ^^ constant.numeric
-;       ^ punctuation.index.end
+;       ^ punctuation.section.brackets.end
 ;        ^ keyword.operator.assignment
 ;         ^^ constant.numeric
 N10 H[ 10 ] = 10 ; comment
 ;   ^ support.function.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;      ^^ constant.numeric
-;         ^ punctuation.index.end
+;         ^ punctuation.section.brackets.end
 ;           ^ keyword.operator.assignment
 ;             ^^ constant.numeric
 ; short form of H0=10
@@ -177,9 +177,9 @@ N10 F = 1000 ; comment
 ;       ^^^^ constant.numeric
 N10 F[2] = ABS(-1000) ; comment
 ;   ^ support.variable.iso
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;     ^ constant.numeric
-;      ^ punctuation.index.end
+;      ^ punctuation.section.brackets.end
 ;        ^ keyword.operator.assignment
 ;          ^^^ support.function
 ;             ^ punctuation.section.parens.begin
@@ -229,16 +229,16 @@ N10 X1 = 1000 ; comment
 ;        ^^^^ constant.numeric
 N10 X[1]=1000 ; comment
 ;   ^ support.variable.iso.pos
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;     ^ constant.numeric
-;      ^ punctuation.index.end
+;      ^ punctuation.section.brackets.end
 ;       ^ keyword.operator.assignment
 ;        ^^^^ constant.numeric
 N10 X[ 1 ] = 1000 ; comment
 ;   ^ support.variable.iso.pos
-;    ^ punctuation.index.begin
+;    ^ punctuation.section.brackets.begin
 ;      ^ constant.numeric
-;        ^ punctuation.index.end
+;        ^ punctuation.section.brackets.end
 ;          ^ keyword.operator.assignment
 ;            ^^^^ constant.numeric
 ; ==================================================
@@ -306,22 +306,22 @@ N10 AX1 = _POS AX2 = 10 ; comment
 ;                    ^^ constant.numeric
 N10 AX[1]=10 AX[2]=10 ; comment
 ;   ^^ support.variable.iso.pos
-;     ^ punctuation.index.begin
+;     ^ punctuation.section.brackets.begin
 ;      ^ constant.numeric
-;       ^ punctuation.index.end
+;       ^ punctuation.section.brackets.end
 ;        ^ keyword.operator.assignment
 ;         ^^ constant.numeric
 ;            ^^ support.variable.iso.pos
-;              ^ punctuation.index.begin
+;              ^ punctuation.section.brackets.begin
 ;               ^ constant.numeric
-;                ^ punctuation.index.end
+;                ^ punctuation.section.brackets.end
 ;                 ^ keyword.operator.assignment
 ;                  ^^ constant.numeric
 N10 AX[1] = 10 ; comment
 ;   ^^ support.variable.iso.pos
-;     ^ punctuation.index.begin
+;     ^ punctuation.section.brackets.begin
 ;      ^ constant.numeric
-;       ^ punctuation.index.end
+;       ^ punctuation.section.brackets.end
 ;         ^ keyword.operator.assignment
 ;           ^^ constant.numeric
 N10 AX1[1]=10 ; comment
@@ -359,8 +359,8 @@ G54 G0 X=R1 Y=R2 Z400 M8 AX[10] = 5
 
 N10 PO[THT] = 10
 ;   ^^ support.variable.iso.param
-;     ^ punctuation.index.begin
+;     ^ punctuation.section.brackets.begin
 ;      ^^^ constant.language.orientation
-;         ^ punctuation.index.end
+;         ^ punctuation.section.brackets.end
 
 N10 FP=2

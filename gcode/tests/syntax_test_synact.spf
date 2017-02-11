@@ -11,7 +11,7 @@ N1 DO G0 F=$MN_USER_DATA_HEX[12 + R1] X10 Y20
 ;     ^ support.function
 ;        ^ support.variable
 ;         ^ keyword.operator.assignment
-;          ^ punctuation.variable.nck
+;          ^ punctuation.definition.variable.nck
 ;           ^^ support.variable.nck.machdata
 ;                                     ^ support.variable
 ;                                      ^^ constant.numeric
@@ -38,7 +38,7 @@ N3 WHEN _VAR DO M5=10
 N4 WHEN _VAR==TRUE DO M5=10
 ;  ^^^^ keyword.control.synact.condition
 ;       ^^^^ variable.other
-;           ^^ keyword.operator.relational
+;           ^^ keyword.operator.logical
 ;             ^^^^ constant.language.boolean
 ;                  ^^ keyword.control.synact.operation
 ;                     ^^ support.function
@@ -52,7 +52,7 @@ N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 ;              ^ punctuation.section.parens.begin
 ;               ^^ support.variable.nck.r
 ;                 ^ punctuation.section.parens.end
-;                  ^^ keyword.operator.relational
+;                  ^^ keyword.operator.logical
 ;                    ^^ constant.numeric
 ;                       ^^ keyword.control.synact.operation
 ;                          ^^ support.function
@@ -67,18 +67,18 @@ N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 ;    ^ keyword.operator.assignment
 ;     ^ constant.numeric
 ;       ^^^^^ keyword.control.synact.condition
-;             ^ punctuation.variable.nck
+;             ^ punctuation.definition.variable.nck
 ;              ^^^^^ support.variable.nck
-;                   ^ punctuation.index.begin
+;                   ^ punctuation.section.brackets.begin
 ;                    ^ constant.numeric
-;                     ^ punctuation.index.end
-;                      ^^ keyword.operator.relational
+;                     ^ punctuation.section.brackets.end
+;                      ^^ keyword.operator.logical
 ;                        ^ constant.numeric
 ;                          ^^ keyword.control.synact.operation
 ;                             ^^^ support.variable
-;                                ^ punctuation.index.begin
+;                                ^ punctuation.section.brackets.begin
 ;                                 ^^ support.variable.axis
-;                                   ^ punctuation.index.end
+;                                   ^ punctuation.section.brackets.end
 ;                                    ^ keyword.operator.assignment
 
 ; modal synact.ronous function without condition

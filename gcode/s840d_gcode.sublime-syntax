@@ -586,7 +586,7 @@ contexts:
     - match: ({{axis}})\s*(\[)
       captures:
         1: support.variable.iso.pos
-        2: punctuation.section.brackets.index.begin
+        2: punctuation.section.brackets.begin
       push: array-index-body
     # PARAMETERS
     # feed rate:      F[X1]=2000
@@ -594,7 +594,7 @@ contexts:
     - match: ([FIJKOS])\s*(\[)
       captures:
         1: support.variable.iso.param
-        2: punctuation.section.brackets.index.begin
+        2: punctuation.section.brackets.begin
       push: array-index-body
     # FUNCTIONS
     # G-function:   G[0]=20
@@ -605,7 +605,7 @@ contexts:
     - match: ([GMHTD])\s*(\[)
       captures:
         1: support.function.iso
-        2: punctuation.section.brackets.index.begin
+        2: punctuation.section.brackets.begin
       push: array-index-body
 
   iso-parameter:

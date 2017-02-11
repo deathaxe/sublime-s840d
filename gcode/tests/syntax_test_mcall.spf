@@ -9,18 +9,18 @@
 N100 MCALL L350
 ;    ^^^^^^^^^^ meta.modal-call
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ support.function
+;          ^^^^ variable.function
 
 ; modal cycle call with complex parameters
 N110 MCALL L350(10,20,ABS(R4))
 ;    ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.modal-call
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ support.function
+;          ^^^^ variable.function
 ;              ^ punctuation.section.parens.begin
 ;               ^^ constant.numeric
-;                 ^ punctuation.section.parens.seperator
+;                 ^ punctuation.separator.comma
 ;                  ^^ constant.numeric
-;                    ^ punctuation.section.parens.seperator
+;                    ^ punctuation.separator.comma
 ;                     ^^^ support.function
 ;                        ^ punctuation.section.parens.begin
 ;                         ^^ support.variable.nck.r
@@ -35,5 +35,5 @@ N120 MCALL (10,20,30,50)
 N120 MCALL L300 INV(10,20,30,50)
 ;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.modal-call
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ support.function
+;          ^^^^ variable.function
 ;               ^^^ invalid.illegal
