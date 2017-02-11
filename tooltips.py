@@ -1,10 +1,13 @@
+# -*- encoding: utf-8 -*-
+
 import gzip
 import locale
 import os.path
 import sqlite3
+import xml.dom.minidom as xml
+
 import sublime
 import sublime_plugin
-import xml.dom.minidom as xml
 
 doc_version = "25.09.2016"  # should not be here!
 doc_cache = None            # path to s840d.sqlite
@@ -13,7 +16,7 @@ doc_langs = ['en']          # available langs in s840d.sqlite
 
 def plugin_loaded():
     """Called by SublimeText after all plugins have been loaded."""
-    cache_init(False)
+    sublime.set_timeout_async(lambda: cache_init(False), 5000)
 
 
 class ToolTipCommand(sublime_plugin.EventListener):
@@ -29,33 +32,28 @@ class ToolTipCommand(sublime_plugin.EventListener):
         # return if no s840d source code
         region = view.word(point)
         scope = view.scope_name((region.a + region.b) / 2)
-        if (scope.find('source.s840d') == -1):
+        if scope.find('source.s840d') == -1:
             return
 
         word = view.substr(region)
-        if (self.cur_word != word):
+        if self.cur_word != word:
             self.cur_word = word
-
             # load current OS display language (e.g.: de_DE)
             lang = locale.getdefaultlocale()[0][:2].lower()
-
             # get description for machine data or nck variable
-            if (scope.find('support.variable.nck') != -1):
+            if scope.find('support.variable.nck') != -1:
                 self.tip_html = get_var_desc(word, lang)
-
-            # TODO functions
-
             # nothing found
             else:
                 self.tip_html = ""
 
         # show the tool tip
-        if self.tip_html != "":
-            window_width = int(view.viewport_extent()[0]) - 64
-            view.show_popup(self.tip_html,
-                            location=point,
-                            max_width=window_width,
-                            flags=sublime.HIDE_ON_MOUSE_MOVE_AWAY)
+        if not self.tip_html:
+            return
+        window_width = int(view.viewport_extent()[0]) - 64
+        view.show_popup(
+            self.tip_html, location=point, max_width=window_width,
+            flags=sublime.HIDE_ON_MOUSE_MOVE_AWAY)
 
 
 def get_var_desc(word, lang):
@@ -66,7 +64,6 @@ def get_var_desc(word, lang):
         lang    The language to try to use.
     """
     try:
-
         tip_html = """<style>
                    body { font-family: monospace; }
                    h1 { font-size: 1.1rem; }
@@ -74,25 +71,21 @@ def get_var_desc(word, lang):
                    </style>"""
 
         with sqlite3.connect(doc_cache) as sql:
-
             # fallback to english if OS's language is not available
-            global doc_langs
             if lang not in doc_langs:
                 lang = 'en'
 
-            row = sql.execute("""
-                              SELECT DISTINCT id,name,type,dim,brief,desc
-                              FROM vars
-                              WHERE name LIKE '$""" + word + "' AND lang LIKE '" + lang + "'"
-                              ).fetchone()
+            row = sql.execute(
+                """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
+                WHERE name LIKE '$""" + word + "' AND lang LIKE '" + lang + "'"
+                ).fetchone()
 
             if not row and lang != 'en':
                 # fallback to english
-                row = sql.execute("""
-                                  SELECT DISTINCT id,name,type,dim,brief,desc
-                                  FROM vars
-                                  WHERE name LIKE '$""" + word + "' AND lang LIKE 'en'"
-                                  ).fetchone()
+                row = sql.execute(
+                    """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
+                    WHERE name LIKE '$""" + word + "' AND lang LIKE 'en'"
+                    ).fetchone()
 
             # number, name and array dimension
             if row[0] and row[1]:
@@ -111,9 +104,8 @@ def get_var_desc(word, lang):
                 tip_html += '</p>'
 
             # description
-            tip_html += html_encode(gzip.decompress(
-                        bytearray(row[5])).decode())
-
+            tip_html += html_encode(
+                gzip.decompress(bytearray(row[5])).decode())
     except:
         tip_html = ""   # do description available
 
@@ -167,11 +159,9 @@ def cache_init(force_update):
                                             FROM attr
                                             WHERE key LIKE 'version'
                                             """).fetchone()[0]
-
                 if doc_version == cache_version:
                     doc_langs = cache_get_langs(sql)
                     return
-
             except:
                 pass
 
@@ -228,24 +218,23 @@ def cache_init(force_update):
 def cache_get_langs(sql):
     """Get the list of languages from tooltip database."""
     return [row[0] for row in sql.execute(
-            "SELECT DISTINCT lang FROM vars").fetchall()]
+        "SELECT DISTINCT lang FROM vars").fetchall()]
 
 
-def cache_add_resources(sql, filter):
+def cache_add_resources(sql, file_spec):
     """Load documentation from sublime-package.
 
     The tooltip text is shipped with CreateMyConfig. As not everybody may have
     access to this tool, its files are shipped as copy with this package, too.
     """
-    for fn in sublime.find_resources(filter):
-        lang = os.path.basename(os.path.dirname(fn)).lower()
+    for file_name in sublime.find_resources(file_spec):
+        lang = os.path.basename(os.path.dirname(file_name)).lower()
         # valid language codes have a length of 2 characters
         if len(lang) == 2:
             try:
-                print("reloading docs", fn)
+                print("reloading docs", file_name)
                 cache_add_xml(sql, xml.parseString(
-                    sublime.load_binary_resource(fn)), lang)
-
+                    sublime.load_binary_resource(file_name)), lang)
             except Exception as err:
                 print("    error", err)
 
@@ -281,68 +270,68 @@ def cache_add_xml(sql, root, lang):
     # all variables are listed as <parameter>
     for param in root.getElementsByTagName("parameter"):
 
+        try:
+            # machine data number
+            i_id = int(param.getAttribute("number"))
+        except:
+            i_id = 0
+
+        s_name = None
+        s_brief = None
+        s_desc = None
+
+        for child in param.childNodes:
+            if child.nodeType == xml.Node.ELEMENT_NODE:
+                tag_name = child.tagName.lower()
+                tag_text = child.childNodes[0].data.strip()
+                if tag_name == "name":
+                    try:
+                        # try to add machine data prefix
+                        s_name = prefixes[str(int(i_id/1000))] + tag_text
+                    except:
+                        s_name = tag_text
+                elif tag_name == "brief":
+                    s_brief = tag_text
+                elif tag_name == "description":
+                    s_desc = gzip.compress(bytearray(tag_text.encode()))
+
+        if s_name and (s_brief or s_desc):
+
             try:
-                # machine data number
-                i_id = int(param.getAttribute("number"))
+                # data type: BOOLEAN, BYTE, INT, DWORD, DOUBLE, STRING
+                s_type = param.getAttribute("type")
             except:
-                i_id = 0
+                s_type = ""
 
-            s_name = None
-            s_brief = None
-            s_desc = None
+            try:
+                # display as: DECIMAL, HEX, ASCII, RESTRICTEDASCII
+                s_disp = param.getAttribute("display")
+            except:
+                s_disp = ""
 
-            for child in param.childNodes:
-                if child.nodeType == xml.Node.ELEMENT_NODE:
-                    tag_name = child.tagName.lower()
-                    tag_text = child.childNodes[0].data.strip()
-                    if tag_name == "name":
-                        try:
-                            # try to add machine data prefix
-                            s_name = prefixes[str(int(i_id/1000))] + tag_text
-                        except:
-                            s_name = tag_text
-                    elif tag_name == "brief":
-                        s_brief = tag_text
-                    elif tag_name == "description":
-                        s_desc = gzip.compress(bytearray(tag_text.encode()))
+            try:
+                # array dimensions: 0 = no array
+                i_dim = int(param.getAttribute("dim"))
+                if i_dim > 0:
+                    # STRING arrays dispayed as ASCII are handled as
+                    # comma seperated text:
+                    # SCS_J_MEA_PROTOCOL_FILE has dim = 1 but is stored
+                    # as SCS_J_MEA_PROTOCOL_FILE = "FILENAME" instead
+                    # of SCS_J_MEA_PROTOCOL_FILE[0] = "FILENAME"
+                    if "ASCII" in s_disp:
+                        i_dim -= 1
 
-            if s_name and (s_brief or s_desc):
+                if s_name[:3] in ("$MA", "$SA"):
+                    # axis machine data's dim attributes don't store axis
+                    # index so we need to correct this here to make the
+                    # variable behave like any other.
+                    i_dim += 1
+            except:
+                i_dim = 0
 
-                try:
-                    # data type: BOOLEAN, BYTE, INT, DWORD, DOUBLE, STRING
-                    s_type = param.getAttribute("type")
-                except:
-                    s_type = ""
-
-                try:
-                    # display as: DECIMAL, HEX, ASCII, RESTRICTEDASCII
-                    s_disp = param.getAttribute("display")
-                except:
-                    s_disp = ""
-
-                try:
-                    # array dimensions: 0 = no array
-                    i_dim = int(param.getAttribute("dim"))
-                    if i_dim > 0:
-                        # STRING arrays dispayed as ASCII are handled as
-                        # comma seperated text:
-                        # SCS_J_MEA_PROTOCOL_FILE has dim = 1 but is stored
-                        # as SCS_J_MEA_PROTOCOL_FILE = "FILENAME" instead
-                        # of SCS_J_MEA_PROTOCOL_FILE[0] = "FILENAME"
-                        if "ASCII" in s_disp:
-                            i_dim -= 1
-
-                    if s_name[:3] in ("$MA", "$SA"):
-                        # axis machine data's dim attributes don't store axis
-                        # index so we need to correct this here to make the
-                        # variable behave like any other.
-                        i_dim += 1
-
-                except:
-                    i_dim = 0
-
-                sql.execute('INSERT OR REPLACE INTO vars VALUES (?,?,?,?,?,?,?,?)',
-                            (i_id, s_name, lang, s_type, s_disp, i_dim, s_brief, s_desc))
+            sql.execute(
+                'INSERT OR REPLACE INTO vars VALUES (?,?,?,?,?,?,?,?)',
+                (i_id, s_name, lang, s_type, s_disp, i_dim, s_brief, s_desc))
 
 
 def dump_vars():
