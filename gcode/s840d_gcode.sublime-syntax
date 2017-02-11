@@ -1231,6 +1231,12 @@ contexts:
           scope: support.variable.nck.unknown invalid.illegal
           set: array-index
 
+        # If nothing else matches mark the tailing whitespace as part of the
+        # variable to make auto completion suggest known NCK variables only.
+        - match: '\s'
+          scope: support.variable.nck
+          pop: true
+
 ###############################################################################
 # ARRAY SIZE DEFINITION
 # everything withing [ ... ]
