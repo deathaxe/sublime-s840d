@@ -412,15 +412,23 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-attribute:
-    - meta_content_scope: meta.class.dialog.parameters.attribute meta.parens
+    - meta_content_scope: meta.class.dialog.parameters.attributes meta.parens
     - match: /
       scope: punctuation.separator
       set: class-dialog-attr-end
+    - include: attr-seperator
     - include: attribute-accesslevel
-    - include: attribute-allignment
+    - include: attribute-alignment
+    - include: attribute-alignment-title
     - include: attribute-changeblock
+    - include: attribute-column-mode
     - include: attribute-fontsize
+    - include: attribute-scaling-fields
+    - include: attribute-scaling-fields-touch
+    - include: attribute-scaling-pictures
+    - include: attribute-scolling
     - include: attribute-writeability
+    - include: attribute-x3d
     - include: class-dialog-attr-end
 
   class-dialog-attr-end:
@@ -587,10 +595,13 @@ contexts:
       set: def-operand-picture
     - include: attr-seperator
     - include: attribute-accesslevel
-    - include: attribute-allignment
+    - include: attribute-alignment
     - include: attribute-changeblock
+    - include: attribute-display-mode
     - include: attribute-fontsize
     - include: attribute-limit
+    - include: attribute-toggle-symbol
+    - include: attribute-update-rate
     - include: attribute-writeability
     - include: def-operand-end
 
@@ -688,7 +699,7 @@ contexts:
     - meta_content_scope: meta.definition.softkey.caption
     - match: ','
       scope: punctuation.separator
-      set: def-softkey-attr-accesslevel
+      set: def-softkey-attr-attributes
     - match: \[
       scope: punctuation.section.caption-group.begin
       push:
@@ -700,16 +711,13 @@ contexts:
     - include: string
     - include: def-softkey-end
 
-  def-softkey-attr-accesslevel:
-    - meta_content_scope: meta.definition.softkey.accesslevel
+  def-softkey-attr-attributes:
+    - meta_content_scope: meta.definition.softkey.attributes
     - match: ','
       scope: punctuation.separator
-      set: def-softkey-attr-state
     - include: attribute-accesslevel
-    - include: def-softkey-end
-
-  def-softkey-attr-state:
-    - meta_content_scope: meta.definition.softkey.state
+    - include: attribute-alignment-picture
+    - include: attribute-alignment-text
     - include: attribute-state
     - include: def-softkey-end
 
@@ -1006,13 +1014,24 @@ contexts:
     - include: string       # must be the first
     - include: boolean
     - include: number
-    - include: attribute-allignment
+    - include: attr-seperator
+    - include: attribute-accesslevel
+    - include: attribute-alignment
+    - include: attribute-alignment-title
     - include: attribute-changeblock
+    - include: attribute-column-mode
+    - include: attribute-display-mode
     - include: attribute-fontsize
     - include: attribute-limit
-    - include: attribute-writeability
-    - include: attribute-accesslevel
+    - include: attribute-scaling-fields
+    - include: attribute-scaling-fields-touch
+    - include: attribute-scaling-pictures
+    - include: attribute-scolling
     - include: attribute-state
+    - include: attribute-toggle-symbol
+    - include: attribute-update-rate
+    - include: attribute-writeability
+    - include: attribute-x3d
     - include: operator
     - include: function
     - include: group        # must follow after function
@@ -1034,32 +1053,134 @@ contexts:
       scope: invalid.illegal
 
   attribute-accesslevel:
+    # attribute AC.sublime-completions
     - match: \b[Aa][Cc][0-7]\b
       scope: constant.language.attribute.accesslevel
 
-  attribute-allignment:
+  attribute-alignment:
+    # attribute AL.sublime-completions
     - match: \b[Aa][Ll][0-2]\b
-      scope: constant.language.attribute.allignment
+      scope: constant.language.attribute.alignment
+
+  attribute-alignment-picture:
+    # Softkey picture alignment
+    # 0: left
+    # 1: right
+    # 2: centered
+    # 3: top (default)
+    # 4: bottom
+    - match: \b[Pp][Aa][0-4]\b
+      scope: constant.language.attribute.alignment.picture
+
+  attribute-alignment-text:
+    # Softkey text alignment
+    # 0: text is not aligned to picture
+    # 1: text is aligned to picture (default)
+    # attribute TP.sublime-completions
+    - match: \b[Tt][Pp][0-1]\b
+      scope: constant.language.attribute.alignment.text
+
+  attribute-alignment-title:
+    # title picture alignment
+    # 0: default
+    # 1: align title right next to a picture
+    # attribute PG.sublime-completions
+    - match: \b[Pp][Gg][01]\b
+      scope: constant.language.attribute.alignment.title
 
   attribute-changeblock:
+    # attribute CB.sublime-completions
     - match: \b[Cc][Bb][01]\b
       scope: constant.language.attribute.changeblock
 
+  attribute-column-mode:
+    # attribute CM.sublime-completions
+    - match: \b[Cc][Mm][01]\b
+      scope: constant.language.attribute.column-mode
+
+  attribute-display-mode:
+    # operand display mode
+    # 0: default intput field
+    # 1: single color progress bar
+    # 2: multi color progress bar
+    # attribute DT.sublime-completions
+    - match: \b[Dd][Tt][012]\b
+      scope: constant.language.attribute.display-mode
+
   attribute-fontsize:
+    # attribute FS.sublime-completions
     - match: \b[Ff][Ss][12]\b
       scope: constant.language.attribute.fontsize
 
   attribute-limit:
+    # attribute LI.sublime-completions
     - match: \b[Ll][Ii][0-3]\b
       scope: constant.language.attribute.limit
 
+  attribute-scaling-fields:
+    # Field scaling
+    # 0: legacy (640x480)
+    # 1: proportional scaling of height and row distance
+    # 2: as 1 but with scaling of width and column position
+    # attribute FA.sublime-completions
+    - match: \b[Ff][Aa][012]\b
+      scope: constant.language.attribute.scaling.fields
+
+  attribute-scaling-fields-touch:
+    # automatic height adjustment of fields with touch enabled
+    # 0: disabled
+    # 1: adjust height of fields without size attributes
+    # 2: adjust height of all fields
+    # attribute MA.sublime-completions
+    - match: \b[Mm][Aa][012]\b
+      scope: constant.language.attribute.scaling.fields.touch
+
+  attribute-scaling-pictures:
+    # Picture scaling
+    # 0: legacy (640x480)
+    # 1: optimized (pixel accurate)
+    # attribute PA.sublime-completions
+    - match: \b[Pp][Aa][01]\b
+      scope: constant.language.attribute.scaling.pictures
+
+  attribute-scolling:
+    # free scrolling
+    # 0: disabled
+    # 1: active (default)
+    # attribute KM.sublime-completions
+    - match: \b[Kk][Mm][01]\b
+      scope: constant.language.attribute.scrolling
+
   attribute-state:
+    # se1: visible (default)
+    # se2: disabled (grey font)
+    # se3: highlighted (most recently activated Softkey)
+    # attribute SE.sublime-completions
     - match: \b[Ss][Ee][0-3]\b
       scope: constant.language.attribute.state
 
+  attribute-toggle-symbol:
+    # toggle symbol
+    # 0: hide (default)
+    # 1: show
+    # attribute TG.sublime-completions
+    - match: \b[Tt][Gg][01]\b
+      scope: constant.language.attribute.toggle-symbol
+
+  attribute-update-rate:
+    # attribute UR.sublime-completions
+    - match: \b[Uu][Rr][0-8]\b
+      scope: constant.language.attribute.update-rate
+
   attribute-writeability:
+    # attribute WR.sublime-completions
     - match: \b[Ww][Rr][0-5]\b
       scope: constant.language.attribute.writeability
+
+  attribute-x3d:
+    # attribute XG.sublime-completions
+    - match: \b[Xx][Gg][01]\b
+      scope: constant.language.attribute.x3d
 
   boolean:
     - match: \b(?i:TRUE|FALSE)\b
