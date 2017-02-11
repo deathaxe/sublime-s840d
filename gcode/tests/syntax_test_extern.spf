@@ -10,10 +10,10 @@ N100 EXTERN
 ;    ^^^^^^ keyword.control.extern
 
 N110 EXTERN PROGRAM illegal ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^ meta.function
-;          ^^^^^^^^^^^^^^^^ meta.function.name
+;    ^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^ meta.function.name
 ;    ^^^^^^ keyword.control.extern
-;           ^^^^^^^ variable.function
+;           ^^^^^^^ variable.function.cycle
 ;                   ^^^^^^^ invalid.illegal
 ;                           ^^^^^^^^^ comment.line
 
@@ -22,7 +22,7 @@ N120 EXTERN PROGRAM() ; comment
 ;          ^^^^^^^^ meta.function.name
 ;                  ^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
-;           ^^^^^^^ variable.function
+;           ^^^^^^^ variable.function.cycle
 ;                  ^ punctuation.definition.parameters.begin
 ;                   ^ punctuation.definition.parameters.end
 ;                     ^^^^^^^^^ comment.line
@@ -32,7 +32,7 @@ N120 EXTERN PROGRAM () ; comment
 ;          ^^^^^^^^^ meta.function.name
 ;                   ^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
-;           ^^^^^^^ variable.function
+;           ^^^^^^^ variable.function.cycle
 ;                   ^ punctuation.definition.parameters.begin
 ;                    ^ punctuation.definition.parameters.end
 ;                      ^^^^^^^^^ comment.line
@@ -42,7 +42,7 @@ N130 EXTERN PROGRAM(AXIS,VAR BOOL) ; comment
 ;          ^^^^^^^^ meta.function.name
 ;                  ^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
-;           ^^^^^^^ variable.function
+;           ^^^^^^^ variable.function.cycle
 ;                  ^ punctuation.definition.parameters.begin
 ;                   ^^^^ storage.type
 ;                       ^ punctuation.separator.comma
@@ -56,7 +56,7 @@ N140 EXTERN PROGRAM ( AXIS , VAR BOOL ) ; comment
 ;          ^^^^^^^^^ meta.function.name
 ;                   ^^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
-;           ^^^^^^^ variable.function
+;           ^^^^^^^ variable.function.cycle
 ;                   ^ punctuation.definition.parameters.begin
 ;                     ^^^^ storage.type
 ;                          ^ punctuation.separator.comma
@@ -70,7 +70,7 @@ N140 EXTERN PROGRAM ILLEAGAL ( AXIS , VAR BOOL ) ILLEGAL ; comment
 ;          ^^^^^^^^^^^^^^^^^^ meta.function.name
 ;                            ^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
-;           ^^^^^^^ variable.function
+;           ^^^^^^^ variable.function.cycle
 ;                   ^^^^^^^^ invalid.illegal
 ;                            ^ punctuation.definition.parameters.begin
 ;                              ^^^^ storage.type
