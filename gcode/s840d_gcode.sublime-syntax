@@ -498,28 +498,35 @@ contexts:
 
   stmt-case:
     - match: (?i:CASE)\b
-      scope: keyword.control.case
+      scope: meta.control.case keyword.control.case
       set:
-        - meta_scope: meta.control.case
+        - meta_content_scope: meta.control.case.operand
         - match: (?i:OF)\b
           scope: keyword.control.of
-          set: [stmt-case-of, after-operator]
+          set: [stmt-case-condition, after-operator]
         - include: expressions-line
 
-  stmt-case-of:
-    - meta_content_scope: meta.control.case
+  stmt-case-condition:
+    - meta_content_scope: meta.control.case.condition
     - include: stmt-case-default
-    - include: stmt-goto
+    - match: '({{ident}})?\s*(?=(?i:GOTO))'
+      captures:
+        1: entity.name.macro
+      set: stmt-case-goto
     - include: numbers
-    - match: '{{ident}}(?=\s+(?i:GOTO))'
-      scope: entity.name.macro
     - include: line-end-or-illegal
+
+  stmt-case-goto:
+    - meta_scope: meta.control.case.goto
+    - include: stmt-goto
+    - match: $|(?=\S)
+      set: [stmt-case-condition, after-operator]
 
   stmt-case-default:
     - match: (?i:DEFAULT)\b
       scope: keyword.control.default
       set:
-        - meta_content_scope: meta.control.case
+        - meta_content_scope: meta.control.case.goto
         - include: stmt-goto
         - include: assert-line-end
 
