@@ -17,6 +17,11 @@ N10 DEF
 ;   ^^^ meta.definition.variable
 ;   ^^^ keyword.control.def
 
+N10 DEF INT
+;   ^^^^^^^ meta.definition.variable
+;   ^^^ keyword.control.def
+;       ^^^ storage.type
+
 DEF INT VAR = 0 ; comment
 ;             <- meta.definition.variable
 ; <- keyword.control.def
@@ -40,25 +45,25 @@ N10DEF NCK APW 5 APR 7 APX 7 REAL PHU 5 LLI -100.0 LLU +100.0 VAR[3,3] = SET(1,0
 ;  ^^^ keyword.control.def
 ;      ^^^ storage.modifier.scope
 ;          ^^^ storage.modifier.access
-;              ^ constant.numeric.access
+;              ^ constant.numeric.integer
 ;                ^^^ storage.modifier.access
-;                    ^ constant.numeric.access
+;                    ^ constant.numeric.integer
 ;                      ^^^ storage.modifier.access
-;                          ^ constant.numeric.access
+;                          ^ constant.numeric.integer
 ;                            ^^^^ storage.type
 ;                                 ^^^ storage.modifier.unit
-;                                     ^ constant.numeric.unit
+;                                     ^ constant.numeric.integer
 ;                                       ^^^ storage.modifier.limit
-;                                           ^^^^^^ constant.numeric.limit
+;                                           ^^^^^^ constant.numeric.float
 ;                                                  ^^^ storage.modifier.limit
-;                                                      ^^^^^^ constant.numeric.limit
+;                                                      ^^^^^^ constant.numeric.float
 ;                                                             ^^^ variable.other
-;                                                                ^ punctuation.definition.array.begin
-;                                                                 ^^^ meta.definition.array
+;                                                                ^ punctuation.section.brackets.begin
+;                                                                 ^^^ meta.brackets
 ;                                                                 ^ constant.numeric
-;                                                                  ^ punctuation.definition.array.seperator
+;                                                                  ^ punctuation.separator.comma
 ;                                                                   ^ constant.numeric
-;                                                                    ^ punctuation.definition.array.end
+;                                                                    ^ punctuation.section.brackets.end
 ;                                                                      ^ keyword.operator.assignment
 ;                                                                        ^^^ support.function
 
@@ -72,9 +77,9 @@ N10 DEF INT VAR=0, VAR2[10] = 20 , VAR3 = 40 ; comment
 ;              ^ keyword.operator.assignment
 ;               ^ constant.numeric
 ;                  ^^^^ variable.other
-;                      ^ punctuation.definition.array.begin
+;                      ^ punctuation.section.brackets.begin
 ;                       ^^ constant.numeric
-;                         ^ punctuation.definition.array.end
+;                         ^ punctuation.section.brackets.end
 ;                           ^ keyword.operator.assignment
 ;                             ^^ constant.numeric
 ;                                  ^^^^ variable.other
@@ -82,15 +87,43 @@ N10 DEF INT VAR=0, VAR2[10] = 20 , VAR3 = 40 ; comment
 ;                                         ^^ constant.numeric
 ;                                            ^^^^ comment.line
 
+; initialized array value
+N10 DEF REAL VAR[4]=(0.6,0.7,0.5,0.7), VAR2[9] = SET(0) ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
+;      ^^^^^^ meta.definition.variable.storage
+;            ^^^^^^ meta.definition.variable.operand
+;                  ^^^^^^^^^^^^^^^^^^ meta.definition.variable.value
+;                                      ^^^^^^^ meta.definition.variable.operand
+;                                              ^^^^^^^^^^^^^^^^^^ meta.definition.variable.value
+;                   ^^^^^^^^^^^^^^^^^ meta.group
+;   ^^^ keyword.control.def
+;       ^^^ storage.type
+;            ^^^ variable.other
+;               ^ punctuation.section.brackets.begin
+;                ^ constant.numeric.integer
+;                 ^ punctuation.section.brackets.end
+;                  ^ keyword.operator.assignment
+;                   ^ punctuation.section.group.begin
+;                    ^^^ constant.numeric
+;                       ^ punctuation.separator.comma
+;                        ^^^ constant.numeric
+;                           ^ punctuation.separator.comma
+;                            ^^^ constant.numeric
+;                               ^ punctuation.separator.comma
+;                                ^^^ constant.numeric
+;                                   ^ punctuation.section.group.end
+;                                    ^ punctuation.separator.comma
+;                                      ^^^^ variable.other
+
 ; illegal array definition
 N10 DEF INT VAR2[10][10] = 20 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
 ;   ^^^ keyword.control.def
 ;       ^^^ storage.type
 ;           ^^^^ variable.other
-;               ^ punctuation.definition.array.begin
+;               ^ punctuation.section.brackets.begin
 ;                ^^ constant.numeric
-;                  ^ punctuation.definition.array.end
+;                  ^ punctuation.section.brackets.end
 ;                   ^^^^ invalid.illegal
 ;                        ^ keyword.operator.assignment
 ;                          ^^ constant.numeric

@@ -1,0 +1,40 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  PCALL tests
+;  Performance: 0.2ms
+; ==================================================
+
+; path call with unquoted string as path identifier
+N100 PCALL /_N_MPF_DIR/WELLE(ARG1,20,TRUE) illegal ; comment
+;    ^^^^^ meta.function-call
+;         ^^^^^^^^^^^^^^^^^^ meta.function-call.cycle
+;                           ^^^^^^^^^^^^^^ meta.function-call.arguments
+;    ^^^^^ keyword.control.pcall
+;          ^^^^^^^^^^^^^^^^^ string.unquoted.path
+;                           ^ punctuation.section.parens.begin
+;                            ^^^^ variable.other
+;                                ^ punctuation.separator.comma
+;                                 ^^ constant.numeric
+;                                   ^ punctuation.separator.comma
+;                                    ^^^^ constant.language.boolean
+;                                        ^ punctuation.section.parens.end
+;                                          ^^^^^^^ invalid.illegal
+;                                                  ^^^^ comment.line
+
+; path call with variable as path identifier
+N100 PCALL PATHTOPROG(ARG1,20,TRUE) illegal ; comment
+;    ^^^^^ meta.function-call
+;         ^^^^^^^^^^^ meta.function-call.cycle
+;                    ^^^^^^^^^^^^^^ meta.function-call.arguments
+;    ^^^^^ keyword.control.pcall
+;          ^^^^^^^^^^ variable.function
+;                    ^ punctuation.section.parens.begin
+;                     ^^^^ variable.other
+;                         ^ punctuation.separator.comma
+;                          ^^ constant.numeric
+;                            ^ punctuation.separator.comma
+;                             ^^^^ constant.language.boolean
+;                                 ^ punctuation.section.parens.end
+;                                   ^^^^^^^ invalid.illegal
+;                                           ^^^^ comment.line

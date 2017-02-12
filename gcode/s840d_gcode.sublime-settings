@@ -1,4 +1,13 @@
 {
+	// Additional situations to trigger auto complete
+	"auto_complete_triggers": [
+		{
+			// Show auto completion if user starts writing an NCK variable.
+			"selector": "support.variable.nck",
+			"characters": "$"
+		}
+	],
+
 	// The encoding to use when the encoding can't be determined automatically.
 	// ASCII, UTF-8 and UTF-16 encodings will be automatically detected.
 	"fallback_encoding": "Western (Windows 1252)",

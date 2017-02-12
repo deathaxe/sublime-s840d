@@ -1,0 +1,55 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  ISOCALL tests
+;  Performance: 0.2ms
+; ==================================================
+
+ISOCALL
+;   <- meta.function-call
+;   <- keyword.control.isocall
+
+N10 ISOCALL
+;   ^^^^^^^ meta.function-call
+;   ^^^^^^^ keyword.control.isocall
+
+; function name provided as string variable
+N15 ISOCALL _PNAME error ; comment
+;   ^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ keyword.control.isocall
+;           ^^^^^^ variable.function
+;                  ^^^^^ invalid.illegal
+;                        ^^^ comment.line
+
+; function name provided as string variable with arguments
+N15 ISOCALL _PNAME(10,20) ; comment
+;   ^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ keyword.control.isocall
+;           ^^^^^^ variable.function
+;                  ^^^^^^ invalid.illegal
+;                         ^^^ comment.line
+
+; function name provided as string
+N20 ISOCALL "/_N_CUS_DIR/_N_L320_SPF"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ keyword.control.isocall
+;           ^ punctuation.definition.string.begin
+;            ^ string.quoted.double
+;                                   ^ punctuation.definition.string.end
+
+; indirect dynamic function call
+N25 ISOCALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ keyword.control.isocall
+;           ^ punctuation.definition.string.begin
+;            ^^^^^^^^^^^^^ string.quoted.double
+;                         ^ punctuation.definition.string.end
+;                           ^^ keyword.operator.assignment
+;                              ^^^ support.function
+;                                 ^ punctuation.section.parens.begin
+;                                  ^^^^ variable.other
+;                                      ^ punctuation.section.parens.end
+;                                        ^^ keyword.operator.assignment
+;                                           ^ punctuation.definition.string.begin
+;                                            ^^^^ string.quoted.double
+;                                                ^ punctuation.definition.string.end
