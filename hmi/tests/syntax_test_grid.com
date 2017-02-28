@@ -13,8 +13,7 @@
 ;               ^^ meta.class.grid.parameters.row.count
 ;                  ^ meta.class.grid.parameters.row.fixed
 ;                    ^ meta.class.grid.parameters.col.fixed
-;  ^^^^^^^^^^^^^^^^^^^^ meta.parens
-;  ^ punctuation.section.parens.begin
+;  ^ punctuation.section.parameters.begin
 ;   ^^^^^^^^^ entity.name.class
 ;            ^ punctuation.separator
 ;             ^ constant.numeric.integer
@@ -24,11 +23,10 @@
 ;                  ^ constant.numeric.integer
 ;                   ^ punctuation.separator
 ;                    ^ constant.numeric.integer
-;                     ^ punctuation.section.parens.end
+;                     ^ punctuation.section.parameters.end
 ; Column definition
 (IDD/1,10/0/"tooltip","caption"/WR0/"PIC.PNG"/"DB10.DBB100"/100/10)
-;<- punctuation.section.parens.begin
-;                                                                 <- meta.parens
+;<- punctuation.section.column.begin
 ;                                                                 <- meta.column
 ;^^^ meta.column.type
 ;    ^^^^ meta.column.limits
@@ -68,7 +66,7 @@
 ;                                                           ^^^ constant.numeric.integer
 ;                                                              ^ punctuation.separator
 ;                                                               ^^ constant.numeric.integer
-;                                                                 ^ punctuation.section.parens.end
+;                                                                 ^ punctuation.section.column.end
 //END
 ;    <- meta.class.grid.end
 ;    <- keyword.class.end
