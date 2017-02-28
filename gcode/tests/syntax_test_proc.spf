@@ -35,11 +35,11 @@ N30 PROC name(VAR BOOL DATA) ; comment
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
-;            ^ punctuation.definition.parameters.begin
+;            ^ punctuation.section.parameters.begin
 ;             ^ storage.modifier
 ;                 ^ storage.type
 ;                      ^ variable.parameter
-;                          ^ punctuation.definition.parameters.end
+;                          ^ punctuation.section.parameters.end
 ;                            ^ comment.line
 
 ; valid procedure definition with parameters and attributes
@@ -52,13 +52,13 @@ N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
-;             ^ punctuation.definition.parameters.begin
+;             ^ punctuation.section.parameters.begin
 ;              ^^^ storage.modifier
 ;                  ^^^^ storage.type
 ;                       ^^^^ variable.parameter
 ;                           ^ punctuation.section.brackets.begin
 ;                              ^ punctuation.section.brackets.end
-;                               ^ punctuation.definition.parameters.end
+;                               ^ punctuation.section.parameters.end
 ;                                 ^ storage.modifier
 ;                                       ^ storage.modifier
 ;                                               ^ comment.line
@@ -72,13 +72,13 @@ N40 PROC name (VAR REAL DATA = -1.0) SBLOF DISPLOF ; comment
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
-;             ^ punctuation.definition.parameters.begin
+;             ^ punctuation.section.parameters.begin
 ;              ^^^ storage.modifier
 ;                  ^^^^ storage.type
 ;                       ^^^^ variable.parameter
 ;                            ^ keyword.operator.assignment
 ;                              ^^^^ constant.numeric
-;                                  ^ punctuation.definition.parameters.end
+;                                  ^ punctuation.section.parameters.end
 ;                                    ^^^^^ storage.modifier
 ;                                          ^^^^^^^ storage.modifier
 ;                                                  ^ comment.line
@@ -138,12 +138,12 @@ N90 PROC name invalid (VAR BOOL - DATA) ; comment
 ;   ^ keyword.control.proc
 ;        ^^^^ entity.name.function
 ;             ^^^^^^^ invalid.illegal
-;                     ^ punctuation.definition.parameters.begin
+;                     ^ punctuation.section.parameters.begin
 ;                      ^ storage.modifier
 ;                          ^ storage.type
 ;                               ^ invalid.illegal
 ;                                 ^ variable.parameter
-;                                     ^ punctuation.definition.parameters.end
+;                                     ^ punctuation.section.parameters.end
 
 N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
@@ -154,10 +154,10 @@ N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;   ^ keyword.control.proc
 ;        ^^^^ entity.name.function
 ;             ^^^^^^^ invalid.illegal
-;                     ^ punctuation.definition.parameters.begin
+;                     ^ punctuation.section.parameters.begin
 ;                      ^ storage.modifier
 ;                          ^ storage.type
 ;                               ^ invalid.illegal
 ;                                 ^ variable.parameter
-;                                     ^ punctuation.definition.parameters.end
+;                                     ^ punctuation.section.parameters.end
 ;                                             ^^^^^^ invalid.illegal

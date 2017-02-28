@@ -1,0 +1,40 @@
+;  SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  SYNCHRONIZED ACTION tests
+;  Performance: 0.4ms
+; ==================================================
+
+; call of a known NCK function
+N10 R3 = ABS ( $MA_ACT_POS_ABS [ 0 , AX1 ] )
+;        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments
+;        ^^^ support.function.nck
+;            ^ punctuation.section.arguments.begin
+;                                          ^ punctuation.section.arguments.end
+
+; call of an unknown user function or macro
+N10 R3 = USR ( $MA_ACT_POS_ABS [ 0 , AX1 ] )
+;        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments
+;        ^^^ variable.function.other
+;            ^ punctuation.section.arguments.begin
+;                                          ^ punctuation.section.arguments.end
+
+; call of a known NCK function
+N10 MSG ( 66003 , "_PAR1" )
+;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;       ^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments
+;   ^^^ support.function.nck
+;       ^ punctuation.section.arguments.begin
+;               ^ punctuation.separator.comma
+;                         ^ punctuation.section.arguments.end
+
+; call of a user cycle function
+N10 USR ( 66003 , "_PAR1" )
+;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;       ^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments
+;   ^^^ variable.function.cycle
+;       ^ punctuation.section.arguments.begin
+;               ^ punctuation.separator.comma
+;                         ^ punctuation.section.arguments.end
