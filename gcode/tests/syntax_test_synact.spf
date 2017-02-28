@@ -49,17 +49,17 @@ N4 WHEN _VAR==TRUE DO M5=10
 N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 ;  ^^^^^^^^ keyword.control.synact.condition
 ;           ^^^ support.function
-;              ^ punctuation.section.parens.begin
+;              ^ punctuation.section.arguments.begin
 ;               ^^ support.variable.nck.r
-;                 ^ punctuation.section.parens.end
+;                 ^ punctuation.section.arguments.end
 ;                  ^^ keyword.operator.logical
 ;                    ^^ constant.numeric
 ;                       ^^ keyword.control.synact.operation
 ;                          ^^ support.function
 ;                            ^ keyword.operator.assignment
 ;                             ^^^^ support.function
-;                                 ^ punctuation.section.parens.begin
-;                                     ^ punctuation.section.parens.end
+;                                 ^ punctuation.section.arguments.begin
+;                                     ^ punctuation.section.arguments.end
 
 ; modal synact.ronous positioning call
 N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
