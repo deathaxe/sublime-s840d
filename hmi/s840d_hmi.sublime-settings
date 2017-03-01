@@ -3,8 +3,13 @@
 	"auto_complete_triggers": [
 		{
 			// Show auto completion if user starts writing attributes.
-			"selector": "meta.class.dialog.parameters | meta.column.attributes | meta.operand | meta.definition.sofktey",
+			"selector": "meta.class.dialog.parameters | meta.column.attributes | meta.operand.parameters | meta.softkey.parameters",
 			"characters": "/,"
+		},
+		{
+			// Show auto completion if user starts writing attributes.
+			"selector": "meta.operand.attribute | meta.softkey.attribute",
+			"characters": "."
 		}
 	],
 
