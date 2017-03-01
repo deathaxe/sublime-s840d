@@ -1017,7 +1017,6 @@ contexts:
   expressions:
     - include: string       # must be the first
     - include: boolean
-    - include: number
     - include: attr-seperator
     - include: attribute-accesslevel
     - include: attribute-alignment
@@ -1036,6 +1035,8 @@ contexts:
     - include: attribute-update-rate
     - include: attribute-writeability
     - include: attribute-x3d
+    - include: attributes
+    - include: number
     - include: operator
     - include: function
     - include: group        # must follow after function
@@ -1265,7 +1266,13 @@ contexts:
     - match: \b(?i:B(?:AND|X?OR|NOT)|SH[LR])\b
       scope: keyword.operator.binary.s840d_hmi
 
+  attributes:
+    # dialog attributes
+    - match: \b(?i:AL|HD|HLP|VAR|MC|C[BM]|XG)\b
+      scope: entity.other.attribute-name.s840d_hmi
+
   operand:
+    # normal operands
     - match: \b\w+\b
       scope: variable.other.s840d_hmi
       push: operand-index
@@ -1277,6 +1284,7 @@ contexts:
         - match: \.
           scope: punctuation.accessor.s840d_hmi
           set:
+            - meta_scope: meta.softkey.attribute.s840d_hmi
             # list of valid attributes
             - match: \b(?i:ac|s[te])\b
               scope: entity.other.attribute-name.s840d_hmi
@@ -1349,6 +1357,7 @@ contexts:
     - match: \.
       scope: punctuation.accessor.parameters.s840d_hmi
       set:
+        - meta_scope: meta.operand.attribute.s840d_hmi
         # list of valid attributes
         - match: \b(?i:a[cl]|bc|cb|f[cs]|gt|hlp|l[it]|m(?:ax|in)|[su]t|typ|v(?:a[lr]|ld)|wr)\b
           scope: entity.other.attribute-name.s840d_hmi
