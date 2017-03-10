@@ -38,8 +38,7 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
   * tooltip support
     - *.mdat *.svar files from CreateMyConfig
 
-
-#### EasyScreen / RunMyHmi
+### EasyScreen / RunMyScreens
 
   * file extensions: COM
   * syntax highlighting
@@ -54,7 +53,7 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
 #### NC archives (text)
 
   * file extensions: ARC
-  * embedds NC cycles and RunMyHmi syntax highlighting
+  * embedds NC cycles and RunMyScreens syntax highlighting
 
 
 ## 💾 Installation

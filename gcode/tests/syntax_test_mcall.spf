@@ -2,38 +2,39 @@
 
 ; ==================================================
 ;  MCALL tests
-;  Performance: 0.5ms
+;  Performance: 0.2ms
 ; ==================================================
 
 ; modal cycle call
 N100 MCALL L350
-;    ^^^^^^^^^^ meta.modal-call
+;    ^^^^^^^^^^ meta.function-call
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ support.function
+;          ^^^^ variable.function
 
 ; modal cycle call with complex parameters
-N110 MCALL L350(10,20,ABS(R4))
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.modal-call
+N110 MCALL L350(10,20,ABS(R4)) ; comment
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ support.function
-;              ^ punctuation.arguments.begin
+;          ^^^^ variable.function
+;              ^ punctuation.section.arguments.begin
 ;               ^^ constant.numeric
-;                 ^ punctuation.arguments.seperator
+;                 ^ punctuation.separator.comma
 ;                  ^^ constant.numeric
-;                    ^ punctuation.arguments.seperator
+;                    ^ punctuation.separator.comma
 ;                     ^^^ support.function
-;                        ^ punctuation.arguments.begin
+;                        ^ punctuation.section.arguments.begin
 ;                         ^^ support.variable.nck.r
-;                           ^^ punctuation.arguments.end
+;                           ^^ punctuation.section.arguments.end
 
 ; missing cycle name
 N120 MCALL (10,20,30,50)
-;    ^^^^^^^^^^^^^^^^^^^ meta.modal-call
+;    ^^^^^^^^^^^^^^^^^^^ meta.function-call
 ;    ^^^^^ keyword.control.mcall
 
 ; too many cycle names
 N120 MCALL L300 INV(10,20,30,50)
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.modal-call
+;    ^^^^^^^^^^^ meta.function-call
+;                  ^^^^^^^^^^^^^ meta.function-call
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ support.function
+;          ^^^^ variable.function
 ;               ^^^ invalid.illegal

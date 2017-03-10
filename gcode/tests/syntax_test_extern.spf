@@ -1,0 +1,82 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  EXTERN statement tests
+;  Performance: 0.3ms
+; ==================================================
+
+N100 EXTERN
+;    ^^^^^^ meta.function
+;    ^^^^^^ keyword.control.extern
+
+N110 EXTERN PROGRAM illegal ; comment
+;    ^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^ meta.function.name
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                   ^^^^^^^ invalid.illegal
+;                           ^^^^^^^^^ comment.line
+
+N120 EXTERN PROGRAM() ; comment
+;    ^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^ meta.function.name
+;                  ^^ meta.function.parameters
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                  ^ punctuation.section.parameters.begin
+;                   ^ punctuation.section.parameters.end
+;                     ^^^^^^^^^ comment.line
+
+N120 EXTERN PROGRAM () ; comment
+;    ^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^ meta.function.name
+;                   ^^ meta.function.parameters
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                   ^ punctuation.section.parameters.begin
+;                    ^ punctuation.section.parameters.end
+;                      ^^^^^^^^^ comment.line
+
+N130 EXTERN PROGRAM(AXIS,VAR BOOL) ; comment
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^ meta.function.name
+;                  ^^^^^^^^^^^^^^^ meta.function.parameters
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                  ^ punctuation.section.parameters.begin
+;                   ^^^^ storage.type
+;                       ^ punctuation.separator.comma
+;                        ^^^ storage.modifier.var
+;                            ^^^^ storage.type
+;                                ^ punctuation.section.parameters.end
+;                                  ^^^^^^^^^ comment.line
+
+N140 EXTERN PROGRAM ( AXIS , VAR BOOL ) ; comment
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^ meta.function.name
+;                   ^^^^^^^^^^^^^^^^^^^ meta.function.parameters
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                   ^ punctuation.section.parameters.begin
+;                     ^^^^ storage.type
+;                          ^ punctuation.separator.comma
+;                            ^^^ storage.modifier.var
+;                                ^^^^ storage.type
+;                                     ^ punctuation.section.parameters.end
+;                                       ^^^^^^^^^ comment.line
+
+N140 EXTERN PROGRAM ILLEAGAL ( AXIS , VAR BOOL ) ILLEGAL ; comment
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;          ^^^^^^^^^^^^^^^^^^ meta.function.name
+;                            ^^^^^^^^^^^^^^^^^^ meta.function.parameters
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                   ^^^^^^^^ invalid.illegal
+;                            ^ punctuation.section.parameters.begin
+;                              ^^^^ storage.type
+;                                   ^ punctuation.separator.comma
+;                                     ^^^ storage.modifier.var
+;                                         ^^^^ storage.type
+;                                              ^ punctuation.section.parameters.end
+;                                                ^^^^^^^ invalid.illegal
+;                                                        ^^^^^^^^^ comment.line

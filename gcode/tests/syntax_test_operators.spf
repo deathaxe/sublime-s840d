@@ -21,7 +21,7 @@ _RESULT=10.50
 _RESULT=+10.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^^^^^ constant.numeric
 _RESULT=.50
 ;  ^ variable.other
@@ -30,17 +30,17 @@ _RESULT=.50
 _RESULT=+.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^^^ constant.numeric
 _RESULT=+.50EX2
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^^^^^^ constant.numeric
 _RESULT=-.50EX-2
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^^^^^^^ constant.numeric
 _RESULT = 10.50
 ;  ^ variable.other
@@ -51,7 +51,7 @@ _RESULT = 10.50
 _RESULT = +10
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;          ^ constant.numeric
 _RESULT = .50
 ;  ^ variable.other
@@ -61,27 +61,27 @@ _RESULT = .50
 _RESULT=-10.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^ constant.numeric
 ;          ^ constant.numeric
 ;           ^ constant.numeric
 _RESULT=-.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^ constant.numeric
 ;         ^ constant.numeric
 _RESULT = -10.50
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;          ^ constant.numeric
 ;            ^ constant.numeric
 ;             ^ constant.numeric
 _RESULT = -.50
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;          ^ constant.numeric
 ;           ^ constant.numeric
 
@@ -116,34 +116,34 @@ _AXIS = AX1
 _RESULT=-_VALUE
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^ variable.other
 _RESULT = -_VALUE
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;          ^ variable.other
 _RESULT = - _VALUE
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;           ^ variable.other
 
 ; valid nc variable assignment
 _RESULT=-$AC_CTOL
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric.sign
+;       ^ constant.numeric
 ;        ^^^^^^^^ support.variable.nck
 _RESULT = -$AC_CTOL
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;          ^^^^^^^^ support.variable.nck
 _RESULT = - $AC_CTOL
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;           ^^^^^^^^ support.variable.nck
 
 ; valid string chain assignment
@@ -170,17 +170,17 @@ _STR = << $C_T << "String 2"
 ;                 ^ string.quoted.double
 _STR=<<-$C_T<<"String 2"<< - -$C_M_PROG
 ;   ^ keyword.operator.assignment
-;      ^ constant.numeric.sign
+;      ^ constant.numeric
 ;       ^ support.variable.nck
 ;           ^ keyword.operator.assignment
 ;             ^ string.quoted.double
-;                          ^ constant.numeric.sign
+;                          ^ constant.numeric
 ;                            ^ invalid.illegal
 ;                              ^ support.variable.nck
 _STR = << -$C_T << - "String 2"
 ;    ^ keyword.operator.assignment
 ;      ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;          ^ support.variable.nck
 ;               ^ keyword.operator.assignment
 ;                  ^ invalid.illegal
@@ -225,7 +225,7 @@ _RESULT = (2340 DIV 10) MOD 5 + R4 * DATA
 ;                   ^ constant.numeric
 ;                       ^ keyword.operator.arithmetic
 ;                           ^ constant.numeric
-;                               ^ support.variable.r
+;                               ^ support.variable.nck.r
 ;                                    ^ variable.other
 
 ; invalid double operators
@@ -255,35 +255,35 @@ _RESULT = 10 > -_DATA
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
 ;            ^ keyword.operator.relational
-;              ^ constant.numeric.sign
+;              ^ constant.numeric
 ;               ^ variable.other
 _RESULT = 10 == - _DATA - 4
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
 ;         ^ constant.numeric
 ;            ^ keyword.operator.relational
-;               ^ constant.numeric.sign
+;               ^ constant.numeric
 ;                 ^ variable.other
 ;                       ^ keyword.operator.arithmetic
 ;                         ^ constant.numeric
 _RESULT = (-10.5) + ( -20.1 ) * (- 5) / (-R4) - (-$AC_CTOL-4)
 ;       ^ keyword.operator.assignment
-;          ^ constant.numeric.sign
+;          ^ constant.numeric
 ;                 ^ keyword.operator.arithmetic
-;                     ^ constant.numeric.sign
+;                     ^ constant.numeric
 ;                             ^ keyword.operator.arithmetic
-;                                ^ constant.numeric.sign
+;                                ^ constant.numeric
 ;                                     ^ keyword.operator.arithmetic
-;                                        ^ constant.numeric.sign
+;                                        ^ constant.numeric
 ;                                             ^ keyword.operator.arithmetic
-;                                                ^ constant.numeric.sign
+;                                                ^ constant.numeric
 ;                                                         ^ keyword.operator.arithmetic
 ;                                                          ^ constant.numeric
 
 ; invalid negative value arithmetic
 _RESULT = -10.5 + -20.1 * - 5 / -R4 - -($AC_CTOL-4)
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric.sign
+;         ^ constant.numeric
 ;               ^ keyword.operator.arithmetic
 ;                 ^ invalid.illegal
 ;                       ^ keyword.operator.arithmetic
@@ -300,19 +300,28 @@ _RESULT = 'H10' B_AND B_OR NOT DATA
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
 ;          ^ constant.numeric
-;               ^ keyword.operator.binary
+;               ^ keyword.operator.bitwise
 ;                     ^ invalid.illegal
-;                          ^ keyword.operator.boolean
+;                          ^ keyword.operator.logical
 ;                              ^ variable.other
 
 ; valid frame chaining
 $P_UIFR[1]=CTRANS(X,-37.8,Y,25.16):CROT(X,0,Y,0,Z,0)
 ;          ^ support.function
-;                ^ punctuation.arguments.begin
+;                ^ punctuation.section.arguments.begin
 ;                 ^ support.variable.axis
-;                  ^ punctuation.arguments.seperator
-;                   ^ constant.numeric.sign
-;                    ^ constant.numeric
-;                                ^ punctuation.arguments.end
+;                  ^ punctuation.separator.comma
+;                   ^^^^^ constant.numeric
+;                                ^ punctuation.section.arguments.end
 ;                                 ^ keyword.operator.assignment
 ;                                  ^ support.function
+
+; first minus after opening bracket and comma is negative sign
+ARRAY[-10 - 20, -20 + 30]
+;     ^^^ constant.numeric
+;         ^ keyword.operator.arithmetic
+;           ^^ constant.numeric
+;             ^ punctuation.separator.comma
+;               ^^^ constant.numeric
+;                   ^ keyword.operator.arithmetic
+;                     ^^ constant.numeric
