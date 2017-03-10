@@ -342,7 +342,7 @@ contexts:
   def-column-end:
     - match: \)|$
       scope: punctuation.section.column.end.s840d_hmi
-      pop: true
+      set: line-end
     - include: illegal
 
 ###############################################################################
@@ -728,7 +728,7 @@ contexts:
   def-softkey-end:
     - match: \)|$
       scope: punctuation.section.parameters.end.s840d_hmi
-      pop: true
+      set: line-end
     - include: illegal
 
 ###############################################################################
