@@ -653,12 +653,22 @@ contexts:
       set: def-operand-helpfile
     - include: attr-seperator
     - include: number
+    # string is used for "#RRGGBB" colors
+    - include: string
     - include: def-operand-end
 
   def-operand-helpfile:
     - meta_content_scope: meta.operand.parameters.helpfile.s840d_hmi
+    - match: /
+      scope: punctuation.separator.s840d_hmi
+      set: def-operand-units
     - include: attr-seperator
     - include: number
+    - include: string
+    - include: def-operand-end
+
+  def-operand-units:
+    - meta_content_scope: meta.operand.parameters.units.s840d_hmi
     - include: string
     - include: def-operand-end
 
@@ -1398,7 +1408,7 @@ contexts:
       set:
         - meta_scope: meta.operand.attribute.s840d_hmi
         # list of valid attributes
-        - match: \b(?i:a[cl]|bc|cb|f[cs]|gt|hlp|l[it]|m(?:ax|in)|[su]t|typ|v(?:a[lr]|ld)|wr)\b
+        - match: \b(?i:a[cl]|bc(_[gsu]t)?|d[ot]|fc(_[gsu]t)?|fs|gt|hlp|l[it]|m(?:ax|in)|[su]t|t[gt]|typ|v(?:a[lr]|ld)|wr)\b
           scope: entity.other.attribute-name.s840d_hmi
           pop: true
         - include: illegal-pop
