@@ -1406,7 +1406,7 @@ contexts:
       set:
         - meta_scope: meta.operand.attribute.s840d_hmi
         # list of valid attributes
-        - match: \b(?i:a[cl]|bc|cb|f[cs]|gt|hlp|l[it]|m(?:ax|in)|[su]t|typ|v(?:a[lr]|ld)|wr)\b
+        - match: \b(?i:a[cl]|bc(_[gsu]t)?|d[ot]|fc(_[gsu]t)?|fs|gt|hlp|l[it]|m(?:ax|in)|[su]t|t[gt]|typ|v(?:a[lr]|ld)|wr)\b
           scope: entity.other.attribute-name.s840d_hmi
           pop: true
         - include: illegal-pop
