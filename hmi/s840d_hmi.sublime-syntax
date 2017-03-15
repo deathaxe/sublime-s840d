@@ -657,8 +657,16 @@ contexts:
 
   def-operand-helpfile:
     - meta_content_scope: meta.operand.parameters.helpfile.s840d_hmi
+    - match: /
+      scope: punctuation.separator.s840d_hmi
+      set: def-operand-units
     - include: attr-seperator
     - include: number
+    - include: string
+    - include: def-operand-end
+
+  def-operand-units:
+    - meta_content_scope: meta.operand.parameters.units.s840d_hmi
     - include: string
     - include: def-operand-end
 
