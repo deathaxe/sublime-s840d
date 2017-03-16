@@ -1270,8 +1270,11 @@ contexts:
     # 0: default intput field
     # 1: single color progress bar
     # 2: multi color progress bar
+    # 3: unknown
+    # 4: unknown
+    # 5: password input field
     # attribute DT.sublime-completions
-    - match: \b[Dd][Tt][012]\b
+    - match: \b[Dd][Tt][0-5]\b
       scope: constant.language.attribute.display-mode.s840d_hmi
 
   attribute-fontsize:
