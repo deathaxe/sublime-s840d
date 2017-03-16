@@ -540,6 +540,7 @@ contexts:
         - include: line-end
     - match: (?=\S)
       set: def-operand-assign
+    - include: line-end
 
   def-operand-assign:
     - match: (=)\s*(?=\()
