@@ -723,6 +723,8 @@ contexts:
           scope: punctuation.section.caption-group.end.s840d_hmi
           pop: true
         - include: expressions
+    - match: SOFTKEY_(?:OK|CANCEL)
+      scope: variable.language.softkeyid.s840d_hmi
     - include: string
     - include: def-softkey-end
 
