@@ -1518,7 +1518,7 @@ contexts:
       pop: true
 
   variable:
-    - match: \b(?i:CUR(?:POS|VER)|ENTRY|ERR|FILE_ERR|FOC|S_CHAN)\b
+    - match: \b(?i:CUR(?:POS|VER)|ENTRY|ERR|FILE_ERR|FOC|S_(?:ALEVEL|CHAN|CONTROL|LANG|NCCODEREADONLY|RES[XY]))\b
       scope: support.variable.language.s840d_hmi
     - match: \b(?i:REG)\b
       scope: support.variable.register.s840d_hmi
