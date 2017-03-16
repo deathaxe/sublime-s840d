@@ -422,7 +422,7 @@ contexts:
     - meta_content_scope: meta.class.dialog.parameters.attributes.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
-      set: class-dialog-attr-end
+      set: class-dialog-attr-background
     - include: attr-seperator
     - include: attribute-accesslevel
     - include: attribute-alignment
@@ -436,6 +436,21 @@ contexts:
     - include: attribute-scolling
     - include: attribute-writeability
     - include: attribute-x3d
+    - include: class-dialog-attr-end
+
+  class-dialog-attr-background:
+    - meta_content_scope: meta.class.dialog.parameters.background.s840d_hmi
+    - match: /
+      scope: punctuation.separator.s840d_hmi
+      set: class-dialog-attr-langfiles
+    - include: number
+    - include: string
+    - include: class-dialog-attr-end
+
+  class-dialog-attr-langfiles:
+    - meta_content_scope: meta.class.dialog.parameters.langfiles.s840d_hmi
+    - include: attr-seperator
+    - include: string
     - include: class-dialog-attr-end
 
   class-dialog-attr-end:
