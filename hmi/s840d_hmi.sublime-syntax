@@ -397,6 +397,8 @@ contexts:
       set: class-dialog-attr-variable
     - include: attr-seperator
     - include: number
+    # layout name
+    - include: string
     - include: class-dialog-attr-end
 
   class-dialog-attr-variable:
@@ -420,7 +422,7 @@ contexts:
     - meta_content_scope: meta.class.dialog.parameters.attributes.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
-      set: class-dialog-attr-end
+      set: class-dialog-attr-background
     - include: attr-seperator
     - include: attribute-accesslevel
     - include: attribute-alignment
@@ -434,6 +436,21 @@ contexts:
     - include: attribute-scolling
     - include: attribute-writeability
     - include: attribute-x3d
+    - include: class-dialog-attr-end
+
+  class-dialog-attr-background:
+    - meta_content_scope: meta.class.dialog.parameters.background.s840d_hmi
+    - match: /
+      scope: punctuation.separator.s840d_hmi
+      set: class-dialog-attr-langfiles
+    - include: number
+    - include: string
+    - include: class-dialog-attr-end
+
+  class-dialog-attr-langfiles:
+    - meta_content_scope: meta.class.dialog.parameters.langfiles.s840d_hmi
+    - include: attr-seperator
+    - include: string
     - include: class-dialog-attr-end
 
   class-dialog-attr-end:
@@ -540,6 +557,7 @@ contexts:
         - include: line-end
     - match: (?=\S)
       set: def-operand-assign
+    - include: line-end
 
   def-operand-assign:
     - match: (=)\s*(?=\()
@@ -722,6 +740,8 @@ contexts:
           scope: punctuation.section.caption-group.end.s840d_hmi
           pop: true
         - include: expressions
+    - match: SOFTKEY_(?:OK|CANCEL)
+      scope: variable.language.softkeyid.s840d_hmi
     - include: string
     - include: def-softkey-end
 
@@ -747,14 +767,43 @@ contexts:
 ###############################################################################
 
   def-methods:
+    - include: def-method-accesslevel
     - include: def-method-activate
     - include: def-method-change
+    - include: def-method-control
     - include: def-method-focus
+    - include: def-method-language
     - include: def-method-load
     - include: def-method-output
     - include: def-method-press
+    - include: def-method-resolution
+    - include: def-method-resume
     - include: def-method-sub
+    - include: def-method-suspend
     - include: def-method-unload
+
+###############################################################################
+# ACCESSLEVEL block
+#   second-level entity
+#   exists in dialog and menu
+#   access level changed notification
+#
+#   ACCESSLEVEL
+#   ....
+#   END_ACCESSLEVEL
+###############################################################################
+
+  def-method-accesslevel:
+    - match: \b(?i:ACCESSLEVEL)\b
+      scope: keyword.definition.method.accesslevel.begin.s840d_hmi
+      push: def-method-accesslevel-body
+
+  def-method-accesslevel-body:
+    - meta_content_scope: meta.block.method.accesslevel.s840d_hmi
+    - match: \b(?i:END_ACCESSLEVEL)\b
+      scope: keyword.definition.method.accesslevel.end.s840d_hmi
+      pop: true
+    - include: statements
 
 ###############################################################################
 # ACTIVATE block
@@ -768,13 +817,13 @@ contexts:
 
   def-method-activate:
     - match: \b(?i:ACTIVATE)\b
-      scope: keyword.definition.method.begin.s840d_hmi
+      scope: keyword.definition.method.activate.begin.s840d_hmi
       push: def-method-activate-body
 
   def-method-activate-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.activate.s840d_hmi
     - match: \b(?i:END_ACTIVATE)\b
-      scope: keyword.definition.method.end.s840d_hmi
+      scope: keyword.definition.method.activate.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -782,6 +831,7 @@ contexts:
 # CHANGE block
 #   second-level entity
 #   exists in dialog and menu
+#   operand value changed notification
 #
 #   CHANGE(operand)
 #   ....
@@ -790,7 +840,7 @@ contexts:
 
   def-method-change:
     - match: \b(?i:CHANGE)\b
-      scope: keyword.definition.method.change.s840d_hmi
+      scope: keyword.definition.method.change.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -804,9 +854,32 @@ contexts:
         - include: def-method-change-body
 
   def-method-change-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.change.s840d_hmi
     - match: \b(?i:END_CHANGE)\b
-      scope: keyword.definition.method.end_change.s840d_hmi
+      scope: keyword.definition.method.change.end.s840d_hmi
+      pop: true
+    - include: statements
+
+###############################################################################
+# CONTROL block
+#   second-level entity
+#   exists in dialog and menu
+#   numerical control name change notificiation
+#
+#   CONTROL
+#   ....
+#   END_CONTROL
+###############################################################################
+
+  def-method-control:
+    - match: \b(?i:CONTROL)\b
+      scope: keyword.definition.method.control.begin.s840d_hmi
+      push: def-method-control-body
+
+  def-method-control-body:
+    - meta_content_scope: meta.block.method.control.s840d_hmi
+    - match: \b(?i:END_CONTROL)\b
+      scope: keyword.definition.method.control.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -814,6 +887,7 @@ contexts:
 # FOCUS block
 #   second-level entity
 #   exists in dialog and menu
+#   focus of input element changed notification
 #
 #   FOCUS
 #   ....
@@ -822,13 +896,36 @@ contexts:
 
   def-method-focus:
     - match: \b(?i:FOCUS)\b
-      scope: keyword.definition.method.focus.s840d_hmi
+      scope: keyword.definition.method.focus.begin.s840d_hmi
       push: def-method-focus-body
 
   def-method-focus-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.focus.s840d_hmi
     - match: \b(?i:END_FOCUS)\b
-      scope: keyword.definition.method.end_focus.s840d_hmi
+      scope: keyword.definition.method.focus.end.s840d_hmi
+      pop: true
+    - include: statements
+
+###############################################################################
+# LANGUAGE block
+#   second-level entity
+#   exists in dialog and menu
+#   language change notification
+#
+#   LANGUAGE
+#   ....
+#   END_LANGUAGE
+###############################################################################
+
+  def-method-language:
+    - match: \b(?i:LANGUAGE)\b
+      scope: keyword.definition.method.language.begin.s840d_hmi
+      push: def-method-language-body
+
+  def-method-language-body:
+    - meta_content_scope: meta.block.method.language.s840d_hmi
+    - match: \b(?i:END_LANGUAGE)\b
+      scope: keyword.definition.method.language.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -836,6 +933,7 @@ contexts:
 # LOAD block
 #   second-level entity
 #   exists in dialog and menu
+#   dialog created notification
 #
 #   LOAD
 #   ....
@@ -844,13 +942,13 @@ contexts:
 
   def-method-load:
     - match: \b(?i:LOAD)\b
-      scope: keyword.definition.method.load.s840d_hmi
+      scope: keyword.definition.method.load.begin.s840d_hmi
       push: def-method-load-body
 
   def-method-load-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.load.s840d_hmi
     - match: \b(?i:END_LOAD)\b
-      scope: keyword.definition.method.end_load.s840d_hmi
+      scope: keyword.definition.method.load.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -858,6 +956,7 @@ contexts:
 # UNLOAD block
 #   second-level entity
 #   exists in dialog and menu
+#   dialog closed notification
 #
 #   UNLOAD
 #   ....
@@ -866,13 +965,13 @@ contexts:
 
   def-method-unload:
     - match: \b(?i:UNLOAD)\b
-      scope: keyword.definition.method.unload.s840d_hmi
+      scope: keyword.definition.method.unload.begin.s840d_hmi
       push: def-method-unload-body
 
   def-method-unload-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.unload.s840d_hmi
     - match: \b(?i:END_UNLOAD)\b
-      scope: keyword.definition.method.end_unload.s840d_hmi
+      scope: keyword.definition.method.unload.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -888,7 +987,7 @@ contexts:
 
   def-method-output:
     - match: \b(?i:OUTPUT)\b
-      scope: keyword.definition.method.output.s840d_hmi
+      scope: keyword.definition.method.output.begin.s840d_hmi
       push: def-method-output-argument
 
   def-method-output-argument:
@@ -917,9 +1016,9 @@ contexts:
     - include: illegal
 
   def-method-output-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.output.s840d_hmi
     - match: \b(?i:END_OUTPUT)\b
-      scope: keyword.definition.method.end_output.s840d_hmi
+      scope: keyword.definition.method.output.end.s840d_hmi
       pop: true
     # register not allowed in output
     - match: \b(?i:REG)\b
@@ -930,6 +1029,7 @@ contexts:
 # PRESS block
 #   second-level entity
 #   exists in dialog and menu
+#   softkey pressed notification
 #
 #   PRESS(HSx)
 #   ....
@@ -938,7 +1038,7 @@ contexts:
 
   def-method-press:
     - match: \b(?i:PRESS)\b
-      scope: keyword.definition.method.press.s840d_hmi
+      scope: keyword.definition.method.press.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -955,9 +1055,55 @@ contexts:
         - include: line-end
 
   def-method-press-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.press.s840d_hmi
     - match: \b(?i:END_PRESS)\b
-      scope: keyword.definition.method.end_press.s840d_hmi
+      scope: keyword.definition.method.press.end.s840d_hmi
+      pop: true
+    - include: statements
+
+###############################################################################
+# RESOLUTION block
+#   second-level entity
+#   exists in dialog
+#   resolution changed notification
+#
+#   RESOLUTION
+#   ....
+#   END_RESOLUTION
+###############################################################################
+
+  def-method-resolution:
+    - match: \b(?i:RESOLUTION)\b
+      scope: keyword.definition.method.resolution.begin.s840d_hmi
+      push: def-method-resolution-body
+
+  def-method-resolution-body:
+    - meta_content_scope: meta.block.method.resolution.s840d_hmi
+    - match: \b(?i:END_RESOLUTION)\b
+      scope: keyword.definition.method.resolution.end.s840d_hmi
+      pop: true
+    - include: statements
+
+###############################################################################
+# RESUME block
+#   second-level entity
+#   exists in dialog
+#   dialog comes back to foreground notification
+#
+#   RESUME
+#   ....
+#   END_RESUME
+###############################################################################
+
+  def-method-resume:
+    - match: \b(?i:RESUME)\b
+      scope: keyword.definition.method.resume.begin.s840d_hmi
+      push: def-method-resume-body
+
+  def-method-resume-body:
+    - meta_content_scope: meta.block.method.resume.s840d_hmi
+    - match: \b(?i:END_RESUME)\b
+      scope: keyword.definition.method.resume.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -973,7 +1119,7 @@ contexts:
 
   def-method-sub:
     - match: \b(?i:SUB)\b
-      scope: keyword.definition.method.sub.s840d_hmi
+      scope: keyword.definition.method.sub.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -987,9 +1133,32 @@ contexts:
         - include: def-method-sub-body
 
   def-method-sub-body:
-    - meta_content_scope: meta.block.method.s840d_hmi
+    - meta_content_scope: meta.block.method.sub.s840d_hmi
     - match: \b(?i:END_SUB)\b
-      scope: keyword.definition.method.end_sub.s840d_hmi
+      scope: keyword.definition.method.sub.end.s840d_hmi
+      pop: true
+    - include: statements
+
+###############################################################################
+# SUSPEND block
+#   second-level entity
+#   exists in dialog
+#   dialog goes to background notification
+#
+#   SUSPEND
+#   ....
+#   END_SUSPEND
+###############################################################################
+
+  def-method-suspend:
+    - match: \b(?i:SUSPEND)\b
+      scope: keyword.definition.method.suspend.begin.s840d_hmi
+      push: def-method-suspend-body
+
+  def-method-suspend-body:
+    - meta_content_scope: meta.block.method.suspend.s840d_hmi
+    - match: \b(?i:END_SUSPEND)\b
+      scope: keyword.definition.method.suspend.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1118,8 +1287,11 @@ contexts:
     # 0: default intput field
     # 1: single color progress bar
     # 2: multi color progress bar
+    # 3: unknown
+    # 4: unknown
+    # 5: password input field
     # attribute DT.sublime-completions
-    - match: \b[Dd][Tt][012]\b
+    - match: \b[Dd][Tt][0-5]\b
       scope: constant.language.attribute.display-mode.s840d_hmi
 
   attribute-fontsize:
@@ -1363,7 +1535,7 @@ contexts:
       pop: true
 
   variable:
-    - match: \b(?i:CUR(?:POS|VER)|ENTRY|ERR|FILE_ERR|FOC|S_CHAN)\b
+    - match: \b(?i:CUR(?:POS|VER)|ENTRY|ERR|FILE_ERR|FOC|S_(?:ALEVEL|CHAN|CONTROL|LANG|NCCODEREADONLY|RES[XY]))\b
       scope: support.variable.language.s840d_hmi
     - match: \b(?i:REG)\b
       scope: support.variable.register.s840d_hmi
