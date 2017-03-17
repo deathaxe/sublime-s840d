@@ -85,7 +85,8 @@ class S840dBeautifyCommand(base.TextCommand):
                 col = 1
                 while text[col] >= '0' and text[col] <= '9':
                     col += 1
-                block_no = text[:col]
+                if col > 1:
+                    block_no = text[:col]
         return block_no
 
     def __indentdify(self, text):
