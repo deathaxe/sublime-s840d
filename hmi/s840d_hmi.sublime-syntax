@@ -31,6 +31,7 @@ scope: source.s840d_hmi
 
 variables:
   softkey: \b(?i:[HV]S[1-8]|RECALL)\b
+  class: (?=//[ABGMS]\b)
 
 ###############################################################################
 # MAIN CONTEXT
@@ -46,7 +47,7 @@ contexts:
       scope: invalid.illegal.s840d_hmi
 
     # file contains EasyScreen/RunMyScreens
-    - match: (?=//[ABGMS]\b)
+    - match: '{{class}}'
       push:
         - include: comment
         - include: class-dialog
@@ -520,6 +521,8 @@ contexts:
       scope: punctuation.separator.s840d_hmi
 
   class-end-pop:
+    - match: '{{class}}'
+      pop: true
     - match: //(?i:END)\b
       scope: keyword.class.end.s840d_hmi
       pop: true
