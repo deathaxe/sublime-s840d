@@ -702,7 +702,10 @@ contexts:
   def-operand-seperator:
     - match: ','
       scope: punctuation.separator.s840d_hmi
-      set: def-operand-name
+      set:
+        - match: (?i:DEF)?\b
+          scope: keyword.language.def.s840d_hmi
+          set: def-operand-name
     - include: line-end
 
 ###############################################################################
