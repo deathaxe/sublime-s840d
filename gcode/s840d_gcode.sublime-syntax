@@ -1003,6 +1003,7 @@ contexts:
     - include: numbers
     - include: booleans
     - include: strings
+    - include: axis-constants
 
   strings:
     - match: '"'
@@ -1053,6 +1054,10 @@ contexts:
         pop: true
       - match: \H
         scope: invalid.illegal.s840d_gcode
+
+  axis-constants:
+    - match: (?i:NO_AXIS)\b
+      scope: constant.language.axis.s840d_gcode
 
 ###############################################################################
 # SINUMERIK parameter constants
