@@ -1005,30 +1005,6 @@ contexts:
     - include: strings
     - include: axis-constants
 
-  strings:
-    - match: '"'
-      scope: punctuation.definition.string.begin.s840d_gcode
-      push:
-        # double quoted strings with embedded highlighting
-        - meta_scope: string.quoted.double.s840d_gcode
-        # embedded double quotes
-        - match: \'"\'
-          scope: constant.character.escape.quoted.double.s840d_gcode
-        # embedded line feed
-        - match: '%[Nn]'
-          scope: constant.other.linefeed.s840d_gcode
-        # embedded sprint format parameter
-        - match: '%\d*\.*\d*[DdFfSsXx]?\b'
-          scope: constant.other.placeholder.s840d_gcode
-        # valid end of double quoted string
-        - match: '"'
-          scope: punctuation.definition.string.end.s840d_gcode
-          pop: true
-        # invalid end of double quoted string
-        - match: '[^"]$'
-          scope: invalid.illegal.s840d_gcode
-          pop: true
-
   booleans:
     # language constants
     - match: (?i:FALSE|TRUE)\b
@@ -1054,6 +1030,30 @@ contexts:
         pop: true
       - match: \H
         scope: invalid.illegal.s840d_gcode
+
+  strings:
+    - match: '"'
+      scope: punctuation.definition.string.begin.s840d_gcode
+      push:
+        # double quoted strings with embedded highlighting
+        - meta_scope: string.quoted.double.s840d_gcode
+        # embedded double quotes
+        - match: \'"\'
+          scope: constant.character.escape.quoted.double.s840d_gcode
+        # embedded line feed
+        - match: '%[Nn]'
+          scope: constant.other.linefeed.s840d_gcode
+        # embedded sprint format parameter
+        - match: '%\d*\.*\d*[DdFfSsXx]?\b'
+          scope: constant.other.placeholder.s840d_gcode
+        # valid end of double quoted string
+        - match: '"'
+          scope: punctuation.definition.string.end.s840d_gcode
+          pop: true
+        # invalid end of double quoted string
+        - match: '[^"]$'
+          scope: invalid.illegal.s840d_gcode
+          pop: true
 
   axis-constants:
     - match: (?i:NO_AXIS)\b
