@@ -735,7 +735,7 @@ contexts:
   iso-parameter:
     # SINUMERIK parameter
     #   e.g.: SPOS=10 | SPOS[2]=10
-    - match: (?:A(?:C(?:C|CLIMA)|DI(?:S|SPOS)|LF|NG|[PR]|TOL)|C(?:H[FR]|OARSEA|R|TOL|UTMOD)|DI(?:A(?:CYCOFA|M(?:90A|CHANA|O(?:FA|NA)))|LF|S(?:CL|PR|R)|T[ES])|F(?:[ABPZ]|AD|GREF|INEA|MA|OCO[FN]|R(?:C|CM)|X(?:S|S[TW]))|I(?:P|POENDA|SD)|JERKLI(?:M|MA)|LEAD|M(?:EA(?:[CSW]|SA|WA)|OV)|NUT|O(?:FFN|MA[1-5]|S|S(?:[BDE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:[LOW]|O(?:L(?:F|FA)|S|S[AP])|RIO)|R(?:N(?:D|DM)|P|PL)|S(?:CPARA|[DFRT]|PO(?:S|SA)|RA|T(?:A|AT|OLF))|T(?:CARR|HETA|ILT|U|URN)|VELOLI(?:M|MA))\b
+    - match: (?:A(?:C(?:C|CLIMA)|DI(?:S|SPOS)|LF|NG|[PR]|TOL)|C(?:H[FR]|OARSEA|P(?:BC|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|R|TOL|UTMOD)|DI(?:A(?:CYCOFA|M(?:90A|CHANA|O(?:FA|NA)))|LF|S(?:CL|PR|R)|T[ES])|F(?:[ABPZ]|AD|GREF|INEA|MA|OCO[FN]|R(?:C|CM)|X(?:S|S[TW]))|I(?:P|POENDA|SD)|JERKLI(?:M|MA)|LEAD|M(?:EA(?:[CSW]|SA|WA)|OV)|NUT|O(?:FFN|MA[1-5]|S|S(?:[BDE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:[LOW]|O(?:L(?:F|FA)|S|S[AP])|RIO)|R(?:N(?:D|DM)|P|PL)|S(?:CPARA|[DFRT]|PO(?:S|SA)|RA|T(?:A|AT|OLF))|T(?:CARR|HETA|ILT|U|URN)|VELOLI(?:M|MA))\b
       scope: support.variable.iso.param.s840d_gcode
       push: array-index # some parameters are arrays
 
