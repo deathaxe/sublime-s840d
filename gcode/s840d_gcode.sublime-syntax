@@ -538,17 +538,16 @@ contexts:
       scope: keyword.control.ctab.s840d_gcode
       push:
         - meta_scope: meta.section.ctab.s840d_gcode
-        - include: stmt-ctab-body
+        - match: $
+          set: stmt-ctab-body
         - include: function-call-arguments
         - include: scope-end
 
   stmt-ctab-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.ctab.s840d_gcode
-        - match: (?i:CTABEND)\b
-          set: assert-line-end
-        - include: main-sublevel
+    - meta_content_scope: meta.section.ctab.s840d_gcode
+    - match: (?i:CTABEND)\b
+      set: assert-line-end
+    - include: main-sublevel
 
 ###############################################################################
 # FOR .. TO ... ENDFOR
@@ -560,20 +559,19 @@ contexts:
       scope: keyword.control.for.s840d_gcode
       set:
         - meta_scope: meta.section.for.s840d_gcode meta.control.for.s840d_gcode
-        - include: stmt-for-body
+        - match: $
+          set: stmt-for-body
         - match: (?i:TO)\b
           scope: keyword.control.to.s840d_gcode
         - include: expressions
         - include: illegal
 
   stmt-for-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.for.s840d_gcode
-        - match: (?i:ENDFOR)\b
-          scope: keyword.control.endfor.s840d_gcode
-          set: assert-line-end    # leave for-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.for.s840d_gcode
+    - match: (?i:ENDFOR)\b
+      scope: keyword.control.endfor.s840d_gcode
+      set: assert-line-end    # leave for-body
+    - include: main-sublevel
 
 ###############################################################################
 # GOTO
@@ -611,27 +609,23 @@ contexts:
       scope: keyword.control.if.s840d_gcode
       push: # push required for multible if ... goto statements
         - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
-        - include: stmt-if-goto
-        - include: stmt-if-body
+        - match: $
+          set: stmt-if-body
+        - match: (?i:GOTO[FBC]?)\b
+          scope: keyword.control.goto.s840d_gcode
+          set: stmt-goto-target
         - include: expressions
         - include: illegal
 
-  stmt-if-goto:
-    - match: (?i:GOTO[FBC]?)\b
-      scope: keyword.control.goto.s840d_gcode
-      set: stmt-goto-target
-
   stmt-if-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.if.s840d_gcode
-        - match: (?i:ENDIF)\b
-          scope: keyword.control.endif.s840d_gcode
-          set: assert-line-end    # leave if-body
-        - match: (?i:ELSE)\b
-          scope: keyword.control.else.s840d_gcode
-          push: assert-line-end   # don't leave if-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.if.s840d_gcode
+    - match: (?i:ENDIF)\b
+      scope: keyword.control.endif.s840d_gcode
+      set: assert-line-end    # leave if-body
+    - match: (?i:ELSE)\b
+      scope: keyword.control.else.s840d_gcode
+      push: assert-line-end   # don't leave if-body
+    - include: main-sublevel
 
 ###############################################################################
 # DIN ISO STATEMENTS
@@ -783,17 +777,16 @@ contexts:
       scope: keyword.control.loop.s840d_gcode
       set:
         - meta_scope: meta.section.loop.s840d_gcode
-        - include: stmt-loop-body
+        - match: $
+          set: stmt-loop-body
         - include: illegal
 
   stmt-loop-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.loop.s840d_gcode
-        - match: (?i:ENDLOOP)\b
-          scope: keyword.control.endloop.s840d_gcode
-          set: assert-line-end    # leave loop-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.loop.s840d_gcode
+    - match: (?i:ENDLOOP)\b
+      scope: keyword.control.endloop.s840d_gcode
+      set: assert-line-end    # leave loop-body
+    - include: main-sublevel
 
 ###############################################################################
 # REPEAT ... UNTIL / REPEAT <LBL1> <LBL2> / REPEATB <LBL>
@@ -821,7 +814,8 @@ contexts:
       scope: keyword.control.repeat.s840d_gcode
       set:
         - meta_scope: meta.section.repeat.s840d_gcode
-        - include: stmt-repeat-body
+        - match: $
+          set: stmt-repeat-body
         - include: comment-line
         - include: illegal
 
@@ -842,16 +836,14 @@ contexts:
         - include: line-end-or-illegal
 
   stmt-repeat-body:
-    - match: $
+    - meta_content_scope: meta.section.repeat.s840d_gcode
+    - match: (?i:UNTIL)\b
+      scope: keyword.control.until.s840d_gcode
       set:
+        - meta_scope: meta.control.until.s840d_gcode
         - meta_content_scope: meta.section.repeat.s840d_gcode
-        - match: (?i:UNTIL)\b
-          scope: keyword.control.until.s840d_gcode
-          set:
-            - meta_scope: meta.control.until.s840d_gcode
-            - meta_content_scope: meta.section.repeat.s840d_gcode
-            - include: expressions-line
-        - include: main-sublevel
+        - include: expressions-line
+    - include: main-sublevel
 
 ###############################################################################
 # RET
