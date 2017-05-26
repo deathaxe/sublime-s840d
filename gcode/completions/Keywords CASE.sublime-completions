@@ -1,0 +1,13 @@
+{
+	// Keywords
+	// statement: CASE ... OF 1 GOTO LBL ... DEFAULT GOTO ... keywords
+	//
+	"scope": "source.s840d_gcode & meta.control.case - comment - string - support.variable",
+	"completions": [
+		{"trigger": "OF\tkeyword", "contents": "OF "},
+		{"trigger": "DEFAULT\tkeyword", "contents": "DEFAULT "},
+		{"trigger": "GOTO\tkeyword", "contents": "GOTO "},
+		{"trigger": "GOTOB\tkeyword", "contents": "GOTOB "},
+		{"trigger": "GOTOF\tkeyword", "contents": "GOTOF "}
+	]
+}
