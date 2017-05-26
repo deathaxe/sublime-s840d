@@ -6,31 +6,53 @@
 ; ==================================================
 
 N100 EXTERN
-;    ^^^^^^ meta.function
+;    ^^^^^^ meta.function - meta.function.name
 ;    ^^^^^^ keyword.control.extern
 
+N100 EXTERN ; comment
+;    ^^^^^^ meta.function - meta.function.name
+;    ^^^^^^ keyword.control.extern
+;           ^ punctuation.definition.comment
+;           ^^^^^^^^^ comment.line
+
+N110 EXTERN PROGRAM
+;    ^^^^^^ meta.function - meta.function.name
+;          ^^^^^^^^ meta.function.name
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+
+N110 EXTERN PROGRAM ; comment
+;    ^^^^^^ meta.function - meta.function.name
+;          ^^^^^^^^ meta.function.name
+;    ^^^^^^ keyword.control.extern
+;           ^^^^^^^ variable.function.cycle
+;                   ^ punctuation.definition.comment
+;                   ^^^^^^^^^ comment.line
+
 N110 EXTERN PROGRAM illegal ; comment
-;    ^^^^^^^^^^^^^^ meta.function
+;    ^^^^^^ meta.function - meta.function.name
 ;          ^^^^^^^^ meta.function.name
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function.cycle
 ;                   ^^^^^^^ invalid.illegal
+;                           ^ punctuation.definition.comment
 ;                           ^^^^^^^^^ comment.line
 
 N120 EXTERN PROGRAM() ; comment
-;    ^^^^^^^^^^^^^^^^ meta.function
-;          ^^^^^^^^ meta.function.name
-;                  ^^ meta.function.parameters
+;    ^^^^^^ meta.function - meta.function.name
+;          ^^^^^^^^ meta.function.name - meta.function.parameters
+;                  ^^ meta.function.parameters - meta.function.name
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function.cycle
 ;                  ^ punctuation.section.parameters.begin
 ;                   ^ punctuation.section.parameters.end
+;                     ^ punctuation.definition.comment
 ;                     ^^^^^^^^^ comment.line
 
 N120 EXTERN PROGRAM () ; comment
-;    ^^^^^^^^^^^^^^^^^ meta.function
-;          ^^^^^^^^^ meta.function.name
-;                   ^^ meta.function.parameters
+;    ^^^^^^ meta.function - meta.function.name
+;          ^^^^^^^^^ meta.function.name - meta.function.parameters
+;                   ^^ meta.function.parameters - meta.function.name
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function.cycle
 ;                   ^ punctuation.section.parameters.begin
@@ -38,9 +60,9 @@ N120 EXTERN PROGRAM () ; comment
 ;                      ^^^^^^^^^ comment.line
 
 N130 EXTERN PROGRAM(AXIS,VAR BOOL) ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
-;          ^^^^^^^^ meta.function.name
-;                  ^^^^^^^^^^^^^^^ meta.function.parameters
+;    ^^^^^^ meta.function - meta.function.name
+;          ^^^^^^^^ meta.function.name - meta.function.parameters
+;                  ^^^^^^^^^^^^^^^ meta.function.parameters - meta.function.name
 ;    ^^^^^^ keyword.control.extern
 ;           ^^^^^^^ variable.function.cycle
 ;                  ^ punctuation.section.parameters.begin
@@ -52,7 +74,7 @@ N130 EXTERN PROGRAM(AXIS,VAR BOOL) ; comment
 ;                                  ^^^^^^^^^ comment.line
 
 N140 EXTERN PROGRAM ( AXIS , VAR BOOL ) ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;    ^^^^^^ meta.function - meta.function.name
 ;          ^^^^^^^^^ meta.function.name
 ;                   ^^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
@@ -66,7 +88,7 @@ N140 EXTERN PROGRAM ( AXIS , VAR BOOL ) ; comment
 ;                                       ^^^^^^^^^ comment.line
 
 N140 EXTERN PROGRAM ILLEAGAL ( AXIS , VAR BOOL ) ILLEGAL ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;    ^^^^^^ meta.function - meta.function.name
 ;          ^^^^^^^^^^^^^^^^^^ meta.function.name
 ;                            ^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;    ^^^^^^ keyword.control.extern
