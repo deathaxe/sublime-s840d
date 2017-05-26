@@ -535,8 +535,8 @@ contexts:
 
   stmt-ctab:
     - match: (?i:CTABDEF)\b
-      scope: keyword.control.ctab.s840d_gcode
-      push:
+      scope: keyword.control.ctabdef.s840d_gcode
+      set:
         - meta_scope: meta.section.ctab.s840d_gcode
         - match: $
           set: stmt-ctab-body
@@ -546,6 +546,7 @@ contexts:
   stmt-ctab-body:
     - meta_content_scope: meta.section.ctab.s840d_gcode
     - match: (?i:CTABEND)\b
+      scope: keyword.control.ctabend.s840d_gcode
       set: assert-line-end
     - include: main-sublevel
 
