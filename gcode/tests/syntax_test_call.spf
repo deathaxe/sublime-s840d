@@ -58,7 +58,10 @@ N25 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
 ;                                             ^ punctuation.definition.string.end
 
 N30 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK "N100" TO "N200"
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.name - meta.function-call.block
+;                                  ^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                                               ^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^ punctuation.definition.string.begin
 ;        ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
@@ -73,7 +76,10 @@ N30 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK "N100" TO "N200"
 ;                                                       ^ punctuation.definition.string.end
 
 N35 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK _STARTBLK TO _ENDBLK
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.name - meta.function-call.block
+;                                  ^^^^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                                                  ^^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^ punctuation.definition.string.begin
 ;         ^ string.quoted.double
@@ -85,7 +91,10 @@ N35 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK _STARTBLK TO _ENDBLK
 
 ; call statically defined blocks within the current cycle
 N40 CALL BLOCK "N100" TO "N200"
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^ meta.function-call.name - meta.function-call.block
+;        ^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                     ^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^^^^^ keyword.control.block
 ;               ^ string.quoted.double
@@ -94,7 +103,10 @@ N40 CALL BLOCK "N100" TO "N200"
 
 ; call dynamically defined blocks within the current cycle
 N45 CALL BLOCK _STARTBLK TO _ENDBLK
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^ meta.function-call.name - meta.function-call.block
+;        ^^^^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                        ^^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^^^^^ keyword.control.block
 ;              ^ variable.other
@@ -103,7 +115,10 @@ N45 CALL BLOCK _STARTBLK TO _ENDBLK
 
 ; call statically defined blocks in a dynamically cefined cycle
 N50 CALL _CYCLE BLOCK "N100" TO "N200"
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^ meta.function-call.name - meta.function-call.block
+;               ^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                            ^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^ variable.function
 ;               ^^^^^ keyword.control.block
@@ -113,7 +128,10 @@ N50 CALL _CYCLE BLOCK "N100" TO "N200"
 
 ; call dynamically defined blocks in a dynamically cefined cycle
 N55 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^ meta.function-call.name - meta.function-call.block
+;               ^^^^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                               ^^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^ variable.function
 ;               ^^^^^ keyword.control.block
@@ -123,7 +141,10 @@ N55 CALL _CYCLE BLOCK _STARTBLK TO _ENDBLK
 
 ; call dynamically defined blocks in a dynamically cefined cycle
 N60 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^ meta.function-call.name - meta.function-call.block
+;               ^^^^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                               ^^^^^^^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^ variable.function
 ;               ^^^^^ keyword.control.block
@@ -134,7 +155,10 @@ N60 CALL _CYCLE BLOCK _STARTBLK TO ("N"<<ENDNO)
 ;                                        ^ variable.other
 
 N65 CALL $P_INCOAP_S160[_S160NFWFC] BLOCK $P_INCOAP_S32[_S32SFC] TO $P_INCOAP_S32[_S32EFC]
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.name - meta.function-call.block
+;                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^ punctuation.definition.variable.nck
 ;         ^^^^^^^^^^^^^ support.variable.nck
@@ -144,7 +168,10 @@ N65 CALL $P_INCOAP_S160[_S160NFWFC] BLOCK $P_INCOAP_S32[_S32SFC] TO $P_INCOAP_S3
 
 ; invalid cycle and block identifiers
 N65 CALL L350 BLOCK N20 TO "N"<<50
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^ meta.function-call.name - meta.function-call.block
+;             ^^^^^^^^^^ meta.function-call.block.begin - meta.function-call.block.end - meta.function-call.name
+;                       ^^^^^^^^^^ meta.function-call.block.end - meta.function-call.block.begin
 ;   ^^^^ keyword.control.call
 ;        ^^^^ variable.function
 ;             ^^^^^ keyword.control.block

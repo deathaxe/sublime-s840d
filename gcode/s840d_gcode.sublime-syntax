@@ -353,11 +353,15 @@ contexts:
         # match single ident as function name
         - match: '{{cycle}}'
           scope: variable.function.cycle.s840d_gcode
-          set: stmt-call-block
+          set:
+            - meta_content_scope: meta.function-call.name.s840d_gcode
+            - match: (?=(?i:BLOCK)\b)
+              set: stmt-call-block
+            - include: stmt-call-end
         # function name is built inplace using normal expressions
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.name.s840d_gcode
+            - meta_content_scope: meta.function-call.name.s840d_gcode
             - match: (?=(?i:BLOCK)\b)
               set: stmt-call-block
             - include: expressions
