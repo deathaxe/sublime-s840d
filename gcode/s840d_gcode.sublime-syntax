@@ -1452,9 +1452,9 @@ contexts:
     # matching them as procedure call or variable.
     - match: '[Nn]\d+'
       scope: invalid.illegal.iso.s840d_gcode
-    - match: (?i:DEF|DEFINE|PROC|REDEF).*
+    - match: (?i:DEF|DEFINE|EXTERN|PROC|REDEF|AS)\b.*
       scope: invalid.illegal.keywords.definition.s840d_gcode
-    - match: (?i:BLOCK|CTAB(?:DEF|END)|ELSE|(?:END)?(?:IF|FOR|LOOP|WHILE)|OF|TO|UNTIL)\b
+    - match: (?i:BLOCK|CASE|CTAB(?:DEF|END)|DEFAULT|ELSE|(?:END)?(?:IF|FOR|LOOP|WHILE)|ISOCALL|GOTO[BCFS]?|[MP]?CALL|OF|REPEATB?|RET|TO|UNTIL)\b
       scope: invalid.illegal.keywords.control.s840d_gcode
     - match: (?i:AXIS|BOOL|FRAME|INT|REAL|STRING|TR|FI|RT|SC|MI|NCK|CHAN|AP[RWX][BP]?|LL[IU]|PHU|SYN(?:[RW]|RW)|VAR|INI(?:CF|RE|PO)|PRLOC)\b
       scope: invalid.illegal.keywords.storage.s840d_gcode
