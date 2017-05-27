@@ -470,10 +470,14 @@ contexts:
 ###############################################################################
 
   stmt-cycle-call:
+    # Match known ISO/NCK functions
     - include: iso-parameter
     - include: iso-procedures
     - include: nc-function-call
-
+    # Don't match constants or known keywords as user cycle
+    - include: booleans
+    - include: axis-constants
+    - include: illegal-keywords
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
     - match: ({{cycle}})\s*(?=$|[;\w\(])
