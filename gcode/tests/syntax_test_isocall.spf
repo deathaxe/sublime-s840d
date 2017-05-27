@@ -15,7 +15,8 @@ N10 ISOCALL
 
 ; function name provided as string variable
 N15 ISOCALL _PNAME error ; comment
-;   ^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ meta.function-call - meta.function-call.name
+;          ^^^^^^^ meta.function-call.name
 ;   ^^^^^^^ keyword.control.isocall
 ;           ^^^^^^ variable.function
 ;                  ^^^^^ invalid.illegal
@@ -23,7 +24,8 @@ N15 ISOCALL _PNAME error ; comment
 
 ; function name provided as string variable with arguments
 N15 ISOCALL _PNAME(10,20) ; comment
-;   ^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ meta.function-call - meta.function-call.name
+;          ^^^^^^^ meta.function-call.name
 ;   ^^^^^^^ keyword.control.isocall
 ;           ^^^^^^ variable.function
 ;                  ^^^^^^ invalid.illegal
@@ -31,7 +33,8 @@ N15 ISOCALL _PNAME(10,20) ; comment
 
 ; function name provided as string
 N20 ISOCALL "/_N_CUS_DIR/_N_L320_SPF"
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ meta.function-call - meta.function-call.name
+;          ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.name
 ;   ^^^^^^^ keyword.control.isocall
 ;           ^ punctuation.definition.string.begin
 ;            ^ string.quoted.double
@@ -39,7 +42,8 @@ N20 ISOCALL "/_N_CUS_DIR/_N_L320_SPF"
 
 ; indirect dynamic function call
 N25 ISOCALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^ meta.function-call - meta.function-call.name
+;          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.name
 ;   ^^^^^^^ keyword.control.isocall
 ;           ^ punctuation.definition.string.begin
 ;            ^^^^^^^^^^^^^ string.quoted.double

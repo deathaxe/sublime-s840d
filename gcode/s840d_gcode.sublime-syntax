@@ -410,7 +410,7 @@ contexts:
           set: line-end-or-illegal
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.s840d_gcode
+            - meta_scope: meta.function-call.name.s840d_gcode
             - include: expressions-line
         - include: line-end
 
@@ -424,8 +424,10 @@ contexts:
       scope: meta.function-call.s840d_gcode keyword.control.mcall.s840d_gcode
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
-        - match: '{{cycle}}'
-          scope: variable.function.cycle.s840d_gcode
+        - match: '({{cycle}})([^\(;]*)'
+          captures:
+            1: variable.function.cycle.s840d_gcode
+            2: invalid.illegal.cycle-expected.s840d_gcode
           set: cycle-call-arguments
         - match: (?=\S)
           set:
@@ -453,7 +455,7 @@ contexts:
           set: cycle-call-arguments
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.s840d_gcode
+            - meta_scope: meta.function-call.name.s840d_gcode
             - include: expressions-line
         - include: line-end
 
@@ -1252,7 +1254,7 @@ contexts:
     # known NC functions
     - match: (A(?:BS|C|C(?:[NP]|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:C(?:DAT|POSI)|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|O(?:NT(?:DCON|PRON)|RROF|S|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|ROT|SCALE|T(?:A(?:B|B(?:DEL|EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|RANS))|D(?:AC|C|EL(?:DL|ETE|M(?:L(?:OWNER|RES)|T)|OBJ|T|T(?:C|OOLENV))|I(?:C|SABLE)|RIVEA)|E(?:G(?:DE[FL]|OF[CS])|NABLE|X(?:EC(?:STRING|TAB|UTE)|P|TCALL))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN]))|GE(?:OAX|T|T(?:ACT(?:T|TD)|[DT]|DNO|EXET|FREELOC|SELT|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|HOLES[12]|I(?:C|N(?:DEX|IT|T(?:ERSEC|TOAX)|VFRAME)|POBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|L(?:E(?:ADO[FN]|NTOAX)|FPOS|N|OCK)|M(?:A(?:SL(?:DE[FL]|O(?:[FN]|FS))|TCH|XVAL)|IN(?:DEX|VAL)|MC|ODAXVAL|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|PRO(?:T|TDEF)|UMBER)|P(?:[MR]|O(?:CKET[34]|L(?:FM(?:ASK|LIN)|YPATH)|S(?:M|MT)|T)|ROTS|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRNON|U)|R(?:AC|E(?:AD|LEASE|P|SE(?:T|TMON))|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T|T(?:AL|DNO|INT|M|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|P(?:I|RINT)|QRT|T(?:ART|R(?:INGIS|LEN))|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|UNLOCK|W(?:AIT(?:[CEMPS]|MC)|RITE))\b\s*
       captures:
-        0: meta.function-call.s840d_gcode
+        0: meta.function-call.name.s840d_gcode
         1: support.function.nck.s840d_gcode
       push:
         - include: function-call-arguments
@@ -1262,7 +1264,7 @@ contexts:
     # unknown function is handled as subprogram (SPF)
     - match: ({{macro}})\s*(?=\()
       captures:
-        0: meta.function-call.s840d_gcode
+        0: meta.function-call.name.s840d_gcode
         1: variable.function.other.s840d_gcode
       push:
         - include: function-call-arguments
