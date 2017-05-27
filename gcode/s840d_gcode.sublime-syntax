@@ -497,36 +497,61 @@ contexts:
   stmt-case:
     - match: (?i:CASE)\b
       scope: meta.control.case.s840d_gcode keyword.control.case.s840d_gcode
-      set:
-        - meta_content_scope: meta.control.case.operand.s840d_gcode
-        - match: (?i:OF)\b
-          scope: keyword.control.of.s840d_gcode
-          set: [stmt-case-condition, after-operator]
-        - include: expressions-line
+      set: stmt-case-operand
+
+  stmt-case-operand:
+    - meta_content_scope: meta.control.case.operand.s840d_gcode
+    - match: (?=(?i:\bOF\b))
+      set: stmt-case-of
+    - include: expressions-line
+
+  stmt-case-of:
+    - meta_content_scope: meta.control.case.s840d_gcode
+    - match: ((?i:\bOF\b))\s*
+      captures:
+        1: keyword.control.of.s840d_gcode
+      set: [stmt-case-condition, after-operator]
 
   stmt-case-condition:
     - meta_content_scope: meta.control.case.condition.s840d_gcode
+    - include: line-end
     - include: stmt-case-default
-    - match: '({{ident}})?\s*(?=(?i:GOTO))'
+    - include: numbers
+    - match: '(\b{{ident}})?\s*(?=(?i:\bGOTO[BF]?\b))'
       captures:
         1: entity.name.macro.s840d_gcode
       set: stmt-case-goto
-    - include: numbers
-    - include: line-end-or-illegal
-
-  stmt-case-goto:
-    - meta_scope: meta.control.case.goto.s840d_gcode
-    - include: stmt-goto
-    - match: $|(?=\S)
-      set: [stmt-case-condition, after-operator]
+    - match: \S+
+      scope: invalid.illegal.goto-expected.s840d_gcode
 
   stmt-case-default:
-    - match: (?i:DEFAULT)\b
-      scope: keyword.control.default.s840d_gcode
+    - match: ((?i:\bDEFAULT\b))\s*
+      captures:
+        1: keyword.control.default.s840d_gcode
       set:
         - meta_content_scope: meta.control.case.goto.s840d_gcode
-        - include: stmt-goto
+        - include: stmt-case-goto
         - include: assert-line-end
+
+  stmt-case-goto:
+    - meta_content_scope: meta.control.case.goto.s840d_gcode
+    - match: (?i:\bGOTO[FB]?\b)
+      scope: keyword.control.goto.s840d_gcode
+      push: stmt-case-goto-target
+    - match: (?=\S)|$
+      set: [stmt-case-condition, after-operator]
+
+  stmt-case-goto-target:
+    - include: line-end
+    - match: '{{label}}'
+      scope: entity.name.tag.goto-label.s840d_gcode
+      pop: true
+    - match: '[Nn]\d+\b'
+      scope: entity.name.tag.goto-block.s840d_gcode
+      pop: true
+    - match: \S+
+      scope: invalid.illegal.label-expected.s840d_gcode
+      pop: true
 
 ###############################################################################
 # CURVE TABLES
@@ -598,10 +623,11 @@ contexts:
     - match: '{{label}}'
       scope: entity.name.tag.goto-label.s840d_gcode
       pop: true
-    - match: '[Nn]?\d+\b'
+    - match: '[Nn]\d+\b'
       scope: entity.name.tag.goto-block.s840d_gcode
       pop: true
-    - include: expressions
+    - match: (?=\S)
+      set: expressions-line
     - include: line-end-or-illegal
 
 ###############################################################################

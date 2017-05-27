@@ -17,7 +17,15 @@ N10 CASE
 
 ; simple case statement with positiv decimal values
 N15 CASE _IDX OF 1 GOTO LBL1 2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^^ meta.control.case
+;                ^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                  ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                            ^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                              ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                        ^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                                ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -33,7 +41,15 @@ N15 CASE _IDX OF 1 GOTO LBL1 2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
 ;                                                          ^^^^^^^^^ comment.line
 ; simple case statement with negative decimal values
 N15 CASE _IDX OF-1 GOTO LBL1-2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^ meta.control.case
+;               ^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                  ^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                           ^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                              ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                        ^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                                ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -49,7 +65,15 @@ N15 CASE _IDX OF-1 GOTO LBL1-2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
 ;                                                          ^^^^^^^^^ comment.line
 ; simple case statement with hexadecimal values
 N15 CASE _IDX OF'HC' GOTO LBL1 'HA' GOTO LBL2 DEFAULT GOTO LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^ meta.control.case
+;               ^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                    ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                              ^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                   ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                             ^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                                     ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -65,7 +89,15 @@ N15 CASE _IDX OF'HC' GOTO LBL1 'HA' GOTO LBL2 DEFAULT GOTO LBLD ; comment
 ;                                                               ^^^^^^^^^ comment.line
 ; simple case statement with binary values
 N15 CASE _IDX OF'B0' GOTO LBL1 'B1' GOTO LBL2 DEFAULT GOTO LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^ meta.control.case
+;               ^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                    ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                              ^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                   ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                             ^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                                     ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -82,7 +114,15 @@ N15 CASE _IDX OF'B0' GOTO LBL1 'B1' GOTO LBL2 DEFAULT GOTO LBLD ; comment
 ; case statement with macros/variables
 ; REMARK: might be possible, but I never saw something like that being used
 N15 CASE _IDX OF ID1 GOTO LBL1 ID2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^^ meta.control.case
+;                ^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                    ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                              ^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                  ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                            ^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                                    ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -99,7 +139,15 @@ N15 CASE _IDX OF ID1 GOTO LBL1 ID2 GOTO LBL2 DEFAULT GOTO LBLD ; comment
 
 ; invalid 'OF' usage
 N15 CASE _IDX OF 1 GOTO LBL1 OF 2 GOTO LBL2 OF DEFAULT GOTO LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^^ meta.control.case
+;                ^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                  ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                            ^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                 ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                           ^^^^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                                                      ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -118,7 +166,10 @@ N15 CASE _IDX OF 1 GOTO LBL1 OF 2 GOTO LBL2 OF DEFAULT GOTO LBLD ; comment
 
 ; missing GOTO
 N15 CASE _IDX OF 1 LBL1 2 LBL2 DEFAULT LBLD ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case
+;   ^^^^ meta.control.case
+;       ^^^^^^ meta.control.case.operand
+;             ^^^ meta.control.case
+;                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
 ;   ^^^^ keyword.control.case
 ;        ^^^^ variable.other
 ;             ^^ keyword.control.of
@@ -129,3 +180,25 @@ N15 CASE _IDX OF 1 LBL1 2 LBL2 DEFAULT LBLD ; comment
 ;                              ^^^^^^^ keyword.control.default
 ;                                      ^^^^ invalid.illegal
 ;                                           ^^^^^^^^^ comment.line
+
+; composed labels are not part of the official specification of the CASE statement
+N15 CASE (_IDX + 4) OF 1 GOTO "LBL" << _ID DEFAULT GOTO ("LBL"<<(_ID+4))
+;   ^^^^ meta.control.case
+;       ^^^^^^^^^^^^ meta.control.case.operand
+;        ^ punctuation.section.group.begin
+;        ^^^^^^^^^^ meta.group
+;                 ^ punctuation.section.group.end
+;                   ^^^ meta.control.case
+;                      ^^ meta.control.case.condition - meta.control.case.operand - meta.control.case.goto
+;                        ^^^^^^^^^^ meta.control.case.goto - meta.control.case.condition
+;                                   ^^^^^^^^^^^^^^^ meta.control.case.condition - meta.control.case.goto
+;                                                  ^^^^^^^^^^^^^^^^^^^^^ meta.control.case.goto
+;                   ^^ keyword.control.of
+;                      ^ constant.numeric
+;                        ^^^^ keyword.control.goto
+;                             ^^^^^ invalid.illegal.label-expected
+;                                   ^^ invalid.illegal.goto-expected
+;                                      ^^^ invalid.illegal.goto-expected
+;                                          ^^^^^^^ keyword.control.default
+;                                                  ^^^^ keyword.control.goto
+;                                                       ^^^^^^^^^^^^^^^^ invalid.illegal.label-expected
