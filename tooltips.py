@@ -21,6 +21,8 @@ def plugin_loaded():
 
 class ToolTipCommand(sublime_plugin.EventListener):
 
+    s840d_source = 'source.s840d_gcode | source.s840d_hmi'
+
     cur_word = None
     tip_html = None
 
@@ -30,18 +32,17 @@ class ToolTipCommand(sublime_plugin.EventListener):
             return
 
         # return if no s840d source code
-        region = view.word(point)
-        scope = view.scope_name((region.a + region.b) / 2)
-        if scope.find('source.s840d') == -1:
+        if not view.match_selector(point, self.s840d_source):
             return
 
+        region = view.word(point)
         word = view.substr(region)
         if self.cur_word != word:
             self.cur_word = word
             # load current OS display language (e.g.: de_DE)
             lang = locale.getdefaultlocale()[0][:2].lower()
             # get description for machine data or nck variable
-            if scope.find('support.variable.nck') != -1:
+            if view.match_selector(point, 'support.variable.nck'):
                 self.tip_html = get_var_desc(word, lang)
             # nothing found
             else:
