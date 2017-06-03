@@ -528,9 +528,9 @@ contexts:
     - include: line-end
     - include: stmt-case-default
     - include: numbers
-    - match: '(\b{{ident}})?\s*(?=(?i:\bGOTO[BF]?\b))'
+    - match: '(\b{{macro}})?\s*(?=(?i:\bGOTO[BF]?\b))'
       captures:
-        1: entity.name.macro.s840d_gcode
+        1: variable.other.s840d_gcode
       set: stmt-case-goto
     - match: \S+
       scope: invalid.illegal.goto-expected.s840d_gcode
@@ -1180,7 +1180,7 @@ contexts:
           pop: true
         # macro defined value
         - match: '{{macro}}'
-          scope: entity.name.macro.access.s840d_gcode
+          scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
 
@@ -1199,7 +1199,7 @@ contexts:
           pop: true
         # macro defined value
         - match: '{{macro}}'
-          scope: entity.name.macro.limit.s840d_gcode
+          scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
 
@@ -1218,7 +1218,7 @@ contexts:
           pop: true
         # macro defined value
         - match: '{{macro}}'
-          scope: entity.name.macro.unit.s840d_gcode
+          scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
 
@@ -1248,7 +1248,7 @@ contexts:
             - match: \d+\b
               scope: constant.numeric.integer.s840d_gcode
             - match: '{{macro}}'
-              scope: entity.name.macro.size.s840d_gcode
+              scope: variable.other.s840d_gcode
         - include: scope-end
 
 ###############################################################################
@@ -1399,8 +1399,8 @@ contexts:
     - include: seperator-comma-minus
     - match: \d+\b
       scope: constant.numeric.integer.s840d_gcode
-    - match: '{{ident}}'
-      scope: entity.name.macro.s840d_gcode
+    - match: '{{macro}}'
+      scope: variable.other.s840d_gcode
     - include: line-end-or-illegal
 
 ###############################################################################
