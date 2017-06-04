@@ -534,14 +534,18 @@ contexts:
 ###############################################################################
 
   stmt-ctab:
-    - match: (?i:CTABDEF)\b
-      scope: keyword.control.ctabdef.s840d_gcode
+    - match: (?i)(CTABDEF)\b\s*
+      captures:
+        0: meta.function-call.s840d_gcode
+        1: keyword.control.ctabdef.s840d_gcode
       set:
         - meta_scope: meta.section.ctab.s840d_gcode
         - match: $
           set: stmt-ctab-body
-        - include: function-call-arguments
-        - include: scope-end
+        - match: (?=\()
+          push:
+            - include: function-call-arguments
+            - include: scope-end
 
   stmt-ctab-body:
     - meta_content_scope: meta.section.ctab.s840d_gcode
