@@ -334,6 +334,7 @@ contexts:
     - include: stmt-synact
     - include: stmt-ret
     - include: stmt-ctab
+    - include: stmt-procedure-call
     - include: stmt-cycle-call
     - include: stmt-iso
 
@@ -465,19 +466,34 @@ contexts:
         - include: line-end
 
 ###############################################################################
+# PROCEDURE CALL
+# TESTS:
+###############################################################################
+
+  stmt-procedure-call:
+    # SINUMERIK procedures
+    # need to stand alone in a line
+    - match: (A(?:DISPOSA|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:LLPATH|NCEL)|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|RIVEA|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:CLOSE|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOOF|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|R(?:ITE|TPR)))\b\s*
+      captures:
+        0: meta.function-call.name.s840d_gcode
+        1: support.function.nck.procedure.s840d_gcode
+      set: cycle-call-arguments
+
+###############################################################################
 # DIRECT CYCLE CALL
 # TESTS:
 ###############################################################################
 
   stmt-cycle-call:
     # Match known ISO/NCK functions
-    - include: iso-parameter
-    - include: iso-procedures
+    - include: iso-operands
+    - include: iso-commands
     - include: nc-function-call
-    # Don't match constants or known keywords as user cycle
-    - include: booleans
-    - include: axis-constants
-    - include: illegal-keywords
+    - include: operators-arithmetic # don't match as cycle
+    - include: operators-logical    # don't match as cycle
+    - include: booleans             # don't match as cycle
+    - include: axis-constants       # don't match as cycle
+    - include: illegal-keywords     # don't match as cycle
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
     - match: ({{cycle}})\s*(?=$|[;\w\(])
@@ -681,8 +697,8 @@ contexts:
   stmt-iso-body:
     - include: iso-gcode
     - include: iso-repeat-count
-    - include: iso-parameter
-    - include: iso-procedures
+    - include: iso-operands
+    - include: iso-commands
     - include: expressions-line
 
   iso-blockno:
@@ -706,7 +722,7 @@ contexts:
                   ) |
                 \s*(?=[-+=\.\d])
               )'
-      scope: support.variable.iso.pos.s840d_gcode
+      scope: support.variable.iso.position.s840d_gcode
       push: iso-value-float
     # parameter adresses ending with letters: F FA S ...
     # F2200.5 | F 2200.5 | F=2200.5 | F = 2200.5 | F.2205 | F .2205
@@ -715,34 +731,37 @@ contexts:
     - match: '(?x)
               [FIJKOS]
               (?:\d+(?=\s*=)|(?=\s*[-+=\.\d]))'
-      scope: support.variable.iso.param.s840d_gcode
+      scope: support.variable.iso.operand.s840d_gcode
       push: iso-value-float
     # M-function:   M2
     # H-function:   H3
     - match: '[MH]\d+'
-      scope: support.function.iso.s840d_gcode
+      scope: support.function.iso.auxiliary.s840d_gcode
       push: iso-value-void2
     # G-function:   G0
     # T-function:   T100
     # D-call:       D1 DL1
     - match: (?:[GT]|DL?)\d+
-      scope: support.function.iso.s840d_gcode
+      scope: support.function.iso.command.s840d_gcode
       push: iso-value-void
     # FUNCTIONS
     # G-function:   G=0
-    # M-function:   M=20
-    # H-function:   H=20
     # T-function:   T=100  T="100"
     # D-function:   D=5 DL=5
-    - match: (?:[GTMH]|DL?)(?=\s*=)
-      scope: support.function.iso.s840d_gcode
+    - match: (?:[GT]|DL?)(?=\s*=)
+      scope: support.function.iso.command.840d_gcode
+      push: iso-value-int
+    # M-function:   M=20
+    # H-function:   H=20
+    - match: '[MH](?=\s*=)'
+      scope: support.function.iso.auxiliary.s840d_gcode
       push: iso-value-int
     # POSITIONS
     # machine axis:   X[0]=20
     # channel axis:   XC[10]=10
     - match: ({{axis}})\s*(\[)
       captures:
-        1: support.variable.iso.pos.s840d_gcode
+        1: support.variable.iso.position.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
     # PARAMETERS
@@ -750,38 +769,46 @@ contexts:
     # spindle speed:  S[1]=20
     - match: ([FIJKOS])\s*(\[)
       captures:
-        1: support.variable.iso.param.s840d_gcode
+        1: support.variable.iso.operand.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
     # FUNCTIONS
     # G-function:   G[0]=20
-    # M-function:   M[10]=10
-    # H-function:   H[10]=10
     # T-function:   T[1]=10     // tool for toolholder 1
     # D-function:   D[1]=10     // active edge of toolholder 1
-    - match: ([GMHTD])\s*(\[)
+    - match: ([GTD])\s*(\[)
       captures:
-        1: support.function.iso.s840d_gcode
+        1: support.function.iso.command.s840d_gcode
+        2: punctuation.section.brackets.begin.s840d_gcode
+      push: array-index-body
+    # M-function:   M[10]=10
+    # H-function:   H[10]=10
+    - match: ([MH])\s*(\[)
+      captures:
+        1: support.function.iso.auxiliary.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
 
-  iso-parameter:
-    # SINUMERIK parameter
+  iso-operands:
+    # SINUMERIK address parameter
+    # can switch on/off internal functions
     #   e.g.: SPOS=10 | SPOS[2]=10
-    - match: (?:A(?:C(?:C|CLIMA)|DI(?:S|SPOS)|LF|NG|[PR]|TOL)|C(?:H[FR]|OARSEA|P(?:BC|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|R|TOL|UTMOD)|DI(?:A(?:CYCOFA|M(?:90A|CHANA|O(?:FA|NA)))|LF|S(?:CL|PR|R)|T[ES])|F(?:[ABPZ]|AD|GREF|INEA|MA|OCO[FN]|R(?:C|CM)|X(?:S|S[TW]))|I(?:P|POENDA|SD)|JERKLI(?:M|MA)|LEAD|M(?:EA(?:[CSW]|SA|WA)|OV)|NUT|O(?:FFN|MA[1-5]|S|S(?:[BDE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:[LOW]|O(?:L(?:F|FA)|S|S[AP])|RIO)|R(?:N(?:D|DM)|P|PL)|S(?:CPARA|[DFRT]|PO(?:S|SA)|RA|T(?:A|AT|OLF))|T(?:CARR|HETA|ILT|U|URN)|VELOLI(?:M|MA))\b
-      scope: support.variable.iso.param.s840d_gcode
-      push: array-index # some parameters are arrays
+    - match: (?:A(?:C(?:C|CLIMA)|TOL)|C(?:OARSEA|P(?:BC|DE[FL]|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|RES|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|TOL|UTMOD)|DIA(?:CYCOFA|M(?:90A|CHA(?:N|NA)|O(?:FA|NA)))|F(?:[AL]|DA|GREF|INEA|MA|O(?:C|CO[FN])|X(?:S|S[TW]))|I(?:P|POENDA)|JERKLI(?:M|MA)|LIMS|M(?:EA(?:C|SA|WA)|OV)|O(?:S|S(?:[BE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:O|O(?:LF|S|S[AP])|RIO)|S(?:C(?:C|PARA)|PO(?:S|SA)|RA|T(?:A|OLF)|VC)|TOF(?:F|FL)|VELOLI(?:M|MA))\b
+      scope: support.variable.iso.address.s840d_gcode
+      push: array-index
+    # SINUMERIK command operands
+    # act as arguments for iso commands
+    #   e.g.: AP=10
+    - match: (?:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|[DFIJKNPRST]|D(?:[0LO]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|EXTCALL|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
+      scope: support.variable.iso.operand.s840d_gcode
+      push: illegal-brackets-pop
 
-  iso-procedures:
-    # SINUMERIK command with ISO style parameters
+  iso-commands:
+    # SINUMERIK command with ISO style operands
     #   e.g.: TRANS X0 Y0.4
-    - match: (?:A(?:CTBLOCNO|MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|XTOCHAN)|B(?:AUTO|LSYNC|NAT|RISK|SPLINE|TAN)|C(?:DO[FN]|F(?:C|I(?:N|NE)|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|R(?:OTS|PL)|SPLINE|UT(?:2(?:D|DF)|3D(?:[CF]|C(?:C|CD)|F[FS])|CONO[FN]))|D(?:EL(?:AYFSTO[FN]|DTG)|I(?:AM(?:90|C(?:HAN|YCOF)|O[FN])|SC)|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|GO(?:N|NSY(?:N|NE))|NAT|TAN)|F(?:CUB|[DL]|DA|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TO(?:C|CO[FN]))|G(?:ORAP|P|WPSO[FN])|I(?:CYCO[FN]|NVC(?:CW|W)|PTR(?:LOCK|UNLOCK))|KON(?:T|T[CT])|L(?:F(?:O[FN]|TXT|WP)|I(?:FTFAST|MS)|ONGHOLE)|M(?:EA(?:FRAME|SURE)|IRROR)|N(?:EWCONF|ORM)|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CDS]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CPST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS|SRANGE)|R(?:ESETON|OTA)|T(?:P|PG0))|QECLRNOF|R(?:DISABLE|EPOS(?:[AHLQ]|QA)|M[BEIN]|O(?:T|TS)|POSHA|TLIO[FN])|S(?:BLO[FN]|C(?:ALE|C)|ETTCOR|LOT[12]|O(?:FT|N|NS)|P(?:ATH|CO[FN]|IF[12]|LINEPATH|[NP]|OF)|T(?:ARTFIFO|OP(?:FIFO|R(?:E|EOF)))|UPA|VC|YNFCT)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OLENV|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|NS))|UPATH|W(?:AL(?:CS(?:[0-9]|10)|IMO[FN])|RTPTR))\b
-      scope: support.function.iso.s840d_gcode
-      push:
-        # some compatibility hacks to avoid invalid illegals
-        - include: function-call-arguments # some commands may be functions
-        - include: array-index # some commands may be parameters
-        - include: scope-end
+    - match: (?:A(?:MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS)|B(?:AUTO|NAT|RISK|SPLINE|TAN)|C(?:DO(?:[FN]|F2)|F(?:C|IN|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|SPLINE|UT(?:2(?:D|D(?:[DF]|FD))|3D(?:[CF]|C(?:[CD]|CD)|F[FS])|CONO[FN]))|D(?:IAM(?:90|CYCOF|O[FN])|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN))|E(?:AUTO|NAT|TAN)|F(?:CUB|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TOCO[FN])|G(?:FRAME(?:10|[0-9])?[0-9]|ORAP)|INVC(?:CW|W)|KON(?:T|T[CT])|LF(?:O[FN]|POS|TXT|WP)|MIRROR|NORM|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CD]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CDST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS)|T(?:P|P(?:G0|WOC)))|R(?:EPOS(?:[AHLQ]|HA|QA)|M(?:[BEIN]|BBL|EBL|IBL|NBL)|O(?:T|TS)|TLIO[FN])|S(?:CALE|O(?:FT|N|NS)|P(?:ATH|IF[12]|OF)|T(?:ARTFIFO|OPFIFO)|UPA)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|O(?:FRAM(?:E|E[XYZ])|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RANS)|UPATH|WAL(?:CS(?:[0-9]|10)|IMO[FN]))\b
+      scope: support.function.iso.command.s840d_gcode
+      push: illegal-brackets-pop
 
   iso-repeat-count:
     - match: P(?=\s*[=\d])
@@ -1264,7 +1291,7 @@ contexts:
 
   nc-function-call:
     # known NC functions
-    - match: (A(?:BS|C|C(?:[NP]|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:C(?:DAT|POSI)|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|O(?:NT(?:DCON|PRON)|RROF|S|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|ROT|SCALE|T(?:A(?:B|B(?:DEL|EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|RANS))|D(?:AC|C|EL(?:DL|ETE|M(?:L(?:OWNER|RES)|T)|OBJ|T|T(?:C|OOLENV))|I(?:C|SABLE)|RIVEA)|E(?:G(?:DE[FL]|OF[CS])|NABLE|X(?:EC(?:STRING|TAB|UTE)|P|TCALL))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN]))|GE(?:OAX|T|T(?:ACT(?:T|TD)|[DT]|DNO|EXET|FREELOC|SELT|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|HOLES[12]|I(?:C|N(?:DEX|IT|T(?:ERSEC|TOAX)|VFRAME)|POBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|L(?:E(?:ADO[FN]|NTOAX)|FPOS|N|OCK)|M(?:A(?:SL(?:DE[FL]|O(?:[FN]|FS))|TCH|XVAL)|IN(?:DEX|VAL)|MC|ODAXVAL|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|PRO(?:T|TDEF)|UMBER)|P(?:[MR]|O(?:CKET[34]|L(?:FM(?:ASK|LIN)|YPATH)|S(?:M|MT)|T)|ROTS|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRNON|U)|R(?:AC|E(?:AD|LEASE|P|SE(?:T|TMON))|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T|T(?:AL|DNO|INT|M|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|P(?:I|RINT)|QRT|T(?:ART|R(?:INGIS|LEN))|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|UNLOCK|W(?:AIT(?:[CEMPS]|MC)|RITE))\b\s*
+    - match: (A(?:BS|C|C(?:[NP]|OS)|DDFRAME|SIN|TAN2|X(?:NAME|STRING|TOSPI))|BOUND|C(?:A(?:C|C[NP]|LC(?:DAT|POSI))|DC|FINE|HKD(?:M|NO)|IC|MIRROR|O(?:LLPAIR|S)|R(?:O(?:T|TS)|PL)|SCALE|T(?:A(?:B|B(?:EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|M(?:EMTYP|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])))|RANS))|D(?:AC|C|EL(?:DL|ML(?:OWNER|RES)|OBJ|TOOLENV)|IC)|EXP|GET(?:ACT(?:T|TD)|DNO|T|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP))|I(?:C|N(?:DEX|TERSEC|VFRAME)|S(?:AXIS|FILE|NUMBER|VAR))|L(?:ENTOAX|N)|M(?:A(?:TCH|XVAL)|EA(?:FRAME|SURE)|IN(?:DEX|VAL)|ODAXVAL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|P(?:[MR]|O(?:SRANGE|T)|ROTD)|QU|R(?:AC|EP|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:T|T(?:DNO|TCOR))|I(?:N|RELAY)|P(?:I|RINT)|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:AN|O(?:LOWER|OL(?:ENV|G(?:NT|T))|UPPER)|RUNC))\b\s*
       captures:
         0: meta.function-call.name.s840d_gcode
         1: support.function.nck.s840d_gcode

@@ -25,7 +25,7 @@ N10 R3 = USR ( $MA_ACT_POS_ABS [ 0 , AX1 ] )
 N10 MSG ( 66003 , "_PAR1" )
 ;   ^^^^ meta.function-call.name - meta.function-call.arguments
 ;       ^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments
-;   ^^^ support.function.nck
+;   ^^^ support.function.nck.procedure
 ;       ^ punctuation.section.arguments.begin
 ;               ^ punctuation.separator.comma
 ;                         ^ punctuation.section.arguments.end
@@ -42,6 +42,6 @@ N10 USR ( 66003 , "_PAR1" )
 ; call of ISO command not part of any meta scope
 N10 TRANS X10
 ;   ^^^^^^^^^ - meta.function-call
-;   ^^^^^ support.function.iso
-;         ^ support.variable.iso.pos
+;   ^^^^^ support.function.iso.command
+;         ^ support.variable.iso.position
 ;          ^^ constant.numeric
