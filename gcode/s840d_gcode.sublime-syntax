@@ -1183,6 +1183,9 @@ contexts:
           scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
+    # data class S828D
+    - match: (?i:DC[IMU])\b
+      scope: meta.definition.access.s840d_gcode storage.modifier.access.s840d_gcode
 
   storage-modifier-init:
     - match: (?i:INI(?:CF|RE|PO)|PRLOC)\b
@@ -1204,7 +1207,7 @@ contexts:
         - include: illegal-pop
 
   storage-modifier-sync:
-    - match: (?i:SYN(?:[RW]|RW))
+    - match: (?i:SYN(?:[RW]|RW))\b
       scope: meta.definition.sync.s840d_gcode storage.modifier.sync.s840d_gcode
 
   storage-modifier-unit:
