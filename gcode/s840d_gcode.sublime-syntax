@@ -52,7 +52,7 @@ variables:
   # labels must start with 2 letters or '_' optinally followed by :alnum:
   label: '[A-Za-z_]{2}\w*\b'
   # cycle names or ISO cylce L0815
-  cycle: ([A-Za-z_]{2}\w*\b|L\d{1,4}\b)\s*(?=$|[;\w\(])
+  cycle: (?:[A-Za-z_]{2}\w*|L\d+)\b
 
 ###############################################################################
 # MAIN CONTEXT
@@ -147,8 +147,7 @@ contexts:
   stmt-extern-name:
     - meta_content_scope: meta.function.name.s840d_gcode
     - match: '{{cycle}}'
-      captures:
-        1: variable.function.cycle.s840d_gcode
+      scope: variable.function.cycle.s840d_gcode
       set:
         - meta_content_scope: meta.function.name.s840d_gcode
         - match: (?=\()
@@ -183,8 +182,7 @@ contexts:
   stmt-proc-name:
     - meta_content_scope: meta.function.name.s840d_gcode
     - match: '{{cycle}}'
-      captures:
-        1: entity.name.function.s840d_gcode
+      scope: entity.name.function.s840d_gcode
       set:
         - meta_content_scope: meta.function.name.s840d_gcode
         - match: (?=\()
@@ -354,8 +352,7 @@ contexts:
           set: stmt-call-block
         # match single ident as function name
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
+          scope: variable.function.cycle.s840d_gcode
           set: stmt-call-block
         # function name is built inplace using normal expressions
         - match: (?=\S)
@@ -409,8 +406,7 @@ contexts:
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
+          scope: variable.function.cycle.s840d_gcode
           set: line-end-or-illegal
         - match: (?=\S)
           set:
@@ -429,12 +425,11 @@ contexts:
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
+          scope: variable.function.cycle.s840d_gcode
           set: cycle-call-arguments
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.s840d_gcode
+            - meta_scope: meta.function-call.name.s840d_gcode
             - include: expressions-line
         - include: line-end
 
@@ -454,8 +449,7 @@ contexts:
             1: string.unquoted.path.s840d_gcode
           set: cycle-call-arguments
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
+          scope: variable.function.cycle.s840d_gcode
           set: cycle-call-arguments
         - match: (?=\S)
           set:
@@ -475,7 +469,7 @@ contexts:
 
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
-    - match: '{{cycle}}'
+    - match: ({{cycle}})\s*(?=$|[;\w\(])
       captures:
         0: meta.function-call.name.s840d_gcode
         1: variable.function.cycle.s840d_gcode
