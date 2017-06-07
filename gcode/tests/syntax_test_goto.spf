@@ -1,0 +1,105 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  GOTO tests
+;  Performance: 0.3ms
+; ==================================================
+
+; keyword only
+GOTO
+; <- meta.control.goto
+; <- keyword.control.goto
+;^^^ meta.control.goto keyword.control.goto
+GOTO ; comment
+; <- meta.control.goto
+; <- keyword.control.goto
+;^^^ meta.control.goto keyword.control.goto
+;    ^ punctuation.definition.comment.begin
+;    ^^^^^^^^^ comment.line
+N10GOTO
+;  ^^^^ meta.control.goto keyword.control.goto
+N10GOTO ; comment
+;  ^^^^ meta.control.goto keyword.control.goto
+;       ^ punctuation.definition.comment.begin
+;       ^^^^^^^^^ comment.line
+N10 GOTO
+;   ^^^^ meta.control.goto keyword.control.goto
+N10 GOTO ; comment
+;   ^^^^ meta.control.goto keyword.control.goto
+;        ^ punctuation.definition.comment.begin
+;        ^^^^^^^^^ comment.line
+; goto label
+N10 GOTO LBL1
+;   ^^^^^^^^^ meta.control.goto
+;   ^^^^ keyword.control.goto
+;        ^^^^ entity.name.tag.goto-label
+N10 GOTO LBL1 ; comment
+;   ^^^^^^^^^ meta.control.goto
+;   ^^^^ keyword.control.goto
+;        ^^^^ entity.name.tag.goto-label
+;             ^ punctuation.definition.comment.begin
+;             ^^^^^^^^^ comment.line
+N10 GOTO LBL1 IF cond GOTO LBL2
+;   ^^^^^^^^^ meta.control.goto - meta.control.if
+;             ^^^^^^^^ meta.control.if - meta.control.goto
+;                     ^^^^^^^^^ meta.control.goto - meta.control.if
+;   ^^^^ keyword.control.goto
+;        ^^^^ entity.name.tag.goto-label
+;             ^^ keyword.control.if
+;                ^^^^ variable.other
+;                     ^^^^ keyword.control.goto
+; goto label
+N10 GOTO N20
+;   ^^^^^^^^ meta.control.goto
+;   ^^^^ keyword.control.goto
+;        ^^^ entity.name.tag.goto-block
+N10 GOTO N20 ; comment
+;   ^^^^^^^^ meta.control.goto
+;   ^^^^ keyword.control.goto
+;        ^^^ entity.name.tag.goto-block
+;            ^ punctuation.definition.comment.begin
+;            ^^^^^^^^^ comment.line
+; assembled goto label
+N10 GOTO "LBL"<<IDX
+;   ^^^^^^^^^^^^^^^ meta.control.goto
+;   ^^^^ keyword.control.goto
+;        ^^^^^ string.quoted.double
+;             ^^ keyword.operator.assignment
+;               ^^^ variable.other
+N10 GOTO "LBL"<<IDX ; comment
+;   ^^^^^^^^^^^^^^^ meta.control.goto
+;   ^^^^ keyword.control.goto
+;        ^^^^^ string.quoted.double
+;             ^^ keyword.operator.assignment
+;               ^^^ variable.other
+;                   ^ punctuation.definition.comment.begin
+;                   ^^^^^^^^^ comment.line
+N10 GOTO("LBL"<<IDX) ; comment
+;   ^^^^^^^^^^^^^^^^ meta.control.goto
+;       ^^^^^^^^^^^^  meta.group
+;   ^^^^ keyword.control.goto
+;       ^ punctuation.section.group.begin
+;        ^^^^^ string.quoted.double
+;             ^^ keyword.operator.assignment
+;               ^^^ variable.other
+;                  ^ punctuation.section.group.end
+;                    ^ punctuation.definition.comment.begin
+;                    ^^^^^^^^^ comment.line
+N10 GOTO "LBL"<<IDX IF cond GOTO LBL2 ; comment
+;   ^^^^^^^^^^^^^^^ meta.control.goto - meta.control.if
+;                   ^^^^^^^^ meta.control.if - meta.control.goto
+;                           ^^^^^^^^^ meta.control.goto - meta.control.if
+;   ^^^^ keyword.control.goto
+;        ^^^^^ string.quoted.double
+;             ^^ keyword.operator.assignment
+;               ^^^ variable.other
+;                   ^^ keyword.control.if
+;                      ^^^^ variable.other
+;                           ^^^^ keyword.control.goto
+;                                ^^^^ entity.name.tag.goto-label
+;                                     ^ punctuation.definition.comment.begin
+;                                     ^^^^^^^^^ comment.line
+
+
+
+

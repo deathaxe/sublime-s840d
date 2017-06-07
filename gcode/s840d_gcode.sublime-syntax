@@ -94,10 +94,7 @@ contexts:
     - include: comment-line
 
   assert-line-end:
-    - match: $
-      pop: true
-    - include: comment-line
-    # - include: line-end
+    - include: line-end
     # mark rest of the line as illegal beginning with the first
     # none whitespace letter
     - match: \S.*?(?=[ \t]*;)
@@ -658,24 +655,37 @@ contexts:
   stmt-gotos:
     - match: (?i:GOTOS)\b
       scope: keyword.control.gotos.s840d_gcode
-      set: assert-line-end
+      set:
+        - meta_scope: meta.control.goto.s840d_gcode
+        - include: assert-line-end
 
   stmt-goto:
     - match: (?i:GOTO[FBC]?)\b
       scope: keyword.control.goto.s840d_gcode
-      push: stmt-goto-target
+      set: stmt-goto-target
 
   stmt-goto-target:
     - meta_scope: meta.control.goto.s840d_gcode
-    - match: '{{label}}'
+    - match: '{{label}}(?=[ \t]*(?i:[;\n]|IF\b))'
       scope: entity.name.tag.goto-label.s840d_gcode
-      pop: true
-    - match: '[Nn]\d+\b'
+      set: stmt-goto-end
+    - match: '[Nn]\d+\b(?=[ \t]*(?i:[;\n]|IF\b))'
       scope: entity.name.tag.goto-block.s840d_gcode
-      pop: true
+      set: stmt-goto-end
     - match: (?=\S)
-      set: expressions-line
-    - include: line-end-or-illegal
+      set: stmt-goto-target-expression
+    - include: line-end
+
+  stmt-goto-target-expression:
+    - meta_content_scope: meta.control.goto.s840d_gcode
+    - include: stmt-goto-end
+    - include: expressions
+    - include: illegal
+
+  stmt-goto-end:
+    - include: line-end
+    - match: (?=(?i:\bIF\b))
+      set: stmt-if
 
 ###############################################################################
 # IF ... ELSE ... ENDIF
@@ -685,13 +695,12 @@ contexts:
   stmt-if:
     - match: (?i:IF)\b
       scope: keyword.control.if.s840d_gcode
-      push: # push required for multible if ... goto statements
+      set:
         - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
         - match: \n|(?=;)
           set: stmt-if-body
-        - match: (?i:GOTO[FBC]?)\b
-          scope: keyword.control.goto.s840d_gcode
-          set: stmt-goto-target
+        - match: (?=(?i:GOTO[FB]?\b))
+          set: stmt-goto
         - include: expressions
         - include: illegal
 
