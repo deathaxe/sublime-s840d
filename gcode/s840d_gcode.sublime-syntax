@@ -230,15 +230,30 @@ contexts:
         - meta_scope: meta.definition.macro.s840d_gcode
         - match: '{{macro}}'
           scope: entity.name.macro.s840d_gcode
-          set:
-            - meta_content_scope: meta.definition.macro.s840d_gcode
-            - match: (?i:AS)\b
-              scope: keyword.control.as.s840d_gcode
-              set:
-                - meta_content_scope: meta.definition.macro.action.s840d_gcode
-                - include: stmt-iso-body
-            - include: line-end-or-illegal
+          set: stmt-define-as
+        - match: (?=\S)
+          set: stmt-define-as
         - include: line-end-or-illegal
+
+  stmt-define-as:
+    - meta_content_scope: meta.definition.macro.s840d_gcode
+    - match: (?i:AS)\b
+      scope: keyword.control.as.s840d_gcode
+      set: stmt-define-action
+    - include: line-end-or-illegal
+
+  stmt-define-action:
+    - meta_content_scope: meta.definition.macro.action.s840d_gcode
+    - match: \n
+      scope: meta.definition.macro.action.s840d_gcode
+      pop: true
+    # make sure all statements are scoped with meta.definition.macro.action
+    - match: (?=\S)
+      push: statements
+      with_prototype:
+        # make sure to pop off before line end from all statements
+        - match: $
+          pop: true
 
 ###############################################################################
 # VARIABLE DEFINITION
