@@ -331,7 +331,7 @@ N10 AX1[1]=10 ; comment
 ;          ^^ constant.numeric
 N10 AX1[ 10 ] = 10 ; comment
 ;   ^^^ support.variable.iso.position
-;      ^^^^^ invalid.illegal.array
+;      ^^^^^^ invalid.illegal.array
 ;             ^ keyword.operator.assignment
 ;               ^^ constant.numeric
 N10 AX[1]=10 AX[2]=10 ; comment
@@ -364,3 +364,23 @@ N10 PO[THT] = 10
 ;         ^ punctuation.section.brackets.end
 
 N10 FP=2
+;   ^^ support.variable.iso.operand
+;     ^ keyword.operator.assignment
+;      ^ constant.numeric
+
+; compact ISO block without whitespace
+N10G0G54X-10Y.20Z30.4EX-4B0T100S400.0M3H12
+; ^ comment.blockno
+;  ^^^^^ support.function.iso.command
+;       ^ support.variable.iso.position
+;        ^^^ constant.numeric
+;           ^ support.variable.iso.position
+;            ^^^ constant.numeric
+;               ^ support.variable.iso.position
+;                ^^^^^^^^ constant.numeric
+;                        ^ support.variable.iso.position
+;                         ^ constant.numeric
+;                          ^^^^ support.function.iso.command
+;                              ^ support.variable.iso.operand
+;                               ^^^^^ constant.numeric
+;                                    ^^^^^ support.function.iso.auxiliary

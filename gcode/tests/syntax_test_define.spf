@@ -65,6 +65,7 @@ N10 DEFINE name AS MSG("HELLO") ; comment
 ;          ^^^^ entity.name.macro
 ;               ^^ keyword.control.as
 ;                  ^^^ support.function.nck.procedure
+;                               ^ comment.line
 N10 DEFINE name AS WHILE TRUE ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^ meta.definition.macro.action
@@ -72,3 +73,21 @@ N10 DEFINE name AS WHILE TRUE ; comment
 ;          ^^^^ entity.name.macro
 ;               ^^ keyword.control.as
 ;                  ^^^^^ keyword.control.while
+;                             ^ comment.line
+N10 DEFINE 1inv AS _1v ; comment
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                 ^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ invalid.illegal
+;               ^^ keyword.control.as
+;                  ^^^ invalid.illegal
+;                      ^ comment.line
+N10 DEFINE name invalid AS 1av ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                         ^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^^^^^^ invalid.illegal
+;                       ^^ keyword.control.as
+;                          ^^^ invalid.illegal
+;                              ^ comment.line
