@@ -10,6 +10,7 @@ class S840dMinifyCommand(base.TextCommand):
     Remove all comments and block numbers as well as all unrequired
     whitespaces to make the code as small as possible.
     """
+
     def run(self, edit):
         """API entry point to run 's840d_minify' command.
 

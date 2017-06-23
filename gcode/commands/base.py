@@ -18,6 +18,7 @@ class TextCommand(sublime_plugin.TextCommand):
     Basically it is used to show the commands in the command pallet
     only, if an s840d file is open.
     """
+
     def is_visible(self):
         """API method to decide when to show the command.
 
@@ -30,7 +31,8 @@ class TextCommand(sublime_plugin.TextCommand):
         """Backup cursor and viewport position.
 
         Returns:
-            Tuble:  Current cursor row, viewport position.
+            tuple: (row, vp_y)
+                Current cursor row, viewport position.
         """
         _, vp_y = self.view.viewport_position()
         row, _ = self.view.rowcol(self.view.sel()[0].begin())

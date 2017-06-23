@@ -13,6 +13,7 @@ class S840dBeautifyCommand(base.TextCommand):
     The basic intend of this function is to make standard cycles CYCLExxx
     readable again as they are released without comments and indention.
     """
+
     REGEX_LABEL = re.compile(r'^(\w+:)')
     REGEX_BLOCK_BEGIN = re.compile(
         r'(?i)^(?:IF|FOR|LOOP|REPEAT(?:\s*(?:;|$))|WHILE)\b')

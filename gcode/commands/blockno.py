@@ -10,6 +10,7 @@ class S840dRenumberCommand(base.TextCommand):
     After editing the numbers may be mixed up. This command helps to
     update the block numbers.
     """
+
     def run(self, edit, start=None, increment=None):
         """Load settings and add or update block numbers of selected regions.
 
