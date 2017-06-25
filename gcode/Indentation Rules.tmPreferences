@@ -9,9 +9,9 @@
 	<key>settings</key>
 	<dict>
 		<key>decreaseIndentPattern</key>
-		<string><![CDATA[^\s*\b(?i:END(?:IF|FOR|LOOP|WHILE)|UNTIL|ELSE)\b]]></string>
+		<string><![CDATA[^\s*\b(?i:END(?:IF|FOR|LOOP|WHILE)|UNTIL|ELSE|CTABEND)\b]]></string>
 		<key>increaseIndentPattern</key>
-		<string><![CDATA[^\s*\b(?i:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT(?:\s*(?:;|$))|WHILE|ELSE)\b]]></string>
+		<string><![CDATA[^\s*\b(?i:IF(?!\b.*GOTO[FB]?\b)|FOR|LOOP|REPEAT(?:\s*(?:;|$))|WHILE|ELSE|CTABDEF)\b]]></string>
 		<key>unIndentedLinePattern</key>
 		<string><![CDATA[^\s*(\w+:.*)?$]]></string>
 	</dict>

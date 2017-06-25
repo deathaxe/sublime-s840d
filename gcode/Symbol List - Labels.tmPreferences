@@ -5,11 +5,13 @@
 	<key>name</key>
 	<string>Symbol List - S840D G-Code Labels</string>
 	<key>scope</key>
-	<string>source.s840d_gcode &amp; entity.name.tag.label</string>
+	<string>source.s840d_gcode entity.name.tag.label</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>
 		<integer>1</integer>
+		<key>symbolTransformation</key>
+		<string>s//↩ /</string>
 		<key>showInIndexedSymbolList</key>
 		<integer>0</integer>
 	</dict>

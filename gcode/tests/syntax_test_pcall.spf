@@ -2,7 +2,7 @@
 
 ; ==================================================
 ;  PCALL tests
-;  Performance: 0.2ms
+;  Performance: 0.1ms
 ; ==================================================
 
 N100 PCALL
@@ -10,9 +10,9 @@ N100 PCALL
 
 ; path call with unquoted string as path identifier
 N100 PCALL /_N_MPF_DIR/WELLE(ARG1,20,TRUE) illegal ; comment
-;    ^^^^^ meta.function-call
-;         ^^^^^^^^^^^^^^^^^^ meta.function-call.name
-;                           ^^^^^^^^^^^^^^ meta.function-call.arguments
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^^^^^^^^^^^^^^ meta.function-call.name - meta.function-call.arguments
+;                           ^^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
 ;    ^^^^^ keyword.control.pcall
 ;          ^^^^^^^^^^^^^^^^^ string.unquoted.path
 ;                           ^ punctuation.section.arguments.begin
@@ -27,9 +27,9 @@ N100 PCALL /_N_MPF_DIR/WELLE(ARG1,20,TRUE) illegal ; comment
 
 ; path call with variable as path identifier
 N100 PCALL PATHTOPROG(ARG1,20,TRUE) illegal ; comment
-;    ^^^^^ meta.function-call
-;         ^^^^^^^^^^^ meta.function-call.name
-;                    ^^^^^^^^^^^^^^ meta.function-call.arguments
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^^^^^^^ meta.function-call.name - meta.function-call.arguments
+;                    ^^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
 ;    ^^^^^ keyword.control.pcall
 ;          ^^^^^^^^^^ variable.function.cycle
 ;                    ^ punctuation.section.arguments.begin

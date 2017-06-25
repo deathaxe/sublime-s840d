@@ -4,9 +4,9 @@
 
 import sublime
 
-from .gcode.beautify import S840dBeautifyCommand
-from .gcode.minify import S840dMinifyCommand
-from .gcode.blockno import S840dRenumberCommand
+from .gcode.commands.beautify import S840dBeautifyCommand
+from .gcode.commands.minify import S840dMinifyCommand
+from .gcode.commands.blockno import S840dRenumberCommand
 
 
 def plugin_loaded():

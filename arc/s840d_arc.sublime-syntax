@@ -29,28 +29,70 @@ first_line_match: (?i:%_N_[\w_]+)\b
 scope: source.s840d_arc
 contexts:
   main:
+    - include: s840d_gcode.sublime-syntax#comment-line
+    - match: '%'
+      scope: punctuation.definition.tag.s840d_arc
+      push: header-file
+
+  header-file:
+    - meta_scope: annotation.archive.s840d_arc
+    - meta_content_scope: entity.name.tag.dest-file.s840d_arc
     # RunMyScreens / EasyScreen
-    - match: (?i:%_N_[\w_]+_COM)\b
-      scope: constant.language.filename.s840d_arc
-      push:
-        - meta_scope: source.s840d_hmi
-        - match: (?=%)
-          pop: true
-        - include: header_path
-        - include: scope:source.s840d_hmi
+    - match: COM\b
+      set:
+        - include: header-path
+        - match: (?=\S)
+          set:
+            - meta_scope: source.s840d_hmi
+            - match: (?=%)
+              pop: true
+            - include: scope:source.s840d_hmi
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
-    - match: (?i:%_N_[\w_]+_(?:[MS]PF|INI|DEF|TEA))\b
-      scope: constant.language.filename.s840d_arc
-      push:
-        - meta_scope: source.s840d_gcode
-        - match: (?=%)
-          pop: true
-        - include: header_path
-        - include: scope:source.s840d_gcode
+    - match: (?:[MS]PF|INI|DEF|TEA)\b
+      set:
+        - include: header-path
+        - match: (?=\S)
+          set:
+            - meta_scope: source.s840d_gcode
+            - match: (?=%)
+              pop: true
+            - include: scope:source.s840d_gcode
+    - include: line-end
+    - match: \W+
+      scope: invalid.illegal
 
-  header_path:
-    - match: ^\s*(;\$PATH=)(/_N_[\w_/]+)\b
-      captures:
-        1: constant.language.filename.s840d_arc
-        2: constant.language.pathname.s840d_arc
+  header-path:
+    - match: ^;\$
+      scope: punctuation.definition.tag.s840d_arc
+      push:
+        - meta_scope: annotation.archive.s840d_arc meta.mapping.key.s840d_arc
+        - match: PATH
+          scope: entity.other.attribute-name.s840d_arc
+          set: header-path-assign
+        - include: header-path-end
+
+  header-path-assign:
+    - meta_content_scope: annotation.archive.s840d_arc meta.mapping.s840d_arc
+    - match: '='
+      scope: punctuation.separator.mapping.key-value.s840d_arc
+      set: header-path-value
+    - include: header-path-end
+
+  header-path-value:
+    - meta_content_scope: annotation.archive.s840d_arc meta.mapping.value.s840d_arc
+    - match: /_N_[A-Z_][A-Z_][0-9A-Z_/]+\b
+      scope: entity.name.tag.dest-path.s840d_arc
+      set: header-path-end
+    - include: header-path-end
+
+  header-path-end:
+    - include: line-end
+    - match: (?=%)
+      pop: true
+    - match: .*
+      scope: invalid.illegal.dest-path.s840d_arc
+
+  line-end:
+    - match: $
+      pop: true

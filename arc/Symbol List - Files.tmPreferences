@@ -3,15 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Symbol List - S840D G-Code Proc</string>
+	<string>Symbol List - S840D Archive - Files</string>
 	<key>scope</key>
-	<string>source.s840d_gcode entity.name.function</string>
+	<string>entity.name.tag.dest-file.s840d_arc</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>
-		<integer>0</integer>
-		<key>showInIndexedSymbolList</key>
 		<integer>1</integer>
+		<key>symbolTransformation</key>
+		<string><![CDATA[s/_N_(\w+)_(\w+)/📰 $1.$2/]]></string>
+		<key>showInIndexedSymbolList</key>
+		<integer>0</integer>
 	</dict>
 </dict>
 </plist>

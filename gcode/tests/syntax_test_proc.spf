@@ -2,7 +2,7 @@
 
 ; ==================================================
 ;  PROC header tests
-;  Performance: 0.3ms
+;  Performance: 0.4ms
 ; ==================================================
 
 ; incomplete procedure definition
@@ -38,7 +38,7 @@ N30 PROC name(VAR BOOL DATA) ; comment
 ;            ^ punctuation.section.parameters.begin
 ;             ^ storage.modifier
 ;                 ^ storage.type
-;                      ^ variable.parameter
+;                      ^ variable.parameter.procedure
 ;                          ^ punctuation.section.parameters.end
 ;                            ^ comment.line
 
@@ -55,7 +55,7 @@ N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 ;             ^ punctuation.section.parameters.begin
 ;              ^^^ storage.modifier
 ;                  ^^^^ storage.type
-;                       ^^^^ variable.parameter
+;                       ^^^^ variable.parameter.procedure
 ;                           ^ punctuation.section.brackets.begin
 ;                              ^ punctuation.section.brackets.end
 ;                               ^ punctuation.section.parameters.end
@@ -75,7 +75,7 @@ N40 PROC name (VAR REAL DATA = -1.0) SBLOF DISPLOF ; comment
 ;             ^ punctuation.section.parameters.begin
 ;              ^^^ storage.modifier
 ;                  ^^^^ storage.type
-;                       ^^^^ variable.parameter
+;                       ^^^^ variable.parameter.procedure
 ;                            ^ keyword.operator.assignment
 ;                              ^^^^ constant.numeric
 ;                                  ^ punctuation.section.parameters.end
@@ -142,7 +142,7 @@ N90 PROC name invalid (VAR BOOL - DATA) ; comment
 ;                      ^ storage.modifier
 ;                          ^ storage.type
 ;                               ^ invalid.illegal
-;                                 ^ variable.parameter
+;                                 ^ variable.parameter.procedure
 ;                                     ^ punctuation.section.parameters.end
 
 N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
@@ -158,6 +158,6 @@ N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;                      ^ storage.modifier
 ;                          ^ storage.type
 ;                               ^ invalid.illegal
-;                                 ^ variable.parameter
+;                                 ^ variable.parameter.procedure
 ;                                     ^ punctuation.section.parameters.end
 ;                                             ^^^^^^ invalid.illegal

@@ -46,13 +46,13 @@ variables:
   # loating point values
   float: (?:\d+\.?\d*|\.\d+)(EX[-+]?\d{1,2})?
   # normal identifiers start with 2 letters or '_' optinally followed by :alnum:
-  ident: '[A-Za-z_]{2}\w*\b'
+  ident: '\b[A-Za-z_]{2}\w*\b'
   # macro names start with letter or '_' optinally followed by :alnum:
-  macro: '[A-Za-z_]\w+\b'
+  macro: '\b[A-Za-z_]\w+\b'
   # labels must start with 2 letters or '_' optinally followed by :alnum:
   label: '[A-Za-z_]{2}\w*\b'
   # cycle names or ISO cylce L0815
-  cycle: ([A-Za-z_]{2}\w*\b|L\d{1,4}\b)\s*(?=$|[;\w\(])
+  cycle: (?:[A-Za-z][A-Za-z_]\w*|L\d+)\b
 
 ###############################################################################
 # MAIN CONTEXT
@@ -68,9 +68,9 @@ contexts:
         1: entity.name.tag.label.s840d_gcode
         2: punctuation.terminator.tag.label.s840d_gcode
       push:
+        - include: line-end
         - include: definitions
         - include: statements
-        - include: line-end
 
   main-sublevel:
     - include: iso-blockno
@@ -80,22 +80,24 @@ contexts:
         1: entity.name.tag.label.s840d_gcode
         2: punctuation.terminator.tag.label.s840d_gcode
       push:
-        - include: statements
         - include: line-end
+        - include: statements
 
 ###############################################################################
 # COMMON PROTOTYPES
 ###############################################################################
 
   line-end:
-    - match: (?=;)|$
+    - match: \n
+      scope: meta.eol.s840d_gcode
       pop: true
+    - include: comment-line
 
   assert-line-end:
     - include: line-end
     # mark rest of the line as illegal beginning with the first
     # none whitespace letter
-    - match: \S.*?(?=\s*;)
+    - match: \S.*?(?=[ \t]*;)
       scope: invalid.illegal.s840d_gcode
       pop: true
 
@@ -147,8 +149,7 @@ contexts:
   stmt-extern-name:
     - meta_content_scope: meta.function.name.s840d_gcode
     - match: '{{cycle}}'
-      captures:
-        1: variable.function.cycle.s840d_gcode
+      scope: variable.function.cycle.s840d_gcode
       set:
         - meta_content_scope: meta.function.name.s840d_gcode
         - match: (?=\()
@@ -183,8 +184,7 @@ contexts:
   stmt-proc-name:
     - meta_content_scope: meta.function.name.s840d_gcode
     - match: '{{cycle}}'
-      captures:
-        1: entity.name.function.s840d_gcode
+      scope: entity.name.function.s840d_gcode
       set:
         - meta_content_scope: meta.function.name.s840d_gcode
         - match: (?=\()
@@ -209,7 +209,7 @@ contexts:
         - include: operators-assignment
         - include: illegal-operators
         - match: '{{ident}}'
-          scope: variable.parameter.s840d_gcode
+          scope: variable.parameter.procedure.s840d_gcode
           push: array-dimension
         - include: line-end-or-illegal
     - include: line-end-or-illegal
@@ -232,15 +232,30 @@ contexts:
         - meta_scope: meta.definition.macro.s840d_gcode
         - match: '{{macro}}'
           scope: entity.name.macro.s840d_gcode
-          set:
-            - meta_content_scope: meta.definition.macro.s840d_gcode
-            - match: (?i:AS)\b
-              scope: keyword.control.as.s840d_gcode
-              set:
-                - meta_content_scope: meta.definition.macro.action.s840d_gcode
-                - include: stmt-iso-body
-            - include: line-end-or-illegal
+          set: stmt-define-as
+        - match: (?=\S)
+          set: stmt-define-as
         - include: line-end-or-illegal
+
+  stmt-define-as:
+    - meta_content_scope: meta.definition.macro.s840d_gcode
+    - match: (?i:AS)\b
+      scope: keyword.control.as.s840d_gcode
+      set: stmt-define-action
+    - include: line-end-or-illegal
+
+  stmt-define-action:
+    - meta_content_scope: meta.definition.macro.action.s840d_gcode
+    - match: \n
+      scope: meta.definition.macro.action.s840d_gcode meta.eol.s840d_gcode
+      pop: true
+    # make sure all statements are scoped with meta.definition.macro.action
+    - match: (?=\S)
+      push: statements
+      with_prototype:
+        # make sure to pop off before line end from all statements
+        - match: $
+          pop: true
 
 ###############################################################################
 # VARIABLE DEFINITION
@@ -336,6 +351,7 @@ contexts:
     - include: stmt-synact
     - include: stmt-ret
     - include: stmt-ctab
+    - include: stmt-procedure-call
     - include: stmt-cycle-call
     - include: stmt-iso
 
@@ -354,17 +370,21 @@ contexts:
           set: stmt-call-block
         # match single ident as function name
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
-          set: stmt-call-block
+          scope: variable.function.cycle.s840d_gcode
+          set:
+            - meta_content_scope: meta.function-call.name.s840d_gcode
+            - match: (?=(?i:BLOCK)\b)
+              set: stmt-call-block
+            - include: stmt-call-end
         # function name is built inplace using normal expressions
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.name.s840d_gcode
+            - meta_content_scope: meta.function-call.name.s840d_gcode
             - match: (?=(?i:BLOCK)\b)
               set: stmt-call-block
             - include: expressions
             - include: stmt-call-end
+        - include: line-end
 
   stmt-call-block:
     - match: (?i:BLOCK)\b
@@ -373,7 +393,7 @@ contexts:
         - meta_scope: meta.function-call.block.begin.s840d_gcode
         - match: (?=(?i:TO)\b)
           set: stmt-call-to
-        - match: ([Nn]\d+)\b\s*
+        - match: ([Nn]\d+)\b[ \t]*
           captures:
             1: variable.language.blockno.s840d_gcode
           set: stmt-call-to
@@ -409,12 +429,11 @@ contexts:
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
+          scope: variable.function.cycle.s840d_gcode
           set: line-end-or-illegal
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.s840d_gcode
+            - meta_scope: meta.function-call.name.s840d_gcode
             - include: expressions-line
         - include: line-end
 
@@ -428,13 +447,14 @@ contexts:
       scope: meta.function-call.s840d_gcode keyword.control.mcall.s840d_gcode
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
-        - match: '{{cycle}}'
+        - match: '({{cycle}})([^\(;]*)'
           captures:
             1: variable.function.cycle.s840d_gcode
+            2: invalid.illegal.cycle-expected.s840d_gcode
           set: cycle-call-arguments
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.s840d_gcode
+            - meta_scope: meta.function-call.name.s840d_gcode
             - include: expressions-line
         - include: line-end
 
@@ -449,19 +469,32 @@ contexts:
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
         # absolute path to cycle
-        - match: (/[/\w]+)\s*(?=(?:[;\w\(]|$))
+        - match: (/[/\w]+)[ \t]*(?=[;\w\(\n])
           captures:
             1: string.unquoted.path.s840d_gcode
           set: cycle-call-arguments
         - match: '{{cycle}}'
-          captures:
-            1: variable.function.cycle.s840d_gcode
+          scope: variable.function.cycle.s840d_gcode
           set: cycle-call-arguments
         - match: (?=\S)
           set:
-            - meta_scope: meta.function-call.s840d_gcode
+            - meta_scope: meta.function-call.name.s840d_gcode
             - include: expressions-line
         - include: line-end
+
+###############################################################################
+# PROCEDURE CALL
+# TESTS:
+###############################################################################
+
+  stmt-procedure-call:
+    # SINUMERIK procedures
+    # need to stand alone in a line
+    - match: (A(?:DISPOSA|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:LLPATH|NCEL)|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|RIVEA|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:CLOSE|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOOF|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|R(?:ITE|TPR)))\b[ \t]*
+      captures:
+        0: meta.function-call.name.s840d_gcode
+        1: support.function.nck.procedure.s840d_gcode
+      set: cycle-call-arguments
 
 ###############################################################################
 # DIRECT CYCLE CALL
@@ -469,13 +502,18 @@ contexts:
 ###############################################################################
 
   stmt-cycle-call:
-    - include: iso-parameter
-    - include: iso-procedures
+    # Match known ISO/NCK functions
+    - include: iso-operands
+    - include: iso-commands
     - include: nc-function-call
-
+    - include: operators-arithmetic # don't match as cycle
+    - include: operators-logical    # don't match as cycle
+    - include: booleans             # don't match as cycle
+    - include: axis-constants       # don't match as cycle
+    - include: illegal-keywords     # don't match as cycle
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
-    - match: '{{cycle}}'
+    - match: ({{cycle}})[ \t]*(?=[;\w\(\n])
       captures:
         0: meta.function-call.name.s840d_gcode
         1: variable.function.cycle.s840d_gcode
@@ -503,36 +541,61 @@ contexts:
   stmt-case:
     - match: (?i:CASE)\b
       scope: meta.control.case.s840d_gcode keyword.control.case.s840d_gcode
-      set:
-        - meta_content_scope: meta.control.case.operand.s840d_gcode
-        - match: (?i:OF)\b
-          scope: keyword.control.of.s840d_gcode
-          set: [stmt-case-condition, after-operator]
-        - include: expressions-line
+      set: stmt-case-operand
+
+  stmt-case-operand:
+    - meta_content_scope: meta.control.case.operand.s840d_gcode
+    - match: (?=(?i:\bOF\b))
+      set: stmt-case-of
+    - include: expressions-line
+
+  stmt-case-of:
+    - meta_content_scope: meta.control.case.s840d_gcode
+    - match: ((?i:\bOF\b))[ \t]*
+      captures:
+        1: keyword.control.of.s840d_gcode
+      set: [stmt-case-condition, after-operator]
 
   stmt-case-condition:
     - meta_content_scope: meta.control.case.condition.s840d_gcode
+    - include: line-end
     - include: stmt-case-default
-    - match: '({{ident}})?\s*(?=(?i:GOTO))'
-      captures:
-        1: entity.name.macro.s840d_gcode
-      set: stmt-case-goto
     - include: numbers
-    - include: line-end-or-illegal
-
-  stmt-case-goto:
-    - meta_scope: meta.control.case.goto.s840d_gcode
-    - include: stmt-goto
-    - match: $|(?=\S)
-      set: [stmt-case-condition, after-operator]
+    - match: '(\b{{macro}})?[ \t]*(?=(?i:\bGOTO[BF]?\b))'
+      captures:
+        1: variable.other.s840d_gcode
+      set: stmt-case-goto
+    - match: \S+
+      scope: invalid.illegal.goto-expected.s840d_gcode
 
   stmt-case-default:
-    - match: (?i:DEFAULT)\b
-      scope: keyword.control.default.s840d_gcode
+    - match: ((?i:\bDEFAULT\b))[ \t]*
+      captures:
+        1: keyword.control.default.s840d_gcode
       set:
         - meta_content_scope: meta.control.case.goto.s840d_gcode
-        - include: stmt-goto
+        - include: stmt-case-goto
         - include: assert-line-end
+
+  stmt-case-goto:
+    - meta_content_scope: meta.control.case.goto.s840d_gcode
+    - match: (?i:\bGOTO[FB]?\b)
+      scope: keyword.control.goto.s840d_gcode
+      push: stmt-case-goto-target
+    - match: (?=\S)|$
+      set: [stmt-case-condition, after-operator]
+
+  stmt-case-goto-target:
+    - include: line-end
+    - match: '{{label}}'
+      scope: entity.name.tag.goto-label.s840d_gcode
+      pop: true
+    - match: '[Nn]\d+\b'
+      scope: entity.name.tag.goto-block.s840d_gcode
+      pop: true
+    - match: \S+
+      scope: invalid.illegal.label-expected.s840d_gcode
+      pop: true
 
 ###############################################################################
 # CURVE TABLES
@@ -540,21 +603,25 @@ contexts:
 ###############################################################################
 
   stmt-ctab:
-    - match: (?i:CTABDEF)\b
-      scope: keyword.control.ctab.s840d_gcode
-      push:
+    - match: (?i)(CTABDEF)\b[ \t]*
+      captures:
+        0: meta.function-call.s840d_gcode
+        1: keyword.control.ctabdef.s840d_gcode
+      set:
         - meta_scope: meta.section.ctab.s840d_gcode
-        - include: stmt-ctab-body
-        - include: function-call-arguments
-        - include: scope-end
+        - match: \n|(?=;)
+          set: stmt-ctab-body
+        - match: (?=\()
+          push:
+            - include: function-call-arguments
+            - include: scope-end
 
   stmt-ctab-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.ctab.s840d_gcode
-        - match: (?i:CTABEND)\b
-          set: assert-line-end
-        - include: main-sublevel
+    - meta_content_scope: meta.section.ctab.s840d_gcode
+    - match: (?i:CTABEND)\b
+      scope: keyword.control.ctabend.s840d_gcode
+      set: assert-line-end
+    - include: main-sublevel
 
 ###############################################################################
 # FOR .. TO ... ENDFOR
@@ -566,20 +633,19 @@ contexts:
       scope: keyword.control.for.s840d_gcode
       set:
         - meta_scope: meta.section.for.s840d_gcode meta.control.for.s840d_gcode
-        - include: stmt-for-body
+        - match: \n|(?=;)
+          set: stmt-for-body
         - match: (?i:TO)\b
           scope: keyword.control.to.s840d_gcode
         - include: expressions
         - include: illegal
 
   stmt-for-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.for.s840d_gcode
-        - match: (?i:ENDFOR)\b
-          scope: keyword.control.endfor.s840d_gcode
-          set: assert-line-end    # leave for-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.for.s840d_gcode
+    - match: (?i:ENDFOR)\b
+      scope: keyword.control.endfor.s840d_gcode
+      set: assert-line-end    # leave for-body
+    - include: main-sublevel
 
 ###############################################################################
 # GOTO
@@ -589,23 +655,37 @@ contexts:
   stmt-gotos:
     - match: (?i:GOTOS)\b
       scope: keyword.control.gotos.s840d_gcode
-      set: assert-line-end
+      set:
+        - meta_scope: meta.control.goto.s840d_gcode
+        - include: assert-line-end
 
   stmt-goto:
     - match: (?i:GOTO[FBC]?)\b
       scope: keyword.control.goto.s840d_gcode
-      push: stmt-goto-target
+      set: stmt-goto-target
 
   stmt-goto-target:
     - meta_scope: meta.control.goto.s840d_gcode
-    - match: '{{label}}'
+    - match: '{{label}}(?=[ \t]*(?i:[;\n]|IF\b))'
       scope: entity.name.tag.goto-label.s840d_gcode
-      pop: true
-    - match: '[Nn]?\d+\b'
+      set: stmt-goto-end
+    - match: '[Nn]\d+\b(?=[ \t]*(?i:[;\n]|IF\b))'
       scope: entity.name.tag.goto-block.s840d_gcode
-      pop: true
+      set: stmt-goto-end
+    - match: (?=\S)
+      set: stmt-goto-target-expression
+    - include: line-end
+
+  stmt-goto-target-expression:
+    - meta_content_scope: meta.control.goto.s840d_gcode
+    - include: stmt-goto-end
     - include: expressions
-    - include: line-end-or-illegal
+    - include: illegal
+
+  stmt-goto-end:
+    - include: line-end
+    - match: (?=(?i:\bIF\b))
+      set: stmt-if
 
 ###############################################################################
 # IF ... ELSE ... ENDIF
@@ -615,29 +695,24 @@ contexts:
   stmt-if:
     - match: (?i:IF)\b
       scope: keyword.control.if.s840d_gcode
-      push: # push required for multible if ... goto statements
+      set:
         - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
-        - include: stmt-if-goto
-        - include: stmt-if-body
+        - match: \n|(?=;)
+          set: stmt-if-body
+        - match: (?=(?i:GOTO[FB]?\b))
+          set: stmt-goto
         - include: expressions
         - include: illegal
 
-  stmt-if-goto:
-    - match: (?i:GOTO[FBC]?)\b
-      scope: keyword.control.goto.s840d_gcode
-      set: stmt-goto-target
-
   stmt-if-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.if.s840d_gcode
-        - match: (?i:ENDIF)\b
-          scope: keyword.control.endif.s840d_gcode
-          set: assert-line-end    # leave if-body
-        - match: (?i:ELSE)\b
-          scope: keyword.control.else.s840d_gcode
-          push: assert-line-end   # don't leave if-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.if.s840d_gcode
+    - match: (?i:ENDIF)\b
+      scope: keyword.control.endif.s840d_gcode
+      set: assert-line-end    # leave if-body
+    - match: (?i:ELSE)\b
+      scope: keyword.control.else.s840d_gcode
+      push: assert-line-end   # don't leave if-body
+    - include: main-sublevel
 
 ###############################################################################
 # DIN ISO STATEMENTS
@@ -651,8 +726,8 @@ contexts:
   stmt-iso-body:
     - include: iso-gcode
     - include: iso-repeat-count
-    - include: iso-parameter
-    - include: iso-procedures
+    - include: iso-operands
+    - include: iso-commands
     - include: expressions-line
 
   iso-blockno:
@@ -671,12 +746,12 @@ contexts:
               (?:
                 \d+
                   (?:
-                    \s+(?=[\.\d]) |
-                    \s*(?=[-+=\[\(])
+                    [ \t]+(?=[\.\d]) |
+                    [ \t]*(?=[-+=\[\(])
                   ) |
-                \s*(?=[-+=\.\d])
+                [ \t]*(?=[-+=\.\d])
               )'
-      scope: support.variable.iso.pos.s840d_gcode
+      scope: support.variable.iso.position.s840d_gcode
       push: iso-value-float
     # parameter adresses ending with letters: F FA S ...
     # F2200.5 | F 2200.5 | F=2200.5 | F = 2200.5 | F.2205 | F .2205
@@ -684,77 +759,88 @@ contexts:
     # F2=2200.5 | F2 = 2200.5
     - match: '(?x)
               [FIJKOS]
-              (?:\d+(?=\s*=)|(?=\s*[-+=\.\d]))'
-      scope: support.variable.iso.param.s840d_gcode
+              (?:\d+(?=[ \t]*=)|(?=[ \t]*[-+=\.\d]))'
+      scope: support.variable.iso.operand.s840d_gcode
       push: iso-value-float
     # M-function:   M2
     # H-function:   H3
     - match: '[MH]\d+'
-      scope: support.function.iso.s840d_gcode
+      scope: support.function.iso.auxiliary.s840d_gcode
       push: iso-value-void2
     # G-function:   G0
     # T-function:   T100
     # D-call:       D1 DL1
     - match: (?:[GT]|DL?)\d+
-      scope: support.function.iso.s840d_gcode
+      scope: support.function.iso.command.s840d_gcode
       push: iso-value-void
     # FUNCTIONS
     # G-function:   G=0
-    # M-function:   M=20
-    # H-function:   H=20
     # T-function:   T=100  T="100"
     # D-function:   D=5 DL=5
-    - match: (?:[GTMH]|DL?)(?=\s*=)
-      scope: support.function.iso.s840d_gcode
+    - match: (?:[GT]|DL?)(?=[ \t]*=)
+      scope: support.function.iso.command.840d_gcode
+      push: iso-value-int
+    # M-function:   M=20
+    # H-function:   H=20
+    - match: '[MH](?=[ \t]*=)'
+      scope: support.function.iso.auxiliary.s840d_gcode
       push: iso-value-int
     # POSITIONS
     # machine axis:   X[0]=20
     # channel axis:   XC[10]=10
-    - match: ({{axis}})\s*(\[)
+    - match: ({{axis}})[ \t]*(\[)
       captures:
-        1: support.variable.iso.pos.s840d_gcode
+        1: support.variable.iso.position.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
     # PARAMETERS
     # feed rate:      F[X1]=2000
     # spindle speed:  S[1]=20
-    - match: ([FIJKOS])\s*(\[)
+    - match: ([FIJKOS])[ \t]*(\[)
       captures:
-        1: support.variable.iso.param.s840d_gcode
+        1: support.variable.iso.operand.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
     # FUNCTIONS
     # G-function:   G[0]=20
-    # M-function:   M[10]=10
-    # H-function:   H[10]=10
     # T-function:   T[1]=10     // tool for toolholder 1
     # D-function:   D[1]=10     // active edge of toolholder 1
-    - match: ([GMHTD])\s*(\[)
+    - match: ([GTD])[ \t]*(\[)
       captures:
-        1: support.function.iso.s840d_gcode
+        1: support.function.iso.command.s840d_gcode
+        2: punctuation.section.brackets.begin.s840d_gcode
+      push: array-index-body
+    # M-function:   M[10]=10
+    # H-function:   H[10]=10
+    - match: ([MH])[ \t]*(\[)
+      captures:
+        1: support.function.iso.auxiliary.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
 
-  iso-parameter:
-    # SINUMERIK parameter
+  iso-operands:
+    # SINUMERIK address parameter
+    # can switch on/off internal functions
     #   e.g.: SPOS=10 | SPOS[2]=10
-    - match: (?:A(?:C(?:C|CLIMA)|DI(?:S|SPOS)|LF|NG|[PR]|TOL)|C(?:H[FR]|OARSEA|P(?:BC|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|R|TOL|UTMOD)|DI(?:A(?:CYCOFA|M(?:90A|CHANA|O(?:FA|NA)))|LF|S(?:CL|PR|R)|T[ES])|F(?:[ABPZ]|AD|GREF|INEA|MA|OCO[FN]|R(?:C|CM)|X(?:S|S[TW]))|I(?:P|POENDA|SD)|JERKLI(?:M|MA)|LEAD|M(?:EA(?:[CSW]|SA|WA)|OV)|NUT|O(?:FFN|MA[1-5]|S|S(?:[BDE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:[LOW]|O(?:L(?:F|FA)|S|S[AP])|RIO)|R(?:N(?:D|DM)|P|PL)|S(?:CPARA|[DFRT]|PO(?:S|SA)|RA|T(?:A|AT|OLF))|T(?:CARR|HETA|ILT|U|URN)|VELOLI(?:M|MA))\b
-      scope: support.variable.iso.param.s840d_gcode
-      push: array-index # some parameters are arrays
+    - match: (?:A(?:C(?:C|CLIMA)|TOL)|C(?:OARSEA|P(?:BC|DE[FL]|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|RES|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|TOL|UTMOD)|DIA(?:CYCOFA|M(?:90A|CHA(?:N|NA)|O(?:FA|NA)))|F(?:[AL]|DA|GREF|INEA|MA|O(?:C|CO[FN])|X(?:S|S[TW]))|I(?:P|POENDA)|JERKLI(?:M|MA)|LIMS|M(?:EA(?:C|SA|WA)|OV)|O(?:S|S(?:[BE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:O|O(?:LF|S|S[AP])|RIO)|S(?:C(?:C|PARA)|PO(?:S|SA)|RA|T(?:A|OLF)|VC)|TOF(?:F|FL)|VELOLI(?:M|MA))\b
+      scope: support.variable.iso.address.s840d_gcode
+      push: array-index
+    # SINUMERIK command operands
+    # act as arguments for iso commands
+    #   e.g.: AP=10
+    - match: (?:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|[DFIJKNPRST]|D(?:[0LO]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|EXTCALL|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
+      scope: support.variable.iso.operand.s840d_gcode
+      push: illegal-brackets-pop
 
-  iso-procedures:
-    # SINUMERIK command with ISO style parameters
+  iso-commands:
+    # SINUMERIK command with ISO style operands
     #   e.g.: TRANS X0 Y0.4
-    - match: (?:A(?:CTBLOCNO|MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS|XTOCHAN)|B(?:AUTO|LSYNC|NAT|RISK|SPLINE|TAN)|C(?:DO[FN]|F(?:C|I(?:N|NE)|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|R(?:OTS|PL)|SPLINE|UT(?:2(?:D|DF)|3D(?:[CF]|C(?:C|CD)|F[FS])|CONO[FN]))|D(?:EL(?:AYFSTO[FN]|DTG)|I(?:AM(?:90|C(?:HAN|YCOF)|O[FN])|S(?:C|PLO[FN]))|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN)|ZERO)|E(?:AUTO|GO(?:N|NSY(?:N|NE))|NAT|TAN)|F(?:CUB|[DL]|DA|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TO(?:C|CO[FN]))|G(?:ORAP|P|WPSO[FN])|I(?:CYCO[FN]|NVC(?:CW|W)|PTR(?:LOCK|UNLOCK))|KON(?:T|T[CT])|L(?:F(?:O[FN]|TXT|WP)|I(?:FTFAST|MS)|ONGHOLE)|M(?:EA(?:FRAME|SURE)|IRROR)|N(?:EWCONF|ORM)|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CDS]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:ESET|OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CPST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS|SRANGE)|R(?:E(?:PRO|SETON)|OTA)|T(?:P|PG0))|QECLRNOF|R(?:DISABLE|EPOS(?:[AHLQ]|QA)|M[BEIN]|O(?:T|TS)|POSHA|TLIO[FN])|S(?:AVE|BLO[FN]|C(?:ALE|C)|ETTCOR|LOT[12]|O(?:FT|N|NS)|P(?:ATH|CO[FN]|IF[12]|LINEPATH|[NP]|OF)|T(?:ARTFIFO|OP(?:FIFO|R(?:E|EOF)))|UPA|VC|YNFCT)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|MO[FN]|O(?:F(?:F|F(?:O[FN]|R)|RAM(?:E|E[XYZ]))|OLENV|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RA(?:CON|F(?:O|OOF)|NS))|UPATH|W(?:AL(?:CS(?:[0-9]|10)|IMO[FN])|RTPTR))\b
-      scope: support.function.iso.s840d_gcode
-      push:
-        # some compatibility hacks to avoid invalid illegals
-        - include: function-call-arguments # some commands may be functions
-        - include: array-index # some commands may be parameters
-        - include: scope-end
+    - match: (?:A(?:MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS)|B(?:AUTO|NAT|RISK|SPLINE|TAN)|C(?:DO(?:[FN]|F2)|F(?:C|IN|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|SPLINE|UT(?:2(?:D|D(?:[DF]|FD))|3D(?:[CF]|C(?:[CD]|CD)|F[FS])|CONO[FN]))|D(?:IAM(?:90|CYCOF|O[FN])|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN))|E(?:AUTO|NAT|TAN)|F(?:CUB|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TOCO[FN])|G(?:FRAME(?:10|[0-9])?[0-9]|ORAP)|INVC(?:CW|W)|KON(?:T|T[CT])|LF(?:O[FN]|POS|TXT|WP)|MIRROR|NORM|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CD]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CDST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS)|T(?:P|P(?:G0|WOC)))|R(?:EPOS(?:[AHLQ]|HA|QA)|M(?:[BEIN]|BBL|EBL|IBL|NBL)|O(?:T|TS)|TLIO[FN])|S(?:CALE|O(?:FT|N|NS)|P(?:ATH|IF[12]|OF)|T(?:ARTFIFO|OPFIFO)|UPA)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|O(?:FRAM(?:E|E[XYZ])|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RANS)|UPATH|WAL(?:CS(?:[0-9]|10)|IMO[FN]))\b
+      scope: support.function.iso.command.s840d_gcode
+      push: illegal-brackets-pop
 
   iso-repeat-count:
-    - match: P(?=\s*[=\d])
+    - match: P(?=[ \t]*[=\d])
       scope: support.variable.iso.repeat-count.s840d_gcode
       push: iso-value-int
 
@@ -769,13 +855,13 @@ contexts:
 
   iso-value-void:
     # nothing but another word or comment allowed
-    - match: (?=\s*[A-Za-z;])
+    - match: (?=[ \t]*[A-Za-z;\n]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
   iso-value-void2:
     # nothing but another word, comment or assignment allowed
-    - match: (?=\s*[A-Za-z;=])
+    - match: (?=[ \t]*[A-Za-z;=\n]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
@@ -789,17 +875,16 @@ contexts:
       scope: keyword.control.loop.s840d_gcode
       set:
         - meta_scope: meta.section.loop.s840d_gcode
-        - include: stmt-loop-body
+        - match: \n|(?=;)
+          set: stmt-loop-body
         - include: illegal
 
   stmt-loop-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.loop.s840d_gcode
-        - match: (?i:ENDLOOP)\b
-          scope: keyword.control.endloop.s840d_gcode
-          set: assert-line-end    # leave loop-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.loop.s840d_gcode
+    - match: (?i:ENDLOOP)\b
+      scope: keyword.control.endloop.s840d_gcode
+      set: assert-line-end    # leave loop-body
+    - include: main-sublevel
 
 ###############################################################################
 # REPEAT ... UNTIL / REPEAT <LBL1> <LBL2> / REPEATB <LBL>
@@ -812,7 +897,7 @@ contexts:
       scope: keyword.control.repeatb.s840d_gcode
       set:
         - meta_scope: meta.control.repeatb.s840d_gcode
-        - match: (\b{{label}}\b)\s*(\b{{label}}\b)?
+        - match: \b({{label}})[ \t]*({{label}})?
           captures:
             1: entity.name.tag.repeat-label.s840d_gcode
             2: invalid.illegal.tag.repeat-label.s840d_gcode
@@ -823,12 +908,12 @@ contexts:
         - include: line-end-or-illegal
 
     # REPEAT ... UNTIL
-    - match: (?i:REPEAT)\b(?=\s*(?:;|$))
+    - match: (?i:REPEAT)\b(?=[ \t]*[;\n])
       scope: keyword.control.repeat.s840d_gcode
       set:
         - meta_scope: meta.section.repeat.s840d_gcode
-        - include: stmt-repeat-body
-        - include: comment-line
+        - match: \n|(?=;)
+          set: stmt-repeat-body
         - include: illegal
 
     # REPEAT <LBL_S> <LBL_E> P=<count>
@@ -837,7 +922,7 @@ contexts:
       set:
         - meta_scope: meta.control.repeat.s840d_gcode
         # begin label and optional end label
-        - match: (\b{{label}}\b)\s*(\b{{label}}\b)?
+        - match: \b({{label}})[ \t]*({{label}})?
           captures:
             1: entity.name.tag.repeat-label.begin.s840d_gcode
             2: entity.name.tag.repeat-label.end.s840d_gcode
@@ -848,16 +933,14 @@ contexts:
         - include: line-end-or-illegal
 
   stmt-repeat-body:
-    - match: $
+    - meta_content_scope: meta.section.repeat.s840d_gcode
+    - match: (?i:UNTIL)\b
+      scope: keyword.control.until.s840d_gcode
       set:
+        - meta_scope: meta.control.until.s840d_gcode
         - meta_content_scope: meta.section.repeat.s840d_gcode
-        - match: (?i:UNTIL)\b
-          scope: keyword.control.until.s840d_gcode
-          set:
-            - meta_scope: meta.control.until.s840d_gcode
-            - meta_content_scope: meta.section.repeat.s840d_gcode
-            - include: expressions-line
-        - include: main-sublevel
+        - include: expressions-line
+    - include: main-sublevel
 
 ###############################################################################
 # RET
@@ -869,8 +952,7 @@ contexts:
       scope: keyword.control.ret.s840d_gcode
       set:
         - meta_scope: meta.control.ret.s840d_gcode
-        - include: function-call-arguments
-        - include: line-end-or-illegal
+        - include: cycle-call-arguments
 
 ###############################################################################
 # STOPRE
@@ -934,18 +1016,17 @@ contexts:
       scope: keyword.control.while.s840d_gcode
       set:
         - meta_scope: meta.section.while.s840d_gcode
-        - include: stmt-while-body
+        - match: \n|(?=;)
+          set: stmt-while-body
         - include: expressions
         - include: illegal
 
   stmt-while-body:
-    - match: $
-      set:
-        - meta_content_scope: meta.section.while.s840d_gcode
-        - match: (?i:ENDWHILE)\b
-          scope: keyword.control.endwhile.s840d_gcode
-          set: assert-line-end    # leave loop-body
-        - include: main-sublevel
+    - meta_content_scope: meta.section.while.s840d_gcode
+    - match: (?i:ENDWHILE)\b
+      scope: keyword.control.endwhile.s840d_gcode
+      set: assert-line-end    # leave loop-body
+    - include: main-sublevel
 
 ###############################################################################
 # EXPRESSIONS
@@ -957,7 +1038,7 @@ contexts:
       push: [expressions-group-body, after-operator]
 
   expressions-group-body:
-    - meta_content_scope: meta.group.s840d_gcode
+    - meta_scope: meta.group.s840d_gcode
     - match: \)
       scope: punctuation.section.group.end.s840d_gcode
       pop: true
@@ -969,15 +1050,12 @@ contexts:
 
   expressions:
     - include: expressions-group
+    - include: placeholder
     - include: operators
     - include: constants
     - include: illegal-keywords
     - include: function-call
     - include: variables
-    - include: comment
-
-  comment:
-    - include: comment-line
     - include: comment-block
 
   comment-block:
@@ -991,16 +1069,25 @@ contexts:
         - include: ignore-parens
 
   comment-line:
-    - match: (;).*
-      captures:
-        0: comment.line.s840d_gcode
-        1: punctuation.definition.comment.s840d_gcode
+    - match: ;
+      scope: punctuation.definition.comment.begin.s840d_gcode
+      set:
+        - meta_scope: comment.line.s840d_gcode
+        - match: \n
+          pop: true
 
   comment-disabled:
-    - match: (/).*
-      captures:
-        0: comment.line.disabled.s840d_gcode
-        1: punctuation.definition.comment.s840d_gcode
+    - match: /
+      scope: punctuation.definition.comment.begin.s840d_gcode
+      push:
+        - meta_scope: comment.line.disabled.s840d_gcode
+        - match: \n
+          pop: true
+
+  placeholder:
+    # fields of auto-completion to be filled by user
+    - match: '[<\[][\w\.]+[>\]]'
+      scope: comment.block.placeholder.s840d_gcode
 
   constants:
     - include: numbers
@@ -1015,7 +1102,7 @@ contexts:
 
   numbers:
     # decimal numbers
-    - match: '{{float}}'
+    - match: '{{float}}\b'
       scope: constant.numeric.s840d_gcode
     # single quoted binary numbers
     - match: '''[Bb]'
@@ -1091,9 +1178,6 @@ contexts:
     - include: operators-arithmetic
     - include: operators-assignment
     - include: operators-logical
-    # curly brackets are used for templates
-    - match: \{[^\}]*\}
-      scope: invalid.illegal.s840d_gcode
 
   operators-arithmetic:
     # aritmetic operators
@@ -1152,9 +1236,12 @@ contexts:
           pop: true
         # macro defined value
         - match: '{{macro}}'
-          scope: entity.name.macro.access.s840d_gcode
+          scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
+    # data class S828D
+    - match: (?i:DC[IMU])\b
+      scope: meta.definition.access.s840d_gcode storage.modifier.access.s840d_gcode
 
   storage-modifier-init:
     - match: (?i:INI(?:CF|RE|PO)|PRLOC)\b
@@ -1171,12 +1258,12 @@ contexts:
           pop: true
         # macro defined value
         - match: '{{macro}}'
-          scope: entity.name.macro.limit.s840d_gcode
+          scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
 
   storage-modifier-sync:
-    - match: (?i:SYN(?:[RW]|RW))
+    - match: (?i:SYN(?:[RW]|RW))\b
       scope: meta.definition.sync.s840d_gcode storage.modifier.sync.s840d_gcode
 
   storage-modifier-unit:
@@ -1190,7 +1277,7 @@ contexts:
           pop: true
         # macro defined value
         - match: '{{macro}}'
-          scope: entity.name.macro.unit.s840d_gcode
+          scope: variable.other.s840d_gcode
           pop: true
         - include: illegal-pop
 
@@ -1220,7 +1307,7 @@ contexts:
             - match: \d+\b
               scope: constant.numeric.integer.s840d_gcode
             - match: '{{macro}}'
-              scope: entity.name.macro.size.s840d_gcode
+              scope: variable.other.s840d_gcode
         - include: scope-end
 
 ###############################################################################
@@ -1233,9 +1320,9 @@ contexts:
 
   nc-function-call:
     # known NC functions
-    - match: (A(?:BS|C|C(?:[NP]|OS)|D(?:DFRAME|ISPOSA)|SIN|TAN2|X(?:CTSW(?:E|ED)|NAME|STRING|TOSPI))|B(?:OUND|RISKA)|C(?:A(?:C|C[NP]|L(?:C(?:DAT|POSI)|LPATH)|NCEL)|DC|H(?:ANDATA|ECKSUM|KD(?:M|NO))|IC|L(?:EARM|RINT)|MIRROR|O(?:NT(?:DCON|PRON)|RROF|S|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|ROT|SCALE|T(?:A(?:B|B(?:DEL|EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|LOCK|M(?:E(?:M|MTYP)|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])|UNLOCK))|RANS))|D(?:AC|C|EL(?:DL|ETE|M(?:L(?:OWNER|RES)|T)|OBJ|T|T(?:C|OOLENV))|I(?:C|SABLE)|RIVEA)|E(?:G(?:DE[FL]|OF[CS])|NABLE|X(?:EC(?:STRING|TAB|UTE)|P|TCALL))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN]))|GE(?:OAX|T|T(?:ACT(?:T|TD)|[DT]|DNO|EXET|FREELOC|SELT|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP)))|HOLES[12]|I(?:C|N(?:DEX|IT|T(?:ERSEC|TOAX)|VFRAME)|POBRKA|S(?:AXIS|FILE|NUMBER|VAR))|JERKA|L(?:E(?:ADO[FN]|NTOAX)|FPOS|N|OCK)|M(?:A(?:SL(?:DE[FL]|O(?:[FN]|FS))|TCH|XVAL)|IN(?:DEX|VAL)|MC|ODAXVAL|SG|VTOOL)|N(?:AMETOINT|EW(?:MT|T)|PRO(?:T|TDEF)|UMBER)|P(?:[MR]|O(?:CKET[34]|L(?:FM(?:ASK|LIN)|YPATH)|S(?:M|MT)|T)|ROTS|U(?:NCHACC|TFTO(?:C|CF)))|Q(?:ECLRNON|U)|R(?:AC|E(?:AD|LEASE|P|SE(?:T|TMON))|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:FORM|T|T(?:AL|DNO|INT|M|M(?:S|TH)|PIECE|T(?:A|IA)))|I(?:N|REL(?:AY|IN|OUT|TIME))|OFTA|P(?:I|RINT)|QRT|T(?:ART|R(?:INGIS|LEN))|UBSTR)|T(?:A(?:N|N(?:G|G(?:DEL|O[FN])))|C[AI]|LIFT|O(?:LOWER|OLG(?:NT|T)|UPPER)|R(?:A(?:ANG|CYL|ILO[FN]|NSMIT|ORI)|UNC))|UNLOCK|W(?:AIT(?:[CEMPS]|MC)|RITE))\b\s*
+    - match: (A(?:BS|C|C(?:[NP]|OS)|DDFRAME|SIN|TAN2|X(?:NAME|STRING|TOSPI))|BOUND|C(?:A(?:C|C[NP]|LC(?:DAT|POSI))|DC|FINE|HKD(?:M|NO)|IC|MIRROR|O(?:LLPAIR|S)|R(?:O(?:T|TS)|PL)|SCALE|T(?:A(?:B|B(?:EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|M(?:EMTYP|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])))|RANS))|D(?:AC|C|EL(?:DL|ML(?:OWNER|RES)|OBJ|TOOLENV)|IC)|EXP|GET(?:ACT(?:T|TD)|DNO|T|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP))|I(?:C|N(?:DEX|TERSEC|VFRAME)|S(?:AXIS|FILE|NUMBER|VAR))|L(?:ENTOAX|N)|M(?:A(?:TCH|XVAL)|EA(?:FRAME|SURE)|IN(?:DEX|VAL)|ODAXVAL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|P(?:[MR]|O(?:SRANGE|T)|ROTD)|QU|R(?:AC|EP|I(?:C|NDEX)|OUN(?:D|DUP))|S(?:E(?:T|T(?:DNO|TCOR))|I(?:N|RELAY)|P(?:I|RINT)|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:AN|O(?:LOWER|OL(?:ENV|G(?:NT|T))|UPPER)|RUNC))\b[ \t]*
       captures:
-        0: meta.function-call.s840d_gcode
+        0: meta.function-call.name.s840d_gcode
         1: support.function.nck.s840d_gcode
       push:
         - include: function-call-arguments
@@ -1243,9 +1330,9 @@ contexts:
 
   generic-function-call:
     # unknown function is handled as subprogram (SPF)
-    - match: ({{macro}})\s*(?=\()
+    - match: ({{macro}})[ \t]*(?=\()
       captures:
-        0: meta.function-call.s840d_gcode
+        0: meta.function-call.name.s840d_gcode
         1: variable.function.other.s840d_gcode
       push:
         - include: function-call-arguments
@@ -1273,8 +1360,7 @@ contexts:
     - include: nc-variables
     - include: axis-variables
     - include: global-variables
-
-    - match: '{{ident}}\b'
+    - match: '{{ident}}'
       scope: variable.other.s840d_gcode
       push: array-index
 
@@ -1297,7 +1383,7 @@ contexts:
       push: after-variable
 
     # SINUMERIK R-Parameter
-    - match: '[Rr](?=\s*\[)'
+    - match: '[Rr](?=[ \t]*\[)'
       scope: support.variable.nck.r.s840d_gcode
       push: array-index
 
@@ -1321,7 +1407,7 @@ contexts:
           set: after-variable
 
         # SINUMERIK R-Parameter
-        - match: '[Rr](?=\s*\[)'
+        - match: '[Rr](?=[ \t]*\[)'
           scope: support.variable.nck.r.s840d_gcode
           set: array-index
 
@@ -1347,7 +1433,7 @@ contexts:
 
         # If nothing else matches mark the tailing whitespace as part of the
         # variable to make auto completion suggest known NCK variables only.
-        - match: '\s'
+        - match: '[ \t]'
           scope: support.variable.nck.s840d_gcode
           pop: true
 
@@ -1371,8 +1457,8 @@ contexts:
     - include: seperator-comma-minus
     - match: \d+\b
       scope: constant.numeric.integer.s840d_gcode
-    - match: '{{ident}}'
-      scope: entity.name.macro.s840d_gcode
+    - match: '{{macro}}'
+      scope: variable.other.s840d_gcode
     - include: line-end-or-illegal
 
 ###############################################################################
@@ -1425,8 +1511,7 @@ contexts:
       scope: invalid.illegal.s840d_gcode
 
   illegal-pop:
-    - include: line-end
-    - include: illegal-brackets-pop
+    - include: illegal-brackets
     - match: \S+
       scope: invalid.illegal.s840d_gcode
       pop: true
@@ -1442,7 +1527,7 @@ contexts:
   illegal-paren:
     - match: \(
       push:
-        - meta_scope: invalid.illegal.expression.s840d_gcode
+        - meta_scope: invalid.illegal.group.s840d_gcode
         - match: \)|$
           pop: true
         - include: ignore-parens
@@ -1461,9 +1546,9 @@ contexts:
     # matching them as procedure call or variable.
     - match: '[Nn]\d+'
       scope: invalid.illegal.iso.s840d_gcode
-    - match: (?i:DEF|DEFINE|PROC|REDEF).*
+    - match: (?i:DEF|DEFINE|EXTERN|PROC|REDEF|AS)\b.*
       scope: invalid.illegal.keywords.definition.s840d_gcode
-    - match: (?i:BLOCK|CTAB(?:DEF|END)|ELSE|(?:END)?(?:IF|FOR|LOOP|WHILE)|OF|TO|UNTIL)\b
+    - match: (?i:BLOCK|CASE|CTAB(?:DEF|END)|DEFAULT|ELSE|(?:END)?(?:IF|FOR|LOOP|WHILE)|ISOCALL|GOTO[BCFS]?|[MP]?CALL|OF|REPEATB?|RET|TO|UNTIL)\b
       scope: invalid.illegal.keywords.control.s840d_gcode
     - match: (?i:AXIS|BOOL|FRAME|INT|REAL|STRING|TR|FI|RT|SC|MI|NCK|CHAN|AP[RWX][BP]?|LL[IU]|PHU|SYN(?:[RW]|RW)|VAR|INI(?:CF|RE|PO)|PRLOC)\b
       scope: invalid.illegal.keywords.storage.s840d_gcode
