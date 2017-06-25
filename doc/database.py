@@ -1,125 +1,89 @@
-# -*- encoding: utf-8 -*-
-
 import gzip
-import locale
 import os.path
 import sqlite3
 import xml.dom.minidom as xml
 
 import sublime
-import sublime_plugin
+
+from .. import lib
 
 doc_version = "25.09.2016"  # should not be here!
 doc_cache = None            # path to s840d.sqlite
 doc_langs = ['en']          # available langs in s840d.sqlite
 
 
-def plugin_loaded():
-    """Called by SublimeText after all plugins have been loaded."""
-    sublime.set_timeout_async(lambda: cache_init(False), 5000)
+def tooltip(view, keyword, lang='en'):
+    """Create the tooltip html for <keyword>.
 
-
-class ToolTipCommand(sublime_plugin.EventListener):
-
-    s840d_source = 'source.s840d_gcode | source.s840d_hmi'
-
-    cur_word = None
-    tip_html = None
-
-    def on_hover(self, view, point, hover_zone):
-        """Handle the hover event and show tooltip if needed."""
-        if hover_zone != sublime.HOVER_TEXT:
-            return
-
-        # return if no s840d source code
-        if not view.match_selector(point, self.s840d_source):
-            return
-
-        region = view.word(point)
-        word = view.substr(region)
-        if self.cur_word != word:
-            self.cur_word = word
-            # load current OS display language (e.g.: de_DE)
-            lang = locale.getdefaultlocale()[0][:2].lower()
-            # get description for machine data or nck variable
-            if view.match_selector(point, 'support.variable.nck'):
-                self.tip_html = get_var_desc(word, lang)
-            # nothing found
-            else:
-                self.tip_html = ""
-
-        # show the tool tip
-        if not self.tip_html:
-            return
-        window_width = int(view.viewport_extent()[0]) - 64
-        view.show_popup(
-            self.tip_html, location=point, max_width=window_width,
-            flags=sublime.HIDE_ON_MOUSE_MOVE_AWAY)
-
-
-def get_var_desc(word, lang):
-    """Create the tooltip html for <word>.
-
-    args:
-        word    The word to create the tooltip for.
-        lang    The language to try to use.
+    Arguments:
+        view (sublime.View):
+            the view to create the tooltip for
+        keyword (string):
+            the keyword to create the tooltip for
+        lang (string):
+            the language to try to use
     """
-    try:
-        tip_html = """<style>
-                   body { font-family: monospace; }
-                   h1 { font-size: 1.1rem; }
-                   h2 { font-size: 1.0rem; }
-                   </style>"""
+    global doc_cache
+    if not doc_cache:
+        doc_cache = cache_init(False)
+    return ''.join(_generate_tooltip(keyword, lang))
 
-        with sqlite3.connect(doc_cache) as sql:
-            # fallback to english if OS's language is not available
-            if lang not in doc_langs:
-                lang = 'en'
 
+def _generate_tooltip(word, lang):
+    """Generate the tooltip html for <word>.
+
+    Arguments:
+        word (string):
+            the word to create the tooltip for
+        lang (string):
+            the language to try to use
+
+    Yields:
+        string: tooltip content tag by tag
+    """
+    with sqlite3.connect(doc_cache) as sql:
+        # fallback to english if OS's language is not available
+        if lang not in doc_langs:
+            lang = 'en'
+
+        row = sql.execute(
+            """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
+            WHERE name LIKE '$""" + word + "' AND lang LIKE '" + lang + "'"
+            ).fetchone()
+
+        if not row and lang != 'en':
+            # fallback to english
             row = sql.execute(
                 """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
-                WHERE name LIKE '$""" + word + "' AND lang LIKE '" + lang + "'"
+                WHERE name LIKE '$""" + word + "' AND lang LIKE 'en'"
                 ).fetchone()
 
-            if not row and lang != 'en':
-                # fallback to english
-                row = sql.execute(
-                    """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
-                    WHERE name LIKE '$""" + word + "' AND lang LIKE 'en'"
-                    ).fetchone()
+        if not row:
+            return ''
 
-            # number, name and array dimension
-            if row[0] and row[1]:
-                tip_html += '<h1>N' + str(row[0]) + ' ' + row[1]
-                if row[3] > 0:
-                    tip_html += '[...]'
-                tip_html += '</h1>'
+        data_id, data_name, data_type, data_dimension, brief, desc = row
 
-            # brief
-            tip_html += '<h2>' + html_encode(row[4]) + '</h2>'
+        # number, name and array dimension
+        if data_name:
+            if data_id:
+                yield '<h1>N{0} {1}{2}</h1>'.format(
+                        data_id, lib.html.encode(data_name),
+                        '[...]' if data_dimension > 0 else ''
+                    )
+            else:
+                yield '<h1>{0}{1}</h1>'.format(
+                        lib.html.encode(data_name),
+                        '[...]' if data_dimension > 0 else ''
+                    )
 
-            # data type
-            if row[2]:
-                tip_html += '<p><b>type:</b> '
-                tip_html += html_encode(row[2])
-                tip_html += '</p>'
-
-            # description
-            tip_html += html_encode(
-                gzip.decompress(bytearray(row[5])).decode())
-    except:
-        tip_html = ""   # do description available
-
-    return tip_html
-
-
-def html_encode(string):
-    """Encode some critical characters to html entities."""
-    return string.replace('&', '&amp;')           \
-                 .replace('<', '&lt;')            \
-                 .replace('>', '&gt;')            \
-                 .replace('    ', '&nbsp;&nbsp;') \
-                 .replace('\n', '<br>')
+        # brief
+        yield '<h2>{0}</h2>'.format(lib.html.encode(brief))
+        # data type
+        if data_type:
+            yield '<h2><b>type:</b> {0}</h2>'.format(lib.html.encode(data_type))
+        # description
+        yield '<p>{0}</p>'.format(lib.html.encode(
+            gzip.decompress(bytearray(desc)).decode()))
 
 
 def package_name():
@@ -128,8 +92,7 @@ def package_name():
     By default it is "CNC SINUMERIK 840D language support", but also
     works if the user renamed the package.
     """
-    return os.path.splitext(os.path.basename(
-           os.path.dirname(__file__)))[0]
+    return __package__.split('.')[0]
 
 
 def cache_init(force_update):
