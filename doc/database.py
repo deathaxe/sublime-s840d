@@ -8,8 +8,6 @@ import sublime
 from .. import lib
 
 doc_version = "25.09.2016"  # should not be here!
-doc_cache = None            # path to s840d.sqlite
-doc_langs = ['en']          # available langs in s840d.sqlite
 
 
 def tooltip(view, keyword, lang='en'):
@@ -23,9 +21,6 @@ def tooltip(view, keyword, lang='en'):
         lang (string):
             the language to try to use
     """
-    global doc_cache
-    if not doc_cache:
-        doc_cache = cache_init(False)
     return ''.join(_generate_tooltip(keyword, lang))
 
 
@@ -41,6 +36,7 @@ def _generate_tooltip(word, lang):
     Yields:
         string: tooltip content tag by tag
     """
+    doc_cache, doc_langs = cache_init(False)
     with sqlite3.connect(doc_cache) as sql:
         # fallback to english if OS's language is not available
         if lang not in doc_langs:
@@ -106,14 +102,14 @@ def cache_init(force_update):
     interested persons could easily contribute further variable descriptions
     not yet included in this default package.
     """
-    global doc_cache, doc_langs
+    if hasattr(cache_init, 'docs') and hasattr(cache_init, 'langs'):
+        return cache_init.docs, cache_init.langs
 
     # path to the sqlite database storing tooltip texts
-    doc_cache = os.path.join(sublime.cache_path(),
-                             package_name(),
-                             "tooltips.sqlite")
+    cache_init.docs = os.path.join(
+        sublime.cache_path(), package_name(), "tooltips.sqlite")
 
-    with sqlite3.connect(doc_cache) as sql:
+    with sqlite3.connect(cache_init.docs) as sql:
 
         if not force_update:
             # check if cache is up to date
@@ -124,7 +120,7 @@ def cache_init(force_update):
                                             WHERE key LIKE 'version'
                                             """).fetchone()[0]
                 if doc_version == cache_version:
-                    doc_langs = cache_get_langs(sql)
+                    cache_init.langs = cache_get_langs(sql)
                     return
             except:
                 pass
@@ -173,10 +169,11 @@ def cache_init(force_update):
 
         # list all available languages
         #    ['de', 'en'] by default
-        doc_langs = cache_get_langs(sql)
+        cache_init.langs = cache_get_langs(sql)
 
         # for developement purposes
         # dump_vars()
+        return cache_init.docs, cache_init.langs
 
 
 def cache_get_langs(sql):
