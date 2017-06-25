@@ -2,38 +2,92 @@
 
 ; ==================================================
 ;  DEFINITIONS tests
-;  Performance: 0.2ms
+;  Performance: 0.5ms
 ; ==================================================
 
+DEFINE
+;<- meta.definition.macro
+;^^^^^^ meta.definition.macro
+;    <- keyword.control.define
 DEFINE ; comment
 ;    <- meta.definition.macro
+;^^^^^^ meta.definition.macro
 ;    <- keyword.control.define
 ;      ^ comment.line
 N10DEFINE ; comment
-;  ^^^^^^ meta.definition.macro
+;  ^^^^^^^ meta.definition.macro
 ;  ^^^^^^ keyword.control.define
 ;         ^ comment.line
 N10 DEFINE ; comment
-;   ^^^^^^ meta.definition.macro
+;   ^^^^^^^ meta.definition.macro
 ;   ^^^^^^ keyword.control.define
 ;          ^ comment.line
+N10 DEFINE name
+;   ^^^^^^^^^^^^ meta.definition.macro
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+N10 DEFINE name AS
+;   ^^^^^^^^^^^^^^^ meta.definition.macro
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^ keyword.control.as
+N10 DEFINE name AS $MN_USER_DATA_HEX[10]
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                 ^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^ keyword.control.as
+;                   ^^^^^^^^^^^^^^^^ support.variable.nck.machdata
 N10 DEFINE name AS $MN_USER_DATA_HEX[10] ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro
-;                 ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                 ^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
 ;   ^^^^^^ keyword.control.define
 ;          ^^^^ entity.name.macro
 ;               ^^ keyword.control.as
 ;                   ^^^^^^^^^^^^^^^^ support.variable.nck.machdata
 ;                                        ^ comment.line
 N10 DEFINE name AS GORAP X0 Y0 ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                 ^^^^^^^^^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^ keyword.control.as
+;                  ^^^^^ support.function.iso.command
+;                        ^ support.variable.iso.position
+;                         ^ constant.numeric
+;                           ^ support.variable.iso.position
+;                            ^ constant.numeric
+;                              ^ comment.line
+N10 DEFINE name AS MSG("HELLO") ; comment
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                 ^^^^^^^^^^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^ keyword.control.as
+;                  ^^^ support.function.nck.procedure
+;                               ^ comment.line
+N10 DEFINE name AS WHILE TRUE ; comment
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^ meta.definition.macro.action
 ;   ^^^^^^ keyword.control.define
 ;          ^^^^ entity.name.macro
 ;               ^^ keyword.control.as
-;                  ^^^^^ support.function.iso
-;                        ^ support.variable.iso.pos
-;                         ^ constant.numeric
-;                           ^ support.variable.iso.pos
-;                            ^ constant.numeric
+;                  ^^^^^ keyword.control.while
+;                             ^ comment.line
+N10 DEFINE 1inv AS _1v ; comment
+;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                 ^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ invalid.illegal
+;               ^^ keyword.control.as
+;                  ^^^ invalid.illegal
+;                      ^ comment.line
+N10 DEFINE name invalid AS 1av ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                         ^^^^^ meta.definition.macro.action
+;   ^^^^^^ keyword.control.define
+;          ^^^^ entity.name.macro
+;               ^^^^^^^ invalid.illegal
+;                       ^^ keyword.control.as
+;                          ^^^ invalid.illegal
 ;                              ^ comment.line

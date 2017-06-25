@@ -8,17 +8,33 @@
 N100 MCALL
 ;    ^^^^^ meta.function-call keyword.control.mcall
 
+N100 MCALL ; comment
+;    ^^^^^ meta.function-call keyword.control.mcall
+;          ^ comment.line punctuation.definition.comment
+
 ; modal cycle call
 N100 MCALL L350
-;    ^^^^^^^^^^ meta.function-call
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^ meta.function-call.name
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ variable.function
+;          ^^^^ variable.function.cycle
+
+N100 MCALL L350 ; comment
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^ meta.function-call.name
+;    ^^^^^ keyword.control.mcall
+;          ^^^^ variable.function.cycle
+;               ^ comment.line punctuation.definition.comment
 
 ; modal cycle call with complex parameters
 N110 MCALL L350(10,20,ABS(R4)) ; comment
-;    ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^ meta.function-call.name - meta.function-call.arguments
+;              ^^^^^^^^^^^^^^^ meta.function-call.arguments
+;              ^^^^^^^ - meta.function-call.name
+;                        ^^^^^ - meta.function-call.name
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ variable.function
+;          ^^^^ variable.function.cycle
 ;              ^ punctuation.section.arguments.begin
 ;               ^^ constant.numeric
 ;                 ^ punctuation.separator.comma
@@ -31,13 +47,15 @@ N110 MCALL L350(10,20,ABS(R4)) ; comment
 
 ; missing cycle name
 N120 MCALL (10,20,30,50)
-;    ^^^^^^^^^^^^^^^^^^^ meta.function-call
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^^^^^^^^^^ meta.function-call.name
 ;    ^^^^^ keyword.control.mcall
 
 ; too many cycle names
 N120 MCALL L300 INV(10,20,30,50)
-;    ^^^^^^^^^^^ meta.function-call
-;                  ^^^^^^^^^^^^^ meta.function-call
+;    ^^^^^ meta.function-call - meta.function-call.name
+;         ^^^^^^^^^ meta.function-call.name
+;                  ^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
 ;    ^^^^^ keyword.control.mcall
-;          ^^^^ variable.function
-;               ^^^ invalid.illegal
+;          ^^^^ variable.function.cycle
+;               ^^^ invalid.illegal.cycle-expected
