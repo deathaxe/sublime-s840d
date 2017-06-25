@@ -384,3 +384,27 @@ N10G0G54X-10Y.20Z30.4EX-4B0T100S400.0M3H12
 ;                              ^ support.variable.iso.operand
 ;                               ^^^^^ constant.numeric
 ;                                    ^^^^^ support.function.iso.auxiliary
+
+; allow normal variable assignment after G command
+N10 G3 G505 _VAR=10 X10 Y=ABS($AA_IM[X])
+;   ^^ support.function.iso.command
+;      ^^^^ support.function.iso.command
+;           ^^^^ variable.other
+;               ^ keyword.operator.assignment
+;                ^^ constant.numeric
+;                   ^ support.variable.iso.position
+;                    ^^ constant.numeric
+;                       ^ support.variable.iso.position
+;                        ^ keyword.operator.assignment
+;                         ^^^ support.function.nck
+;                         ; allow normal variable assignment after G command
+; need whitespace between G command and variable
+N10 G3 G505_VAR=10 X10 Y=ABS($AA_IM[X])
+;   ^^ support.function.iso.command
+;      ^^^^ support.function.iso.command
+;          ^^^^^^^ invalid.illegal
+;                  ^ support.variable.iso.position
+;                   ^^ constant.numeric
+;                      ^ support.variable.iso.position
+;                       ^ keyword.operator.assignment
+;                        ^^^ support.function.nck

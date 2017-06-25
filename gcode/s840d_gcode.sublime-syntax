@@ -855,13 +855,13 @@ contexts:
 
   iso-value-void:
     # nothing but another word or comment allowed
-    - match: (?=[ \t]*[A-Za-z;\n])
+    - match: (?=[ \t]*[A-Za-z;\n]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
   iso-value-void2:
     # nothing but another word, comment or assignment allowed
-    - match: (?=[ \t]*[A-Za-z;=\n])
+    - match: (?=[ \t]*[A-Za-z;=\n]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
