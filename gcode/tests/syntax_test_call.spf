@@ -15,18 +15,20 @@ N10 CALL
 
 ; function name provided as string variable
 N15 CALL _PNAME error CALL "CYCLE2" ; comment
-;   ^^^^^^^^^^^ meta.function-call
-;                     ^^^^^^^^^^^^^ meta.function-call
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^^^^^^^ meta.function-call.name
+;                     ^^^^ meta.function-call - meta.function-call.name
+;                         ^^^^^^^^^^ meta.function-call.name
 ;   ^^^^ keyword.control.call
 ;        ^^^^^^ variable.function
 ;               ^^^^^ invalid.illegal
 ;                     ^^^^ keyword.control.call
 ;                          ^^^^^^^^ string.quoted.double
-;                                   ^^^ comment.line
+;                                   ^^^^^^^^^ comment.line
 
 ; function name provided as string variable with arguments
 N15 CALL _PNAME(10,20) ; comment
-;   ^^^^^^^^^^^ meta.function-call
+;   ^^^^^^^^^^^^^^^^^^^ meta.function-call
 ;   ^^^^ keyword.control.call
 ;        ^^^^^^ variable.function
 ;               ^^^^^^ invalid.illegal
@@ -41,8 +43,11 @@ N20 CALL "/_N_CUS_DIR/_N_L320_SPF"
 ;                                ^ punctuation.definition.string.end
 
 ; indirect dynamic function call
-N25 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call
+N25 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF" CALL L6
+;   ^^^^ meta.function-call - meta.function-call.name
+;       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.name
+;                                               ^^^^ meta.function-call - meta.function-call.name
+;                                                   ^^^ meta.function-call.name
 ;   ^^^^ keyword.control.call
 ;        ^ punctuation.definition.string.begin
 ;         ^^^^^^^^^^^^^ string.quoted.double
@@ -56,6 +61,8 @@ N25 CALL "/_N_CUS_DIR/L" << ABS(TEST) << "_SPF"
 ;                                        ^ punctuation.definition.string.begin
 ;                                         ^^^^ string.quoted.double
 ;                                             ^ punctuation.definition.string.end
+;                                               ^^^^ keyword.control.call
+;                                                    ^^ meta.function-call.name variable.function.cycle
 
 N30 CALL "/_N_CUS_DIR/_N_L320_SPF" BLOCK "N100" TO "N200"
 ;   ^^^^ meta.function-call - meta.function-call.name

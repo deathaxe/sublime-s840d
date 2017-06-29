@@ -370,7 +370,7 @@ contexts:
         - match: (?=(?i:BLOCK)\b)
           set: stmt-call-block
         # match single ident as function name
-        - match: '{{cycle}}'
+        - match: '{{macro}}'
           scope: variable.function.cycle.s840d_gcode
           set:
             - meta_content_scope: meta.function-call.name.s840d_gcode
@@ -383,8 +383,7 @@ contexts:
             - meta_content_scope: meta.function-call.name.s840d_gcode
             - match: (?=(?i:BLOCK)\b)
               set: stmt-call-block
-            - include: expressions
-            - include: stmt-call-end
+            - include: stmt-call-or-expressions
         - include: line-end
 
   stmt-call-block:
@@ -398,8 +397,7 @@ contexts:
           captures:
             1: variable.language.blockno.s840d_gcode
           set: stmt-call-to
-        - include: expressions
-        - include: stmt-call-end
+        - include: stmt-call-or-expressions
     - include: stmt-call-end
 
   stmt-call-to:
@@ -409,14 +407,19 @@ contexts:
         - meta_scope: meta.function-call.block.end.s840d_gcode
         - match: '[Nn]\d+\b'
           scope: variable.language.blockno.s840d_gcode
-          set: assert-line-end
-        - include: expressions
-        - include: stmt-call-end
+          set: stmt-call-end
+        - include: stmt-call-or-expressions
     - include: stmt-call-end
+
+  stmt-call-or-expressions:
+    - match: (?=(?i:CALL)\b)
+      set: stmt-call
+    - include: expressions-line
 
   stmt-call-end:
     # several call statements are allowed in one line.
-    - include: stmt-call
+    - match: (?=(?i:CALL)\b)
+      set: stmt-call
     - include: line-end-or-illegal
 
 ###############################################################################
