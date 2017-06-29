@@ -960,16 +960,14 @@ contexts:
     - include: main-sublevel
 
 ###############################################################################
-# RET
+# RET / RETB
 # TESTS: syntax_test_ret.spf
 ###############################################################################
 
   stmt-ret:
-    - match: (?i:RET)\b
-      scope: keyword.control.ret.s840d_gcode
-      set:
-        - meta_scope: meta.control.ret.s840d_gcode
-        - include: cycle-call-arguments
+    - match: (?i:RETB?)\b
+      scope: meta.function-call.name.s840d_gcode keyword.control.ret.s840d_gcode
+      set: cycle-call-arguments
 
 ###############################################################################
 # STOPRE
