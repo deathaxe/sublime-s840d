@@ -533,7 +533,7 @@ contexts:
     - include: illegal-keywords     # don't match as cycle
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
-    - match: '{{cycle}}(?=[ \t]*[;\w\(\n])'
+    - match: '{{cycle}}(?=[ \t]*(?:$|[;\w\(]))'
       scope: meta.function-call.name.s840d_gcode variable.function.cycle.s840d_gcode
       set: cycle-call-arguments
 
@@ -683,10 +683,10 @@ contexts:
 
   stmt-goto-target:
     - meta_scope: meta.control.goto.s840d_gcode
-    - match: '{{label}}(?=[ \t]*(?i:[;\n]|IF\b))'
+    - match: '{{label}}(?=[ \t]*(?:$|;|[Ii][Ff]\b))'
       scope: entity.name.tag.goto-label.s840d_gcode
       set: stmt-goto-end
-    - match: '[Nn]\d+\b(?=[ \t]*(?i:[;\n]|IF\b))'
+    - match: '[Nn]\d+\b(?=[ \t]*(?:$|;|[Ii][Ff]\b))'
       scope: entity.name.tag.goto-block.s840d_gcode
       set: stmt-goto-end
     - match: (?=\S)
@@ -872,13 +872,13 @@ contexts:
 
   iso-value-void:
     # nothing but another word or comment allowed
-    - match: (?=[ \t]*[A-Za-z;\n]|[ \t]+_)
+    - match: (?=$|[ \t]*[A-Za-z;]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
   iso-value-void2:
     # nothing but another word, comment or assignment allowed
-    - match: (?=[ \t]*[A-Za-z;=\n]|[ \t]+_)
+    - match: (?=$|[ \t]*[A-Za-z;=]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
@@ -925,7 +925,7 @@ contexts:
         - include: line-end-or-illegal
 
     # REPEAT ... UNTIL
-    - match: (?i:REPEAT)\b(?=[ \t]*[;\n])
+    - match: (?i:REPEAT)\b(?=[ \t]*(?:$|;))
       scope: keyword.control.repeat.s840d_gcode
       set:
         - meta_scope: meta.section.repeat.s840d_gcode
