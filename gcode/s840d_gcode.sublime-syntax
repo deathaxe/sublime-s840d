@@ -370,8 +370,8 @@ contexts:
         - match: (?=(?i:BLOCK)\b)
           set: stmt-call-block
         # match single ident as function name
-        - match: '{{macro}}'
-          scope: variable.function.cycle.s840d_gcode
+        - match: '{{ident}}(?=\s*[\(\w])'
+          scope: variable.other.s840d_gcode
           set:
             - meta_content_scope: meta.function-call.name.s840d_gcode
             - match: (?=(?i:BLOCK)\b)
@@ -414,13 +414,16 @@ contexts:
   stmt-call-or-expressions:
     - match: (?=(?i:CALL)\b)
       set: stmt-call
-    - include: expressions-line
+    - include: expressions
+    - include: line-end
+    - include: illegal-ident
 
   stmt-call-end:
     # several call statements are allowed in one line.
     - match: (?=(?i:CALL)\b)
       set: stmt-call
-    - include: line-end-or-illegal
+    - include: line-end
+    - include: illegal-ident
 
 ###############################################################################
 # ISOCALL
@@ -432,8 +435,8 @@ contexts:
       scope: meta.function-call.s840d_gcode keyword.control.isocall.s840d_gcode
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
-        - match: '{{cycle}}'
-          scope: variable.function.cycle.s840d_gcode
+        - match: '{{ident}}(?=\s*[\(\w])'
+          scope: variable.other.s840d_gcode
           set: line-end-or-illegal
         - match: (?=\S)
           set:
@@ -1520,6 +1523,11 @@ contexts:
     - include: illegal-brackets
     - match: \S
       scope: invalid.illegal.s840d_gcode
+
+  illegal-ident:
+    - match: \w+
+      scope: invalid.illegal.identifier.s840d_gcode
+    - include: illegal
 
   illegal-pop:
     - include: illegal-brackets
