@@ -10,7 +10,7 @@ from .. import lib
 SCOPE_GCODE = 'source.s840d_gcode - comment - string - support.variable.nck'
 
 
-class S840DNckViewEvents(sublime_plugin.ViewEventListener):
+class S840dNckViewEvents(sublime_plugin.ViewEventListener):
 
     @classmethod
     def is_applicable(cls, settings):
@@ -20,7 +20,7 @@ class S840DNckViewEvents(sublime_plugin.ViewEventListener):
 
     def __init__(self, view=None):
         """Initialize a ViewEventListener object."""
-        super(S840DNckViewEvents, self).__init__(view)
+        super(S840dNckViewEvents, self).__init__(view)
         # disable default goto definition popup
         self.view.settings().set('show_definitions', False)
 
