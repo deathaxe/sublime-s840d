@@ -70,7 +70,12 @@ contexts:
       push:
         - include: line-end
         - include: definitions
-        - include: statements
+        - match: (?=\S)
+          set:
+            # pop off on next archive header
+            - match: (?=%)
+              pop: true
+            - include: main-sublevel
 
   main-sublevel:
     - include: iso-blockno
