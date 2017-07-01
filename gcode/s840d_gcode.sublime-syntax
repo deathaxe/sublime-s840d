@@ -515,7 +515,7 @@ contexts:
   stmt-procedure-call:
     # SINUMERIK procedures
     # need to stand alone in a line
-    - match: (?:A(?:DISPOSA|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:LLPATH|NCEL)|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|RIVEA|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:CLOSE|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOOF|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|R(?:ITE|TPR)))\b
+    - match: (?:A(?:DISPOSA|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:LLPATH|NCEL)|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|RIVEA|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:C(?:ALL|LOSE)|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOOF|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|R(?:ITE|TPR)))\b
       scope: meta.function-call.name.s840d_gcode support.function.nck.procedure.s840d_gcode
       set: cycle-call-arguments
 
@@ -850,7 +850,7 @@ contexts:
     # SINUMERIK command operands
     # act as arguments for iso commands
     #   e.g.: AP=10
-    - match: (?:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|[DFIJKNPRST]|D(?:[0LO]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|EXTCALL|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
+    - match: (?:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|[DFIJKNPRST]|D(?:[0L]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
       scope: support.variable.iso.operand.s840d_gcode
       push: illegal-brackets-pop
 
