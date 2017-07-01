@@ -553,7 +553,9 @@ contexts:
     - meta_content_scope: meta.function-call.arguments.s840d_gcode
     - match: \)
       scope: punctuation.section.arguments.end.s840d_gcode
-      set: line-end-or-illegal
+      set:
+        - include: iso-repeat-count
+        - include: line-end-or-illegal
     - include: seperator-comma-minus
     - include: expressions-line
 
@@ -871,6 +873,7 @@ contexts:
     - include: illegal-brackets-pop
 
   iso-value-int:
+    - include: expressions
     - include: illegal-brackets-pop
 
   iso-value-void:

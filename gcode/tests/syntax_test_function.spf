@@ -31,13 +31,16 @@ N10 MSG ( 66003 , "_PAR1" )
 ;                         ^ punctuation.section.arguments.end
 
 ; call of a user cycle function
-N10 USR ( 66003 , "_PAR1" )
+N10 USR ( 66003 , "_PAR1" ) P=10
 ;   ^^^^ meta.function-call.name - meta.function-call.arguments
 ;       ^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
 ;   ^^^ variable.function.cycle
 ;       ^ punctuation.section.arguments.begin
 ;               ^ punctuation.separator.comma
 ;                         ^ punctuation.section.arguments.end
+;                           ^ support.variable.iso.repeat-count
+;                            ^ keyword.operator.assignment
+;                             ^^ constant.numeric
 
 ; call of ISO command not part of any meta scope
 N10 TRANS X10
