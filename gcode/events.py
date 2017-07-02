@@ -6,6 +6,7 @@ import sublime_plugin
 
 from .. import doc
 from .. import lib
+from . import codeintel
 
 SCOPE_GCODE = 'source.s840d_gcode - comment - string - support.variable.nck'
 
@@ -65,6 +66,21 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
             selections.add(region)
             break
 
+    def on_query_completions(self, prefix, locations):
+        """Provide a list of dynamically created completions."""
+        # don't offer anything for multiple cursors
+        if len(locations) > 1:
+            return ([], sublime.INHIBIT_WORD_COMPLETIONS)
+        # start determines which completion to offer
+        start = locations[0] - len(prefix)
+        # we need to be at least in s840d scope
+        if not self.view.match_selector(start, SCOPE_GCODE):
+            return None
+        # create a list of symbol completions
+        completions = list(
+            codeintel.symbols.completions(self.view, prefix, start))
+        return (completions, sublime.INHIBIT_WORD_COMPLETIONS)
+
     def on_hover(self, point, hover_zone):
         """Handle the hover event and show tooltip if needed."""
         if hover_zone != sublime.HOVER_TEXT:
@@ -78,7 +94,8 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
             content=lib.html.POPUP_TEMPLATE.format(content),
             location=point,
             max_width=window_width,
-            flags=sublime.HIDE_ON_MOUSE_MOVE_AWAY)
+            flags=sublime.HIDE_ON_MOUSE_MOVE_AWAY,
+            on_navigate=self.on_navigate)
 
     def _tooltip_content(self, point, word):
 
@@ -88,9 +105,35 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
             # get description for machine data or nck variable
             if self.view.match_selector(point, 'support.variable.nck'):
                 content = doc.database.tooltip(self.view, word, lang)
+            elif self.view.match_selector(point, 'variable | entity.name.tag'):
+                content = codeintel.symbols.tooltip(self.view, point, word)
             else:
                 content = None
         except Exception as error:
             print(error)
             content = None
         return content
+
+    def on_navigate(self, href):
+        """Handle link clicks within the tooltip.
+
+        Arguments:
+            href (string):
+                The url of the clicked link.
+        """
+        # open file (open:<file_path>:<row>:<col>)
+        if href.startswith('open:'):
+            window = self.view.window() or sublime.active_window()
+            window.open_file(
+                href[5:], group=window.active_group(),
+                flags=sublime.TRANSIENT | sublime.ENCODED_POSITION |
+                sublime.FORCE_GROUP)
+
+        # scroll action (scroll:<point>)
+        elif href.startswith('scroll:'):
+            location = int(href[7:])
+            self.view.sel().clear()
+            self.view.show_at_center(location)
+            self.view.sel().add(location)
+            if self.view.window():
+                self.view.window().focus_view(self.view)
