@@ -18,7 +18,7 @@ N15 ISOCALL _PNAME error ; comment
 ;   ^^^^^^^ meta.function-call - meta.function-call.name
 ;          ^^^^^^^ meta.function-call.name
 ;   ^^^^^^^ keyword.control.isocall
-;           ^^^^^^ variable.function
+;           ^^^^^^ variable.other
 ;                  ^^^^^ invalid.illegal
 ;                        ^^^ comment.line
 
@@ -27,9 +27,19 @@ N15 ISOCALL _PNAME(10,20) ; comment
 ;   ^^^^^^^ meta.function-call - meta.function-call.name
 ;          ^^^^^^^ meta.function-call.name
 ;   ^^^^^^^ keyword.control.isocall
-;           ^^^^^^ variable.function
+;           ^^^^^^ variable.other
 ;                  ^^^^^^ invalid.illegal
 ;                         ^^^ comment.line
+
+; function name provided as string variable
+N15 ISOCALL _PNAME << _VAR ; comment
+;   ^^^^^^^ meta.function-call - meta.function-call.name
+;          ^^^^^^^^^^^^^^^^ meta.function-call.name
+;   ^^^^^^^ keyword.control.isocall
+;           ^^^^^^ variable.other
+;                  ^^ keyword.operator.assignment
+;                     ^^^^ variable.other
+;                          ^^^^^^^^^ comment.line
 
 ; function name provided as string
 N20 ISOCALL "/_N_CUS_DIR/_N_L320_SPF"

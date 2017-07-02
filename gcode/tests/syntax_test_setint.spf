@@ -1,0 +1,35 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  SETINT tests
+;  Performance: 0.1ms
+; ==================================================
+
+SETINT
+;<- meta.function-call.name keyword.operator.assignment.interrupt
+;^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+
+N10SETINT
+;  ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+
+N10 SETINT
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+
+N10 SETINT(_INT)
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^^^^ variable.other
+;              ^ punctuation.section.arguments.end
+
+N10 SETINT(1) PRIO=4 CYCLE_T LIFTFAST
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^^^^^^^ meta.function-call.name variable.function.cycle
+;                            ^^^^^^^^ constant.language.liftfast

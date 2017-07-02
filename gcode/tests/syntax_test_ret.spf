@@ -6,21 +6,41 @@
 ; ==================================================
 
 RET
-; <- meta.control.ret
-; <- keyword.control.ret
+; <- meta.function-call.name keyword.control.ret
+;^^ meta.function-call.name keyword.control.ret
 
 N10RET
-;  ^^^ meta.control.ret
-;  ^^^ keyword.control.ret
+;  ^^^ meta.function-call.name keyword.control.ret
+;^^ - meta.function-call.name keyword.control.ret
 
 N10 RET
-;   ^^^ meta.control.ret
-;   ^^^ keyword.control.ret
+;   ^^^ meta.function-call.name keyword.control.ret
+;^^^ - meta.function-call.name keyword.control.ret
 
-; Rücksprung ins Hauptprogramm zu Label END
-N10RET("END",0,$P_STACK,FALSE)
-;  ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.control.ret
-;      ^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments
+; return to main program looking for END label after return point
+N10RET("N100",0,$P_STACK,FALSE)
+;  ^^^ meta.function-call.name - meta.function-call.arguments
+;     ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
 ;  ^^^ keyword.control.ret
 ;     ^ punctuation.section.arguments.begin
-;                            ^ punctuation.section.arguments.end
+;                             ^ punctuation.section.arguments.end
+
+RETB
+; <- meta.function-call.name keyword.control.ret
+;^^^ meta.function-call.name keyword.control.ret
+
+N10RETB
+;  ^^^^ meta.function-call.name keyword.control.ret
+;^^ - meta.function-call.name keyword.control.ret
+
+N10 RETB
+;   ^^^^ meta.function-call.name keyword.control.ret
+;^^^ - meta.function-call.name keyword.control.ret
+
+; return to main program looking for END label before return point
+N10RETB("END",0,$P_STACK,FALSE)
+;  ^^^^ meta.function-call.name - meta.function-call.arguments
+;      ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
+;  ^^^^ keyword.control.ret
+;      ^ punctuation.section.arguments.begin
+;                             ^ punctuation.section.arguments.end

@@ -1,0 +1,11 @@
+[
+	{
+		// Overide default goto_definition command in G-Code source to allow goto to local or custom definitions.
+		// If no local symbols are found Sublime Text's "goto_definition" command is called.
+		"keys": ["f12"],
+		"command": "s840d_goto_definition",
+		"context": [
+			{ "key": "selector", "operator": "equal", "operand": "source.s840d_gcode", "match_all": false },
+		]
+	},
+]

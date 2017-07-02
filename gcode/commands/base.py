@@ -25,7 +25,7 @@ class TextCommand(sublime_plugin.TextCommand):
         Show the command in command pallet only, if open document is a valid
         SINUMERIK 840D source file.
         """
-        return self.view.scope_name(0).find('source.s840d_gcode') >= 0
+        return self.view.match_selector(0, 'source.s840d_gcode')
 
     def backup_viewport(self):
         """Backup cursor and viewport position.
