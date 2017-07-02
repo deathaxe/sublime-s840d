@@ -131,9 +131,4 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
 
         # scroll action (scroll:<point>)
         elif href.startswith('scroll:'):
-            location = int(href[7:])
-            self.view.sel().clear()
-            self.view.show_at_center(location)
-            self.view.sel().add(location)
-            if self.view.window():
-                self.view.window().focus_view(self.view)
+            lib.view.goto_point(self.view, int(href[7:]))

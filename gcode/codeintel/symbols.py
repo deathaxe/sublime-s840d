@@ -58,6 +58,30 @@ def tooltip(view, location, keyword):
     return None
 
 
+def find_definition(view, location, keyword):
+    """Find the local definition of a keyword in the view.
+
+    Uses the tuple of scopes to search for the local definition of keyword.
+
+    Arguments:
+        view (sublime.View):
+            the view the keyword is defined in
+        location (int):
+            the text position to use to decide which find results to include
+        keyword (string):
+            the symbol name as collected by _Symbol List.tmPreferences_
+
+    Returns:
+        sublime.Region if the keyword is defined in the view or None otherwise
+    """
+    for selector, above_only, _ in SYMBOLS:
+        region = find_nearest_symbol(
+            view, keyword, selector, location, above_only)
+        if region:
+            return region
+    return None
+
+
 def find_nearest_symbols(view, selector, location, above_only=True):
     """Find nearest unique symbols by selector.
 
