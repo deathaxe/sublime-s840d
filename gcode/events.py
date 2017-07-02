@@ -19,17 +19,6 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
         syntax = settings.get('syntax') or ''
         return 's840d_gcode' in syntax or 's840d_arc' in syntax
 
-    def __init__(self, view=None):
-        """Initialize a ViewEventListener object."""
-        super(S840dNckViewEvents, self).__init__(view)
-        # disable default goto definition popup
-        self.view.settings().set('show_definitions', False)
-
-    def __del__(self):
-        """Delete a ViewEventListener object."""
-        # revert settings to global default values
-        self.view.settings().erase('show_definitions')
-
     def on_selection_modified(self):
         """Handle selection changed events."""
         self._expand_selection_on_placeholders()
