@@ -1128,7 +1128,7 @@ contexts:
 
   numbers:
     # decimal numbers
-    - match: '{{float}}\b'
+    - match: '{{float}}(?:\.|\b)'
       scope: constant.numeric.s840d_gcode
     # single quoted binary numbers
     - match: '''[Bb]'
