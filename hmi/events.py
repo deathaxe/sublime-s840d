@@ -10,7 +10,7 @@ from .. import lib
 SELECTOR = 'source.s840d_hmi & support.variable.nck'
 
 
-class S840DHmiEvents(sublime_plugin.EventListener):
+class S840dHmiEvents(sublime_plugin.EventListener):
 
     def on_hover(self, view, point, hover_zone):
         """Handle the hover event and show tooltip if needed."""

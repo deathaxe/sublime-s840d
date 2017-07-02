@@ -8,10 +8,11 @@ import sublime
 from .gcode.commands.beautify import S840dBeautifyCommand
 from .gcode.commands.minify import S840dMinifyCommand
 from .gcode.commands.blockno import S840dRenumberCommand
+from .gcode.commands.goto import S840dGotoDefinitionCommand
 
 # export event handlers
-from .hmi.events import S840DHmiEvents
-from .gcode.events import S840DNckViewEvents
+from .hmi.events import S840dHmiEvents
+from .gcode.events import S840dNckViewEvents
 
 
 def plugin_loaded():
