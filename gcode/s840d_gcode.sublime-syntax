@@ -500,12 +500,12 @@ contexts:
     # a special procedure which allows ISO style arguments afterwards
     - match: (?i:SETINT)\b
       scope: keyword.operator.assignment.interrupt.s840d_gcode
-      push: [stmt-setint-cycle, function-call-arguments]
+      set: [stmt-setint-cycle, function-call-arguments]
 
   stmt-setint-cycle:
     - match: (?i:PRIO)\b
       scope: support.variable.iso.address.s840d_gcode
-    - match: ({{cycle}})[ \t]+((?i:LIFTFAST\b))?
+    - match: ({{cycle}})(?i:[ \t]+(LIFTFAST\b)|[ \t]*(?=(?:$|;)))
       captures:
         1: meta.function-call.name.s840d_gcode variable.function.cycle.s840d_gcode
         2: constant.language.liftfast.s840d_gcode
