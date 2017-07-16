@@ -11,14 +11,14 @@ Compensation value
 <name>$AN_CEC_INPUT_NCU</name>
 <brief>CEC table: Basic axis on NCU</brief>
 <description>$AN_CEC_INPUT_NCU[n]:
-NCU on which the basic axis is calculated
+NCU on which the basic axis is calculated. It returns the value 0 if no NCU has been programmed.
 </description>
 </parameter>
 <parameter type="AXIS" dim="1">
 <name>$AN_CEC_INPUT_AXIS</name>
 <brief>CEC table: Basic axis</brief>
 <description>$AN_CEC_INPUT_AXIS[n]:
-Name of axis whose setpoint is used as the compensation table input
+Name of axis whose setpoint is used as the compensation table input. The value -1 indicates that no axis has been programmed.
 </description>
 </parameter>
 <parameter type="INT" dim="1">

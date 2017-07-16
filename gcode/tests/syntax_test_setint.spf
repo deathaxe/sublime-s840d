@@ -2,7 +2,7 @@
 
 ; ==================================================
 ;  SETINT tests
-;  Performance: 0.1ms
+;  Performance: 0.4ms
 ; ==================================================
 
 SETINT
@@ -12,8 +12,15 @@ SETINT
 N10SETINT
 ;  ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
 
-N10 SETINT
+N10SETINT ; comment
+;  ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^ punctuation.definition.comment.begin
+;         ^^^^^^^^^^ comment.line
+
+N10 SETINT ; comment
 ;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;          ^ punctuation.definition.comment.begin
+;          ^^^^^^^^^^ comment.line
 
 N10 SETINT(_INT)
 ;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
@@ -21,7 +28,79 @@ N10 SETINT(_INT)
 ;         ^ punctuation.section.arguments.begin
 ;          ^^^^ variable.other
 ;              ^ punctuation.section.arguments.end
+;                ^ punctuation.definition.comment.begin
 
+N10 SETINT(_INT) ; comment
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^^^^ variable.other
+;              ^ punctuation.section.arguments.end
+;                ^ punctuation.definition.comment.begin
+;                ^^^^^^^^^^ comment.line
+
+N10 SETINT(1) PRIO=4
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^ punctuation.definition.comment.begin
+
+N10 SETINT(1) PRIO=4 ; comment
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^ punctuation.definition.comment.begin
+;                    ^^^^^^^^^^ comment.line
+
+N10 SETINT(1) PRIO=4 CYCLE_T
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^^^^^^^ meta.function-call.name variable.function.cycle
+
+N10 SETINT(1) PRIO=4 CYCLE_T ; comment
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^^^^^^^ meta.function-call.name variable.function.cycle
+;                            ^ punctuation.definition.comment.begin
+;                            ^^^^^^^^^^ comment.line
+
+N10 SETINT(1) PRIO=4 CYCLE_T<<"TEST"
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^^^^^^^ variable.other
+;                           ^^ keyword.operator.assignment
+;                             ^ punctuation.definition.string.begin
+;                             ^^^^^^ string.quoted.double
+;                                  ^ punctuation.definition.string.end
+;
 N10 SETINT(1) PRIO=4 CYCLE_T LIFTFAST
 ;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
 ;         ^^^ meta.function-call.arguments
@@ -33,3 +112,17 @@ N10 SETINT(1) PRIO=4 CYCLE_T LIFTFAST
 ;                  ^ constant.numeric
 ;                    ^^^^^^^ meta.function-call.name variable.function.cycle
 ;                            ^^^^^^^^ constant.language.liftfast
+
+N10 SETINT(1) PRIO=4 CYCLE_T LIFTFAST ; comment
+;   ^^^^^^ meta.function-call.name keyword.operator.assignment.interrupt
+;         ^^^ meta.function-call.arguments
+;         ^ punctuation.section.arguments.begin
+;          ^ constant.numeric
+;           ^ punctuation.section.arguments.end
+;             ^^^^ support.variable.iso.address
+;                 ^ keyword.operator.assignment
+;                  ^ constant.numeric
+;                    ^^^^^^^ meta.function-call.name variable.function.cycle
+;                            ^^^^^^^^ constant.language.liftfast
+;                                     ^ punctuation.definition.comment.begin
+;                                     ^^^^^^^^^^ comment.line
