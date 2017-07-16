@@ -7,7 +7,11 @@ import sublime
 
 from .. import lib
 
-doc_version = "25.09.2016"  # should not be here!
+doc_version = "15.07.2017"  # should not be here!
+
+
+# def plugin_loaded():
+#     dump_vars()
 
 
 def tooltip(view, keyword, lang='en'):
@@ -73,13 +77,15 @@ def _generate_tooltip(word, lang):
                     )
 
         # brief
-        yield '<h2>{0}</h2>'.format(lib.html.encode(brief))
+        if brief:
+            yield '<h2>{0}</h2>'.format(lib.html.encode(brief))
         # data type
         if data_type:
             yield '<h2><b>type:</b> {0}</h2>'.format(lib.html.encode(data_type))
         # description
-        yield '<p>{0}</p>'.format(lib.html.encode(
-            gzip.decompress(bytearray(desc)).decode()))
+        if desc:
+            yield '<p>{0}</p>'.format(lib.html.encode(
+                gzip.decompress(bytearray(desc)).decode()))
 
 
 def package_name():
@@ -307,6 +313,8 @@ def dump_vars():
     # dump only, if package is not packed as suplime-package
     if not os.path.isdir(path):
         return
+
+    doc_cache, _ = cache_init(False)
 
     with sqlite3.connect(doc_cache) as sql:
 
