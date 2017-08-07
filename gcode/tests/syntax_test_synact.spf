@@ -79,7 +79,7 @@ N7 WHENEVER $A_IN[1] DO VARIABLE = 1 + VAR2
 ;                                    ^ keyword.operator.arithmetic
 ;                                      ^^^^ variable.other
 
-; modal synact.ronous positioning call
+; modal synchronous positioning call
 N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 ;  ^^ keyword.control.synact.identifier
 ;    ^ keyword.operator.assignment
@@ -99,7 +99,7 @@ N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 ;                                   ^ punctuation.section.brackets.end
 ;                                    ^ keyword.operator.assignment
 
-; modal synact.ronous function without condition
+; modal synchronous function without condition
 N7 IDS=1 DO POS[Q1]=13
 ;     ^ keyword.operator.assignment
 ;      ^ constant.numeric
