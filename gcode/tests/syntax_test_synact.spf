@@ -60,8 +60,26 @@ N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI
 ;                             ^^^^ support.function
 ;                                 ^ punctuation.section.arguments.begin
 ;                                     ^ punctuation.section.arguments.end
+; modal synchronous function calling a built-in procedure
+N7 WHENEVER $A_IN[1] DO RDISABLE
+;                      ^^^^^^^^^ meta.synact.operation
+;  ^^^^^^^^ keyword.control.synact.condition
+;           ^^^^^ support.variable.nck
+;                    ^^ keyword.control.synact.operation
+;                       ^^^^^^^^ support.function.nck.procedure
+; modal synchronous function to calculate something
+N7 WHENEVER $A_IN[1] DO VARIABLE = 1 + VAR2
+;                      ^^^^^^^^^^^^^^^^^^^^ meta.synact.operation
+;  ^^^^^^^^ keyword.control.synact.condition
+;           ^^^^^ support.variable.nck
+;                    ^^ keyword.control.synact.operation
+;                       ^^^^^^^^ variable.other
+;                                ^ keyword.operator.assignment
+;                                  ^ constant.numeric
+;                                    ^ keyword.operator.arithmetic
+;                                      ^^^^ variable.other
 
-; modal synact.ronous positioning call
+; modal synchronous positioning call
 N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 ;  ^^ keyword.control.synact.identifier
 ;    ^ keyword.operator.assignment
@@ -81,7 +99,7 @@ N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
 ;                                   ^ punctuation.section.brackets.end
 ;                                    ^ keyword.operator.assignment
 
-; modal synact.ronous function without condition
+; modal synchronous function without condition
 N7 IDS=1 DO POS[Q1]=13
 ;     ^ keyword.operator.assignment
 ;      ^ constant.numeric
