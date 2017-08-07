@@ -26,7 +26,7 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
     - Highlight illegal usage of control keywords.
   * indention rules
   * code-snippets for most common control functions
-  * commands to `Minify`, `Beautify`, `Add/Update block numbers`
+  * commands to `Minify`, `Beautify`, `Add/Update block numbers`, `Save Protected Program File (CPF)`
   * Goto Definition
     - Show labels in local symbol list
     - Show PROC names in indexed symbol list
