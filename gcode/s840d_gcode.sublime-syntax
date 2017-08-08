@@ -1029,6 +1029,10 @@ contexts:
     - match: (?i:DO)\b
       scope: keyword.control.synact.operation.s840d_gcode
       set: [stmt-synact-operation-iso, stmt-synact-operation-cycle]
+      with_prototype:
+        # make sure to pop off before line end from all statements
+        - match: $
+          pop: true
 
   stmt-synact-operation-iso:
     - meta_content_scope: meta.synact.operation.s840d_gcode
