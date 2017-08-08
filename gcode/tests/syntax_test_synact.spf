@@ -78,6 +78,13 @@ N7 WHENEVER $A_IN[1] DO VARIABLE = 1 + VAR2
 ;                                  ^ constant.numeric
 ;                                    ^ keyword.operator.arithmetic
 ;                                      ^^^^ variable.other
+; ensure line after synchronous action is highlighted correctly
+N7 WHENEVER $A_IN[1] DO RDISABLE
+STOPRE
+;<- keyword.control.stopre
+N7 WHENEVER $A_IN[1] DO VARIABLE = 1 + VAR2
+STOPRE
+;<- keyword.control.stopre
 
 ; modal synchronous positioning call
 N6 ID=1 EVERY $A_DBB[5]<>0 DO POS[Q1]=$A_DBB[5]
