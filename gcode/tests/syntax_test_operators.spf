@@ -88,6 +88,23 @@ _RESULT = -.50
 ;         ^ constant.numeric
 ;          ^ constant.numeric
 ;           ^ constant.numeric
+_RESULT = 'B1102031'
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ punctuation.definition.numeric.begin
+;          ^ punctuation.definition.numeric.binary
+;         ^^^^^^^^^^ constant.numeric.binary
+;              ^ invalid.illegal
+;                ^ invalid.illegal
+;                  ^ punctuation.definition.numeric.end
+_RESULT = 'H0123456789ABCDEFGH'
+;  ^ variable.other
+;       ^ keyword.operator.assignment
+;         ^ punctuation.definition.numeric.begin
+;          ^ punctuation.definition.numeric.hexadecimal
+;         ^^^^^^^^^^^^^^^^^^^^^ constant.numeric.hexadecimal
+;                           ^^ invalid.illegal
+;                             ^ punctuation.definition.numeric.end
 
 ; valid axis name assignment
 _AXIS=X1
