@@ -46,6 +46,7 @@ contexts:
     - include: datablock
     - include: function
     - include: functionblock
+    - include: type
 
   prototype:
     - include: comments
@@ -59,6 +60,42 @@ contexts:
 #      - FB  : FUNCTION_BLOCK                                                 #
 #      - FC  : FUNCTION                                                       #
 ###############################################################################
+
+###############################################################################
+# UDT : TYPE                                                                  #
+###############################################################################
+
+  type:
+    - match: \bTYPE\b
+      scope: keyword.control.type.begin.s7.awl
+      push:
+        - meta_scope: meta.block.type.header.s7.awl
+        - match: \n
+          set: type-header
+        - match: (\")(\S+)(\")
+          scope: string.quoted.double.s7.awl
+          captures:
+            1: punctuation.definition.string.begin.s7.awl
+            2: entity.name.struct.type.s7.awl
+            3: punctuation.definition.string.end.s7.awl
+        - match: \S.*?(?=\s*(?::|//|$))
+          scope: string.unquoted.double.s7.awl entity.name.struct.type.s7.awl
+        - include: illegal
+
+  type-header:
+    - meta_content_scope: meta.block.type.header.s7.awl
+    - include: annotation
+    - include: attribute
+    - include: version
+    - include: storage-type-struct
+    - include: operands-symbols
+    - include: type-end
+    - include: illegal
+
+  type-end:
+    - match: \bEND_TYPE\b
+      scope: keyword.control.type.end.s7.awl
+      set: assert-line-end
 
 ###############################################################################
 # DB : DATA_BLOCK                                                             #
@@ -95,6 +132,8 @@ contexts:
     - include: storage-type-struct
     - include: operands-symbols
     - include: datablock-end
+    - match: \bNON_RETAIN\b
+      scope: entity.other.attribute-name.s7.awl
     - include: illegal
 
   datablock-body:
@@ -121,6 +160,8 @@ contexts:
   datablock-mapping-value:
     - meta_content_scope: meta.mapping.value.s7.awl
     - include: constants
+    - include: string-double-quoted
+    - include: string-single-quoted
     - include: datablock-mapping-end
 
   datablock-mapping-end:
@@ -315,7 +356,7 @@ contexts:
 
   title-value:
     - meta_content_scope: meta.mapping.value.s7.awl
-    - match: \S.*
+    - match: \S.*$
       scope: string.unquoted.s7.awl entity.name.section.s7.awl
     - include: line-end
 
@@ -327,6 +368,9 @@ contexts:
     - match: \b(?:AUTHOR|FAMILY|NAME)\b
       scope: entity.other.attribute-name.s7.awl
       push: attribute-separator
+    - match: \b(?:CODE_VERSION1|KNOW_HOW_PROTECT)\b
+      scope: entity.other.attribute-name.s7.awl
+      push: assert-line-end
 
   attribute-separator:
     - meta_scope: meta.mapping.key.s7.awl
@@ -468,6 +512,7 @@ contexts:
   variable-storage:
     - meta_content_scope: meta.definition.variable.storage.s7.awl
     - include: storage-type
+    - include: datablock-mapping-separator   # FIXME: cleaner solution
     - include: code-termination
 
 ###############################################################################
@@ -482,6 +527,16 @@ contexts:
     - include: storage-type-blocks
     - include: storage-type-struct
     - include: storage-type-array
+    - include: storage-type-user
+
+  storage-type-user:
+    # user defined types (UDT, DB, FB)
+    - match: (\")(\S+)(\")
+      scope: string.quoted.double.s7.awl
+      captures:
+        1: punctuation.definition.string.begin.s7.awl
+        2: storage.type.other.s7.awl
+        3: punctuation.definition.string.end.s7.awl
     - match: \b\w+\b
       scope: storage.type.other.s7.awl
 
@@ -513,6 +568,7 @@ contexts:
           set:
             - meta_content_scope: meta.sequence.array.s7.awl
             - include: storage-type
+            - include: datablock-mapping-separator   # FIXME: cleaner solution
             - include: code-termination
         - include: illegal
     - include: assert-line-end
@@ -837,13 +893,30 @@ contexts:
         - include: code-termination
 
   awl-stmt-call:
-    - match: \bCALL\b
+    ## CC, UC
+    - match: \b[CU]C\b
       scope: meta.function-call.s7.awl keyword.control.call.s7.awl
       push:
         - meta_content_scope: meta.function-call.name.s7.awl
         - include: operands-symbols
+        - include: code-termination
+    # CALL
+    - match: \bCALL\b
+      scope: meta.function-call.s7.awl keyword.control.call.s7.awl
+      push:
+        - meta_content_scope: meta.function-call.name.s7.awl
+        - match: ','
+          scope: punctuation.separator.sequence.s7.awl
+          set:
+            - meta_content_scope: meta.function-call.instance.s7.awl
+            - include: awl-stmt-call-name
+        - include: awl-stmt-call-name
+
+  awl-stmt-call-name:
+        - include: operands-symbols
         - match: (?=\()
           set: awl-stmt-call-arguments
+        - include: code-termination
 
   awl-stmt-call-arguments:
       - match: \(
@@ -1038,11 +1111,17 @@ contexts:
     - include: operands-indirect-binary
 
   operands-absolute-logical:
-    # M10.0, DIX10.0, L0.0, ...
-    - match: \b(?:D[BI]X|[LMV])\s*\d+\.\d+
+    # M 10.0, DIX 10.0, L 0.0, ...
+    - match: \b(?:DIX|[AELMV])\s*\d+\.\d+
       scope: variable.language.address.s7.awl
     - match: '(?:==|<>|>=|<=|<|>)0\b'
       scope: variable.language.status.s7.awl
+    # DB10.DBX 10.0
+    - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+\.{{int}})
+      captures:
+        1: variable.language.datablock.s7.awl
+        2: punctuation.accessor.dot.s7.awl
+        3: variable.language.address.s7.awl
 
   operands-absolute-binary:
     - match: '\b(?:DBNO|DINO|DBLG|DILG|STW)\b'
@@ -1051,16 +1130,16 @@ contexts:
     # AB10, AW10, AD10, PAB10, PAW10, PAD10
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
-    - match: \b(?:P?[AE]|[LMV])[BWD]{{int}}
+    - match: \b(?:P?[AE]|[LMV])[BWD][ \t]*{{int}}
       scope: variable.language.address.s7.awl
     # DBB10, DIB10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
-    - match: \b(?:(DB\d+)(\.))?(DB[BWD]{{int}})
+    - match: \b(?:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
       captures:
         1: variable.language.datablock.s7.awl
         2: punctuation.accessor.dot.s7.awl
         3: variable.language.address.s7.awl
-    # DIW10, DBD10, DID10
-    - match: \bDI[BWD]{{int}}
+    # DIW10, DIW10, DID10
+    - match: \bDI[BWD][ \t]*{{int}}
       scope: variable.language.address.s7.awl
 
   operands-datablock:
@@ -1082,10 +1161,10 @@ contexts:
             - include: operands-symbols
 
   operands-indirect-binary:
-    # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...]
-    # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...]
-    # D[...], MD [...], LD [...], VD [...], DID [...], DID[...]
-    - match: \b(?:D[BI]|[LMV])?[BWD]\b
+    # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...], AB[], EB[], PAB[], PEB[]
+    # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...], AW[], EW[], PAW[], PEW[]
+    # D[...], MD [...], LD [...], VD [...], DID [...], DID[...], AD[], ED[], PAD[], PED[]
+    - match: \b(?:P?[AE]|D[BI]|[LMV])?[BWD]\b
       scope: variable.language.address.s7.awl
       push:
         - include: address-indirect
