@@ -75,27 +75,58 @@ contexts:
 
   datablock-header:
     - meta_content_scope: meta.block.datablock.header.s7.awl
+    - match: (?=\bBEGIN\b)
+      set:
+        - match: (\bBEGIN\b)
+          scope: keyword.control.begin.s7.awl
+          set: [datablock-body, assert-line-end]
+        - include: datablock-end
     - include: annotation
     - include: attribute
     - include: version
     - include: storage-type-struct
     - include: operands-symbols
-    - match: (\bBEGIN\b)
-      scope: keyword.control.begin.s7.awl
-      set: datablock-body
     - include: datablock-end
+    - include: illegal
 
   datablock-body:
-    - clear_scopes: 1
     - meta_scope: meta.block.datablock.body.s7.awl
-    # - include: awl-stmt-mapping
     - include: datablock-end
+    - match: \b\w+\b
+      scope: variable.other.local.s7.awl
+      push:
+        - meta_scope: meta.mapping.key.s7.awl
+        - match: (?=:=)
+          set: datablock-mapping-separator
+        - include: array-index
+        - include: struct-members
+        - include: assert-line-end
+    - include: illegal
+
+  datablock-mapping-separator:
+    - meta_content_scope: meta.mapping.s7.awl
+    - match: ':='
+      scope: punctuation.separator.key-value.s7.awl
+      set: datablock-mapping-value
+    - include: datablock-mapping-end
+
+  datablock-mapping-value:
+    - meta_content_scope: meta.mapping.value.s7.awl
+    - include: constants
+    - include: datablock-mapping-end
+
+  datablock-mapping-end:
+    - match: ;
+      scope: meta.mapping.s7.awl punctuation.separator.mapping.pair.s7.awl
+      pop: true
+    - match: \S+
+      scope: invalid.illegal.value.s7.awl
+    - include: line-end
 
   datablock-end:
     - match: \bEND_DATA_BLOCK\b
       scope: keyword.control.datablock.end.s7.awl
       set: assert-line-end
-    - include: illegal
 
 ###############################################################################
 # FB : FUNCTION_BLOCK                                                         #
@@ -119,6 +150,12 @@ contexts:
 
   functionblock-header:
     - meta_content_scope: meta.function.parameters.s7.awl
+    - match: (?=\bBEGIN\b)
+      set:
+        - match: (\bBEGIN\b)
+          scope: keyword.control.begin.s7.awl
+          set: [functionblock-body, assert-line-end]
+        - include: functionblock-end
     - include: annotation
     - include: version
     - include: attribute
@@ -127,13 +164,9 @@ contexts:
     - include: var-inout
     - include: var-stat
     - include: var-temp
-    - match: (\bBEGIN\b)
-      scope: keyword.control.begin.s7.awl
-      set: functionblock-body
     - include: functionblock-end
 
   functionblock-body:
-    - clear_scopes: 1
     - meta_scope: meta.function.block.s7.awl
     - include: network
     - include: functionblock-end
@@ -166,6 +199,12 @@ contexts:
 
   function-header:
     - meta_content_scope: meta.function.parameters.s7.awl
+    - match: (?=\bBEGIN\b)
+      set:
+        - match: (\bBEGIN\b)
+          scope: keyword.control.begin.s7.awl
+          set: [function-body, assert-line-end]
+        - include: function-end
     - include: annotation
     - include: version
     - include: attribute
@@ -173,13 +212,9 @@ contexts:
     - include: var-output
     - include: var-inout
     - include: var-temp
-    - match: (\bBEGIN\b)
-      scope: keyword.control.begin.s7.awl
-      push: function-body
     - include: function-end
 
   function-body:
-    - clear_scopes: 1
     - meta_scope: meta.function.block.s7.awl
     - include: network
     - include: function-end
@@ -587,10 +622,7 @@ contexts:
       captures:
         1: keyword.operator.logical.s7.awl
         2: punctuation.section.block.begin.s7.awl
-      push:
-        - match: \n
-          set: awl-stmt-block-body
-        - include: assert-line-end
+      push: [awl-stmt-block-body, code-termination]
 
   awl-stmt-block-body:
     - meta_scope: meta.block.logical.s7.awl
@@ -642,9 +674,7 @@ contexts:
     - match: \b(?:INC|DEC)\b
       scope: keyword.operator.arithmetic.akku.s7.awl
       push:
-        - match: \d+
-          scope: constant.numeric.integer.s7.awl
-          set: code-termination
+        - include: constants-uint16
         - include: code-termination
     # +
     - match: \+
@@ -791,12 +821,13 @@ contexts:
 ###############################################################################
 
   awl-stmt-mapping:
-    - match: \b(\w+)\b(.*)(?=:=)
-      scope: meta.mapping.key.s7.awl
-      captures:
-        1: variable.parameter.s7.awl
-        2: invalid.illegal.separator-expected.s7.awl
-      push: awl-stmt-mapping-separator
+    - match: \b\w+\b
+      scope: variable.parameter.s7.awl
+      push:
+        - meta_scope: meta.mapping.key.s7.awl
+        - match: (?=:=)
+          set: awl-stmt-mapping-separator
+        - include: assert-line-end
 
   awl-stmt-mapping-separator:
     - meta_content_scope: meta.mapping.s7.awl
@@ -807,12 +838,7 @@ contexts:
 
   awl-stmt-mapping-value:
     - meta_content_scope: meta.mapping.value.s7.awl
-    - include: constants-bool
-    - include: constants-hex
-    - include: constants-time
-    - include: constants-float
-    - include: constants-int
-    - include: constants-pointer
+    - include: constants
     - include: operands-absolute-binary
     - include: operands-symbols
     - include: awl-stmt-mapping-end
@@ -829,12 +855,11 @@ contexts:
 ###############################################################################
 
   constants:
-    - include: constants-status
     - include: constants-bool
     - include: constants-hex
-    - include: constants-time
     - include: constants-float
     - include: constants-int
+    - include: constants-time
     - include: constants-pointer
 
   constants-bool:
@@ -860,10 +885,6 @@ contexts:
   constants-uint16:
     - match: '{{int}}'
       scope: constant.numeric.integer.s7.awl
-
-  constants-status:
-    - match: '(?:==|>=|<=|<|>)0\b'
-      scope: constant.numeric.status.s7.awl
 
   constants-time:
     - match: C#\d+
@@ -925,6 +946,8 @@ contexts:
     # M10.0, DIX10.0, L0.0, ...
     - match: \b(?:D[BI]X|[LMV])\s*\d+\.\d+
       scope: variable.language.address.s7.awl
+    - match: '(?:==|>=|<=|<|>)0\b'
+      scope: variable.language.status.s7.awl
 
   operands-absolute-binary:
     - match: '\b(?:DBNO|DINO|DBLG|DILG|STW)\b'
@@ -952,17 +975,16 @@ contexts:
         # datablock number
         - match: \d+
           scope: constant.numeric.integer.datablock.s7.awl
-          set: code-termination
+          pop: true
         # indirect address
         - match: \[
           scope: punctuation.section.brackets.begin
           set:
             - match: \]
               scope: punctuation.section.brackets.end.s7.awl
-              set: code-termination
+              pop: true
             - include: operands-absolute-binary
             - include: operands-symbols
-        - include: code-termination
 
   operands-indirect-binary:
     # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...]
@@ -972,7 +994,7 @@ contexts:
       scope: variable.language.address.s7.awl
       push:
         - include: address-indirect
-        - include: code-termination
+        - include: scope-end
 
   operands-indirect-logical:
     # [AR1,P#0.0]
@@ -984,10 +1006,10 @@ contexts:
   address-indirect:
     - match: \[
       scope: punctuation.section.brackets.begin.s7.awl
-      set:
+      push:
         - match: \]
           scope: punctuation.section.brackets.end.s7.awl
-          set: code-termination
+          pop: true
         - include: constants-pointer
         - include: operands-absolute-binary
         - include: operands-symbols
@@ -1079,7 +1101,7 @@ contexts:
     - include: line-end
     # mark rest of the line as illegal beginning with the first
     # none whitespace letter
-    - match: \S.*(?=//)
+    - match: \S.*?(?=//|$)
       scope: invalid.illegal.eol-expected.s7.awl
       pop: true
 

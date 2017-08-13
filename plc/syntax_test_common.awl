@@ -5,6 +5,128 @@
 //  Performance: 0.9ms
 // ==================================================
 
+///////////////////////////////////////////////////////////////////////////////
+// datablocks                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+  DATA_BLOCK "name" // comment
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^^^^ keyword.control.datablock.begin
+//           ^ punctuation.definition.string.begin
+//           ^^^^^^ string.quoted.double
+//                  ^^ punctuation.definition.comment.begin
+//                  ^^^^^^^^^^ comment.line.double-slash
+   TITLE =the datablock description
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^^ meta.mapping.key - meta.mapping.value
+//        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+// ^^^^^ entity.other.attribute-name.title
+//       ^ punctuation.separator.key-value.title
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted
+   { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.datablock.header
+// ^ meta.mapping - meta.mapping.key - meta.mapping.value
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//                       ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value
+//                                                                             ^ meta.mapping - meta.mapping.key - meta.mapping.value
+// ^ punctuation.section.mapping.begin
+//   ^^^^^^^^^^^ entity.other.attribute-name.annotation-attribute
+//               ^^^^^^^^ invalid.illegal.separator-expected
+//                       ^^ punctuation.separator.key-value
+//                                                                             ^ punctuation.section.mapping.end
+   VERSION : 1.0
+// ^^^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//          ^^^^ meta.mapping.value
+// ^^^^^^^ entity.other.attribute-name
+//         ^ punctuation.separator.key-value
+//           ^ constant.numeric.float.version.major
+//            ^ punctuation.separator.decimal.version
+//             ^ constant.numeric.float.version.minor
+   AUTHOR : name
+// ^^^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   FAMILY : name
+// ^^^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   NAME : name
+// ^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^ meta.mapping.key - meta.mapping.value
+//       ^^^^^ meta.mapping.value
+// ^^^^ entity.other.attribute-name
+//      ^ punctuation.separator.key-value
+//        ^^^^ string.unquoted
+   ILLEGAL : unknown
+// ^^^^^^^^^^^^^^^^^ meta.block.datablock.header
+// ^^^^^^^ invalid.illegal
+//         ^ invalid.illegal
+//           ^^^^^^^ invalid.illegal
+
+   "UDT_TypeName"
+//<- meta.block.datablock.header
+// ^^^^^^^^^^^^^^ meta.block.datablock.header
+// ^ punctuation.definition.string.begin
+// ^^^^^^^^^^^^^^ string.quoted.double
+//  ^^^^^^^^^^^^ variable.other.symbol
+//              ^ punctuation.definition.string.end
+   BEGIN illegal // comment
+//<- meta.block.datablock.header
+//^ meta.block.datablock.header - meta.block.datablock.body
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.datablock.body - meta.block.datablock.header
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ invalid.illegal
+//               ^^ punctuation.definition.comment.begin
+//               ^^^^^^^^^^ comment.line.double-slash
+
+   VAR[0].child[ 0 ].attr := W#16#0 ;  // comment
+//<- meta.block.datablock.body
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.datablock.body
+// ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//                        ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                          ^^^^^^^^ meta.mapping.value - meta.mapping.key
+//                                  ^ meta.mapping - meta.mapping.key - meta.mapping.value
+//    ^^^ meta.brackets
+//             ^^^^^ meta.brackets
+// ^^^ variable.other.local
+//    ^ punctuation.section.brackets.begin
+//     ^ constant.numeric.integer
+//      ^ punctuation.section.brackets.end
+//       ^ punctuation.accessor.dot
+//        ^^^^^ variable.other.member
+//             ^ punctuation.section.brackets.begin
+//               ^ constant.numeric.integer
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.accessor.dot
+//                   ^^^^ variable.other.member
+//                        ^^ punctuation.separator.key-value
+//                           ^^^^^^ constant.numeric.hex.word
+   test := W#16 ;
+// ^^^^ variable.other.local
+//      ^^ punctuation.separator.key-value
+//         ^^^^ invalid.illegal.value
+//              ^ punctuation.separator.mapping.pair
+   incomplete
+   next_is_valid
+// ^^^^^^^^^^^^^ variable.other.local
+
+   END_DATA_BLOCK
+//<- meta.block.datablock.body
+//^^^^^^^^^^^^^^^ meta.block.datablock.body
+// ^^^^^^^^^^^^^^ keyword.control.datablock.end
+
+///////////////////////////////////////////////////////////////////////////////
+// functions                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
    FUNCTION "name" : INT  // comment
 // ^^^^^^^^ meta.function - meta.function.name
 //         ^^^^^^^^^ meta.function.name - meta.function.return-type
@@ -24,7 +146,7 @@
 //       ^ punctuation.separator.key-value.title
 //        ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted
    { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters
 // ^ meta.mapping - meta.mapping.key - meta.mapping.value
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
 //                       ^^ meta.mapping - meta.mapping.key - meta.mapping.value
@@ -591,6 +713,7 @@
 
    BEGIN
 // <- meta.function.parameters - meta.function.block
+//^ meta.function.parameters - meta.function.block
 // ^^^^^ meta.function.block - meta.function.parameters
 // ^^^^^ keyword.control.begin
 
