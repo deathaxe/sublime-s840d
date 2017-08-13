@@ -71,7 +71,15 @@ contexts:
         - meta_scope: meta.block.datablock.header.s7.awl
         - match: \n
           set: [datablock-header, title]
-        - include: string-double-quoted
+        - match: (\")(\S+)(\")
+          scope: string.quoted.double.s7.awl
+          captures:
+            1: punctuation.definition.string.begin.s7.awl
+            2: entity.name.struct.db.s7.awl
+            3: punctuation.definition.string.end.s7.awl
+        - match: \S.*?(?=\s*(?::|//|$))
+          scope: string.unquoted.double.s7.awl entity.name.struct.db.s7.awl
+        - include: illegal
 
   datablock-header:
     - meta_content_scope: meta.block.datablock.header.s7.awl
@@ -146,7 +154,15 @@ contexts:
               set: [functionblock-header, title]
         - match: \n
           set: [functionblock-header, title]
-        - include: string-double-quoted
+        - match: (\")(\S+)(\")
+          scope: string.quoted.double.s7.awl
+          captures:
+            1: punctuation.definition.string.begin.s7.awl
+            2: entity.name.function.fb.s7.awl
+            3: punctuation.definition.string.end.s7.awl
+        - match: \S.*?(?=\s*(?::|//|$))
+          scope: string.unquoted.double.s7.awl entity.name.struct.fb.s7.awl
+        - include: illegal
 
   functionblock-header:
     - meta_content_scope: meta.function.parameters.s7.awl
@@ -195,7 +211,15 @@ contexts:
               set: [function-header, title]
         - match: \n
           set: [function-header, title]
-        - include: string-double-quoted
+        - match: (\")(\S+)(\")
+          scope: string.quoted.double.s7.awl
+          captures:
+            1: punctuation.definition.string.begin.s7.awl
+            2: entity.name.function.fc.s7.awl
+            3: punctuation.definition.string.end.s7.awl
+        - match: \S.*?(?=\s*(?::|//|$))
+          scope: string.unquoted.double.s7.awl entity.name.struct.fc.s7.awl
+        - include: illegal
 
   function-header:
     - meta_content_scope: meta.function.parameters.s7.awl
@@ -290,7 +314,9 @@ contexts:
     - include: assert-line-end
 
   title-value:
-    - meta_content_scope: meta.mapping.value.s7.awl string.unquoted.s7.awl
+    - meta_content_scope: meta.mapping.value.s7.awl
+    - match: \S.*
+      scope: string.unquoted.s7.awl entity.name.section.s7.awl
     - include: line-end
 
 ###############################################################################
@@ -649,7 +675,6 @@ contexts:
     - match: \b(?:[OUX]N?|F[PN])\b
       scope: keyword.operator.logical.s7.awl
       push:
-        - include: constants-status
         - include: operands
         - include: code-termination
     - match: \b(?:CLR|NOT|SAVE|SET)\b
@@ -1016,7 +1041,7 @@ contexts:
     # M10.0, DIX10.0, L0.0, ...
     - match: \b(?:D[BI]X|[LMV])\s*\d+\.\d+
       scope: variable.language.address.s7.awl
-    - match: '(?:==|>=|<=|<|>)0\b'
+    - match: '(?:==|<>|>=|<=|<|>)0\b'
       scope: variable.language.status.s7.awl
 
   operands-absolute-binary:
