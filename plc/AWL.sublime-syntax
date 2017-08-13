@@ -510,9 +510,13 @@ contexts:
       scope: storage.type.dword.s7.awl
     - match: \bREAL\b
       scope: storage.type.real.s7.awl
+    - match: \bCOUNTER\b
+      scope: storage.type.counter.s7.awl
+    - match: \bTIMER\b
+      scope: storage.type.timer.s7.awl
 
   storage-type-blocks:
-    - match: \bBLOCK_DB\b
+    - match: \bBLOCK_S?DB\b
       scope: storage.type.datablock.s7.awl
     - match: \bBLOCK_FB\b
       scope: storage.type.functionblock.s7.awl
@@ -522,12 +526,12 @@ contexts:
   storage-type-datetime:
     - match: \bS5TIME\b
       scope: storage.type.s5time.s7.awl
-    - match: \bS5TIMER\b
-      scope: storage.type.s5timer.s7.awl
-    - match: \bDATE_AND_TIME\b
-      scope: storage.type.datetime.s7.awl
+    - match: \bTIME\b
+      scope: storage.type.iec-time.s7.awl
     - match: \bTIME_OF_DAY\b
       scope: storage.type.time.s7.awl
+    - match: \bDATE_AND_TIME\b
+      scope: storage.type.datetime.s7.awl
 
   storage-type-pointer:
     - match: \bANY\b
@@ -609,6 +613,7 @@ contexts:
     - include: awl-stmt-akku
     - include: awl-stmt-datablock
     - include: awl-stmt-call
+    - include: awl-stmt-nop
 
   awl-stmt-label:
     - match: '^\s*(\w{1,4})(:)'
@@ -630,6 +635,14 @@ contexts:
       scope: punctuation.section.block.end.s7.awl
       set: code-termination
     - include: awl-statements
+
+  awl-stmt-nop:
+    # NOP 0, BLD
+    - match: \b(?:BLD|NOP)\b
+      scope: keyword.operator.nop.s7.awl
+      push:
+        - include: constants-uint16
+        - include: code-termination
 
   awl-stmt-logical:
     # U , UN , O, ON, X, XN, FP, FN
@@ -658,8 +671,10 @@ contexts:
     - match: \b(?:INV[ID]|NEG[IDR])\b
       scope: keyword.operator.bitwise.s7.awl
       push: code-termination
+    # RLD, RLDA, RRD, RRDA
     # SLW, SLD, SRW, SRD
-    - match: \bS[LR][WD]\b
+    # SSI, SSD
+    - match: \b(?:R[LR]DA?|S[LR][WD]|SS[DI])\b
       scope: keyword.operator.bitwise.s7.awl
       push:
         - include: constants-uint16
@@ -672,19 +687,19 @@ contexts:
       push: code-termination
     # INC, DEC
     - match: \b(?:INC|DEC)\b
-      scope: keyword.operator.arithmetic.akku.s7.awl
+      scope: keyword.operator.arithmetic.s7.awl
       push:
         - include: constants-uint16
         - include: code-termination
-    # +
+    # + 10, + -10, + L#20, + L#-20
     - match: \+
-      scope: keyword.operator.arithmetic.akku.s7.awl
+      scope: keyword.operator.arithmetic.s7.awl
       push:
         - include: constants-int
         - include: code-termination
-    # floating point operations
-    - match: \b(?:ABS|MOD)\b
-      scope: keyword.operator.arithmetic.float.s7.awl
+    # 32-bit floating point operations
+    - match: \b(?:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
+      scope: keyword.operator.arithmetic.s7.awl
       push: code-termination
     # type conversions
     # BTI, ITB, BTD, ITD, DTB, DTR
@@ -860,7 +875,50 @@ contexts:
     - include: constants-float
     - include: constants-int
     - include: constants-time
+    - include: constants-any
     - include: constants-pointer
+
+  constants-any:
+    # P# DB20.DBX40.0 WORD 10
+    - match: |-
+          (?x)
+            P\#                # pointer prefix
+            [ \t]*             # optional space
+            (?:
+                [AEML]?[ \t]*  # input, output, marker, temp,
+              | DB\d+\.DBX     # datablock & address
+            ) \d+\.[0-7]       # bit-address
+            [ \t]+             # at least one space
+            (?:                # the data type
+                VOID
+              | BOOL
+              | BYTE|CHAR|INT|WORD|DINT|DWORD
+              | REAL|COUNTER|TIMER
+              | BLOCK_S?DB|BLOCK_FB|BLOCK_FC
+              | S5TIME|DATE_AND_TIME|TIME_OF_DAY|TIME
+              | STRING
+            )
+            [ \t]+             # at least one space
+            \d+\b              # element count
+      scope: constant.language.any-pointer.s7.awl
+
+  constants-pointer:
+    # P#10.0 P#M10.0, P#DB20.DBX10.0
+    - match: |-
+          (?x)
+            P\#                # pointer prefix
+            [ \t]*             # optional space
+            (?:
+                [AEML]?[ \t]*  # input, output, marker, temp,
+              | (DB\d+\.)?DBX  # datablock & address
+            ) \d+\.[0-7]\b     # bit-address
+      scope: constant.language.pointer.s7.awl
+    # P##LocalSymbol
+    - match: (P#)(#)(\w+)\b
+      captures:
+        1: constant.language.pointer.s7.awl
+        2: punctuation.definition.variable.begin.s7.awl
+        3: variable.other.local.s7.awl
 
   constants-bool:
     - match: \b(?:TRUE|FALSE)\b
@@ -879,7 +937,7 @@ contexts:
       scope: constant.numeric.hex.dword.s7.awl
 
   constants-int:
-    - match: '[-+]?(?:L#)?{{int}}'
+    - match: (?:L#)?[-+]?{{int}}
       scope: constant.numeric.integer.s7.awl
 
   constants-uint16:
@@ -889,15 +947,27 @@ contexts:
   constants-time:
     - match: C#\d+
       scope: constant.numeric.counter.s7.awl
-    - match: S5T#[\dMSH]+
+    # - match: S5T#[\dMSH_]+
+    #   scope: constant.numeric.s5time.s7.awl
+    - match: S5T#
       scope: constant.numeric.s5time.s7.awl
-    - match: T#[\dDMSH]+
+      push:
+        - match: '_'
+          scope: constant.numeric.s5time punctuation.separator.sequence.s5time.s7.awl
+        - match: '\d{0,3}MS'
+          scope: constant.numeric.s5time.millisecond.s7.awl
+        - match: '[0-5]?\dS'
+          scope: constant.numeric.s5time.second.s7.awl
+        - match: '[0-5]?\dM'
+          scope: constant.numeric.s5time.minute.s7.awl
+        - match: \dH
+          scope: constant.numeric.s5time.hour.s7.awl
+        - match: '[\d^HMS]+'
+          scope: constant.numeric.s5time.s7.awl invalid.illegal.s5time.s7.awl
+        - match: \b
+          pop: true
+    - match: T#[\dDMSH_]+
       scope: constant.numeric.time.s7.awl
-
-  constants-pointer:
-    # P#10.0
-    - match: P#\d+\.{{int}}
-      scope: constant.numeric.pointer.s7.awl
 
   string-double-quoted:
     - match: \"
@@ -1038,12 +1108,6 @@ contexts:
       push:
         - include: array-index
         - include: struct-members
-    # P##local pointer
-    - match: (P#)(#)(\w+)\b
-      captures:
-        1: punctuation.definition.pointer.s7.awl
-        2: punctuation.definition.variable.begin.s7.awl
-        3: variable.other.local.s7.awl
 
   struct-members:
     - match: (\.)(\w+)\b

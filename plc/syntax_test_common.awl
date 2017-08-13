@@ -729,6 +729,19 @@
 // ^^^^^ entity.other.attribute-name.title
 //       ^ punctuation.separator.key-value.title
 //        ^^^^^^^^^ string.unquoted
+///////////////////////////////////////////////////////////////////////////////
+// basic operations                                                          //
+///////////////////////////////////////////////////////////////////////////////
+      BLD  1; // comment
+//    ^^^ keyword.operator.nop
+//         ^ constant.numeric.integer
+//          ^ punctuation.terminator.line
+      NOP  0; // comment
+//    ^^^ keyword.operator.nop
+//         ^ constant.numeric.integer
+//          ^ punctuation.terminator.line
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // load values into akku1                                                    //
@@ -835,6 +848,25 @@
 //                      ^ punctuation.terminator.line
 //                         ^^ punctuation.definition.comment.begin
 //                         ^^^^^^^^^^ comment.line.double-slash
+      L    "datablock".struct[ 4 ].value;  // comment
+// <- meta.function.block meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^ punctuation.definition.string.begin
+//         ^^^^^^^^^^^ string.quoted.double
+//          ^^^^^^^^^ variable.other.symbol
+//                   ^ punctuation.definition.string.end
+//                    ^ punctuation.accessor.dot
+//                     ^^^^^^ variable.other.member
+//                           ^ punctuation.section.brackets.begin
+//                           ^^^^^ meta.brackets
+//                             ^ constant.numeric.integer
+//                               ^ punctuation.section.brackets.end
+//                                ^ punctuation.accessor.dot
+//                                 ^^^^^ variable.other.member
+//                                      ^ punctuation.terminator.line
+//                                         ^^ punctuation.definition.comment.begin
+//                                         ^^^^^^^^^^ comment.line.double-slash
       L    "datablock".struct.value;  // comment
 // <- meta.function.block meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network
@@ -879,7 +911,7 @@
 // <- meta.function.block meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ punctuation.definition.pointer
+//         ^^ constant.language.pointer
 //           ^ punctuation.definition.variable.begin
 //            ^^^^^ variable.other.local
 //                 ^ punctuation.terminator.line
@@ -889,7 +921,7 @@
 // <- meta.function.block meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^ constant.numeric.pointer
+//         ^^^^^^^ constant.language.pointer
 //                ^ punctuation.terminator.line
 //                   ^^ punctuation.definition.comment.begin
 //                   ^^^^^^^^^^ comment.line.double-slash
@@ -897,11 +929,22 @@
 // <- meta.function.block meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^ invalid.illegal
+//         ^^^^^^^^^^ constant.language.pointer
 //                   ^ punctuation.terminator.line
 //                      ^^ punctuation.definition.comment.begin
 //                      ^^^^^^^^^^ comment.line.double-slash
-
+      L    S5T#2H_30M_58S_200MS
+//         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
+//             ^^ constant.numeric.s5time.hour.s7.awl
+//               ^ punctuation.separator.sequence.s5time.s7.awl
+//                ^^^ constant.numeric.s5time.minute.s7.awl
+//                   ^ punctuation.separator.sequence.s5time.s7.awl
+//                    ^^^ constant.numeric.s5time.second.s7.awl
+//                       ^ punctuation.separator.sequence.s5time.s7.awl
+//                        ^^^^^ constant.numeric.s5time.millisecond.s7.awl
+      L    S5T#2H_70M_58S_200MS
+//         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
+//                ^^^ invalid.illegal.s5time
 
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //
@@ -955,6 +998,16 @@
 //                 ^^ punctuation.separator.key-value
 //                    ^^^^^^^^^^^ constant.numeric.hex.dword
 //                               ^ punctuation.separator.mapping.pair
+           ANY     := P# DB20.DBX40.0 WORD 10,
+// <- meta.function.block meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+//                                           ^ meta.mapping
+//         ^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.any-pointer
            SD      := #data,
 // <- meta.function.block meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.block meta.block.network meta.function-call.arguments
