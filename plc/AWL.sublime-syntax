@@ -983,9 +983,11 @@ contexts:
             P\#                # pointer prefix
             [ \t]*             # optional space
             (?:
-                [AEML]?[ \t]*  # input, output, marker, temp,
+                [AEML]?        # input, output, marker, temp,
               | DB\d+\.DBX     # datablock & address
-            ) \d+\.[0-7]       # bit-address
+            )
+            [ \t]*             # optional space
+            \d+\.[0-7]         # bit-address
             [ \t]+             # at least one space
             (?:                # the data type
                 VOID
@@ -1007,9 +1009,12 @@ contexts:
             P\#                # pointer prefix
             [ \t]*             # optional space
             (?:
-                [AEML]?[ \t]*  # input, output, marker, temp,
+                [AEML]?        # input, output, marker, temp,
+              | DIX            # instance address
               | (DB\d+\.)?DBX  # datablock & address
-            ) \d+\.[0-7]\b     # bit-address
+            )
+            [ \t]*             # optional space
+            \d+\.[0-7]\b       # bit-address
       scope: constant.language.pointer.s7.awl
     # P##LocalSymbol
     - match: (P#)(#)(\w+)\b
@@ -1171,6 +1176,11 @@ contexts:
         - include: scope-end
 
   operands-indirect-logical:
+    # DBX [AR1,P#0.0]
+    - match: \bD[BI]X\b      # FIXME: possibly merge with direct address?
+      push:
+        - include: address-indirect
+        - include: scope-end
     # [AR1,P#0.0]
     - include: address-indirect
     # BIE, OV
