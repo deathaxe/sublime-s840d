@@ -246,7 +246,7 @@ contexts:
 
   annotation-key:
     - meta_content_scope: meta.mapping.key.s7.awl
-    - match: \b(\w+)\b(.*)(?=:=)
+    - match: \b(\w+)\s*(.*?)\s*(?=:=)
       captures:
         1: entity.other.attribute-name.annotation-attribute.s7.awl
         2: invalid.illegal.separator-expected.s7.awl
