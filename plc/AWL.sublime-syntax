@@ -43,10 +43,11 @@ variables:
 contexts:
 
   main:
-    - include: datablock
-    - include: function
-    - include: functionblock
-    - include: type
+    - include: block-db
+    - include: block-fb
+    - include: block-fc
+    - include: block-ob
+    - include: block-udt
 
   prototype:
     - include: comments
@@ -59,112 +60,123 @@ contexts:
 #      - UDT : DATA_TYPE                                                      #
 #      - FB  : FUNCTION_BLOCK                                                 #
 #      - FC  : FUNCTION                                                       #
+#      - OB  : ORGANIZATION_BLOCK                                             #
 ###############################################################################
+
+###############################################################################
+# block level prototypes                                                      #
+###############################################################################
+
+  entity-name:
+    # quoted string symbol
+    - match: \"
+      scope: punctuation.definition.string.begin.s7.awl
+      set:
+        - meta_include_prototype: false
+        - meta_scope: string.quoted.double.s7.awl
+        - meta_content_scope: entity.name.block.s7.awl
+        - match: \"
+          scope: punctuation.definition.string.end.s7.awl
+          pop: true
+        - include: line-end
+    # absolute address
+    - match: \b(?:OB|FB|FC|S?DB|UDT)\s*\d+\b
+      scope: string.unquoted.s7.awl entity.name.block.s7.awl
+      pop: true
+    # unquoted string symbol
+    - match: \b\w+\b
+      scope: string.unquoted.s7.awl entity.name.block.s7.awl
+      pop: true
+    - include: scope-end
+
+  return-type:
+    - match: ':'
+      scope: punctuation.separator.mapping.pair.s7.awl
+      set:
+        - meta_content_scope: meta.function.return-type.s7.awl
+        - include: storage-type
+        - include: line-end
+    - include: line-end
 
 ###############################################################################
 # UDT : TYPE                                                                  #
 ###############################################################################
 
-  type:
+  block-udt:
     - match: \bTYPE\b
-      scope: keyword.control.type.begin.s7.awl
-      push:
-        - meta_scope: meta.block.type.header.s7.awl
-        - match: \n
-          set: type-header
-        - match: (\")(\S+)(\")
-          scope: string.quoted.double.s7.awl
-          captures:
-            1: punctuation.definition.string.begin.s7.awl
-            2: entity.name.struct.type.s7.awl
-            3: punctuation.definition.string.end.s7.awl
-        - match: \S.*?(?=\s*(?::|//|$))
-          scope: string.unquoted.double.s7.awl entity.name.struct.type.s7.awl
-        - include: illegal
+      scope: keyword.other.udt.begin.s7.awl
+      push: [block-udt-header, entity-name]
 
-  type-header:
-    - meta_content_scope: meta.block.type.header.s7.awl
+  block-udt-header:
+    - meta_scope: meta.block.udt.header.s7.awl
     - include: annotation
     - include: attribute
     - include: version
     - include: storage-type-struct
     - include: operands-symbols
-    - include: type-end
-    - include: illegal
+    - include: block-udt-end
 
-  type-end:
+  block-udt-end:
     - match: \bEND_TYPE\b
-      scope: keyword.control.type.end.s7.awl
+      scope: keyword.other.udt.end.s7.awl
       set: assert-line-end
+    - include: illegal
 
 ###############################################################################
 # DB : DATA_BLOCK                                                             #
 ###############################################################################
 
-  datablock:
+  block-db:
     - match: \bDATA_BLOCK\b
-      scope: keyword.control.datablock.begin.s7.awl
-      push:
-        - meta_scope: meta.block.datablock.header.s7.awl
-        - match: \n
-          set: [datablock-header, title]
-        - match: (\")(\S+)(\")
-          scope: string.quoted.double.s7.awl
-          captures:
-            1: punctuation.definition.string.begin.s7.awl
-            2: entity.name.struct.db.s7.awl
-            3: punctuation.definition.string.end.s7.awl
-        - match: \S.*?(?=\s*(?::|//|$))
-          scope: string.unquoted.double.s7.awl entity.name.struct.db.s7.awl
-        - include: illegal
+      scope: keyword.other.db.begin.s7.awl
+      push: [block-db-header, title, entity-name]
 
-  datablock-header:
-    - meta_content_scope: meta.block.datablock.header.s7.awl
+  block-db-header:
+    - meta_scope: meta.block.db.header.s7.awl
     - match: (?=\bBEGIN\b)
       set:
         - match: (\bBEGIN\b)
-          scope: keyword.control.begin.s7.awl
-          set: [datablock-body, assert-line-end]
-        - include: datablock-end
+          scope: keyword.other.begin.s7.awl
+          set: [block-db-body, assert-line-end]
+        - include: block-db-end
+    - match: \b(?:NON_RETAIN|READONLY)\b
+      scope: entity.other.attribute-name.s7.awl
     - include: annotation
     - include: attribute
     - include: version
     - include: storage-type-struct
     - include: operands-symbols
-    - include: datablock-end
-    - match: \bNON_RETAIN\b
-      scope: entity.other.attribute-name.s7.awl
+    - include: block-db-end
     - include: illegal
 
-  datablock-body:
-    - meta_scope: meta.block.datablock.body.s7.awl
-    - include: datablock-end
+  block-db-body:
+    - meta_scope: meta.block.db.body.s7.awl
+    - include: block-db-end
     - match: \b\w+\b
       scope: variable.other.local.s7.awl
       push:
         - meta_scope: meta.mapping.key.s7.awl
         - match: (?=:=)
-          set: datablock-mapping-separator
+          set: block-db-mapping-separator
         - include: array-index
         - include: struct-members
         - include: assert-line-end
     - include: illegal
 
-  datablock-mapping-separator:
+  block-db-mapping-separator:
     - meta_content_scope: meta.mapping.s7.awl
     - match: ':='
       scope: punctuation.separator.key-value.s7.awl
-      set: datablock-mapping-value
-    - include: datablock-mapping-end
+      set: block-db-mapping-value
+    - include: block-db-mapping-end
 
-  datablock-mapping-value:
+  block-db-mapping-value:
     - meta_content_scope: meta.mapping.value.s7.awl
     - include: constants
     - include: string-double-quoted
-    - include: string-single-quoted
-    - include: datablock-mapping-end
+    - include: block-db-mapping-end
 
-  datablock-mapping-end:
+  block-db-mapping-end:
     - match: ;
       scope: meta.mapping.s7.awl punctuation.separator.mapping.pair.s7.awl
       pop: true
@@ -172,65 +184,46 @@ contexts:
       scope: invalid.illegal.value.s7.awl
     - include: line-end
 
-  datablock-end:
+  block-db-end:
     - match: \bEND_DATA_BLOCK\b
-      scope: keyword.control.datablock.end.s7.awl
+      scope: keyword.other.db.end.s7.awl
       set: assert-line-end
 
 ###############################################################################
 # FB : FUNCTION_BLOCK                                                         #
 ###############################################################################
 
-  functionblock:
+  block-fb:
     - match: \bFUNCTION_BLOCK\b
-      scope: meta.function.s7.awl keyword.control.function.begin.s7.awl
-      push:
-        - meta_content_scope: meta.function.name.s7.awl
-        - match: ':'
-          scope: punctuation.separator.mapping.pair.s7.awl
-          set:
-            - meta_content_scope: meta.function.return-type.s7.awl
-            - include: storage-type
-            - match: \n
-              set: [functionblock-header, title]
-        - match: \n
-          set: [functionblock-header, title]
-        - match: (\")(\S+)(\")
-          scope: string.quoted.double.s7.awl
-          captures:
-            1: punctuation.definition.string.begin.s7.awl
-            2: entity.name.function.fb.s7.awl
-            3: punctuation.definition.string.end.s7.awl
-        - match: \S.*?(?=\s*(?::|//|$))
-          scope: string.unquoted.double.s7.awl entity.name.struct.fb.s7.awl
-        - include: illegal
+      scope: keyword.other.fb.begin.s7.awl
+      push: [block-fb-header, title, return-type, entity-name]
 
-  functionblock-header:
-    - meta_content_scope: meta.function.parameters.s7.awl
+  block-fb-header:
+    - meta_scope: meta.block.fb.header.s7.awl
     - match: (?=\bBEGIN\b)
       set:
         - match: (\bBEGIN\b)
-          scope: keyword.control.begin.s7.awl
-          set: [functionblock-body, assert-line-end]
-        - include: functionblock-end
+          scope: keyword.other.begin.s7.awl
+          set: [block-fb-body, assert-line-end]
+        - include: block-fb-end
     - include: annotation
-    - include: version
     - include: attribute
+    - include: version
     - include: var-input
     - include: var-output
     - include: var-inout
     - include: var-stat
     - include: var-temp
-    - include: functionblock-end
+    - include: block-fb-end
 
-  functionblock-body:
-    - meta_scope: meta.function.block.s7.awl
+  block-fb-body:
+    - meta_scope: meta.block.fb.body.s7.awl
     - include: network
-    - include: functionblock-end
+    - include: block-fb-end
 
-  functionblock-end:
+  block-fb-end:
     - match: \bEND_FUNCTION_BLOCK\b
-      scope: keyword.control.function.end.s7.awl
+      scope: keyword.other.fb.end.s7.awl
       set: assert-line-end
     - include: illegal
 
@@ -238,55 +231,70 @@ contexts:
 # FC : FUNCTION                                                               #
 ###############################################################################
 
-  function:
+  block-fc:
     - match: \bFUNCTION\b
-      scope: meta.function.s7.awl keyword.control.function.begin.s7.awl
-      push:
-        - meta_content_scope: meta.function.name.s7.awl
-        - match: ':'
-          scope: punctuation.separator.mapping.pair.s7.awl
-          set:
-            - meta_content_scope: meta.function.return-type.s7.awl
-            - include: storage-type
-            - match: \n
-              set: [function-header, title]
-        - match: \n
-          set: [function-header, title]
-        - match: (\")(\S+)(\")
-          scope: string.quoted.double.s7.awl
-          captures:
-            1: punctuation.definition.string.begin.s7.awl
-            2: entity.name.function.fc.s7.awl
-            3: punctuation.definition.string.end.s7.awl
-        - match: \S.*?(?=\s*(?::|//|$))
-          scope: string.unquoted.double.s7.awl entity.name.struct.fc.s7.awl
-        - include: illegal
+      scope: keyword.other.fc.begin.s7.awl
+      push: [block-fc-header, title, return-type, entity-name]
 
-  function-header:
-    - meta_content_scope: meta.function.parameters.s7.awl
+  block-fc-header:
+    - meta_scope: meta.block.fc.header.s7.awl
     - match: (?=\bBEGIN\b)
       set:
         - match: (\bBEGIN\b)
-          scope: keyword.control.begin.s7.awl
-          set: [function-body, assert-line-end]
-        - include: function-end
+          scope: keyword.other.begin.s7.awl
+          set: [block-fc-body, assert-line-end]
+        - include: block-fc-end
     - include: annotation
-    - include: version
     - include: attribute
+    - include: version
     - include: var-input
     - include: var-output
     - include: var-inout
     - include: var-temp
-    - include: function-end
+    - include: block-fc-end
 
-  function-body:
-    - meta_scope: meta.function.block.s7.awl
+  block-fc-body:
+    - meta_scope: meta.block.fc.body.s7.awl
     - include: network
-    - include: function-end
+    - include: block-fc-end
 
-  function-end:
+  block-fc-end:
     - match: \bEND_FUNCTION\b
-      scope: keyword.control.function.end.s7.awl
+      scope: keyword.other.fc.end.s7.awl
+      set: assert-line-end
+    - include: illegal
+
+###############################################################################
+# OB : ORGANIZATION_BLOCK                                                     #
+###############################################################################
+
+  block-ob:
+    - match: \bORGANIZATION_BLOCK\b
+      scope: keyword.other.ob.begin.s7.awl
+      push: [block-ob-header, title, entity-name]
+
+  block-ob-header:
+    - meta_scope: meta.block.ob.header.s7.awl
+    - match: (?=\bBEGIN\b)
+      set:
+        - match: (\bBEGIN\b)
+          scope: keyword.other.begin.s7.awl
+          set: [block-ob-body, assert-line-end]
+        - include: block-ob-end
+    - include: annotation
+    - include: attribute
+    - include: version
+    - include: var-temp
+    - include: block-ob-end
+
+  block-ob-body:
+    - meta_scope: meta.block.ob.body.s7.awl
+    - include: network
+    - include: block-ob-end
+
+  block-ob-end:
+    - match: \bEND_ORGANIZATION_BLOCK\b
+      scope: keyword.other.ob.end.s7.awl
       set: assert-line-end
     - include: illegal
 
@@ -310,29 +318,30 @@ contexts:
       push: annotation-key
 
   annotation-key:
+    - meta_scope: meta.annotation.s7.awl
     - meta_content_scope: meta.mapping.key.s7.awl
     - match: \b(\w+)\s*(.*?)\s*(?=:=)
       captures:
-        1: entity.other.attribute-name.annotation-attribute.s7.awl
+        1: variable.annotation.s7.awl
         2: invalid.illegal.separator-expected.s7.awl
       set: annotation-separator
     - include: annotation-end
 
   annotation-separator:
-    - meta_content_scope: meta.mapping.s7.awl
+    - meta_content_scope: meta.annotation.s7.awl meta.mapping.s7.awl
     - match: ':='
       scope: punctuation.separator.key-value.annotation-attribute.s7.awl
       set: annotation-value
     - include: annotation-end
 
   annotation-value:
-    - meta_content_scope: meta.mapping.value.s7.awl
+    - meta_content_scope: meta.annotation.s7.awl meta.mapping.value.s7.awl
     - include: string-single-quoted
     - include: annotation-end
 
   annotation-end:
     - match: \}
-      scope: meta.mapping.s7.awl punctuation.section.mapping.end.s7.awl
+      scope: meta.annotation.s7.awl meta.mapping.s7.awl punctuation.section.mapping.end.s7.awl
       pop: true
     - include: illegal
 
@@ -512,7 +521,7 @@ contexts:
   variable-storage:
     - meta_content_scope: meta.definition.variable.storage.s7.awl
     - include: storage-type
-    - include: datablock-mapping-separator   # FIXME: cleaner solution
+    - include: block-db-mapping-separator   # FIXME: cleaner solution
     - include: code-termination
 
 ###############################################################################
@@ -568,7 +577,7 @@ contexts:
           set:
             - meta_content_scope: meta.sequence.array.s7.awl
             - include: storage-type
-            - include: datablock-mapping-separator   # FIXME: cleaner solution
+            - include: block-db-mapping-separator   # FIXME: cleaner solution
             - include: code-termination
         - include: illegal
     - include: assert-line-end
@@ -599,9 +608,9 @@ contexts:
 
   storage-type-blocks:
     - match: \bBLOCK_S?DB\b
-      scope: storage.type.datablock.s7.awl
+      scope: storage.type.db.s7.awl
     - match: \bBLOCK_FB\b
-      scope: storage.type.functionblock.s7.awl
+      scope: storage.type.block-fb.s7.awl
     - match: \bBLOCK_FC\b
       scope: storage.type.function.s7.awl
 
@@ -675,7 +684,7 @@ contexts:
 
   network-body:
     - meta_scope: meta.block.network.s7.awl
-    - match: (?=\bNETWORK\b|\bEND_(?:FUNCTION|FUNCTION_BLOCK)\b)
+    - match: (?=(?:NETWORK|END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
       pop: true
     - include: awl-statements
 
@@ -832,13 +841,13 @@ contexts:
 
   awl-stmt-datablock:
     - match: \bAUF\b
-      scope: keyword.operator.load.datablock.s7.awl
+      scope: keyword.operator.load.db.s7.awl
       push:
         - include: operands-datablock
         - include: operands-symbols
         - include: code-termination
     - match: \bTDB\b
-      scope: keyword.operator.datablock.s7.awl
+      scope: keyword.operator.db.s7.awl
       push: code-termination
 
   awl-stmt-address-register:
@@ -975,6 +984,7 @@ contexts:
     - include: constants-time
     - include: constants-any
     - include: constants-pointer
+    - include: string-single-quoted
 
   constants-any:
     # P# DB20.DBX40.0 WORD 10
@@ -1081,9 +1091,7 @@ contexts:
         - match: \"
           scope: punctuation.definition.string.end.s7.awl
           pop: true
-        - match: '[^"]$'
-          scope: invalid.illegal.s7.awl
-          pop: true
+        - include: line-end
 
   string-single-quoted:
     - match: \'
@@ -1094,9 +1102,7 @@ contexts:
         - match: \'
           scope: punctuation.definition.string.end.s7.awl
           pop: true
-        - match: "[^']$"
-          scope: invalid.illegal.s7.awl
-          pop: true
+        - include: line-end
 
 ###############################################################################
 # OPERANDS                                                                    #
@@ -1124,7 +1130,7 @@ contexts:
     # DB10.DBX 10.0
     - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+\.{{int}})
       captures:
-        1: variable.language.datablock.s7.awl
+        1: variable.language.db.s7.awl
         2: punctuation.accessor.dot.s7.awl
         3: variable.language.address.s7.awl
 
@@ -1135,12 +1141,13 @@ contexts:
     # AB10, AW10, AD10, PAB10, PAW10, PAD10
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
-    - match: \b(?:P?[AE]|[LMV])[BWD][ \t]*{{int}}
+    # Z10, T10
+    - match: \b(?:(?:P?[AE]|[LMV])[BWD]|[ZT])[ \t]*{{int}}
       scope: variable.language.address.s7.awl
     # DBB10, DIB10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
     - match: \b(?:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
       captures:
-        1: variable.language.datablock.s7.awl
+        1: variable.language.db.s7.awl
         2: punctuation.accessor.dot.s7.awl
         3: variable.language.address.s7.awl
     # DIW10, DIW10, DID10
@@ -1149,11 +1156,11 @@ contexts:
 
   operands-datablock:
     - match: \bD[BI]\b
-      scope: variable.language.datablock.s7.awl
+      scope: variable.language.db.s7.awl
       push:
         # datablock number
         - match: \d+
-          scope: constant.numeric.integer.datablock.s7.awl
+          scope: constant.numeric.integer.db.s7.awl
           pop: true
         # indirect address
         - match: \[
