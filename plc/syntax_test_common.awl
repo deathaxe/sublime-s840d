@@ -14,7 +14,7 @@
 // ^^^^^^^^^ keyword.control.datablock.begin
 //           ^ punctuation.definition.string.begin
 //           ^^^^^^ string.quoted.double
-//            ^^^^ entity.name.struct.db
+//            ^^^^ entity.name.block
 //                  ^^ punctuation.definition.comment.begin
 //                  ^^^^^^^^^^ comment.line.double-slash
    TITLE =the datablock description
@@ -135,7 +135,7 @@
 // ^^^^^^^^ keyword.control.function.begin
 //          ^ punctuation.definition.string.begin
 //          ^^^^^^ string.quoted.double
-//           ^^^^ entity.name.function.fc
+//           ^^^^ entity.name.block
 //                 ^ punctuation.separator.mapping.pair
 //                   ^^^ storage.type.integer
 //                        ^^ punctuation.definition.comment.begin
@@ -202,21 +202,21 @@
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^^ storage.type.bool
      ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
      _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//         ^^^^^^^^^^^^^ meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^^^^^ storage.type.string
@@ -238,7 +238,7 @@
 //                              ^^^^^^^ comment.line.double-slash
             DWORD ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input
-// ^^^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
 //          ^^^^^ storage.type.dword
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input
@@ -251,21 +251,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -295,21 +295,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-input meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -330,21 +330,21 @@
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^^ storage.type.bool
      ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
      _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//         ^^^^^^^^^^^^^ meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^^^^^ storage.type.string
@@ -366,7 +366,7 @@
 //                              ^^^^^^^ comment.line.double-slash
             DWORD ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output
-// ^^^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
 //          ^^^^^ storage.type.dword
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output
@@ -379,21 +379,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -423,21 +423,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-output meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -458,21 +458,21 @@
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^^ storage.type.bool
      ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
      _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//         ^^^^^^^^^^^^^ meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^^^^^ storage.type.string
@@ -494,7 +494,7 @@
 //                              ^^^^^^^ comment.line.double-slash
             DWORD ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out
-// ^^^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
 //          ^^^^^ storage.type.dword
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out
@@ -507,21 +507,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -551,21 +551,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-in-out meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -586,21 +586,21 @@
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^^ storage.type.bool
      ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
 //   ^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
      _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//         ^^^^^^^^^^^^^ meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^^^^^ storage.type.string
@@ -622,7 +622,7 @@
 //                              ^^^^^^^ comment.line.double-slash
             DWORD ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp
-// ^^^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+// ^^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
 //          ^^^^^ storage.type.dword
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp
@@ -635,21 +635,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
@@ -679,21 +679,21 @@
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//          ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters meta.block.var-temp meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
