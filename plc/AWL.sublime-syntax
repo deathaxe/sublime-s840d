@@ -1081,6 +1081,25 @@ contexts:
           pop: true
     - match: T#[\dDMSH_]+
       scope: constant.numeric.time.s7.awl
+    # DT#90-1-1-0:0:0.000
+    - match: |-
+        (?x)
+        DT\#
+        \d{2,4}(-)                  # year
+        (?:0?[1-9]|1[12])(-)        # month
+        (?:[012]?[1-9]|3[01])(-)    # day
+        (?:[01]?[0-9]|2[0-4])(:)    # hour
+        (?:[0-5]?[0-9])(:)          # minute
+        (?:[0-5]?[0-9])(\.)         # second
+        \d{0,3}                     # millisecond
+      captures:
+        0: constant.language.datetimes7.awl
+        1: punctuation.separator.dates7.awl
+        2: punctuation.separator.dates7.awl
+        3: punctuation.separator.dates7.awl
+        4: punctuation.separator.times7.awl
+        5: punctuation.separator.times7.awl
+        6: punctuation.separator.times7.awl
 
   string-double-quoted:
     - match: \"

@@ -118,7 +118,24 @@
    incomplete
    next_is_valid
 // ^^^^^^^^^^^^^ variable.other.local
-
+   date_time := DT#90-1-1-0:0:0.000;
+//              ^^^^^^^^^^^^^^^^^^^ constant.language.datetime
+//                   ^ punctuation.separator.date
+//                     ^ punctuation.separator.date
+//                       ^ punctuation.separator.date
+//                         ^ punctuation.separator.time
+//                           ^ punctuation.separator.time
+//                             ^ punctuation.separator.time
+   date_time := DT#2017-12-31-23:59:59.999;
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.language.datetime
+//                     ^ punctuation.separator.date
+//                        ^ punctuation.separator.date
+//                           ^ punctuation.separator.date
+//                              ^ punctuation.separator.time
+//                                 ^ punctuation.separator.time
+//                                    ^ punctuation.separator.time
+   date_time := DT#2017
+//              ^^^^^^^ invalid.illegal.value
    END_DATA_BLOCK
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^ meta.block.db.body
