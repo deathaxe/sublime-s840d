@@ -139,7 +139,7 @@ contexts:
           scope: keyword.other.begin.s7.awl
           set: [block-db-body, assert-line-end]
         - include: block-db-end
-    - match: \b(?:NON_RETAIN|READONLY)\b
+    - match: \b(?:NON_RETAIN|READ_ONLY)\b
       scope: entity.other.attribute-name.s7.awl
     - include: annotation
     - include: attribute
