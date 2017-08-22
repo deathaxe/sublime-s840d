@@ -153,3 +153,19 @@ N14 IDS=10 WHENEVER DO G0 X0 M3 F2000 ; comment
 ;       ^ constant.numeric
 ;          ^ keyword.control.synact.condition
 ;                   ^ keyword.control.synact.operation
+N14 IDS=10+ABS(_VAR) WHENEVER _VAR==TRUE DO G0 X0 M3 F2000 ; comment
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.synact
+;                                          ^^^^^^^^^^^^^^^ meta.synact.operation
+;   ^^^ keyword.control.synact.identifier
+;      ^ keyword.operator.assignment
+;       ^^ constant.numeric
+;         ^ keyword.operator.arithmetic
+;          ^^^ support.function.nck
+;             ^ punctuation.section.arguments.begin
+;              ^^^^ variable.other
+;                  ^ punctuation.section.arguments.end
+;                    ^^^^^^^^ keyword.control.synact.condition
+;                             ^^^^ variable.other
+;                                 ^^ keyword.operator.logical
+;                                   ^^^^ constant.language.boolean
+;                                        ^^ keyword.control.synact.operation
