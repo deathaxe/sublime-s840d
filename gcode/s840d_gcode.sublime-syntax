@@ -1005,9 +1005,8 @@ contexts:
           scope: keyword.operator.assignment.s840d_gcode
           set:
             - meta_content_scope: meta.synact.s840d_gcode
-            - include: numbers
             - include: stmt-synact-condition
-            - include: line-end-or-illegal
+            - include: expressions-line
         - include: line-end-or-illegal
     - include: stmt-synact-condition
 
