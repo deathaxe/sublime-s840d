@@ -1,0 +1,121 @@
+{
+  "scope": "meta.block.network.s7.awl - meta.operand - meta.function-call",
+  "completions": [
+    // manipulate VKE
+    {"trigger": "CLR\t set VKE = 0",      "contents": "CLR   ;\n$0"},
+    {"trigger": "SET\t set VKE = 1",      "contents": "SET   ;\n$0"},
+    {"trigger": "NOT\t negate VKE",       "contents": "NOT   ;\n$0"},
+    {"trigger": "SAVE\t copy VKE to BIE", "contents": "SAVE  ;\n$0"},
+
+    // bit logic
+    {"trigger": "U    <sym>\t  logic",    "contents": "U     ${1:operand};\n$0"},
+    {"trigger": "UN   <sym>\t  logic",    "contents": "UN    ${1:operand};\n$0"},
+    {"trigger": "O         \t  logic",    "contents": "O     ;\n$0"},
+    {"trigger": "O    <sym>\t  logic",    "contents": "O     ${1:operand};\n$0"},
+    {"trigger": "ON   <sym>\t  logic",    "contents": "ON    ${1:operand};\n$0"},
+    {"trigger": "X    <sym>\t  logic",    "contents": "X     ${1:operand};\n$0"},
+    {"trigger": "XN   <sym>\t  logic",    "contents": "XN    ${1:operand};\n$0"},
+
+    // bit logic
+    {"trigger": "U( \t  logic",           "contents": "U(    ;\n$0\n)     ;"},
+    {"trigger": "UN(\t  logic",           "contents": "UN(   ;\n$0\n)     ;"},
+    {"trigger": "O( \t  logic",           "contents": "O(    ;\n$0\n)     ;"},
+    {"trigger": "ON(\t  logic",           "contents": "ON(   ;\n$0\n)     ;"},
+    {"trigger": "X( \t  logic",           "contents": "X(    ;\n$0\n)     ;"},
+    {"trigger": "XN(\t  logic",           "contents": "XN(   ;\n$0\n)     ;"},
+
+    // assignment
+    {"trigger": "N    <sym>\t  logic",    "contents": "=     ${1:operand};\n$0"},
+    {"trigger": "S    <sym>\t  logic",    "contents": "S     ${1:operand};\n$0"},
+    {"trigger": "R    <sym>\t  logic",    "contents": "R     ${1:operand};\n$0"},
+
+    // counter
+    {"trigger": "ZV   <cnt>\t  counter",  "contents": "ZV    ${1:Z0};\n$0"},
+    {"trigger": "ZR   <cnt>\t  counter",  "contents": "ZR    ${1:Z0};\n$0"},
+    {"trigger": "FR   <cnt>\t  counter",  "contents": "FR    ${1:Z0};\n$0"},
+    {"trigger": "LC   <cnt>\t  counter",  "contents": "LC    ${1:Z0};\n$0"},
+
+    // timer
+    {"trigger": "SA   <tmr>\t  timer",    "contents": "SA    ${1:T0};\n$0"},
+    {"trigger": "SE   <tmr>\t  timer",    "contents": "SE    ${1:T0};\n$0"},
+    {"trigger": "SI   <tmr>\t  timer",    "contents": "SI    ${1:T0};\n$0"},
+    {"trigger": "SS   <tmr>\t  timer",    "contents": "SS    ${1:T0};\n$0"},
+    {"trigger": "SV   <tmr>\t  timer",    "contents": "SV    ${1:T0};\n$0"},
+
+    // AKKU operations
+    {"trigger": "L    <sym>\t  load to AKKU1",       "contents": "L     ${1:operand};\n$0"},
+    {"trigger": "T    <sym>\t  save AKKU1",          "contents": "T     ${1:operand};\n$0"},
+    {"trigger": "PUSH      \t  copy AKKU1 to AKKU2", "contents": "PUSH  ;\n$0"},
+    {"trigger": "POP       \t  copy AKKU2 to AKKU1", "contents": "POP   ;\n$0"},
+    {"trigger": "TAK       \t  swap AKKU2 to AKKU1", "contents": "TAK   ;\n$0"},
+
+    // 16bit binary operators
+    {"trigger": "UW          \t  16bit binary",     "contents": "UW    ;\n$0"},
+    {"trigger": "UW   <const>\t  16bit binary",     "contents": "UW    W#16#${1:0};\n$0"},
+    {"trigger": "OW          \t  16bit binary",     "contents": "OW    ;\n$0"},
+    {"trigger": "OW   <const>\t  16bit binary",     "contents": "OW    W#16#${1:0};\n$0"},
+    {"trigger": "SLW         \t  16bit binary",     "contents": "SLW   ;\n$0"},
+    {"trigger": "SLW  <const>\t  16bit binary",     "contents": "SLW   ${1:1};\n$0"},
+    {"trigger": "SRW         \t  16bit binary",     "contents": "SRW   ;\n$0"},
+    {"trigger": "SRW  <const>\t  16bit binary",     "contents": "SRW   ${1:1};\n$0"},
+    {"trigger": "TAW         \t  16bit binary",     "contents": "TAW   ;\n$0"},
+    {"trigger": "INVI        \t  16bit binary",     "contents": "INVI  ;\n$0"},
+    {"trigger": "NEGI        \t  16bit binary",     "contents": "NEGI  ;\n$0"},
+
+    // 32bit binary operators
+    {"trigger": "UD          \t  32bit binary",     "contents": "UD    ;\n$0"},
+    {"trigger": "UD   <const>\t  32bit binary",     "contents": "UD    DW#16#${1:0};\n$0"},
+    {"trigger": "OD          \t  32bit binary",     "contents": "OD    ;\n$0"},
+    {"trigger": "OD   <const>\t  32bit binary",     "contents": "OD    DW#16#${1:0};\n$0"},
+    {"trigger": "SLD         \t  32bit binary",     "contents": "SLD   ;\n$0"},
+    {"trigger": "SLD  <const>\t  32bit binary",     "contents": "SLD   ${1:1};\n$0"},
+    {"trigger": "SRD         \t  32bit binary",     "contents": "SRD   ;\n$0"},
+    {"trigger": "SRD  <const>\t  32bit binary",     "contents": "SRD   ${1:1};\n$0"},
+    {"trigger": "TAD         \t  32bit binary",     "contents": "TAD   ;\n$0"},
+    {"trigger": "INVD        \t  32bit binary",     "contents": "INVD  ;\n$0"},
+    {"trigger": "NEGD        \t  32bit binary",     "contents": "NEGD  ;\n$0"},
+
+    // address register 1
+    {"trigger": "LAR1      \t  AR1",     "contents": "LAR1  ;\n$0"},
+    {"trigger": "LAR1 <ptr>\t  AR1",     "contents": "LAR1  P#${1:0.0};\n$0"},
+    {"trigger": "TAR1      \t  AR1",     "contents": "TAR1  ;\n$0"},
+    {"trigger": "AR1       \t  AR1",     "contents": "+AR1  ;\n$0"},
+    {"trigger": "AR1  <ptr>\t  AR1",     "contents": "+AR1  P#${1:0.0};\n$0"},
+
+    // address register 2
+    {"trigger": "LAR2      \t  AR2",     "contents": "LAR2  ;\n$0"},
+    {"trigger": "LAR2 <ptr>\t  AR2",     "contents": "LAR2  P#${1:0.0};\n$0"},
+    {"trigger": "TAR2      \t  AR2",     "contents": "TAR2  ;\n$0"},
+    {"trigger": "AR2       \t  AR2",     "contents": "+AR2  ;\n$0"},
+    {"trigger": "AR2  <ptr>\t  AR2",     "contents": "+AR2  P#${1:0.0};\n$0"},
+
+    // goto
+    {"trigger": "SPL  \t  if case goto",               "contents": "SPL   ${1:_001};\n$0"},
+    {"trigger": "SPA  \t  if always goto",             "contents": "SPA   ${1:_001};\n$0"},
+    {"trigger": "SPB  \t  if VKE = 1 goto",            "contents": "SPB   ${1:_001};\n$0"},
+    {"trigger": "SPBN \t  if VKE = 0 goto",            "contents": "SPBN  ${1:_001};\n$0"},
+    {"trigger": "SPBB \t  if VKE = 1, VKE->BIE goto",  "contents": "SPBB  ${1:_001};\n$0"},
+    {"trigger": "SPBNB\t  if VKE = 0, VKE->BIE goto",  "contents": "SPBNB ${1:_001};\n$0"},
+    {"trigger": "SPBIN\t  if BIE = 0 goto",            "contents": "SPBIN ${1:_001};\n$0"},
+    {"trigger": "SPBI \t  if BIE = 1 goto",            "contents": "SPBI  ${1:_001};\n$0"},
+    {"trigger": "SPO  \t  if OV = 1 goto",             "contents": "SPO   ${1:_001};\n$0"},
+    {"trigger": "SPS  \t  if OS = 1 goto",             "contents": "SPS   ${1:_001};\n$0"},
+    {"trigger": "SPZ  \t  if result = 0 goto",         "contents": "SPZ   ${1:_001};\n$0"},
+    {"trigger": "SPN  \t  if result <> 0 goto",        "contents": "SPN   ${1:_001};\n$0"},
+    {"trigger": "SPP  \t  if result > 0 goto",         "contents": "SPP   ${1:_001};\n$0"},
+    {"trigger": "SPM  \t  if result < 0 goto",         "contents": "SPM   ${1:_001};\n$0"},
+    {"trigger": "SPPZ \t  if result >= 0 goto",        "contents": "SPPZ  ${1:_001};\n$0"},
+    {"trigger": "SPMZ \t  if result <= 0 goto",        "contents": "SPMZ  ${1:_001};\n$0"},
+    {"trigger": "SPU  \t  if result invalid goto",     "contents": "SPU   ${1:_001};\n$0"},
+
+    // function calls
+    {"trigger": "UC    <sym>     \t  run",  "contents": "UC    ${1:fc};\n$0"},
+    {"trigger": "CC    <sym>     \t  run",  "contents": "CC    ${1:fc};\n$0"},
+    {"trigger": "CALL  <fc>      \t  run",  "contents": "CALL  ${1:fc} (\n\t$0);\n"},
+    {"trigger": "CALL  <fb>, <db>\t  run",  "contents": "CALL  ${1:fb}, ${1:db};\n$0"},
+
+    // block end
+    {"trigger": "BE\t  block end",          "contents": "BE    ;\n$0"},
+    {"trigger": "BEA\t block end",          "contents": "BEA   ;\n$0"},
+  ]
+}

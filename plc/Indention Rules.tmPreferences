@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>S840D: Indention Rules (AWL)</string>
+	<key>scope</key>
+	<string>source.s7.awl</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string><![CDATA[\bEND_(?:(?:FUNCTION|DATA|ORGANIZATION)_BLOCK|FUNCTION|STRUCT|TYPE|VAR)\b]]></string>
+		<key>increaseIndentPattern</key>
+		<string><![CDATA[\b(?:(?:FUNCTION|DATA|ORGANIZATION)_BLOCK|FUNCTION|STRUCT|TYPE|VAR(?:_INPUT|_OUTPUT|_IN_OUT|_TEMP)?)\b]]></string>
+		<key>unIndentedLinePattern</key>
+		<string><![CDATA[\b(?:BEGIN|NETWORK|TITLE)$]]></string>
+	</dict>
+</dict>
+</plist>

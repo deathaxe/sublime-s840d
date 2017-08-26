@@ -732,6 +732,7 @@ contexts:
     - match: \b(?:BLD|NOP)\b
       scope: keyword.operator.nop.s7.awl
       push:
+        - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
         - include: code-termination
 
@@ -740,6 +741,7 @@ contexts:
     - match: \b(?:[OUX]N?|F[PN])\b
       scope: keyword.operator.logical.s7.awl
       push:
+        - meta_content_scope: meta.operand.logical.s7.awl
         - include: operands
         - include: code-termination
     - match: \b(?:CLR|NOT|SAVE|SET)\b
@@ -755,6 +757,7 @@ contexts:
     - match: \b(?:[OU]|XO)[WD]\b
       scope: keyword.operator.bitwise.s7.awl
       push:
+        - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-hex
         - include: code-termination
     # INVI, INVD, NEGI, NEGD, NEGR
@@ -767,6 +770,7 @@ contexts:
     - match: \b(?:R[LR]DA?|S[LR][WD]|SS[DI])\b
       scope: keyword.operator.bitwise.s7.awl
       push:
+        - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
         - include: code-termination
 
@@ -779,12 +783,14 @@ contexts:
     - match: \b(?:INC|DEC)\b
       scope: keyword.operator.arithmetic.s7.awl
       push:
+        - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
         - include: code-termination
     # + 10, + -10, + L#20, + L#-20
     - match: \+
       scope: keyword.operator.arithmetic.s7.awl
       push:
+        - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-int
         - include: code-termination
     # 32-bit floating point operations
@@ -805,6 +811,7 @@ contexts:
     - match: '\bLC?\b'
       scope: keyword.operator.arithmetic.load.s7.awl
       push:
+        - meta_content_scope: meta.operand.numeric.s7.awl
         - include: constants
         - include: operands-binary
         - include: operands-symbols
@@ -813,24 +820,35 @@ contexts:
     - match: '\bT\b'
       scope: keyword.operator.assignment.s7.awl
       push:
+        - meta_content_scope: meta.operand.timer.s7.awl
         - include: operands
         - include: code-termination
-    # =, S, R, FR
-    - match: '=|\b(?:[RS]|FR)\b'
+    # =, S, R
+    - match: '=|\b[RS]\b'
       scope: keyword.operator.assignment.logical.s7.awl
       push:
+        - meta_content_scope: meta.operand.marker.s7.awl meta.operand.counter.s7.awl meta.operand.timer.s7.awl
+        - include: operands
+        - include: code-termination
+    # FR
+    - match: '\bFR\b'
+      scope: keyword.operator.assignment.logical.s7.awl
+      push:
+        - meta_content_scope: meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
         - include: code-termination
     # SA, SE, SI, SS, SV
     - match: '\bS[AEISV]?\b'
       scope: keyword.operator.timer.s7.awl
       push:
+        - meta_content_scope: meta.operand.s5time.s7.awl
         - include: operands
         - include: code-termination
     # ZV, ZR
     - match: '\bZ[RV]\b'
       scope: keyword.operator.counter.s7.awl
       push:
+        - meta_content_scope: meta.operand.counter.s7.awl
         - include: operands
         - include: code-termination
 
@@ -843,6 +861,7 @@ contexts:
     - match: \bAUF\b
       scope: keyword.operator.load.db.s7.awl
       push:
+        - meta_content_scope: meta.operand.datablock.s7.awl
         - include: operands-datablock
         - include: operands-symbols
         - include: code-termination
@@ -855,6 +874,7 @@ contexts:
     - match: '\bLAR[12]\b'
       scope: keyword.operator.load.address-register.s7.awl
       push:
+        - meta_content_scope: meta.operand.pointer.s7.awl
         - include: constants-pointer
         - include: operands
         - include: code-termination
@@ -862,12 +882,14 @@ contexts:
     - match: '\bTAR[12]\b'
       scope: keyword.operator.assignment.address-register.s7.awl
       push:
+        - meta_content_scope: meta.operand.pointer.s7.awl
         - include: operands
         - include: code-termination
     # +AR1, +AR2
     - match: '\+AR[12]\b'
       scope: keyword.operator.arithmetic.address-register.s7.awl
       push:
+        - meta_content_scope: meta.operand.pointer.s7.awl
         - include: constants-pointer
         - include: operands
         - include: code-termination
@@ -896,6 +918,7 @@ contexts:
           )\b
       scope: keyword.operator.goto.s7.awl
       push:
+        - meta_content_scope: meta.operand.goto-label.s7.awl
         - match: \w{1,4}
           scope: entity.name.goto-label.s7.awl
           set: code-termination
