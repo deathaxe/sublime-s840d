@@ -80,7 +80,7 @@ contexts:
           pop: true
         - include: line-end
     # absolute address
-    - match: \b(?:OB|FB|FC|S?DB|UDT)\s*\d+\b
+    - match: \b(?:OB|S?(?:F[BC]|DB)|UDT)\s*\d+\b
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
       pop: true
     # unquoted string symbol
