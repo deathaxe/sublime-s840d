@@ -98,6 +98,11 @@ contexts:
         - include: line-end
     - include: line-end
 
+  block-body-begin:
+    - match: \w+
+      scope: keyword.other.begin.s7.awl
+      pop: true
+
 ###############################################################################
 # UDT : TYPE                                                                  #
 ###############################################################################
@@ -134,11 +139,7 @@ contexts:
   block-db-header:
     - meta_scope: meta.block.db.header.s7.awl
     - match: (?=\bBEGIN\b)
-      set:
-        - match: (\bBEGIN\b)
-          scope: keyword.other.begin.s7.awl
-          set: [block-db-body, assert-line-end]
-        - include: block-db-end
+      set: [block-db-body, assert-line-end, block-body-begin]
     - match: \b(?:NON_RETAIN|READ_ONLY)\b
       scope: entity.other.attribute-name.s7.awl
     - include: annotation
@@ -201,11 +202,7 @@ contexts:
   block-fb-header:
     - meta_scope: meta.block.fb.header.s7.awl
     - match: (?=\bBEGIN\b)
-      set:
-        - match: (\bBEGIN\b)
-          scope: keyword.other.begin.s7.awl
-          set: [block-fb-body, assert-line-end]
-        - include: block-fb-end
+      set: [block-fb-body, assert-line-end, block-body-begin]
     - include: annotation
     - include: attribute
     - include: version
@@ -239,11 +236,7 @@ contexts:
   block-fc-header:
     - meta_scope: meta.block.fc.header.s7.awl
     - match: (?=\bBEGIN\b)
-      set:
-        - match: (\bBEGIN\b)
-          scope: keyword.other.begin.s7.awl
-          set: [block-fc-body, assert-line-end]
-        - include: block-fc-end
+      set: [block-fc-body, assert-line-end, block-body-begin]
     - include: annotation
     - include: attribute
     - include: version
@@ -276,11 +269,7 @@ contexts:
   block-ob-header:
     - meta_scope: meta.block.ob.header.s7.awl
     - match: (?=\bBEGIN\b)
-      set:
-        - match: (\bBEGIN\b)
-          scope: keyword.other.begin.s7.awl
-          set: [block-ob-body, assert-line-end]
-        - include: block-ob-end
+      set: [block-ob-body, assert-line-end, block-body-begin]
     - include: annotation
     - include: attribute
     - include: version
