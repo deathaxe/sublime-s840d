@@ -30,20 +30,29 @@ class S840dAwlSaveSplitCommand(sublime_plugin.TextCommand):
                                | TYPE
                              )
                              [ \t]+
-                             \"?([\w ]+)\"?
+                             \"?([\w ]+)\"?   # block name
                              """)
         # the scope names which identify the blocks to export
         selector = ('meta.block.ob | meta.block.fb | meta.block.fc | '
                     'meta.block.db | meta.block.udt')
 
+        valid_files = set()
         for region in self.view.find_by_selector(selector):
             try:
                 content = self.view.substr(region)
                 file_name = pattern.search(content).group(1).strip() + '.awl'
                 file_path = os.path.join(output_path, file_name)
-                print('Saving %s ... %d bytes' % (file_name, len(content)))
                 with open(file_path, 'w+') as file:
                     file.write(content)
                     file.write('\n')
+                valid_files.add(file_name)
             except Exception as error:
                 print(error)
+
+        for file_name in os.listdir(output_path):
+            if file_name not in valid_files:
+                try:
+                    os.unlink(os.path.join(output_path, file_name))
+                except Exception as error:
+                    print(error)
+        sublime.status_message("AWL saved!")
