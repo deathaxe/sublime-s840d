@@ -19,6 +19,10 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
         syntax = settings.get('syntax') or ''
         return 's840d_gcode' in syntax or 's840d_arc' in syntax
 
+    @classmethod
+    def applies_to_primary_view_only(cls):
+        return False
+
     def on_selection_modified(self):
         """Handle selection changed events."""
         self._expand_selection_on_placeholders()

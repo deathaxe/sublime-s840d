@@ -1141,18 +1141,26 @@ contexts:
     - match: '{{float}}(?:\.|\b)'
       scope: constant.numeric.s840d_gcode
     # single quoted binary numbers
-    - match: '''[Bb]'
+    - match: '('')([Bb])'
+      captures:
+        1: punctuation.definition.numeric.begin.s840d_gcode
+        2: punctuation.definition.numeric.binary.s840d_gcode
       push:
       - meta_scope: constant.numeric.binary.s840d_gcode
       - match: '''|$'
+        scope: punctuation.definition.numeric.end.s840d_gcode
         pop: true
       - match: '[^01]'
         scope: invalid.illegal.s840d_gcode
     # single quoted hexadecimal numbers
-    - match: '''[Hh]'
+    - match: '('')([Hh])'
+      captures:
+        1: punctuation.definition.numeric.begin.s840d_gcode
+        2: punctuation.definition.numeric.hexadecimal.s840d_gcode
       push:
       - meta_scope: constant.numeric.hexadecimal.s840d_gcode
       - match: '''|$'
+        scope: punctuation.definition.numeric.end.s840d_gcode
         pop: true
       - match: \H
         scope: invalid.illegal.s840d_gcode
