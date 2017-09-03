@@ -412,12 +412,12 @@ contexts:
 
   var-input:
     - match: \bVAR_INPUT\b
-      scope: keyword.control.var-input.begin.s7.awl
+      scope: keyword.control.var.input.begin.s7.awl
       push:
-        - meta_scope: meta.block.var-input.s7.awl
+        - meta_scope: meta.block.var.input.s7.awl
         - match: \n
           set:
-            - meta_content_scope: meta.block.var-input.s7.awl
+            - meta_content_scope: meta.block.var.input.s7.awl
             - include: var-body
         - include: assert-line-end
 
@@ -427,12 +427,12 @@ contexts:
 
   var-output:
     - match: \bVAR_OUTPUT\b
-      scope: keyword.control.var-output.begin.s7.awl
+      scope: keyword.control.var.output.begin.s7.awl
       push:
-        - meta_scope: meta.block.var-output.s7.awl
+        - meta_scope: meta.block.var.output.s7.awl
         - match: \n
           set:
-            - meta_content_scope: meta.block.var-output.s7.awl
+            - meta_content_scope: meta.block.var.output.s7.awl
             - include: var-body
         - include: assert-line-end
 
@@ -442,12 +442,12 @@ contexts:
 
   var-inout:
     - match: \bVAR_IN_OUT\b
-      scope: keyword.control.var-in-out.begin.s7.awl
+      scope: keyword.control.var.in-out.begin.s7.awl
       push:
-        - meta_scope: meta.block.var-in-out.s7.awl
+        - meta_scope: meta.block.var.in-out.s7.awl
         - match: \n
           set:
-            - meta_content_scope: meta.block.var-in-out.s7.awl
+            - meta_content_scope: meta.block.var.in-out.s7.awl
             - include: var-body
         - include: assert-line-end
 
@@ -457,12 +457,12 @@ contexts:
 
   var-stat:
     - match: \bVAR\b
-      scope: keyword.control.var-stat.begin.s7.awl
+      scope: keyword.control.var.stat.begin.s7.awl
       push:
-        - meta_scope: meta.block.var-stat.s7.awl
+        - meta_scope: meta.block.var.stat.s7.awl
         - match: \n
           set:
-            - meta_content_scope: meta.block.var-stat.s7.awl
+            - meta_content_scope: meta.block.var.stat.s7.awl
             - include: var-body
         - include: assert-line-end
 
@@ -472,12 +472,12 @@ contexts:
 
   var-temp:
     - match: \bVAR_TEMP\b
-      scope: keyword.control.var-temp.begin.s7.awl
+      scope: keyword.control.var.temp.begin.s7.awl
       push:
-        - meta_scope: meta.block.var-temp.s7.awl
+        - meta_scope: meta.block.var.temp.s7.awl
         - match: \n
           set:
-            - meta_content_scope: meta.block.var-temp.s7.awl
+            - meta_content_scope: meta.block.var.temp.s7.awl
             - include: var-body
         - include: assert-line-end
 
@@ -487,7 +487,7 @@ contexts:
 
   var-body:
     - match: \bEND_VAR\b
-      scope: keyword.control.end-var.s7.awl
+      scope: keyword.control.var.end.s7.awl
       set: assert-line-end
     - include: variable
 
