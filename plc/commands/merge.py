@@ -21,11 +21,15 @@ class S840dAwlLoadMergeCommand(sublime_plugin.TextCommand):
         if not os.path.isdir(input_path):
             return
 
-        self.view.erase(edit, sublime.Region(0, self.view.size()))
-        print('Loading %s' % input_path)
-        for file_name in os.listdir(input_path):
-            if file_name[-4:].lower() == '.awl':
-                file_path = os.path.join(input_path, file_name)
-                with open(file_path, 'r') as file:
-                    self.view.insert(edit, self.view.size(),
-                                     file.read().strip() + '\n\n\n')
+        content = []
+        index_path = os.path.join(input_path, '.index')
+        with open(index_path, 'r', encoding='utf-8') as index:
+            print('Loading %s' % input_path)
+            for file_name in index.read().split('\n'):
+                if file_name.lower().endswith('.awl'):
+                    file_path = os.path.join(input_path, file_name)
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        content.append(file.read().strip())
+        if content:
+            self.view.replace(edit, sublime.Region(0, self.view.size()),
+                              '\n\n\n'.join(content))

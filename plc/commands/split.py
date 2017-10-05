@@ -36,23 +36,29 @@ class S840dAwlSaveSplitCommand(sublime_plugin.TextCommand):
         selector = ('meta.block.ob | meta.block.fb | meta.block.fc | '
                     'meta.block.db | meta.block.udt')
 
-        valid_files = set()
+        index = []
         for region in self.view.find_by_selector(selector):
             try:
                 content = self.view.substr(region)
                 file_name = pattern.search(content).group(1).strip() + '.awl'
                 file_path = os.path.join(output_path, file_name)
-                with open(file_path, 'w+') as file:
+                with open(file_path, 'w+', encoding='utf-8') as file:
                     file.write(content)
                     file.write('\n')
-                valid_files.add(file_name)
+                index.append(file_name)
             except Exception as error:
                 print(error)
 
         for file_name in os.listdir(output_path):
-            if file_name not in valid_files:
+            if file_name not in index:
                 try:
                     os.unlink(os.path.join(output_path, file_name))
                 except Exception as error:
                     print(error)
+
+        index_path = os.path.join(output_path, '.index')
+        with open(index_path, 'w+', encoding='utf-8') as file:
+            for line in index:
+                file.write(line + '\n')
+
         sublime.status_message("AWL saved!")
