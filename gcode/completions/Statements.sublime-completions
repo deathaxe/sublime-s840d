@@ -3,79 +3,79 @@
 	"scope": "source.s840d_gcode - comment - string - support.variable - meta.definition - meta.redefinition - meta.control - meta.function - meta.function-call",
 	"completions": [
 		{
-			"trigger": "ARC  machine data \tsnippet",
+			"trigger": "ARC  machine data\tsnippet",
 			"contents": "%_N_COMPLETE_TEA_INI\n"
 		},
 		{
-			"trigger": "ARC  tool magaine data \tsnippet",
+			"trigger": "ARC  tool magaine data\tsnippet",
 			"contents": "%_N_TO_INI\n"
 		},
 		{
-			"trigger": "ARC  tool edge data \tsnippet",
+			"trigger": "ARC  tool edge data\tsnippet",
 			"contents": "%_N_TOA_INI\n"
 		},
 		{
-			"trigger": "ARC  definition \tsnippet",
+			"trigger": "ARC  definition\tsnippet",
 			"contents": "%_N_${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}_DEF\n;\\$PATH=/_N_DEF_DIR\n"
 		},
 		{
-			"trigger": "ARC  customer cycle \tsnippet",
+			"trigger": "ARC  customer cycle\tsnippet",
 			"contents": "%_N_${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}_SPF\n;\\$PATH=/_N_CUS_DIR\n"
 		},
 		{
-			"trigger": "ARC  manufactur cycle \tsnippet",
+			"trigger": "ARC  manufactur cycle\tsnippet",
 			"contents": "%_N_${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}_SPF\n;\\$PATH=/_N_CMA_DIR\n"
 		},
 		{
-			"trigger": "ARC  standard cycle \tsnippet",
+			"trigger": "ARC  standard cycle\tsnippet",
 			"contents": "%_N_${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}_CST\n;\\$PATH=/_N_CST_DIR\n"
 		},
 		{
-			"trigger": "ARC  main programm \tsnippet",
+			"trigger": "ARC  main programm\tsnippet",
 			"contents": "%_N_${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}_MPF\n;\\$PATH=/_N_MPF_DIR\n"
 		},
 		{
-			"trigger": "ARC  sub programm \tsnippet",
+			"trigger": "ARC  sub programm\tsnippet",
 			"contents": "%_N_${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}_SPF\n;\\$PATH=/_N_SPF_DIR\n"
 		},
 		{
-			"trigger": "PROC <filename> \tsnippet",
+			"trigger": "PROC <filename>\tsnippet",
 			"contents": "PROC ${1/.+//m}${1:${TM_FILENAME/^((.*?)\\..*)?$/$2/:UNTITLED}}($0)\n;VERSION 01.00.00.00 ;DATE 2017-01-01"
 		},
 		{
-			"trigger": "CASE..OF.. \tsnippet",
+			"trigger": "CASE..OF..\tsnippet",
 			"contents": "CASE ${1:_VAR} OF ${2:1} GOTOF ${3:_LBL1} ${4:DEFAULT GOTOF ${5:_LBLDEF}}\n$0"
 		},
 		{
-			"trigger": "IF..ENDIF \tsnippet",
+			"trigger": "IF..ENDIF\tsnippet",
 			"contents": "IF ${1:TRUE}\n\t$0\nENDIF"
 		},
 		{
-			"trigger": "IF..ELSE..ENDIF \tsnippet",
+			"trigger": "IF..ELSE..ENDIF\tsnippet",
 			"contents": "IF ${1:TRUE}\n\t$0\nELSE\t\n\nENDIF"
 		},
 		{
-			"trigger": "LOOP..ENDLOOP \tsnippet",
+			"trigger": "LOOP..ENDLOOP\tsnippet",
 			"contents": "LOOP\n\t$0\nENDLOOP"
 		},
 		{
-			"trigger": "FOR..ENDFOR \tsnippet",
+			"trigger": "FOR..ENDFOR\tsnippet",
 			"contents": "FOR ${1:_I}=${2:0} TO ${3:10}\n\t$0\nENDFOR"
 		},
 		{
-			"trigger": "REPEAT..UNTIL \tsnippet",
+			"trigger": "REPEAT..UNTIL\tsnippet",
 			"contents": "REPEAT\n\t$0\nUNTIL ${1:TRUE}"
 		},
 		{
-			"trigger": "WHILE..ENDWHILE \tsnippet",
+			"trigger": "WHILE..ENDWHILE\tsnippet",
 			"contents": "WHILE ${1:TRUE}\n\t$0\nENDWHILE"
 		},
 		{
-			"trigger": "REPEAT <label> \tsnippet",
+			"trigger": "REPEAT <label>\tsnippet",
 			"contents": "REPEAT ${1:_LBL}\n$0"
 		},
 		{
-			"trigger": "REPEAT <start> <end> \tsnippet",
+			"trigger": "REPEAT <start> <end>\tsnippet",
 			"contents": "REPEAT ${1:_START} ${2:_END}\n$0"
 		}
 	]
