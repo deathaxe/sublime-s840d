@@ -166,7 +166,7 @@ contexts:
 
   block-db-mapping-separator:
     - meta_content_scope: meta.mapping.s7.awl
-    - match: ':='
+    - match: :=
       scope: punctuation.separator.key-value.s7.awl
       set: block-db-mapping-value
     - include: block-db-mapping-end
@@ -318,7 +318,7 @@ contexts:
 
   annotation-separator:
     - meta_content_scope: meta.annotation.s7.awl meta.mapping.s7.awl
-    - match: ':='
+    - match: :=
       scope: punctuation.separator.key-value.annotation-attribute.s7.awl
       set: annotation-value
     - include: annotation-end
@@ -347,7 +347,7 @@ contexts:
 
   title-separator:
     - meta_scope: meta.mapping.key.s7.awl
-    - match: '='
+    - match: =
       scope: punctuation.separator.key-value.title.s7.awl
       set: title-value
     - include: assert-line-end
@@ -696,7 +696,7 @@ contexts:
     - include: awl-stmt-nop
 
   awl-stmt-label:
-    - match: '^\s*(\w{1,4})(:)'
+    - match: ^\s*(\w{1,4})(:)
       captures:
         1: entity.name.label.s7.awl
         2: punctuation.terminator.label.s7.awl
@@ -737,7 +737,7 @@ contexts:
       scope: keyword.operator.logical.vke.s7.awl
       push: code-termination
     # ==I, ==D, <>I, <>D, <=I, <=D, >=I, >=D, <I, <D, >I, >D
-    - match: '(?:==|<>|<=|>=|<|>)[IDR]'
+    - match: (?:==|<>|<=|>=|<|>)[IDR]
       scope: keyword.operator.logical.s7.awl
       push: code-termination
 
@@ -797,7 +797,7 @@ contexts:
 
   awl-stmt-assignment:
     # L, LC
-    - match: '\bLC?\b'
+    - match: \bLC?\b
       scope: keyword.operator.arithmetic.load.s7.awl
       push:
         - meta_content_scope: meta.operand.numeric.s7.awl
@@ -806,35 +806,35 @@ contexts:
         - include: operands-symbols
         - include: code-termination
     # T
-    - match: '\bT\b'
+    - match: \bT\b
       scope: keyword.operator.assignment.s7.awl
       push:
         - meta_content_scope: meta.operand.assinment.s7.awl
         - include: operands
         - include: code-termination
     # =, S, R
-    - match: '=|\b[RS]\b'
+    - match: =|\b[RS]\b
       scope: keyword.operator.assignment.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.marker.s7.awl meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
         - include: code-termination
     # FR
-    - match: '\bFR\b'
+    - match: \bFR\b
       scope: keyword.operator.assignment.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
         - include: code-termination
     # SA, SE, SI, SS, SV
-    - match: '\bS[AEISV]?\b'
+    - match: \bS[AEISV]?\b
       scope: keyword.operator.timer.s7.awl
       push:
         - meta_content_scope: meta.operand.s5time.s7.awl
         - include: operands
         - include: code-termination
     # ZV, ZR
-    - match: '\bZ[RV]\b'
+    - match: \bZ[RV]\b
       scope: keyword.operator.counter.s7.awl
       push:
         - meta_content_scope: meta.operand.counter.s7.awl
@@ -860,7 +860,7 @@ contexts:
 
   awl-stmt-address-register:
     # LAR1, LAR2
-    - match: '\bLAR[12]\b'
+    - match: \bLAR[12]\b
       scope: keyword.operator.load.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
@@ -868,14 +868,14 @@ contexts:
         - include: operands
         - include: code-termination
     # TAR1, TAR2
-    - match: '\bTAR[12]\b'
+    - match: \bTAR[12]\b
       scope: keyword.operator.assignment.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
         - include: operands
         - include: code-termination
     # +AR1, +AR2
-    - match: '\+AR[12]\b'
+    - match: \+AR[12]\b
       scope: keyword.operator.arithmetic.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
@@ -965,7 +965,7 @@ contexts:
 
   awl-stmt-mapping-separator:
     - meta_content_scope: meta.mapping.s7.awl
-    - match: ':='
+    - match: :=
       scope: punctuation.separator.key-value.s7.awl
       set: awl-stmt-mapping-value
     - include: awl-stmt-mapping-end
@@ -1077,9 +1077,9 @@ contexts:
     - match: S5T#
       scope: constant.numeric.s5time.s7.awl
       push:
-        - match: '_'
+        - match: _
           scope: constant.numeric.s5time punctuation.separator.sequence.s5time.s7.awl
-        - match: '\d{0,3}MS'
+        - match: \d{0,3}MS
           scope: constant.numeric.s5time.millisecond.s7.awl
         - match: '[0-5]?\dS'
           scope: constant.numeric.s5time.second.s7.awl
@@ -1156,7 +1156,7 @@ contexts:
     # M 10.0, DIX 10.0, L 0.0, ...
     - match: \b(?:DIX|[AELMV])\s*\d+\.\d+
       scope: variable.language.address.s7.awl
-    - match: '(?:==|<>|>=|<=|<|>)0\b'
+    - match: (?:==|<>|>=|<=|<|>)0\b
       scope: variable.language.status.s7.awl
     # DB10.DBX 10.0
     - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+\.{{int}})
@@ -1166,7 +1166,7 @@ contexts:
         3: variable.language.address.s7.awl
 
   operands-absolute-binary:
-    - match: '\b(?:DBNO|DINO|DBLG|DILG|STW)\b'
+    - match: \b(?:DBNO|DINO|DBLG|DILG|STW)\b
       scope: variable.language.s7.awl
     # EB10, EW10, ED10, PEB10, PEW10, PED10
     # AB10, AW10, AD10, PAB10, PAW10, PAD10
@@ -1222,7 +1222,7 @@ contexts:
     # [AR1,P#0.0]
     - include: address-indirect
     # BIE, OV
-    - match: '\b(?:BIE|OV)\b'
+    - match: \b(?:BIE|OV)\b
       scope: variable.language.status.s7.awl
 
   address-indirect:
