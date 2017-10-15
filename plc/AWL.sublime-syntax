@@ -1293,8 +1293,7 @@ contexts:
       scope: punctuation.definition.comment.begin.s7.awl
       push:
         - meta_scope: comment.line.double-slash.s7.awl
-        - match: $
-          pop: true
+        - include: line-end
     - match: \(\*
       scope: punctuation.definition.comment.begin.s7.awl
       push:
