@@ -1246,9 +1246,11 @@ contexts:
         - meta_include_prototype: false
         - meta_scope: string.quoted.double.s7.awl
         - meta_content_scope: variable.other.symbol.s7.awl
-        - match: \"
-          scope: punctuation.definition.string.end.s7.awl
-          set: struct-members
+        - match: (?=\")
+          set:
+            - match: \"
+              scope: string.quoted.double.s7.awl punctuation.definition.string.end.s7.awl
+              set: struct-members
         - match: '[^"]$'
           scope: invalid.illegal.s7.awl
           pop: true
