@@ -334,9 +334,7 @@ contexts:
       pop: true
     - include: illegal
 
-###############################################################################
-# ATTRIBUTES: TITLE
-###############################################################################
+##[ TITLE ]####################################################################
 
   title:
     - match: \bTITLE\b
@@ -358,9 +356,7 @@ contexts:
       scope: string.unquoted.s7.awl entity.name.section.s7.awl
     - include: line-end
 
-###############################################################################
-# ATTRIBUTES: AUTHOR, FAMILY, NAME
-###############################################################################
+##[ AUTHOR, FAMILY, NAME ]#####################################################
 
   attribute:
     - match: \b(?:AUTHOR|FAMILY|NAME)\b
@@ -381,9 +377,7 @@ contexts:
     - meta_content_scope: meta.mapping.value.s7.awl string.unquoted.s7.awl
     - include: line-end
 
-###############################################################################
-# ATTRIBUTES: VERSION
-###############################################################################
+##[ VERSION ]##################################################################
 
   version:
     - match: \bVERSION\b
@@ -406,84 +400,67 @@ contexts:
         3: constant.numeric.float.version.minor.s7.awl
     - include: assert-line-end
 
-###############################################################################
-# VAR_INPUT
-###############################################################################
+##[ VAR_INPUT ]################################################################
 
   var-input:
     - match: \bVAR_INPUT\b
       scope: keyword.control.var.input.begin.s7.awl
-      push:
-        - meta_scope: meta.block.var.input.s7.awl
-        - match: \n
-          set:
-            - meta_content_scope: meta.block.var.input.s7.awl
-            - include: var-body
-        - include: assert-line-end
+      push: [var-input-meta, var-body, assert-line-end]
 
-###############################################################################
-# VAR_OUTPUT
-###############################################################################
+  var-input-meta:
+    - meta_scope: meta.block.var.input.s7.awl
+    - match: ''
+      pop: true
+
+##[ VAR_OUTPUT ]###############################################################
 
   var-output:
     - match: \bVAR_OUTPUT\b
       scope: keyword.control.var.output.begin.s7.awl
-      push:
-        - meta_scope: meta.block.var.output.s7.awl
-        - match: \n
-          set:
-            - meta_content_scope: meta.block.var.output.s7.awl
-            - include: var-body
-        - include: assert-line-end
+      push: [var-output-meta, var-body, assert-line-end]
 
-###############################################################################
-# VAR_IN_OUT
-###############################################################################
+  var-output-meta:
+    - meta_scope: meta.block.var.output.s7.awl
+    - match: ''
+      pop: true
+
+##[ VAR_IN_OUT ]###############################################################
 
   var-inout:
     - match: \bVAR_IN_OUT\b
       scope: keyword.control.var.in-out.begin.s7.awl
-      push:
-        - meta_scope: meta.block.var.in-out.s7.awl
-        - match: \n
-          set:
-            - meta_content_scope: meta.block.var.in-out.s7.awl
-            - include: var-body
-        - include: assert-line-end
+      push: [var-inout-meta, var-body, assert-line-end]
 
-###############################################################################
-# VAR
-###############################################################################
+  var-inout-meta:
+    - meta_scope: meta.block.var.in-out.s7.awl
+    - match: ''
+      pop: true
+
+##[ VAR ]######################################################################
 
   var-stat:
     - match: \bVAR\b
       scope: keyword.control.var.stat.begin.s7.awl
-      push:
-        - meta_scope: meta.block.var.stat.s7.awl
-        - match: \n
-          set:
-            - meta_content_scope: meta.block.var.stat.s7.awl
-            - include: var-body
-        - include: assert-line-end
+      push: [var-stat-meta, var-body, assert-line-end]
 
-###############################################################################
-# VAR_TEMP
-###############################################################################
+  var-stat-meta:
+    - meta_scope: meta.block.var.stat.s7.awl
+    - match: ''
+      pop: true
+
+##[ VAR_TEMP ]#################################################################
 
   var-temp:
     - match: \bVAR_TEMP\b
       scope: keyword.control.var.temp.begin.s7.awl
-      push:
-        - meta_scope: meta.block.var.temp.s7.awl
-        - match: \n
-          set:
-            - meta_content_scope: meta.block.var.temp.s7.awl
-            - include: var-body
-        - include: assert-line-end
+      push: [var-temp-meta, var-body, assert-line-end]
 
-###############################################################################
-# END_VAR
-###############################################################################
+  var-temp-meta:
+    - meta_scope: meta.block.var.temp.s7.awl
+    - match: ''
+      pop: true
+
+##[ END_VAR ]##################################################################
 
   var-body:
     - match: \bEND_VAR\b

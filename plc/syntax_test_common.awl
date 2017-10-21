@@ -214,10 +214,12 @@
 //         ^ invalid.illegal
 //           ^^^^^^^ invalid.illegal
 
-   VAR_INPUT
+   VAR_INPUT illegal // comment
 // <- meta.block.fc.header - meta.block.fc.body
-// ^^^^^^^^^ meta.block.fc.header meta.block.var.input
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 // ^^^^^^^^^ keyword.control.var.input.begin
+//           ^^^^^^^ invalid.illegal.eol-expected.s7.awl
+//                   ^^^^^^^^^^ comment.line.double-slash.s7.awl
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
