@@ -218,8 +218,8 @@
 // <- meta.block.fc.header - meta.block.fc.body
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 // ^^^^^^^^^ keyword.control.var.input.begin
-//           ^^^^^^^ invalid.illegal.eol-expected.s7.awl
-//                   ^^^^^^^^^^ comment.line.double-slash.s7.awl
+//           ^^^^^^^ invalid.illegal.eol-expected
+//                   ^^^^^^^^^^ comment.line.double-slash
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -777,6 +777,19 @@
 //             ^ punctuation.terminator.line
 //                ^^ punctuation.definition.comment.begin
 //                ^^^^^^^^^^ comment.line.double-slash
+      L    MB[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
       L    MW10;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -785,6 +798,19 @@
 //             ^ punctuation.terminator.line
 //                ^^ punctuation.definition.comment.begin
 //                ^^^^^^^^^^ comment.line.double-slash
+      L    MW[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
       L    MD10;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -793,6 +819,19 @@
 //             ^ punctuation.terminator.line
 //                ^^ punctuation.definition.comment.begin
 //                ^^^^^^^^^^ comment.line.double-slash
+      L    MD[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
       L    M10.0;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -809,6 +848,19 @@
 //             ^ punctuation.terminator.line
 //                ^^ punctuation.definition.comment.begin
 //                ^^^^^^^^^^ comment.line.double-slash
+      L    LB[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
       L    LW10;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -817,6 +869,19 @@
 //             ^ punctuation.terminator.line
 //                ^^ punctuation.definition.comment.begin
 //                ^^^^^^^^^^ comment.line.double-slash
+      L    LW[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
       L    LD10;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -825,6 +890,19 @@
 //             ^ punctuation.terminator.line
 //                ^^ punctuation.definition.comment.begin
 //                ^^^^^^^^^^ comment.line.double-slash
+      L    LD[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
       L    L10.0;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -958,13 +1036,13 @@
 //                      ^^^^^^^^^^ comment.line.double-slash
       L    S5T#2H_30M_58S_200MS
 //         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
-//             ^^ constant.numeric.s5time.hour.s7.awl
-//               ^ punctuation.separator.sequence.s5time.s7.awl
-//                ^^^ constant.numeric.s5time.minute.s7.awl
-//                   ^ punctuation.separator.sequence.s5time.s7.awl
-//                    ^^^ constant.numeric.s5time.second.s7.awl
-//                       ^ punctuation.separator.sequence.s5time.s7.awl
-//                        ^^^^^ constant.numeric.s5time.millisecond.s7.awl
+//             ^^ constant.numeric.s5time.hour
+//               ^ punctuation.separator.sequence.s5time
+//                ^^^ constant.numeric.s5time.minute
+//                   ^ punctuation.separator.sequence.s5time
+//                    ^^^ constant.numeric.s5time.second
+//                       ^ punctuation.separator.sequence.s5time
+//                        ^^^^^ constant.numeric.s5time.millisecond
       L    S5T#2H_70M_58S_200MS
 //         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
 //                ^^^ invalid.illegal.s5time

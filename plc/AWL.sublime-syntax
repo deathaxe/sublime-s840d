@@ -78,7 +78,7 @@ contexts:
         - match: \"
           scope: punctuation.definition.string.end.s7.awl
           pop: true
-        - include: line-end
+        - include: illegal-eol
     # absolute address
     - match: \b(?:OB|S?(?:F[BC]|DB)|UDT)\s*\d+\b
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
@@ -1099,7 +1099,7 @@ contexts:
         - match: \"
           scope: punctuation.definition.string.end.s7.awl
           pop: true
-        - include: line-end
+        - include: illegal-eol
 
   string-single-quoted:
     - match: \'
@@ -1110,7 +1110,7 @@ contexts:
         - match: \'
           scope: punctuation.definition.string.end.s7.awl
           pop: true
-        - include: line-end
+        - include: illegal-eol
 
 ###############################################################################
 # OPERANDS                                                                    #
@@ -1174,9 +1174,11 @@ contexts:
         - match: \[
           scope: punctuation.section.brackets.begin
           set:
+            - meta_scope: meta.brackets.s7.awl
             - match: \]
               scope: punctuation.section.brackets.end.s7.awl
               pop: true
+            - include: illegal-eol
             - include: operands-absolute-binary
             - include: operands-symbols
 
@@ -1206,9 +1208,11 @@ contexts:
     - match: \[
       scope: punctuation.section.brackets.begin.s7.awl
       push:
+        - meta_scope: meta.brackets.s7.awl
         - match: \]
           scope: punctuation.section.brackets.end.s7.awl
           pop: true
+        - include: illegal-eol
         - include: constants-pointer
         - include: operands-absolute-binary
         - include: operands-symbols
@@ -1259,6 +1263,7 @@ contexts:
         - match: \]
           scope: punctuation.section.brackets.end.s7.awl
           pop: true
+        - include: illegal-eol
         - include: constants-uint16
 
 ###############################################################################
@@ -1305,7 +1310,7 @@ contexts:
       set: assert-line-end
     - match: \S.*(?=;)
       scope: invalid.illegal.s7.awl
-    - include: line-end
+    - include: illegal-eol
 
 ###############################################################################
 # ILLEAGAL
@@ -1335,6 +1340,11 @@ contexts:
         - match: \]|$
           pop: true
         - include: ignore-square
+
+  illegal-eol:
+    - match: $\n?
+      scope: invalid.illegal.eol.s7.awl
+      pop: true
 
 ###############################################################################
 # IGNORED NESTED PARENTHESES AND BRAKETS
