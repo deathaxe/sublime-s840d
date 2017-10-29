@@ -962,7 +962,10 @@ contexts:
     - include: constants-hex
     - include: constants-float
     - include: constants-int
-    - include: constants-time
+    - include: constants-counter
+    - include: constants-s5time
+    - include: constants-iectime
+    - include: constants-datetime
     - include: constants-any
     - include: constants-pointer
     - include: string-single-quoted
@@ -1038,47 +1041,105 @@ contexts:
     - match: '{{int}}'
       scope: constant.numeric.integer.s7.awl
 
-  constants-time:
+  constants-counter:
     - match: C#\d+
       scope: constant.numeric.counter.s7.awl
+
+##[ S5TIME ]###################################################################
+
+  constants-s5time:
     # S5T#2H_59M_59S_999MS
     # S5TIME#2H_59M_59S_999MS
     - match: S5T(?:IME)?#
-      scope: constant.language.s5time.s7.awl
       push:
-        - match: _
-          scope: constant.language.s5time.s7.awl punctuation.separator.s5time.s7.awl
-        - match: \d{0,3}MS
-          scope: constant.language.s5time.millisecond.s7.awl
-        - match: '[0-5]?\dS'
-          scope: constant.language.s5time.second.s7.awl
-        - match: '[0-5]?\dM'
-          scope: constant.language.s5time.minute.s7.awl
-        - match: '[0-2]H'
-          scope: constant.language.s5time.hour.s7.awl
-        - match: '[\d^HMS]+'
-          scope: constant.language.s5time.s7.awl invalid.illegal.s5time.s7.awl
-        - include: else-pop
+        - constants-s5time-meta
+        - constants-time-sep
+        - constants-time-millisecond
+        - constants-time-sep
+        - constants-time-second
+        - constants-time-sep
+        - constants-time-minute
+        - constants-time-sep
+        - constants-time-hour
+
+  constants-s5time-meta:
+    - meta_scope: constant.language.s5time.s7.awl
+    - include: else-pop
+
+##[ IEC TIME ]#################################################################
+
+  constants-iectime:
     # T#24D_23H_59M_59S_999MS
     # TIME#24D_23H_59M_59S_999MS
     - match: T(?:IME)?#
-      scope: constant.language.time.s7.awl
       push:
-        - match: _
-          scope: constant.language.time.s7.awl punctuation.separator.time.s7.awl
-        - match: \d{0,3}MS
-          scope: constant.language.time.millisecond.s7.awl
-        - match: '[0-5]?\dS'
-          scope: constant.language.time.second.s7.awl
-        - match: '[0-5]?\dM'
-          scope: constant.language.time.minute.s7.awl
-        - match: (?:[01]?[0-9]|2[0-4])H
-          scope: constant.language.time.hour.s7.awl
-        - match: (?:[01]?[0-9]|2[0-4])D
-          scope: constant.language.time.day.s7.awl
-        - match: '[\d^DHMS]+'
-          scope: constant.language.time.s7.awl invalid.illegal.time.s7.awl
-        - include: else-pop
+        - constants-iectime-meta
+        - constants-time-sep
+        - constants-time-millisecond
+        - constants-time-sep
+        - constants-time-second
+        - constants-time-sep
+        - constants-time-minute
+        - constants-time-sep
+        - constants-time-hour
+        - constants-time-sep
+        - constants-time-day
+
+  constants-iectime-meta:
+    - meta_scope: constant.language.iec-time.s7.awl
+    - include: else-pop
+
+##[ TIME PROTOTYPES ]##########################################################
+
+  constants-time-day:
+    - match: (?:[01]?[0-9]|2[0-4])D
+      scope: constant.language.time.day.s7.awl
+      pop: true
+    - match: (?:.+?(?:D|(?=_)))?
+      scope: invalid.illegal.time.day.s7.awl
+      pop: true
+
+  constants-time-hour:
+    - match: (?:[01]?[0-9]|2[0-4])H
+      scope: constant.language.time.hour.s7.awl
+      pop: true
+    - match: (?:.+?(?:H|(?=_)))?
+      scope: invalid.illegal.time.hour.s7.awl
+      pop: true
+
+  constants-time-minute:
+    - match: '[0-5]?\dM(?!S)'
+      scope: constant.language.time.minute.s7.awl
+      pop: true
+    - match: (?:.+?(?:M(?!S)|(?=_)))?
+      scope: invalid.illegal.time.minute.s7.awl
+      pop: true
+
+  constants-time-second:
+    - match: '[0-5]?\dS'
+      scope: constant.language.time.second.s7.awl
+      pop: true
+    - match: (?:.+?(?:[^M]S|(?=_)))?
+      scope: invalid.illegal.time.second.s7.awl
+      pop: true
+
+  constants-time-millisecond:
+    - match: \d{0,3}MS
+      scope: constant.language.time.millisecond.s7.awl
+      pop: true
+    - match: (?:.+?(?:MS|(?=_)))?
+      scope: invalid.illegal.time.millisecond.s7.awl
+      pop: true
+
+  constants-time-sep:
+    # separator is optional
+    - match: _?
+      scope: punctuation.separator.time.s7.awl
+      pop: true
+
+##[ DATE AND TIME ]############################################################
+
+  constants-datetime:
     # DT#90-1-1-0:0:0.000
     - match: |-
         (?x)

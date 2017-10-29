@@ -1246,18 +1246,54 @@
 //              ^ - invalid
 //               ^ punctuation.terminator.line
 //                ^ - invalid
+      L     S5T#50MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^^^ constant.language.time.millisecond
+//                  ^ - invalid
+//                   ^ punctuation.terminator.line
+//                    ^ - invalid
+      L     S5T#50S ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^^ constant.language.time.second
+//                 ^ - invalid
+//                  ^ punctuation.terminator.line
+//                   ^ - invalid
+      L     S5T#50M ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^^ constant.language.time.minute
+//                 ^ - invalid
+//                  ^ punctuation.terminator.line
+//                   ^ - invalid
+      L     S5T#1H ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^ constant.language.time.hour
+//                ^ - invalid
+//                 ^ punctuation.terminator.line
+//                  ^ - invalid
       L    S5T#2H_30M_58S_200MS ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
 //    ^ keyword.operator.arithmetic.load
-//             ^^ constant.language.s5time.hour
-//               ^ punctuation.separator.s5time
-//                ^^^ constant.language.s5time.minute
-//                   ^ punctuation.separator.s5time
-//                    ^^^ constant.language.s5time.second
-//                       ^ punctuation.separator.s5time
-//                        ^^^^^ constant.language.s5time.millisecond
+//             ^^ constant.language.time.hour
+//               ^ punctuation.separator.time
+//                ^^^ constant.language.time.minute
+//                   ^ punctuation.separator.time
+//                    ^^^ constant.language.time.second
+//                       ^ punctuation.separator.time
+//                        ^^^^^ constant.language.time.millisecond
 //                             ^ - invalid
 //                              ^ punctuation.terminator.line
 //                               ^ - invalid
@@ -1266,15 +1302,60 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
 //    ^ keyword.operator.arithmetic.load
-//                ^^^ invalid.illegal.s5time
+//                ^^^ invalid.illegal.time
 //                             ^ - invalid
 //                              ^ punctuation.terminator.line
 //                               ^ - invalid
+      L     T#50MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^^^ constant.language.time.millisecond
+//                ^ - invalid
+//                 ^ punctuation.terminator.line
+//                  ^ - invalid
+      L     T#50S ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^^ constant.language.time.second
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L     T#50M ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^^ constant.language.time.minute
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L     T#1H ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^ constant.language.time.hour
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
+      L     T#2D ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^ constant.language.time.day
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
       L    T#24D_23H_59M_59S_999MS ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ constant.language.time
+//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
 //           ^^^ constant.language.time.day
 //              ^ punctuation.separator.time
 //               ^^^ constant.language.time.hour
@@ -1282,6 +1363,40 @@
 //                   ^^^ constant.language.time.minute
 //                      ^ punctuation.separator.time
 //                       ^^^ constant.language.time.second
+//                          ^ punctuation.separator.time
+//                           ^^^^^ constant.language.time.millisecond
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.line
+//                                  ^ - invalid
+      L    T#25D_23H_69M_59S_999MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
+//           ^^^ invalid.illegal.time.day
+//              ^ punctuation.separator.time
+//               ^^^ constant.language.time.hour
+//                  ^ punctuation.separator.time
+//                   ^^^ invalid.illegal.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^^ constant.language.time.second
+//                          ^ punctuation.separator.time
+//                           ^^^^^ constant.language.time.millisecond
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.line
+//                                  ^ - invalid
+      L    T#24D_23M_59M_20H_999MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
+//           ^^^ constant.language.time.day
+//              ^ punctuation.separator.time
+//               ^^^ invalid.illegal.time.hour
+//                  ^ punctuation.separator.time
+//                   ^^^ constant.language.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^^ invalid.illegal.time.second
 //                          ^ punctuation.separator.time
 //                           ^^^^^ constant.language.time.millisecond
 //                                ^ - invalid
