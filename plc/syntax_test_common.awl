@@ -2,8 +2,98 @@
 
 // ==================================================
 //  common
-//  Performance: 0.9ms
+//  Performance: 3.0ms
 // ==================================================
+
+///////////////////////////////////////////////////////////////////////////////
+// datatypes                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+  TYPE "UDT_TypeName"
+//^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+//^^^^ keyword.other.udt.begin
+//     ^ punctuation.definition.string.begin
+//     ^^^^^^^^^^^^^^ string.quoted.double
+//                  ^ punctuation.definition.string.end
+   { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+// ^ meta.mapping - meta.mapping.key - meta.mapping.value
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//                       ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value
+//                                                                             ^ meta.mapping - meta.mapping.key - meta.mapping.value
+// ^ punctuation.section.mapping.begin
+//   ^^^^^^^^^^^ variable.annotation
+//               ^^^^^^^ invalid.illegal.separator-expected
+//                       ^^ punctuation.separator.key-value
+//                                                                             ^ punctuation.section.mapping.end
+   NON_RETAIN
+// ^^^^^^^^^^ invalid.illegal
+   READ_ONLY
+// ^^^^^^^^^ invalid.illegal
+   VERSION : 1.0
+// ^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//          ^^^^ meta.mapping.value
+// ^^^^^^^ entity.other.attribute-name
+//         ^ punctuation.separator.key-value
+//           ^ constant.numeric.float.version.major
+//            ^ punctuation.separator.decimal.version
+//             ^ constant.numeric.float.version.minor
+   AUTHOR : name
+// ^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   FAMILY : name
+// ^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   NAME : name
+// ^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^ meta.mapping.key - meta.mapping.value
+//       ^^^^^ meta.mapping.value
+// ^^^^ entity.other.attribute-name
+//      ^ punctuation.separator.key-value
+//        ^^^^ string.unquoted
+   ILLEGAL : unknown
+// ^^^^^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^ invalid.illegal
+//         ^ invalid.illegal
+//           ^^^^^^^ invalid.illegal
+  STRUCT
+//^^^^^^^ meta.block.udt.header meta.struct
+//^^^^^^ storage.type.struct.begin
+     ID  : INT := 20 ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^ meta.definition.variable.storage
+//             ^^ meta.definition.variable - meta.definition.variable.storage - meta.definition.variable.value
+//               ^^^^ meta.definition.variable.value
+//   ^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^ storage.type.integer
+//             ^^ keyword.operator.assignment
+//                ^^ constant.numeric.integer
+//                   ^ punctuation.terminator.line
+//                    ^^ - invalid
+//                      ^^^^^^^^^ comment.line.double-slash
+//                               ^ - invalid
+  END_STRUCT ;
+//^^^^^^^^^^^^^ meta.block.udt.header
+//^^^^^^^^^^ meta.struct storage.type.struct.end
+//           ^ punctuation.terminator.line
+  BEGIN
+//^^^^^^ meta.block.udt.header
+//^^^^^ invalid.illegal
+  END_TYPE
+//^^^^^^^^ meta.block.udt.header
+//^^^^^^^^ keyword.other.udt.end
 
 ///////////////////////////////////////////////////////////////////////////////
 // datablocks                                                                //
@@ -95,10 +185,6 @@
    VAR[0].child[ 0 ].attr := W#16#0 ;  // comment
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body
-// ^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
-//                        ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                          ^^^^^^^^ meta.mapping.value - meta.mapping.key
-//                                  ^ meta.mapping - meta.mapping.key - meta.mapping.value
 //    ^^^ meta.brackets
 //             ^^^^^ meta.brackets
 // ^^^ variable.other.local
@@ -112,13 +198,19 @@
 //                 ^ punctuation.section.brackets.end
 //                  ^ punctuation.accessor.dot
 //                   ^^^^ variable.other.member
-//                        ^^ punctuation.separator.key-value
+//                        ^^ keyword.operator.assignment
 //                           ^^^^^^ constant.numeric.hex.word
-   test := W#16 ;
+//                                  ^ punctuation.terminator.line
+   test := W#16 ; illegal // comment
 // ^^^^ variable.other.local
-//      ^^ punctuation.separator.key-value
-//         ^^^^ invalid.illegal.value
-//              ^ punctuation.separator.mapping.pair
+//      ^^ keyword.operator.assignment
+//         ^^^^ invalid.illegal
+//             ^ - invalid
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+//                ^^^^^^^^ invalid.illegal.eol-expected
+//                        ^^ punctuation.definition.comment.begin
+//                        ^^^^^^^^^^ comment.line.double-slash
    incomplete
    next_is_valid
 // ^^^^^^^^^^^^^ variable.other.local
@@ -138,8 +230,8 @@
 //                              ^ punctuation.separator.time
 //                                 ^ punctuation.separator.time
 //                                    ^ punctuation.separator.time
-   date_time := DT#2017
-//              ^^^^^^^ invalid.illegal.value
+   date_time := DT#2017;
+//              ^^^^^^^ invalid.illegal
    END_DATA_BLOCK
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^ meta.block.db.body
@@ -220,13 +312,21 @@
 // ^^^^^^^^^ keyword.control.var.input.begin
 //           ^^^^^^^ invalid.illegal.eol-expected
 //                   ^^^^^^^^^^ comment.line.double-slash
-     RUN : BOOL ;  //bool
-// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+     RUN : BOOL := TRUE ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//        ^^^^^^ meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage - meta.definition.variable.value
+//              ^^ meta.definition.variable - meta.definition.variable.storage - meta.definition.variable.value
+//                ^^^^^^ meta.definition.variable.value - meta.definition.variable.storage
 //   ^^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^^ storage.type.bool
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.numeric.bool
+//                      ^ punctuation.terminator.line
+//                       ^^ - invalid
+//                         ^^^^^^ comment.line.double-slash
+//                               ^ - invalid
      ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -234,6 +334,10 @@
 //   ^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
+//              ^ punctuation.terminator.line
+//               ^^ - invalid
+//                 ^^^^^^^^^ comment.line.double-slash
+//                          ^ - invalid
      _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -241,6 +345,10 @@
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^^^^^ storage.type.string
+//                     ^ punctuation.terminator.line
+//                      ^^ - invalid
+//                        ^^^^^^^^ comment.line.double-slash
+//                                ^ - invalid
      _AR  : ARRAY[ 0 .. 20 ] OF //array
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -254,13 +362,28 @@
 //                   ^^ punctuation.separator.sequence
 //                      ^^ constant.numeric.integer
 //                         ^ punctuation.definition.array.end
+//                          ^ - invalid
 //                           ^^ keyword.control.of
+//                             ^ - invalid
 //                              ^^ punctuation.definition.comment.begin
 //                              ^^^^^^^ comment.line.double-slash
-            DWORD ;  //integer
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
-// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+//                                     ^ - invalid
+            DWORD := DW#16#0, DW#16#2, DW#16#A ;  //integer
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^^^^ meta.sequence.array
 //          ^^^^^ storage.type.dword
+//                ^^ keyword.operator.assignment
+//                   ^^^^^^^ constant.numeric.hex
+//                          ^ punctuation.separator.sequence.s7.awl
+//                            ^^^^^^^ constant.numeric.hex
+//                                   ^ punctuation.separator.sequence.s7.awl
+//                                     ^^^^^^^ constant.numeric.hex
+//                                            ^ - invalid
+//                                             ^ punctuation.terminator.line
+//                                              ^^ - invalid
+//                                                ^^^^^^^^^ comment.line.double-slash
+//                                                         ^ - invalid
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -269,6 +392,9 @@
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^ storage.type.struct.begin
+//                  ^^ comment.line.double-slash
+//                  ^^^^^^^^^^^ comment.line.double-slash
+//                             ^ - invalid
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
@@ -276,6 +402,10 @@
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^ comment.line.double-slash
+//                         ^ - invalid
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
@@ -283,6 +413,10 @@
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^^^^ comment.line.double-slash
+//                            ^ - invalid
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
@@ -290,8 +424,13 @@
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
+//                       ^ punctuation.terminator.line
+//                        ^^ - invalid
+//                          ^^^^^^^^ comment.line.double-slash
+//                                  ^ - invalid
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage
+// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+// ^^^^^^^^^^^^ meta.definition.variable.storage
 // ^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
@@ -320,6 +459,10 @@
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^ comment.line.double-slash
+//                         ^ - invalid
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
@@ -327,6 +470,10 @@
 //     ^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^ storage.type.integer
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^^^^ comment.line.double-slash
+//                            ^ - invalid
        _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
@@ -334,9 +481,14 @@
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
+//                       ^ punctuation.terminator.line
+//                        ^^ - invalid
+//                          ^^^^^^^^ comment.line.double-slash
+//                                  ^ - invalid
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
    END_VAR
@@ -355,6 +507,10 @@
 //   ^^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^^ storage.type.bool
+//              ^ punctuation.terminator.line
+//               ^^ - invalid
+//                 ^^^^^^ comment.line.double-slash
+//                       ^ - invalid
      ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -362,6 +518,10 @@
 //   ^^ variable.other
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
+//              ^ punctuation.terminator.line
+//               ^^ - invalid
+//                 ^^^^^^^^^ comment.line.double-slash
+//                          ^ - invalid
      _S1  : STRING[32] ;  //string
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -369,6 +529,10 @@
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^^^^^ storage.type.string
+//                     ^ punctuation.terminator.line
+//                      ^^ - invalid
+//                        ^^^^^^^^ comment.line.double-slash
+//                                ^ - invalid
      _AR  : ARRAY[ 0 .. 20 ] OF //array
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -389,6 +553,8 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 // ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
 //          ^^^^^ storage.type.dword
+//                   ^^^^^^^^^ comment.line.double-slash
+//                            ^ - invalid
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -397,6 +563,8 @@
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^^ storage.type.struct.begin
+//                  ^^^^^^^^^^^ comment.line.double-slash
+//                             ^ - invalid
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
@@ -404,6 +572,9 @@
 //     ^^^ variable.other
 //         ^ punctuation.separator.key-value
 //           ^^^^ storage.type.bool
+//                ^ punctuation.terminator.line
+//                   ^^^^^^ comment.line.double-slash
+//                         ^ - invalid
        ID  : INT  ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.struct
 //     ^^^^^ meta.definition.variable
@@ -419,10 +590,12 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
+//              ^ - invalid
      _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -441,6 +614,7 @@
 //                              ^^^^^^ storage.type.struct.begin
 //                                     ^^ punctuation.definition.comment.begin
 //                                     ^^^^^^^ comment.line.double-slash
+//                                            ^ - invalid
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
@@ -463,10 +637,12 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
+//              ^ - invalid
    END_VAR
 // <- meta.block.fc.header meta.block.var.output
 // ^^^^^^^ meta.block.fc.header meta.block.var.output
@@ -547,10 +723,12 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
+//              ^ - invalid
      _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -591,8 +769,9 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
    END_VAR
@@ -643,7 +822,7 @@
 //                              ^^^^^^^ comment.line.double-slash
             DWORD ;  //integer
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
-// ^^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
 //          ^^^^^ storage.type.dword
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
@@ -675,8 +854,9 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
      _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
@@ -719,11 +899,11 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
     END_STRUCT ;
-// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage
-// ^^^^^^^^^^^ meta.struct
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
-
    END_VAR
 // <- meta.block.fc.header meta.block.var.temp
 // ^^^^^^^ meta.block.fc.header meta.block.var.temp
@@ -1034,7 +1214,7 @@
 //                   ^ punctuation.terminator.line
 //                      ^^ punctuation.definition.comment.begin
 //                      ^^^^^^^^^^ comment.line.double-slash
-      L    S5T#2H_30M_58S_200MS
+      L    S5T#2H_30M_58S_200MS ;
 //         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
 //             ^^ constant.numeric.s5time.hour
 //               ^ punctuation.separator.sequence.s5time
@@ -1043,7 +1223,7 @@
 //                    ^^^ constant.numeric.s5time.second
 //                       ^ punctuation.separator.sequence.s5time
 //                        ^^^^^ constant.numeric.s5time.millisecond
-      L    S5T#2H_70M_58S_200MS
+      L    S5T#2H_70M_58S_200MS ;
 //         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
 //                ^^^ invalid.illegal.s5time
 
