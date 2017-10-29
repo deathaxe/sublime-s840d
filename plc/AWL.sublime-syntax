@@ -155,12 +155,18 @@ contexts:
     - include: block-db-end
     - match: \b\w+\b
       scope: variable.other.local.s7.awl
-      push:
-        - include: mapping-value
-        - include: array-index
-        - include: struct-members
-        - include: assert-line-end
+      push: [block-db-value, struct-members, array-index]
     - include: illegal
+
+  block-db-value:
+    # TODO: merge with declaration?
+    - match: :=
+      scope: keyword.operator.assignment.s7.awl
+      set:
+        - include: constants
+        - include: string-double-quoted
+        - include: code-termination
+    - include: line-end
 
   block-db-end:
     - match: \bEND_DATA_BLOCK\b
@@ -948,18 +954,6 @@ contexts:
       pop: true
 
 ###############################################################################
-# R-VALUES
-###############################################################################
-
-  mapping-value:
-    - match: :=
-      scope: keyword.operator.assignment.s7.awl
-      set:
-        - include: constants
-        - include: string-double-quoted
-        - include: code-termination
-
-###############################################################################
 # CONSTANTS                                                                   #
 ###############################################################################
 
@@ -1238,31 +1232,28 @@ contexts:
       captures:
         1: punctuation.definition.variable.begin.s7.awl
         2: variable.other.local.s7.awl
-      push:
-        - include: array-index
-        - include: struct-members
+      push: [struct-members, array-index]
 
   struct-members:
     - match: (\.)(\w+)\b
       captures:
         1: punctuation.accessor.dot.s7.awl
         2: variable.other.member.s7.awl
-      push:
-        - include: array-index
-        - include: scope-end
+      push: array-index
     - include: scope-end
 
   array-index:
     # constant array index used in symbols
     - match: \[
       scope: punctuation.section.brackets.begin.s7.awl
-      push:
+      set:
         - meta_scope: meta.brackets.s7.awl
         - match: \]
           scope: punctuation.section.brackets.end.s7.awl
           pop: true
         - include: illegal-eol
         - include: constants-uint16
+    - include: scope-end
 
 ###############################################################################
 # COMMON PROTOTYPES
@@ -1287,7 +1278,7 @@ contexts:
       pop: true
 
   scope-end:
-    - match: (?=\S)
+    - match: $|(?=\S)
       pop: true
 
   line-end:
