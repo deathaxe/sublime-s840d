@@ -114,6 +114,8 @@ contexts:
 
   block-udt-header:
     - meta_scope: meta.block.udt.header.s7.awl
+    - match: ;
+      scope: punctuation.terminator.line.s7.awl
     - include: annotation
     - include: attribute
     - include: version
@@ -142,6 +144,8 @@ contexts:
       set: [block-db-body, assert-line-end, block-body-begin]
     - match: \b(?:NON_RETAIN|READ_ONLY)\b
       scope: entity.other.attribute-name.s7.awl
+    - match: ;
+      scope: punctuation.terminator.line.s7.awl
     - include: annotation
     - include: attribute
     - include: version
