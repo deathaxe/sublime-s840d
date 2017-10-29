@@ -375,9 +375,9 @@
 //          ^^^^^ storage.type.dword
 //                ^^ keyword.operator.assignment
 //                   ^^^^^^^ constant.numeric.hex
-//                          ^ punctuation.separator.sequence.s7.awl
+//                          ^ punctuation.separator.sequence
 //                            ^^^^^^^ constant.numeric.hex
-//                                   ^ punctuation.separator.sequence.s7.awl
+//                                   ^ punctuation.separator.sequence
 //                                     ^^^^^^^ constant.numeric.hex
 //                                            ^ - invalid
 //                                             ^ punctuation.terminator.line
@@ -1215,17 +1215,46 @@
 //                      ^^ punctuation.definition.comment.begin
 //                      ^^^^^^^^^^ comment.line.double-slash
       L    S5T#2H_30M_58S_200MS ;
-//         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
-//             ^^ constant.numeric.s5time.hour
-//               ^ punctuation.separator.sequence.s5time
-//                ^^^ constant.numeric.s5time.minute
-//                   ^ punctuation.separator.sequence.s5time
-//                    ^^^ constant.numeric.s5time.second
-//                       ^ punctuation.separator.sequence.s5time
-//                        ^^^^^ constant.numeric.s5time.millisecond
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//             ^^ constant.language.s5time.hour
+//               ^ punctuation.separator.s5time
+//                ^^^ constant.language.s5time.minute
+//                   ^ punctuation.separator.s5time
+//                    ^^^ constant.language.s5time.second
+//                       ^ punctuation.separator.s5time
+//                        ^^^^^ constant.language.s5time.millisecond
+//                             ^ - invalid
+//                              ^ punctuation.terminator.line
+//                               ^ - invalid
       L    S5T#2H_70M_58S_200MS ;
-//         ^^^^^^^^^^^^^^^^^^^^ constant.numeric.s5time
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
 //                ^^^ invalid.illegal.s5time
+//                             ^ - invalid
+//                              ^ punctuation.terminator.line
+//                               ^ - invalid
+      L    T#24D_23H_59M_59S_999MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^ constant.language.time
+//           ^^^ constant.language.time.day
+//              ^ punctuation.separator.time
+//               ^^^ constant.language.time.hour
+//                  ^ punctuation.separator.time
+//                   ^^^ constant.language.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^^ constant.language.time.second
+//                          ^ punctuation.separator.time
+//                           ^^^^^ constant.language.time.millisecond
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.line
+//                                  ^ - invalid
 
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //
