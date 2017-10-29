@@ -744,12 +744,13 @@ contexts:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
         - include: code-termination
-    # + 10, + -10, + L#20, + L#-20
+    # + 10, + -10, + L#20, + L#-20, + B#16#A
     - match: \+
       scope: keyword.operator.arithmetic.s7.awl
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-int
+        - include: constants-hex
         - include: code-termination
     # 32-bit floating point operations
     - match: \b(?:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
