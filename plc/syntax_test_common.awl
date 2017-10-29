@@ -1214,6 +1214,38 @@
 //                   ^ punctuation.terminator.line
 //                      ^^ punctuation.definition.comment.begin
 //                      ^^^^^^^^^^ comment.line.double-slash
+      L    B#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^ constant.numeric.hex.byte
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L    W#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^ constant.numeric.hex.word
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L    DW#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^ constant.numeric.hex.dword
+//                ^ - invalid
+//                 ^ punctuation.terminator.line
+//                  ^ - invalid
+      L    C#200 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ constant.numeric.counter
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
       L    S5T#2H_30M_58S_200MS ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1255,6 +1287,37 @@
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.line
 //                                  ^ - invalid
+      L    D#2017-12-30 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^ constant.language.date
+//               ^ punctuation.separator.date
+//                  ^ punctuation.separator.date
+//                     ^ - invalid
+//                      ^ punctuation.terminator.line
+//                       ^ - invalid
+      L    DATE#2017-12-30 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^ constant.language.date
+//                  ^ punctuation.separator.date
+//                     ^ punctuation.separator.date
+//                        ^ - invalid
+//                         ^ punctuation.terminator.line
+//                          ^ - invalid
+      L    TOD#23:59:59.999 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^ constant.language.time-of-day
+//               ^ punctuation.separator.time
+//                  ^ punctuation.separator.time
+//                     ^ punctuation.separator.time
+//                         ^ - invalid
+//                          ^ punctuation.terminator.line
+//                           ^ - invalid
 
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //

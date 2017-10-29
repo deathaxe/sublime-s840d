@@ -1082,9 +1082,9 @@ contexts:
     # DT#90-1-1-0:0:0.000
     - match: |-
         (?x)
-        DT\#
+        (?:DT|DATE_AND_TIME)\#      # preamble
         \d{2,4}(-)                  # year
-        (?:0?[1-9]|1[12])(-)        # month
+        (?:0?[1-9]|1[0-2])(-)       # month
         (?:[012]?[1-9]|3[01])(-)    # day
         (?:[01]?[0-9]|2[0-4])(:)    # hour
         (?:[0-5]?[0-9])(:)          # minute
@@ -1098,6 +1098,30 @@ contexts:
         4: punctuation.separator.time.s7.awl
         5: punctuation.separator.time.s7.awl
         6: punctuation.separator.time.s7.awl
+    # DATE#90-1-1
+    - match: |-
+        (?x)
+        D(?:ATE)?\#                 # preamble
+        \d{2,4}(-)                  # year
+        (?:0?[1-9]|1[0-2])(-)       # month
+        (?:[012]?[1-9]|3[01])\b     # day
+      captures:
+        0: constant.language.date.s7.awl
+        1: punctuation.separator.date.s7.awl
+        2: punctuation.separator.date.s7.awl
+    # TOD#0:0:0.000
+    - match: |-
+        (?x)
+        (?:TOD|TIME_OF_DAY)\#       # preamble
+        (?:[01]?[0-9]|2[0-4])(:)    # hour
+        (?:[0-5]?[0-9])(:)          # minute
+        (?:[0-5]?[0-9])(\.)         # second
+        \d{0,3}\b                   # millisecond
+      captures:
+        0: constant.language.time-of-day.s7.awl
+        1: punctuation.separator.time.s7.awl
+        2: punctuation.separator.time.s7.awl
+        3: punctuation.separator.time.s7.awl
 
   string-double-quoted:
     - match: \"
