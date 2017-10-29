@@ -1403,8 +1403,8 @@ contexts:
     - match: ;
       scope: punctuation.terminator.line.s7.awl
       set: assert-line-end
-    - match: \S.*(?=;)
-      scope: invalid.illegal.s7.awl
+    - match: \S[^;\s]*
+      scope: invalid.illegal.terminator-expected.s7.awl
     - include: illegal-eol
 
   expect-code-termination:
