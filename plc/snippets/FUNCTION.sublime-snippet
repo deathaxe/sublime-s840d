@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+FUNCTION "${1:name}" : ${2:VOID}
+TITLE =${3:description}
+AUTHOR  : ${4:John Doe}
+FAMILY  : ${5:OEM}
+NAME    : ${6:short}
+VERSION : ${7:1.0}
+
+BEGIN
+NETWORK
+TITLE =${8:Network 1}
+
+      $0
+END_FUNCTION
+
+]]></content>
+	<tabTrigger>FC</tabTrigger>
+	<scope>source.s7.awl</scope>
+</snippet>

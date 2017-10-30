@@ -1,0 +1,1713 @@
+// SYNTAX TEST "Step7 AWL.sublime-syntax"
+
+// ==================================================
+//  common
+//  Performance: 3.0ms
+// ==================================================
+
+///////////////////////////////////////////////////////////////////////////////
+// datatypes                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+  TYPE "UDT_TypeName"
+//^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+//^^^^ keyword.other.udt.begin
+//     ^ punctuation.definition.string.begin
+//     ^^^^^^^^^^^^^^ string.quoted.double
+//                  ^ punctuation.definition.string.end
+   { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+// ^ meta.mapping - meta.mapping.key - meta.mapping.value
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//                       ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value
+//                                                                             ^ meta.mapping - meta.mapping.key - meta.mapping.value
+// ^ punctuation.section.mapping.begin
+//   ^^^^^^^^^^^ variable.annotation
+//               ^^^^^^^ invalid.illegal.separator-expected
+//                       ^^ punctuation.separator.key-value
+//                                                                             ^ punctuation.section.mapping.end
+   NON_RETAIN
+// ^^^^^^^^^^ invalid.illegal
+   READ_ONLY
+// ^^^^^^^^^ invalid.illegal
+   VERSION : 1.0
+// ^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//          ^^^^ meta.mapping.value
+// ^^^^^^^ entity.other.attribute-name
+//         ^ punctuation.separator.key-value
+//           ^ constant.numeric.float.version.major
+//            ^ punctuation.separator.decimal.version
+//             ^ constant.numeric.float.version.minor
+   AUTHOR : name
+// ^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   FAMILY : name
+// ^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   NAME : name
+// ^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^ meta.mapping.key - meta.mapping.value
+//       ^^^^^ meta.mapping.value
+// ^^^^ entity.other.attribute-name
+//      ^ punctuation.separator.key-value
+//        ^^^^ string.unquoted
+   ILLEGAL : unknown
+// ^^^^^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^ invalid.illegal
+//         ^ invalid.illegal
+//           ^^^^^^^ invalid.illegal
+  STRUCT
+//^^^^^^^ meta.block.udt.header meta.struct
+//^^^^^^ storage.type.struct.begin
+     ID  : INT := 20 ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^ meta.definition.variable.storage
+//             ^^ meta.definition.variable - meta.definition.variable.storage - meta.definition.variable.value
+//               ^^^^ meta.definition.variable.value
+//   ^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^ storage.type.integer
+//             ^^ keyword.operator.assignment
+//                ^^ constant.numeric.integer
+//                   ^ punctuation.terminator.line
+//                    ^^ - invalid
+//                      ^^^^^^^^^ comment.line.double-slash
+//                               ^ - invalid
+  END_STRUCT ;
+//^^^^^^^^^^^^^ meta.block.udt.header
+//^^^^^^^^^^ meta.struct storage.type.struct.end
+//           ^ punctuation.terminator.line
+  BEGIN
+//^^^^^^ meta.block.udt.header
+//^^^^^ invalid.illegal
+  END_TYPE
+//^^^^^^^^ meta.block.udt.header
+//^^^^^^^^ keyword.other.udt.end
+
+///////////////////////////////////////////////////////////////////////////////
+// datablocks                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+  DATA_BLOCK "name" // comment
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^^^ keyword.other.db.begin
+//           ^ punctuation.definition.string.begin
+//           ^^^^^^ string.quoted.double
+//            ^^^^ entity.name.block
+//                  ^^ punctuation.definition.comment.begin
+//                  ^^^^^^^^^^ comment.line.double-slash
+   TITLE =the datablock description
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^ meta.mapping.key - meta.mapping.value
+//        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+// ^^^^^ entity.other.attribute-name.title
+//       ^ punctuation.separator.key-value.title
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted
+   { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
+// ^ meta.mapping - meta.mapping.key - meta.mapping.value
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//                       ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value
+//                                                                             ^ meta.mapping - meta.mapping.key - meta.mapping.value
+// ^ punctuation.section.mapping.begin
+//   ^^^^^^^^^^^ variable.annotation
+//               ^^^^^^^ invalid.illegal.separator-expected
+//                       ^^ punctuation.separator.key-value
+//                                                                             ^ punctuation.section.mapping.end
+   NON_RETAIN
+// ^^^^^^^^^^ entity.other.attribute-name
+   READ_ONLY
+// ^^^^^^^^^ entity.other.attribute-name
+   VERSION : 1.0
+// ^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//          ^^^^ meta.mapping.value
+// ^^^^^^^ entity.other.attribute-name
+//         ^ punctuation.separator.key-value
+//           ^ constant.numeric.float.version.major
+//            ^ punctuation.separator.decimal.version
+//             ^ constant.numeric.float.version.minor
+   AUTHOR : name
+// ^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   FAMILY : name
+// ^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   NAME : name
+// ^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^ meta.mapping.key - meta.mapping.value
+//       ^^^^^ meta.mapping.value
+// ^^^^ entity.other.attribute-name
+//      ^ punctuation.separator.key-value
+//        ^^^^ string.unquoted
+   ILLEGAL : unknown
+// ^^^^^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^ invalid.illegal
+//         ^ invalid.illegal
+//           ^^^^^^^ invalid.illegal
+
+   "UDT_TypeName"
+//<- meta.block.db.header
+// ^^^^^^^^^^^^^^ meta.block.db.header
+// ^ punctuation.definition.string.begin
+// ^^^^^^^^^^^^^^ string.quoted.double
+//  ^^^^^^^^^^^^ variable.other.symbol
+//              ^ punctuation.definition.string.end
+   BEGIN illegal // comment
+//<- meta.block.db.header
+//^ meta.block.db.header - meta.block.db.body
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body - meta.block.db.header
+// ^^^^^ keyword.other.begin
+//       ^^^^^^^ invalid.illegal
+//               ^^ punctuation.definition.comment.begin
+//               ^^^^^^^^^^ comment.line.double-slash
+
+   VAR[0].child[ 0 ].attr := W#16#0 ;  // comment
+//<- meta.block.db.body
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body
+//    ^^^ meta.brackets
+//             ^^^^^ meta.brackets
+// ^^^ variable.other.local
+//    ^ punctuation.section.brackets.begin
+//     ^ constant.numeric.integer
+//      ^ punctuation.section.brackets.end
+//       ^ punctuation.accessor.dot
+//        ^^^^^ variable.other.member
+//             ^ punctuation.section.brackets.begin
+//               ^ constant.numeric.integer
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.accessor.dot
+//                   ^^^^ variable.other.member
+//                        ^^ keyword.operator.assignment
+//                           ^^^^^^ constant.numeric.hex.word
+//                                  ^ punctuation.terminator.line
+   test := W#16 ; illegal // comment
+// ^^^^ variable.other.local
+//      ^^ keyword.operator.assignment
+//         ^^^^ invalid.illegal
+//             ^ - invalid
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+//                ^^^^^^^^ invalid.illegal.eol-expected
+//                        ^^ punctuation.definition.comment.begin
+//                        ^^^^^^^^^^ comment.line.double-slash
+   incomplete
+   next_is_valid
+// ^^^^^^^^^^^^^ variable.other.local
+   date_time := DT#90-1-1-0:0:0.000;
+//              ^^^^^^^^^^^^^^^^^^^ constant.language.datetime
+//                   ^ punctuation.separator.date
+//                     ^ punctuation.separator.date
+//                       ^ punctuation.separator.date
+//                         ^ punctuation.separator.time
+//                           ^ punctuation.separator.time
+//                             ^ punctuation.separator.time
+   date_time := DT#2017-12-31-23:59:59.999;
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.language.datetime
+//                     ^ punctuation.separator.date
+//                        ^ punctuation.separator.date
+//                           ^ punctuation.separator.date
+//                              ^ punctuation.separator.time
+//                                 ^ punctuation.separator.time
+//                                    ^ punctuation.separator.time
+   date_time := DT#2017;
+//              ^^^^^^^ invalid.illegal
+   END_DATA_BLOCK
+//<- meta.block.db.body
+//^^^^^^^^^^^^^^^ meta.block.db.body
+// ^^^^^^^^^^^^^^ keyword.other.db.end
+
+///////////////////////////////////////////////////////////////////////////////
+// functions                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+   FUNCTION "name" : INT  // comment
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^^^ keyword.other.fc.begin
+//          ^ punctuation.definition.string.begin
+//          ^^^^^^ string.quoted.double
+//           ^^^^ entity.name.block
+//                 ^ punctuation.separator.mapping.pair
+//                   ^^^ storage.type.integer
+//                        ^^ punctuation.definition.comment.begin
+//                        ^^^^^^^^^^ comment.line.double-slash
+   TITLE =the function description
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^^ meta.mapping.key - meta.mapping.value
+//        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+// ^^^^^ entity.other.attribute-name.title
+//       ^ punctuation.separator.key-value.title
+//        ^^^^^^^^^^^^^^^^^^^^^^^^ string.unquoted
+   { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
+// ^ meta.mapping - meta.mapping.key - meta.mapping.value
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//                       ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value
+//                                                                             ^ meta.mapping - meta.mapping.key - meta.mapping.value
+// ^ punctuation.section.mapping.begin
+//   ^^^^^^^^^^^ variable.annotation
+//               ^^^^^^^ invalid.illegal.separator-expected
+//                       ^^ punctuation.separator.key-value
+//                                                                             ^ punctuation.section.mapping.end
+   VERSION : 1.0
+// ^^^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^^^^ meta.mapping.key - meta.mapping.value
+//          ^^^^ meta.mapping.value
+// ^^^^^^^ entity.other.attribute-name
+//         ^ punctuation.separator.key-value
+//           ^ constant.numeric.float.version.major
+//            ^ punctuation.separator.decimal.version
+//             ^ constant.numeric.float.version.minor
+   AUTHOR : name
+// ^^^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   FAMILY : name
+// ^^^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^^^ meta.mapping.key - meta.mapping.value
+//         ^^^^^ meta.mapping.value
+// ^^^^^^ entity.other.attribute-name
+//        ^ punctuation.separator.key-value
+//          ^^^^ string.unquoted
+   NAME : name
+// ^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^ meta.mapping.key - meta.mapping.value
+//       ^^^^^ meta.mapping.value
+// ^^^^ entity.other.attribute-name
+//      ^ punctuation.separator.key-value
+//        ^^^^ string.unquoted
+   ILLEGAL : unknown
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.header
+// ^^^^^^^ invalid.illegal
+//         ^ invalid.illegal
+//           ^^^^^^^ invalid.illegal
+
+   VAR_INPUT illegal // comment
+// <- meta.block.fc.header - meta.block.fc.body
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+// ^^^^^^^^^ keyword.control.var.input.begin
+//           ^^^^^^^ invalid.illegal.eol-expected
+//                   ^^^^^^^^^^ comment.line.double-slash
+     RUN : BOOL := TRUE ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage - meta.definition.variable.value
+//              ^^ meta.definition.variable - meta.definition.variable.storage - meta.definition.variable.value
+//                ^^^^^^ meta.definition.variable.value - meta.definition.variable.storage
+//   ^^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^^ storage.type.bool
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.numeric.bool
+//                      ^ punctuation.terminator.line
+//                       ^^ - invalid
+//                         ^^^^^^ comment.line.double-slash
+//                               ^ - invalid
+     ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^ storage.type.integer
+//              ^ punctuation.terminator.line
+//               ^^ - invalid
+//                 ^^^^^^^^^ comment.line.double-slash
+//                          ^ - invalid
+     _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^^^^^ storage.type.string
+//                     ^ punctuation.terminator.line
+//                      ^^ - invalid
+//                        ^^^^^^^^ comment.line.double-slash
+//                                ^ - invalid
+     _AR  : ARRAY[ 0 .. 20 ] OF //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                          ^ - invalid
+//                           ^^ keyword.control.of
+//                             ^ - invalid
+//                              ^^ punctuation.definition.comment.begin
+//                              ^^^^^^^ comment.line.double-slash
+//                                     ^ - invalid
+            DWORD := DW#16#0, DW#16#2, DW#16#A ;  //integer
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^^^^ meta.sequence.array
+//          ^^^^^ storage.type.dword
+//                ^^ keyword.operator.assignment
+//                   ^^^^^^^ constant.numeric.hex
+//                          ^ punctuation.separator.sequence
+//                            ^^^^^^^ constant.numeric.hex
+//                                   ^ punctuation.separator.sequence
+//                                     ^^^^^^^ constant.numeric.hex
+//                                            ^ - invalid
+//                                             ^ punctuation.terminator.line
+//                                              ^^ - invalid
+//                                                ^^^^^^^^^ comment.line.double-slash
+//                                                         ^ - invalid
+     _ST  : STRUCT  //structure
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^ storage.type.struct.begin
+//                  ^^ comment.line.double-slash
+//                  ^^^^^^^^^^^ comment.line.double-slash
+//                             ^ - invalid
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^ comment.line.double-slash
+//                         ^ - invalid
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^^^^ comment.line.double-slash
+//                            ^ - invalid
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+//                       ^ punctuation.terminator.line
+//                        ^^ - invalid
+//                          ^^^^^^^^ comment.line.double-slash
+//                                  ^ - invalid
+    END_STRUCT ;
+// ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+// ^^^^^^^^^^^^ meta.definition.variable.storage
+// ^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+     _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//                              ^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^^^^^ storage.type.struct.begin
+//                                     ^^ punctuation.definition.comment.begin
+//                                     ^^^^^^^ comment.line.double-slash
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^ comment.line.double-slash
+//                         ^ - invalid
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+//                ^ punctuation.terminator.line
+//                 ^^ - invalid
+//                   ^^^^^^^^^ comment.line.double-slash
+//                            ^ - invalid
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+//                       ^ punctuation.terminator.line
+//                        ^^ - invalid
+//                          ^^^^^^^^ comment.line.double-slash
+//                                  ^ - invalid
+    END_STRUCT ;
+//^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+   END_VAR
+// <- meta.block.fc.header meta.block.var.input
+// ^^^^^^^ meta.block.fc.header meta.block.var.input
+// ^^^^^^^ keyword.control.var.end
+
+   VAR_OUTPUT
+// <- meta.block.fc.header - meta.block.fc.body
+// ^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+// ^^^^^^^^^^ keyword.control.var.output.begin
+     RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^^ storage.type.bool
+//              ^ punctuation.terminator.line
+//               ^^ - invalid
+//                 ^^^^^^ comment.line.double-slash
+//                       ^ - invalid
+     ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^ storage.type.integer
+//              ^ punctuation.terminator.line
+//               ^^ - invalid
+//                 ^^^^^^^^^ comment.line.double-slash
+//                          ^ - invalid
+     _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^^^^^ storage.type.string
+//                     ^ punctuation.terminator.line
+//                      ^^ - invalid
+//                        ^^^^^^^^ comment.line.double-slash
+//                                ^ - invalid
+     _AR  : ARRAY[ 0 .. 20 ] OF //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^ punctuation.definition.comment.begin
+//                              ^^^^^^^ comment.line.double-slash
+            DWORD ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+//          ^^^^^ storage.type.dword
+//                   ^^^^^^^^^ comment.line.double-slash
+//                            ^ - invalid
+     _ST  : STRUCT  //structure
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^ storage.type.struct.begin
+//                  ^^^^^^^^^^^ comment.line.double-slash
+//                             ^ - invalid
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+//                ^ punctuation.terminator.line
+//                   ^^^^^^ comment.line.double-slash
+//                         ^ - invalid
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+    END_STRUCT ;
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+//              ^ - invalid
+     _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//                              ^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^^^^^ storage.type.struct.begin
+//                                     ^^ punctuation.definition.comment.begin
+//                                     ^^^^^^^ comment.line.double-slash
+//                                            ^ - invalid
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+    END_STRUCT ;
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+//              ^ - invalid
+   END_VAR
+// <- meta.block.fc.header meta.block.var.output
+// ^^^^^^^ meta.block.fc.header meta.block.var.output
+// ^^^^^^^ keyword.control.var.end
+
+   VAR_IN_OUT
+// <- meta.block.fc.header - meta.block.fc.body
+// ^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+// ^^^^^^^^^^ keyword.control.var.in-out.begin
+     RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^^ storage.type.bool
+     ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^ storage.type.integer
+     _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^^^^^ storage.type.string
+     _AR  : ARRAY[ 0 .. 20 ] OF //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^ punctuation.definition.comment.begin
+//                              ^^^^^^^ comment.line.double-slash
+            DWORD ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+//          ^^^^^ storage.type.dword
+     _ST  : STRUCT  //structure
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^ storage.type.struct.begin
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+    END_STRUCT ;
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+//              ^ - invalid
+     _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//                              ^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^^^^^ storage.type.struct.begin
+//                                     ^^ punctuation.definition.comment.begin
+//                                     ^^^^^^^ comment.line.double-slash
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+    END_STRUCT ;
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+   END_VAR
+// <- meta.block.fc.header meta.block.var.in-out
+// ^^^^^^^ meta.block.fc.header meta.block.var.in-out
+// ^^^^^^^ keyword.control.var.end
+
+   VAR_TEMP
+// <- meta.block.fc.header - meta.block.fc.body
+// ^^^^^^^^ meta.block.fc.header meta.block.var.temp
+// ^^^^^^^^ keyword.control.var.temp.begin
+     RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^^ storage.type.bool
+     ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//        ^^^^^^ meta.definition.variable.storage
+//   ^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^ storage.type.integer
+     _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^ meta.definition.variable.storage
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^^^^^ storage.type.string
+     _AR  : ARRAY[ 0 .. 20 ] OF //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^ punctuation.definition.comment.begin
+//                              ^^^^^^^ comment.line.double-slash
+            DWORD ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+// ^^^^^^^^^^^^^^ meta.definition.variable.storage meta.sequence.array
+//          ^^^^^ storage.type.dword
+     _ST  : STRUCT  //structure
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^^ storage.type.struct.begin
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+    END_STRUCT ;
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+     _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//   ^^^^^ meta.definition.variable - meta.definition.variable.storage
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//                              ^^^^^^^^^^^^^^ meta.struct
+//   ^^^ variable.other
+//        ^ punctuation.separator.key-value
+//          ^^^^^ storage.type.array
+//               ^ punctuation.definition.array.begin
+//                 ^ constant.numeric.integer
+//                   ^^ punctuation.separator.sequence
+//                      ^^ constant.numeric.integer
+//                         ^ punctuation.definition.array.end
+//                           ^^ keyword.control.of
+//                              ^^^^^^ storage.type.struct.begin
+//                                     ^^ punctuation.definition.comment.begin
+//                                     ^^^^^^^ comment.line.double-slash
+       RUN : BOOL ;  //bool
+// ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^^ storage.type.bool
+       ID  : INT  ;  //integer
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//          ^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^ variable.other
+//         ^ punctuation.separator.key-value
+//           ^^^ storage.type.integer
+       _S1  : STRING[32] ;  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp meta.definition.variable.storage meta.sequence.array meta.struct
+//     ^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//     ^^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^^^^^^ storage.type.string
+    END_STRUCT ;
+//^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
+//^^^^^^^^^^^^^ meta.definition.variable.storage
+//^^^^^^^^^^^^ meta.struct
+//  ^^^^^^^^^^ storage.type.struct.end
+//             ^ punctuation.terminator.line
+   END_VAR
+// <- meta.block.fc.header meta.block.var.temp
+// ^^^^^^^ meta.block.fc.header meta.block.var.temp
+// ^^^^^^^ keyword.control.var.end
+
+   VAR
+// ^^^ meta.block.fc.header invalid.illegal
+   END_VAR
+// ^^^^^^^ meta.block.fc.header invalid.illegal
+
+   BEGIN
+// <- meta.block.fc.header - meta.block.fc.body
+//^ meta.block.fc.header - meta.block.fc.body
+// ^^^^^ meta.block.fc.body - meta.block.fc.header
+// ^^^^^ keyword.other.begin
+
+   NETWORK //network 1
+// <- meta.block.fc.body
+// ^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+// ^^^^^^^ keyword.control.network
+   TITLE =CALL test
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+// ^^^^^^^ meta.mapping.key
+//        ^^^^^^^^^ meta.mapping.value
+// ^^^^^ entity.other.attribute-name.title
+//       ^ punctuation.separator.key-value.title
+//        ^^^^^^^^^ string.unquoted
+///////////////////////////////////////////////////////////////////////////////
+// basic operations                                                          //
+///////////////////////////////////////////////////////////////////////////////
+      BLD  1; // comment
+//    ^^^ keyword.operator.nop
+//         ^ constant.numeric.integer
+//          ^ punctuation.terminator.line
+      NOP  0; // comment
+//    ^^^ keyword.operator.nop
+//         ^ constant.numeric.integer
+//          ^ punctuation.terminator.line
+
+///////////////////////////////////////////////////////////////////////////////
+// logical operations                                                        //
+///////////////////////////////////////////////////////////////////////////////
+
+      U     E3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     A3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     L3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     M3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     DBX3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^^^ variable.language.address
+//              ^ punctuation.separator.decimal
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      U     DIX3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^^^ variable.language.address
+//              ^ punctuation.separator.decimal
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      U     DB10.DBX3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.db
+//              ^ punctuation.accessor.dot
+//               ^^^^^^ variable.language.address
+//                   ^ punctuation.separator.decimal
+//                     ^ punctuation.terminator.line
+//                      ^ - invalid
+
+///////////////////////////////////////////////////////////////////////////////
+// load values into akku1                                                    //
+///////////////////////////////////////////////////////////////////////////////
+      L    MB10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ variable.language.address
+//             ^ punctuation.terminator.line
+//                ^^ punctuation.definition.comment.begin
+//                ^^^^^^^^^^ comment.line.double-slash
+      L    MB[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    MW10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ variable.language.address
+//             ^ punctuation.terminator.line
+//                ^^ punctuation.definition.comment.begin
+//                ^^^^^^^^^^ comment.line.double-slash
+      L    MW[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    MD10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ variable.language.address
+//             ^ punctuation.terminator.line
+//                ^^ punctuation.definition.comment.begin
+//                ^^^^^^^^^^ comment.line.double-slash
+      L    MD[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    M10.0;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ invalid.illegal
+//              ^ punctuation.terminator.line
+//                 ^^ punctuation.definition.comment.begin
+//                 ^^^^^^^^^^ comment.line.double-slash
+      L    LB10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ variable.language.address
+//             ^ punctuation.terminator.line
+//                ^^ punctuation.definition.comment.begin
+//                ^^^^^^^^^^ comment.line.double-slash
+      L    LB[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    LW10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ variable.language.address
+//             ^ punctuation.terminator.line
+//                ^^ punctuation.definition.comment.begin
+//                ^^^^^^^^^^ comment.line.double-slash
+      L    LW[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    LD10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ variable.language.address
+//             ^ punctuation.terminator.line
+//                ^^ punctuation.definition.comment.begin
+//                ^^^^^^^^^^ comment.line.double-slash
+      L    LD[ LD0 ]; // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^ meta.operand.numeric
+//           ^^^^^^^ meta.brackets
+//    ^ keyword.operator.arithmetic.load
+//         ^^ variable.language.address
+//           ^ punctuation.section.brackets.begin
+//             ^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    L10.0;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ invalid.illegal
+//              ^ punctuation.terminator.line
+//                 ^^ punctuation.definition.comment.begin
+//                 ^^^^^^^^^^ comment.line.double-slash
+      L    DB200.DBB20;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ variable.language.db
+//              ^ punctuation.accessor.dot
+//               ^^^^^ variable.language.address
+//                    ^ punctuation.terminator.line
+//                       ^^ punctuation.definition.comment.begin
+//                       ^^^^^^^^^^ comment.line.double-slash
+      L    DB200.DBW20;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ variable.language.db
+//              ^ punctuation.accessor.dot
+//               ^^^^^ variable.language.address
+//                    ^ punctuation.terminator.line
+//                       ^^ punctuation.definition.comment.begin
+//                       ^^^^^^^^^^ comment.line.double-slash
+      L    DB200.DBD20;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ variable.language.db
+//              ^ punctuation.accessor.dot
+//               ^^^^^ variable.language.address
+//                    ^ punctuation.terminator.line
+//                       ^^ punctuation.definition.comment.begin
+//                       ^^^^^^^^^^ comment.line.double-slash
+      L    DB200.DBX20.0;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^ invalid.illegal
+//                      ^ punctuation.terminator.line
+//                         ^^ punctuation.definition.comment.begin
+//                         ^^^^^^^^^^ comment.line.double-slash
+      L    "datablock".struct[ 4 ].value;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^ punctuation.definition.string.begin - variable.other.symbol
+//         ^^^^^^^^^^^ string.quoted.double
+//          ^^^^^^^^^ variable.other.symbol
+//                   ^ punctuation.definition.string.end - variable.other.symbol
+//                    ^ punctuation.accessor.dot
+//                     ^^^^^^ variable.other.member
+//                           ^ punctuation.section.brackets.begin
+//                           ^^^^^ meta.brackets
+//                             ^ constant.numeric.integer
+//                               ^ punctuation.section.brackets.end
+//                                ^ punctuation.accessor.dot
+//                                 ^^^^^ variable.other.member
+//                                      ^ punctuation.terminator.line
+//                                         ^^ punctuation.definition.comment.begin
+//                                         ^^^^^^^^^^ comment.line.double-slash
+      L    "datablock".struct.value;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^ punctuation.definition.string.begin - variable.other.symbol
+//         ^^^^^^^^^^^ string.quoted.double
+//          ^^^^^^^^^ variable.other.symbol
+//                   ^ punctuation.definition.string.end - variable.other.symbol
+//                    ^ punctuation.accessor.dot
+//                     ^^^^^^ variable.other.member
+//                           ^ punctuation.accessor.dot
+//                            ^^^^^ variable.other.member
+//                                 ^ punctuation.terminator.line
+//                                    ^^ punctuation.definition.comment.begin
+//                                    ^^^^^^^^^^ comment.line.double-slash
+      L    #local[1].array[0].value[ 10 ];  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^ punctuation.definition.variable.begin
+//          ^^^^^ variable.other.local
+//               ^ punctuation.section.brackets.begin
+//               ^^^ meta.brackets
+//                ^ constant.numeric.integer
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.accessor.dot
+//                   ^^^^^ variable.other.member
+//                        ^ punctuation.section.brackets.begin
+//                        ^^^ meta.brackets
+//                         ^ constant.numeric.integer
+//                          ^ punctuation.section.brackets.end
+//                           ^ punctuation.accessor.dot
+//                            ^^^^^ variable.other.member
+//                                 ^ punctuation.section.brackets.begin
+//                                 ^^^^^^ meta.brackets
+//                                   ^^ constant.numeric.integer
+//                                      ^ punctuation.section.brackets.end
+//                                       ^ punctuation.terminator.line
+//                                          ^^ punctuation.definition.comment.begin
+//                                          ^^^^^^^^^^ comment.line.double-slash
+      L    P##local;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^ constant.language.pointer
+//           ^ punctuation.definition.variable.begin
+//            ^^^^^ variable.other.local
+//                 ^ punctuation.terminator.line
+//                    ^^ punctuation.definition.comment.begin
+//                    ^^^^^^^^^^ comment.line.double-slash
+      L    P#120.4;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^ constant.language.pointer
+//                ^ punctuation.terminator.line
+//                   ^^ punctuation.definition.comment.begin
+//                   ^^^^^^^^^^ comment.line.double-slash
+      L    P#DBX120.4;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^ constant.language.pointer
+//                 ^ punctuation.separator.decimal
+//                   ^ punctuation.terminator.line
+//                      ^^ punctuation.definition.comment.begin
+//                      ^^^^^^^^^^ comment.line.double-slash
+      L    P#DB2.DBX120.4;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^ constant.language.pointer
+//              ^ punctuation.accessor.dot
+//                     ^ punctuation.separator.decimal
+//                       ^ punctuation.terminator.line
+//                          ^^ punctuation.definition.comment.begin
+//                          ^^^^^^^^^^ comment.line.double-slash
+      L    2#0000_0000_0000_0000_0000_0000_0000_0000 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
+//               ^ punctuation.separator.bin
+//                    ^ punctuation.separator.bin
+//                         ^ punctuation.separator.bin
+//                              ^ punctuation.separator.bin
+//                                   ^ punctuation.separator.bin
+//                                        ^ punctuation.separator.bin
+//                                             ^ punctuation.separator.bin
+//                                                  ^ - invalid
+//                                                   ^ punctuation.terminator.line
+//                                                    ^ - invalid
+      L    2#1111_1111_1111_1111_1111_1111_1111_1111 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
+//               ^ punctuation.separator.bin
+//                    ^ punctuation.separator.bin
+//                         ^ punctuation.separator.bin
+//                              ^ punctuation.separator.bin
+//                                   ^ punctuation.separator.bin
+//                                        ^ punctuation.separator.bin
+//                                             ^ punctuation.separator.bin
+//                                                  ^ - invalid
+//                                                   ^ punctuation.terminator.line
+//                                                    ^ - invalid
+      L    2#1121_1111_1A11_1111_111_11011_1111_1111 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
+//             ^ invalid.illegal.bin
+//               ^ punctuation.separator.bin
+//                    ^ punctuation.separator.bin
+//                      ^ invalid.illegal.bin
+//                         ^ punctuation.separator.bin
+//                              ^ punctuation.separator.bin
+//                                  ^ punctuation.separator.bin
+//                                        ^ punctuation.separator.bin
+//                                             ^ punctuation.separator.bin
+//                                                  ^ - invalid
+//                                                   ^ punctuation.terminator.line
+//                                                    ^ - invalid
+      L    B#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^ constant.numeric.hex.byte
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L    byte#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^ constant.numeric.hex.byte
+//                  ^ - invalid
+//                   ^ punctuation.terminator.line
+//                    ^ - invalid
+      L    W#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^ constant.numeric.hex.word
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L    word#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^ constant.numeric.hex.word
+//                  ^ - invalid
+//                   ^ punctuation.terminator.line
+//                    ^ - invalid
+      L    DW#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^ constant.numeric.hex.dword
+//                ^ - invalid
+//                 ^ punctuation.terminator.line
+//                  ^ - invalid
+      L    dword#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^ constant.numeric.hex.dword
+//                   ^ - invalid
+//                    ^ punctuation.terminator.line
+//                     ^ - invalid
+      L    L#16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ constant.numeric.integer
+//             ^ - invalid
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      L    L#-16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ constant.numeric.integer
+//           ^ punctuation.sign
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
+      L    2.0323e+002 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^ constant.numeric.float
+//          ^ punctuation.separator.decimal
+//                ^ punctuation.sign
+//                    ^ - invalid
+//                     ^ punctuation.terminator.line
+//                      ^ - invalid
+      L    -2.0323e-002 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^ constant.numeric.float
+//         ^ punctuation.sign
+//           ^ punctuation.separator.decimal
+//                 ^ punctuation.sign
+//                     ^ - invalid
+//                      ^ punctuation.terminator.line
+//                       ^ - invalid
+      L    C#200 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ constant.numeric.counter
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
+      L     S5T#50MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^^^ constant.language.time.millisecond
+//                  ^ - invalid
+//                   ^ punctuation.terminator.line
+//                    ^ - invalid
+      L     S5T#50S ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^^ constant.language.time.second
+//                 ^ - invalid
+//                  ^ punctuation.terminator.line
+//                   ^ - invalid
+      L     S5T#50M ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^^ constant.language.time.minute
+//                 ^ - invalid
+//                  ^ punctuation.terminator.line
+//                   ^ - invalid
+      L     S5T#1H ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//              ^^ constant.language.time.hour
+//                ^ - invalid
+//                 ^ punctuation.terminator.line
+//                  ^ - invalid
+      L    S5T#2H_30M_58S_200MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//             ^^ constant.language.time.hour
+//               ^ punctuation.separator.time
+//                ^^^ constant.language.time.minute
+//                   ^ punctuation.separator.time
+//                    ^^^ constant.language.time.second
+//                       ^ punctuation.separator.time
+//                        ^^^^^ constant.language.time.millisecond
+//                             ^ - invalid
+//                              ^ punctuation.terminator.line
+//                               ^ - invalid
+      L    S5T#2H_70M_58S_200MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
+//    ^ keyword.operator.arithmetic.load
+//                ^^^ invalid.illegal.time
+//                             ^ - invalid
+//                              ^ punctuation.terminator.line
+//                               ^ - invalid
+      L     T#50MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^^^ constant.language.time.millisecond
+//                ^ - invalid
+//                 ^ punctuation.terminator.line
+//                  ^ - invalid
+      L     T#50S ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^^ constant.language.time.second
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L     T#50M ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^^ constant.language.time.minute
+//               ^ - invalid
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      L     T#1H ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^ constant.language.time.hour
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
+      L     T#2D ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//          ^^^^ constant.language.iec-time
+//    ^ keyword.operator.arithmetic.load
+//            ^^ constant.language.time.day
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
+      L    T#24D_23H_59M_59S_999MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
+//           ^^^ constant.language.time.day
+//              ^ punctuation.separator.time
+//               ^^^ constant.language.time.hour
+//                  ^ punctuation.separator.time
+//                   ^^^ constant.language.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^^ constant.language.time.second
+//                          ^ punctuation.separator.time
+//                           ^^^^^ constant.language.time.millisecond
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.line
+//                                  ^ - invalid
+      L    T#25D_23H_69M_59S_999MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
+//           ^^^ invalid.illegal.time.day
+//              ^ punctuation.separator.time
+//               ^^^ constant.language.time.hour
+//                  ^ punctuation.separator.time
+//                   ^^^ invalid.illegal.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^^ constant.language.time.second
+//                          ^ punctuation.separator.time
+//                           ^^^^^ constant.language.time.millisecond
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.line
+//                                  ^ - invalid
+      L    T#24D_23M_59M_20H_999MS ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
+//           ^^^ constant.language.time.day
+//              ^ punctuation.separator.time
+//               ^^^ invalid.illegal.time.hour
+//                  ^ punctuation.separator.time
+//                   ^^^ constant.language.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^^ invalid.illegal.time.second
+//                          ^ punctuation.separator.time
+//                           ^^^^^ constant.language.time.millisecond
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.line
+//                                  ^ - invalid
+      L    D#2017-12-30 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^ constant.language.date
+//               ^ punctuation.separator.date
+//                  ^ punctuation.separator.date
+//                     ^ - invalid
+//                      ^ punctuation.terminator.line
+//                       ^ - invalid
+      L    DATE#2017-12-30 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^ constant.language.date
+//                  ^ punctuation.separator.date
+//                     ^ punctuation.separator.date
+//                        ^ - invalid
+//                         ^ punctuation.terminator.line
+//                          ^ - invalid
+      L    TOD#23:59:59.999 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^ constant.language.time-of-day
+//               ^ punctuation.separator.time
+//                  ^ punctuation.separator.time
+//                     ^ punctuation.separator.time
+//                         ^ - invalid
+//                          ^ punctuation.terminator.line
+//                           ^ - invalid
+
+///////////////////////////////////////////////////////////////////////////////
+// function calls                                                            //
+///////////////////////////////////////////////////////////////////////////////
+      CALL "ALARM_SQ" (
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^^^^ meta.function-call - meta.function-call.name - meta.function-call.arguments
+//        ^^^^^^^^^^^^ meta.function-call.name - meta.function-call.arguments
+//                    ^ meta.function-call.arguments - meta.function-call.name
+//    ^^^^ keyword.control.call
+//         ^ punctuation.definition.string.begin
+//         ^^^^^^^^^^ string.quoted.double
+//                  ^ punctuation.definition.string.end
+//                    ^ punctuation.section.parens.begin
+           SIG     := "msgs".A700127,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+//                                  ^ meta.mapping
+//         ^^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^ punctuation.definition.string.begin
+//                    ^^^^^^ string.quoted.double
+//                     ^^^^ variable.other.symbol
+//                         ^ punctuation.definition.string.end
+//                          ^ punctuation.accessor
+//                           ^^^^^^^ variable.other.member
+//                                  ^ punctuation.separator.mapping.pair
+           ID      := W#16#EEEE,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+//                             ^ meta.mapping
+//         ^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^^^^^^ constant.numeric.hex.word
+//                             ^ punctuation.separator.mapping.pair
+           EV_ID   := DW#16#AAEDF,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+//                               ^ meta.mapping
+//         ^^^^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^^^^^^^^ constant.numeric.hex.dword
+//                               ^ punctuation.separator.mapping.pair
+           ANY     := P# DB20.DBX40.0 WORD 10,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
+//                                           ^ meta.mapping
+//         ^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.any-pointer
+           SD      := #data,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^ meta.mapping.value - meta.mapping.key
+//                         ^ meta.mapping
+//         ^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^ punctuation.definition.variable.begin
+//                     ^^^^ variable.other.local
+//                         ^ punctuation.separator.mapping.pair
+           RET_VAL := MW200);
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^^ meta.mapping.value - meta.mapping.key
+//         ^^^^^^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^^ variable.language.address
+//                         ^ punctuation.section.parens.end
+//                          ^ punctuation.terminator.line
+
+   END_FUNCTION
+// ^^^^^^^^^^^^ meta.block.fc.body
+// ^^^^^^^^^^^^ keyword.other.fc.end
