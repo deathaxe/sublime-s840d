@@ -1214,6 +1214,53 @@
 //                   ^ punctuation.terminator.line
 //                      ^^ punctuation.definition.comment.begin
 //                      ^^^^^^^^^^ comment.line.double-slash
+      L    2#0000_0000_0000_0000_0000_0000_0000_0000 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
+//               ^ punctuation.separator.bin
+//                    ^ punctuation.separator.bin
+//                         ^ punctuation.separator.bin
+//                              ^ punctuation.separator.bin
+//                                   ^ punctuation.separator.bin
+//                                        ^ punctuation.separator.bin
+//                                             ^ punctuation.separator.bin
+//                                                  ^ - invalid
+//                                                   ^ punctuation.terminator.line
+//                                                    ^ - invalid
+      L    2#1111_1111_1111_1111_1111_1111_1111_1111 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
+//               ^ punctuation.separator.bin
+//                    ^ punctuation.separator.bin
+//                         ^ punctuation.separator.bin
+//                              ^ punctuation.separator.bin
+//                                   ^ punctuation.separator.bin
+//                                        ^ punctuation.separator.bin
+//                                             ^ punctuation.separator.bin
+//                                                  ^ - invalid
+//                                                   ^ punctuation.terminator.line
+//                                                    ^ - invalid
+      L    2#1121_1111_1A11_1111_111_11011_1111_1111 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
+//             ^ invalid.illegal.bin
+//               ^ punctuation.separator.bin
+//                    ^ punctuation.separator.bin
+//                      ^ invalid.illegal.bin
+//                         ^ punctuation.separator.bin
+//                              ^ punctuation.separator.bin
+//                                  ^ punctuation.separator.bin
+//                                        ^ punctuation.separator.bin
+//                                             ^ punctuation.separator.bin
+//                                                  ^ - invalid
+//                                                   ^ punctuation.terminator.line
+//                                                    ^ - invalid
       L    B#16#0 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1222,6 +1269,14 @@
 //               ^ - invalid
 //                ^ punctuation.terminator.line
 //                 ^ - invalid
+      L    byte#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^ constant.numeric.hex.byte
+//                  ^ - invalid
+//                   ^ punctuation.terminator.line
+//                    ^ - invalid
       L    W#16#0 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1230,6 +1285,14 @@
 //               ^ - invalid
 //                ^ punctuation.terminator.line
 //                 ^ - invalid
+      L    word#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^ constant.numeric.hex.word
+//                  ^ - invalid
+//                   ^ punctuation.terminator.line
+//                    ^ - invalid
       L    DW#16#0 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1238,6 +1301,14 @@
 //                ^ - invalid
 //                 ^ punctuation.terminator.line
 //                  ^ - invalid
+      L    dword#16#0 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^ constant.numeric.hex.dword
+//                   ^ - invalid
+//                    ^ punctuation.terminator.line
+//                     ^ - invalid
       L    C#200 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network

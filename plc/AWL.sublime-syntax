@@ -1027,15 +1027,24 @@ contexts:
       scope: constant.numeric.bool.s7.awl
 
   constants-float:
-    - match: '[-+]?\d+\.\d+e[-+]\d+'
+    - match: '[-+]?\d+\.\d+e[-+]\d+\b'
       scope: constant.numeric.float.s7.awl
 
   constants-hex:
-    - match: B#16#\h+
+    - match: 2#
+      push:
+        - meta_scope: constant.numeric.bin.s7.awl
+        - match: (?=\W)
+          pop: true
+        - match: _
+          scope: punctuation.separator.bin.s7.awl
+        - match: '[^01_]'
+          scope: invalid.illegal.bin.s7.awl
+    - match: (?:B|byte)#16#\h+\b
       scope: constant.numeric.hex.byte.s7.awl
-    - match: W#16#\h+
+    - match: (?:W|word)#16#\h+\b
       scope: constant.numeric.hex.word.s7.awl
-    - match: DW#16#\h+
+    - match: (?:DW|dword)#16#\h+\b
       scope: constant.numeric.hex.dword.s7.awl
 
   constants-int:
@@ -1047,7 +1056,7 @@ contexts:
       scope: constant.numeric.integer.s7.awl
 
   constants-counter:
-    - match: C#\d+
+    - match: C#\d+\b
       scope: constant.numeric.counter.s7.awl
 
 ##[ S5TIME ]###################################################################
