@@ -1211,9 +1211,20 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^^^^^^^^^^ constant.language.pointer
+//                 ^ punctuation.separator.decimal
 //                   ^ punctuation.terminator.line
 //                      ^^ punctuation.definition.comment.begin
 //                      ^^^^^^^^^^ comment.line.double-slash
+      L    P#DB2.DBX120.4;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^ constant.language.pointer
+//              ^ punctuation.accessor.dot
+//                     ^ punctuation.separator.decimal
+//                       ^ punctuation.terminator.line
+//                          ^^ punctuation.definition.comment.begin
+//                          ^^^^^^^^^^ comment.line.double-slash
       L    2#0000_0000_0000_0000_0000_0000_0000_0000 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1309,6 +1320,44 @@
 //                   ^ - invalid
 //                    ^ punctuation.terminator.line
 //                     ^ - invalid
+      L    L#16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^ constant.numeric.integer
+//             ^ - invalid
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      L    L#-16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^ constant.numeric.integer
+//           ^ punctuation.sign
+//              ^ - invalid
+//               ^ punctuation.terminator.line
+//                ^ - invalid
+      L    2.0323e+002 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^ constant.numeric.float
+//          ^ punctuation.separator.decimal
+//                ^ punctuation.sign
+//                    ^ - invalid
+//                     ^ punctuation.terminator.line
+//                      ^ - invalid
+      L    -2.0323e-002 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^ constant.numeric.float
+//         ^ punctuation.sign
+//           ^ punctuation.separator.decimal
+//                 ^ punctuation.sign
+//                     ^ - invalid
+//                      ^ punctuation.terminator.line
+//                       ^ - invalid
       L    C#200 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network

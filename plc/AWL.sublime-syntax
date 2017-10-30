@@ -983,10 +983,10 @@ contexts:
             [ \t]*             # optional space
             (?:
                 [AEML]?        # input, output, marker, temp,
-              | DB\d+\.DBX     # datablock & address
+              | DB\d+(\.)DBX   # datablock & address
             )
             [ \t]*             # optional space
-            \d+\.[0-7]         # bit-address
+            \d+(\.)[0-7]       # bit-address
             [ \t]+             # at least one space
             (?:                # the data type
                 VOID
@@ -1000,21 +1000,27 @@ contexts:
             [ \t]+             # at least one space
             \d+\b              # element count
       scope: constant.language.any-pointer.s7.awl
+      captures:
+        1: punctuation.accessor.dot.s7.awl
+        2: punctuation.separator.decimal.s7.awl
 
   constants-pointer:
     # P#10.0 P#M10.0, P#DB20.DBX10.0
     - match: |-
           (?x)
-            P\#                # pointer prefix
-            [ \t]*             # optional space
+            P\#                    # pointer prefix
+            [ \t]*                 # optional space
             (?:
-                [AEML]?        # input, output, marker, temp,
-              | DIX            # instance address
-              | (DB\d+\.)?DBX  # datablock & address
+                [AEML]?            # input, output, marker, temp,
+              | DIX                # instance address
+              | (?:DB\d+(\.))?DBX  # datablock & address
             )
-            [ \t]*             # optional space
-            \d+\.[0-7]\b       # bit-address
+            [ \t]*                 # optional space
+            \d+(\.)[0-7]\b         # bit-address
       scope: constant.language.pointer.s7.awl
+      captures:
+        1: punctuation.accessor.dot.s7.awl
+        2: punctuation.separator.decimal.s7.awl
     # P##LocalSymbol
     - match: (P#)(#)(\w+)\b
       captures:
@@ -1027,8 +1033,12 @@ contexts:
       scope: constant.numeric.bool.s7.awl
 
   constants-float:
-    - match: '[-+]?\d+\.\d+e[-+]\d+\b'
+    - match: '([-+])?\d+(\.)\d+e([-+])\d+\b'
       scope: constant.numeric.float.s7.awl
+      captures:
+        1: punctuation.sign.s7.awl
+        2: punctuation.separator.decimal.s7.awl
+        3: punctuation.sign.s7.awl
 
   constants-hex:
     - match: 2#
@@ -1048,8 +1058,10 @@ contexts:
       scope: constant.numeric.hex.dword.s7.awl
 
   constants-int:
-    - match: (?:L#)?[-+]?{{int}}
+    - match: (?:L#)?([-+])?{{int}}
       scope: constant.numeric.integer.s7.awl
+      captures:
+        1: punctuation.sign.s7.awl
 
   constants-uint16:
     - match: '{{int}}'
