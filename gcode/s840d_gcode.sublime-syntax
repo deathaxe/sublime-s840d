@@ -1490,16 +1490,9 @@ contexts:
         - match: \]
           scope: punctuation.section.brackets.end.s840d_gcode
           set: illegal-brackets-pop
-        - include: array-dimension-body
+        - include: seperator-comma-minus
+        - include: expressions-line
     - include: scope-end
-
-  array-dimension-body:
-    - include: seperator-comma-minus
-    - match: \d+\b
-      scope: constant.numeric.integer.s840d_gcode
-    - match: '{{macro}}'
-      scope: variable.other.s840d_gcode
-    - include: line-end-or-illegal
 
 ###############################################################################
 # ARRAY INDEX
