@@ -1251,16 +1251,19 @@ contexts:
 
   operands-absolute-logical:
     # M 10.0, DIX 10.0, L 0.0, ...
-    - match: \b(?:DIX|[AELMV])\s*\d+\.\d+
+    - match: \b(?:DIX|[AELMV])\s*\d+(\.)\d+
       scope: variable.language.address.s7.awl
+      captures:
+        1: punctuation.separator.decimal.s7.awl
     - match: (?:==|<>|>=|<=|<|>)0\b
       scope: variable.language.status.s7.awl
     # DB10.DBX 10.0
-    - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+\.{{int}})
+    - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
       captures:
         1: variable.language.db.s7.awl
         2: punctuation.accessor.dot.s7.awl
         3: variable.language.address.s7.awl
+        4: punctuation.separator.decimal.s7.awl
 
   operands-absolute-binary:
     - match: \b(?:DBNO|DINO|DBLG|DILG|STW)\b

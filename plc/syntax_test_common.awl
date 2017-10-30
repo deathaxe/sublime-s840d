@@ -944,7 +944,75 @@
 //         ^ constant.numeric.integer
 //          ^ punctuation.terminator.line
 
+///////////////////////////////////////////////////////////////////////////////
+// logical operations                                                        //
+///////////////////////////////////////////////////////////////////////////////
 
+      U     E3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     A3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     L3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     M3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.address
+//            ^ punctuation.separator.decimal
+//              ^ punctuation.terminator.line
+//               ^ - invalid
+      U     DBX3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^^^ variable.language.address
+//              ^ punctuation.separator.decimal
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      U     DIX3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^^^ variable.language.address
+//              ^ punctuation.separator.decimal
+//                ^ punctuation.terminator.line
+//                 ^ - invalid
+      U     DB10.DBX3.0;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//    ^ keyword.operator.logical
+//          ^^^^ variable.language.db
+//              ^ punctuation.accessor.dot
+//               ^^^^^^ variable.language.address
+//                   ^ punctuation.separator.decimal
+//                     ^ punctuation.terminator.line
+//                      ^ - invalid
 
 ///////////////////////////////////////////////////////////////////////////////
 // load values into akku1                                                    //
