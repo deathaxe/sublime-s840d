@@ -346,3 +346,15 @@ ARRAY[-10 - 20, -20 + 30]
 ;               ^^^ constant.numeric
 ;                   ^ keyword.operator.arithmetic
 ;                     ^^ constant.numeric
+N10 R10=10.0+R1-2
+;   ^^^ support.variable.nck.r
+;            ^^ support.variable.nck.r
+N10 RG1=10.0+RG50
+;   ^^^ support.variable.nck.r
+;            ^^^^ support.variable.nck.r
+N10 $RG1=10.0-$RG2
+;   ^^^^ support.variable.nck.r
+;             ^^^^ support.variable.nck.r
+N10 $R10=10.0-$R20
+;   ^^^^ support.variable.nck.r
+;             ^^^^ support.variable.nck.r

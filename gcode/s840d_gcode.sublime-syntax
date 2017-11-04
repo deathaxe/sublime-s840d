@@ -855,7 +855,7 @@ contexts:
     # SINUMERIK command operands
     # act as arguments for iso commands
     #   e.g.: AP=10
-    - match: (?:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|[DFIJKNPRST]|D(?:[0L]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
+    - match: (?:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|D(?:[0L]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
       scope: support.variable.iso.operand.s840d_gcode
       push: illegal-brackets-pop
 
@@ -1418,12 +1418,12 @@ contexts:
 
   global-variables:
     # SINUMERIK R-Parameter
-    - match: '[Rr]\d+(?!\.)'
+    - match: '[Rr][Gg]?\d+(?!\.)'
       scope: support.variable.nck.r.s840d_gcode
       push: after-variable
 
     # SINUMERIK R-Parameter
-    - match: '[Rr](?=[ \t]*\[)'
+    - match: '[Rr][Gg]?(?=[ \t]*\[)'
       scope: support.variable.nck.r.s840d_gcode
       push: array-index
 
@@ -1442,12 +1442,12 @@ contexts:
           set: after-variable
 
         # SINUMERIK synchron action R-Parameters
-        - match: '[Rr]\d+\b'
+        - match: '[Rr][Gg]?\d+\b'
           scope: support.variable.nck.r.s840d_gcode
           set: after-variable
 
         # SINUMERIK R-Parameter
-        - match: '[Rr](?=[ \t]*\[)'
+        - match: '[Rr][Gg]?(?=[ \t]*\[)'
           scope: support.variable.nck.r.s840d_gcode
           set: array-index
 
