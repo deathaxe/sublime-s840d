@@ -221,7 +221,7 @@ contexts:
 
   stmt-proc-attributes:
     - meta_content_scope: meta.function.attributes.s840d_gcode
-    - match: (?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b
+    - match: (?i:ACTBLOCNO|DISPLO[NF]|ICYCO[FN]|IPTRLOCK|IPTRUNLOCK|PREPRO|SAVE|SBLO[FN])\b
       scope: storage.modifier.function.s840d_gcode
     - include: line-end-or-illegal
 
