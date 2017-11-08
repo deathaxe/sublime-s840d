@@ -17236,7 +17236,7 @@ LA: Leitachse/Leitspindel
 <name>$AA_OSCILL_BREAK_POS1</name>
 <brief>Pendeln Unterbrechungsposition 1</brief>
 <description>$AA_OSCILL_BREAK_POS1[&lt;Achse&gt;]
-Das aktuelle Anfahren der Umkehrposition 1 wird auf dieser Position beendet, bzw. das letzte Anfahren der Umkehrposition 1 wurde auf dieser Position beendet (aktuell wird Umkehrposition 2 angefahren). $AA_OSCILL_BREAK_POS1{&lt;Achse&gt;] ist ungleich von $AA_OSCILL_REVERSE_POS1[&lt;Achse&gt;], wenn die Pendelbewegung durch ein externes Signal (PLC) unterbrochen wurde.
+Das aktuelle Anfahren der Umkehrposition 1 wird auf dieser Position beendet, bzw. das letzte Anfahren der Umkehrposition 1 wurde auf dieser Position beendet (aktuell wird Umkehrposition 2 angefahren). $AA_OSCILL_BREAK_POS1[&lt;Achse&gt;] ist ungleich von $AA_OSCILL_REVERSE_POS1[&lt;Achse&gt;], wenn die Pendelbewegung durch ein externes Signal (PLC) unterbrochen wurde.
 Die Variable ist nur aus Synchronaktionen zugreifbar.
 </description>
 </parameter>
@@ -17245,7 +17245,7 @@ Die Variable ist nur aus Synchronaktionen zugreifbar.
 <name>$AA_OSCILL_BREAK_POS2</name>
 <brief>Pendeln Unterbrechungsposition 2</brief>
 <description>$AA_OSCILL_BREAK_POS2[&lt;Achse&gt;]
-Das aktuelle Anfahren der Umkehrposition 2 wird auf dieser Position beendet, bzw. das letzte Anfahren der Umkehrposition 2 wurde auf dieser Position beendet (aktuell wird Umkehrposition 1 angefahren). $AA_OSCILL_BREAK_POS2{&lt;Achse&gt;] ist ungleich von $AA_OSCILL_REVERSE_POS2[&lt;Achse&gt;], wenn die Pendelbewegung durch ein externes Signal (PLC) unterbrochen wurde.
+Das aktuelle Anfahren der Umkehrposition 2 wird auf dieser Position beendet, bzw. das letzte Anfahren der Umkehrposition 2 wurde auf dieser Position beendet (aktuell wird Umkehrposition 1 angefahren). $AA_OSCILL_BREAK_POS2[&lt;Achse&gt;] ist ungleich von $AA_OSCILL_REVERSE_POS2[&lt;Achse&gt;], wenn die Pendelbewegung durch ein externes Signal (PLC) unterbrochen wurde.
 Die Variable ist nur aus Synchronaktionen zugreifbar.
 </description>
 </parameter>
@@ -20022,7 +20022,7 @@ Für Transmit:
 <parameter type="BOOL" dim="1">
 <name>$NT_TRAFO_INCLUDES_TOOL</name>
 <brief>Werkzeugbehandlung bei aktiver Transformation</brief>
-<description>Diese Systemvariable gibt an, ob das Werkzeug bei einer aktiven Transformation intern oder extern behandelt wird. Sie wird nur bei bestimmten Transformationen ausgewertet. Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.Ist diese Systemvariable gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbe zugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht. Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
+<description>Diese Systemvariable gibt an, ob das Werkzeug bei einer aktiven Transformation intern oder extern behandelt wird. Sie wird nur bei bestimmten Transformationen ausgewertet. Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.Ist diese Systemvariable gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht. Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
 
@@ -20036,7 +20036,7 @@ Für Transmit:
 <parameter type="INT" dim="2">
 <name>$NT_IDENT</name>
 <brief>Kennung</brief>
-<description>Diese Systemvariable enthält eine numerische Kennung zur Kennzeichnung eines Transformationdatensatzes zur Verwendung durch die Messzyklen.
+<description>Diese Systemvariable enthält eine numerische Kennung zur Kennzeichnung eines Transformationsdatensatzes zur Verwendung durch die Messzyklen.
 Sie haben innerhalb NCK keine Bedeutung.
 </description>
 </parameter>
@@ -20059,14 +20059,14 @@ Die gesamte kinematische Kette vom Maschinennullpunkt (Bezugspunkt der kinematis
 
 Zwischen zwei dieser Elemente muss in der kinematischen Kette immer eine Orientierungsachse liegen. Das bedeutet, dass nur bei 6-Achs-Transformationen, bei denen alle 3 Orientierungsachsen in der Tool-Kette definiert sind, alle 4 Kettenelemente auch belegt sein können, während z.B. bei 5-Achstransformationen dieses Systemdatum nur maximal drei Einträge enthalten darf.
 
-Die gesamte kinematische Kette vom Maschinennullpunkt (Bezugspunkt der kinematischen Kette) bis zur Werkstücknullpunkt wird durch die Orientierungsachsen in maximal 4 Abschnitte geteilt. In jedem dieser Abschnitte kann es maximal ein Korrekturelment geben. Das Korrekturelement mit dem Index n muss im n-ten Abschnitt liegen (Beispiel: $NT_CORR_ELEM_P[k, 1] muss auf eine Kettenelement zwischen der ersten und der zweiten Orientierungsachse in der Part-Kette verweisen).
+Die gesamte kinematische Kette vom Maschinennullpunkt (Bezugspunkt der kinematischen Kette) bis zur Werkstücknullpunkt wird durch die Orientierungsachsen in maximal 4 Abschnitte geteilt. In jedem dieser Abschnitte kann es maximal ein Korrekturelement geben. Das Korrekturelement mit dem Index n muss im n-ten Abschnitt liegen (Beispiel: $NT_CORR_ELEM_P[k, 1] muss auf eine Kettenelement zwischen der ersten und der zweiten Orientierungsachse in der Part-Kette verweisen).
 </description>
 </parameter>
 
 <parameter type="INT" dim="1">
 <name>$NT_CNTRL</name>
-<brief>Bitkodiertes Steuerwort</brief>
-<description>Dieses Systemdatum ist ein bitkodiertes Steuerwort, mit dem das Verhalten in bestimmten Situationen beeinflusst werden kann.
+<brief>bitcodiertes Steuerwort</brief>
+<description>Dieses Systemdatum ist ein bitcodiertes Steuerwort, mit dem das Verhalten in bestimmten Situationen beeinflusst werden kann.
 
 Die einzelnen Bits haben die folgenden Bedeutungen:
 
@@ -20074,13 +20074,13 @@ Bit 0:
 Nicht belegt
 
 Bit 1 - 3:
-Die Orientierungsachse, die dem Bit zugordnet ist (Bit 1: erste Orientierungsachse, Bit 2: zweite Orientierungsache, Bit 3: dritte Orientierungsachse) wird als drehzahlgesteuerte Spindel interpretiert.
+Die Orientierungsachse, die dem Bit zugeordnet ist (Bit 1: erste Orientierungsachse, Bit 2: zweite Orientierungsache, Bit 3: dritte Orientierungsachse) wird als drehzahlgesteuerte Spindel interpretiert.
 Derzeit werden nur die Fälle unterstützt, dass entweder die erste oder die dritte Orientierungsachse als Spindel parametriert ist (Drehen auf Fräsmaschinen bzw. 5-Achs-Fräsen auf Maschinen, bei denen die dritte Orientierungsachse nicht lagegeregelt betrieben wird).
 
 Bit 4 - 6:
 Die Orientierungsachse, die dem Bit zugeordnet ist (Bit 4: erste Orientierungsachse, Bit 5: zweite Orientierungsachse, Bit 6: dritte Orientierungsachse) ist Hirth-verzahnt. Für die Hirthverzahnung werden nur die Maschinendaten $MA_INDEX_AX_NUMERATOR, $MA_INDEX_AX_DENOMINATOR und $MA_INDEX_AX_OFFSET ausgewertet. Der Inhalt des Maschinendatums $MA_HIRTH_IS_ACTIVE wird nicht ausgewertet, d.h. die Achse muss nicht als echte Hirthachse parametriert sein.
 
-Ist die Achse als Moduloachse parameriert, wird das Maschinendatum $MA_INDEX_AX_NUMERATOR durch das Maschinendatum $MA_MODULO_RANGE ersetzt. Die Abstände der zulässigen Achspositionen ergeben sich dann durch $MA_MODULO_RANGE / $MA_INDEX_AX_DENOMINATOR. Das Maschinendatum $MA_INDEX_AX_OFFSET wird auch bei Moduloachsen ausgewertet.
+Ist die Achse als Moduloachse parametriert, wird das Maschinendatum $MA_INDEX_AX_NUMERATOR durch das Maschinendatum $MA_MODULO_RANGE ersetzt. Die Abstände der zulässigen Achspositionen ergeben sich dann durch $MA_MODULO_RANGE / $MA_INDEX_AX_DENOMINATOR. Das Maschinendatum $MA_INDEX_AX_OFFSET wird auch bei Moduloachsen ausgewertet.
 
 Bit 7 - 8:
 Sind diese Bits gesetzt, werden an den Startpunkten der Teilketten (Bit7: Part-Kette; Bit 8: Tool-Kette) bei Bedarf intern automatisch zusätzliche konstante Kettenelemente eingefügt, die eine Verbindung vom Endpunkt der Kette zum Maschinennullpunkt herstellen ("Kette schließen").
@@ -20129,9 +20129,9 @@ Zehner- und Hunderterstelle:
 Trafonummer (zweistellig)
 
 Tausender- und Zehntausenderstelle:
-Nummer des Kanals, in dem der konventionelle Transformationsaufruf auf eine mit kinematischen Ketten definierte Transformation umgeleitet werden soll. Der Eintrag 0 ist äquivalent zum Eintrag 1, d.h. die Defintion gilt automatisch für den ersten Kanal, falls die Kanalnummer nicht explizit bezeichnet wird.
+Nummer des Kanals, in dem der konventionelle Transformationsaufruf auf eine mit kinematischen Ketten definierte Transformation umgeleitet werden soll. Der Eintrag 0 ist äquivalent zum Eintrag 1, d.h. die Definition gilt automatisch für den ersten Kanal, falls die Kanalnummer nicht explizit bezeichnet wird.
 
-Damit eine mit kinematischen Ketten definierte Transformation mit einem konventionellen Sprachbefehl aufgerufen werden kann, dürfen die drei niederwertigen Dezimalstellen dieses Systemdatums nicht Null sein. Die Orientierungstransformation, die mit dem Index 1 bezeichnet ist, wird aus Kompatibilitätsgründen zur herkömmlichen Aufrufsyntax aber ausser mit TRAORI(1) auch mit TRAORI(0), TRAORI() oder TRAORI aktiviert. Gleiches gilt für die übrigen Transformationstypen (TRANSMIT, TRACYL, TRAANG und TRACON).
+Damit eine mit kinematischen Ketten definierte Transformation mit einem konventionellen Sprachbefehl aufgerufen werden kann, dürfen die drei niederwertigen Dezimalstellen dieses Systemdatums nicht Null sein. Die Orientierungstransformation, die mit dem Index 1 bezeichnet ist, wird aus Kompatibilitätsgründen zur herkömmlichen Aufrufsyntax aber außer mit TRAORI(1) auch mit TRAORI(0), TRAORI() oder TRAORI aktiviert. Gleiches gilt für die übrigen Transformationstypen (TRANSMIT, TRACYL, TRAANG und TRACON).
 
 Beispiel:
 Der Aufruf TRANSMIT(3) im fünften Kanal wird auf eine mit kinematischen Ketten definierte Transformation umgeleitet, die im Systemdatum $NT_TRAFO_INDEX den Eintrag 5032 enthält. Es wird nicht überprüft, ob die aufgerufene Transformation von einem Typ ist, der mit dem Trafotyp des Originalaufrufs kompatibel ist.
@@ -20168,7 +20168,7 @@ Die zugewiesenen Werte haben die folgende Bedeutung:
 <parameter type="DOUBLE" dim="2">
 <name>$NT_OEM_PAR_I</name>
 <brief>Parameter für OEM-Trafo</brief>
-<description>Dieser Integer-Parameter wird von OEM-Transformationen ausgewertet. Die Bedeutung der einzelnen Parameterwerte hängt von der je weiligen OEM-Transformation ab. Die Details sind in der Dokumentation der jeweiligen OEM-Transformation beschrieben.
+<description>Dieser Integer-Parameter wird von OEM-Transformationen ausgewertet. Die Bedeutung der einzelnen Parameterwerte hängt von der jeweiligen OEM-Transformation ab. Die Details sind in der Dokumentation der jeweiligen OEM-Transformation beschrieben.
 </description>
 </parameter>
 
@@ -20239,8 +20239,8 @@ Dieses Datum wird für ein Schutzbereichselement, das Teil des Schutzbereiches i
 
 <parameter type="INT" dim="1">
 <name>$NP_BIT_NO</name>
-<brief>Nr. des Interfacebits für Umschaltung aktiviert / voraktiviert.</brief>
-<description>In der PLC-Nahtstelle sind 64 Bit definiert, mit denen Schutzbereiche, die mit dem Befehl PROTA(1(,.,.,.)) voraktiviert wurden, aktiviert werden können.Der Eintrag gibt an, welches Bit diesem Schutzbereich zugeordnet ist. Der Standardwert ist -1, d.h. dem Schutzbereich ist kein Interfacebit zugeordnet.
+<brief>Nr. des VDI-Nst.-Bits für Umschaltung aktiviert / voraktiviert.</brief>
+<description>In der PLC-Nahtstelle sind 64 Bit definiert, mit denen Schutzbereiche, die mit dem Befehl PROTA(1(,.,.,.)) voraktiviert wurden, aktiviert werden können.Der Eintrag gibt an, welches Bit diesem Schutzbereich zugeordnet ist. Der Standardwert ist -1, d.h. dem Schutzbereich ist kein VDI-Nst.-Bit zugeordnet.
 </description>
 </parameter>
 
