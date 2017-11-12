@@ -44,14 +44,14 @@ def _generate_tooltip(word, lang):
 
         row = sql.execute(
             """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
-            WHERE name LIKE '$""" + word + "' AND lang LIKE '" + lang + "'"
+            WHERE (name LIKE '$""" + word + "' OR name LIKE'" + word + "') AND lang LIKE '" + lang + "'"
             ).fetchone()
 
         if not row and lang != 'en':
             # fallback to english
             row = sql.execute(
                 """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
-                WHERE name LIKE '$""" + word + "' AND lang LIKE 'en'"
+                WHERE name LIKE '$""" + word + "' OR name LIKE'" + word + "' AND lang LIKE 'en'"
                 ).fetchone()
 
         if not row:
