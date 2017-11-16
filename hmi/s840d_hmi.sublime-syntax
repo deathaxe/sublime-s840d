@@ -547,6 +547,7 @@ contexts:
     - match: \b\w+\b
       scope: variable.other.s840d_hmi
       set: def-operand-arraysize
+    - include: line-end
 
   def-operand-arraysize:
     - match: \(
