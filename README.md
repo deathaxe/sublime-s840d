@@ -56,6 +56,12 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
   * embedds NC cycles and RunMyScreens syntax highlighting
 
 
+### Step7 PLC sources
+
+  * AWL syntax highlighting (German mnemonics)
+  * ASC symbol table syntax highlighting
+
+
 ## 💾 Installation
 
 ### Package Control

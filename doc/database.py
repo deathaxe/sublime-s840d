@@ -7,11 +7,7 @@ import sublime
 
 from .. import lib
 
-doc_version = "15.07.2017"  # should not be here!
-
-
-# def plugin_loaded():
-#     dump_vars()
+doc_version = "08.11.2017"  # should not be here!
 
 
 def tooltip(view, keyword, lang='en'):
@@ -48,14 +44,14 @@ def _generate_tooltip(word, lang):
 
         row = sql.execute(
             """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
-            WHERE name LIKE '$""" + word + "' AND lang LIKE '" + lang + "'"
+            WHERE (name LIKE '$""" + word + "' OR name LIKE'" + word + "') AND lang LIKE '" + lang + "'"
             ).fetchone()
 
         if not row and lang != 'en':
             # fallback to english
             row = sql.execute(
                 """SELECT DISTINCT id,name,type,dim,brief,desc FROM vars
-                WHERE name LIKE '$""" + word + "' AND lang LIKE 'en'"
+                WHERE name LIKE '$""" + word + "' OR name LIKE'" + word + "' AND lang LIKE 'en'"
                 ).fetchone()
 
         if not row:
@@ -65,16 +61,17 @@ def _generate_tooltip(word, lang):
 
         # number, name and array dimension
         if data_name:
+            if data_dimension > 0:
+                s_dim = '[...' + ',...' * (data_dimension - 1) + ']'
+            else:
+                s_dim = ''
+
             if data_id:
                 yield '<h1>N{0} {1}{2}</h1>'.format(
-                        data_id, lib.html.encode(data_name),
-                        '[...]' if data_dimension > 0 else ''
-                    )
+                    data_id, lib.html.encode(data_name), s_dim)
             else:
                 yield '<h1>{0}{1}</h1>'.format(
-                        lib.html.encode(data_name),
-                        '[...]' if data_dimension > 0 else ''
-                    )
+                    lib.html.encode(data_name), s_dim)
 
         # brief
         if brief:
@@ -250,7 +247,10 @@ def cache_add_xml(sql, root, lang):
         for child in param.childNodes:
             if child.nodeType == xml.Node.ELEMENT_NODE:
                 tag_name = child.tagName.lower()
-                tag_text = child.childNodes[0].data.strip()
+                if child.childNodes:
+                    tag_text = child.childNodes[0].data.strip()
+                else:
+                    tag_text = ""
                 if tag_name == "name":
                     try:
                         # try to add machine data prefix

@@ -1,0 +1,142 @@
+%YAML 1.2
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 DeathAxe <deathaxe82@googlemail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+###############################################################################
+---
+name: Step7 symbol table
+file_extensions:
+  - asc
+scope: source.s7.asc
+
+###############################################################################
+# MAIN CONTEXT
+###############################################################################
+
+contexts:
+
+  main:
+    - match: ','
+      scope: punctuation.separator.column.s7.asc
+      push: symbol
+    - match: \d+
+      scope: constant.numeric.integer.line-length.s7.asc
+    - include: line-end-or-illegal
+
+  symbol:
+    - match: .{2,24}
+      scope: variable.other.symbol.s7.asc
+      set: address
+    - include: line-end-or-illegal
+
+  address:
+    - match: '[EI]\s*\d{1,5}\.\d\b'
+      scope: constant.language.input.bit.s7.asc
+      set: type
+    - match: 'P?[EI]B\s*\d{1,5}\b'
+      scope: constant.language.input.byte.s7.asc
+      set: type
+    - match: 'P?[EI]W\s*\d{1,5}\b'
+      scope: constant.language.input.word.s7.asc
+      set: type
+    - match: 'P?[EI]D\s*\d{1,5}\b'
+      scope: constant.language.input.dword.s7.asc
+      set: type
+    - match: '[AO]\s*\d{1,5}\.\d\b'
+      scope: constant.language.output.bit.s7.asc
+      set: type
+    - match: 'P?[AO]B\s*\d{1,5}\b'
+      scope: constant.language.output.byte.s7.asc
+      set: type
+    - match: 'P?[AO]W\s*\d{1,5}\b'
+      scope: constant.language.output.word.s7.asc
+      set: type
+    - match: 'P?[AO]D\s*\d{1,5}\b'
+      scope: constant.language.output.dword.s7.asc
+      set: type
+    - match: 'M\s*\d{1,5}\.\d\b'
+      scope: constant.language.marker.bit.s7.asc
+      set: type
+    - match: 'MB\s*\d{1,5}\b'
+      scope: constant.language.marker.byte.s7.asc
+      set: type
+    - match: 'MW\s*\d{1,5}\b'
+      scope: constant.language.marker.word.s7.asc
+      set: type
+    - match: 'MD\s*\d{1,5}\b'
+      scope: constant.language.marker.dword.s7.asc
+      set: type
+    - match: '[CZ]\s*\d{1,5}\b'
+      scope: constant.language.counter.s7.asc
+      set: type
+    - match: 'T\s*\d{1,5}\b'
+      scope: constant.language.timer.s7.asc
+      set: type
+    - match: 'S?FB\s*\d{1,5}\b'
+      scope: constant.language.function-block.s7.asc
+      set: type
+    - match: 'S?FC\s*\d{1,5}\b'
+      scope: constant.language.function.s7.asc
+      set: type
+    - match: 'S?DB\s*\d{1,5}\b'
+      scope: constant.language.datablock.s7.asc
+      set: type
+    - match: 'UDT\s*\d{1,5}\b'
+      scope: constant.language.type.s7.asc
+      set: type
+    - match: 'VAT\s*\d{1,5}\b'
+      scope: constant.language.variable-table.s7.asc
+      set: comment
+    - include: line-end-or-illegal
+
+  type:
+    - match: |-
+            (?x)
+            \b(?:
+              BOOL
+            | BYTE  | CHAR
+            | WORD  | INT
+            | DWORD | DINT
+            | REAL
+            | COUNTER
+            | S5TIME | TIMER?
+            | (?:OB|S?(?:F[BC]|DB)|UDT)\s*\d+
+            )
+      scope: storage.type.s7.asc
+      set: comment
+    - include: line-end-or-illegal
+
+  comment:
+    - meta_content_scope: comment.line.s7.asc
+    - include: line-end
+
+  illegal:
+    - meta_content_scope: invalid.illegal.line.s7.asc
+    - include: line-end
+
+  line-end:
+    - match: $
+      pop: true
+
+  line-end-or-illegal:
+    - include: line-end
+    - match: (?=\S)
+      set: illegal
