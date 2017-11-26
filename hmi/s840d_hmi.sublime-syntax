@@ -30,8 +30,9 @@ scope: source.s840d_hmi
 ###############################################################################
 
 variables:
-  softkey: \b(?i:[HV]S[1-8]|RECALL)\b
   class: (?=//[ABGMS]\b)
+  key: \b(?i:ENTER|P[UD]|S[LRUD]|TOGGLE)\b
+  softkey: \b(?i:[HV]S\d+|RECALL)\b
 
 ###############################################################################
 # MAIN CONTEXT
@@ -1080,7 +1081,7 @@ contexts:
               set: def-method-press-body
             - match: '{{softkey}}'
               scope: entity.name.softkey.s840d_hmi
-            - match: \b(?i:ENTER|P[UD]|RECALL|S[LRUD]|TOGGLE)\b
+            - match: '{{key}}'
               scope: entity.name.key.s840d_hmi
             - include: illegal
         - include: line-end
