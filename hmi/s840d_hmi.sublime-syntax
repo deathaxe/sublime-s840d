@@ -853,7 +853,7 @@ contexts:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
           set:
-            - meta_scope: meta.parameters.s840d_hmi
+            - meta_scope: meta.function.parameters.s840d_hmi
             - match: \)|$
               scope: punctuation.section.parameters.end.s840d_hmi
               set: def-method-change-body
@@ -1074,7 +1074,7 @@ contexts:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
           set:
-            - meta_scope: meta.method.parameters.s840d_hmi
+            - meta_scope: meta.function.parameters.press.softkey.s840d_hmi
             - match: \)|$
               scope: punctuation.section.parameters.end.s840d_hmi
               set: def-method-press-body
