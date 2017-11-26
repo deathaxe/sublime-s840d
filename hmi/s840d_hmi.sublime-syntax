@@ -854,7 +854,7 @@ contexts:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
           set:
-            - meta_scope: meta.function.parameters.s840d_hmi
+            - meta_scope: meta.function.parameters.change.s840d_hmi
             - match: \)|$
               scope: punctuation.section.parameters.end.s840d_hmi
               set: def-method-change-body
@@ -1029,7 +1029,7 @@ contexts:
     - include: line-end
 
   def-method-output-argument-name:
-    - meta_scope: meta.parameters.name.s840d_hmi
+    - meta_scope: meta.function.parameters.output.name.s840d_hmi
     - match: ','
       scope: punctuation.separator.s840d_hmi
       set: def-method-output-argument-version
@@ -1037,7 +1037,7 @@ contexts:
     - include: def-method-output-argument-end
 
   def-method-output-argument-version:
-    - meta_content_scope: meta.parameters.version.s840d_hmi
+    - meta_content_scope: meta.function.parameters.output.version.s840d_hmi
     - include: number
     - include: def-method-output-argument-end
 
@@ -1156,7 +1156,7 @@ contexts:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
           set:
-            - meta_scope: meta.method.parameters.s840d_hmi
+            - meta_scope: meta.function.parameters.sub.name.s840d_hmi
             - match: \)|$
               scope: punctuation.section.parameters.end.s840d_hmi
               set: def-method-sub-body
