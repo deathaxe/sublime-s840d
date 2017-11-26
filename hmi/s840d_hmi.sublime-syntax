@@ -625,6 +625,7 @@ contexts:
     - include: attribute-alignment
     - include: attribute-changeblock
     - include: attribute-display-mode
+    - include: attribute-display-option
     - include: attribute-fontsize
     - include: attribute-limit
     - include: attribute-toggle-symbol
@@ -1264,6 +1265,7 @@ contexts:
     - include: attribute-changeblock
     - include: attribute-column-mode
     - include: attribute-display-mode
+    - include: attribute-display-option
     - include: attribute-fontsize
     - include: attribute-limit
     - include: attribute-scaling-fields
@@ -1354,6 +1356,16 @@ contexts:
     # attribute DT.sublime-completions
     - match: \b[Dd][Tt][0-5]\b
       scope: constant.language.attribute.display-mode.s840d_hmi
+
+  attribute-display-option:
+    # operand display option (progress bar orientation)
+    # 0: left to right (default)
+    # 1: right to left
+    # 2: bottom to top
+    # 3: top to bottom
+    # attribute DO.sublime-completions
+    - match: \b[Dd][Oo][0-3]\b
+      scope: constant.language.attribute.display-option.s840d_hmi
 
   attribute-fontsize:
     # attribute FS.sublime-completions
@@ -1640,7 +1652,7 @@ contexts:
       set:
         - meta_scope: meta.operand.attribute.s840d_hmi
         # list of valid attributes
-        - match: \b(?i:a[cl]|bc(_[gsu]t)?|d[ot]|fc(_[gsu]t)?|fs|gt|hlp|l[it]|m(?:ax|in)|[su]t|t[gt]|typ|v(?:a[lr]|ld)|wr)\b
+        - match: \b(?i:a[cl]|bc(_[gsu]t)?|d[ot]|fc(_[gsu]t)?|fs|gt|hlp|l[it]|m(?:ax|in)|[su]t|t[gt]|sval[12]|typ|v(?:a[lr]|ld)|wr)\b
           scope: entity.other.attribute-name.s840d_hmi
           pop: true
         - include: illegal-pop
