@@ -523,12 +523,12 @@ contexts:
     # SINUMERIK procedures
     # need to stand alone in a line
     - match: (?:A(?:DISPOSA|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:LLPATH|NCEL)|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|RIVEA|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:C(?:ALL|LOSE)|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOOF|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|R(?:ITE|TPR)))\b
-      scope: meta.function-call.name.s840d_gcode support.function.nck.procedure.s840d_gcode
+      scope: support.function.nck.procedure.s840d_gcode
       set: cycle-call-arguments
 
 ###############################################################################
 # DIRECT CYCLE CALL
-# TESTS:
+# TESTS: syntax_test_cycle.spf
 ###############################################################################
 
   stmt-cycle-call:
@@ -544,20 +544,17 @@ contexts:
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
     - match: '{{cycle}}(?=[ \t]*(?:$|[;\w\(]))'
-      scope: meta.function-call.name.s840d_gcode variable.function.cycle.s840d_gcode
+      scope: variable.function.cycle.s840d_gcode
       set: cycle-call-arguments
 
   cycle-call-arguments:
-    - meta_content_scope: meta.function-call.name.s840d_gcode
+    - meta_scope: meta.function-call.name.s840d_gcode
     - match: (?=\()
-      set:
-        - match: \(
-          scope: meta.function-call.arguments.s840d_gcode punctuation.section.arguments.begin.s840d_gcode
-          set: [cycle-call-arguments-body, after-operator]
+      set: [cycle-call-arguments-body, after-operator, function-call-arguments-begin]
     - include: line-end-or-illegal
 
   cycle-call-arguments-body:
-    - meta_content_scope: meta.function-call.arguments.s840d_gcode
+    - meta_scope: meta.function-call.arguments.s840d_gcode
     - match: \)
       scope: punctuation.section.arguments.end.s840d_gcode
       set:
@@ -1379,10 +1376,13 @@ contexts:
   function-call-arguments:
     - meta_scope: meta.function-call.name.s840d_gcode
     - match: (?=\()
-      set:
-        - match: \(
-          scope: punctuation.section.arguments.begin.s840d_gcode
-          set: [function-call-arguments-body, after-operator]
+      set: [function-call-arguments-body, after-operator, function-call-arguments-begin]
+    - include: scope-end
+
+  function-call-arguments-begin:
+    - match: \(
+      scope: punctuation.section.arguments.begin.s840d_gcode
+      pop: true
     - include: scope-end
 
   function-call-arguments-body:
