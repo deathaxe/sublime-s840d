@@ -53,6 +53,8 @@ variables:
   label: '[A-Za-z_]{2}\w*\b'
   # cycle names or ISO cylce L0815
   cycle: (?:[A-Za-z][A-Za-z_]\w*|L\d+)\b
+  # procedure attributes
+  proc_attr: (?i:ACTBLOCNO|DISPLO[NF]|ICYCO[FN]|IPTRLOCK|IPTRUNLOCK|PREPRO|SAVE|SBLO[FN])\b
 
 ###############################################################################
 # MAIN CONTEXT
@@ -194,7 +196,7 @@ contexts:
         - meta_content_scope: meta.function.name.s840d_gcode
         - match: (?=\()
           set: stmt-proc-parameters
-        - match: (?=(?i:ACTBLOCNO|DISPLO[NF]|PREPRO|SAVE|SBLO[FN])\b)
+        - match: (?={{proc_attr}})
           set: stmt-proc-attributes
         - include: line-end-or-illegal
     - include: line-end-or-illegal
@@ -221,7 +223,7 @@ contexts:
 
   stmt-proc-attributes:
     - meta_content_scope: meta.function.attributes.s840d_gcode
-    - match: (?i:ACTBLOCNO|DISPLO[NF]|ICYCO[FN]|IPTRLOCK|IPTRUNLOCK|PREPRO|SAVE|SBLO[FN])\b
+    - match: '{{proc_attr}}'
       scope: storage.modifier.function.s840d_gcode
     - include: line-end-or-illegal
 
