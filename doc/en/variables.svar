@@ -6525,7 +6525,7 @@ The number of grinding frames is configured via $MC_MM_NUM_G_FRAMES.
 <name>$SC_PA_ACTIV_IMMED</name>
 <brief>Protection zone immediately active</brief>
 <description>$SC_PA_ACTIV_IMMED[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Protection area immediately active after boot
 TRUE: The protection area is activated immediately after the control has booted and the axes have been referenced
 FALSE: The protection area is not immediately active
@@ -6540,7 +6540,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_T_W</name>
 <brief>Protection zone specific to workpiece/tool</brief>
 <description>$SC_PA_T_W[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Protection area specific to workpiece/tool
 0: Workpiece-specific protection area
 3: Tool-specific protection area
@@ -6555,7 +6555,7 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_ORI</name>
 <brief>Orientation of protection zone</brief>
 <description>$SC_PA_ORI[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Orientation of protection area
 0: Polygon curve in the plane formed by the 1st and 2nd geo axes (G17)
 1: Polygon curve in the plane formed by the 3rd and 1st geo axes (G18)
@@ -6571,7 +6571,7 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_LIM_3DIM</name>
 <brief>Scope of application-limiting protection zone</brief>
 <description>$SC_PA_LIM_3DIM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Identifier for limitation of protection area in the axis perpendicular to the polygon curve
 0: No limitation
 1: Limitation in the positive direction
@@ -6588,7 +6588,7 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_PLUS_LIM</name>
 <brief>Limitation of protection zone applicate plus</brief>
 <description>$SC_PA_PLUS_LIM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Positive limitation of protection areas in the axis perpendicular to the polygon curve.
 Effective only if $SC_PA_LIM_3DIM[n]=1 or = 3.
 Note: This variable is not restored during REORG.
@@ -6602,7 +6602,7 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_MINUS_LIM</name>
 <brief>Limitation of protection zone applicate minus</brief>
 <description>$SC_PA_MINUS_LIM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Negative limitation of protection area in minus direction in the axis perpendicular to the polygon curve
 Effective only if $SC_PA_LIM_3DIM[n]=2 or = 3.
 Note: This variable is not restored during REORG.
@@ -6616,7 +6616,7 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_CONT_NUM</name>
 <brief>Number of valid contour elements</brief>
 <description>$SC_PA_CONT_NUM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Protection areas need at least 2 contour elements for a complete description.
 Note: This variable is not restored during REORG.
 Note: This variable is saved during data backup.
@@ -6629,8 +6629,8 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_CONT_TYP</name>
 <brief>Type of the contour element</brief>
 <description>$SC_PA_CONT_TYP"[n,m]
-n: Number of the protection area
-m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Number of the contour element (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Type (G1, G2, G3) of contour element
 =0: Contour not defined
 =1: Straight
@@ -6648,8 +6648,8 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_CONT_ORD</name>
 <brief>End point of contour element (ordinate)</brief>
 <description>$SC_PA_CONT_ORD[n,m]
-n: Number of the protection area
-m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Number of the contour element (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 End point of contour element (ordinate)
 See also description of $SC_PA_CONT_TYP
 Note: This variable is not restored during REORG.
@@ -6663,8 +6663,8 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_CONT_ABS</name>
 <brief>End point of contour element (abscissa)</brief>
 <description>$SC_PA_CONT_ABS[n,m]
-n: Number of the protection area
-m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Number of the contour element (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 End point of contour element (abscissa)
 See also description of $SC_PA_CONT_TYP
 Note: This variable is not restored during REORG.
@@ -6678,8 +6678,8 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_CENT_ORD</name>
 <brief>Center point of contour element (ordinate)</brief>
 <description>$SC_PA_CENT_ORD[n,m]
-n: Number of the protection area
-m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Number of the contour element (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Center point of contour element (ordinate)
 Relevant only if $SC_PA_CONT_TYP[n,m] = 2 or = 3.
 Note: This variable is not restored during REORG.
@@ -6693,8 +6693,8 @@ Blocks: _N_CHAx_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SC_PA_CENT_ABS</name>
 <brief>Center point of contour element (abscissa)</brief>
 <description>$SC_PA_CENT_ABS[n,m]
-n: Number of the protection area
-m: Number of the contour element (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Number of the contour element (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Center point of contour element (abscissa)
 Relevant only if $SC_PA_CONT_TYP[n,m] = 2 or = 3.
 Note: This variable is not restored during REORG.
@@ -13805,43 +13805,38 @@ $TC_MTPPCS10[n,m]
 <brief>EEC table: Compensation value</brief>
 <description>$AA_ENC_COMP[n,m,a]
 Compensation values
-a: Machine axes
 </description>
 </parameter>
 
 <parameter type="DOUBLE" dim="2">
 <name>$AA_ENC_COMP_STEP</name>
 <brief>EEC table: Distance between interpolation points</brief>
-<description>$AA_ENC_COMP_STEP[n,a]
+<description>$AA_ENC_COMP_STEP[&lt;enc&gt;,&lt;axis&gt;]
 Increment
-a: Machine axes
 </description>
 </parameter>
 
 <parameter type="DOUBLE" dim="2">
 <name>$AA_ENC_COMP_MIN</name>
 <brief>EEC table: Starting position</brief>
-<description>$AA_ENC_COMP_MIN[n,a]
+<description>$AA_ENC_COMP_MIN[&lt;enc&gt;,&lt;axis&gt;]
 Start position of compensation
-a: Machine axes
 </description>
 </parameter>
 
 <parameter type="DOUBLE" dim="2">
 <name>$AA_ENC_COMP_MAX</name>
 <brief>EEC table: End position</brief>
-<description>$AA_ENC_COMP_MAX[n,a]
+<description>$AA_ENC_COMP_MAX[&lt;enc&gt;,&lt;axis&gt;]
 End position of compensation
-a: Machine axes
 </description>
 </parameter>
 
 <parameter type="BOOL" dim="2">
 <name>$AA_ENC_COMP_IS_MODULO</name>
 <brief>EEC table: Modulo functionality</brief>
-<description>$AA_ENC_COMP_IS_MODULO[n,a]
+<description>$AA_ENC_COMP_IS_MODULO[&lt;enc&gt;,&lt;axis&gt;]
 Compensation is modulo
-a: Machine axes
 </description>
 </parameter>
 
@@ -13950,7 +13945,7 @@ FALSE: No cyclical repetition of compensation table
 <name>$SN_PA_ACTIV_IMMED</name>
 <brief>Protection zone immediately active</brief>
 <description>$SN_PA_ACTIV_IMMED[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Protection area immediately active after boot
 TRUE: The protection area is activated immediately after the control has booted and the axes have been referenced
 FALSE: The protection area is not immediately active
@@ -13966,7 +13961,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_T_W</name>
 <brief>Protection zone specific to workpiece/tool</brief>
 <description>$SN_PA_T_W[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Protection area specific to workpiece/tool
 0: Workpiece-specific protection area
 3: Tool-specific protection area
@@ -13980,7 +13975,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_ORI</name>
 <brief>Orientation of protection zone</brief>
 <description>$SN_PA_ORI[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Orientation of protection area
 0: Polygon curve in the plane formed by the 1st and 2nd geo axes (G17)
 1: Polygon curve in the plane formed by the 3rd and 1st geo axes (G18)
@@ -13995,7 +13990,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_LIM_3DIM</name>
 <brief>Scope of application-limiting protection zone</brief>
 <description>$SN_PA_LIM_3DIM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Identifier for limitation of protection area in the axis perpendicular to the polygon curve
 0: No limitation
 1: Limitation in the positive direction
@@ -14011,7 +14006,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_PLUS_LIM</name>
 <brief>Limitation of protection zone applicate plus</brief>
 <description>$SN_PA_PLUS_LIM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Positive limitation of protection areas in the axis perpendicular to the polygon curve
 Effective only if $SN_PA_LIM_3DIM[n]=1 or = 3.
 Note: This variable is not restored during REORG.
@@ -14024,7 +14019,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_MINUS_LIM</name>
 <brief>Limitation of protection zone applicate minus</brief>
 <description>$SN_PA_MINUS_LIM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Negative limitation of protection area in minus direction in the axis perpendicular to the polygon curve
 Effective only if $SN_PA_LIM_3DIM[n]=2 or = 3.
 Note: This variable is not restored during REORG.
@@ -14037,7 +14032,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_CONT_NUM</name>
 <brief>Number of valid contour elements</brief>
 <description>$SN_PA_CONT_NUM[n]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Number of valid contour elements
 Protection areas need at least 2 contour elements for a complete description.
 Note: This variable is not restored during REORG.
@@ -14050,7 +14045,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_CONT_TYP</name>
 <brief>Type of the contour element</brief>
 <description>$SN_PA_CONT_TYP[n,m]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Number of the contour element
 Type (G1, G2, G3) of contour element
 =0: Contour not defined
@@ -14068,7 +14063,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_CONT_ORD</name>
 <brief>End point of contour element (ordinate)</brief>
 <description>$SN_PA_CONT_ORD[n,m]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Number of the contour element
 End point of contour element (ordinate)
 See also description of $SN_PA_CONT_TYP
@@ -14082,7 +14077,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_CONT_ABS</name>
 <brief>End point of contour element (abscissa)</brief>
 <description>$SN_PA_CONT_ABS[n,m]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Number of the contour element
 End point of contour element (abscissa)
 See also description of $SN_PA_CONT_TYP
@@ -14096,7 +14091,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_CENT_ORD</name>
 <brief>Center point of contour element (ordinate)</brief>
 <description>$SN_PA_CENT_ORD[n,m]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Number of the contour element
 Center point of contour element (ordinate)
 Relevant only if $SN_PA_CONT_TYP[n,m] = 2 or = 3.
@@ -14110,7 +14105,7 @@ Blocks: _N_NCK_PRO, _N_COMPLETE_PRO and _N_INITIAL_INI
 <name>$SN_PA_CENT_ABS</name>
 <brief>Center point of contour element (abscissa)</brief>
 <description>$SN_PA_CENT_ABS[n,m]
-n: Number of the protection area
+n: Number of the protection area (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Number of the contour element
 Center point of contour element (abscissa)
 Relevant only if $SN_PA_CONT_TYP[n,m] = 2 or = 3.

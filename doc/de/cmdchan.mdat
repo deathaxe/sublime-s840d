@@ -61,7 +61,7 @@ Beachten Sie auch MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
 <name>TECHNOLOGY</name>
 <brief>Technologie</brief>
 <description>Technologie
-0: keine spezifische Konfiguration 
+0: keine spezifische Konfiguration
 1: Drehen
 2: Fräsen
 3: Rundschleifen
@@ -73,7 +73,7 @@ Beachten Sie auch MD 52201 $MCS_TECHNOLOGY_EXTENSION.
 <name>TECHNOLOGY_EXTENSION</name>
 <brief>erweiterte Technologie</brief>
 <description>erweiterte Technologie
-0: keine spezifische Konfiguration 
+0: keine spezifische Konfiguration
 1: Drehen
 2: Fräsen
 Beachten Sie auch MD 52200 $MCS_TECHNOLOGY.
@@ -152,7 +152,7 @@ Wenn eines der Bits 10 - 12 gesetzt ist, dann haben diese Bits Vorrang gegenüber
 <description>Funktionsmaske Anzeige
 Bit 0: Maßsystem für Programme immer im Grundsystem
 Bit 1: Stirnansicht beim Drehen im Schulkoordinatensystem
-Bit 2: Softkey "T,S,M" im Bereich Jog ausblenden 
+Bit 2: Softkey "T,S,M" im Bereich Jog ausblenden
 Bit 3: Automatisch Programmende in MDA generieren (mit Softkey "Sätze Löschen")
 Bit 4: Folgewerkzeug im T,F,S-Fenster anzeigen
 Bit 5: Softkey "Istwerte MKS" ausblenden
@@ -199,23 +199,23 @@ Bit 22: $P_GFRAME anzeigen
 <name>FUNCTION_MASK_TECH</name>
 <brief>Funktionsmaske Technologieübergreifend</brief>
 <description>Funktionsmaske Technologieübergreifend
-Bit 0:	Freigabe Schwenken mit Toolcarrier
-	0: Schwenken Ebene/ Werkzeug mit Toolcarrier nicht freigegeben
-	1: Schwenken Ebene/ Werkzeug mit Toolcarrier freigegeben 
+Bit 0:	Freigabe Schwenken mit Werkzeugträger
+	0: Schwenken Ebene/ Werkzeug mit Werkzeugträger nicht freigegeben
+	1: Schwenken Ebene/ Werkzeug mit Werkzeugträger freigegeben
 	Nur Schwenken Ebene freigeben, Ausrichten Drehwerkzeug wird über Bit 10 gesteuert
 Bit 1:	Optimiertes Fahren entlang Software-Endschaltern (ShopMill/ShopTurn)
 	0: Kein optimiertes Fahren entlang Software-Endschaltern
 	1: Optimiertes Fahren entlang Software-Endschaltern
-	Beim optimierten Fahren entlang der Software-Endschalter werden im geschwenkten Zustand (bei Tischkinematiken) ggf. Verfahrbewegungen, die über die 
+	Beim optimierten Fahren entlang der Software-Endschalter werden im geschwenkten Zustand (bei Tischkinematiken) ggf. Verfahrbewegungen, die über die
 	Software-Endschalter hinausgehen würden, abgeschnitten. Hierdurch wird der Alarm 10720 "Achse Sofwareendschalter" vermieden.
 Bit 2: 	Spezielle Anfahrlogik für Stufenbohrer (ShopTurn)
 	0: Spezielle Anfahrlogik für Stufenbohrer abgeschaltet
 	1: Spezielle Anfahrlogik für Stufenbohrer aktiv
-	Beim Umfahren der Rückzugsebenen wird immer die längste Schneide (mit der gleichen Schneidenlage, wie die aktive Schneide) in der gleichen Bearbeitungsrichtung 
+	Beim Umfahren der Rückzugsebenen wird immer die längste Schneide (mit der gleichen Schneidenlage, wie die aktive Schneide) in der gleichen Bearbeitungsrichtung
 	berücksichtigt.
 Bit 3:	Satzsuchlauf-Zyklus für ShopMill/ShopTurn aufrufen
 	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF werden die Zyklen E_S_ASUP bzw. F_S_ASUP nicht aufgerufen
-	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF werden die Zyklen E_S_ASUP  Technologie Fräsen) bzw. F_S_ASUP (Technologie Drehen) aufgerufen. Die Zyklen 
+	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF werden die Zyklen E_S_ASUP  Technologie Fräsen) bzw. F_S_ASUP (Technologie Drehen) aufgerufen. Die Zyklen
 	E_S_ASUP bzw. F_S_ASUP sorgen nach Satzsuchlauf für die Ausgabe von Werkzeug- und Maschinenbefehlen.
 	Der entsprechende Zyklus wird auch bei einem Satzsuchlauf auf ein G-Code-Programm aufgerufen.
 	Das Bit muss bei Verwendung von ShopMill/ShopTurn gesetzt werden!
@@ -240,8 +240,8 @@ Bit 9: 	An-/Abwahl der Nullpunktverschiebung über Softkey
 	0: Der Softkey NPV Anwahl/-Abwahl ist in der Nullpunktverschiebungs-Tabelle der einstellbaren NPV nicht verfügbar.
 	1: Der Softkey NPV Anwahl/-Abwahl ist in der Nullpunktverschiebungs-Tabelle der einstellbaren NPV verfügbar.
 Bit 10: 	Ausrichten Drehwerkzeug über kinematische Transformation
-	0: Ausrichten von Drehwerkzeugen über Toolcarrier
-	1: Ausrichten von Drehwerkzeugen über kinematische Transformation 
+	0: Ausrichten von Drehwerkzeugen über Werkzeugträger
+	1: Ausrichten von Drehwerkzeugen über kinematische Transformation
 Bit 11:	Lagen-Check für Bohr- und Fräs- Werkzeuge abschalten(ShopTurn)
 	0: Schneidenlagen-Check, für Bohr- und Fräswerkzeuge ist aktiv
 	1: Kein Schneidenlagen-Check, für Bohr- und Fräswerkzeuge
@@ -250,7 +250,7 @@ Bit 12:	Alarm bei positiver Z-Verschiebung (ShopTurn)
 	0: kein Alarm bei positiver Z-Verschiebung
 	1: Alarm bei positiver Z-Verschiebung
 	Bei einer positiven Z-Verschiebung (TRANS) wird der Alarm 62201 "Z-Verschiebung wirkt nicht auf die Rückzugsebenen!" ausgegeben.
-	Die positive Z-Verschiebung kann gefährlich sein, wenn hierdurch die Bearbeitungsposition aus dem Rückzugsbereich geschoben wird, da dies zu Kollisionen beim An- oder 
+	Die positive Z-Verschiebung kann gefährlich sein, wenn hierdurch die Bearbeitungsposition aus dem Rückzugsbereich geschoben wird, da dies zu Kollisionen beim An- oder
 	Abfahren führen kann.
 Bit 13:	Werkzeugwechselpunkt Y im MKS anfahren (ShopTurn)
 	0: Der Werkzeugwechselpunkt wird in Y-Richtung im WKS auf 0 angefahren (gilt nur, wenn das MD 52241 $MCS_TOOL_CHANGE_POS_Y = 0 ist).
@@ -282,10 +282,10 @@ Bit 3:	Freigabe Bearbeitung innen/hinten (ShopTurn)
 	0: Bearbeitung innen/hinten nicht freigegeben
 	1: Bearbeitung innen/hinten in ShopTurn-Masken freigeben (gilt in ShopTurn-Masken, welche die Bearbeitungsebene selber festlegen)
 Bit 4:	Freigabe Spindel klemmen (C-Achse) (ShopTurn)
-	0: Parameter "Spindel klemmen/lösen" wird nicht in den Bohr- und Fräs-Masken angezeigt. ShopTurn klemmt die Spindel automatisch, wenn es für die Bearbeitung sinnvoll 
+	0: Parameter "Spindel klemmen/lösen" wird nicht in den Bohr- und Fräs-Masken angezeigt. ShopTurn klemmt die Spindel automatisch, wenn es für die Bearbeitung sinnvoll
 	ist.
-	1: Parameter "Spindel klemmen/lösen" wird in den Bohr- und Fräs-Masken angezeigt. Der Bediener entscheidet, bei welcher Bearbeitung die Spindel geklemmt wird. 
-	Wenn Sie die Funktion "Spindel klemmen/lösen" mittels des Maschinenherstellerzyklus CUST_TECHCYC.SPF realisiert haben, können Sie mit diesem Maschinendatum den 
+	1: Parameter "Spindel klemmen/lösen" wird in den Bohr- und Fräs-Masken angezeigt. Der Bediener entscheidet, bei welcher Bearbeitung die Spindel geklemmt wird.
+	Wenn Sie die Funktion "Spindel klemmen/lösen" mittels des Maschinenherstellerzyklus CUST_TECHCYC.SPF realisiert haben, können Sie mit diesem Maschinendatum den
 	Parameter "Spindel klemmen/lösen" in den Bohr- und Fräs-Masken aktivieren.
 Bit 5:	Freigabe Spindelsteuerung Werkzeugspindel über Oberfläche
 	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
@@ -301,7 +301,7 @@ Bit 6:	Freigabe Spindelsteuerung Drehspindel über Oberfläche
 <name>FUNCTION_MASK_DRILL</name>
 <brief>Funktionsmaske Bohren</brief>
 <description>Funktionsmaske Bohren
-Bit 0:	CYCLE84 Eingabefelder Technologie  einblenden 
+Bit 0:	CYCLE84 Eingabefelder Technologie  einblenden
 	0: Eingabefelder ausblenden
 	1: Eingabefelder einblenden
 Bit 1:	CYCLE840 Eingabefelder Technologie einblenden
@@ -360,7 +360,7 @@ Bit 11:	reserviert
 Bit 12:	Gewindesynchronisation abschalten
 	0: Gewindesynchronisation ist möglich
 	1: Funktion Gewindesynchronisation abschalten
-	Die Bedienmaske zum Setzen des Synchronisationspunktes wird nicht angezeigt und in den Gewindezyklen erfolgt keine Berechnung des Gewindeanschnitts mit dem 
+	Die Bedienmaske zum Setzen des Synchronisationspunktes wird nicht angezeigt und in den Gewindezyklen erfolgt keine Berechnung des Gewindeanschnitts mit dem
 	Synchronisationspunkt.
 Bit 13:	Konturabspanen mit CYCLE95 (828D programGUIDE ohne Advanced Technology)
 	0: Mit dem Softkey Konturdrehen/Abspanen wird die Maske für den CYCLE952 geöffnet.
@@ -448,7 +448,7 @@ Beim Anfahren des Werkzeugwechselpunktes wird die Y-Achse gleichzeitig auf den i
 <name>REV_2_BORDER_TOOL_LENGTH</name>
 <brief>Grenzwert Werkzeuglänge X für 2. Revolver</brief>
 <description>Grenzwert der Werkzeuglänge X für den 2. Revolver:
-Grenzwert = 0: Es gibt nur einen Revolver 
+Grenzwert = 0: Es gibt nur einen Revolver
 Werkzeuglänge X &lt; Grenzwert: Werkzeug gehört zum 1. Revolver/Multifix
 Werkzeuglänge X &gt;= Grenzwert: Werkzeug gehört zum 2. Revolver/Multifix
 </description>
@@ -534,7 +534,7 @@ Bit 7:	Werkzeug über die T-Nummer anlegen. Beim Werkzeug anlegen muss die T-Numm
 Bit 8:	Werkzeug umsetzen ausblenden. Die Funktion 'Werkzeug umsetzen' wird in der Bedienoberfläche ausgeblendet.
 Bit 9:	Magazin positionieren ausblenden. Die Funktion 'Magazin positionieren' wird in der Bedienoberfläche ausgeblendet.
 Bit 10:	Werkzeug reaktivieren mit Magazin positionieren. Vor dem Reaktivieren wird das Werkzeug auf die Beladestelle positioniert.
-Bit 11:	Werkzeug reaktivieren in allen Überwachungsarten. Beim Reaktivieren eines Werkzeugs werden alle in der NC freigegebenen Überwachungsarten zu diesem Werkzeug reaktiviert. D.h. auch die Überwachungsarten, die 
+Bit 11:	Werkzeug reaktivieren in allen Überwachungsarten. Beim Reaktivieren eines Werkzeugs werden alle in der NC freigegebenen Überwachungsarten zu diesem Werkzeug reaktiviert. D.h. auch die Überwachungsarten, die
 	für das jeweilige Werkzeug nicht eingestellt sind, sondern nur im Hintergrund liegen.
 Bit 12:	Werkzeug reaktivieren ausblenden. Die Funktion 'Werkzeug reaktivieren' wird in der Bedienoberfläche ausgeblendet.
 
@@ -585,7 +585,7 @@ Der Wert -1 bedeutet, dass die M-Funktion nicht ausgegeben wird. Sind beide M-Be
 <parameter number="52290" type="BYTE" dim="0" display="HEX">
 <name>SIM_DISPLAY_CONFIG</name>
 <brief>Anzeigeort der Statusanzeige des Kanals in der Simulation (nur OP019)</brief>
-<description>Anzeigeort der Statusanzeige des Kanals in der Simulation 
+<description>Anzeigeort der Statusanzeige des Kanals in der Simulation
 
 Es kann eine der 4 Ecken ausgewählt werden:
   Bit 0 = Ecke links/oben
@@ -631,8 +631,8 @@ Der Zyklus parallele Achsen (CYCLE69) kann bei Positionieren auch eine Rundachse
 <brief>Funktionsmaske für Zyklus Parallele Achsen - CYCLE69</brief>
 <description>Funktionsmaske parallele Achsen CYCLE69
 Bit 0: parallele Achsen immer einzeln verfahren, (z.B. bei Klemmung der parallelen Achsen mit M-Befehl)
-Bit 1: 
-Bit 2: Wert des Werkstückbezugs (Kompensationswert) auch nach Reset wirksam 
+Bit 1:
+Bit 2: Wert des Werkstückbezugs (Kompensationswert) auch nach Reset wirksam
           Wert wird im CYCLE69 global in Datenhaltung übernommen
 </description>
 </parameter>
@@ -645,7 +645,7 @@ Bit 0: 	Werkstückmessen, Messtastereingang
           	0: Werkstückmesstaster am Messtastereingang 1 angeschlossen
           	1: Werkstückmesstaster am Messtastereingang 2 angeschlossen
 
-Bit 1: 	Werkstückmessen, Technologie Drehen, Verwendung einer dritten Geometrieachse (Y-Achse) durch die 
+Bit 1: 	Werkstückmessen, Technologie Drehen, Verwendung einer dritten Geometrieachse (Y-Achse) durch die
          Drehmesszyklen
           	0: keine Verwendung oder Unterstützung der Y-Achse
           	1: Wertvorgaben für die Drehmesszyklen beziehen sich auf die Y-Achse.
@@ -696,8 +696,8 @@ Bit 16: 	Werkzeugmessen, Messtastereingang
 <parameter number="52800" type="BYTE" dim="0">
 <name>ISO_M_ENABLE_POLAR_COORD</name>
 <brief>Polarkoordinaten</brief>
-<description>Polarkoordinaten 
-0: AUS 
+<description>Polarkoordinaten
+0: AUS
 1: EIN
 </description>
 </parameter>
@@ -705,7 +705,7 @@ Bit 16: 	Werkzeugmessen, Messtastereingang
 <name>ISO_ENABLE_INTERRUPTS</name>
 <brief>Interruptverarbeitung</brief>
 <description>Interruptverarbeitung
-0: AUS 
+0: AUS
 1: EIN
 </description>
 </parameter>
@@ -720,7 +720,7 @@ Bit 16: 	Werkzeugmessen, Messtastereingang
 <parameter number="52806" type="BYTE" dim="0">
 <name>ISO_SCALING_SYSTEM</name>
 <brief>Grundsystem</brief>
-<description>Grundsystem: 
+<description>Grundsystem:
 0: nicht definiert
 1: METRIC
 2: INCH
