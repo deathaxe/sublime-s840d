@@ -33,6 +33,9 @@ contexts:
     - match: '%'
       scope: punctuation.definition.tag.s840d_arc
       push: header-file
+      with_prototype:
+        - match: (?=^%)
+          pop: true
 
   header-file:
     - meta_scope: annotation.archive.s840d_arc
@@ -44,8 +47,6 @@ contexts:
         - match: (?=\S)
           set:
             - meta_scope: source.s840d_hmi
-            - match: (?=%)
-              pop: true
             - include: scope:source.s840d_hmi
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
@@ -55,8 +56,6 @@ contexts:
         - match: (?=\S)
           set:
             - meta_scope: source.s840d_gcode
-            - match: (?=%)
-              pop: true
             - include: scope:source.s840d_gcode
     - include: line-end
     - match: \W+
@@ -88,8 +87,6 @@ contexts:
 
   header-path-end:
     - include: line-end
-    - match: (?=%)
-      pop: true
     - match: .*
       scope: invalid.illegal.dest-path.s840d_arc
 
