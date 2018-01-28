@@ -1430,7 +1430,7 @@ contexts:
       push: array-index
 
     # SINUMERIK synchron action guds
-    - match: (?i:SYG_[BIR]M)\b
+    - match: (?:SYG_[ABCIRS][4-9MUS])\b
       scope: support.variable.nck.guds.s840d_gcode
       push: array-index
 
@@ -1454,7 +1454,7 @@ contexts:
           set: array-index
 
         # SINUMERIK synchron action vars
-        - match: \$?(?:SYG_[BIR]M)\b
+        - match: (?:SYG_[ABCIRS][4-9MUS])\b
           scope: support.variable.nck.guds.s840d_gcode
           set: array-index
 
