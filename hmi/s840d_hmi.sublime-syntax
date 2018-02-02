@@ -226,6 +226,9 @@ contexts:
 
   class-grid-attr-fixed-col:
     - meta_content_scope: meta.class.grid.parameters.col.fixed.s840d_hmi
+    - match: /
+      scope: invalid.illegal.separator.s840d_hmi
+      set: class-grid-attr-end
     - match: '[01]'
       scope: constant.numeric.integer.s840d_hmi
     - include: boolean
@@ -337,6 +340,9 @@ contexts:
 
   def-column-offsets:
     - meta_content_scope: meta.column.offsets.s840d_hmi
+    - match: /
+      scope: invalid.illegal.separator.s840d_hmi
+      set: def-column-end
     - include: attr-seperator
     - include: number
     - include: def-column-end
@@ -451,6 +457,9 @@ contexts:
 
   class-dialog-attr-langfiles:
     - meta_content_scope: meta.class.dialog.parameters.langfiles.s840d_hmi
+    - match: /
+      scope: invalid.illegal.separator.s840d_hmi
+      set: class-dialog-attr-end
     - include: attr-seperator
     - include: string
     - include: class-dialog-attr-end
@@ -700,6 +709,9 @@ contexts:
 
   def-operand-units:
     - meta_content_scope: meta.operand.parameters.units.s840d_hmi
+    - match: /
+      scope: invalid.illegal.separator.s840d_hmi
+      set: def-operand-end
     - include: string
     - include: def-operand-end
 
