@@ -589,8 +589,15 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-default
-    - match: '%\w+'
-      scope: entity.name.grid.s840d_hmi
+    - match: (%)\s*(\w+)
+      captures:
+        1: punctuation.definition.keyword.s840d_hmi
+        2: entity.name.grid.s840d_hmi
+      set:
+        - match: /
+          scope: punctuation.separator.s840d_hmi
+          set: def-operand-default
+        - include: def-operand-end
     - include: attr-seperator
     - include: string
     - include: number
