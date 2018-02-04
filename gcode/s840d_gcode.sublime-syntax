@@ -72,6 +72,10 @@ contexts:
       push:
         - include: line-end
         - include: definitions
+        # match incomplete keyword DEF or DEFINE
+        # to avoid to set main-sublevel too early
+        - match: (?i:DE?F?I?N?E?)\b
+          scope: keyword.control.define.s840d_gcode
         - match: (?=\S)
           set: main-sublevel
 
@@ -753,7 +757,7 @@ contexts:
     - include: expressions-line
 
   iso-blockno:
-    - match: N\d+
+    - match: N(?:\d+|$)
       scope: comment.blockno.s840d_gcode
 
   iso-gcode:
