@@ -73,11 +73,7 @@ contexts:
         - include: line-end
         - include: definitions
         - match: (?=\S)
-          set:
-            # pop off on next archive header
-            - match: (?=%)
-              pop: true
-            - include: main-sublevel
+          set: main-sublevel
 
   main-sublevel:
     - include: iso-blockno
