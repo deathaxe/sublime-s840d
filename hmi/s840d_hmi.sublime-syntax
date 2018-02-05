@@ -217,9 +217,12 @@ contexts:
   class-grid-attr-fixed-row:
     - meta_content_scope: meta.class.grid.parameters.row.fixed.s840d_hmi
     - match: /
+      scope: invalid.illegal.separator.s840d_hmi
+      set: class-grid-attr-end
+    - match: ','
       scope: punctuation.separator.s840d_hmi
       set: class-grid-attr-fixed-col
-    - match: '[01]'
+    - match: '-?[01]'
       scope: constant.numeric.integer.s840d_hmi
     - include: boolean
     - include: class-grid-attr-end
@@ -229,7 +232,7 @@ contexts:
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
       set: class-grid-attr-end
-    - match: '[01]'
+    - match: \d
       scope: constant.numeric.integer.s840d_hmi
     - include: boolean
     - include: class-grid-attr-end
