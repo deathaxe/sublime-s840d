@@ -56,9 +56,6 @@ contexts:
         - include: class-array
         - include: class-block
         - include: class-grid
-        # required for embedding in s840d_arc
-        - match: (?=%)
-          pop: true
 
     # file contains list of strings
     - match: (?=\d{1,6}\s+[01]\s+[01]\s+\".*?\")
@@ -72,9 +69,6 @@ contexts:
               scope: comment.block.s840d_hmi
             - include: string
             - include: line-end
-        # required for embedding in s840d_arc
-        - match: (?=%)
-          pop: true
 
 ###############################################################################
 # ARRAY
