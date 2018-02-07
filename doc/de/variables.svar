@@ -250,7 +250,7 @@ n = 32    $TC_DPVN3 Normalen Vektor-Komponente 1 (Funktion: WZ-Orientierung)
 n = 33    $TC_DPVN4 Normalen Vektor-Komponente 2 (Funktion: WZ-Orientierung)
 n = 34    $TC_DPVN5 Normalen Vektor-Komponente 3 (Funktion: WZ-Orientierung)
 n = 35    $TC_DPNT  Anzahl der Zähne der Schneide
-n = 36    $TC_DPROTGrunddrehwinkel der Schneide
+n = 36    $TC_DPROT Grunddrehwinkel der Schneide
 Gehört ein Korrekturparameter zu einer Funktion, die nicht aktiv ist, kommt ein Alarm.
 </description>
 </parameter>
@@ -272,7 +272,7 @@ n = 32    $TC_DPVN3 Normalen Vektor-Komponente 1 (Funktion: WZ-Orientierung)
 n = 33    $TC_DPVN4 Normalen Vektor-Komponente 2 (Funktion: WZ-Orientierung)
 n = 34    $TC_DPVN5 Normalen Vektor-Komponente 3 (Funktion: WZ-Orientierung)
 n = 35    $TC_DPNT  Anzahl der Zähne der Schneide
-n = 36    $TC_DPROTGrunddrehwinkel der Schneide
+n = 36    $TC_DPROT Grunddrehwinkel der Schneide
 Gehört ein Korrekturparameter zu einer Funktion, die nicht aktiv ist, kommt ein Alarm.
 </description>
 </parameter>
@@ -1246,7 +1246,7 @@ oder verkürzten Originalsätzen
 <parameter type="DOUBLE" dim="0">
 <name>$AC_SYNC_AVERAGE_LOAD</name>
 <brief>Durchschnittliche Laufzeit für Synacts</brief>
-<description>Die Variable $AC_SYNC_AVERAGE_LOAD liefert die durchschnittliche Laufzeit pro IPO-Takt für Synchronaktionen im   Kanal.
+<description>Die Variable $AC_SYNC_AVERAGE_LOAD liefert die durchschnittliche Laufzeit pro IPO-Takt für Synchronaktionen im Kanal.
 </description>
 </parameter>
 
@@ -1313,8 +1313,7 @@ Nur sinnvoll in Verbindung mit Transformationen, die das kart. Handverfahren unt
 <description>Codenummer der aktiven Transformation entsprechend Maschinendatum $MC_TRAFO_TYPE_n
 
 Beachte Sonderbedeutung bei parametrierter persistenter Transformation (Bit 1 der $MC_TRAFO_MODE_MASK auf 1 gesetzt):
-Bei TRACON werden die Parameter der ersten verketteten Transformation zurückgegeben. Ist nur die persistente Transformation aktiv,
-so wird 0 zurückgegeben.
+Bei TRACON werden die Parameter der ersten verketteten Transformation zurückgegeben. Ist nur die persistente Transformation aktiv, so wird 0 zurückgegeben.
 </description>
 </parameter>
 
@@ -1776,7 +1775,7 @@ Ist die Ausgabe durch das Nahtstellensignal "Sperre der analogen NC-Ausgänge" g
 <brief>PLC Datenbyte (unsigned)</brief>
 <description>Die Feldvariable $A_DBB[n] dient zum Lesen und Schreiben eines Datenbytes (8Bit) von PLC. Das Byte ist nicht vorzeichenbehaftet und
 kann im Bereich von 0 bis 255 gelesen und im Bereich von -128 bis 255 geschrieben werden.
-Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Spei cherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
+Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Speicherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
 Siehe auch $A_DBSB[n].
 </description>
 </parameter>
@@ -1786,7 +1785,7 @@ Siehe auch $A_DBSB[n].
 <brief>PLC Datenwort (unsigned)</brief>
 <description>Die Feldvariable $A_DBW[n] dient zum Lesen und Schreiben eines Datenwortes (16Bit) von PLC. Das Byte ist nicht vorzeichenbehaftet
 und kann im Bereich von 0 bis 65535 gelesen und im Bereich von -32768 bis 65535 geschrieben werden.
-Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Spei cherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
+Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Speicherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
 Siehe auch $A_DBSW[n]
 </description>
 </parameter>
@@ -1795,7 +1794,7 @@ Siehe auch $A_DBSW[n]
 <name>$A_DBD</name>
 <brief>PLC Datenwort (unsigned 32 Bit)</brief>
 <description>Die Feldvariable $A_DBD[n] dient zum Lesen und Schreiben eines Datendoppelwortes (32Bit) von PLC.
-Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Spei cherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
+Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Speicherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
 </description>
 </parameter>
 
@@ -1803,7 +1802,7 @@ Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem K
 <name>$A_DBR</name>
 <brief>PLC Daten Real (32 Bit)</brief>
 <description>Die Feldvariable $A_DBR[n] dient zum Lesen und Schreiben von Real Daten (32Bit) von PLC.
-Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Spei cherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
+Für den schnellen Austausch von Informationen zwischen PLC und NC wird in dem Koppelspeicher dieser Baugruppen (DPR) ein Speicherbereich reserviert. Auf diesen Speicher wird von der PLC wird mit FunctionCalls(FC), von NCK mit $-Variablen zugegriffen.
 </description>
 </parameter>
 
@@ -5548,7 +5547,7 @@ n = 32    $TC_DPVN3 Normalen Vektor-Komponente 1 (Funktion: WZ-Orientierung)
 n = 33    $TC_DPVN4 Normalen Vektor-Komponente 2 (Funktion: WZ-Orientierung)
 n = 34    $TC_DPVN5 Normalen Vektor-Komponente 3 (Funktion: WZ-Orientierung)
 n = 35    $TC_DPNT  Anzahl der Zähne der Schneide
-n = 36    $TC_DPROTGrunddrehwinkel der Schneide
+n = 36    $TC_DPROT Grunddrehwinkel der Schneide
 Gehört ein Korrekturparameter zu einer Funktion, die nicht aktiv ist, kommt ein Alarm.
 </description>
 </parameter>
@@ -5570,7 +5569,7 @@ n = 32    $TC_DPVN3 Normalen Vektor-Komponente 1 (Funktion: WZ-Orientierung)
 n = 33    $TC_DPVN4 Normalen Vektor-Komponente 2 (Funktion: WZ-Orientierung)
 n = 34    $TC_DPVN5 Normalen Vektor-Komponente 3 (Funktion: WZ-Orientierung)
 n = 35    $TC_DPNT  Anzahl der Zähne der Schneide
-n = 36    $TC_DPROTGrunddrehwinkel der Schneide
+n = 36    $TC_DPROT Grunddrehwinkel der Schneide
 Gehört ein Korrekturparameter zu einer Funktion, die nicht aktiv ist, kommt ein Alarm.
 </description>
 </parameter>
@@ -5594,7 +5593,7 @@ Die Variable wird bei Reset automatisch auf 0 gesetzt. Wird die Variable bei lau
 <parameter type="STRING" dim="0">
 <name>$AC_TRAFO_NAME</name>
 <brief>Transformationsname (String)</brief>
-<description>Beispiel: "6-Axes-Transformation"
+<description>Beispiel: "6-Achs-Transformation"
 </description>
 </parameter>
 
@@ -6187,7 +6186,7 @@ $MC_GCODE_RESET_VALUES[63]
 <parameter type="INT" dim="1">
 <name>$AC_TRAFO_ORIAX_LOC</name>
 <brief>Index einer Orientierungsachse in der kin. Kette einer Orientierungstrafo.</brief>
-<description>Die Variable liefert den dezimalcodierten Index einer Orientierungsachse in der kinematischen Kette einer Orientierungstransformation. Dabei bezeichnet die Zehnerstelle die Teilkette, in der die Orientierungsachse enthalten ist (0: Partkette; 1: Toolkette) und die Einerstelleden Index der Achse bei Zählung vom Kettenursprung zum Kettenende. Der Parameter muss der Kanalachsname (vom Typ AXIS)einer Rundachse sein, die als Orientierungsachse in einer aktiven Orientierungs transformation definiert ist.
+<description>Die Variable liefert den dezimalcodierten Index einer Orientierungsachse in der kinematischen Kette einer Orientierungstransformation. Dabei bezeichnet die Zehnerstelle die Teilkette, in der die Orientierungsachse enthalten ist (0: Werkstückkette; 1: Werkzeugkette) und die Einerstelle den Index der Achse bei Zählung vom Kettenursprung zum Kettenende. Der Parameter muss der Kanalachsname (vom Typ AXIS)einer Rundachse sein, die als Orientierungsachse in einer aktiven Orientierungstransformation definiert ist.
 
 Beim Lesen können folgende Fehlercodes auftreten:
 -1 Es ist keine Transformation aktiv.
@@ -6199,42 +6198,42 @@ Beim Lesen können folgende Fehlercodes auftreten:
 <parameter type="DOUBLE" dim="2">
 <name>$AC_TRAFO_SECTION_P</name>
 <brief>Abschnitt in der Part-Kette einer Transformation.</brief>
-<description>Die Variable liefert den Vektor des Abschnitts (sector) in der Part-Kette einer aktiven, mit kinematischen Ketten definierten, Orientierungs transformation Weltkoordinaten. Der erste Index der Systemvariable verweist dabei auf den Abschnitt der Part-Kette mit dem angegebenen Index. Zum Begriffen "Abschnitt" siehe die Dokumentation zur Messfunktion CORRTRAFO. Der zweite Index ist der Index der Vektorkomponente.
+<description>Die Variable liefert den Vektor des Abschnitts (sector) in der Part-Kette einer aktiven, mit kinematischen Ketten definierten, Orientierungstransformation Weltkoordinaten. Der erste Index der Systemvariable verweist dabei auf den Abschnitt der Part-Kette mit dem angegebenen Index. Zum Begriffen "Abschnitt" siehe die Dokumentation zur Messfunktion CORRTRAFO. Der zweite Index ist der Index der Vektorkomponente.
 </description>
 </parameter>
 
 <parameter type="DOUBLE" dim="2">
 <name>$AC_TRAFO_SECTION_T</name>
 <brief>Abschnitt in der Tool-Kette einer Transformation.</brief>
-<description>Die Variable liefert den Vektor des Abschnitts (sector) in der Tool-Kette einer aktiven, mit kinematischen Ketten definierten, Orientierungs transformation in Weltkoordinaten. Der erste Index der Systemvariable verweist dabei auf den Abschnitt der Tool-Kette mit dem angegebenen Index. Zum Begriff "Abschnitt" siehe die Dokumentation zur Messfunktion CORRTRAFO. Der zweite Index ist der Index der Vektorkomponente.
+<description>Die Variable liefert den Vektor des Abschnitts (sector) in der Tool-Kette einer aktiven, mit kinematischen Ketten definierten, Orientierungstransformation in Weltkoordinaten. Der erste Index der Systemvariable verweist dabei auf den Abschnitt der Tool-Kette mit dem angegebenen Index. Zum Begriff "Abschnitt" siehe die Dokumentation zur Messfunktion CORRTRAFO. Der zweite Index ist der Index der Vektorkomponente.
 </description>
 </parameter>
 
 <parameter type="STRING" dim="1">
 <name>$P_PROG_NAME</name>
-<brief>Programmname einer Programmebene ohne Pre- und Suffix</brief>
+<brief>Programmname einer Programmebene ohne Prä- und Suffix</brief>
 <description>$P_PROG_NAME[n]
-Liefert den Programmnamen des Programms in der Programmebene n ohne Prefix "_N_" und ohne Suffix (Datei-Extension) und Suffix- Separator. Wird die Programmebene im Modus "Abarbeiten von Extern" abgearbeitet, bezieht sich $P_PROG_NAME auf den Namen des Nachlade buffers.
+Liefert den Programmnamen des Programms in der Programmebene n ohne Prefix "_N_" und ohne Suffix (Dateierweiterung) und Trennzeichen. Wird die Programmebene im Modus "Abarbeiten von Extern" abgearbeitet, bezieht sich $P_PROG_NAME auf den Namen des Nachladepuffers.
 
 Beispiele:
 In Programmebene 0 = Hauptprogrammname wird das Programm _N_MYPROG_MPF abgearbeitet
-$P_PROG_NAME[0] liefert den Programmnamen des Programms in der Programmebene 0 ohne Pre- und Suffix, also "MYPROG".
-In Programmebene 1 wird im Nachladebuffer /_N_SYF_DIR/_N_EXTBUF11_SYF ein NC-Programm per EXTCALL-Befehl abgearbeitet
-$P_PROG_NAME[1] liefert den Programmnamen des Programms in der Programmebene 1 ohne Pre- und Suffix, also "EXTBUF11".
+$P_PROG_NAME[0] liefert den Programmnamen des Programms in der Programmebene 0 ohne Prä- und Suffix, also "MYPROG".
+In Programmebene 1 wird im Nachladepuffer /_N_SYF_DIR/_N_EXTBUF11_SYF ein NC-Programm per EXTCALL-Befehl abgearbeitet
+$P_PROG_NAME[1] liefert den Programmnamen des Programms in der Programmebene 1 ohne Prä- und Suffix, also "EXTBUF11".
 </description>
 </parameter>
 
 <parameter type="STRING" dim="1">
 <name>$P_PROG_SUFFIX</name>
-<brief>Suffix des Programmnames einer Programmebene</brief>
+<brief>Suffix des Programmnamens einer Programmebene</brief>
 <description>$P_PROG_SUFFIX[n]
-Liefert die Datei-Extension (Suffix) des Programmnamens in der Programmebene n ohne Suffix-Separator. Die Datei-Extension ist immer drei Zeichen lang. Als Suffix-Separator wird im passiven File-System "_" und bei Programmnamen in EES-Notation "." verwendet (EES: Execution from External Storage). Wird die Programmebene im Modus "Abarbeiten von Extern" abgearbeitet, bezieht sich $P_PROG_SUFFIX auf den Nachladebuffer.
+Liefert die Dateierweiterung (Suffix) des Programmnamens in der Programmebene n ohne Suffix-Separator. Die Dateierweiterung ist immer drei Zeichen lang. Als Suffix-Separator wird im passiven File-System "_" und bei Programmnamen in EES-Notation "." verwendet (EES: Execution from External Storage). Wird die Programmebene im Modus "Abarbeiten von Extern" abgearbeitet, bezieht sich $P_PROG_SUFFIX auf den Nachladepuffer.
 
 Beispiele:
 In Programmebene 0 = Hauptprogrammname wird das Programm _N_MYPROG_MPF abgearbeitet
-$P_PROG_SUFFIX[0] liefert die Datei-Extension des Programms in der Programmebene 0, also "MPF".
-In Programmebene 1 wird im Nachladebuffer /_N_SYF_DIR/_N_EXTBUF11_SYF ein NC-Programm per EXTCALL-Befehl abgearbeitet
-$P_PROG_SUFFIX[1] liefert die Datei-Extension des Programms in der Programmebene 1, also "SYF".
+$P_PROG_SUFFIX[0] liefert die Dateierweiterung des Programms in der Programmebene 0, also "MPF".
+In Programmebene 1 wird im Nachladepuffer /_N_SYF_DIR/_N_EXTBUF11_SYF ein NC-Programm per EXTCALL-Befehl abgearbeitet
+$P_PROG_SUFFIX[1] liefert die Dateierweiterung des Programms in der Programmebene 1, also "SYF".
 </description>
 </parameter>
 
@@ -6269,21 +6268,21 @@ Folgende Werte sind möglich:
 <parameter type="DOUBLE" dim="1">
 <name>$AC_ACT_ORI_TOOL_LENGTH</name>
 <brief>Aktuelle Werkzeuglänge im BCS</brief>
-<description>Die Variable liefert die Werkezuglängenkomponenten des aktvien Werkzeugs im Basiskoordinatensystem (BKS). Dabei wird die Werkzeugorientierung einschließlich Adapterdaten, Spieglungen und ein eventuell aktiver orintierbarer Werkzeugträger (TCARR) berücksichtigt.
+<description>Die Variable liefert die Werkzeuglängenkomponenten des aktiven Werkzeugs im Basiskoordinatensystem (BKS). Dabei wird die Werkzeugorientierung einschließlich Adapterdaten, Spieglungen und ein eventuell aktiver orintierbarer Werkzeugträger (TCARR) berücksichtigt.
 
 Die Indizes bezeichnen dabei die Geometrieachsen mit der Zuordnung:
 1: X-Achse (Abszisse)
 2: Y-Achse (Abszisse)
 3: Z-Achse (Abszisse)
 
-Die Werkzeuglängen werden (abweichend vom Standard) vom Werkzeugbezugsbunkt zur Werkzeugspitze vermessen, d.h. die Komponten werden - falls keine zusätzliche Drehung aktiv ist - mit invertiertem Vorzeichen gegenüber den entprechenden Schneidendaten ausgegeben.
+Die Werkzeuglängen werden (abweichend vom Standard) vom Werkzeugbezugspunkt zur Werkzeugspitze vermessen, d.h. die Komponenten werden - falls keine zusätzliche Drehung aktiv ist - mit invertiertem Vorzeichen gegenüber den entsprechenden Schneidendaten ausgegeben.
 </description>
 </parameter>
 
 <parameter type="STRING" dim="0">
 <name>$PC_TRAFO_NAME</name>
 <brief>Transformationsname (String)</brief>
-<description>Beispiel: "6-Axes-Transformation"
+<description>Beispiel: "6-Achs-Transformation"
 </description>
 </parameter>
 
@@ -6367,22 +6366,22 @@ Ist nur bei 6-Achs-Kinematiken relevant.
 
 <parameter type="DOUBLE" dim="2">
 <name>$PC_TCARR_OFFSET</name>
-<brief>Vektorkomponente n des Offsetvektors m des aktiven Toolcarriers</brief>
-<description>Bei einem aktiven Toolcarrier sind maximal 4 Offsetvektoren (l1 bis l4) definiert. Mit dieser Systmvariable können die Vektorkomponenten ausgelesen werden. Dabei bezeichnet der erste Index den Index des Offsetvektors (1...4), der zweite Index die Vektorkomponente (0...3). Ist kein Toolcarrier aktiv, liefert jeder Lesezugriff den Wert 0.
+<brief>Vektorkomponente n des Offsetvektors m des aktiven Werkzeugträgers</brief>
+<description>Bei einem aktiven Werkzeugträger sind maximal 4 Offsetvektoren (l1 bis l4) definiert. Mit dieser Systemvariable können die Vektorkomponenten ausgelesen werden. Dabei bezeichnet der erste Index den Index des Offsetvektors (1...4), der zweite Index die Vektorkomponente (0...3). Ist kein Werkzeugträger aktiv, liefert jeder Lesezugriff den Wert 0.
 </description>
 </parameter>
 
 <parameter type="DOUBLE" dim="2">
 <name>$PC_TCARR_AX_VECT</name>
-<brief>Vektorkomponente n des Rotationachsvektors m des aktiven Toolcarriers</brief>
-<description>Bei einem aktiven Toolcarrier sind maximal 2 Rotationsachsen (v1 bis v2) definiert. Mit dieser Systmvariable können die Vektorkomponenten ausgelesen werden. Dabei bezeichnet der erste Index den Index des Rotationachsvektors (1...2), der zweite Index die Vektorkomponente (0...3). Ist kein Toolcarrier aktiv, liefert jeder Lesezugriff den Wert 0.
+<brief>Vektorkomponente n des Rotationachsvektors m des aktiven Werkzeugträgers</brief>
+<description>Bei einem aktiven Werkzeugträger sind maximal 2 Rotationsachsen (v1 bis v2) definiert. Mit dieser Systemvariable können die Vektorkomponenten ausgelesen werden. Dabei bezeichnet der erste Index den Index des Rotationachsvektors (1...2), der zweite Index die Vektorkomponente (0...3). Ist kein Werkzeugträger aktiv, liefert jeder Lesezugriff den Wert 0.
 </description>
 </parameter>
 
 <parameter type="DOUBLE" dim="1">
 <name>$PC_TCARR_AX_OFFSET</name>
 <brief>Grundeinstellung der Rotationsachse.</brief>
-<description>Bei einem aktiven Toolcarrier sind maximal 2 Rotationsachsen definiert. Mit dieser Systmvariable können die Positionen der Rundachsen bei Grundstellung ausgelesen werden. Dabei bezeichnet der Index den Index de Rotationsachse (1...2). Ist kein Toolcarrier aktiv, liefert jeder Lesezugriff den Wert 0.
+<description>Bei einem aktiven Werkzeugträger sind maximal 2 Rotationsachsen definiert. Mit dieser Systemvariable können die Positionen der Rundachsen bei Grundstellung ausgelesen werden. Dabei bezeichnet der Index den Index de Rotationsachse (1...2). Ist kein Werkzeugträger aktiv, liefert jeder Lesezugriff den Wert 0.
 </description>
 </parameter>
 
@@ -6525,7 +6524,7 @@ Bit 11 in $MC_CHSFRAME_POWERON_MASK
 <name>$SC_PA_ACTIV_IMMED</name>
 <brief>Schutzbereich sofort aktiv</brief>
 <description>$SC_PA_ACTIV_IMMED[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Schutzbereich sofort nach Hochlauf aktiv
 
 TRUE: Der Schutzbereich ist nach dem Hochlaufen der
@@ -6543,7 +6542,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_T_W</name>
 <brief>Werkstück-/Werkzeugbezog. Schutzbereich</brief>
 <description>$SC_PA_T_W[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Werkstück-/Werkzeugbezogener Schutzbereich
 0: werkstückbezogener Schutzbereich
 3: werkzeugbezogener Schutzbereich
@@ -6558,7 +6557,7 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_ORI</name>
 <brief>Orientierung des Schutzbereiches</brief>
 <description>$SC_PA_ORI[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Orientierung des Schutzbereiches
 0: Polygonzug in der Ebene aus der 1. und 2. Geo-Achse (G17)
 1: Polygonzug in der Ebene aus der 3. und 1. Geo-Achse (G18)
@@ -6574,7 +6573,7 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_LIM_3DIM</name>
 <brief>Wirksamkeit Appl-Begrenzung Schutzbereich</brief>
 <description>$SC_PA_LIM_3DIM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Kennung für Begrenzung des Schutzbereichs in der Achse, die senkrecht zum Polygonzug steht
 0: keine Begrenzung
 1: Begrenzung in positive Richtung
@@ -6591,7 +6590,7 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_PLUS_LIM</name>
 <brief>Begrenzung Schutzbereich-Applikate plus</brief>
 <description>$SC_PA_PLUS_LIM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Positive Begrenzung der Schutzbereiche in der Achse, die senkrecht zum Polygonzug steht.
 Nur wirksam wenn $SC_PA_LIM_3DIM[n]=1 oder = 3.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
@@ -6605,7 +6604,7 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_MINUS_LIM</name>
 <brief>Begrenzung Schutzbereich-Applikate minus</brief>
 <description>$SC_PA_MINUS_LIM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Negative Begrenzung des Schutzbereiches in Minus-Richtung in der Achse, die senkrecht zum Polygonzug steht Nur wirksam wenn $SC_PA_LIM_3DIM[n]=2 oder = 3.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -6618,7 +6617,7 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_CONT_NUM</name>
 <brief>Anzahl der gültigen Konturelemente</brief>
 <description>$SC_PA_CONT_NUM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Anzahl der gültigen Konturelemente Schutzbereiche sind erst mit mindestens 2 Konturelemente vollständig beschrieben.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -6631,8 +6630,8 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_CONT_TYP</name>
 <brief>Typ des Konturelements</brief>
 <description>$SC_PA_CONT_TYP"[n,m]
-n: Nummer des Schutzbereichs
-m: Nummer des Konturelements (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Nummer des Konturelements (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Typ (G1, G2, G3) des Konturelements
 =0: Kontur nicht definiert
 =1: Gerade
@@ -6650,8 +6649,8 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_CONT_ORD</name>
 <brief>Endpunkt des Konturelements (Ordinate)</brief>
 <description>$SC_PA_CONT_ORD[n,m]
-n: Nummer des Schutzbereichs
-m: Nummer des Konturelements (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Nummer des Konturelements (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Endpunkt des Konturelements (Ordinate) s. auch Beschreibung zu $SC_PA_CONT_TYP
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -6664,8 +6663,8 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_CONT_ABS</name>
 <brief>Endpunkt des Konturelements (Abszisse)</brief>
 <description>$SC_PA_CONT_ABS[n,m]
-n: Nummer des Schutzbereichs
-m: Nummer des Konturelements (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Nummer des Konturelements (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Endpunkt des Konturelements (Abszisse) s. auch Beschreibung zu $SC_PA_CONT_TYP
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -6678,8 +6677,8 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_CENT_ORD</name>
 <brief>Mittelpunkt des Konturelements (Ordinate)</brief>
 <description>$SC_PA_CENT_ORD[n,m]
-n: Nummer des Schutzbereichs
-m: Nummer des Konturelements (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Nummer des Konturelements (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Mittelpunkt des Konturelements (Ordinate) Nur von Bedeutung, wenn $SC_PA_CONT_TYP[n,m] = 2 oder = 3 ist.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -6692,8 +6691,8 @@ Bausteine: _N_CHAx_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SC_PA_CENT_ABS</name>
 <brief>Mittelpunkt des Konturelements (Abszisse)</brief>
 <description>$SC_PA_CENT_ABS[n,m]
-n: Nummer des Schutzbereichs
-m: Nummer des Konturelements (0 - MAXNUM_CONTOURNO_PROTECTAREA)
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
+m: Nummer des Konturelements (0 ... $MC_MM_NUM_PROTECT_AREA_CONTOUR)
 Mittelpunkt des Konturelements (Abszisse) Nur von Bedeutung, wenn $SC_PA_CONT_TYP[n,m] = 2 oder = 3 ist.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -7193,7 +7192,7 @@ Enthält sie einen Namen, beginnt die zu berücksichtigende Kette mit dem Startp
 <name>$TC_CARR_KIN_TOOL_END</name>
 <brief>Endelement der Tool-Kette zur Parametrierung aus kinematischen Ketten</brief>
 <description>$TC_CARR_KIN_TOOL_END[n]
-Enthält den Namen des letzten Elements der kinematischen Kette, die zur Parametrierung der Tool-Kette eines Toolcarriers dient.
+Enthält den Namen des letzten Elements der kinematischen Kette, die zur Parametrierung der Tool-Kette eines Werkzeugträgers dient.
 </description>
 </parameter>
 
@@ -7210,7 +7209,7 @@ Enthält sie einen Namen, beginnt die zu berücksichtigende Kette mit dem Startp
 <name>$TC_CARR_KIN_PART_END</name>
 <brief>Endelement der Part-Kette zur Parametrierung aus kinematischen Ketten</brief>
 <description>$TC_CARR_KIN_TOOL_START[n]
-Enthält den Namen des letzten Elements der kinematischen Kette, die zur Parametrierung der Part-Kette eines Toolcarriers dient.
+Enthält den Namen des letzten Elements der kinematischen Kette, die zur Parametrierung der Part-Kette eines Werkzeugträgers dient.
 </description>
 </parameter>
 
@@ -7236,7 +7235,7 @@ Rundachsoffsets      ($TC_CARR24 - $TC_CARR25)
 <parameter type="STRING" dim="3">
 <name>$TC_CARR_CORR_ELEM</name>
 <brief>Name des Offsetvektors l[m] eines Werkzeugtraegers.</brief>
-<description>Name des Offsetvektors l[m] des Werkzeugtraegers[n]. Bei einem Toolcarrier sind maximal 4 Offsetvektoren (l1 bis l4) definiert. Dabei bezeichnet der erste Index den Index des Toolcarriers, der zweite Index den Index des Offsetvektors (1...4).
+<description>Name des Offsetvektors l[m] des Werkzeugtraegers[n]. Bei einem Werkzeugträger sind maximal 4 Offsetvektoren (l1 bis l4) definiert. Dabei bezeichnet der erste Index den Index des Werkzeugträgers, der zweite Index den Index des Offsetvektors (1...4).
 </description>
 </parameter>
 
@@ -13805,10 +13804,10 @@ $TC_MTPPCS10[n,m]
 </description>
 </parameter>
 
-<parameter type="DOUBLE" dim="2">
+<parameter type="DOUBLE" dim="3">
 <name>$AA_ENC_COMP</name>
 <brief>EEC-Tabelle: Kompensationswert</brief>
-<description>$AA_ENC_COMP[n,m,&lt;Achse&gt;]
+<description>$AA_ENC_COMP[&lt;Geber&gt;,&lt;Punkt&gt;,&lt;Achse&gt;]
 Kompensationswerte
 </description>
 </parameter>
@@ -13816,7 +13815,7 @@ Kompensationswerte
 <parameter type="DOUBLE" dim="2">
 <name>$AA_ENC_COMP_STEP</name>
 <brief>EEC-Tabelle: Stützpunktabstand</brief>
-<description>$AA_ENC_COMP_STEP[n,&lt;Achse&gt;]
+<description>$AA_ENC_COMP_STEP[&lt;Geber&gt;,&lt;Achse&gt;]
 Schrittweite
 </description>
 </parameter>
@@ -13824,7 +13823,7 @@ Schrittweite
 <parameter type="DOUBLE" dim="2">
 <name>$AA_ENC_COMP_MIN</name>
 <brief>EEC-Tabelle: Anfangsposition</brief>
-<description>$AA_ENC_COMP_MIN[n,&lt;Achse&gt;]
+<description>$AA_ENC_COMP_MIN[&lt;Geber&gt;,&lt;Achse&gt;]
 Startposition der Kompensation
 </description>
 </parameter>
@@ -13832,7 +13831,7 @@ Startposition der Kompensation
 <parameter type="DOUBLE" dim="2">
 <name>$AA_ENC_COMP_MAX</name>
 <brief>EEC-Tabelle: Endposition</brief>
-<description>$AA_ENC_COMP_MAX[n,&lt;Achse&gt;]
+<description>$AA_ENC_COMP_MAX[&lt;Geber&gt;,&lt;Achse&gt;]
 Endposition der Kompensation
 </description>
 </parameter>
@@ -13840,7 +13839,7 @@ Endposition der Kompensation
 <parameter type="BOOL" dim="2">
 <name>$AA_ENC_COMP_IS_MODULO</name>
 <brief>EEC-Tabelle: Modulofunktionalität</brief>
-<description>$AA_ENC_COMP_IS_MODULO[n,&lt;Achse&gt;]
+<description>$AA_ENC_COMP_IS_MODULO[&lt;Geber&gt;,&lt;Achse&gt;]
 Kompensation ist Modulo
 </description>
 </parameter>
@@ -13848,7 +13847,7 @@ Kompensation ist Modulo
 <parameter type="DOUBLE" dim="2">
 <name>$AN_CEC</name>
 <brief>CEC-Tabelle: Kompensationswert</brief>
-<description>$AN_CEC[n,m]
+<description>$AN_CEC[&lt;Tabelle&gt;,&lt;Punkt&gt;]
 Kompensationswert
 </description>
 </parameter>
@@ -13856,7 +13855,7 @@ Kompensationswert
 <parameter type="INT" dim="1">
 <name>$AN_CEC_INPUT_NCU</name>
 <brief>CEC-Tabelle: Basisachse auf NCU</brief>
-<description>$AN_CEC_INPUT_NCU[n]:
+<description>$AN_CEC_INPUT_NCU[&lt;Tabelle&gt;]:
 NCU auf der die Basisachse gerechnet wird
 </description>
 </parameter>
@@ -13864,7 +13863,7 @@ NCU auf der die Basisachse gerechnet wird
 <parameter type="AXIS" dim="1">
 <name>$AN_CEC_INPUT_AXIS</name>
 <brief>CEC-Tabelle: Basisachse</brief>
-<description>$AN_CEC_INPUT_AXIS[n]:
+<description>$AN_CEC_INPUT_AXIS[&lt;Tabelle&gt;]:
 Name der Achse, deren Sollwert als Eingang der Kompensationstabelle dient
 </description>
 </parameter>
@@ -13872,7 +13871,7 @@ Name der Achse, deren Sollwert als Eingang der Kompensationstabelle dient
 <parameter type="INT" dim="1">
 <name>$AN_CEC_OUTPUT_NCU</name>
 <brief>CEC-Tabelle: Kompensationsachse auf NCU</brief>
-<description>$AN_CEC_OUTPUT_NCU[n]:
+<description>$AN_CEC_OUTPUT_NCU[&lt;Tabelle&gt;]:
 NCU auf der die Kompensationsachse gerechnet wird
 </description>
 </parameter>
@@ -13880,7 +13879,7 @@ NCU auf der die Kompensationsachse gerechnet wird
 <parameter type="AXIS" dim="1">
 <name>$AN_CEC_OUTPUT_AXIS</name>
 <brief>CEC-Tabelle: Kompensationsachse</brief>
-<description>$AN_CEC_OUTPUT_AXIS[n]:
+<description>$AN_CEC_OUTPUT_AXIS[&lt;Tabelle&gt;]:
 Name der Achse, auf die der Ausgang der Kompensationstabelle wirkt
 </description>
 </parameter>
@@ -13888,7 +13887,7 @@ Name der Achse, auf die der Ausgang der Kompensationstabelle wirkt
 <parameter type="DOUBLE" dim="1">
 <name>$AN_CEC_STEP</name>
 <brief>CEC-Tabelle: Stützpunktabstand</brief>
-<description>$AN_CEC_STEP[n]
+<description>$AN_CEC_STEP[&lt;Tabelle&gt;]
 Distanz der Korrekturwerte
 </description>
 </parameter>
@@ -13896,7 +13895,7 @@ Distanz der Korrekturwerte
 <parameter type="DOUBLE" dim="1">
 <name>$AN_CEC_MIN</name>
 <brief>CEC-Tabelle: Anfangsposition</brief>
-<description>AN_CEC_MIN[n]
+<description>AN_CEC_MIN[&lt;Tabelle&gt;]
 Startposition der Kompensationstabelle
 </description>
 </parameter>
@@ -13904,7 +13903,7 @@ Startposition der Kompensationstabelle
 <parameter type="DOUBLE" dim="1">
 <name>$AN_CEC_MAX</name>
 <brief>CEC-Tabelle: Endposition</brief>
-<description>AN_CEC_MAX[n]
+<description>AN_CEC_MAX[&lt;Tabelle&gt;]
 Endposition der Kompensationstabelle
 </description>
 </parameter>
@@ -13912,7 +13911,7 @@ Endposition der Kompensationstabelle
 <parameter type="INT" dim="1">
 <name>$AN_CEC_DIRECTION</name>
 <brief>CEC-Tabelle: Richtungsabhängigkeit</brief>
-<description>$AN_CEC_DIRECTION[n]
+<description>$AN_CEC_DIRECTION[&lt;Tabelle&gt;]
 aktiviert richtungsabhängiges Wirken der Kompensationstabelle
 0: beide Verfahrrichtungen der Basisachse
 1: positive Verfahrrichtung der Basisachse
@@ -13923,7 +13922,7 @@ aktiviert richtungsabhängiges Wirken der Kompensationstabelle
 <parameter type="INT" dim="1">
 <name>$AN_CEC_MULT_BY_TABLE</name>
 <brief>CEC-Tabelle: Multiplikation</brief>
-<description>$AN_CEC_MULT_BY_TABLE[n]
+<description>$AN_CEC_MULT_BY_TABLE[&lt;Tabelle&gt;]
 Nummer der Tabelle, deren Ausgangswert mit dem Ausgangswert der Kompensationstabelle multipliziert werden soll
 </description>
 </parameter>
@@ -13931,7 +13930,7 @@ Nummer der Tabelle, deren Ausgangswert mit dem Ausgangswert der Kompensationstab
 <parameter type="BOOL" dim="1">
 <name>$AN_CEC_IS_MODULO</name>
 <brief>CEC-Tabelle: Modulofunktionalität</brief>
-<description>$AN_CEC_IS_MODULO[n]
+<description>$AN_CEC_IS_MODULO[&lt;Tabelle&gt;]
 TRUE: zyklisches Wiederholen der Kompensationstabelle
 FALSE: kein zyklisches Wiederholen der Kompensationstabelle
 </description>
@@ -13940,7 +13939,7 @@ FALSE: kein zyklisches Wiederholen der Kompensationstabelle
 <parameter type="INT" dim="1">
 <name>$AN_CEC_TYPE</name>
 <brief>CEC-Tabelle: Tabellentyp</brief>
-<description>$AN_CEC_TYPE[n]
+<description>$AN_CEC_TYPE[&lt;Tabelle&gt;]
 0: kein besonderer Tabellentyp
 1: Tabelle vom Typ Zylinderfehlerkompensation
 </description>
@@ -13950,7 +13949,7 @@ FALSE: kein zyklisches Wiederholen der Kompensationstabelle
 <name>$SN_PA_ACTIV_IMMED</name>
 <brief>Schutzbereich sofort aktiv</brief>
 <description>$SN_PA_ACTIV_IMMED[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Schutzbereich sofort nach Hochlauf aktiv
 TRUE: Der Schutzbereich ist nach dem Hochlaufen der Steuerung und dem Referenzieren der Achsen sofort aktiv
 FALSE: Der Schutzbereich ist nicht sofort aktiv
@@ -13966,7 +13965,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_T_W</name>
 <brief>Werkstück-/Werkzeugbezog. Schutzbereich</brief>
 <description>$SN_PA_T_W[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Werkstück-/Werkzeugbezogener Schutzbereich
 0: werkstückbezogener Schutzbereich
 3: werkzeugbezogener Schutzbereich
@@ -13980,7 +13979,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_ORI</name>
 <brief>Orientierung des Schutzbereiches</brief>
 <description>$SN_PA_ORI[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Orientierung des Schutzbereiches
 0: Polygonzug in der Ebene aus der 1. und 2. Geo-Achse (G17)
 1: Polygonzug in der Ebene aus der 3. und 1. Geo-Achse (G18)
@@ -13995,7 +13994,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_LIM_3DIM</name>
 <brief>Wirksamkeit Appl-Begrenzung Schutzbereich</brief>
 <description>$SN_PA_LIM_3DIM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Kennung für Begrenzung des Schutzbereichs in der Achse, die senkrecht zum Polygonzug steht
 0: keine Begrenzung
 1: Begrenzung in positive Richtung
@@ -14011,7 +14010,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_PLUS_LIM</name>
 <brief>Begrenzung Schutzbereich-Applikate plus</brief>
 <description>$SN_PA_PLUS_LIM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Positive Begrenzung der Schutzbereiche in der Achse, die senkrecht zum Polygonzug steht Nur wirksam wenn $SN_PA_LIM_3DIM[n]=1 oder = 3.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -14023,7 +14022,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_MINUS_LIM</name>
 <brief>Begrenzung Schutzbereich-Applikate minus</brief>
 <description>$SN_PA_MINUS_LIM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Negative Begrenzung des Schutzbereiches in Minus-Richtung in der Achse, die senkrecht zum Polygonzug steht Nur wirksam wenn $SN_PA_LIM_3DIM[n]=2 oder = 3.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -14035,7 +14034,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_CONT_NUM</name>
 <brief>Anzahl der gültigen Konturelemente</brief>
 <description>$SN_PA_CONT_NUM[n]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 Anzahl der gültigen Konturelemente Schutzbereiche sind erst mit mindestens 2 Konturelemente vollständig beschrieben.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
 Hinweis: Diese Variable wird mit der Datensicherung gesichert.
@@ -14047,7 +14046,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_CONT_TYP</name>
 <brief>Typ des Konturelements</brief>
 <description>$SN_PA_CONT_TYP[n,m]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Nummer des Konturelements
 Typ (G1, G2, G3) des Konturelements
 =0: Kontur nicht definiert
@@ -14065,7 +14064,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_CONT_ORD</name>
 <brief>Endpunkt des Konturelements (Ordinate)</brief>
 <description>$SN_PA_CONT_ORD[n,m]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Nummer des Konturelements
 Endpunkt des Konturelements (Ordinate) s. auch Beschreibung zu $SN_PA_CONT_TYP
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
@@ -14078,7 +14077,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_CONT_ABS</name>
 <brief>Endpunkt des Konturelements (Abszisse)</brief>
 <description>$SN_PA_CONT_ABS[n,m]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Nummer des Konturelements
 Endpunkt des Konturelements (Abszisse) s. auch Beschreibung zu $SN_PA_CONT_TYP
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
@@ -14091,7 +14090,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_CENT_ORD</name>
 <brief>Mittelpunkt des Konturelements (Ordinate)</brief>
 <description>$SN_PA_CENT_ORD[n,m]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Nummer des Konturelements
 Mittelpunkt des Konturelements (Ordinate) Nur von Bedeutung, wenn $SN_PA_CONT_TYP[n,m] = 2 oder = 3 ist.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
@@ -14104,7 +14103,7 @@ Bausteine: _N_NCK_PRO, _N_COMPLETE_PRO und _N_INITIAL_INI
 <name>$SN_PA_CENT_ABS</name>
 <brief>Mittelpunkt des Konturelements (Abszisse)</brief>
 <description>$SN_PA_CENT_ABS[n,m]
-n: Nummer des Schutzbereichs
+n: Nummer des Schutzbereichs (0 ... $MC_MM_NUM_PROTECT_AREA_CHAN)
 m: Nummer des Konturelements
 Mittelpunkt des Konturelements (Abszisse) Nur von Bedeutung, wenn $SN_PA_CONT_TYP[n,m] = 2 oder = 3 ist.
 Hinweis: Diese Variable wird bei REORG nicht wieder hergestellt.
@@ -17397,11 +17396,11 @@ Bei der Ermittlung des Status für eine Bahnachse mit G643/G644/G645 kann die Va
 <name>$VA_ENC_ZERO_MON_ERR_CNT</name>
 <brief>Fehlerzähler Nullmarkenüberwachung</brief>
 <description>Inkrementelle und abstandscodierte Messsysteme:
-$VA_ENC_ZERO_MON_ERR_CNT[n,&lt;Achse&gt;] enthält die aktuelle Anzahl der erkannten Nullmarken-Fehler.
+$VA_ENC_ZERO_MON_ERR_CNT[&lt;Geber&gt;,&lt;Achse&gt;] enthält die aktuelle Anzahl der erkannten Nullmarken-Fehler.
 
 Absolute Messsysteme ($MA_ENC_TYPE=4):
-ab NCK.71: $VA_ENC_ZERO_MON_ERR_CNT[n,&lt;Achse&gt;] enthält die aktuelle Anzahl der erkannten Grenzwert-Überschreitungen beim Vergleich zwischen absoluter und inkrementeller Geberspur (Grenzwerte vgl. MDs $MA_ENC_ABS_ZEROMON_WARNING und $MA_ENC_ABS_ZEROMON_INITIAL)
-ab NCK.64: $VA_ENC_ZERO_MON_ERR_CNT[n,&lt;Achse&gt;] enthält die aktuelle Anzahl der Abweichungen in 1/2 Grobstrichen zwischen der absoluten und der inkrementellen Geberspur.
+ab NCK.71: $VA_ENC_ZERO_MON_ERR_CNT[&lt;Geber&gt;,&lt;Achse&gt;] enthält die aktuelle Anzahl der erkannten Grenzwert-Überschreitungen beim Vergleich zwischen absoluter und inkrementeller Geberspur (Grenzwerte vgl. MDs $MA_ENC_ABS_ZEROMON_WARNING und $MA_ENC_ABS_ZEROMON_INITIAL)
+ab NCK.64: $VA_ENC_ZERO_MON_ERR_CNT[&lt;Geber&gt;,&lt;Achse&gt;] enthält die aktuelle Anzahl der Abweichungen in 1/2 Grobstrichen zwischen der absoluten und der inkrementellen Geberspur.
 
 $VA_ENC_ZERO_MON_ERR_CNT[&lt;GeberNr&gt;,&lt;Achse&gt;] wird bei PowerOn auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
 
@@ -17426,11 +17425,7 @@ $VA_ABSOLUTE_ENC_ERR_CNT[&lt;GeberNr&gt;,&lt;Achse&gt;] wird bei PowerOn auf 0 i
 <name>$VA_ABSOLUTE_ENC_STATE</name>
 <brief>Status Absolutgeber-Schnittstelle</brief>
 <description>Absolute Messsysteme ($MA_ENC_TYPE=4), nur bei SIMODRIVE611D:
-Die axiale Variable $VA_ABSOLUTE_ENC_STATE[n,&lt;Achse&gt;] ermittelt den zuletzt aufgetretenen Fehlerstatus der Absolutgeber-Schnittstelle.
-
-Dabei bedeuten die Indizes:
-n: Gebernummer
-&lt;Achse&gt;: Maschinenachse
+Die axiale Variable $VA_ABSOLUTE_ENC_STATE[&lt;Geber&gt;,&lt;Achse&gt;] ermittelt den zuletzt aufgetretenen Fehlerstatus der Absolutgeber-Schnittstelle.
 
 Details:
 Bit 0   Schnittstelle ist aktiv
@@ -18138,7 +18133,7 @@ Zähler des Koppelfaktors für die Leitachse b
 
 <parameter type="DOUBLE" dim="2">
 <name>$AA_EG_DENOM</name>
-<brief>Nenner des  Koppelfaktors</brief>
+<brief>Nenner des Koppelfaktors</brief>
 <description>$AA_EG_DENOM[a,b]
 a: Folgeachse
 b: Leitachse
@@ -18330,11 +18325,7 @@ Dieser Zähler wird bei jedem erfolgreichen NC-Zugriff auf einen gültigen EnDat
 andere Antriebe bzw. deaktiviert:
 Variable liefert 0.
 
-$VA_ENC_ZERO_MON_ACCESS_CNT[n,&lt;Achse&gt;] wird bei PowerOn auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
-
-Dabei bedeuten die Indizes:
-n: Gebernummer
-&lt;Achse&gt;: Maschinenachse
+$VA_ENC_ZERO_MON_ACCESS_CNT[&lt;Geber&gt;,&lt;Achse&gt;] wird bei PowerOn auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
 </description>
 </parameter>
 
@@ -18347,11 +18338,7 @@ Diese Systemvariable enthält den seit dem Geber-Einschalten aufgetretenden Maxi
 andere Systeme/Antriebe:
 Variable liefert 0.
 
-$VA_ABSOLUTE_ENC_ZERO_MON_MAX[n,&lt;Achse&gt;] wird bei PowerOn bzw. Geber-Anwahl auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
-
-Dabei bedeuten die Indizes:
-n: Gebernummer
-&lt;Achse&gt;: Maschinenachse
+$VA_ABSOLUTE_ENC_ZERO_MON_MAX[&lt;Geber&gt;,&lt;Achse&gt;] wird bei PowerOn bzw. Geber-Anwahl auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
 </description>
 </parameter>
 
@@ -18364,11 +18351,7 @@ Dieser Wert enthält den Anfangs-Differenzwert zwischen letzter im SRAM gepuffer
 andere Geber:
 Variable liefert 0.
 
-$VA_ABSOLUTE_ENC_DELTA_INIT[n,&lt;Achse&gt;] wird bei PowerOn neu berechnet. Es erfolgt kein Rücksetzen bei Reset.
-
-Dabei bedeuten die Indizes:
-n: Gebernummer
-&lt;Achse&gt;: Maschinenachse
+$VA_ABSOLUTE_ENC_DELTA_INIT[&lt;Geber&gt;,&lt;Achse&gt;] wird bei PowerOn neu berechnet. Es erfolgt kein Rücksetzen bei Reset.
 </description>
 </parameter>
 
@@ -18384,11 +18367,7 @@ Diese Systemvariable enthält die aktuelle Abweichung (Betrag) zwischen Steuerun
 andere Antriebe:
 Variable liefert 0.
 
-$VA_ENC_ZERO_MON_ACT[n,&lt;Achse&gt;] wird bei PowerOn auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
-
-Dabei bedeuten die Indizes:
-n: Gebernummer
-&lt;Achse&gt;: Maschinenachse
+$VA_ENC_ZERO_MON_ACT[&lt;Geber&gt;,&lt;Achse&gt;] wird bei PowerOn auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
 </description>
 </parameter>
 
@@ -18401,11 +18380,7 @@ Diese Systemvariable enthält den Hardware-Initial-Zählerstand gegen den alle w
 andere Systeme/Antriebe:
 Variable liefert 0.
 
-$VA_ENC_ZERO_MON_INIT[n,&lt;Achse&gt;] wird bei PowerOn bzw. Geber-Anwahl auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
-
-Dabei bedeuten die Indizes:
-n: Gebernummer
-&lt;Achse&gt;: Maschinenachse
+$VA_ENC_ZERO_MON_INIT[&lt;Geber&gt;,&lt;Achse&gt;] wird bei PowerOn bzw. Geber-Anwahl auf 0 initialisiert. Es erfolgt kein Rücksetzen bei Reset.
 </description>
 </parameter>
 
@@ -20355,7 +20330,7 @@ Gitter aus Dreiecksflächen im STL-Format.
 
 <parameter type="DOUBLE" dim="2">
 <name>$NP_OFF</name>
-<brief>Offsetkomponente</brief>
+<brief>Offsetvektor des Schutzbereichselements</brief>
 <description>Komponente i (0&lt;=i&lt;=2) des Offsetvektors des Schutzbereichselements n.
 </description>
 </parameter>

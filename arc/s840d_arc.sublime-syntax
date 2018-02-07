@@ -33,44 +33,35 @@ contexts:
     - match: '%'
       scope: punctuation.definition.tag.s840d_arc
       push: header-file
+      with_prototype:
+        - match: (?=^%)
+          pop: true
 
   header-file:
     - meta_scope: annotation.archive.s840d_arc
     - meta_content_scope: entity.name.tag.dest-file.s840d_arc
     # RunMyScreens / EasyScreen
     - match: COM\b
-      set:
-        - include: header-path
-        - match: (?=\S)
-          set:
-            - meta_scope: source.s840d_hmi
-            - match: (?=%)
-              pop: true
-            - include: scope:source.s840d_hmi
+      set: [hmi-contents, header-path]
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
     - match: (?:[MS]PF|INI|DEF|TEA)\b
-      set:
-        - include: header-path
-        - match: (?=\S)
-          set:
-            - meta_scope: source.s840d_gcode
-            - match: (?=%)
-              pop: true
-            - include: scope:source.s840d_gcode
-    - include: line-end
+      set: [nck-contents, header-path]
+    # unknown signature
     - match: \W+
-      scope: invalid.illegal
+      scope: invalid.illegal.unknown-signature.s840d_arc
 
   header-path:
     - match: ^;\$
       scope: punctuation.definition.tag.s840d_arc
-      push:
+      set:
         - meta_scope: annotation.archive.s840d_arc meta.mapping.key.s840d_arc
         - match: PATH
           scope: entity.other.attribute-name.s840d_arc
           set: header-path-assign
         - include: header-path-end
+    - match: ^
+      pop: true
 
   header-path-assign:
     - meta_content_scope: annotation.archive.s840d_arc meta.mapping.s840d_arc
@@ -87,12 +78,15 @@ contexts:
     - include: header-path-end
 
   header-path-end:
-    - include: line-end
-    - match: (?=%)
-      pop: true
-    - match: .*
-      scope: invalid.illegal.dest-path.s840d_arc
-
-  line-end:
     - match: $
       pop: true
+    - match: .+
+      scope: invalid.illegal.dest-path.s840d_arc
+
+  hmi-contents:
+    - meta_scope: source.s840d_hmi
+    - include: scope:source.s840d_hmi
+
+  nck-contents:
+    - meta_scope: source.s840d_gcode
+    - include: scope:source.s840d_gcode

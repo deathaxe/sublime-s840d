@@ -2,13 +2,13 @@
 <description>METHOD</description>
 <content>
 <![CDATA[
-ACCESSLEVEL
+FOCUS(${1:var_name})
   $0
-END_ACCESSLEVEL
+END_FOCUS
 ; -------------------------------------------------------------------
 
 ]]>
 </content>
-<tabTrigger>ACCESSLEVEL</tabTrigger>
+<tabTrigger>FOCUS</tabTrigger>
 <scope>source.s840d_hmi &amp; ((meta.class.dialog | meta.class.menu) - meta.block.method - meta.operand)</scope>
 </snippet>

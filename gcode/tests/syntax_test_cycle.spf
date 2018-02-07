@@ -1,0 +1,28 @@
+; SYNTAX TEST "s840d_gcode.sublime-syntax"
+
+; ==================================================
+;  CYCLE tests
+;  Performance: 0.1ms
+; ==================================================
+
+N10 L340
+;   ^^^^^ meta.function-call.name - meta.function-call.arguments
+;   ^^^^ variable.function.cycle
+
+N10 L340(_B10)
+;   ^^^^ meta.function-call.name - meta.function-call.arguments
+;       ^^^^^^ meta.function-call.arguments - meta.function-call.name
+;             ^ - meta.function-call.name - meta.function-call.arguments
+;   ^^^^ variable.function.cycle
+;       ^ punctuation.section.arguments.begin
+;        ^^^^ variable.other
+;            ^ punctuation.section.arguments.end
+
+N10 L340 ( _B10 )
+;   ^^^^^ meta.function-call.name - meta.function-call.arguments
+;        ^^^^^^^^ meta.function-call.arguments - meta.function-call.name
+;                ^ - meta.function-call.name - meta.function-call.arguments
+;   ^^^^ variable.function.cycle
+;        ^ punctuation.section.arguments.begin
+;          ^^^^ variable.other
+;               ^ punctuation.section.arguments.end

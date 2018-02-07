@@ -85,3 +85,22 @@
 ;^ punctuation.definition.tag
 ; ^^^^^^^^^^^^^^^^ invalid.illegal.dest-path
 ;     ^ - punctuation.separator.mapping.key-value
+
+; check correct bailouts
+%_N_MY_MASK_COM
+;$PATH=/_N_COM_DIR
+//G(my_mask//10/0,0)
+; <- source.s840d_hmi meta.class.grid
+;^^^^^^^^^^^^^^^^^^^ source.s840d_hmi meta.class.grid
+//END    ; //G(my_mask)
+; <- source.s840d_hmi meta.class.grid
+;^^^^ source.s840d_hmi meta.class.grid
+%_N_INITIAL_INI
+N11660 $MN_NUM_EG=10
+; <- source.s840d_gcode comment.blockno.s840d_gcode
+;^^^^^^^^^^^^^^^^^^^ source.s840d_gcode
+;^^^^^ comment.blockno.s840d_gcode
+;      ^ punctuation.definition.variable.nck.s840d_gcode
+;       ^^^^^^^^^ support.variable.nck.machdata.s840d_gcode
+;                ^ keyword.operator.assignment.s840d_gcode
+;                 ^^ constant.numeric.s840d_gcode

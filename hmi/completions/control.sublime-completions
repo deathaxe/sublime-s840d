@@ -1,7 +1,7 @@
 {"scope":"source.s840d_hmi & meta.block.method - meta.operand.attribute - meta.softkey.attribute","completions":[
 {"trigger":"🔀 IF ... ENDIF\tflow control","contents":"IF ${1:<condition>}\n\t$0\nENDIF"},
 {"trigger":"🔀 IF ... ELSE ... ENDIF\tflow control","contents":"IF ${1:<condition>}\n\t$0\nELSE\n\t\nENDIF"},
-{"trigger":"🔀 SWITCH ... CASE ... END_SWITCH\tflow control","contents":"SWITCH ()${1:<var>})\nCASE\n\t$0\nEND_SWITCH"},
+{"trigger":"🔀 SWITCH ... CASE ... END_SWITCH\tflow control","contents":"SWITCH (${1:<var>})\nCASE ${2:<val>}\n\t$0\nDEFAULT\nEND_SWITCH"},
 {"trigger":"🔀 DO_UNTIL ... LOOP\tflow control","contents":"DO_UNTIL ${1:<condition>}\n\t$0\nLOOP"},
 {"trigger":"🔀 DO_WHILE ... LOOP\tflow control","contents":"DO_WHILE ${1:<condition>}\n\t$0\nLOOP"},
 {"trigger":"🔀 DO ... LOOP_UNTIL\tflow control","contents":"DO\n\t$0\nLOOP_UNTIL ${1:<condition>}"},
