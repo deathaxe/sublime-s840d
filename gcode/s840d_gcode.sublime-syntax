@@ -28,11 +28,16 @@
 # https://www.sublimetext.com/docs/3/scope_naming.html
 name: S840D G-Code
 file_extensions:
-  - def
-  - mpf
-  - spf
-  - tea
-first_line_match: (?i:PROC|%_N_[\w_]+_(?:[MS]PF|INI|DEF|TEA)|;VERSION\:\s*\d+\.\d+\.\d+\.\d+)\b
+  - def   # global user data / macro definition
+  - gud   # user data file
+  - mpf   # main program file
+  - rpa   # R-parameter file
+  - sea   # setting data file
+  - spf   # subprogram file
+  - tea   # machine data file
+  - toa   # tool correction file
+  - ufr   # user frame file
+first_line_match: (?i:PROC|%_N_[\w_]+_(?:[MS]PF|DEF|GUD|INI|RPA|[ST]EA|TOA|UFR)|;VERSION\:\s*\d+\.\d+\.\d+\.\d+)\b
 scope: source.s840d_gcode
 
 ###############################################################################
