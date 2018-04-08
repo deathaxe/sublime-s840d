@@ -550,31 +550,27 @@ contexts:
 
   def-operand-name:
     - meta_scope: meta.operand.s840d_hmi
-    - include: comment
     - match: \b\w+\b
       scope: variable.other.s840d_hmi
-      set: def-operand-arraysize
+      push: def-operand-arraysize
     - include: line-end
 
   def-operand-arraysize:
     - match: \(
-      scope: punctuation.section.parameters.begin.s840d_hmi
+      scope: punctuation.section.array-size.begin.s840d_hmi
       set:
+        - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
         - meta_scope: meta.operand.array-size.s840d_hmi
         - match: \)
-          scope: punctuation.section.parameters.end.s840d_hmi
+          scope: punctuation.section.array-size.end.s840d_hmi
           set: def-operand-assign
         - include: number
         - include: line-end
-    - match: (?=\S)
-      set: def-operand-assign
-    - include: line-end
+    - include: def-operand-assign
 
   def-operand-assign:
-    - match: (=)\s*(?=\()
-      captures:
-        0: meta.operand.s840d_hmi
-        1: keyword.operator.assignment.s840d_hmi
+    - match: =
+      scope: keyword.operator.assignment.s840d_hmi
       set:
         - match: \(
           scope: meta.operand.parameters.s840d_hmi punctuation.section.parameters.begin.s840d_hmi
@@ -583,6 +579,7 @@ contexts:
     - include: def-operand-seperator
 
   def-operand-type:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.type.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -591,11 +588,13 @@ contexts:
     - include: def-operand-end
 
   def-operand-limits:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - match: \s*(%)\s*(\w+)
       captures:
         1: punctuation.definition.keyword.s840d_hmi
         2: entity.name.grid.s840d_hmi
       set:
+        - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
         - meta_scope: meta.operand.parameters.grid.s840d_hmi
         - match: /
           scope: punctuation.separator.s840d_hmi
@@ -605,6 +604,7 @@ contexts:
       captures:
         1: punctuation.definition.keyword.s840d_hmi
       set:
+        - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
         - meta_scope: meta.operand.parameters.list.s840d_hmi
         - match: /
           scope: punctuation.separator.s840d_hmi
@@ -616,6 +616,7 @@ contexts:
         - include: def-operand-end
     - match: (?=\S)
       set:
+        - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
         - meta_scope: meta.operand.parameters.limits.s840d_hmi
         - match: /
           scope: punctuation.separator.s840d_hmi
@@ -627,6 +628,7 @@ contexts:
         - include: def-operand-end
 
   def-operand-default:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.default.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -637,6 +639,7 @@ contexts:
 
   # texts (description, caption/picture, shortcut, unit)
   def-operand-captions:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.captions.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -646,6 +649,7 @@ contexts:
     - include: def-operand-end
 
   def-operand-attributes:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.attributes.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -664,6 +668,7 @@ contexts:
     - include: def-operand-end
 
   def-operand-picture:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.picture.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -672,6 +677,7 @@ contexts:
     - include: def-operand-end
 
   def-operand-address:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.address.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -681,6 +687,7 @@ contexts:
 
   # caption position (left, top, width, height)
   def-operand-captionpos:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.position.caption.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -691,6 +698,7 @@ contexts:
 
   # input control position (left, top, width, height)
   def-operand-inputpos:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.position.input.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -700,6 +708,7 @@ contexts:
     - include: def-operand-end
 
   def-operand-colors:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.colors.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -711,6 +720,7 @@ contexts:
     - include: def-operand-end
 
   def-operand-helpfile:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.helpfile.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
@@ -721,6 +731,7 @@ contexts:
     - include: def-operand-end
 
   def-operand-units:
+    - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
     - meta_content_scope: meta.operand.parameters.units.s840d_hmi
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
@@ -738,9 +749,12 @@ contexts:
     - match: ','
       scope: punctuation.separator.s840d_hmi
       set:
-        - match: (?i:DEF)?\b
-          scope: keyword.language.def.s840d_hmi
-          set: def-operand-name
+        - include: comment
+        - match: \b(?i:DEF)\b
+          scope: invalid.illegal.keyword.s840d_hmi
+        # avoid popping off from DEF branch by \n
+        - match: (?=\S)
+          pop: true
     - include: line-end
 
 ###############################################################################
@@ -1239,7 +1253,7 @@ contexts:
     - include: expressions
 
   comment:
-    - match: ';.*$'
+    - match: ';.*$\n?'
       scope: comment.line.s840d_hmi
 
   conditional:
