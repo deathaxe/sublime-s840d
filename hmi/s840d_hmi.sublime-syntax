@@ -591,24 +591,27 @@ contexts:
     - include: def-operand-end
 
   def-operand-limits:
-    - meta_content_scope: meta.operand.parameters.limits.s840d_hmi
-    - match: /
-      scope: punctuation.separator.s840d_hmi
-      set: def-operand-default
-    - match: (%)\s*(\w+)
+    - match: \s*(%)\s*(\w+)
       captures:
         1: punctuation.definition.keyword.s840d_hmi
         2: entity.name.grid.s840d_hmi
       set:
+        - meta_scope: meta.operand.parameters.grid.s840d_hmi
         - match: /
           scope: punctuation.separator.s840d_hmi
           set: def-operand-default
         - include: def-operand-end
-    - include: attr-seperator
-    - include: string
-    - include: number
-    - include: operator
-    - include: def-operand-end
+    - match: (?=\S)
+      set:
+        - meta_scope: meta.operand.parameters.limits.s840d_hmi
+        - match: /
+          scope: punctuation.separator.s840d_hmi
+          set: def-operand-default
+        - include: attr-seperator
+        - include: string
+        - include: number
+        - include: operator
+        - include: def-operand-end
 
   def-operand-default:
     - meta_content_scope: meta.operand.parameters.default.s840d_hmi
