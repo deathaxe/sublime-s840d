@@ -601,6 +601,19 @@ contexts:
           scope: punctuation.separator.s840d_hmi
           set: def-operand-default
         - include: def-operand-end
+    - match: \s*(\*)
+      captures:
+        1: punctuation.definition.keyword.s840d_hmi
+      set:
+        - meta_scope: meta.operand.parameters.list.s840d_hmi
+        - match: /
+          scope: punctuation.separator.s840d_hmi
+          set: def-operand-default
+        - include: attr-seperator
+        - include: string
+        - include: number
+        - include: operator
+        - include: def-operand-end
     - match: (?=\S)
       set:
         - meta_scope: meta.operand.parameters.limits.s840d_hmi
