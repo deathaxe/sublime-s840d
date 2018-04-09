@@ -746,7 +746,9 @@ contexts:
     - meta_content_scope: meta.operand.parameters.units.s840d_hmi
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
-      set: def-operand-end
+      set:
+        - meta_content_scope: meta.operand.parameters.s840d_hmi
+        - include: def-operand-end
     - include: string
     - include: def-operand-end
 
