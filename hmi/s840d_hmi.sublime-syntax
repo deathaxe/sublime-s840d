@@ -600,12 +600,23 @@ contexts:
           scope: punctuation.separator.s840d_hmi
           set: def-operand-default
         - include: def-operand-end
+    - match: \s*(\*)\s*([a-zA-Z_]\w+)
+      captures:
+        1: punctuation.definition.keyword.s840d_hmi
+        2: entity.name.array.s840d_hmi
+      set:
+        - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
+        - meta_scope: meta.operand.parameters.array.s840d_hmi
+        - match: /
+          scope: punctuation.separator.s840d_hmi
+          set: def-operand-default
+        - include: def-operand-end
     - match: \s*(\*)
       captures:
         1: punctuation.definition.keyword.s840d_hmi
       set:
         - clear_scopes: 1 # remove 'meta.operand.s840d_hmi'
-        - meta_scope: meta.operand.parameters.list.s840d_hmi
+        - meta_scope: meta.operand.parameters.array.s840d_hmi
         - match: /
           scope: punctuation.separator.s840d_hmi
           set: def-operand-default

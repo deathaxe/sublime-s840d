@@ -169,7 +169,7 @@ DEF FOO = (I/*0="off", 1 = "on" ) ; comment
 ;^^^^^^^^^ meta.operand - meta.operand.parameters
 ;         ^ meta.operand.parameters - meta.operand.parameters.type
 ;          ^^ meta.operand.parameters.type
-;            ^^^^^^^^^^^^^^^^^^^^ meta.operand.parameters.list
+;            ^^^^^^^^^^^^^^^^^^^^ meta.operand.parameters.array
 ;          ^ storage.type
 ;           ^ punctuation.separator
 ;            ^ punctuation.definition.keyword
@@ -184,6 +184,18 @@ DEF FOO = (I/*0="off", 1 = "on" ) ; comment
 ;                          ^ punctuation.definition.string.begin
 ;                          ^^^^ string.quoted.double
 ;                             ^ punctuation.definition.string.end
+DEF FOO = (I/ *array_name ) ; comment
+;<- meta.class.dialog.body
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body
+;<- meta.operand
+;^^^^^^^^^ meta.operand - meta.operand.parameters
+;         ^ meta.operand.parameters - meta.operand.parameters.type
+;          ^^ meta.operand.parameters.type
+;            ^^^^^^^^^^^^^^ meta.operand.parameters.array
+;          ^ storage.type
+;           ^ punctuation.separator
+;             ^ punctuation.definition.keyword
+;              ^^^^^^^^^^ entity.name.array
 DEF FOO = (I/ %grid_name ) ; comment
 ;<- meta.class.dialog.body
 ;^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body
