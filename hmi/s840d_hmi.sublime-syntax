@@ -1560,10 +1560,30 @@ contexts:
       scope: constant.numeric.float.s840d_hmi
     - match: \b\d+\b
       scope: constant.numeric.integer.s840d_hmi
-    - match: \b[Bb][01]+\b
-      scope: constant.numeric.binary.s840d_hmi
-    - match: \b[Hh]\h+\b
-      scope: constant.numeric.hexadecimal.s840d_hmi
+    # single quoted binary numbers
+    - match: '('')([Bb])'
+      captures:
+        1: punctuation.definition.numeric.begin.s840d_hmi
+        2: punctuation.definition.numeric.binary.s840d_hmi
+      push:
+      - meta_scope: constant.numeric.binary.s840d_hmi
+      - match: '''|$'
+        scope: punctuation.definition.numeric.end.s840d_hmi
+        pop: true
+      - match: '[^01]'
+        scope: invalid.illegal.s840d_hmi
+    # single quoted hexadecimal numbers
+    - match: '('')([Hh])'
+      captures:
+        1: punctuation.definition.numeric.begin.s840d_hmi
+        2: punctuation.definition.numeric.hexadecimal.s840d_hmi
+      push:
+      - meta_scope: constant.numeric.hexadecimal.s840d_hmi
+      - match: '''|$'
+        scope: punctuation.definition.numeric.end.s840d_hmi
+        pop: true
+      - match: \H
+        scope: invalid.illegal.s840d_hmi
 
   operator:
     - match: =(?!=)
