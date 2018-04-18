@@ -60,6 +60,14 @@
 <description>Anzeigefeinheit konstante Schnittgeschwindigkeit ft/min
 </description>
 </parameter>
+<parameter number="51019" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_ROT_AX</name>
+<brief>Anzeigefeinheit Rundachse</brief>
+<description> Anzeigefeinheit Rundachse
+Ist der Wert des Datums 0, wird das MD51020 $MNS_DISP_RES_ANGLE verwendet.
+
+</description>
+</parameter>
 <parameter number="51020" type="BYTE" dim="0" display="DECIMAL">
 <name>DISP_RES_ANGLE</name>
 <brief>Anzeigefeinheit Winkel</brief>
@@ -227,7 +235,7 @@ Bit 0: Funktion Programmtest verfügbar
 <name>SWITCH_TO_MACHINE_MASK</name>
 <brief>Automatische Bedienbereichsumschaltung nach Maschine</brief>
 <description>Automatische Bedienbereichsumschaltung nach Maschine
-Bit 0: Bei der Programmanwahl im Programmanager wird nicht automatisch in den Bedienbereich Maschine gewechselt.
+Bit 0: Bei der Programmanwahl im Programm-Manager wird nicht automatisch in den Bedienbereich Maschine gewechselt.
 BIt 1: Bei der Umschaltung der Betriebsart über die Maschinensteuertafel (MSTT) wird nicht automatisch in den Bedienbereich Maschine gewechselt.
 Bit 2: Bei der Programmanwahl im Bedienbereich Programm wird nicht automatisch in den Bedienbereich Maschine gewechselt.
 Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satzsuchlauf nicht automatisch gestartet.
@@ -386,7 +394,7 @@ Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satz
 <description>Einstellung, wieviele Kanäle im Bedienbereich Maschine und im Mehrkanaleditor gleichzeitig angezeigt werden
 </description>
 </parameter>
-<parameter number="51066" type="STRING" dim="0" display="ASCII">
+<parameter number="51066" type="STRING" dim="1" display="ASCII">
 <name>ORDER_DISPLAYED_CHANNELS</name>
 <brief>Kanalnummern der angezeigten Kanäle</brief>
 <description>Enthält die Nummern der in der Mehrkanalansicht unter Maschine anzuzeigenden Kanäle in der gewünschten Reihenfolge, getrennt durch Komma oder Semikolon oder Space
@@ -485,7 +493,7 @@ Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satz
 <name>ACCESS_WRITE_TM_WEAR_DELTA</name>
 <brief>Schutzstufe WZV eingeschränktes Schreiben der Verschleißdaten</brief>
 <description>Schutzstufe eingeschränkes Schreiben von Werkzeugverschleißwerten
-S. MD 51213: TM_WRITE_WEAR_DELTA_LIMIT
+S. MD51213: TM_WRITE_WEAR_DELTA_LIMIT
 </description>
 </parameter>
 <parameter number="51203" type="BYTE" dim="0" display="DECIMAL">
@@ -547,7 +555,7 @@ Eine Berechtigung gilt gemeinsam für Grenzwerte: Stückzahl, Standzeit, Verschlei
 <parameter number="51212" type="DOUBLE" dim="0" display="DECIMAL">
 <name>TM_WRITE_WEAR_ABS_LIMIT</name>
 <brief>Maximaler Wert des Werkzeugverschleißes</brief>
-<description>Mit TM_WRITE_WEAR_ABS_LIMIT wird der max. mögliche Wert eines Werkzeugverschleißes absolut begrenzt, unabhängig von der aktuellen Schutzstufe (Schlüsselschalterstellung), d.h. auch unabhängig von ACCESS_WRITE_TM_WEAR. Absolute und inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD 51213.
+<description>Mit TM_WRITE_WEAR_ABS_LIMIT wird der max. mögliche Wert eines Werkzeugverschleißes absolut begrenzt, unabhängig von der aktuellen Schutzstufe (Schlüsselschalterstellung), d.h. auch unabhängig von ACCESS_WRITE_TM_WEAR. Absolute und inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD51213.
 Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
 
 </description>
@@ -557,7 +565,7 @@ Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
 <brief>Maximaler Differenzwert eingeschränkte Werkzeugverschleißeingabe</brief>
 <description>Bei der Eingabe von Werkzeugkorrekturen kann der Betrag der Änderung zwischen bisherigem Wert und neuem Wert maximal die hier eingestellte Größe annehmen.
 Mit TM_WRITE_WEAR_DELTA_LIMIT wird die Änderung eines Werkzeugverschleißes inkrementell begrenzt, wenn die aktuelle Schutzstufe gleich oder höher ist wie in ACCESS_WRITE_TM_WEAR_DELTA eingestellt. Mit akt. Schutzstufe gleich oder höher ACCESS_WRITE_TM_WEAR wird nicht mehr inkrementell begrenzt. Absolute und
-inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD 51212.
+inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD51212.
 Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
 
 </description>
@@ -660,6 +668,7 @@ Bit 10: Nullpunktsymbol ausblenden
 Bit 0: G-Code-Programmierung ohne Mehrkanaldaten
 	Wenn das Bit 0 = 1 ist, werden bei Joblisten, die nur G-Code-Programme enthalten keine Mehrkanaldaten angeboten.
 Bit 1: Druckfunktion des Editors freigeben
+Bit 2: Bei externer Programmanwahl(z.B. über PLC) Startsperrenbehandlung durchführen. (Programmcheck)
 </description>
 </parameter>
 <parameter number="51230" type="BOOLEAN" dim="0">
@@ -671,8 +680,14 @@ Bit 1: Druckfunktion des Editors freigeben
 </parameter>
 <parameter number="51231" type="BOOLEAN" dim="0">
 <name>ENABLE_LADDER_EDITOR</name>
-<brief>Aktivierung PLC Ladder-Editor</brief>
-<description>Aktivierung PLC Ladder-Editor
+<brief>Aktivierung PLC Ladder Add-on Tool für INT100/101</brief>
+<description>Aktivierung PLC Ladder Add-on Tool für INT100/101
+</description>
+</parameter>
+<parameter number="51232" type="BOOLEAN" dim="0">
+<name>ENABLE_LADDER_EDITOR_ADV</name>
+<brief>Aktivierung PLC Ladder-Editor für das komplette PLC-Projekt</brief>
+<description>Aktivierung PLC Ladder-Editor für das komplette PLC-Projekt
 </description>
 </parameter>
 <parameter number="51233" type="BOOLEAN" dim="0">
@@ -726,7 +741,7 @@ bezogen auf das Werkstückkoordinatensystem (WKS) !
 <name>MEA_CM_ROT_AX_POS_TOL</name>
 <brief>Toleranz der Rundachspositionen - Messen mit orientierbaren Werkzeugträger</brief>
 <description>Parameter für das Messen mit orientierbaren Werkzeugträger
-Eingaben im Parameter $MN_MEA_CM_ROT_AX_POS_TOL sind nur wirksam, wenn von MD 51740 $MNS_MEA_FUNCTION_MASK Bit2 oder Bit16 gesetzt ist.
+Eingaben im Parameter $MN_MEA_CM_ROT_AX_POS_TOL sind nur wirksam, wenn von MD51740 $MNS_MEA_FUNCTION_MASK Bit2 oder Bit16 gesetzt ist.
 Die reale Winkelposition der Rundachsen kann von der programmierten abweichen (Genauhalt-Fein-Fenster).
 Diese Abweichung ist abhängig von den Lageregeleigenschaften der Achse. Die an der konkreten Achse maximal zu erwartende
 Abweichung ist in diesem Parameter einzutragen. Bei Überschreitung der Toleranz erfolgt der Alarm 61442, "Werkzeugträger nicht parallel zu den Geometrieachsen".
@@ -769,8 +784,8 @@ Bit 5:	Werkstückmessen, Korrektur in NPV grob, wenn keine Feinverschiebung einge
           	1: Die absolute Verschiebung, korrigiert um die Messdifferenz, wird in die Grobverschiebung der NPV eingetragen.
 
 Bit 6:	Wirkung des Vorschuboverride in Messsätzen von Messzyklen
-          	0: Messsätze werden in den Messzyklen mit dem aktuellen Vorschuboveride verfahren (Kompatibilität).
-          	1: Messsätze werden in den Messzyklen mit 100% Vorschuboveride verfahren, wenn der Vorschuboveride &gt;0 eingestellt ist.
+          	0: Messsätze werden in den Messzyklen mit dem aktuellen Vorschuboverride verfahren (Kompatibilität).
+          	1: Messsätze werden in den Messzyklen mit 100% Vorschuboveride verfahren, wenn der Vorschuboverride &gt;0 eingestellt ist.
 
 Bit 15:	Werkstückmessen, Messsatz mit Bahnverhalten G60 Genauhalt am Satzende verfahren
              0: Der Messsatz wird im Bahnsteuerbetrieb G64 verfahren.
@@ -782,6 +797,18 @@ Bit 16:	Werkzeugmessen, Technologie Drehen, Berücksichtigung der Orientierung de
           	1: Die Korrektur der Werkzeugkomponenten erfolgt entsprechend der Orientierung des Werkzeugträgers
                   in Grundstellung.
 
+</description>
+</parameter>
+<parameter number="51742" type="DWORD" dim="1">
+<name>MEA_ACCESS_EXEC</name>
+<brief>Messzyklen: Begrenzung der Schutzstufen beim Schreiben von Systemvariablen</brief>
+<description>Begrenzung der Schutzstufen beim Schreiben von Systemvariablen beim Abarbeiten von Messzyklen.
+Das MD51742 begrenzt einen Bereich der aktuellen Schutzstufe zwischen der Einstellung der Schutzstufe
+im MD11160 $NM_ACCESS_EXEC_CST und der Einstellung im MD51742 beim Abarbeiten von Messzyklen.
+Die Feldelemente [0] bis [9] werden wie folgt verwendet:
+[0]  Kinematik komplett vermessen
+[1] bis [9] reserviert
+Bedeutung der Zahlenwerte (Schutzstufe) siehe MD11160
 </description>
 </parameter>
 <parameter number="51750" type="DOUBLE" dim="0">
@@ -847,8 +874,8 @@ Die Kalibrierhöhe ist mit Bezug auf das Werkstückkoordinatensystem (WKS) einzuge
 </parameter>
 <parameter number="51780" type="DOUBLE" dim="1">
 <name>J_MEA_T_PROBE_DIAM_RAD</name>
-<brief>Durchmesser des Werkzeugmesstasters für Radiusmessung, in Messen im JOG</brief>
-<description>Wirksamer Scheibendurchmesser des Werkzeugmesstasters zur Radiusmessung von Fräswerkzeugen, in "Messen im JOG"
+<brief>Durchmesser des Werkzeugmesstasters für Radiusmessung</brief>
+<description>Wirksamer Scheibendurchmesser des Werkzeugmesstasters zur Radiusmessung von Fräswerkzeugen
 </description>
 </parameter>
 <parameter number="51781" type="DOUBLE" dim="1">

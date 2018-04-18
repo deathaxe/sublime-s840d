@@ -60,6 +60,14 @@
 <description>Display resolution constant cutting speed ft/min
 </description>
 </parameter>
+<parameter number="51019" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_ROT_AX</name>
+<brief>Display resolution of rotary axis</brief>
+<description> Display resolution of rotary axis
+If the value of the data is 0, MD51020 $MNS_DISP_RES_ANGLE is used.
+
+</description>
+</parameter>
 <parameter number="51020" type="BYTE" dim="0" display="DECIMAL">
 <name>DISP_RES_ANGLE</name>
 <brief>Display resolution of angle</brief>
@@ -136,8 +144,8 @@ Bit 5:	Block search with test run
 <parameter number="51030" type="DWORD" dim="0" display="DECIMAL">
 <name>SPIND_MAX_POWER</name>
 <brief>Maximum value of spindle power rating display</brief>
-<description>Maximum value of the permissible spindle power rating in percent; the display bar in the machine image is shown in green within the range between 0 and the value stored in SPIND_MAX_POWER.
-
+<description>Maximum value of the permissible spindle power as a percentage; the display bar in the machine image "spindle diagnosis" is shown green in the range between 0 and the value set in SPIND_MAX_POWER.
+In the case of a SINAMICS drive, the drive parameter r0033 "Torque utilization smoothed" is shown in the load bar.
 </description>
 </parameter>
 <parameter number="51031" type="DWORD" dim="0" display="DECIMAL">
@@ -386,7 +394,7 @@ Bit 3: No automatic start of block search when the program is selected / execute
 <description>Setting of the number of channels to be displayed simultaneously in the machine operating area and in the multi-channel editor.
 </description>
 </parameter>
-<parameter number="51066" type="STRING" dim="0" display="ASCII">
+<parameter number="51066" type="STRING" dim="1" display="ASCII">
 <name>ORDER_DISPLAYED_CHANNELS</name>
 <brief>Channel numbers of the channels displayed</brief>
 <description>Contains the numbers of the channels to be displayed under machine in the multi-channel view, in the desired order and separated by commas, semicolons or spaces.
@@ -401,9 +409,9 @@ Bit 3: No automatic start of block search when the program is selected / execute
 <parameter number="51068" type="BYTE" dim="0" display="DECIMAL">
 <name>SPIND_DRIVELOAD_FROM_PLC1</name>
 <brief>Machine axis index of spindle 1 utilization display from PLC</brief>
-<description>Machine axis index of a spindle (analog), which refers to the data for the utilization display in the T,F,S window from the PLC (DB19.DBB6).
-
-
+<description>Machine axis index of a spindle (analog), which obtains the data for the utilization display in the T,F,S window from the PLC.
+ SINUMERIK  840D sl:  DB19.DBB6
+ SINUMERIK  828D   :   DB1900.DBB5006
 </description>
 </parameter>
 <parameter number="51069" type="BYTE" dim="0" display="DECIMAL">
@@ -485,7 +493,7 @@ Bit 3: No automatic start of block search when the program is selected / execute
 <name>ACCESS_WRITE_TM_WEAR_DELTA</name>
 <brief>Protection level for tool offset restricted writing of wear data</brief>
 <description>Protection level for restricted writing of tool wear values
-S. MD 51213: TM_WRITE_WEAR_DELTA_LIMIT
+S. MD51213: TM_WRITE_WEAR_DELTA_LIMIT
 </description>
 </parameter>
 <parameter number="51203" type="BYTE" dim="0" display="DECIMAL">
@@ -547,7 +555,7 @@ One authorization applies to all limit values: quantity, service life, wear and 
 <parameter number="51212" type="DOUBLE" dim="0" display="DECIMAL">
 <name>TM_WRITE_WEAR_ABS_LIMIT</name>
 <brief>Maximum tool wear value</brief>
-<description>Using TM_WRITE_WEAR_ABS_LIMIT, the max. possible value of a tool wear is limited absolutely, independently of the current protection level (keyswitch position), i.e. also independently of ACCESS_WRITE_TM_WEAR. Absolute and incremental wear limitation can be combined, i.e. the wear can be changed incrementally up to the absolute limit. See MD 51213.
+<description>Using TM_WRITE_WEAR_ABS_LIMIT, the max. possible value of a tool wear is limited absolutely, independently of the current protection level (keyswitch position), i.e. also independently of ACCESS_WRITE_TM_WEAR. Absolute and incremental wear limitation can be combined, i.e. the wear can be changed incrementally up to the absolute limit. See MD51213.
 The value 0 disables the limitation of the wear input.
 
 </description>
@@ -557,7 +565,7 @@ The value 0 disables the limitation of the wear input.
 <brief>Maximum difference value restricted tool wear input</brief>
 <description>When entering tool offsets, the value of the change from the previous value to the new value cannot exceed the value set here.
 With TM_WRITE_WEAR_DELTA_LIMIT, the change to a tool wear can be limited incrementally, if the current protection level is the same as or higher than the one set in ACCESS_WRITE_TM_WEAR_DELTA. With the current protection level being the same or higher than ACCESS_WRITE_TM_WEAR, an incremental limitation is no longer performed. Absolute and
-incremental wear limitation can be combined, i.e. the wear can be changed up to the absolute limit. See MD 51212
+incremental wear limitation can be combined, i.e. the wear can be changed up to the absolute limit. See MD51212
 The value 0 disables limitation of the wear input.
 
 </description>
@@ -660,6 +668,7 @@ Bit 10: Hide zero point symbol
 Bit 0: G code programming without multi-channel data
 	If bit 0 = 1, no multi-channel data will be offered for job lists which only contain G code programs.
 Bit 1: Enable print function of Editor
+Bit 2: With external program selection (e.g. via PLC), set start disable (program check).
 </description>
 </parameter>
 <parameter number="51230" type="BOOLEAN" dim="0">
@@ -671,8 +680,14 @@ Bit 1: Enable print function of Editor
 </parameter>
 <parameter number="51231" type="BOOLEAN" dim="0">
 <name>ENABLE_LADDER_EDITOR</name>
-<brief>PLC ladder editor activation</brief>
-<description>PLC ladder editor activation
+<brief>Activation of PLC ladder add-on tool for INT100/101</brief>
+<description>Activation of PLC ladder add-on tool for INT100/101
+</description>
+</parameter>
+<parameter number="51232" type="BOOLEAN" dim="0">
+<name>ENABLE_LADDER_EDITOR_ADV</name>
+<brief>Activation of PLC ladder editor for the complete PLC project</brief>
+<description>Activation of PLC ladder editor for the complete PLC project
 </description>
 </parameter>
 <parameter number="51233" type="BOOLEAN" dim="0">
@@ -726,7 +741,7 @@ set up for the workpiece coordinate system (Work).
 <name>MEA_CM_ROT_AX_POS_TOL</name>
 <brief>Tolerance of rotary axis positions - measuring with orientable toolholder</brief>
 <description>Parameter for measuring with orientable tool carrier
-Entries in parameter $MN_MEA_CM_ROT_AX_POS_TOL are effective only if $MNS_MEA_FUNCTION_MASK bit2 or bit16 is set by MD 51740.
+Entries in parameter $MN_MEA_CM_ROT_AX_POS_TOL are effective only if $MNS_MEA_FUNCTION_MASK bit2 or bit16 is set by MD51740.
 The real angle position of the rotary axes can deviate from the programmed one (exact stop fine window).
 This deviation depends on the position control features of the axis. The maximum deviation expected on the concrete axis
 must be entered in this parameter. When the tolerance is exceeded, alarm 61442 "Toolholder not in parallel with the geometry axes" is displayed.
@@ -740,7 +755,7 @@ must be entered in this parameter. When the tolerance is exceeded, alarm 61442 "
 Bit 0:	Workpiece measurement, calibration status monitoring
           	0: Calibration monitoring not active
           	1: Calibration monitoring active
-              Between calibration and measurement, the status of the following states is monitored:
+              Between calibration and measurement, the following states are monitored:
               - Working plane (G17, 18, 19)
               - Probe type (3D probe, type 710, mono probe, type 712, L probe, type 713, star probe, type 714)
               - Length reference of the probe (center of the probe ball, probe ball circumference)
@@ -749,22 +764,26 @@ Bit 0:	Workpiece measurement, calibration status monitoring
 		     - See also SD54740 $SNS_MEA_FUNCTION_MASK, bit 4.
 
 Bit 1: 	Workpiece measurement, milling technology, length reference of the workpiece probe
-          	0: Tool length in the infeed axis, referred to the center of the probe ball (TCP)
-          	1: Tool length in the infeed axis, referred to the circumference of the probe ball
+          	0: Tool length in the infeed axis, relative to the center of the probe ball (TCP)
+          	1: Tool length in the infeed axis, relative to the circumference of the probe ball
 
 Bit 2:	Workpiece measurement, taking into account the orientation of tool carriers (kinematic type "T", 	swivel head) for the tool offset
           	0: The tool components are corrected according to the orientation of the tool carrier
-              when measuring. This is valid for the orientations 0°, 90°, 180° and 270°.
+              when measuring. This is valid for the orientations 0°, 90°, 180°, and 270°.
           	1: The tool components are corrected according to the orientation of the tool carrier
                  in the initial setting.
 
-Bit 4:	Workpiece measurement, milling technology, probe is permanently fixed to the machine
+Bit 4:	Workpiece measurement, milling technology, probe is permanently mounted on the machine
           	0: When measuring, the workpiece probe is located in a tool spindle.
-          	1: The workpiece probe is permanently fixed to the machine.
+          	1: The workpiece probe is permanently mounted on the machine.
                  Not all measurement variants are available. If an inadmissible measurement variant is selected,
 	alarm 61373 is output.
 
-Bit 5:	Effect of the feedrate override in measuring blocks (MEAS) of measuring cycles
+Bit 5:	Workpiece measurement, correction in WO coarse if no fine offset is set up
+          	0: Only the measurement difference is entered in the coarse offset of the WO (compatibility).
+          	1: The absolute offset corrected by the measurement different is entered in the coarse offset of the WO.
+
+Bit 6:	Effect of the feedrate override in measuring blocks (MEAS) of measuring cycles
           	0: Measuring blocks (MEAS) are traversed in the measuring cycles with the current feedrate override (compatibility).
           	1: Measuring blocks (MEAS) are traversed in the measuring cycles with 100% feedrate override if the feedrate override is set &gt;0.
 
@@ -772,16 +791,24 @@ Bit 15:	Workpiece measurement, traverse measuring block with path behavior G60, 
              0: The measuring block is traversed in continuous-path mode G64.
              1: The measuring block is traversed with path behavior G60, exact stop at the end of the block.
 
-Bit 16:	Tool measurement, turning technology, taking into account the orientation of the tool carrier	(kinematic type "T", swivel head)
+Bit 16:	Tool measurement, turning technology, taking into account the orientation of the tool carrier 	(kinematic type "T", swivel head)
           	0: The tool component is corrected according to the orientation of the tool carrier
                   when measuring.
           	1: The tool component is corrected according to the orientation of the tool carrier
                   in the initial setting.
 
-
-
-
-
+</description>
+</parameter>
+<parameter number="51742" type="DWORD" dim="1">
+<name>MEA_ACCESS_EXEC</name>
+<brief>Meas. cycles: Limitation of protection levels when writing system variables</brief>
+<description>Limitation of the protection levels when writing system variables during the execution of measuring cycles.
+MD51742 limits one range of the current protection level between the setting of the protection level
+in MD11160 $NM_ACCESS_EXEC_CST and the setting in MD51742 when executing the measuring cycles.
+The field elements [0] to [9] are used as follows:
+[0]  Measure all kinematics
+[1] to [9] reserved
+For the meaning of the numerical values (protection level) see MD11160
 </description>
 </parameter>
 <parameter number="51750" type="DOUBLE" dim="0">
@@ -847,8 +874,8 @@ The calibration height must be entered with reference to the the workpiece coord
 </parameter>
 <parameter number="51780" type="DOUBLE" dim="1">
 <name>J_MEA_T_PROBE_DIAM_RAD</name>
-<brief>Diameter of the tool probe for radius measurement, for "Measure in JOG"</brief>
-<description>Effective grinding wheel diameter of the tool probe for radius measurement on milling tools, for "Measure in JOG"
+<brief>Diameter of the tool probe for radius measurement</brief>
+<description>Effective grinding wheel diameter of the tool probe for radius measurement on milling tools
 </description>
 </parameter>
 <parameter number="51781" type="DOUBLE" dim="1">

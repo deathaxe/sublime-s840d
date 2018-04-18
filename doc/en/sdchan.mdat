@@ -15,7 +15,7 @@ Note:
 <brief>Acceleration behavior of axis when thread cutting</brief>
 <description>The SD is active for thread cutting with G33 (G34, G35).
 It features two elements that define the behavior of the thread axis during runup (1st element) and during deceleration/smoothing (2nd element).
-The values have the same properties for thread run-in and thread run-out:  
+The values have the same properties for thread run-in and thread run-out:
 
 &lt;0:
 	The thread axis is started/decelerated with configured acceleration. Jerk is according to the current programming of BRISK/SOFT. Behavior is compatible with MD 20650__THREAD_START_IS_HARD = FALSE used until now.
@@ -85,14 +85,14 @@ It is evaluated like an F word programmed for G94.
 </parameter>
 <parameter number="42121" type="DOUBLE" dim="0">
 <name>AX_ADJUST_FEED</name>
-<brief>Bahnvorschub in Justier Bewegungen</brief>
-<description>Defaultwert für Bahnvorschub in Justierbewegungen der Tangentialachsen beim
-Einschalten einer Tangentialachskopplung während oder nach dem Satzsuchlauf.
+<brief>Path feed in adjustment movements</brief>
+<description>Default value for the path feed in adjustment movements of tangential axes on
+activation of a tangential axis coupling during or after block search.
 
-Der Inhalt dieses Settingdatums wird nur verwendet, wenn er ungleich Null ist und das Bit7 = 0
-des MD $MN_SEARCH_RUN_MODE gesetzt ist.
+The content of this setting data is only used if it is not equal to zero and bit7 = 0
+of MD $MN_SEARCH_RUN_MODE is set.
 
-Er wird bewertet, wie ein bei G94 programmiertes F-Wort.
+It is evaluated as an F-word programmed in G94.
 </description>
 </parameter>
 <parameter number="42122" type="DOUBLE" dim="0">
@@ -186,18 +186,18 @@ Application: Debug mode for testing part programs.
 
 The linear correlation between the leading and following spindles is determined by the speed ratio k_Ü. This ratio is defined by two speed ratio parameters in the form of a numerator [n=0] and a denominator [n=1]. This enables the speed ratio to be defined very precisely.
 
-k_Ü =  Speed ratio parameter of numerator / Speed ratio parameter of denominator 
+k_Ü =  Speed ratio parameter of numerator / Speed ratio parameter of denominator
 
 	= SD42300 $SC_COUPLE_RATIO[0] / SD42300 $SC_COUPLE_RATIO[1]
 
-The speed ratio parameters can be altered in the NC part program with the language instruction COUPDEF provided that this is not locked by the channel-specific MD21340 $MC_COUPLE_IS_WRITE_PROT_1. 
+The speed ratio parameters can be altered in the NC part program with the language instruction COUPDEF provided that this is not locked by the channel-specific MD21340 $MC_COUPLE_IS_WRITE_PROT_1.
 However, the parameterized values of SD42300 $SC_COUPLE_RATIO_1 are not changed.
 The calculation of k_Ü is initiated with POWER ON.
 
-SD irrelevant for ...... 
-User-defined coupling 
+SD irrelevant for ......
+User-defined coupling
 
-Related to .... 
+Related to ....
 	SD42300 $SC_COUPLE_RATIO_1 currently has the same action as a machine data (e.g. active after POWER ON). The SD data are therefore displayed and input in the same way as channel-specific machine data.
 </description>
 </parameter>
@@ -214,7 +214,7 @@ MD10710 $MN_PROG_SD_RESET_SAVE_TAB can be set so that the value written by the p
 <parameter number="42402" type="DOUBLE" dim="0">
 <name>NIBPUNCH_PRE_START_TIME</name>
 <brief>Delay time (punch/nibble) with G603</brief>
-<description>This setting data has exactly the same effect as MD26018 $MC_NIBBLE_PRE_START_TIME. Its primary purpose is to allow the pre-start time to be altered from the NC program so that it can be adapted to different metal sheet sizes and thicknesses. However, the setting data is active only when the machine data has been set to zero. 
+<description>This setting data has exactly the same effect as MD26018 $MC_NIBBLE_PRE_START_TIME. Its primary purpose is to allow the pre-start time to be altered from the NC program so that it can be adapted to different metal sheet sizes and thicknesses. However, the setting data is active only when the machine data has been set to zero.
 
 Related to .... NIBBLE_PRESTART_TIME
 </description>
@@ -228,22 +228,22 @@ Related to .... NIBBLE_PRESTART_TIME
 <parameter number="42440" type="BOOLEAN" dim="0">
 <name>FRAME_OFFSET_INCR_PROG</name>
 <brief>Work offsets in frames</brief>
-<description>0:	When incremental programming is used on an axis, only the programmed position delta is traversed after a frame change. Work offsets in FRAMES are only traversed when an absolute position is specified. 
+<description>0:	When incremental programming is used on an axis, only the programmed position delta is traversed after a frame change. Work offsets in FRAMES are only traversed when an absolute position is specified.
 
-1:	When incremental programming is used on an axis, changes to work offsets are traversed after a frame change (standard response up to software version 3). 
+1:	When incremental programming is used on an axis, changes to work offsets are traversed after a frame change (standard response up to software version 3).
 
-Related to .... 
+Related to ....
 	SD42442 $SC_TOOL_OFFSET_INCR_PROG
 </description>
 </parameter>
 <parameter number="42442" type="BOOLEAN" dim="0">
 <name>TOOL_OFFSET_INCR_PROG</name>
 <brief>Tool length compensations</brief>
-<description>0:	When incremental programming is used on an axis, only the programmed position delta is traversed after a frame change. Tool length offsets in FRAMES are only traversed when an absolute position is specified. 
+<description>0:	When incremental programming is used on an axis, only the programmed position delta is traversed after a frame change. Tool length offsets in FRAMES are only traversed when an absolute position is specified.
 
-1:	 When incremental programming is used on an axis, changes to tool length offsets are traversed after a tool change (standard response up to SW version 3). 
+1:	 When incremental programming is used on an axis, changes to tool length offsets are traversed after a tool change (standard response up to SW version 3).
 
-Related to .... 
+Related to ....
 	SD42440 $SC_FRAME_OFFSET_INCR_PROG
 </description>
 </parameter>
@@ -260,9 +260,9 @@ The setting data is evaluated on NC start for output of the action blocks.
 <parameter number="42450" type="DOUBLE" dim="0">
 <name>CONTPREC</name>
 <brief>Contour accuracy</brief>
-<description>Contour accuracy. This setting data can be used to define the accuracy to be maintained for the path of the geometry axes on curved contours. The lower the value and the lower the servogain factor of the geometry axes, the greater the reduction of path feed on curved contours. 
+<description>Contour accuracy. This setting data can be used to define the accuracy to be maintained for the path of the geometry axes on curved contours. The lower the value and the lower the servogain factor of the geometry axes, the greater the reduction of path feed on curved contours.
 
-Related to .... 
+Related to ....
 	MD20470 $MC_CPREC_WITH_FFW
 	SD42460 $SC_MINFEED
 </description>
@@ -270,9 +270,9 @@ Related to ....
 <parameter number="42460" type="DOUBLE" dim="0">
 <name>MINFEED</name>
 <brief>Minimum path feedrate for CPRECON</brief>
-<description>Minimum path feedrate with the "Contour accuracy" function active. The feedrate is not limited to below this value unless a lower F value has been programmed or the axis dynamics do not permit it. 
+<description>Minimum path feedrate with the "Contour accuracy" function active. The feedrate is not limited to below this value unless a lower F value has been programmed or the axis dynamics do not permit it.
 
-Related to .... 
+Related to ....
 	MD20470 $MC_CPREC_WITH_FFW
 	SD42450 $SC_CONTPREC
 </description>
@@ -316,25 +316,25 @@ The angle only serves as an approximate measure for corner detection. The compre
 </parameter>
 <parameter number="42472" type="DOUBLE" dim="1">
 <name>MIN_SURF_RADIUS</name>
-<brief>Minimaler Krümmungsradius für COMPSURF</brief>
-<description>Das Settingdatum gibt einen typischen Werkzeugradius an. Es wird nur beim Kompressor COMPSURF ausgewertet. Je kleiner der Wert, umso genauer, aber auch umso langsamer wird ein Programm abgearbeitet.
+<brief>Minimum curvature radius for COMPSURF</brief>
+<description>The setting data specifies a typical tool radius. It is evaluated for the COMPSURF compressor only. A smaller value results in greater precision but also slower program execution.
 </description>
 </parameter>
 <parameter number="42473" type="DWORD" dim="0">
 <name>ACTNUM_SURF_GROUPS</name>
-<brief>Aktuell gewünschte Dimensionierung der Funktion COMPSURF bzgl. Achsgruppen.</brief>
-<description>Das Settingdatum dimensioniert die Funktion COMPSURF bzgl. Achsgruppen für die folgende Bearbeitung. Werte größer als $MC_MM_MAXNUM_SURF_GROUPS werden ohne Alarm begrenzt.
+<brief>Currently desired COMPSURF function dimensioning in respect of axis groups.</brief>
+<description>The setting data dimensions the COMPSURF function in respect of axis groups for following machining. Values greater than $MC_MM_MAXNUM_SURF_GROUPS are limited without an alarm.
 
-Korrespondiert mit:
+Related to:
 	MD28072 $MC_MM_MAXNUM_SURF_GROUPS
 </description>
 </parameter>
 <parameter number="42474" type="DWORD" dim="1">
 <name>SURF_SMOOTHING_LEVEL</name>
-<brief>Optimierungslevel der Funktion COMPSURF.</brief>
-<description>Das Settingdatum legt die Glättungsstufe der Funktion COMPSURF fest. Je höher der Wert, umso glatter werden Oberflächen auf Kosten der Genauigkeit.
+<brief>Optimization level for the COMPSURF function.</brief>
+<description>The setting data defines the smoothing stage of the COMPSURF function. A higher value means smoother surfaces but also lower accuracy.
 
-Korrespondiert mit:
+Related to:
 	MD28072 $MC_MM_MAXNUM_SURF_GROUPS
 </description>
 </parameter>
@@ -417,13 +417,13 @@ Note:
 <name>CUTCOM_CLSD_CONT</name>
 <brief>Tool radius compensation behavior with closed contour</brief>
 <description>FALSE:
-	If two intersections are created on correction of the inner side of an (almost) closed contour consisting of two successive circle blocks or a circle and a linear block, the intersection that lies on the first part contour nearer to the block end will be selected as per the default behavior.
-	A contour will be considered as (almost) closed if the distance between the starting point of the first block and the end point of the second block is smaller than 10% of the active compensation radius, but not larger than 1000 path increments (corresponds to 1mm to 3 decimal places).
-
+	CASE A: If two intersections arise on correction of the inner side with an (almost) closed contour consisting of two successive circle blocks or a circle and a linear block, by default the intersection is chosen that is located on the first partial contour nearer to the beginning of the block.
+	A contour is considered (almost) closed if the distance between the starting point of the first block and the end point of the second block is less than 10% of the active compensation radius, but not greater than 1000 path increments (corresponds to 1mm with 3 decimal places).
+	CASE B: If on correction of the inner side and a block transition between a straight line and a circle with an angle of aperture of more than approx. 315 degrees, the offset curve of the straight line intersects the offset curve of the circle at two points, by default the point of intersection is chosen that is located on the first partial contour nearer to the beginning of the block.
 TRUE:
-	Under the same condition as described above, the intersection that lies on the first part contour nearer to block start is selected.
-
-
+	CASE A: In the same situation as described above, the point of intersection is chosen that is located on the first partial contour nearer to the block end.
+	CASE B: In the same situation as described above, the point of intersection is chosen that is located on the first partial contour nearer to the block end, but only if the absolute value of the contour violation caused by this is less than the effective contour tolerance. For the effective contour tolerance, see the description "Contour/orientation tolerance" in FB1. The currently effective tolerance can be read with $AC_CTOL. If a tolerance of zero is programmed in this way, a permanently assigned tolerance of 0.002mm applies.
+	The tolerance value is applied that is valid for activation of the tool radius correction with G41 or G42.
 </description>
 </parameter>
 <parameter number="42500" type="DOUBLE" dim="0">
@@ -514,7 +514,7 @@ For contours with varying curvatures, a mid-range curvature is used.
 -2=	The revolutional feedrate is derived from the axis with machine axis index == 0.
 -3=	The revolutional feedrate is derived from the master spindle of the channel in which the axis/spindle is active. No revolutional feedrate is active if the master spindle is at a standstill.
 
-Related to .... 
+Related to ....
 	SD43300: $SA_ASSIGN_FEED_PER_REV_SOURCE  (revolutional feedrate for position axes/spindles)
 
 </description>
@@ -529,7 +529,7 @@ Cartesian manual travel will not be enabled if no bit is set or if just one bit 
 The meaning of the individual bits is defined as follows :
 
 Bit  0 : Translation in Basic Coordinate System
-Bit  1 : Translation in Workpiece Coordinate System 
+Bit  1 : Translation in Workpiece Coordinate System
 Bit  2 : Translation in Tool Coordinate System
 Bit  3 : reserved
 Bit  4 : reserved
@@ -623,21 +623,21 @@ By default the coordinate of an axis with diameter programming is in the diamete
 <brief>JOG of circles mode</brief>
 <description>This setting data sets the following during JOG of circles:
 
-Bit 0 = 0 : 
+Bit 0 = 0 :
 	Travel to + creates traversing on a circular path in counterclockwise direction; travel to - creates traversing in clockwise direction.
-Bit 0 = 1 : 
+Bit 0 = 1 :
 	Travel to + creates traversing on a circular path in clockwise direction; travel to - creates traversing in counterclockwise direction.
-Bit 1 = 0 : 
+Bit 1 = 0 :
 	The tool radius is not taken into account in checking the limitation produced by the specified circle or by the circle segment limited by the start and end angles.
-Bit 1 = 1 : 
+Bit 1 = 1 :
 	The tool radius is taken into account in checking the limitation produced by the specified circle or by the circle segment limited by the start and end angles.
-Bit 2 = 0 : 
+Bit 2 = 0 :
 	Internal machining is performed. The circle radius in SD42691 $SC_JOG_CIRCLE_RADIUS is the maximum possible radius.
-Bit 2 = 1 : 
+Bit 2 = 1 :
 	External machining is performed. The circle radius in SD42691 $SC_JOG_CIRCLE_RADIUS  is the minimum possible radius.
-Bit 3 = 0 : 
+Bit 3 = 0 :
 	Given a full circle, the radius is enlarged starting from the circle center point in the direction of the ordinate (2nd geometry axis) of the plane.
-Bit 3 = 1 : 
+Bit 3 = 1 :
 	Given a full circle, the radius is enlarged starting from the circle center point in the direction of the abscissa (1st geometry axis) of the plane.
 This setting data should be written via the user interface.
 </description>
@@ -676,11 +676,11 @@ Value 1: Enable basic blocks with absolute values (basic block display)
 <parameter number="42800" type="BYTE" dim="1">
 <name>SPIND_ASSIGN_TAB</name>
 <brief>Spindle number converter.</brief>
-<description>The spindle converter converts the programmed (= logical) spindle number to the physical (= internal, configured) spindle number. 
+<description>The spindle converter converts the programmed (= logical) spindle number to the physical (= internal, configured) spindle number.
 The index of the setting data (SD) corresponds to the programmed spindle number or the programmed address extension.
 The SD contains the physical spindle which actually exists.
 
-Special cases, errors, ...... 
+Special cases, errors, ......
 Notes:
 - The zero index (SPIND_ASSIGN_TAB[0]) is only used to display the master spindle selected in the channel and must not be overwritten.
 - Changes to the spindle converter take effect immediately. It is therefore not advisable to change the spindle converter for spindles used in a part program from the HMI or PLC while a part program is running.
@@ -690,7 +690,7 @@ Notes:
 <parameter number="42900" type="BOOLEAN" dim="0">
 <name>MIRROR_TOOL_LENGTH</name>
 <brief>Sign change of tool length with mirror image machining</brief>
-<description>TRUE: 
+<description>TRUE:
  If a frame with mirror image machining is active, the tool components
 ($TC_DP3[..., ...] to $TC_DP5[..., ...]) and the components of the base dimensions
 ($TC_DP21[..., ...] to $TC_DP23[..., ...]) whose associated axes
@@ -698,7 +698,7 @@ are mirrored, are also mirrored, i.e. their sign is inverted. The wear values
 are not mirrored. If the wear values are to be mirrored too,
 SD42910 $SC_MIRROR_TOOL_WEAR must be set.
 
-FALSE: 
+FALSE:
 The sign for tool length components is unaffected by whether a frame with mirror image machining is active.
 </description>
 </parameter>
@@ -738,10 +738,10 @@ The sign for wear of the tool length components is unaffected by the tool point 
 <parameter number="42930" type="BOOLEAN" dim="0">
 <name>WEAR_SIGN</name>
 <brief>Sign of wear</brief>
-<description>TRUE:   
-The sign for wear of the tool length components and the tool radius are inverted, i.e. if a positive value in entered, the total dimension is decreased. 
+<description>TRUE:
+The sign for wear of the tool length components and the tool radius are inverted, i.e. if a positive value in entered, the total dimension is decreased.
 
-FALSE:  
+FALSE:
 The sign for wear of the tool length components and the tool radius is not inverted.
 </description>
 </parameter>
@@ -749,14 +749,14 @@ The sign for wear of the tool length components and the tool radius is not inver
 <name>WEAR_TRANSFORM</name>
 <brief>Transformations for tool components</brief>
 <description>This setting data is bit-coded.
-It determines which of the three wear components 
+It determines which of the three wear components
 
 wear
-($TC_DP12 - $TC_DP14), 
+($TC_DP12 - $TC_DP14),
 
 additive offsets fine ($TC_SCPx3 - $TC_SCPx5),
 
-and additive offsets coarse ($TC_ECPx3 - $TC_ECPx5) 
+and additive offsets coarse ($TC_ECPx3 - $TC_ECPx5)
 
 are subject to adapter transformation and transformation by an orientable tool holder, if one of the two G codes TOWMCS or TOWWCS from G code group 56 is active. If initial-setting G code TOWSTD is active, this setting data will not become active.
 
@@ -776,7 +776,7 @@ The assignment of the tool orientation components is not affected by this settin
 A distinction is made between turning and grinding tools (tool types 400 to 599)  and other tools (typically milling tools) in the assignment.
 Representation of this information in tables assumes that geometry axes 1 to 3 are called X, Y and Z. For assignment of an offset to an axis, not the axis identifier but the axis sequence is relevant.
 
-Assignment for turning tools and grinding tools (tool types 400 to 599): 
+Assignment for turning tools and grinding tools (tool types 400 to 599):
 Content   Length 1  Length 2  Length 3
  17             Y               X               Z
  18*            X               Z               Y
@@ -805,7 +805,7 @@ If the setting data SD42950 $SC_TOOL_LENGTH_TYPE has the value 3, this setting d
 <name>TOOL_LENGTH_CONST_T</name>
 <brief>Change tool length components for turning tools with change of active plane</brief>
 <description>This setting data is only evaluated if SD42950 $SC_TOOL_LENGTH_TYPE has the value 3. Under this condition, it has the following meaning:
-If this setting data is not equal to zero, the assignment of the tool length components (length, wear and base dimensions) of turning tools (tool types 400 to 599) to geometry axes is not changed when the machining plane (G17 - G19) is changed.
+If this setting data is not equal to zero, the assignment of the tool length components (length, wear and base dimensions) of turning and grinding tools (tool types 400 to 599) to geometry axes is not changed when the machining plane (G17 - G19) is changed.
 The assignment of tool orientation components is not affected by this setting data. Setting data SD42957 $SC_TOOL_ORI_CONST_T may have to be set correspondingly.
 The assignment of tool orientation components to the geometry results from the value of the setting data according to the following table.
 The representation of this information in tables assumes that geometry axes 1 to 3 are called X, Y and Z. For assignment of an offset to an axis, not the axis identifier but the axis sequence is relevant.
@@ -832,7 +832,7 @@ Value
 
 1:	The tool length components are assigned irrespective of the actual tool type, always as for milling tools.
 
-2.	The tool length components are assigned irrespective of the actual tool type, always as for turning tools.
+2.	The tool length components are assigned irrespective of the actual tool type, always as for turning and grinding tools.
 
 3.	The tool length components are assigned separately, on the one hand for turning and grinding tools (tool types 400 to 599) and, on the other hand, for all other tools (milling tools).
 
@@ -840,7 +840,7 @@ Value
      Milling tools:
         The assignment of tool length components is specified by SD42940 $SC_TOOL_LENGTH_CONST.
 
-     Turning tools:
+     Turning and grinding tools:
         The assignment of tool length components is specified by SD42942 $SC_TOOL_LENGTH_CONST_T.
 
 The setting data also affects the wear values assigned to the length components.
@@ -851,17 +851,17 @@ If SD42940 $SC_TOOL_LENGTH_CONST is set, the tables defined there access the tab
 <name>TOOL_ORI_CONST_M</name>
 <brief>Change of the tool orientation component for milling tools on plane change</brief>
 <description>If this setting data is not equal to zero, a clockwise, orthogonal tool coordinate system is defined for milling tools (all tool types except 400 to 599), which remains unchanged when the machining plane is changed (G17 - G19. It has no relevance for turning and grinding tools.
-The orientation coordinate system is determined by the orientation vector and a normal orientation vector lying at right-angles to it. It is completed by a third vector, the binormal vector, which is given by the cross product of the normal orientation vector and the orientation vector.
+The orientation coordinate system is determined by the orientation vector and a normal orientation vector extending perpendicularly to it. It is completed by a third vector, the binormal vector, which derives from the cross product of the normal orientation vector and the orientation vector.
 The basic orientation is determined by the units and tens digits of the setting data. Apart from the value 0, only the values 17, 18 and 19 are permissible. All other values are treated as if their value were 17.
 
            Orientation    Normal orient-      Binormal
 Content     vector      ation  vector        vector
- 17*        (0, 0, 1)          (0, 1, 0)          (1, 0, 0)   
- 18         (0, 1, 0)          (1, 0, 0)          (0, 0, 1)   
- 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)   
-* Each value not equal to 0, which is not one of the listed values is evaluated as if it were the value 17.
+ 17*        (0, 0, 1)          (0, 1, 0)          (1, 0, 0)
+ 18         (0, 1, 0)          (1, 0, 0)          (0, 0, 1)
+ 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)
+* Each value not equal to 0 that is not one of the listed values is evaluated as if it were the value 17.
 If n is the content of the 100s digit of the setting data, the coordinate system is rotated around the orientation vector by the angle n * 90 degrees. n may have the values 0 to 3. Larger values are evaluated as if they were 0.
-If the sign of the setting data is negative, the coordinate system is rotated around the axis by 180 degrees, which is defined by the original position of the normal orientation vector (that is before any rotation on account of n being unequal to 0).
+If the sign of the setting data is negative, the coordinate system is rotated around the axis by 180 degrees, which is defined by the original position of the normal orientation vector (that is, before any rotation due to n being unequal to 0).
 Example:
 If the content of the setting data is -18, then:
 Orientation vector          (0, -1,  0)
@@ -870,7 +870,7 @@ Binormal vector             (0 , 0, -1)
 
 Handling of tools with an explicitly programmed tool orientation by means of cutting edge data ($TC_DPV..):
 This setting data is normally ignored for tools for which the orientation is defined in this way. This means that the programmed orientation vectors are assigned to the geometry axes in response to the active machining plane (G17 - G19).
-If the setting data is also active for such tools, then the 1000s digit must be equal to 1. However, the 100s digit and the sign are not evaluated. This means that the setting data only defines how the orientation components are assigned to the geometry axis directions. No additional rotations are executed.
+If the setting data is also active for such tools, the 1000s digit must be equal to 1. However, the 100s digit and the sign are not evaluated. This means that the setting data only defines how the orientation components are assigned to the geometry axis directions. No additional rotations are performed.
 </description>
 </parameter>
 <parameter number="42956" type="DWORD" dim="0">
@@ -882,9 +882,9 @@ The basic orientation is determined by the units and tens digits of the setting 
 
            Orientation    Normal orient-      Binormal
 Content     vector      ation  vector        vector
- 17         (0, 0, 1)          (0, 1, 0)          (1, 0, 0)   
- 18*        (0, 1, 0)          (1, 0, 0)          (0, 0, 1)   
- 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)   
+ 17         (0, 0, 1)          (0, 1, 0)          (1, 0, 0)
+ 18*        (0, 1, 0)          (1, 0, 0)          (0, 0, 1)
+ 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)
 * Each value not equal to 0, which is not one of the listed values is evaluated as if it were the value 18.
 If n is the content of the 100s digit of the setting data, the coordinate system is rotated around the orientation vector by the angle n * 90 degrees. n may have the values 0 to 3. Larger values are evaluated as if they were 0.
 If the sign of the setting data is negative, the coordinate system is rotated around the axis by 180 degrees, which is defined by the original position of the normal orientation vector (that is before any rotation on account of n being unequal to 0).
@@ -920,6 +920,17 @@ This limit value influences the absolutely effective amount of offset through $A
 Whether the offset value is within the limit range can be checked via the $AA_TOFF_LIMIT system variable.
 </description>
 </parameter>
+<parameter number="42972" type="DOUBLE" dim="1">
+<name>TOFF_LIMIT_MINUS</name>
+<brief>Lower limit of the offset value $AA_TOFF</brief>
+<description>Lower limit of the offset value which can be specified through synchronous actions via the system variable $AA_TOFF.
+
+This limit value acts on the active correction through $AA_TOFF in the minus direction.
+This limit value is only effective if $MC_TOFF_MODE Bit6 = 1 is set.
+
+Über die Systemvariable $AA_TOFF_LIMIT kann abgefragt werden, ob sich der Korrekturwert im Grenzbereich befindet.
+</description>
+</parameter>
 <parameter number="42974" type="BOOLEAN" dim="0">
 <name>TOCARR_FINE_CORRECTION</name>
 <brief>Fine offset TCARR ON / OFF</brief>
@@ -945,13 +956,13 @@ Machine data 21110 $MC_X_AXIS_IN_OLD_X_Z_PLANE is not evaluated.
 The explantory notes below refer to the G17 plane with the XY axes in the machining plane and the tool axis being Z.
 
 SD42980 $SC_TOFRAME_MODE = 2000:
-Rotation around the Z axis is selected so that the angle between the new X axis and the old X-Z plane has the same absolute value as the angle between the new Y axis and the old Y-Z plane. This setting corresponds to the mean value of both settings which would result for values 2001 and 2002 of this setting data. 
+Rotation around the Z axis is selected so that the angle between the new X axis and the old X-Z plane has the same absolute value as the angle between the new Y axis and the old Y-Z plane. This setting corresponds to the mean value of both settings which would result for values 2001 and 2002 of this setting data.
 It is also applied if the value of the units digit is greater than 2.
 
 SD42980 $SC_TOFRAME_MODE = 2001:
 The new X direction is selected so that it lies in the X-Z plane of the old coordinate system. The angular difference between the old and new Y axes is minimal with this setting.
 
-SD42980 $SC_TOFRAME_MODE = 2002: 
+SD42980 $SC_TOFRAME_MODE = 2002:
 The new Y direction is selected so that it lies in the Y-Z plane of the old coordinate system. The angular difference between the old and new X axes is minimal with this setting.
 
 None of the other settings of SD42980 $SC_TOFRAME_MODE (0,1,2,...1000,1001..) should be used for recommissioning.
@@ -998,11 +1009,11 @@ A negative value means that no limitation of the number of blocks is active in t
 <brief>JOG of geometry axis mode</brief>
 <description>This setting data sets the following during JOG of geometry axes:
 
-Bit 0 = 1 : 
+Bit 0 = 1 :
 	A traversing request for the 1st geometry axis is inverted, i.e. a traversing request to + triggers a traversing motion to - .
-Bit 1 = 1 : 
+Bit 1 = 1 :
 	A traversing request for the 2nd geometry axis is inverted, i.e. a traversing request to + triggers a traversing motion to -.
-Bit 2 = 1: 
+Bit 2 = 1:
 	A traversing request for the 3rd geometry axis is inverted, i.e. a traversing request to + triggers a traversing motion to -.
 </description>
 </parameter>

@@ -83,7 +83,7 @@ Bit 28: Freigabe sichere Nockenspur, Nocke 29
 Bit 29: Freigabe sichere Nockenspur, Nocke 30
 
 Korrespondiert mit:
-	MD 36901: $MA_SAFE_FUNCTION_ENABLE
+	MD36901: $MA_SAFE_FUNCTION_ENABLE
 </description>
 </parameter>
 <parameter number="36904" type="DWORD" dim="0" display="HEX">
@@ -107,9 +107,9 @@ Sonderfälle:
 - Die durch MD36905 $MA_SAFE_MODULO_RANGE und MD30330 $MA_MODULO_RANGE eingestellten Istwertbereiche müssen ganzzahlig ohne Rest teilbar sein.
 
 Korrespondiert mit:
-	MD 30330: $MA_MODULO_RANGE
-	MD 36935: $MA_SAFE_CAM_POS_PLUS[n]
-	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD30330: $MA_MODULO_RANGE
+	MD36935: $MA_SAFE_CAM_POS_PLUS[n]
+	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
 </description>
 </parameter>
 <parameter number="36906" type="BYTE" dim="0">
@@ -137,8 +137,8 @@ Diese Information wird im Hochlauf für lineare DRIVE-CLiQ Geber aus Antriebspara
 Der Wert dieses MD fließt in die Checksummenberechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[0] ein.
 
 Korrespondiert mit:
-	MD 36913: $MA_SAFE_ENC_MEAS_STEPS_POS1
-	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+	MD36913: $MA_SAFE_ENC_MEAS_STEPS_POS1
+	MD36917: $MA_SAFE_ENC_GRID_POINT_DIST
 </description>
 </parameter>
 <parameter number="36910" type="BYTE" dim="0">
@@ -171,8 +171,8 @@ Diese Information wird im Hochlauf für lineare DRIVE-CLiQ Geber aus Antriebspara
 Der Wert dieses MD fließt in die Checksummenberechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[0] ein.
 
 Korrespondiert mit:
-	MD 36909: $MA_SAFE_ENC_MEAS_STEPS_RESOL
-	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+	MD36909: $MA_SAFE_ENC_MEAS_STEPS_RESOL
+	MD36917: $MA_SAFE_ENC_GRID_POINT_DIST
 </description>
 </parameter>
 <parameter number="36914" type="BOOLEAN" dim="0">
@@ -191,14 +191,14 @@ Korrespondiert mit:
 1:	linearer Geber ist angeschlossen, seine Auflösung wird mit MD36917 $MA_SAFE_ENC_GRID_POINT_DIST angegeben. Die MD36918 $MA_SAFE_ENC_RESOL, MD36920 $MA_SAFE_ENC_GEAR_PITCH, MD36921 $MA_SAFE_ENC_GEAR_DENOM[n] und MD36922 $MA_SAFE_ENC_GEAR_NUMERA[n] sind ohne Bedeutung. Ändert sich der Wert, wird der Alarm 27036 ausgelöst.
 
 Korrespondiert mit:
-bei 0:     
-	MD 36918: $MA_SAFE_ENC_RESOL
-	MD 36920: $MA_SAFE_ENC_GEAR_PITCH
-	MD 36921: $MA_SAFE_ENC_GEAR_DENOM[n]
-	MD 36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
+bei 0:
+	MD36918: $MA_SAFE_ENC_RESOL
+	MD36920: $MA_SAFE_ENC_GEAR_PITCH
+	MD36921: $MA_SAFE_ENC_GEAR_DENOM[n]
+	MD36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
 
 bei 1:
-	MD 36917: $MA_SAFE_ENC_GRID_POINT_DIST
+	MD36917: $MA_SAFE_ENC_GRID_POINT_DIST
 </description>
 </parameter>
 <parameter number="36917" type="DOUBLE" dim="0">
@@ -238,7 +238,7 @@ n = 0, 1, ... ,7 steht für Getriebestufe 1, 2, ... 8
 Der aktuelle Wert wird über sicherheitsgerichtete Eingangssignale (SGE) angewählt.
 
 Korrespondiert mit:
-	MD 36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
+	MD36922: $MA_SAFE_ENC_GEAR_NUMERA[n]
 </description>
 </parameter>
 <parameter number="36922" type="DWORD" dim="1">
@@ -250,7 +250,7 @@ n = 0, 1, ... 7 steht für Getriebestufe 1, 2, ... 8
 Der aktuelle Wert wird über sicherheitsgerichtete Eingangssignale (SGE) angewählt.
 
 Korrespondiert mit:
-	MD 36921: $MA_SAFE_ENC_GEAR_DENOM[n]
+	MD36921: $MA_SAFE_ENC_GEAR_DENOM[n]
 </description>
 </parameter>
 <parameter number="36923" type="DOUBLE" dim="1" readonly="true">
@@ -278,8 +278,19 @@ Ist die Kombination einiger Werte fehlerhaft bzw. ist die Anzahl der relevanten 
 <description>Mit diesem Datum kann eine Richtungsumkehr des Istwertes eingestellt werden.
 
 -1:	Richtungsumkehr
-0:	keine Richtungsumkehr oder 
+0:	keine Richtungsumkehr oder
 1:	keine Richtungsumkehr
+</description>
+</parameter>
+<parameter number="36926" type="BOOLEAN" dim="1">
+<name>SAFE_ENC_IS_GEAR_REVERSAL</name>
+<brief>Getriebe Drehrichtungsumkehr</brief>
+<description>Einstellung der Drehrichtungsumkehr für das Getriebe.
+0 (FALSE): Keine Drehrichtungsumkehr
+1 (TRUE): Drehrichtungsumkehr
+
+n = 0, 1, ... 7 steht für Getriebestufe 1, 2, ... 8
+Der aktuelle Wert wird über sicherheitsgerichtete Eingangssignale (SGE) angewählt.
 </description>
 </parameter>
 <parameter number="36927" type="BYTE" dim="0" readonly="true">
@@ -329,7 +340,7 @@ Ist im Antriebsparameter r0474 ein unbekanntes Bit gesetzt, so wird Alarm 27038 
 Wenn bei angewähltem sicheren Betriebshalt die Differenz zwischen Lagegrenzwert und Lageistwert größer als diese Toleranz wird, dann löst die Steuerung den Alarm 27010 mit STOP B aus. Der Lagegrenzwert ist der Lageistwert zum Zeitpunkt der Anwahl des sicheren Betriebshalts.
 
 Korrespondiert mit:
-	MD 36956: $MA_SAFE_PULSE_DISABLE_DELAY
+	MD36956: $MA_SAFE_PULSE_DISABLE_DELAY
 </description>
 </parameter>
 <parameter number="36931" type="DOUBLE" dim="1">
@@ -345,8 +356,8 @@ Sonderfälle:
 - Bei aktivem SBH/SG und einem 1-Geber-System wird die Geschwindigkeit entsprechend der Geber-Grenzfrequenz überwacht. Beim Überschreiten wird ein entsprechender Alarm ausgegeben.
 
 Korrespondiert mit:
-	MD 36961: $MA_SAFE_VELO_STOP_MODE
-	MD 36963: $MA_SAFE_VELO_STOP_REACTION
+	MD36961: $MA_SAFE_VELO_STOP_MODE
+	MD36963: $MA_SAFE_VELO_STOP_REACTION
 </description>
 </parameter>
 <parameter number="36932" type="DOUBLE" dim="1">
@@ -361,8 +372,8 @@ Die Funktion "Korrektur sichere Geschwindigkeit" wird über MD36901 $MA_SAFE_FUNC
 Für die Grenzwerte der sicheren Geschwindigkeit 1 und 3 ist diese Korrektur wirkungslos.
 
 Korrespondiert mit:
-	MD 36978: $MA_SAFE_OVR_INPUT[n]
-	MD 36931: $MA_SAFE_VELO_LIMIT[n]
+	MD36978: $MA_SAFE_OVR_INPUT[n]
+	MD36931: $MA_SAFE_VELO_LIMIT[n]
 </description>
 </parameter>
 <parameter number="36933" type="DOUBLE" dim="1">
@@ -403,9 +414,9 @@ Wenn SE1 oder SE2 angewählt ist und die aktuelle Istposition größer wird als die
 n = 0, 1 steht für oberer Grenzwert von SE1, SE2
 
 Korrespondiert mit:
-	MD 36962: $MA_SAFE_POS_STOP_MODE
-	MD 36935: $MA_SAFE_POS_LIMIT_MINUS[n]
-	MD 36901: $MA_SAFE_FUNCTION_ENABLE
+	MD36962: $MA_SAFE_POS_STOP_MODE
+	MD36935: $MA_SAFE_POS_LIMIT_MINUS[n]
+	MD36901: $MA_SAFE_FUNCTION_ENABLE
 
 Sonderfälle:
 - Wenn im MD36934 $MA_SAFE_POS_LIMIT_PLUS[n] ein kleinerer oder gleicher Wert eingetragen wird wie im MD36935 $MA_SAFE_POS_LIMIT_MINUS[n], dann wird ein Parametrierfehler angezeigt.
@@ -421,8 +432,8 @@ Wenn SE1 oder SE2 angewählt ist und die aktuelle Istposition kleiner wird als di
 n = 0, 1 steht für unterer Grenzwert von SE1, SE2
 
 Korrespondiert mit:
-	MD 36962: $MA_SAFE_POS_STOP_MODE
-	MD 36934: $MA_SAFE_POS_LIMIT_PLUS[n]
+	MD36962: $MA_SAFE_POS_STOP_MODE
+	MD36934: $MA_SAFE_POS_LIMIT_PLUS[n]
 
 Sonderfälle:
 - Wenn im MD36934 $MA_SAFE_POS_LIMIT_PLUS[n] ein kleinerer oder gleicher Wert eingetragen wird wie im MD36935 $MA_SAFE_POS_LIMIT_MINUS[n], dann wird ein Parametrierfehler angezeigt.
@@ -443,14 +454,14 @@ Ist die Funktion "Sichere Nockenspur" freigegeben (MD36903 $MA_SAFE_CAM_ENABLE),
 n = 0 ... 29 steht für Plusnocken-Position von SN1+, SN2+, ..., SN30+.
 
 Korrespondiert mit:
-	MD 36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
-	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
-	MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
+	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
 
 </description>
 </parameter>
@@ -469,14 +480,14 @@ Ist die Funktion "Sichere Nockenspur" freigegeben (MD36903 $MA_SAFE_CAM_ENABLE),
 n = 0 ... 29 steht für Minusnocken-Position von SN1 -, SN2 -, ..., SN30 -.
 
 Korrespondiert mit:
-	MD 36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
-	MD 36936: $MA_SAFE_CAM_POS_PLUS[n]
-	MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
+	MD36936: $MA_SAFE_CAM_POS_PLUS[n]
+	MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
 
 </description>
 </parameter>
@@ -498,13 +509,13 @@ MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[5] = 100: Der Nocken 6 (Index 5) wird der Nock
 Ist die Position im Bereich dieses Nockens, wird im SGA "Nockenbereich" der 1.Nockenspur die 0 eingetragen..
 
 Korrespondiert mit:
-	MD 36936: $MA_SAFE_CAM_POS_PLUS[n]
-	MD 36937: $MA_SAFE_CAM_POS_MINUS[n]
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD 37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD 37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD 37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD 37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD36936: $MA_SAFE_CAM_POS_PLUS[n]
+	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
+	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
+	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
+	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
+	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
 
 </description>
 </parameter>
@@ -554,8 +565,8 @@ Mit Defaultwert 0 ist keine Filterung wirksam.
 Durch die Parametrierung einer Filterzeit ungleich 0 vergrößert sich die Reaktionszeit des SGA "n &lt; nx".
 
 Korrespondiert mit:
-	MD 36946: $MA_SAFE_VELO_X
-	MD 36947: $MA_SAFE_VELO_X_HYSTERESIS
+	MD36946: $MA_SAFE_VELO_X
+	MD36947: $MA_SAFE_VELO_X_HYSTERESIS
 
 </description>
 </parameter>
@@ -575,13 +586,13 @@ Zur Auswertung des SGA "n &lt; nx" muss über MD36985 $MA_SAFE_VELO_X_STATUS_OUTP
 <description>Einstellung der Hystereseschwelle zur Bildung des SGA "n &lt; nx".
 
 Neben der Hysterese wird dieses MD auch benutzt, um die Geschwindigkeit in den beiden Überwachungskanälen an der Schwelle nx zu überprüfen. Sie darf maximal um den Wert dieses MD unterschiedlich sein, sonst wird ein Stop F mit Fehlerkennung 2 ausgegeben.
-Es muss gelten: MD36947 $MA_SAFE_VELO_X_HYSTERESIS kleiner oder gleich 1/2 MD36946 $MA_SAFE_VELO_X.
+Es muss gelten: MD36947 $MA_SAFE_VELO_X_HYSTERESIS kleiner oder gleich 3/4 MD36946 $MA_SAFE_VELO_X.
 
 Die Funktion "Synchronisation "n &lt; nx", Hysterese und Filterung" muss aktiv sein (MD36901 $MA_SAFE_FUNCTION_ENABLE, Bit 16 = 1).
 
 Korrespondiert mit:
-	MD 36945: $MA_SAFE_VELO_X_FILTER_TIME
-	MD 36946: $MA_SAFE_VELO_X
+	MD36945: $MA_SAFE_VELO_X_FILTER_TIME
+	MD36946: $MA_SAFE_VELO_X
 
 </description>
 </parameter>
@@ -679,9 +690,9 @@ Sonderfälle:
 - Wenn die Zeitstufe in diesem Datum auf Null eingestellt wird, so wird bei STOP B sofort auf STOP A (sofortige Impulslöschung) übergegangen.
 
 Korrespondiert mit:
-	MD 36960: $MA_SAFE_STANDSTILL_VELO_TOL
-	MD 36620: $MA_SERVO_DISABLE_DELAY_TIME
-	MD 36060: $MA_STANDSTILL_VELO_TOL
+	MD36960: $MA_SAFE_STANDSTILL_VELO_TOL
+	MD36620: $MA_SERVO_DISABLE_DELAY_TIME
+	MD36060: $MA_STANDSTILL_VELO_TOL
 </description>
 </parameter>
 <parameter number="36957" type="DOUBLE" dim="0">
@@ -713,7 +724,7 @@ Dieses MD wird auch verwendet, um die Zeitdauer eines Abnahmetests SE (Sichere E
 <description>Geschwindigkeit, unterhalb der eine Achse/Spindel als "stillstehend" betrachtet wird und bei STOP B die Impulse gelöscht werden (durch Übergang zu STOP A).
 
 Korrespondiert mit:
-	MD 36956: $MA_SAFE_PULSE_DISABLE_DELAY
+	MD36956: $MA_SAFE_PULSE_DISABLE_DELAY
 </description>
 </parameter>
 <parameter number="36961" type="BYTE" dim="0">
@@ -743,8 +754,8 @@ Sonderfälle:
 - Beim Wert 5 in diesem MD wird die Stopreaktion für jede SG-Stufe selektiv in MD36963 $MA_SAFE_VELO_STOP_REACTION festgelegt.
 
 Korrespondiert mit:
-	MD 36931: $MA_SAFE_VELO_LIMIT[n]
-	MD 36963: $MA_SAFE_VELO_STOP_REACTION[n]
+	MD36931: $MA_SAFE_VELO_LIMIT[n]
+	MD36963: $MA_SAFE_VELO_STOP_REACTION[n]
 </description>
 </parameter>
 <parameter number="36962" type="BYTE" dim="0">
@@ -757,8 +768,8 @@ Korrespondiert mit:
 4:	Stop E
 
 Korrespondiert mit:
-	MD 36934: $MA_SAFE_POS_LIMIT_PLUS[n]
-	MD 36935: $MA_SAFE_POS_LIMIT_MINUS[n]
+	MD36934: $MA_SAFE_POS_LIMIT_PLUS[n]
+	MD36935: $MA_SAFE_POS_LIMIT_MINUS[n]
 </description>
 </parameter>
 <parameter number="36963" type="BYTE" dim="1">
@@ -787,8 +798,8 @@ Hinweis:
 Dieses MD ist nur dann aktiv, wenn MD36961 $MA_SAFE_VELO_STOP_MODE und Antriebsparameter p9561 den Wert 5 haben.
 
 Korrespondiert mit:
-	MD 10089: $MN_SAFE_PULSE_DIS_TIME_BUSFAIL
-	MD 36961: $MA_SAFE_VELO_STOP_MODE
+	MD10089: $MN_SAFE_PULSE_DIS_TIME_BUSFAIL
+	MD36961: $MA_SAFE_VELO_STOP_MODE
 </description>
 </parameter>
 <parameter number="36964" type="BYTE" dim="0">
@@ -830,7 +841,7 @@ Wird der Bremsentest unter Verwendung des Antriebsparameters p1532 (MD36968 $MA_
 Freigabe der entsprechenden Testfunktion über MD37000 $MA_FIXED_STOP_MODE Bit 1.
 
 Korrespondiert mit:
-	MD 36969: $MA_SAFE_BRAKETEST_TORQUE_NORM
+	MD36969: $MA_SAFE_BRAKETEST_TORQUE_NORM
 </description>
 </parameter>
 <parameter number="36967" type="DOUBLE" dim="0">
@@ -997,13 +1008,13 @@ bis ...
     1            1             1            1    Korrektur 15 ist angewählt
 
 Der Korrekturfaktor selbst (Prozentwert) wird über folgende Maschinendaten festgelegt:
-MD 36932: $MA_SAFE_VELO_OVR_FACTOR[n]
+MD36932: $MA_SAFE_VELO_OVR_FACTOR[n]
 
 Hinweis:
 Die Funktion "Korrektur sichere Geschwindigkeit" wird über MD36901 $MA_SAFE_FUNCTION_ENABLE, Bit 5 freigegeben.
 
 Korrespondiert mit:
-	MD 36932: $MA_SAFE_VELO_OVR_FACTOR[n]
+	MD36932: $MA_SAFE_VELO_OVR_FACTOR[n]
 </description>
 </parameter>
 <parameter number="36980" type="DWORD" dim="0" display="HEX">
@@ -1082,7 +1093,7 @@ Signal  bedeutet
 = 1	Istdrehzahl kleiner oder gleich als Grenzgeschwindigkeit
 
 Korrespondiert mit:
-	MD 36946: $MA_SAFE_VELO_X
+	MD36946: $MA_SAFE_VELO_X
 </description>
 </parameter>
 <parameter number="36987" type="DWORD" dim="0" display="HEX">
@@ -1255,7 +1266,7 @@ bis ...
   1      1       1      1      Nockenbereich 15 ist aktiv
 
 Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
 
 Signal  bedeutet
 = 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 1 zugewiesen wurde
@@ -1266,7 +1277,7 @@ Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigege
 Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
 
 Korrespondiert mit:
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
 
 </description>
 </parameter>
@@ -1286,7 +1297,7 @@ bis ...
   1      1       1      1      Nockenbereich 15 ist aktiv
 
 Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
 
 Signal  bedeutet
 = 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 2 zugewiesen wurde
@@ -1297,7 +1308,7 @@ Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigege
 Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
 
 Korrespondiert mit:
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
 
 </description>
 </parameter>
@@ -1317,7 +1328,7 @@ bis ...
   1      1       1      1      Nockenbereich 15 ist aktiv
 
 Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
 
 Signal  bedeutet
 = 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 3 zugewiesen wurde
@@ -1328,7 +1339,7 @@ Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigege
 Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
 
 Korrespondiert mit:
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
 
 </description>
 </parameter>
@@ -1348,7 +1359,7 @@ bis ...
   1      1       1      1      Nockenbereich 15 ist aktiv
 
 Der Nockenbereich wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
 
 Signal  bedeutet
 = 0...14	Achse steht im Bereich des Nocken, dem die Bereichskennung 0...14 auf Nockenspur 4 zugewiesen wurde
@@ -1359,7 +1370,7 @@ Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigege
 Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, welcher Nockenbereich aktiv ist.
 
 Korrespondiert mit:
-	MD 37900: $MA_SAFE_CAM_TRACK_OUTPUT
+	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
 
 </description>
 </parameter>
@@ -1373,7 +1384,7 @@ Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
 Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 1.
 
 Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
 
 Signal  bedeutet
 = 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
@@ -1398,7 +1409,7 @@ Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
 Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 2.
 
 Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
 
 Signal  bedeutet
 = 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
@@ -1423,7 +1434,7 @@ Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
 Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 3.
 
 Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
 
 Signal  bedeutet
 = 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
@@ -1448,7 +1459,7 @@ Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
 Feldindex n entspricht den parametrierbaren Nockenbereichsnummern auf Nockenspur 4.
 
 Die Nockenbereichsnummer wird über folgendes Maschinendatum festgelegt:
-MD 36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
+MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[k]
 
 Signal  bedeutet
 = 0	Achse steht nicht auf Nocken mit Nockenbereichsnummer n
@@ -1465,21 +1476,21 @@ Ist die Nockenbereichsnummer n auf Nockenspur 4 nicht parametriert, so kann das 
 </parameter>
 <parameter number="37920" type="DOUBLE" dim="0">
 <name>SAFE_STANDSTILL_VELO_LIMIT</name>
-<brief>Umschaltdrehzahl Sicherer Betriebshalt</brief>
-<description>Geschwindigkeit, unterhalb der eine Achse/Spindel als "stillstehend" betrachtet wird und eine Umschaltung auf Sicheren Betriebshalt durchgeführt wird.
+<brief>Umschaltgeschwindigkeit SBH / SG</brief>
+<description>Geschwindigkeit, unterhalb der eine Achse/Spindel als "stillstehend" betrachtet wird. Eine Umschaltung auf Sicheren Betriebshalt bzw. auf eine niedrigere Geschwindigkeitsstufe wird spätestens nach Ablauf der in MD37922 $MA_SAFE_STANDSTILL_DELAY parametrierten Zeit durchgeführt. Diese vorzeitige Umschaltung erfolgt nur, wenn in diesem MD eine Geschwindigkeit &gt; 0.0 parametriert ist.
 
 Korrespondiert mit:
-	MD 37922: $MA_SAFE_STANDSTILL_DELAY
+	MD37922: $MA_SAFE_STANDSTILL_DELAY
 	p9567, p9569
 </description>
 </parameter>
 <parameter number="37922" type="DOUBLE" dim="0">
 <name>SAFE_STANDSTILL_DELAY</name>
-<brief>Verzögerungszeit Umschaltung auf Sicheren Betriebshalt</brief>
-<description>Wird beim Übergang auf SBH Stillstand erkannt (siehe MD37920 $MA_SAFE_STANDSTILL_VELO_LIMIT), so wird spätestens nach dieser Übergangszeit SBH aktiv. Die Übergangszeiten von Stop C, D und E sowie von SG nach SBH werden in diesem Fall abgebrochen, bzw. durch diese Verzögerungszeit abgelöst.
+<brief>Verzögerungszeit Umschaltung auf SBH / SG</brief>
+<description>Wird beim Übergang auf Sicheren Betriebshalt bzw. auf eine niedrigere Geschwindigkeitsstufe Stillstand erkannt (siehe MD37920 $MA_SAFE_STANDSTILL_VELO_LIMIT), so wird spätestens nach dieser Übergangszeit SBH bzw. die angewählte SG-Stufe aktiv. Die Übergangszeiten von Stop C, D und E sowie von SG nach SBH bzw. von einer höheren auf eine niedrigere SG-Stufe werden in diesem Fall abgebrochen, bzw. durch diese Verzögerungszeit abgelöst.
 
 Korrespondiert mit:
-	MD 37920: $MA_SAFE_STANDSTILL_VELO_LIMIT
+	MD37920: $MA_SAFE_STANDSTILL_VELO_LIMIT
 	p9567, p9569
 </description>
 </parameter>

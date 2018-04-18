@@ -3,13 +3,10 @@
 <parameter number="9006" type="DWORD" dim="0" display="DECIMAL">
 <name>DISPLAY_SWITCH_OFF_INTERVAL</name>
 <brief>Time for screen saver</brief>
-<description>This machine data defines the time in minutes after which the screen automatically 
-switches to dark if no key has been pressed on the keyboard in the meantime.
+<description>This machine data specifies the duration in minutes after which the screen automatically switches to dark if no key has been pressed on the keyboard in the meantime.
 The value 0 disables automatic light/dark switching.
 Note:
-The screen is only switched light/dark automatically when IS screen dark = 0.
-Related to:
-IS screen dark (DB19, ... DBX0.1)
+The screen is only switched light/dark automatically if the NC/PLC interface signal &lt;NST_Bildschirm_dunkel/&gt; (screen dark) = 0.
 </description>
 </parameter>
 <parameter number="9009" type="BYTE" dim="0" display="DECIMAL">
@@ -24,9 +21,9 @@ Basic configuration of the Shift behavior of the keyboard
 <parameter number="9032" type="STRING" dim="1" display="ASCII">
 <name>HMI_MONITOR</name>
 <brief>Define PLC data for HMI screen info</brief>
-<description>Pointer, with offset, to a PLC data block. This is required to report 
+<description>Pointer, with offset, to a PLC data block. This is required to report
 HMI monitor information to the PLC, e.g active HMI task.
- Format: PLC-specific format for specifying a data block with byte offset, 
+ Format: PLC-specific format for specifying a data block with byte offset,
 e.g. DB60.DBB10 for data block 60, byte 10.
  The monitor information reported by the HMI has a maximum length of 8 bytes.
 </description>
@@ -48,7 +45,7 @@ If no alarm is present, cycle alarms or program messages are displayed, if requi
 <description>0: The program messages of all channels are displayed in the alarm/message line.
 With multiple NCUs, the alarms and messages of all NCUs are displayed by default.
 The display can be restricted to the current NCU by the setting ServerMode Enabled=false in slaesvcconf.xml.
-1: Only the program messages of the current channel of the current NCU are displayed. 
+1: Only the program messages of the current channel of the current NCU are displayed.
 </description>
 </parameter>
 <parameter number="9100" type="BYTE" dim="0" display="DECIMAL">
@@ -113,6 +110,21 @@ The setting is not active for help screens that are exclusively animated.
 <name>ACCESS_HMI_EXIT</name>
 <brief>Protection level of exit softkey</brief>
 <description>Protection level for the exit softkey (HMI restart) in the operating area menu
+</description>
+</parameter>
+<parameter number="9111" type="BYTE" dim="0" display="DECIMAL">
+<name>HMI_MEM_LIMIT_USER</name>
+<brief>Size of the user storage space in GB</brief>
+<description>Size of the additional storage space for the user on the CF card if the option is set.
+The rest of the available 6 GB are left for manufacturer data.
+</description>
+</parameter>
+<parameter number="9112" type="DWORD" dim="0" display="DECIMAL">
+<name>HMI_SKIN</name>
+<brief>Design of the operator panel (skin)</brief>
+<description>Design of the operator panel. The number of the skin is stated.
+0 = Skin 0 (traditional)
+1 = Skin 1 (new)
 </description>
 </parameter>
 <parameter number="9900" type="BOOLEAN" dim="0" display="DECIMAL">

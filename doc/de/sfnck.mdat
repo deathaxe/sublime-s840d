@@ -32,9 +32,9 @@ Hinweis:
 Mit dem Überwachungstakt wird die Reaktionszeit der Überwachung festgelegt. Bei einem kleinen Überwachungstakt ist die zunehmende CPU-Belastung zu beachten.
 
 Korrespondiert mit:
-	MD 10050: $MN_SYSCLOCK_CYCLE_TIME
-	MD 10091: $MN_INFO_SAFETY_CYCLE_TIME
-	MD 10092: $MN_INFO_CROSSCHECK_CYCLE_TIME
+	MD10050: $MN_SYSCLOCK_CYCLE_TIME
+	MD10091: $MN_INFO_SAFETY_CYCLE_TIME
+	MD10092: $MN_INFO_CROSSCHECK_CYCLE_TIME
 </description>
 </parameter>
 <parameter number="10091" type="DOUBLE" dim="0" readonly="true">
@@ -51,7 +51,7 @@ MD10050 $MN_SYSCLOCK_CYCLE_TIME
 Der neue Wert wird erst nach Power-On wirksam.
 
 Korrespondiert mit:
-	MD 10090: $MN_SAFETY_SYSCLOCK_TIME_RATIO
+	MD10090: $MN_SAFETY_SYSCLOCK_TIME_RATIO
 </description>
 </parameter>
 <parameter number="10092" type="DOUBLE" dim="0" readonly="true">
@@ -68,8 +68,8 @@ MD10050 $MN_SYSCLOCK_CYCLE_TIME
 Der neue Wert wird aber erst nach Power-On wirksam.
 
 Korrespondiert mit:
-	MD 10090: $MN_SAFETY_SYSCLOCK_TIME_RATIO
-	MD 36992: $MA_SAFE_CROSSCHECK_CYCLE
+	MD10090: $MN_SAFETY_SYSCLOCK_TIME_RATIO
+	MD36992: $MA_SAFE_CROSSCHECK_CYCLE
 </description>
 </parameter>
 <parameter number="10093" type="DWORD" dim="0" readonly="true">
@@ -129,18 +129,18 @@ Bit 4 = 1: in Safety-Betriebsart "SINUMERIK Safety Integrated (SPL)" ist eine An
 
 Korrespondiert mit:
 	Bit 1:
-	MD 13302: $MN_PROFISAFE_IN_ENABLE_MASK
-	MD 13303: $MN_PROFISAFE_OUT_ENABLE_MASK
+	MD13302: $MN_PROFISAFE_IN_ENABLE_MASK
+	MD13303: $MN_PROFISAFE_OUT_ENABLE_MASK
 	Bit 2:
-	MD 20108: $MC_PROG_EVENT_MASK, Bit 5
+	MD20108: $MC_PROG_EVENT_MASK, Bit 5
 </description>
 </parameter>
 <parameter number="10096" type="DWORD" dim="0" display="HEX">
 <name>SAFE_DIAGNOSIS_MASK</name>
 <brief>'Safety Integrated' Diagnose-Funktionen</brief>
-<description>Bit 0 = 0: 
+<description>Bit 0 = 0:
 	keine Anzeige von SGE-Unterschieden zwischen NCK- und Antriebs-Überwachungskanal
-Bit 0 = 1: 
+Bit 0 = 1:
 	Voreinstellung: Anzeige von SGE-Unterschieden zwischen NCK- und Antriebs-Überwachungskanal. Aufgedeckt werden Unterschiede zwischen den folgenden SGEs (die genannten Bitnummern beziehen sich auf das achsspezifische Abbild der SGEs, diese entsprechen der Belegung der achsspezifischen VDI-Nahtstelle:
 
 Bit  0: &lt;SBH-SG_Abwahl/&gt; (SBH/SG Abwahl)
@@ -267,7 +267,7 @@ Die in MD13301 $MN_PROFISAFE_OUT_FILTER[0] ausgewählten Ausgangsklemmen der per 
 </parameter>
 <parameter number="10393" type="DWORD" dim="1">
 <name>SAFE_DRIVE_LOGIC_ADDRESS</name>
-<brief>logische Antriebsadressen SI</brief>
+<brief>Logische Antriebsadressen SI</brief>
 <description>Logische E/A-Adressen des SI-Telegramms der Antriebe am PROFIBUS.
 Eine Adresse wird einem Antrieb zugeordnet.
 </description>
@@ -288,21 +288,21 @@ Beispiel:
 Hinweis:
 Der Einfachheit halber werden nur 16 Bits betrachtet.
 
-Parametrierung: 
+Parametrierung:
 	$MN_PROFISAFE_IN_FILTER = 1010100101000100
 	$MN_PROFISAFE_IN_ASSIGN = 011006
 
  n = 16        11         6         1
-     |x|x|x|x|x|1|1|1|0|0|1|x|x|x|x|x|  
+     |x|x|x|x|x|1|1|1|0|0|1|x|x|x|x|x|
 	$A_INSE[n], x = nicht relevant
 
-     |0|0|0|0|0|0|0|0|0|0|1|1|1|0|0|1|  
+     |0|0|0|0|0|0|0|0|0|0|1|1|1|0|0|1|
 	NCK-internes F-Nutzdaten-Abbild
 
-     |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|  
+     |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|
 	$MN_PROFISAFE_IN_FILTER
 
-     |1|0|1|0|1|0|0|0|0|0|0|0|0|1|0|0|  
+     |1|0|1|0|1|0|0|0|0|0|0|0|0|1|0|0|
 	beispielhaft anliegender Wert an F-Nutzdaten-Schnittstelle der PROFIsafe-Baugruppe
 </description>
 </parameter>
@@ -320,21 +320,21 @@ Beispiel:
 Hinweis:
 Der Einfachheit halber werden nur 16 Bits betrachtet.
 
-Parametrierung: 
+Parametrierung:
 	$MN_PROFISAFE_OUT_FILTER = 1010100101000100
 	$MN_PROFISAFE_OUT_ASSIGN = 011006
 
 n = 16        11         6         1
-    |x|x|x|x|x|1|1|1|1|1|1|x|x|x|x|x|  
+    |x|x|x|x|x|1|1|1|1|1|1|x|x|x|x|x|
 	beispielhaft anliegender Wert in den $A_OUTSE-Variablen, x = nicht relevant
 
-    |0|0|0|0|0|0|0|0|0|0|1|1|1|1|1|1|  
+    |0|0|0|0|0|0|0|0|0|0|1|1|1|1|1|1|
 	NCK-internes F-Nutzdaten-Abbild
 
-    |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|  
+    |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|
 	$MN_PROFISAFE_OUT_FILTER
 
-    |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|  
+    |1|0|1|0|1|0|0|1|0|1|0|0|0|1|0|0|
 	F-Nutzdaten der PROFIsafe-Baugruppe
 </description>
 </parameter>
@@ -358,8 +358,8 @@ Der Maschinendatensatz [n] ist aktiv.
 Die PROFIsafe-Verbindung [n] bzw. der Slot [n] ist aktiv.
 
 Korrespondiert mit:
-	MD 10095: $MN_SAFE_MODE_MASK, Bit 1
-	MD 13304: $MN_PROFISAFE_IN_SUBS_ENAB_MASK
+	MD10095: $MN_SAFE_MODE_MASK, Bit 1
+	MD13304: $MN_PROFISAFE_IN_SUBS_ENAB_MASK
 </description>
 </parameter>
 <parameter number="13303" type="DWORD" dim="1" display="HEX">
@@ -381,7 +381,7 @@ Der Maschinendatensatz [n] ist aktiv.
 Die PROFIsafe-Verbindung [n] bzw. der Slot [n] ist aktiv.
 
 Korrespondiert mit:
-	MD 10095: $MN_SAFE_MODE_MASK, Bit 1
+	MD10095: $MN_SAFE_MODE_MASK, Bit 1
 </description>
 </parameter>
 <parameter number="13304" type="DWORD" dim="1" display="HEX">
@@ -398,8 +398,8 @@ Für die in Maschinendatensatz [n] parametrierte Verbindung werden die Ersatzwert
 Die PROFIsafe-Verbindung [n] bzw. der Slot [n] ist passiv.
 
 Korrespondiert mit:
-	MD 10095: $MN_SAFE_MODE_MASK, Bit 1
-	MD 13305: $MN_PROFISAFE_IN_SUBS
+	MD10095: $MN_SAFE_MODE_MASK, Bit 1
+	MD13305: $MN_PROFISAFE_IN_SUBS
 </description>
 </parameter>
 <parameter number="13305" type="DWORD" dim="1" display="HEX">
@@ -410,8 +410,8 @@ Korrespondiert mit:
 Überschneiden sich die über MD10388 $MN_PROFISAFE_IN_ASSIGN[n] parametrierten SPL-Eingänge mit den SPL-Eingängen eines aktiven Slots, werden die Ersatzwerte des passiven Slots von der Steuerung so angepasst, dass es zu keiner Doppelbelegung der SPL-Eingänge kommt. Die Zustände der Signale aus den aktiven Slots haben dabei Vorrang.
 
 Korrespondiert mit:
-	MD 10095: $MN_SAFE_MODE_MASK, Bit 1
-	MD 13304: $MN_PROFISAFE_IN_SUBS_ENAB_MASK
+	MD10095: $MN_SAFE_MODE_MASK, Bit 1
+	MD13304: $MN_PROFISAFE_IN_SUBS_ENAB_MASK
 </description>
 </parameter>
 <parameter number="13307" type="DWORD" dim="0">
@@ -501,13 +501,13 @@ Index 3: PROFIsafe-Parameter aus S7-Projektierung
 <parameter number="13320" type="DWORD" dim="0">
 <name>SAFE_SRDP_IPO_TIME_RATIO</name>
 <brief>Faktor F_DP-Kommunikationstakt</brief>
-<description>Verhältnis zwischen Interpolatortakt und F_DP-Takt, in dem die F_DP-Kommunikation stattfindet. In dem sich ergebenden Zeitraster wird von NCK-Seite der OB40 auf PLC-Seite angestoßen, um die F_DP-Kommunikation zu betreiben. 
+<description>Verhältnis zwischen Interpolatortakt und F_DP-Takt, in dem die F_DP-Kommunikation stattfindet. In dem sich ergebenden Zeitraster wird von NCK-Seite der OB40 auf PLC-Seite angestoßen, um die F_DP-Kommunikation zu betreiben.
 Der sich aus diesem MD und dem eingestellten IPO-Takt ergebende Wert für den Kommunikationszyklus darf nicht größer als 250 ms werden.
 </description>
 </parameter>
 <parameter number="13322" type="DOUBLE" dim="0" readonly="true">
 <name>INFO_SAFE_SRDP_CYCLE_TIME</name>
-<brief>maximaler F_DP-Kommunikationstakt</brief>
+<brief>Maximaler F_DP-Kommunikationstakt</brief>
 <description>Anzeigedatum:
 Zeigt das maximale Zeitraster an, in dem die F_DP-Kommunikation zur Anlagenkopplung stattfindet, die über den OB40 auf der PLC betrieben wird.
 Der Wert ergibt sich aus dem Interpolatortakt und MD13320 $MN_SAFE_SRDP_IPO_TIME_RATIO.
@@ -539,12 +539,12 @@ Wurde ein Name vergeben, wird dieser im Alarmtext anstelle der DP_DP_ID angezeig
 <name>SAFE_SDP_CONNECTION_NR</name>
 <brief>Nummer der F_SENDDP-SPL-Verbindung</brief>
 <description>Über dieses Maschinendatum wird die Nummer der F_SENDDP-SPL-Verbindung eingestellt, die mit diesem Datensatz parametriert wird.
-Die Nummer der F_SENDDP-SPL-Verbindung ist gleichzeitig auch der Index für den Zugriff auf die Systemvariablen der Anwenderschnittstelle dieser F_SENDDP-SPL-Verbindung. 
- Dies gilt für die folgenden Systemvariablen: 
- - $A_FSDP_ERR_REAC 
- - $A_FSDP_ERROR 
- - $A_FSDP_SUBS_ON 
- - $A_FSDP_DIAG 
+Die Nummer der F_SENDDP-SPL-Verbindung ist gleichzeitig auch der Index für den Zugriff auf die Systemvariablen der Anwenderschnittstelle dieser F_SENDDP-SPL-Verbindung.
+ Dies gilt für die folgenden Systemvariablen:
+ - $A_FSDP_ERR_REAC
+ - $A_FSDP_ERROR
+ - $A_FSDP_SUBS_ON
+ - $A_FSDP_DIAG
 
 Beispiel:
 MD13333 $MN_SAFE_SDP_CONNECTION_NR[2] = 3 bedeutet, dass die Steuer- und Statusinformationen der F_SENDDP-SPL-Verbindung, die über Datensatz 2 parametriert wird, in den Systemvariablen mit dem Feldindex 3 zu finden sind.
@@ -552,7 +552,7 @@ MD13333 $MN_SAFE_SDP_CONNECTION_NR[2] = 3 bedeutet, dass die Steuer- und Statusi
 </parameter>
 <parameter number="13334" type="DWORD" dim="1">
 <name>SAFE_SDP_LADDR</name>
-<brief>log. Basisadresse des Ein-/Ausgangsdatenbereichs F_SENDDP</brief>
+<brief>Log. Basisadresse des Ein-/Ausgangsdatenbereichs F_SENDDP</brief>
 <description>Die in SIMATIC STEP 7 parametrierte logische Basisadresse des Ein- und Ausgangsdatenbereichs, über den diese F_SENDDP-Verbindung kommuniziert.
 SIMATIC Baustein-Parameter: LADDR
 </description>
@@ -622,15 +622,15 @@ Wurde ein Name vergeben, wird dieser im Alarmtext anstelle der DP_DP_ID angezeig
 <name>SAFE_RDP_CONNECTION_NR</name>
 <brief>Nummer der F_RECVDP-SPL-Verbindung</brief>
 <description>Über das Maschinendatum wird die Nummer der F_RECVDP-SPL-Verbindung eingestellt, die mit diesem Datensatz parametriert wird.
-Die Nummer der F_RECVDP-SPL-Verbindung ist gleichzeitig auch der Index für den Zugriff auf die Systemvariablen der Anwenderschnittstelle dieser F_RECVDP-SPL-Verbindung. 
- Dies gilt für die folgenden Systemvariablen: 
- - $A_FRDP_SUBS 
- - $A_FRDP_ERR_REAC 
- - $A_FRDP_ERROR 
- - $A_FRDP_SUBS_ON 
- - $A_FRDP_ACK_REQ 
- - $A_FRDP_DIAG 
- - $A_FRDP_SENDMODE 
+Die Nummer der F_RECVDP-SPL-Verbindung ist gleichzeitig auch der Index für den Zugriff auf die Systemvariablen der Anwenderschnittstelle dieser F_RECVDP-SPL-Verbindung.
+ Dies gilt für die folgenden Systemvariablen:
+ - $A_FRDP_SUBS
+ - $A_FRDP_ERR_REAC
+ - $A_FRDP_ERROR
+ - $A_FRDP_SUBS_ON
+ - $A_FRDP_ACK_REQ
+ - $A_FRDP_DIAG
+ - $A_FRDP_SENDMODE
 
 Beispiel:
 MD13343 $MN_SAFE_RDP_CONNECTION_NR[2] = 3 bedeutet, dass die Steuer- und Statusinformationen der F_RECVDP-SPL-Verbindung, die über Datensatz 2 parametriert wird, in den Systemvariablen mit dem Feldindex 3 zu finden sind.
@@ -638,7 +638,7 @@ MD13343 $MN_SAFE_RDP_CONNECTION_NR[2] = 3 bedeutet, dass die Steuer- und Statusi
 </parameter>
 <parameter number="13344" type="DWORD" dim="1">
 <name>SAFE_RDP_LADDR</name>
-<brief>log. Basisadresse des Ein-/Ausgangsdatenbereichs F_RECVDP</brief>
+<brief>Log. Basisadresse des Ein-/Ausgangsdatenbereichs F_RECVDP</brief>
 <description>Die in SIMATIC STEP 7 parametrierte logische Basisadresse des Ein- und Ausgangsdatenbereichs, über den diese F_RECVDP-Verbindung kommuniziert
 SIMATIC Baustein-Parameter: LADDR
 </description>
@@ -697,6 +697,7 @@ Dieser Wert ist gültig, solange kein anderer Wert aus der SPL über die Systemvar
 <description>MD zur Unterscheidung der Safety-Betriebsart:
 0 = Safety-Betriebsart "SINUMERIK Safety Integrated (SPL)"
 1 = Safety-Betriebsart "SINUMERIK Safety Integrated (Drive Based)"
+2 = Safety-Betriebsart "SINUMERIK Safety Integrated plus (F-PLC) (ohne Drive Based)" - nicht unterstützt
 3 = Safety-Betriebsart "SINUMERIK Safety Integrated plus (F-PLC)"
 </description>
 </parameter>

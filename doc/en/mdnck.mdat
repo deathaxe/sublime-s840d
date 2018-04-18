@@ -113,7 +113,7 @@ This MD must still be entered even when only one mode group is present.
 <brief>System clock cycle</brief>
 <description>Basic cycle time of the system software
 
-The cycle time settings of cyclical tasks (position controller/IPO) are multiples of this basic cycle. Apart from special applications in which MD10060 $MN_POSCTRL_SYSCLOCK_TIME_RATIO is set greater than 1, the basic cycle corresponds to the position controller cycle.
+The cycle time settings of cyclical tasks (position controller/IPO) are multiples of this basic cycle.
 
 For PROFIBUS/PROFINET:
 In the case of systems with a PROFIBUS DP connection, this MD corresponds to the PROFIBUS DP cycle time. This time is read from the configuration file (SDB-Type-2000) during startup and written to the MD.
@@ -162,8 +162,7 @@ In the case of systems with a PROFIBUS DP connection, this MD represents the rat
 <name>POSCTRL_CYCLE_TIME</name>
 <brief>Position control cycle</brief>
 <description>Position controller cycle time:
-Display of the position controller cycle time (not modifiable !).
-It is compiled internally from MD10050 $MN_SYSCLOCK_CYCLE_TIME and MD10060 $MN_POSCTRL_SYSCLOCK_TIME_RATIO.
+Display of the position controller cycle time
 </description>
 </parameter>
 <parameter number="10062" type="DOUBLE" dim="0">
@@ -206,6 +205,7 @@ Diagnostic data are initialized with ZERO with each NCK power up
 <description>For SINAMICS-Integrated only:
 Only relevant to operation with SINAMICS-Integrated drives on SOC modules.
 Offset of the output of the setpoints via DMA in relation to the PROFIBUS DP cycle.
+Modification of MD10064 POSCTRL_CYCLE_DESVAL_DELAY requires a warm restart of the NCK and drive.
 Offsets that exceed the set DP cycle are automatically corrected to a substitute value.
 
 MD10062 $MN_POSCTRL_CYCLE_DESVAL_DELAY &gt; 0:	Default setpoint offset
@@ -214,18 +214,17 @@ MD10062 $MN_POSCTRL_CYCLE_DESVAL_DELAY = 0:	Automatic determination of the setpo
 The actually active offset value is displayed in MD10063 $MN_POSCTRL_CYCLE_DIAGNOSIS[4].
 
 Note:
-	MD10064 $MN_POSCTRL_CYCLE_DESVAL_DELAY &gt; 0 can reduce MD10050 $MN_SYSCLOCK_CYCLE_TIME to the automatic correction of this MD, that cannot be undone by a subsequent increase.
+	MD10064 $MN_POSCTRL_CYCLE_DESVAL_DELAY &gt; 0 can reduce MD10050 $MN_SYSCLOCK_CYCLE_TIME to the automatic correction of this MD, which cannot be undone by a subsequent increase.
 
 Recommendation:
-	In this case set the original value or default value once again.
-
+	In this case, set the original value or default value again.
 </description>
 </parameter>
 <parameter number="10070" type="DWORD" dim="0">
 <name>IPO_SYSCLOCK_TIME_RATIO</name>
 <brief>Factor for interpolation cycle</brief>
 <description>The interpolator cycle is stated as a multiple of the time units of the system basic cycle MD10050 $MN_SYSCLOCK_CYCLE_TIME.
-Only integer multiples of the position control cycle can be set (set in MD10060 $MN_POSCTRL_SYSCLOCK_TIME_RATIO). Values that are not an integer multiple of the position control cycle are automatically increased to the next integer multiple of the position control cycle before they become active (on next power up).
+Only integer multiples of the position control cycle can be set. Values that are not an integer multiple of the position control cycle are automatically increased to the next integer multiple of the position control cycle before they become active (on next power up).
 This is accompanied by alarm 4110 "IPO cycle changed to [ ] ms".
 </description>
 </parameter>
@@ -233,8 +232,7 @@ This is accompanied by alarm 4110 "IPO cycle changed to [ ] ms".
 <name>IPO_CYCLE_TIME</name>
 <brief>Interpolator cycle</brief>
 <description>Interpolation time
-Display of the interpolator cycle time (not modifiable !).
-It is compiled internally from MD10050 $MN_SYSCLOCK_CYCLE_TIME and MD10070 $MN_IPO_SYSCLOCK_TIME_RATIO.
+Display of the interpolator cycle time
 </description>
 </parameter>
 <parameter number="10072" type="DOUBLE" dim="0">
@@ -467,11 +465,11 @@ The preprocessing and the communications tasks (drive communication and domain s
 <name>TASK_SLEEP_TIME</name>
 <brief>Average time transfer per cycle</brief>
 <description>Only relevant to simulation systems
-In the simulation environment, a machining run designates the execution of the tasks Server, IPO and PREP, which are not interrupted
-This machine data now specifies the average time which is transferred to the operating system of the simulation host system per machining run. The unit of the machine data is the microsecond.
-As it is not usually possible to transfer times in the microsecond range in the operating system of the simulation host system, the times are calculated over multiple cycles, and then the default time set by the operating system (typically between 10 - 15 milliseconds) is transferred. Multiple cycles are thus executed without delay, and there is a correspondingly longer wait at a later point in time, so that on average, the time set in the MD is transferred. The value 0 deactivates the time transfer.
-E.g.: MD10156 $MN_TASK_SLEEP_TIME is set to the value 50 (microseconds), and the minimum given time specified by the operating system is 10 milliseconds (= 10000 microseconds), then there will be a delay of 10 milliseconds every 200 cycles (10000/50).
-
+The unit of the machine data is the microsecond.
+In the simulation environment, a machining run designates execution of the tasks Server, IPO, and PREP, which are not interrupted
+This machine data now specifies the average time that is allocated to the operating system of the simulation host system per machining run.
+As it is not usually possible to allocate times in the microsecond range in the operating system of the simulation host system, the times are calculated over multiple cycles, and then the default time set by the operating system (typically between 10 - 15 milliseconds) is allocated. A number of cycles are therefore run without delay, and there is a correspondingly longer wait later, so that the time set in the MD is allocated as an overall average. The value 0 deactivates the time allocation.
+E.g.: If MD10156 $MN_TASK_SLEEP_TIME is set to the value 50 (microseconds), and the minimum allocated time defined by the operating system is 10 milliseconds (= 10000 microseconds), there will be a delay of 10 milliseconds every 200 cycles (10000/50).
 </description>
 </parameter>
 <parameter number="10157" type="DWORD" dim="0">
@@ -482,16 +480,20 @@ Value 0: In order to specify the utilization, the following information is saved
           * One block from the preparation is given to the IPO buffer.
           * A function collects multiple blocks in order to process them together (Example: compressor). An exception is block search, in which block collection is ignored.
           * The current percentage IPO buffer fill level is also saved.
-        The saving takes place for a fixed number of preparation cycles, from which the utilization is then calculated at the start of each preparation cycle as follows:
+          * The preparation is occupied with a task that does not process blocks, but still needs further preparation cycles. These include:
+            * Block search
+            * Collision avoidance
+            * Station initialisation during ramp-up
+        A fixed number of preparation cycles are saved, from which the utilization is then calculated at the start of each preparation cycle as follows:
           * If contiguous blocks were processed in the last preparation cycles (blocks given away and/or collected) and if the IPO buffer is insufficiently filled, no computing time is given away.
           * If contiguous blocks were processed in the last preparation cycles and if the IPO buffer is sufficiently filled, computing time is given away in principle.
-          * Whether the IPO buffer is sufficiently or in sufficiently filled is influenced by damping.
+          * Whether the IPO buffer is sufficiently or insufficiently filled is influenced by damping.
           * If non-contiguous blocks were processed in the last preparation cycles, the computing time is also given away.
         Machine data MD10131 $MN_SUPPRESS_SCREEN_REFRESH directly affects the effect of the computing time transfer:
           * 0: Computing time is only transferred if all channels can give away computing time.
           * 1:  Computing time transfer is determined solely by the first channel.
           * 2: Computing time is always given away every second preparation cycle.
-        Computing time is never given away in block search and with active collision avoidance.
+        There is also a permanently set cycle ratio so that in the event of a possible transfer, the preparation is called at least twice before computing is voluntarily given away.
 
 Value 1: The following information is collected for each channel in each cycle of the preparation task:
           * One block from the preparation is given to the IPO buffer.
@@ -499,9 +501,11 @@ Value 1: The following information is collected for each channel in each cycle o
           * The preparation is occupied with a task that does not perform block processing, but still needs further preparation cycles. These include:
             * Block search
             * Collision avoidance
+            * Station initialisation during ramp-up
         The utilization status of the previous cycle is evaluated at the start of the preparation cycle:
           * The following applies to single-channel controls: If at least one of the above events has occurred, the computing time is not given away.
           * With multichannel controls, the computing time is only given away if all the channels can give away computing time.
+        There is also a permanently set cycle ratio so that in the event of a possible transfer, the preparation is called at least twice before computing is voluntarily given away.
 </description>
 </parameter>
 <parameter number="10160" type="DWORD" dim="0">
@@ -526,6 +530,17 @@ Value 1: The following information is collected for each channel in each cycle o
 6th	value: min. number of PDUs that are requested with the data request message (so that data request messages are not displayed again and again)
 7th	value: max. number of PDUs that are requested with the data request message (max. value is 255, as the log cannot handle more than that!)
 8th	value: max. number of PDUs that may be present in total
+</description>
+</parameter>
+<parameter number="10162" type="DOUBLE" dim="1">
+<name>COM_TIMING</name>
+<brief>Response times of the communication.</brief>
+<description>The values specify the maximum delay with which the communication services should process the jobs.
+It is a desired value, the actual resulting value depends on the load on the processor.
+A lower value may accelerate the communication, but at the expense of other functions, such as the search run speed.
+1st value: Variable services
+2nd value: PI services
+3rd value: Domain services
 </description>
 </parameter>
 <parameter number="10170" type="DWORD" dim="0">
@@ -879,7 +894,7 @@ Only available if bit 2 (0x4) is set in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 </parameter>
 <parameter number="10291" type="DWORD" dim="1">
 <name>CCS_TDA_PARAM_UNIT</name>
-<brief>physical units of SIEMENS-OEM tool data</brief>
+<brief>Physical units of SIEMENS-OEM tool data</brief>
 <description>Physical units for application-specific tool-specific data:
 
 0:	No unit
@@ -2654,9 +2669,9 @@ MD26008 $MC_NIBBLE_PUNCH_CODE
 <name>M_NO_FCT_CYCLE</name>
 <brief>M function to be replaced by a subroutine</brief>
 <description>M number with which a subprogram is called.
-The name of the subprogram is stated in MD10716 $MN_M_NO_FCT_CYCLE_NAME[n]. If the M function defined with MD10715 $MN_M_NO_FCT_CYCLE[n] is programmed in a part program block, the subprogram defined in MD10716 $MNM_NO_FCT_CYCLE_NAME[n] is started at the end of the block. If the M function is programmed again in the subprogram, there is no longer substitution by a subprogram call. MD10715 $MN_M_NO_FCT_CYCLE[n] acts both in Siemens mode G290 and in external language mode G291.
+The name of the subprogram is stated in MD10716 $MN_M_NO_FCT_CYCLE_NAME[n]. If the M function defined in MD10715 $MN_M_NO_FCT_CYCLE[n] is programmed in a part program block, the subprogram defined in MD10716 $MN_NO_FCT_CYCLE_NAME[n] will be started at the end of the block. If the M function is programmed again in the subprogram, no further substitution is performed by a subprogram call. Other substitutions configured in MD10715 $MN_M_NO_FCT_CYCLE are not performed in the subprogram either. MD10715 $MN_M_NO_FCT_CYCLE[n] is effective both in Siemens mode G290 and in external language mode G291.
 
-The subprograms configured with MD10716 $MN_M_NO_FCT_CYCLE_NAME[n] and MD10717 $MN_T_NO_FCT_CYCLE_NAME must not be active simultaneously in one block (line of a part program). This means that no more than one M/T function replacement can be active in any one block. Neither an M98 nor a modal subprogram call can be programmed in a block with the M function replacement.
+The subprograms configured with MD10716 $MN_M_NO_FCT_CYCLE_NAME[n] and MD10717 $MN_T_NO_FCT_CYCLE_NAME must not be active simultaneously in one block (line of a part program). This means that no more than one M/T function replacement can be active in any one block. Neither an M98 nor a modal subprogram call may be programmed in a block with the M function replacement.
 Subprogram return and end of part program are also not permitted. Alarm 14016 is output in the event of a conflict.
 
 Restrictions:
@@ -2669,7 +2684,7 @@ The following M functions are checked:
 - M function for spindle/axis mode switchover according to MD20094 $MC_SPIND_RIGID_TAPPING_M_NR (default: M70),
 - M functions for nibbling/punching as configured in MD26008 $MC_NIBBLE_PUNCH_CODE if activated by MD26012 $MC_PUNCHNIB_ACTIVATION.
 - M19, M96-M99 for applied external language (MD18800 $MN_MM_EXTERN_LANGUAGE).
-Exception: The M function for the tool change defined by MD22560 $MC_TOOL_CHANGE_M_CODE.
+Exception: The M functions for the tool change defined by MD22560 $MC_TOOL_CHANGE_M_CODE.
 
 </description>
 </parameter>
@@ -2807,9 +2822,9 @@ Bit3 = 0 means that an axis replacement can be requested by the PLC for each axi
 </parameter>
 <parameter number="10724" type="STRING" dim="1" readonly="true">
 <name>NC_SYS_CODE_CONF_NAME_TAB</name>
-<brief>Liste interner NC-Codes</brief>
-<description>Bezeichner-Liste interner NC-Codes
-reserviert für interne Applikationen
+<brief>List of internal NC codes</brief>
+<description>Identifier list of internal NC codes
+Reserved for internal applications
 </description>
 </parameter>
 <parameter number="10731" type="BOOLEAN" dim="0">
@@ -3095,7 +3110,7 @@ Alarm 14016 is issued in case of a conflict.
 <description>Number of the interrupt input triggering rapid retraction to the position programmed with G10.6 in ISO mode.
 </description>
 </parameter>
-<parameter number="10830" type="STRING" dim="0">
+<parameter number="10830" type="STRING" dim="1">
 <name>EXTERN_PRINT_DEVICE</name>
 <brief>Output device for ISOPRINT</brief>
 <description>Path of output device for ISOPRINT
@@ -3656,9 +3671,9 @@ Bit2 Change to an array element
 0: Complete arrays are output
 1: Only those elements of an array that have changed are output
 
-Bit3 R parameters (only for INI files)
-0: All R parameters are output
-1: Only R parameters not equal to '0' are output
+Bit3 R variables (only for INI files)
+0: All R variables are output
+1: Only R variables not equal to '0' are output
 
 Bit4 Frames (only for INI files)
 0: All frames are output
@@ -3688,9 +3703,9 @@ Bit1		Effectiveness of the differential upload of INI files
 Bit2		Change to an array element
 		0: Complete arrays are output
 		1: Only the changed elements of an array are output
-Bit3		R parameters (only for INI files)
-		0: All R parameters are output
-		1: Only R parameters not equal to '0' are output
+Bit3		R variables (only for INI files)
+		0: All R variables are output
+		1: Only R variables not equal to '0' are output
 Bit4		Frames (only for INI files)
 		0: All frames are output
 		1: Only those frames that are not zero frames are output.
@@ -3753,6 +3768,14 @@ The line check sums and MD numbers are generated, but not channel names as field
 <name>PROFIBUS_SDB_NUMBER</name>
 <brief>SDB number</brief>
 <description>Number of the system data block (SDB) used for configuring the I/Os.
+
+The following assignments of MD11240[0,1,2,3] are prmitted:
+[0, -1, 0, 0] telegram 136 and axis extension NX10.3
+[1, -1, 1, 1] telegram 136 and axis extension NX15.3 (= default)
+[2, -1, 2, 2] telegram 136 and axis extension NX15.3, 1x CU320-2 PN (only PPU 26x.3/28x.3)
+[3, -1, 3, 3] telegram 116 and axis extension NX10.3
+[4, -1, 4, 4] telegram 136 and axis extension NX15.3, 1x CU310-2 PN (only PPU 26x.3/28x.3)
+[5, -1, 5, 5] telegram 136 and axis extension NX15.3, 2x CU310-2 PN (only PPU 26x.3/28x.3)
 </description>
 </parameter>
 <parameter number="11241" type="DWORD" dim="0">
@@ -4353,25 +4376,25 @@ The purpose of this MD is to provide compatibility with system behavior.
 <parameter number="11415" type="DWORD" dim="0" display="HEX">
 <name>SUPPRESS_ALARM_MASK_2</name>
 <brief>Masking of alarm outputs</brief>
-<description>Screen form for suppressing special alarm outputs
+<description>Mask for suppressing special alarm outputs
 
 Bit set:	Corresponding alarm (warning) is NOT triggered.
 
 Bit	Hex. 	Meaning
-	value
+	Value
 ====================================================================================
 0:	0x1	16773 "Channel %1 axis %3 is slave axis. The axis/spindle disables for the master axes differ."
 1:	0x2	2100  "NCK battery warning level reached"
 		2101  "NCK battery alarm"
 		2102  "NCK battery alarm"
-2:	0x4	2120 "NCK fan alarm" (ineffective on modules which do not require a fan by design)
+2:	0x4	2120 "NCK fan alarm" (ineffective on modules that require a fan due to their design)
 3:	0x8	15120 "PowerFail: Show buffer overflow"
 4:	0x10	15187 "Error during execution of PROGEVENT file"
 5:	0x20	15188 "Error during execution of ASUB file"
 6:	0x40	26120 "$AA_ESR_ENABLE = 1 and axis is to become neutral"
 		26121 "Axis is neutral and $AA_ESR_ENABLE =1 is to be set"
 		26123 "$AA_ESR_ENABLE = 1 is to be set, but MD37500 $MA_ESR_REACTION is not set"
-		26124 "$AC_ESR_TRIGGER triggered, but axis is neutral, ESR ignores this axis"
+		26124 "$AC_TRIGGER triggered, but axis is neutral, ESR ignores this axis"
 7:	0x80:	10724 "Software limit violated at start of block"
 		10734 "Operating range limit violated at start of block"
 		10737 "Work (WCS) operating range limit violated at start of block"
@@ -4401,8 +4424,8 @@ Bit	Hex. 	Meaning
              10700 "Channel %1 block %2 NCK protection area %3 in automatic or MDI violated"
              10701 "Channel %1 block %2 channel-specific protection area %3 in automatic or MDI violated"
 21: 0x200000	26295 "Protection area %1 was only roughly approximated."
-
-
+22: 0x400000	 6030 "Information alarm:Channel/axis activation or storage option (MD19240, 19250) requires more memory than is available"
+23: 0x800000  6035 "Information alarm:Less free memory detected during cold start than is defined in MD18050, 18060"
 </description>
 </parameter>
 <parameter number="11416" type="DWORD" dim="0" display="HEX">
@@ -4474,17 +4497,17 @@ Bit 3 = 1:
 Bit 4:	Reserved
 
 Bit 5 = 0:
- 	During block search on a nibbling block, the 1st nibbling stroke is not executed.
+ 	During block search tp a nibbling block, the 1st nibbling stroke is not executed.
 Bit 5 = 1:
-	During block search on a nibbling block, a punching stroke is triggered at block start (1st nibbling stroke).
+	During block search to a nibbling block, a punching stroke is triggered at block start (1st nibbling stroke).
 Bit 6 = 0:
  	With block search, complex path calculations are made.
 Bit 6 = 1:
 	With block search, calculation is made with simple, computing-time-optimized algorithms.
-
-
-
-
+Bit 7 = 0:
+	Any adjustment movements that may be necessary on activation of a tangential axis coupling, during or after an SSL, are performed with the feed conditions active in the activation block (G0 or G1 with feedrate). In the case of G1, the feedrate can additionally be set in SD 42121: $SC_AX_ADJUST_FEED.
+Bit 7 = 1:
+	The adjustment movements necessary on activation of a tangential axis coupling, during or after an SSL, are always performed with rapid traverse feedrate (G0). In this case, the feedrate value in SD 42121: $SC_AX_ADJUST_FEED is ignored.
 </description>
 </parameter>
 <parameter number="11460" type="DWORD" dim="0" display="HEX">
@@ -4608,21 +4631,18 @@ Bits 1.....15
 <parameter number="11600" type="DWORD" dim="0" display="HEX">
 <name>BAG_MASK</name>
 <brief>Defines the mode group behavior</brief>
-<description>This MD describes the effect of the VDI signals on the channels of a mode group (BAG) in respect of ASUBs and interrupt routines.
+<description>This MD describes the effect of the VDI signals on all channels of a mode group (BAG) in respect of ASUBs and interrupt routines.
 Bit no.  Hexadec.   Meaning when bit set
          value
 
-Bit0:    0x0        Normal response to mode group signals in all channels of the mode group (as SW 3)
-                    All channels switch into a program operating mode on interrupt.
+Bit0:    0x0        Normal response to mode group VDI signals (BAG-RESET, BAG-STOP, single block types A and B, mode selection) in all channels of the mode group (as SW 3). In addition, all channels of a mode group are switched to a program operating mode when an interrupt is started.
+                    This means that if an interrupt is started from JOG in a channel of the mode group, this channel automatically changes the mode to AUTO internally, and all other channels of the mode group are also switched to AUTO. Similarly, when the interrupt ends, the mode group automatically switches back to JOG in all channels.
 
-Bit0:    0x1        No response of other mode group VDI signals in the channel in which an
-                    interrupt handling (ASUB) is running. (BAG-RESET, BAG-STOP. individual block types
-                    A and B, mode selection). Furthermore, there is an internal operating mode changeover
-                    only in those channels which have received an interrupt request.
+Bit0:    0x1        If an interrupt is started in a channel of the mode group, this channel no longer responds to mode group VDI signals (BAG-RESET, BAG-STOP, single block types A and B, mode selection), as long as the interrupt remains active. If, for example, BAG-STOP is triggered, all channels of the mode group are stopped, but the interrupt continues to run. A channel STOP remains active as before.
+                    Furthermore, if an interrupt is started from JOG in a channel of the mode group, only this channel automatically changes the mode to AUTO internally, all other channels of the mode group remain in JOG mode. The automatic switch back of the mode at the end of the interrupt only relates correspondingly to the channel in which the interrupt ran.
 
-Bit1:    0x1        There is an internal operating mode changeover
-                    only in those channels which have received an interrupt request.
-                    This is similar to Bit0, however, mode group VDI signals effect the interrupt.
+Bit1:    0x1        If an interrupt is started from JOG in a channel of the mode group, this channel automatically changes the mode to AUTO internally. All other channels of the mode group remain in JOG mode. The automatic switch back of the mode at the end of the interrupt only relates correspondingly to the channel in which the interrupt ran.
+                    The behavior is similar to Bit0, mode group VDI signals (BAG-RESET, BAG-STOP, single block types A and B, mode selection) but affect the interrupt. This means that when Bit0 is set, Bit1 does not have to be set (except for the functionality "JOG in ASUB", see MD11602 $MN_ASUP_START_MASK, Bit3).
 </description>
 </parameter>
 <parameter number="11602" type="DWORD" dim="0" display="HEX">
@@ -4738,12 +4758,13 @@ The prefix (_N_) and the suffix (_SPF) of the program name are added automatical
 </parameter>
 <parameter number="11626" type="BYTE" dim="0">
 <name>CYCLES_ONLY_IN_CYCDIR</name>
-<brief>Search for programs with an interface only in the cycle directories</brief>
-<description>This machine data can be set to limit the search for subprograms which have created an interface description and whose interface description has been generated from one of the cycle directories (CUS, CMA, CST) to these cycle directories.
-Subprograms whose interface has been created by an EXTERNAL declaration are searched for in all program directories as before. The machine data has no effect on these subprograms.
+<brief>Search for subprograms with PROC instruction in the cycle directories only</brief>
+<description>This machine data can be set to limit the search for subprograms that have a PROC instruction and have been stored in the cycle directories (CUS, CMA, CST), to just these directories. The PROC instructions are read in during a warm restart. The function therefore only applies to subprograms that were in the cycle directories at the time of the warm restart.
+Use: this setting prevents unnecessary accesses to the external storage during program execution by the function "Execution from External Storage EES" and therefore speeds up calling SIEMENS cycles, for example.
 
-0:	On a subprogram call, the cycles are searched  in all program directories
-1:	On a subprogram call, the cycles are searched only in the directories CMA, CUS and CST
+0:   On subprogram calls, the NC program is searched for in all program directories in the search path
+1:   On subprogram calls, the NC program is searched for only in the cycle directories CUS, CMA, and CST
+2:   On subprogram calls, the NC program is searched for in the directory defined by the CALLPATH instruction, and then in the cycle directories CUS, CMA and CST
 
 </description>
 </parameter>
@@ -5707,22 +5728,11 @@ is not connected to the real I/Os
 <name>DRIVE_LOGIC_ADDRESS</name>
 <brief>Logical drive addresses</brief>
 <description>For PROFIdrive only:
-Logical I/O addresses of the PROFIdrive drives on the PROFIBUS/PROFINET. An address is assigned to a drive.
-This MD is the link to the description of the PROFIBUS/PROFINET configuration in SDB.
-The MD value is the address index of the logical I/O drive address assigned with HW-Config (SIMATIC Manager S7).
-Example:
-DRIVE_LOGIC_ADDRESS[1] = 272 (The start address 272 is assigned to drive 1.)
+Logical I/O addresses of the PROFIdrive drives on the PROFIBUS/PROFINET that can be assigned to an axis.
+The MD value is the logical I/O address of the drive assigned with HW-Config (SIMATIC Manager S7).
 
-The SDB defines the logical I/O address of the drives on the PROFIBUS/PROFINET. An address is assigned to a drive or to a slave.
-The address index is used for actual-value and setpoint-value assignment
-(MD30220 $MA_ENC_MODULE_NR[n], MD30110 $MA_CTRLOUT_MODULE_NR[n]).
-Note:
-The same drive (I/O address) must be assigned to the MD30220 $MA_ENC_MODULE_NR[0] and MD30110 $MA_CTRLOUT_MODULE_NR[0]
-of a machine axis.
-Each drive or slave must be assigned to a single logical address index.
-The index [n] of the machine data has the following coding: [Drive index]:
-Drive 1 --&gt;n-=0
-Drive 2 --&gt;n-=1,
+The index n from $MN_DRIVE_LOGIC_ADDRESS[n] is used for actual value and setpoint assignment:
+MD30220 $MA_ENC_MODULE_NR=n+1, MD30110 $MA_CTRLOUT_MODULE_NR=n+1.
 </description>
 </parameter>
 <parameter number="13060" type="DWORD" dim="1">
@@ -6115,8 +6125,9 @@ If MD15710 $MN_TCA_CYCLE_NAME contains an empty string, the replacement is deact
 </parameter>
 <parameter number="15800" type="STRING" dim="0">
 <name>R_PARAM_NCK_NAME</name>
-<brief>Bezeichner der globalen NCK R-Parameter</brief>
-<description>Legt den Bezeichner für die globalen NCK R-Parameter fest
+<brief>Identifiers of the global R variables</brief>
+<description>Defines the identifier for the global NCK R-parameters.
+A change of the identifier is only active if, upon Power On, the number of global R variables ( MD18156 $MN_MM_NUM_R_PARAM_NCK  ) is equal to 0.
 </description>
 </parameter>
 <parameter number="16800" type="STRING" dim="0">
@@ -6130,7 +6141,7 @@ If MD15710 $MN_TCA_CYCLE_NAME contains an empty string, the replacement is deact
 <brief>Extensions of binary files</brief>
 <description>Extensions of files which are saved in the binary format in the passive NCKs file system.
 For these files, there are no restrictions regarding the content.
-For ASCII content (e.g. TXT and HTM) any line length is possible; this is not permissible for NC programs (e.g. MPF, SPF and DEF).
+For ASCII content (e.g. HTM) any line length is possible; this is not permissible for NC programs (e.g. MPF, SPF and DEF).
 Each extension must comprise precisely three uppercase letters.
 </description>
 </parameter>
@@ -6156,8 +6167,8 @@ Value 1: input assigned
 </parameter>
 <parameter number="17300" type="DWORD" dim="0">
 <name>CNC_LOCK_WARNING_TIME</name>
-<brief>Vorwarnzeit für das Auslösen der CNC-Sperrfunktion</brief>
-<description>Festlegung der Zeitspanne vor Auslösen der CNC-Sperrfunktion, ab der löschbare Hinweisalarme dieser Funktion ausgegeben werden sollen (Angabe in Tagen).
+<brief>Prewarning time for triggering the CNC lock function</brief>
+<description>Definition of the time period for triggering the CNC lock function from which the clearable information alarms of this function will be output (in days).
 </description>
 </parameter>
 <parameter number="17400" type="STRING" dim="1" display="RESTRICTEDASCII">
@@ -6502,23 +6513,32 @@ This data cannot be written.
 <name>EES_MODE_INFO</name>
 <brief>Mode in which the EES function works.</brief>
 <description>Mode in which the function "Execution from External Storage" works.
-0: The function EES is inactive, i.e. MD18365 $MN_MM_EES_ENABLE or MD10123 $MN_EES_ACTIVE is not set.
-1: Part programs can be executed from an external memory. A global part program memory has not been set up.
-   Nevertheless, with the aid of the programmable search path, a directory on an external memory can be used to store subroutines.
-2: A global part program memory has been set up on an external memory.
-   Within the scope of the search path, the search for programs starts in the directories MPF/SPF/Work in the NCK, and then in the corresponding directories in an external memory.
+Bit0(LSB) = 1
+    Local EES active (LOCAL_DRIVE of the NCU is available EES drive)
+
+Bit1 = 1
+    Global EES is active (all available drives (USB, incl. local EES, if existing)
+
+Bit2 = 1
+    A global part program memory has been set up on an external memory.
+    Within the scope of the search path, the search for programs starts in the directories MPF/SPF/Work (WCS) in the NCK, and then in the corresponding directories in an external memory.
+
+See also:
+  OD19334 $ON_SYSTEM_FUNCTION_MASK Bit 9
+  OD19730 $MC_HMI_FUNCTION_MASK[0] Bit 5
+  MD10123 $MN_EES_LOCAL_ENABLE
 </description>
 </parameter>
 <parameter number="18050" type="DWORD" dim="0" readonly="true">
 <name>INFO_FREE_MEM_DYNAMIC</name>
-<brief>Display data of free dynamic memory</brief>
+<brief>Display data of the free volatile memory</brief>
 <description>The data is used for
 a)	the manufacturer's presetting of the memory size [ bytes ] available to the user for each channel after cold restart.
-b)	Displaying the available dynamic memory [ bytes ]
+b)	displaying the available volatile memory [ bytes ]
 	The data cannot be written.
 
-The contents of the data state how much unbuffered memory is available per channel for increasing the unbuffered user data storage area via MD.
-One should check whether the available memory is sufficient before increasing, for example, the number of LUDs, number of functional parameters, or the size of the IPO buffer.
+The contents of the data state how much volatile memory is available per channel for increasing the volatile user data storage area via MD.
+It is advisable to check whether the available memory is sufficient before increasing, for example, the number of LUDs, number of functional parameters, or the size of the IPO buffer.
 If necessary, proceed step by step:
 - increase by 1, note (old) value
 - NCK startup (= 'warm start' or NCK reset), read off new value
@@ -6536,21 +6556,18 @@ The following also applies to multichannel systems:
 </parameter>
 <parameter number="18060" type="DWORD" dim="0" readonly="true">
 <name>INFO_FREE_MEM_STATIC</name>
-<brief>Display data of free static memory</brief>
-<description>The preassigned value specifies how many bytes, as a minimum, are free for the user when the NCK runs up with a 'cold start'.
+<brief>Display data of the free nonvolatile memory</brief>
+<description>The preassigned value specifies how many bytes, as a minimum, are free for the user when the NCK runs up with a 'cold restart'.
 
-The contents of the data state how much buffered memory is available for the passive file system when it runs up.
-After a non-buffered run up, the maximum memory available in the file system can be read.
-If MDs that influence the requirement for buffered memory are changed, the size of the memory available for the passive file system changes, as the memory size, which is allocated to the passive file system, comprises MD18230 $MN_MM_USER_MEM_BUFFERED minus all of the other buffered user data.
+The contents of the data state how much nonvolatile memory is available during startup for configuration of the active and passive file system and other functions.
+e.g. MD18082 $MN_MM_NUM_TOOL
 e.g. MD18150 $MN_MM_GUD_VALUES_MEM
+e.g. MD18352 $MN_MM_U_FILE_MEM_SIZE
 e.g. MD38000 $MA_MM_ENC_COMP_MAX_POINTS)
-(also refer to the documentation on MD18350 $MN_MM_USER_FILE_MEM_MINIMUM)
 
-At the first NCK power up or cold restart of the control (=deletion of user data) MD18230 $MN_MM_USER_MEM_BUFFERED is set by the NCK software so that at least the default value results for MD18060 $MN_INFO_FREE_MEM_STATIC.
-This means that MD18230 $MN_MM_USER_MEM_BUFFERED is automatically increased if its initial value is too low.
+On the first NCK power-up or cold restart of the control (=deletion of user data) MD18230 $MN_MM_USER_MEM_BUFFERED is set by the NCK software so that at least the default value results for MD18060 $MN_INFO_FREE_MEM_STATIC.
 
-(The size of the passive file system is dimensioned using the MD18350 $MN_MM_USER_FILE_MEM_MINIMUM[0].)
-Machine data for setting the active file system (tools, GUDs, ...) can be increased until this memory has all been allocated.
+Machine data for configuration of functions that require nonvolatile memory (tools, GUDs, compensations, ...) can be increased until this memory has all been allocated.
 </description>
 </parameter>
 <parameter number="18070" type="DWORD" dim="0" readonly="true">
@@ -7258,8 +7275,8 @@ Related to:
 </parameter>
 <parameter number="18156" type="DWORD" dim="0">
 <name>MM_NUM_R_PARAM_NCK</name>
-<brief>Anzahl der global NCK R-Parameter (SRAM)</brief>
-<description>Legt die im NCK die verfügbare Anzahl von global R-Parameters fest.
+<brief>Number of global R variables (SRAM)</brief>
+<description>Defines the number of available global R-parameters in the NCK.
 </description>
 </parameter>
 <parameter number="18160" type="DWORD" dim="0">
@@ -7582,9 +7599,9 @@ Buffered user memory is used. A change in value leads to reconfiguration of the 
 </parameter>
 <parameter number="18210" type="DWORD" dim="0" readonly="true">
 <name>MM_USER_MEM_DYNAMIC</name>
-<brief>User memory in DRAM [KB]</brief>
-<description>The D-RAM in the NC is used jointly by the system and the user.
-MD18210 $MN_MM_USER_MEM_DYNAMIC defines the size of the D-RAM available to the user. The input limits depend on the hardware and software configurations of the CNC.
+<brief>Volatile user memory [kB]</brief>
+<description>The volatile memory in the NCK.
+MD18210 $MN_MM_USER_MEM_DYNAMIC makes the size of the volatile memory available to the user visible.
 There are various types of user data in this memory area, for example.
 - Local user data
 - Ipo block buffers
@@ -7594,32 +7611,18 @@ There are various types of user data in this memory area, for example.
 - Communication with 1-n HMIs; Value of n: See MD10134 $MN_MM_NUM_MMC_UNITS.
 - Reorg Log file (required for internal purposes of the NC program sequence)
 -  ...
-Each additionally active channel occupies a substantial amount of memory here.
-Each activated axis requires part of this memory.
-Exactly how much that is, depends largely on the control model and the software version.
+Each additionally active channel occupies a substantial amount of memory. With channel activation, the value of the MD is automatically increased accordingly and the value of MD18050 $MN_INFO_FREE_MEM_DYNAMIC is retained if possible.
+Each activated axis requires part of this memory. With axis activation, the value of the MD is automatically increased accordingly and the value of MD18050 $MN_INFO_FREE_MEM_DYNAMIC is retained if possible.
 
-The settable values depend on the hardware and software configurations.
+The possible values of MD18050 depend on the hardware and software configurations.
+Information alarms 6030, 6035 can indicate that the desired total memory may not be available on the model or on the hardware. See also MD11415 $MN_SUPPRESS_ALARM_MASK_2, bit 22
 
-The value of NCK is automatically set after unbuffered runup of the NCK or deletion of the memory. The value is then such that the free memory defined in MD18050 $MN_INFO_FREE_MEM_DYNAMIC is available to the user.
+The value of NCK is automatically set after startup of the NCK without memory retention (cold restart). The value is then such that the free memory defined in MD18050 $MN_INFO_FREE_MEM_DYNAMIC is available to the user. To enlarge this user memory further, MD19240 $ON_USER_MEM_DYNAMIC must be increased.
 (See the description of MD18050 $MN_INFO_FREE_MEM_DYNAMIC).
 
-If the value is set too high (in the sense that the memory required is more than that
-available on the memory card), the NCK responds at the next NCK reset/power on by automatically reducing the machine data value to the maximum possible value that the hardware permits.
-(Message) alarm 6030 advises of this process. This corresponds to a correct response of the NCK.
+The data in the volatile memory are lost when the NCK is switched off.
 
-The essential significance of the machine data is not to release the entire memory to the user because the memory is shared between the system and the user. Part of the physically existing memory is reserved for future developments of the NCK.
-
-The maximum amount of memory available on the hardware can be found by selecting a value for the data that is so large that, after the subsequent  restart, message alarm 6030 indicates the maximum available memory. Applications that use the maximum available memory will in all probability have memory problems with a software conversion to a newer NCK version.
-
-Upper and lower limits are not necessary. The software rejects values outside the permissible range and then automatically sets suitable values.
-(See also message alarm 6030.
-
-The data in the dynamic memory are not buffered.
-
-Note:
-	At power on, the system software compares the sum of all requests for dynamic memory with the value in MD18210 $MN_MM_USER_MEM_DYNAMIC. Alarm 6000 "Memory allocated with standard machine data" is output if the memory required exceeds the memory capacity set with the MD. Alarm 6030 "User memory limit has been adapted" is output if the control detects that the memory capacity required by MD18210 $MN_MM_USER_MEM_DYNAMIC is larger than the physical memory when it powers up.
-
-Corresponds with:
+Related to:
 	The available dynamic memory can be taken from MD18050 $MN_INFO_FREE_MEM_DYNAMIC (display data of the free dynamic memory).
 </description>
 </parameter>
@@ -7631,8 +7634,8 @@ Corresponds with:
 </parameter>
 <parameter number="18230" type="DWORD" dim="0" readonly="true">
 <name>MM_USER_MEM_BUFFERED</name>
-<brief>User memory in SRAM</brief>
-<description>Battery-backed user memory (in kbyte).
+<brief>Buffered user memory</brief>
+<description>Nonvolatile user memory (in kB).
 Various types of user data are stored in this memory area.
 For example:
 - NC part programs
@@ -7642,24 +7645,16 @@ For example:
 - Correction tables EEC, CEC, QEC
 - Tool / magazine data
         ...
-This data is retained after control power off.
-(Provided the data backup (battery,...) is in good working order and the Init switch is correctly set on the control).
+This data is retained after control power-off.
+(Provided the data backup (battery,...) is in good working order, i.e. the Init switch is correctly set on the control).
 This means that they are available unchanged after restart.
 
-In the case of control models without a backup battery (e.g. 802S,...) there is, as a rule, an option of , specifically backing up the data by operation, so that they are available again after the next power on process.
+Each additional active channel occupies some nonvolatile memory. With channel activation, the value of the MD is automatically increased accordingly; the value of MD18060 $MN_INFO_FREE_MEM_STATIC is retained if possible.
+To enlarge this user memory further, MD19250 $ON_USER_MEM_BUFFERED must be increased.
+The available values depend on the hardware and software configurations.
+Information alarms 6030, 6035 can indicate that the desired total memory may not be available on the model or on the hardware. See also MD11415 $MN_SUPPRESS_ALARM_MASK_2, bit 22
 
-The settable values depend on the hardware and software configurations.
-The set values are designed for the minimum memory configuration of the particular control model.
-
-256, 512 and 2000, 4000KB of battery-backed memory are available on the hardware.
-Approximately 30KB of this physically present memory is used for internal purposes. This means that approximately 226, 482, 1970, 3970KB of user memory can be set.
-
-After all the NCK functions have taken 'their' memory corresponding to the relevant machine data values, the rest of the memory is added to the part program memory. As a rule, the user will thus have more part program memory available than that guaranteed in the sales brochure. This 'more' may however vary from version to version.
-
-If there are various memory configuration options for a control model then the data may have to be increased correspondingly when using the larger memory variants.
-In this respect, see the meaning of  MD18060 $MN_INFO_FREE_MEM_STATIC
-Special cases:
-	The battery-backed data are lost if this machine data is altered.
+See also the meaning of MD18060 $MN_INFO_FREE_MEM_STATIC
 </description>
 </parameter>
 <parameter number="18231" type="DWORD" dim="1" readonly="true">
@@ -7682,7 +7677,7 @@ Index 2 = Definition for the buffered data of the passive file system (part prog
 <name>MM_ACTFILESYS_LOG_FILE_MEM</name>
 <brief>System: logfile size in SRAM [KB]</brief>
 <description>Buffered log file for buffered data of the active file system ( in kbytes )
-Systems with slow data buffer media store changed buffered data in the internal system SRAM. When the buffer is full, all data of the active file system are made persistent. The buffer backs up the data persistence of the last persistence operation until the next power fail. After a power fail (power failure or power OFF), data that had not yet been made persistent at the time of the power fail can be restored from this buffer.
+Systems with slow data buffering media store changed buffered data in the internal system SRAM. When the buffer is full, all data of the active file system are made persistent. The buffer backs up the data persistence of the last persistence operation until the next power fail. After a power fail (power failure or power OFF), data that had not yet been made persistent at the time of the power fail can be restored from this buffer.
 The log file serves to minimize or totally avoid data loss in the event of power fail.
 1000 entries require approximately 70 kB.
 A value greater than 0 is only practicable if MD18231 $MN_MM_USER_MEM_BUFFERED_TYPEOF[1] = 1.
@@ -7690,11 +7685,11 @@ A value equal to 0 means that the buffered data are not voltage loss safe
 if MD18231 $MN_MM_USER_MEM_BUFFERED_TYPEOF[1] = 1 (typical for SINUMERIK solution line)
 Example:
 With MD18232 $MN_MM_ACTFILESYS_LOG_FILE_MEM[2] = 0, data changes from synchronized actions can be excluded from the power fail data backup.
-An improved time response of the synchronized actions would be advantageous. This should only be set if the buffered data that are changed by the synchronized action are not safety-relevant.
+An improved time response of the synchronized actions would be advantageous. This should only be set if the buffered data that are changed by the synchronized action are not safety-related.
 Index Meaning
 0     Preprocessing buffer
-1     Buffer for data changes within the range of the tool change
-2     Buffer for data changes of the main processing (especially synchronized actions)
+1     Buffer for data changes within the range of the tool change and retract
+2     Buffer for data changes of the main processing (synchronized actions)
 See also MD17610 $MN_DEPTH_OF_LOGFILE_OPT_PF, which can be used to optimize the behavior.
 </description>
 </parameter>
@@ -7896,13 +7891,13 @@ Corresponds with:
 </parameter>
 <parameter number="18320" type="DWORD" dim="0">
 <name>MM_NUM_FILES_IN_FILESYSTEM</name>
-<brief>Number of files in passive file system (SRAM)</brief>
-<description>Defines the number of files available in the part program memory. This machine data is used to reserve memory in SRAM - approximately 320 bytes per file - for managing the file memory. Each file created requires a minimum of one kbyte of memory for the file code. If the one kbyte limit for the file code is exceeded another kbyte is reserved for the file.
+<brief>Number of files in passive file system (persistent)</brief>
+<description>Defines the number of files available in the part program memory. This machine data is used to reserve memory in persistent memory - approximately 320 bytes per file - for managing the file memory. Each file created requires a minimum of one kbyte of memory for the file code. If the one kbyte limit for the file code is exceeded another kbyte is reserved for the file.
 
-Buffered user memory is used.
+Nonvolatile user memory is used.
 
 Special cases:
-	The battery-backed data are lost if this machine data is altered.
+	The backed-up data are lost if this machine data is altered.
 
 Related to:
 	MD18280 $MN_MM_NUM_FILES_PER_DIR
@@ -7912,9 +7907,10 @@ Related to:
 <parameter number="18321" type="DWORD" dim="1">
 <name>MM_NUM_SYSTEM_FILES_IN_FS</name>
 <brief>Number of system files</brief>
-<description>Number of temporary system files in the passive file system (see also MD18355 $MN_MM_T_FILE_MEM_SIZE);
-For example: Compilations of cycles (preprocessing), system traces
-
+<description>Index 0: Number of temporary system files in the passive file system (see also MD18355 $MN_MM_T_FILE_MEM_SIZE);
+         e.g.: system traces
+Index 1: Number of temporary Siemens cycles in the passive file system (see also MD18354 $MN_MM_S_FILE_MEM_SIZE):
+         The data can be written, but will be overwritten during the runup by the value requested by the Siemens cycles.
 </description>
 </parameter>
 <parameter number="18342" type="DWORD" dim="1">
@@ -7984,21 +7980,20 @@ Index 2 = Reserved
 </parameter>
 <parameter number="18354" type="DWORD" dim="1">
 <name>MM_S_FILE_MEM_SIZE</name>
-<brief>Index 0: Memory capacity for NC manufacturer's cycles/files</brief>
+<brief>Size of the Siemens cycle program memory</brief>
 <description>Memory for the control manufacturer's files in the passive file system ( in KB )
 
 The control manufacturer's files are in this memory area of the passive file system, e.g: cycle programs, system files
 
 The settable values depend on the hardware and software configurations.
 The settable size of the memory, apart from the upper limit value
-for index = 0, is limited by the size of the available buffered (SRAM) memory.
-see MD18230 $MN_MM_USER_MEM_BUFFERED.
-For index 1 = Reserved
-For index 2 = Limited by the size of the internally available buffered (SRAM) memory.
+ for index = 0 is limited by the size of the available nonvolatile memory (see siehe MD18230$MN_MM_USER_MEM_BUFFERED),
+for index = 1, is limited by the size of the available non-volatile memory (see MD18210 $MN_MM_USER_MEM_DYNAMIC),
+for Index = 2, is limited by the wize of the internally available buffered (SRAM) memory.
 
-Index 0 = Size of the buffered cycle program memory
-Index 1 = Reserved
-Index 2 = Size of the buffered memory for system files, e.g. storage location of the NRK fault file.
+Index 0 = Size of the nonvolatile cycle program memory
+Index 1 = Size of the volatile Siemens cycle program memory; the data may be written, but will overwritten during the runup by the value requested by the Siemens cycles.
+Index 2 = Size of the non-volatile memory for system files in the SRAM. E.g. storage location of the NRK fault file.
 </description>
 </parameter>
 <parameter number="18355" type="DWORD" dim="0">
@@ -8369,7 +8364,15 @@ The value corresponds to the number for the predefined field $P_NCBFR[].
 <brief>Number of global grinding frames (SRAM)</brief>
 <description>Number of global grinding frames.
 The value corresponds to the number of field elements for the predefined field $P_GFR[].
-If the value of the data is greater than 0, all settable frames are only global. MD28080 $MC_MM_NUM_G_FRAMES is then ignored.
+If the value of the data is greater than 0, all settable frames are only global. MD28079 $MC_MM_NUM_G_FRAMES is then ignored.
+</description>
+</parameter>
+<parameter number="18604" type="DWORD" dim="0">
+<name>MM_GFRAME_FINE_TRANS</name>
+<brief>Fine offset for grinding frames</brief>
+<description>Controls the writing right for the fine offset for all grinding frames. Which means that:
+0:	The fine offset for a grinding frame cannot be written by operator action or programming.
+1:	The fine offset for a grinding frame can be written by operator action or programming (depends on MD18600 $MC_MM_FRAME_FINE_TRANS).
 </description>
 </parameter>
 <parameter number="18660" type="DWORD" dim="1">
@@ -8709,8 +8712,8 @@ Details are to be found in the service documentation.
 <name>MM_NUM_KIN_TRAFOS</name>
 <brief>Maximum number of transformations that can be defined by kinematic chains.</brief>
 <description>This machine data defines the maximum number of transformations in the NCK that can be defined by kinematic chains.
-It also defines the number of data blocks ($NT_...) available for parameterizing these transformations.
-The kinematic transformations conventionally parameterized by machine data can exist independently of this.
+It also defines the number of data blocks ($NT_...[1] to $NT_...[$MN_MM_NUM_KIN_TRAFOS] available for parameterizing these transformations. The data record with index 0 is locked.)
+The kinematic transformations conventionally parameterized in machine data can exist irrespective of this.
 </description>
 </parameter>
 <parameter number="18880" type="DWORD" dim="0">
@@ -8721,9 +8724,9 @@ The kinematic transformations conventionally parameterized by machine data can e
 </parameter>
 <parameter number="18882" type="DWORD" dim="0">
 <name>MM_MAXNUM_KIN_SWITCHES</name>
-<brief>Maximale Anzahl der Schalter in kinematischen Ketten</brief>
-<description>Maximale Anzahl der Schalter in der Kineamtikbeschreibung einer Maschine.
-Dieses Maschinendatum wird nur ausgewertet, wenn das Maschinendatum MD18880 $MN_MM_MAXNUM_KIN_CHAIN_ELEM ungleich Null ist.
+<brief>Maximum number of switches in the kinematic chains</brief>
+<description>Maximum number of switches in the kinematic description of a machine.
+This machine data is only evaluated if the machine data MD18880 $MN_MM_MAXNUM_KIN_CHAIN_ELEM is not equal to zero.
 </description>
 </parameter>
 <parameter number="18890" type="DWORD" dim="0">

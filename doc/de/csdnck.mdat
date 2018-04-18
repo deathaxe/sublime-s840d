@@ -10,13 +10,17 @@ Bit 2:	Werkzeug anlegen ohne Namensvorschlag.
 Bit 3:	Eingabesperre Werkzeugname und Werkzeugtyp bei beladenen Werkzeugen. Bei beladenen Werkzeugen können der Werkzeugname und der Werkzeugtyp nicht mehr geändert werden.
 Bit 4:	Eingabesperre für beladene Werkzeuge, wenn der Kanal nicht im Reset ist.
 Bit 5:	Werkzeugverschleißeingaben additiv verrechnen. Die Eingabe von Verschleißdaten erfolgt additiv zum bereits bestehenden Verschleißwert.
-Bit 6:	Numerische Eingabe des Werkzeugidents. Für die Eingabe des Werkzeugidents werden ausschließlich Zahlen zugelassen. 
+Bit 6:	Numerische Eingabe des Werkzeugidents. Für die Eingabe des Werkzeugidents werden ausschließlich Zahlen zugelassen.
 Bit 7:	Werkzeugüberwachungsparameter ausblenden. Die Werkzeugüberwachungsparameter werden in der Bedienoberfläche ausgeblendet.
 Bit 8:	Durchmesseranzeige für Planachse - Geometrie. Der Geometriewert der Planachse wird als Durchmesserwert angezeigt.
 Bit 9:	Durchmesseranzeige für Planachse - Verschleiß. Der Verschleißwert der Planachse wird als Durchmesserwert angezeigt.
 Bit 10:	Werkzeug beladen/umsetzen auf Zwischenspeicherplätze freischalten. Im Beladendialog kann die Magazinnummer eingegeben werden. Über die Magazinnummer 9998 kann damit auf den Zwischenspeicher zugegriffen werden.
 Bit 11:	Anlegen neuer Werkzeuge auf den Greiferplätzen ist gesperrt.
 Bit 12:	Messwerkzeuge werden bei der Ausführung der Funktion "Alle entladen" nicht entladen.
+Bit 13:	Bei der Eingabe eines Werkzeuggeometriewertes wird der Verschleißwert nicht gelöscht.
+Bit 14:	Werkzeug beladen oder umsetzen. Die Leerplatzsuche erfolgt ohne Vorbelegung mit dem zuletzt verwendeten Magazin.
+0:	Die Leerplatzsuche startet immer bei dem zuletzt verwendeten Magazin.
+1:	Die Leerplatzsuche folgt der eingestellten Suchstrategie.
 </description>
 </parameter>
 <parameter number="54480" type="STRING" dim="1" display="ASCII">
@@ -48,7 +52,7 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <name>MEA_WP_TRIG_MINUS_DIR_AX1</name>
 <brief>Triggerpunkt der 1. Messachse in negativer Richtung</brief>
 <description>Triggerpunkt der 1. Messachse (Abszisse) in negativer Verfahrrichtung  (X bei G17) des Werkstückmesstasters.
-Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
 </description>
 </parameter>
@@ -56,7 +60,7 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <name>MEA_WP_TRIG_PLUS_DIR_AX1</name>
 <brief>Triggerpunkt der 1. Messachse in positiver Richtung</brief>
 <description>Triggerpunkt der 1. Messachse (Abszisse) in positiver Verfahrrichtung  (X bei G17) des Werkstückmesstasters.
-Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
 </description>
 </parameter>
@@ -64,7 +68,7 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <name>MEA_WP_TRIG_MINUS_DIR_AX2</name>
 <brief>Triggerpunkt der 2. Messachse in negativer Richtung</brief>
 <description>Triggerpunkt der 2. Messachse (Ordinate) in negativer Verfahrrichtung  (Y bei G17) des Werkstückmesstasters.
-Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
 
 </description>
@@ -73,7 +77,7 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <name>MEA_WP_TRIG_PLUS_DIR_AX2</name>
 <brief>Triggerpunkt der 2. Messachse in positiver Richtung</brief>
 <description>Triggerpunkt der 2. Messachse (Ordinate) in positiver Verfahrrichtung  (Y bei G17) des Werkstückmesstasters.
-Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
 </description>
 </parameter>
@@ -81,7 +85,7 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <name>MEA_WP_TRIG_MINUS_DIR_AX3</name>
 <brief>Triggerpunkt der 3. Messachse in negativer Richtung</brief>
 <description>Triggerpunkt der 3. Messachse (Applikate) in negativer Verfahrrichtung  (Z bei G17) des Werkstückmesstasters.
-Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
 
 </description>
@@ -90,7 +94,7 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <name>MEA_WP_TRIG_PLUS_DIR_AX3</name>
 <brief>Triggerpunkt der 3. Messachse in positiver Richtung</brief>
 <description>Triggerpunkt der 3. Messachse (Applikate) in positiver Verfahrrichtung  (Z bei G17) des Werkstückmesstasters.
-Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug! 
+Der Ausdruck "positive Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
 </description>
 </parameter>
@@ -139,7 +143,7 @@ Dieser Messvorschub wird für alle nachfolgenden Werkstückmessprogramme in Verbin
 <parameter number="54612" type="BYTE" dim="0">
 <name>MEA_INPUT_PIECE_PROBE_SUB</name>
 <brief>Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv</brief>
-<description>CNC-Messeingang für Werkstück-Messtaster mit Bezug auf die Gegenspindel 
+<description>CNC-Messeingang für Werkstück-Messtaster mit Bezug auf die Gegenspindel
 
  $SNS_MEA_INPUT_PIECE_PROBE_SUB[?????]
 	=0: 	Toolsetter-Nr.= n+1, mit Bezug zur Hauptspindel,
@@ -155,7 +159,7 @@ Dieser Messvorschub wird für alle nachfolgenden Werkstückmessprogramme in Verbin
 
 
 
-Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv 
+Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv
 
 =0: Werkstück-Messtaster nicht an der Gegenspindel vorhanden/aktiv
 =1: Werkstück-Messtaster an der Gegenspindel vorhanden/aktiv
@@ -450,7 +454,7 @@ Dieser Messvorschub wird für alle nachfolgenden Werzeugmessprogramme in Verbindu
 <parameter number="54652" type="BYTE" dim="1">
 <name>MEA_INPUT_TOOL_PROBE_SUB</name>
 <brief>Werkzeug-Messtaster an der Gegenspindel vorhanden/aktiv</brief>
-<description>CNC-Messeingang für Werkzeug-Messtaster mit Bezug auf die Gegenspindel 
+<description>CNC-Messeingang für Werkzeug-Messtaster mit Bezug auf die Gegenspindel
 
  $SNS_MEA_INPUT_TOOL_PROBE_SUB[n]
 	=0: 	Toolsetter-Nr.= n+1, mit Bezug zur Hauptspindel,
@@ -652,7 +656,7 @@ $SNS_MEA_RESULT_OFFSET_TAB_RAD6[4]        ... Korrekturwert für Radius bezüglich
 <brief>Korrekturtabelle (Werkzeuglänge messen mit drehender Spindel)</brief>
 <description>Parameter zur anwenderdefinierten Messergebniskorrektur beim Werkzeugmessen mit drehender Spindel,
 $SNS_MEA_RESULT_OFFSET_TAB_LEN1[0]        ... dieses Element enthält immer den Wert NULL
-$SNS_MEA_RESULT_OFFSET_TAB_LEN1[1]        ... 1.Werkzeugradius 
+$SNS_MEA_RESULT_OFFSET_TAB_LEN1[1]        ... 1.Werkzeugradius
 $SNS_MEA_RESULT_OFFSET_TAB_LEN1[2]        ... 2.Werkzeugradius
 $SNS_MEA_RESULT_OFFSET_TAB_LEN1[3]        ... 3.Werkzeugradius
 $SNS_MEA_RESULT_OFFSET_TAB_LEN1[4]        ... 4.Werkzeugradius
@@ -735,7 +739,7 @@ Bit 1:  Messwiederholung Werkstückmessen mit Korrektur in ein Werkzeug, programm
 	    und M0 unterbrochen (Alarm 62303 oder 62306).
                  Mit "NC-START" kann der Alarm quittiert und die nächste Messwiederholung gestartet werden.
 
-Bit 2:  Werkstückmessen mit Korrektur in ein Werkzeug, programmierter Halt an M0 nach Toleranzüberschreitung 
+Bit 2:  Werkstückmessen mit Korrektur in ein Werkzeug, programmierter Halt an M0 nach Toleranzüberschreitung
             von Untergrenze Werkstück (TLL) oder Obergrenze Werkstück  (TUL) und Alarmausgabe
           	0: Bei Überschreitung einer der Toleranzen wird ein entsprechender Reset-Alarm angezeigt
 	    (Alarm 61304 oder 61305). Es wird keine Werkzeugkorrektur ausgeführt.
@@ -749,7 +753,7 @@ Bit 3:   kalibrierten Radius des Werkstückmesstasters in die Werkzeugdaten übern
 
 Bit 4:  Bei gemischter Technologie Dreh- Fräsen oder Fräs- Drehen kann die Ebene zwischen Kalibrieren und
            Messen unterschiedlich sein.
-          	0: Beim Werkstückmessen sind unterschiedliche Ebenen zwischen Kalibrieren und Messen nicht 
+          	0: Beim Werkstückmessen sind unterschiedliche Ebenen zwischen Kalibrieren und Messen nicht
                   zulässig. Sind die Ebenen unterschiedlich, wird zur Zyklenlaufzeit der Alarm 61341 ausgegeben.
           	1: Beim Werkstückmessen sind unterschiedliche Ebenen zwischen Kalibrieren und Messen zulässig.
 	    Zum Beispiel: Kalibrieren in G17 und Messen unter Drehen in G18.
@@ -758,7 +762,7 @@ Bit 16: Messwiederholung Werkzeugmessen, nach Überschreitung der Toleranzen Mass
             oder Vertrauensbereich  (TSA)
           	0: Bei Überschreitung einer der Toleranzen erfolgt keine Messwiederholung und ein entsprechender Alarm wird angezeigt (Alarm 61303 oder 61306).
           	1: Bei Überschreitung einer der Toleranzen erfolgen bis zu vier Messwiederholungen.
-	    Wird bei allen Wiederholungen eine der Toleranzen überschritten, wird ein entsprechender Alarm angezeigt (Alarm 61303 oder 61306).  	
+	    Wird bei allen Wiederholungen eine der Toleranzen überschritten, wird ein entsprechender Alarm angezeigt (Alarm 61303 oder 61306).
 
 Bit 17: Messwiederholung Werkzeugmessen, programmierter Halt an M0 nach Toleranzüberschreitung Maßdifferenz (TDIF) oder Vertrauensbereich (TSA) und Alarmausgabe
           	0: Bei Überschreitung einer der Toleranzen erfolgt keine Messwiederholung und ein entsprechender Alarm wird angezeigt (Alarm 61303 oder 61306).
@@ -808,6 +812,7 @@ Bit22 Auswahl Kalibrieren auf unbekannten oder auf bekannten Mittelpunkt
 Bit24 Auswahl Kalibrieren mit /ohne Lageabweichung
 Bit25 Auswahl Nullkorrektur bei Messen der Winkligkeit der Spindel freigeben
 Bit26 Auswahl Werkzeugkorrektur nicht freigeben
+Bit27 Auswahl Toleranz der Linearvektoren bei Kinematik komplett vermessen nicht freigeben
 
 
 	wenn Auswahl NV-Korrektur bit 6..10 nicht ausgewählt, dann "nur Messen" anbieten.
@@ -845,7 +850,7 @@ Bit13 Auswahl Erfahrungswerte  (_EVNUM)
 <brief>Einstellung zur Eingabemaske, Messzyklen in Automatik, Werkstück Drehen</brief>
 <description>	54764 MEA_FUNCTION_MASK_TURN
 
-	Einstellung zur Eingabemaske, Messzyklen Drehen in Automatik 
+	Einstellung zur Eingabemaske, Messzyklen Drehen in Automatik
 
 Bit0	Messen Durchmesser innen/außen mit Umschlag
 Bit1	Messen Durchmesser innen/außen "unter Drehmitte fahren?

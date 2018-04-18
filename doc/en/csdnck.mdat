@@ -3,35 +3,39 @@
 <parameter number="54215" type="DWORD" dim="0" display="HEX">
 <name>TM_FUNCTION_MASK_SET</name>
 <brief>Function mask Tool management</brief>
-<description>Function mask, tool management
-Bit 0:	Diameter display for rotary tools. It is not the radius value but the diameter that is displayed for rotary tools.
+<description>Function screen tool management
+Bit 0:	Diameter display for rotating tools. It is not the radius value but the diameter that is displayed for rotating tools.
 Bit 1:	Default direction of rotation for all turning tools is M4. Direction of rotation M4 is assigned by default when turning tools are created.
 Bit 2:	Create tool without suggesting name.
-Bit 3:	Input disable for tool name and tool type in the case of loaded tools. Once tools have been loaded, the tool name and the tool type cannot be changed.
-Bit 4:	Input disable for loaded tools unless the channel is not in reset.
+Bit 3:	Input disable for tool name and tool type in the case of loaded tools. Once tools have been loaded, the tool name and the tool type can no longer be changed.
+Bit 4:	Input disable for loaded tools if the channel is not in reset.
 Bit 5:	Accrue tool wear entries additively. Tool wear data entries are added to the existing wear value.
-Bit 6:	Entry of tool ID in numerical format. The tool ID may only be entered using numbers. 
+Bit 6:	Entry of tool ID in numerical format. The tool ID may only be entered using numbers.
 Bit 7:	Hide tool monitoring parameters. The tool monitoring parameters are hidden on the user interface.
-Bit 8:	Diameter display for transverse axis geometry. The geometry value for the transverse axis is displayed as the diameter value.
-Bit 9:	Diameter display for transverse axis wear. The wear value for the transverse axis is displayed as the diameter value.
-Bit 10:	Enable loading / relocation of tool in buffer locations. The magazine number can be entered in the load dialog box. The magazine number 9998 is then used to access the buffer location.
+Bit 8:	Diameter display for transverse axis geometry. The geometry value for the transverse axis is displayed as a diameter value.
+Bit 9:	Diameter display for transverse axis wear. The wear value for the transverse axis is displayed as a diameter value.
+Bit 10:	Enable loading/relocation of tool in buffer locations. The magazine number can be entered in the load dialog box. The magazine number 9998 is then used to access the buffer location.
 Bit 11:	Creation of new tools in gripper locations is disabled.
-Bit 12:	Measuring tools are not are not unloaded when the "Unload all" function is executed.
+Bit 12:	Measuring tools are not unloaded when the "Unload all" function is executed.
+Bit 13:	The wear value is not deleted on entry of a tool geometry value.
+Bit 14:	Load or relocate tool. The search for an empty location is made without assignment with the last used magazine.
+0:	The search for an empty location always starts with the last used magazine.
+1:	The search for an empty location follows the set search strategy.
 </description>
 </parameter>
 <parameter number="54480" type="STRING" dim="1" display="ASCII">
 <name>AST_MMC_HANDLER_NAME</name>
-<brief>Zuordnung einer HMI-Operate-Instanz für AST-Kommandos</brief>
-<description>Name des zugeordneten HMI-Operate (Masters)
-Es muss ein Operate als Master bestimmt werden.
+<brief>Assignment of an HMI Operate instance for AST commands</brief>
+<description>Name of the assigned HMI Operate (master)
+One Operate must be defined as the master.
 
 </description>
 </parameter>
 <parameter number="54481" type="BOOLEAN" dim="0">
 <name>AST_MMC_DEFAULT_IS_PCU</name>
-<brief>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST</brief>
-<description>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST
-Selektion des Operate- Typs
+<brief>Selection of HMI Operate internally (NCU) / externally (PCU) for AST</brief>
+<description>Selection of HMI Operate internally (NCU) / externally (PCU) for AST
+Selection of the Operate type
 
 
 </description>
@@ -48,7 +52,7 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <name>MEA_WP_TRIG_MINUS_DIR_AX1</name>
 <brief>Trigger point of the 1st measuring axis in negative direction</brief>
 <description>Trigger point of the 1st measuring axis (abscissa) in negative traversing direction (X at G17) of the workpiece probe.
-The term "negative traversing direction" refers to the currently active workpiece zero point reference! 
+The term "negative traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
 </description>
 </parameter>
@@ -56,7 +60,7 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <name>MEA_WP_TRIG_PLUS_DIR_AX1</name>
 <brief>Trigger point of the 1st measuring axis in positive direction</brief>
 <description>Trigger point of the 1st measuring axis (abscissa) in positive traversing direction (X at G17) of the workpiece probe.
-The term "positive traversing direction" refers to the currently active workpiece zero point reference! 
+The term "positive traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
 </description>
 </parameter>
@@ -64,7 +68,7 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <name>MEA_WP_TRIG_MINUS_DIR_AX2</name>
 <brief>Trigger point of the 2nd measuring axis in negative direction</brief>
 <description>Trigger point of the 2nd measuring axis (ordinate) in negative traversing direction (Y at G17) of the workpiece probe.
-The term "negative traversing direction" refers to the currently active workpiece zero point reference! 
+The term "negative traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
 
 </description>
@@ -73,7 +77,7 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <name>MEA_WP_TRIG_PLUS_DIR_AX2</name>
 <brief>Trigger point of the 2nd measuring axis in positive direction</brief>
 <description>Trigger point of the 2nd measuring axis (ordinate) in positive traversing direction (Y at G17) of the workpiece probe.
-The term "positive traversing direction" refers to the currently active workpiece zero point reference! 
+The term "positive traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
 </description>
 </parameter>
@@ -81,7 +85,7 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <name>MEA_WP_TRIG_MINUS_DIR_AX3</name>
 <brief>Trigger point of the 3rd measuring axis in negative direction</brief>
 <description>Trigger point of the 3rd measuring axis (applicate) in negative traversing direction (Z at G17) of the workpiece probe.
-The term "negative traversing direction" refers to the currently active workpiece zero point reference! 
+The term "negative traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
 
 </description>
@@ -90,7 +94,7 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <name>MEA_WP_TRIG_PLUS_DIR_AX3</name>
 <brief>Trigger point of the 3rd measuring axis in positive direction</brief>
 <description>Trigger point of the 3rd measuring axis (applicate) in positive traversing direction (Z at G17) of the workpiece probe.
-The term "positive traversing direction" refers to the currently active workpiece zero point reference! 
+The term "positive traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
 </description>
 </parameter>
@@ -758,7 +762,7 @@ Bit 16: Repeat measurement, tool measurement, after tolerances of the dimension 
             or confidence range (TSA) exceeded
           	0: If one of the tolerances is exceeded, the measurement is not repeated, and an appropriate alarm is displayed (alarm 61303 or 61306).
           	1: When one of the tolerances is exceeded, the measurement is repeated up to four times.
-	If, for all repeat measurements, one of the tolerances is exceeded, then an appropriate alarm is displayed (alarm 61303 or 61306).  	
+	If, for all repeat measurements, one of the tolerances is exceeded, then an appropriate alarm is displayed (alarm 61303 or 61306).
 
 Bit 17: Repeat measurement, tool measurement, programmed stop at M0 after tolerance exceeded, dimension difference (TDIF) or confidence range (TSA) and alarm output
           	0: If one of the tolerances is exceeded, the measurement is not repeated, and an appropriate alarm is displayed (alarm 61303 or 61306).
@@ -804,10 +808,11 @@ Bit18 Select Number of measurements (_NMSP)
 Bit19 Select Offset with averaging (_TMV) 1)
 Bit20 Select Empirical values (_EVNUM)
 Bit21 Select Additive setup offset
-Bit22 Select Calibrate to unknown or known center point
+Bit22 Select Calibrate to unknown or known centre point
 Bit24 Select Calibrate with/without positional deviation
 Bit25 Select Work offset when measuring the angularity of the spindle
 Bit26 Select Do not enable tool offset
+Bit27 Do not enable: Select tolerance of linear vectors with measurement of complete kinematics
 
 
 	If WO compensation bit 6..10 is not selected, then list "Measure only"..

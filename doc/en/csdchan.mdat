@@ -25,6 +25,9 @@
 Bit 0: Tool preselection active
 Bit 1: Calculate thread depth from thread pitch
 Bit 2: Refer to Table for thread diameter and depth
+Bit 3: Delete programs generated from contour cycles (CYCLE63, CYCLE64, CYCLE952)
+          0: Generated programs are not deleted (compatibility as before)
+          1: Generated programs are deleted immediately after execution from the calling cycle
 </description>
 </parameter>
 <parameter number="55214" type="DWORD" dim="0" display="HEX">
@@ -33,6 +36,7 @@ Bit 2: Refer to Table for thread diameter and depth
 <description>Function mask Milling
 Bit 0: Default setting - milling cycles with synchronous operation
 Bit 2: Depth calculation in milling cycles without parameter SC
+Bit 3: First circle trochoidal milling islands
 </description>
 </parameter>
 <parameter number="55216" type="DWORD" dim="0" display="HEX">
@@ -55,16 +59,20 @@ Bit 7:    Boring CYCLE86: Adapt the direction of the retraction path in the plan
 <name>FUNCTION_MASK_TURN_SET</name>
 <brief>Function mask Turning</brief>
 <description>Function mask Turning
-Bit 0: New thread table during thread cutting
+Bit 0: New thread table for thread cutting
 Bit 1:	Reserved (CYCLE93)
 Bit 2:	Reserved (CYCLE93)
 Bit 3: Chamfer in CYCLE930 as chamfer length (CHF)
+Bit 4: Retraction from inside machining (CYCLE951)
+          0: Compatibility as before
+             If the necessity for rounding the corner is detected in the cycle, the tool is retracted from the inside machining, otherwise it is not.
+          1: It is generally retracted from the inside machining in the cutting axis.
 </description>
 </parameter>
 <parameter number="55220" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_MILL_TOL_SET</name>
 <brief>Function mask High Speed Settings CYCLE832</brief>
-<description>Function screen form, High Speed Settings CYCLE832
+<description>Function mask, High Speed Settings CYCLE832
 Bit 0: Display input fields, technology
 =0: Hide input fields, technology
 =1: Display input fields technology
@@ -76,6 +84,15 @@ The factor to calculate the orientation tolerance is saved in the following sett
 $SCS_MILL_TOL_FACTOR_ROUGH for the machining type, roughing G group 59 DYNROUGH
 $SCS_MILL_TOL_FACTOR_SEMIFIN for the machining type, semi-finishing G group 59 DYNSEMIFIN
 $SCS_MILL_TOL_FACTOR_FINISH for the machining type, finishing G group 59 DYNFINISH
+Bit 2: A mould-making function can be selected in the High Speed Settings mask
+=0: The best available mould-making function is used automatically
+- Top Surface option not active -&gt; Advanced Surface
+- Top Surface option active -&gt; Top Surface
+=1: The mould-making function (Advanced Surface or Top Surface) can be selected in the mask (only if the Top Surface option is active)
+Bit 3: High Speed Settings mask without Advanced Surface option
+=0: The High Speed Settings mask is only offered with the Advanced Surface option
+=1: The High Speed Settings mask is also offered without the Advanced Surface option
+
 </description>
 </parameter>
 <parameter number="55221" type="DWORD" dim="0" display="HEX">
@@ -89,23 +106,23 @@ Bit 0: Show "No swivel" input field
 Bit 1: Retract "fixed point 1/2" instead of "Z", "Z XY"
 =0: Selection text retract "Z" or retract "Z XY"
 =1: Selection text retract "fixed point 1" or retract "fixed point 2"
-Bit 2: Select permit "deselection" of the swivel data set
-=0: Select "deselection" of the swivel data set not permitted (hide)
-=1: Select permit "deselection" of the swivel data set
+Bit 2: Permit selection of "deselection" of the swivel data set
+=0: Do not permit selection of "deselection" of the swivel data set (hide)
+=1: Permit selection of "deselection" of the swivel data set
 Bit 3: Show active swivel plane under swivel in JOG
 =0: Hide active swivel plane under swivel in JOG
 =1: Show active swivel plane under swivel in JOG
-Bit 4: Evaluate input values for swiveling in the pole position of the machine kinematics
-Starting from the pole position of the machine kinematics, the input values when swiveling
-are evaluated so that continuous swiveling around the pole axis is possible
+Bit 4: Evaluate input values for swivelling in the pole position of the machine kinematics
+Starting from the pole position of the machine kinematics, the input values when swivelling
+are evaluated so that continuous swivelling around the pole axis is possible
 Pole axis is the 2nd rotary axis of the swivel data set that rotates around the tool axis
 Example: rotary axis C rotates around Z for G17./
 Additional settings of the pole axis:
 - Angular range (traversing range) of &gt;360 degrees in the swivel data set
 - It is not permissible for the rotary axis to be declared as the modulo axis. $MA_ROT_IS_MODULO[AX]=0
 Pole position means that the 1st rotary axis of the swivel data set is located in the initial setting
-=0: Evaluation of the input values when swiveling in the pole position
-=1: No evaluation of the input values when swiveling in the pole position (compatibility)
+=0: Evaluation of the input values when swivelling in the pole position
+=1: No evaluation of the input values when swivelling in the pole position (compatibility)
 Bit 5 Align tool (turning technology) using frame calculation (TCOFRY) or absolute (TCOABS)
 The tool orientation of the orientable tool carrier is calculated
 either using a frame calculation (TCOFRY for G18) or in absolute terms with TCOABS
@@ -113,25 +130,41 @@ For B axis kinematics of a turning machine, the tool spindle in the initial sett
 can be set up parallel to either Z or to X. See also "Swivel data" under Commissioning.
 For new systems being commissioned, it is recommended to set bit 5=1:
 =0: Align tool using frame calculation (TCOFRY for G18)
-=1: Align tool in absolute terms (TCOABS)
+=1: Align tool absolutely (TCOABS)
 Bit 6: Do not offer "direct" swivel mode under swivel in JOG
 =0: "Direct" swivel mode is offered under swivel in JOG
 =1: "Direct" swivel mode is not offered under swivel in JOG
 Bit 7: Swivel plane: Direction selection in initial setting of the kinematics
-Behavior with swivel plane in initial setting of the kinematics if the NCK calculates two solutions:
+Behaviour with swivel plane in initial setting of the kinematics if the NCK calculates two solutions:
 =0 With selected direction + or -, both calculated solutions of the rotary axes are approached.
 =1 With selected direction + or -, only one of the calculated solutions of the rotary axes is approached.
-Compatibility for powerline up to SW 7.x and for Solutionline up to SW 1.x
-Bit 8: Handling of the work offsets of the rotary axes during swivel
-=0 Work offset of the rotary axes of the swivel data set traversed as an offset
-=1 Work offset of the rotary axes of the swivel data set is only taken into account in the Work (compatibility)
+Compatibility for PowerLine up to SW 7.x and for SolutionLine up to SW 1.x
+Bit 8: Work offset of the rotary axes of the swivel data set traversed as an offset
+=0 Work offset of the rotary axes of the swivel data set is only taken into account in the WCS (compatibility)
+=1 Work offset of the rotary axes of the swivel data set traversed as an offset
 Setting is in conjunction with MD21186 $MC_TOCARR_ROT_OFFSET_FROM_FR
-
-
-
-
-
-
+Bit 9: Swivel data set TC permanently assigned to the tool
+=0 Display number of the swivel data set TC
+=1 Do not display number of the swivel data set TC
+Assignment of the swivel data set to the tool is performed in SGUD _TC_GNO
+if technology cylindrical grinding is set in MD52200 $MCS_TECHNOLOGY =3
+Example:
+_TC_GNO can be written by the machine manufacturer in the tool change program L6
+Bit 10: Swivel plane: Show input field "positioning direction"
+=0: The input field "positioning direction" is hidden.
+=1: The input field "positioning direction" is displayed with swivel tables and swivel head / table combinations.
+Bit 11: Positioning of both solutions of an AB kinematics
+=0 Compatibility. Positioning of only one solution with specific swivel angles
+=1 Positioning of both solutions calculated by the NCK
+Bit11 should be set =1 with kinematics, on which - in the basic position - none of the two rotary axes rotates around
+the tool axes (AB kinematics with tool axes in Z direction)
+Bit 12: Swivel plane, tool alignment: reset behaviour taking the rotary axis positions into account
+=0 Compatibility. Reset state refers to the end positions of the rotary axes in the swivel data record
+=1 Reset state refers to the current positions of the rotary axes in the swivel data record
+If bit12=0, a linear axis identifier is written in the parameters $TC_CARR21/22.
+The tool carrier is thus initialised with the end positions of the rotary axes ($TC_CARR13/14) on reset (TCOABS).
+If Bit12=1, the names of the rotary axes of the swivel data record are written in the parameters $TC_CARR21/22.
+The tool carrier is thus initialised with the actual values of the rotary axes on reset (TCOABS).
 
 
 </description>
@@ -222,6 +255,16 @@ Instead, the value of this setting data is always used.
 
 </description>
 </parameter>
+<parameter number="55400" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_ENGRAVE_POINT_RAD</name>
+<brief>Engraving cycle CYCLE60: Circ. path radius for generating the char. "point"</brief>
+<description>Input value equals zero: The character "point" is realised by a simple linear insertion movement of the tool
+(Default setting for conventional engraving tools, compatibility).
+Input value greater than zero: The character "point" is executed as a circle with the radius value from this setting data
+(Setting for certain special tools).
+
+</description>
+</parameter>
 <parameter number="55405" type="STRING" dim="1">
 <name>MILL_TRAORI_USERCYCLE_NAME</name>
 <brief>Program name 5-axis manufact. cycle when calling cycle High Speed Settings</brief>
@@ -230,11 +273,12 @@ Instead, the value of this setting data is always used.
 </parameter>
 <parameter number="55410" type="DWORD" dim="0" display="HEX">
 <name>MILL_SWIVEL_ALARM_MASK</name>
-<brief>Hide and unhide cycle alarms for CYCLE800</brief>
-<description>Display of cycle alarms in CYCLE800
+<brief>Hide and unhide cycle alarms</brief>
+<description>Display of cycle alarms CYCLE800, CYCLE996, CYCLE9960
 Bit 0: Display alarm 62186: Active work offset G54 ff. and base (basic reference) contain rotations
 Bit 1: Display alarm 62187: Active base and basic reference (G500) contain rotations
 Bit 2: Display alarm 61148: Swivel plane not possible with active turning tool
+Bit 3: Display alarm 61426: Kinematics measurement with CYCLE9960/996. Hide 1 = Alarm 61426
 
 </description>
 </parameter>
@@ -647,6 +691,13 @@ Feed for calibrating a workpiece probe in Automatic and JOG
 
 </description>
 </parameter>
+<parameter number="55631" type="DOUBLE" dim="0">
+<name>MEA_FEED_MEASURE_DEG</name>
+<brief>Measurement feedrate of workpiece probe during positioning of a rotary axis</brief>
+<description>Measurement feedrate of workpiece probe during positioning of a rotary axis
+
+</description>
+</parameter>
 <parameter number="55632" type="DOUBLE" dim="0">
 <name>MEA_FEED_RAPID_IN_PERCENT</name>
 <brief>Rapid traverse velocity in per cent, for intermediate positioning</brief>
@@ -676,14 +727,14 @@ Depending on this setting different velocities are used for the approach:
 <name>MEA_FEED_PLANE_VALUE</name>
 <brief>Traverse velocity for intermediate positioning in the plane</brief>
 <description>MEA_FEED_MEASURE
-Measure measuring feed of workpiece in Automatic and JOG
+Traversing velocity for the intermediate positioning in the plane in Automatic and JOG
 
 </description>
 </parameter>
 <parameter number="55636" type="DOUBLE" dim="0">
 <name>MEA_FEED_FEEDAX_VALUE</name>
 <brief>Positioning velocity in the infeed axis</brief>
-<description>Traversing speed for intermediate positioning in the measuring cycle in the infeed axis, with and without collision detection
+<description>Traversing speed for intermediate positioning in the measuring cycle in the infeed axis, with or without collision detection
 
 Note:
 If necessary, adapt the value of the speed in the infeed axis to the probe type used and to the
@@ -703,6 +754,13 @@ Depending on this setting different speeds are used for the approach:
 	With SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=0 and SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=100 the maximum axis velocity is effective.
 </description>
 </parameter>
+<parameter number="55637" type="DOUBLE" dim="0">
+<name>MEA_FEED_POS_DEG</name>
+<brief>Feedrate when positioning a rotary axis between individual measurements</brief>
+<description>Feedrate when positioning a rotary axis between individual measurements
+
+</description>
+</parameter>
 <parameter number="55638" type="DOUBLE" dim="0">
 <name>MEA_FEED_FAST_MEASURE</name>
 <brief>Rapid measuring feed</brief>
@@ -716,9 +774,9 @@ The use of "Rapid measuring feed" depends of SD55740 $SCS_MEA_FUNCTION_MASK Bit4
 </parameter>
 <parameter number="55640" type="DOUBLE" dim="0">
 <name>MEA_FEED_CIRCLE</name>
-<brief>Circular feed for measuring circle segment</brief>
+<brief>Circular feed for measuring circle segment and measuring ball / 3 balls</brief>
 <description>MEA_FEED_CIRCLE
-Circular feed for measuring circle segment
+Circular feed for measuring circle segment and measuring ball / 3 balls
 
 </description>
 </parameter>
@@ -744,30 +802,50 @@ of the calibration ball lies within the tolerance value in $SCS_MEA_KIN_DM_TOL.
 </parameter>
 <parameter number="55645" type="BYTE" dim="1" display="DECIMAL">
 <name>MEA_KIN_MODE</name>
-<brief>Freie Komponente des Linearvektor</brief>
-<description>Freie Komponente des Linearvektor
-  0 = alle Komponenten des Linearvektors berechnen
-  1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
-  2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
-  3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
-  4 = freie Komponente für X aus aktiver Trafo beibehalten
-  5 = freie Komponente für Y aus aktiver Trafo beibehalten
-  6 = freie Komponente für Z aus aktiver Trafo beibehalten
-  10 = Vektorkette schließen
+<brief>Free component of the linear vector</brief>
+<description>Free component of the linear vector
+  0 = calculate all components of the linear vector
+  1 = take over free component for X from $SCS_MEA_KIN_VALUE
+  2 = take over free component for Y from $SCS_MEA_KIN_VALUE
+  3 = take over free component for Z from $SCS_MEA_KIN_VALUE
+  4 = retain free component for X from active transformation
+  5 = retain free component for Y from active transformation
+  6 = retain free component for Z from active transformation
+  10 = close vector chain (only with Toocarrier)
 
 </description>
 </parameter>
 <parameter number="55646" type="DOUBLE" dim="1" display="DECIMAL">
 <name>MEA_KIN_VALUE</name>
-<brief>Kinematik komplett vermessen: Wert des Linearvektors</brief>
-<description>Kinematik komplett vermessen: Wert des Linearvektors
+<brief>Measure kinematics completely: value of the linear vector</brief>
+<description>Perform complete kinematics measurement: Value of the linear vector
+SD55646[0] Value for rotary axis 1
+SD55646[1]  Value for rotary axis 2
+See SD55645
 
 </description>
 </parameter>
 <parameter number="55647" type="DOUBLE" dim="0">
 <name>MEA_KIN_MIN_ANG_TRIANGLE</name>
-<brief>Minimaler Innenwinkel des Messdreiecks</brief>
-<description>Minimaler Innenwinkel des Messdreiecks
+<brief>Minimum interior angle of the measurement triangle</brief>
+<description>Perform complete kinematics measurement
+Minimum interior angle of the measuring triangle
+Value range 2 to 60 degrees
+
+</description>
+</parameter>
+<parameter number="55648" type="DOUBLE" dim="0">
+<name>MEA_KIN_MIN_ANG_POS</name>
+<brief>Minimum angle when positioning a rotary axis</brief>
+<description>Perform complete kinematics measurement
+Minimum angle when positioning a rotary axis between the individual measurements
+
+</description>
+</parameter>
+<parameter number="55649" type="DOUBLE" dim="1" display="DECIMAL">
+<name>MEA_KIN_BALL_VEC</name>
+<brief>Perform komplete kinematics measurement: Vector of the ball mounting</brief>
+<description>Perform komplete kinematics measurement: Vector of the ball mounting
 
 </description>
 </parameter>
@@ -800,7 +878,7 @@ Bit 1:	Workpiece measurement with 3D-probe, coupling of the spindle alignment wi
               The positioning direction of the spindle is defined by SD55740 $SCS_MEA_FUNCTION_MASK bit2.
 
           Caution
-             The coupling or the correction calculation is canceled via the measuring cycle without issuing an alarm message if one of the following conditions applies:
+             The coupling or the correction calculation is cancelled via the measuring cycle without issuing an alarm message if one of the following conditions applies:
 	            - No TRAORI orientation transformation and no tool holder that can be oriented, TCARR (CYCLE800) is active and, in addition to the rotation around Z, additional rotations are active that are not
                identical between measurement and calibration.
              - The working spindle is not position-controlled (SPOS not possible).
@@ -855,15 +933,26 @@ Bit 7: Kinematic measurement, scaling based on the input values of the rotary ax
 	             For measurement, the corresponding orientation transformation remains active.
 	             If no orientation transformation is active, then alarm 61167 is output.
 
-Bit 9: User-specific scaling of rotary axis vectors V1xyz und V2xyz
+Bit 9: Measure kinematics, user-specific scaling of rotary axis vectors V1xyz and V2xyz
 	            0: Scaling of rotary axis vectors V1xyz und V2xyz as unit vector
 	            1: User-specific scaling of rotary axis vectors V1xyz and V2xyz
 	             With user-specific scaling, one vector component is always 1 or -1.
 	             The other two vector components are correspondingly converted by a factor.
 
-Bit 15: Workpiece measurement, calibration radius with starting point at the center of the ring, JOG mode
-          	0: The starting point for calibration, radius need not be precisely located at the center of the calibration ring.
-          	1: The starting point for calibration, radius must be precisely located at the center of the calibration ring.
+Bit 10: Complete kinematic measurement with reference
+	            0: Measuring without reference (compatibility)
+	            1: Measuring with reference with swivel heads
+	             The reference comprises the "Measure reference head" functions
+	             and "Adjust head to reference head". See CYCLE9960
+
+Bit 11: Measure kinematics, number of measuring points for measuring the calibration ball
+	            0: 10 Measuring points for measuring on circular path (compatibility)
+	            1:  8 Measuring points for measuring on circular path
+	             10 measuring points are always approached for paraxial measurement
+
+Bit 15: Workpiece measurement, calibration radius with starting point at the centre of the ring, JOG mode
+          	0: The starting point for calibration, radius need not be precisely located at the centre of the calibration ring.
+          	1: The starting point for calibration, radius must be precisely located at the centre of the calibration ring.
 
 Bit 16: Collision monitoring using tool probe for intermediate positioning.
           	In JOG mode, collision monitoring is always activated.
@@ -950,10 +1039,10 @@ Bit 29: File format selection for standard protocol measurement in JOG
 </parameter>
 <parameter number="55807" type="DOUBLE" dim="0" display="DECIMAL">
 <name>ISO_M_TAPPING_SET_MC</name>
-<brief>Einstell. Gewindebohren G84: Spindelbetrieb/Lageregelung</brief>
-<description>Einstellung bei Gewindebohren ohne Ausgleichsfutter (G84)
-0= bei G84 Spindelbetrieb wieder aktivieren
-1= bei G84 im lagegeregelten Spindelbetrieb bleiben
+<brief>Setting tapping G84: Spindle mode/position control</brief>
+<description>Setting when rigid tapping (G84)
+0= with G84, reactivate spindle mode
+1= with G84, remain in position-controlled spindle mode
 </description>
 </parameter>
 <parameter number="55808" type="DWORD" dim="0">
@@ -1022,17 +1111,17 @@ Circle radius for optimizing friction compensation
 </parameter>
 <parameter number="55834" type="DWORD" dim="0" display="DECIMAL">
 <name>AST_MMC_NEWCONF_HANDSHAKE</name>
-<brief>AST Kommunikation mit CYCLE750 zur Abfrage eines NEWCONF</brief>
-<description>AST Kommunikation mit CYCLE750 zur Abfrage eines NEWCONF
-0: Default-Wert,ohne Wirkung
-1: AST Anforderung eines NEWCONF an CYCLE750
-2: CYCLE750 Quittung über NEWCONF an AST
+<brief>AST communication with CYCLE750 for querying a NEWCONF</brief>
+<description>AST communication with CYCLE750 for querying a NEWCONF
+0: Default value without effect
+1: AST request of a NEWCONF to CYCLE750
+2: CYCLE750 acknowledgment via NEWCONF to AST
 </description>
 </parameter>
 <parameter number="55835" type="STRING" dim="1" display="ASCII">
 <name>AST_MMCA</name>
-<brief>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"</brief>
-<description>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"
+<brief>Substitute for $P_MMCA when calling MMC with acknowledgment mode "N"</brief>
+<description>Substitute for $P_MMCA when calling MMC with acknowledgment mode "N"
 
 </description>
 </parameter>
@@ -1040,6 +1129,17 @@ Circle radius for optimizing friction compensation
 <name>GRIND_FUNCTION_MASK</name>
 <brief>Function mask for grinding cycles</brief>
 <description>Function mask for grinding cycles
+
+</description>
+</parameter>
+<parameter number="55844" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_MEA_KIN_TOL</name>
+<brief>Kinematik measurement: Tolerance of kinematic vectors</brief>
+<description>Measure kinematics: Tolerance of kinematic vectors
+When the kinematics are measured (CYCLE496), it is checked whether the measured vectors
+lie within the tolerance value of setting data $SCS_GRIND_MEA_KIN_TOL.
+
+
 
 </description>
 </parameter>

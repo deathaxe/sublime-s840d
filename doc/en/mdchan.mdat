@@ -134,7 +134,7 @@ Generally, the first two or three channel axes are used as geometry axes (see al
 SINUMERIK 802D has 5 channel axes.
 </description>
 </parameter>
-<parameter number="20082" type="STRING" dim="0">
+<parameter number="20082" type="STRING" dim="1">
 <name>AXCONF_CHANAX_DEFAULT_NAME</name>
 <brief>Default axis name for axis variables in the channel</brief>
 <description>Variables or parameters of type Axis which have not been initialized are initialized with a default axis identifier. The identifier can be configured via the machine data MD20082 $MC_AXCONF_CHANAX_DEFAULT_NAME. If this machine data is set with an empty string, the 1st geometry axis is used, as previously.
@@ -244,10 +244,10 @@ See also:
 <parameter number="20098" type="DWORD" dim="1" display="HEX">
 <name>DISPLAY_AXIS</name>
 <brief>Display axis on HMI</brief>
-<description>Identifies whether the axis is to be displayed by the HMI as a machine, geometry or auxiliary axis.
+<description>Identifies whether the axis will be displayed by the HMI as a machine, geometry, or auxiliary axis.
 This data is only evaluated by the HMI.
 
-Bit 0 to 15: Machine
+Bit 0 to 15: Machine (MCS)
 Bit 0= 1 Machine - display machine axis in the actual value windows
        0 Machine - hide machine axis in the actual value windows
 Bit 1= 1 Machine - display machine axis in the reference point window
@@ -258,9 +258,9 @@ Bit 3= 1 Machine - display machine axis in the handwheel selection window
        0 Machine - hide machine axis in the handwheel selection window
 (Bit 4) Not assigned
 Bit 5= 1 Display spindle in the T,F,S window
-       0 Display spindle in the T,F,S window
+       0 Hide spindle in the T,F,S window
 
-Bit 16 to 31: Work
+Bit 16 to 31: Work (WCS)
 Bit 16= 1 Work - display geometry axis in the actual value windows
         0 Work - hide geometry axis in the actual value windows
 (Bit 17) Not assigned
@@ -435,6 +435,7 @@ Bit 16: Reset response "Master spindle"
 Bit 17: Reset response "Master toolholder"
 Bit 18: Reset response "Reference axis for G96/G961/G962"
 Bit 19: Reserved "Adjustable software limit switch ineffective"
+Bit 20: Reset response "$P_USEKT"
 
 Bits 4 to 11, 16 and 17 are only evaluated for bit 0 = 1.
 
@@ -451,7 +452,7 @@ Bit 0 (LSB) = 0: corresponds to the behavior of SW release 1, is only recommende
 	- No axial revolutional feedrate active
 	- Path revolutional feedrate with master spindle (default))
 
-	Initial setting after reset or end-of-part-program:
+	Initial setting after reset or end of part program:
 	The current settings are retained.
 	When next part program is started, the following initial setting is effective:
 	- G codes according to MD20150 $MC_GCODE_RESET_VALUES
@@ -465,22 +466,22 @@ Bit 0 (LSB) = 0: corresponds to the behavior of SW release 1, is only recommende
 
 Bit 0 (LSB) = 1: Standard value for Powerline and Solutionline systems
 
-	Initial setting after ramp-up:
+	Initial setting after startup:
 	- G codes acc. to MD20150 $MC_GCODE_RESET_VALUES
-	- Tool length offset active acc. to MD20120 $MC_TOOL_RESET_VALUE, MD20130 $MC_CUTTING_EDGE_RESET_VALUE and MD20132 $MC_SUMCORR_RESET_VALUE
+	- Tool length offset active acc. to MD20120 $MC_TOOL_RESET_VALUE, MD20130 $MC_CUTTING_EDGE_RESET_VALUE, and MD20132 $MC_SUMCORR_RESET_VALUE
 	- Transformation active acc. to MD20140 $MC_TRAFO_RESET_VALUE
 	- Geometry axis replacement acc. to MD20118 $MC_GEOAX_CHANGE_RESET
 	- No coupled-motion axis groupings active
 	- No tangential correction active
 
-	Initial setting after reset or end-of-part-program:
-	Depending on MD20152 $MC_GCODE_RESET_MODE the current settings are retained for the G groups or the initial settings stored in MD20150$MC_GCODE_RESET_VALUES are set.
+	Initial setting after reset or end of part program:
+	Depending on MD20152 $MC_GCODE_RESET_MODE, the current settings are retained for the G groups or the initial settings stored in MD20150$MC_GCODE_RESET_VALUES are set.
 
-	Initial setting after reset or end-of-part-program
-	Depending on MD20110 $MC_RESET_MODE_MASK bit 6 to 7 are used for
+	Initial setting after reset or end of part program
+	Depending on MD20110 $MC_RESET_MODE_MASK bits 6 to 7, for
 	 - Tool length offset
 	 - Transformation
-	either the actual settings are saved or the initial settings saved in the MDs are set.
+	either the current settings are retained or the initial settings saved in the MDs are set.
 	Depending on bits 8 and 9, the current settings of coupled-motion axes or tangentially corrected axes are either deactivated or retained.
 	Configured synchronous spindle coupling:
 	The coupling is deselected depending on the setting in MD21330 $MC_COUPLE_RESET_MODE_1.
@@ -498,27 +499,27 @@ Bit 1 = 0:
 	The function uses its own communication to output T, M to the PLC, for example.
 Bit 1 = 1:
 	Suppress aux. funct. output to PLC on tool selection.
-	If tool management or magazine management is active, T, M are AVIGNON generally not output as auxiliary functions.
+	If tool management or magazine management is active, T, M are never output as auxiliary functions.
 
 Bit 2 = 0:
 	If tool or magazine management is not active:
 	- No tool offset active after power-on. Active and programmed T depend on the subsequent settings of the machine data (bits 0, 6).
 	If tool or magazine management is active:
-	-no significance.
+	- No meaning.
 Bit 2 = 1:
 	If tool or magazine management is not active:
-	- If bits 0 and 6 both = 1 (0x41), the tool offset of the last tool active in the NCK is active after the first reset after power on.
+	- If bits 0 and 6 both = 1 (0x41), the tool offset of the last tool active in the NCK is active after the first reset after power-on.
 	(The value of the programmed tool depends on the value of machine data MD20121 $MC_TOOL_PRESEL_RESET_VALUE.)
 	Notice: The NCK does not know the conditions at the machine.
 	For active tool or magazine management:
-	- Not relevant
+	- No meaning
 
 Bit 3 = 0:
 	With and without active tool management:
-	- End of test mode: "Retain current setting for active tool length offset" (bits 0 and 6 set) refers to the program which was active before activation of test mode.
+	- End of test mode: "Retain current setting for active tool length offset" (bits 0 and 6 set) refers to the program that was active before test mode was activated.
 Bit 3 = 1:
 	Relevant only if tool management is not active:
-	- End of test mode: "Retain current setting for active tool length offset" (bits 0 and 6 set) refers to the program which was active at the end of test mode. (If tool management is active, the tool on the spindle is generally the active tool. Exception only for MD20270 $MC_CUTTING_EDGE_DEFAULT = -2.)
+	- End of test mode: "Retain current setting for active tool length offset" (bits 0 and 6 set) refers to the program that was active when test mode ended. (If tool management is active, the tool on the spindle is generally the active tool. Exception only for MD20270 $MC_CUTTING_EDGE_DEFAULT = -2.)
 
 Bit 4 = 0:	Reserved
 Bit 4 = 1:	Reserved
@@ -528,54 +529,54 @@ Bit 5 = 1:	Reserved
 
 Bit 6 = 0:
 	Initial setting for active tool length offset after reset/end of part program acc. to MD20120 $MC_TOOL_RESET_VALUE, MD20130 $MC_CUTTING_EDGE_RESET_VALUE, MD20123$MC_USEKT_RESET_VALUE and MD20132 $MC_SUMCORR_RESET_VALUE.
-	If MD22550 $MC_TOOL_CHANGE_MODE = 1, then in addition, the tool specified by MD20121 $MC_TOOL_PRESEL_RESET_VALUE is preselected.
+	If MD22550 $MC_TOOL_CHANGE_MODE = 1, the tool specified in MD20121 $MC_TOOL_PRESEL_RESET_VALUE is additionally preselected.
 	If tool or magazine management is active, MD20122 $MC_TOOL_RESET_NAME is used instead of data MD20120 $MC_TOOL_RESET_VALUE.
 Bit 6 = 1:
-	The current setting for active tool length offset is retained after reset/end-of-part-program.
+	The current setting for active tool length offset is retained after reset/end of part program.
 	If tool or magazine management is active, the tool currently on the master spindle (generally = master toolholder) is selected.
-	If the tool on the master spindle is disabled, the 'disabled' status is ignored.
+	If the tool on the master spindle is disabled, the "disabled" status is ignored.
 
-	Please note that after a program ends or is canceled, either the most recent value for master spindle or master toolholder programmed in the program or the value specified with MD20090 $MC_SPIND_DEF_MASTER_SPIND or MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER defines the master spindle or master toolholder.
-	(The selection is made using bit 16 or bit 17.)
+	Please note that after a program ends or is terminated, either the most recent value for master spindle or master toolholder programmed in the program, or the value set in MD20090 $MC_SPIND_DEF_MASTER_SPIND or MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER defines the master spindle or master toolholder.
+	(The selection is made in bit 16 or bit 17.)
 
 	For MD20270 $MC_CUTTING_EDGE_DEFAULT = -2, the following applies specifically:
 	If a tool has been loaded into the spindle, but a new offset D has not yet been programmed, the previous tool is still active in the NCK.
-	If machining is canceled in this status (e.g. with the Reset key), the offset is defined with the smallest D number associated with the master spindle tool.
+	If machining is canceled in this status (e.g. with the Reset key), the offset is defined with the smallest D number of the master spindle tool.
 
 Bit 7 = 0:
 	Initial setting for active transformation after reset/end of part program according to MD20140 $MC_TRAFO_RESET_VALUE.
 Bit 7 = 1:
-	The current setting for active transformation is retained after reset/end-of-part-program.
+	The current setting for active transformation is retained after reset/end of part program.
 
 Bit 8 = 0:
-	Coupled-motion axis groups are ungrouped at reset/end-of-part-program.
+	Coupled-motion axis groups are ungrouped at reset/end of part program.
 Bit 8 = 1:
-	Coupled-motion axis groups remain active after reset/end-of-part-program.
+	Coupled-motion axis groups remain active after reset/end of part program.
 
 Bit 9 = 0:
-	Tangential correction is deactivated at reset/end-of-part-program.
+	Tangential correction is deactivated at reset/end of part program.
 Bit 9 = 1:
-	Tangential correction remains active after reset/end-of-part-program.
+	Tangential correction remains active after reset/end of part program.
 
 Bit 10 = 0:
-	Non-configured synchronous spindle coupling is deactivated at reset/end-of-part-program.
+	Non-configured synchronous spindle coupling is deactivated at reset/end of part program.
 Bit 10 = 1:
-	Non-configured synchronous spindle coupling remains active after reset/end-of-part-program.
+	Non-configured synchronous spindle coupling remains active after reset/end of part program.
 
 Bit 11 = 0:
-	At reset/end-of-part-program the setting data SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE is reset to 0 for all non-active axes/spindles, i.e. traversing at revolutional feedrate is canceled and the setting for path and synchronous axes is reset to the master spindle (default).
+	At reset/end of part program, the setting data SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE is reset to 0 for all non-active axes/spindles, i.e. traversing at revolutional feedrate is canceled and the setting for path and synchronous axes is reset to the master spindle (default).
 Bit 11 = 1:
-	The current setting for revolutional feedrate is retained after reset/end-of-part-program. At the start of the part program, the setting data SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE is reset to 0 for all non-active axes/spindles, i.e. traversing at revolutional feedrate is canceled and the setting for path and synchronous axes is reset to the master spindle (default).
+	The current setting for revolutional feedrate is retained after reset/end of part program. At the start of the part program, the setting data SD43300 $SA_ASSIGN_FEED_PER_REV_SOURCE is reset to 0 for all non-active axes/spindles, i.e. traversing at revolutional feedrate is canceled and the setting for path and synchronous axes is reset to the master spindle (default).
 
 Bit 12 = 0:
-	If machine data MD20118 $MC_GEOAX_CHANGE_RESET is set, a changed geometry axis assignment is canceled at reset/end-of-part-program. The initial setting for the geometry axis assignment defined in the machine data becomes active.
+	If machine data MD20118 $MC_GEOAX_CHANGE_RESET is set, a changed geometry axis assignment is canceled at reset/end of part program. The initial setting for the geometry axis assignment defined in the machine data becomes active.
 Bit 12 = 1:
-	A changed geometry axis assignment remains active after reset/end-of-part-program.
+	A changed geometry axis assignment remains active after reset/end of part program.
 
 Bit 13 = 0:
-	Master value couplings are canceled at reset/end-of-part-program.
+	Master value couplings are canceled at reset/end of part program.
 Bit 13 = 1:
-	Master value couplings remain active after reset/end-of-part-program.
+	Master value couplings remain active after reset/end of part program.
 
 Bit 14 = 0:
 	The basic frame is deselected.
@@ -583,9 +584,9 @@ Bit 14 = 1:
 	The current setting of the basic frame is retained.
 
 Bit 15 = 0:
-	Active electronic gearboxes remain active at reset/end-of-part-program.
+	Active electronic gearboxes remain active at reset/end of part program.
 Bit 15 = 1:
-	Active electronic gearboxes are canceled at reset/end-of-part-program.
+	Active electronic gearboxes are canceled at reset/end of part program.
 
 Bit 16 = 0:
 	Initial setting for the master spindle according to MD20090 $MC_SPIND_DEF_MASTER_SPIND.
@@ -596,12 +597,12 @@ Bit 16 = 1:
 Bit 17 = 0:
 	Initial setting for the master toolholder according to MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER.
 Bit 17 = 1:
-	The actual setting of the master toolholder (SETMTH) is kept.
+	The current setting of the master toolholder (SETMTH) is retained.
 	(Bit17 is only relevant for active tool or magazine management MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER &gt; 0. Otherwise, the setting is valid for master spindle bit 16, for active tool or magazine management. This bit also influences the behavior of bit6.)
 
 Bit 18 = 0:
 	Reference axis for G96/G961/G962 acc. to MD 20100: $MC_DIAMETER_AX_DEF.
-	When using SCC for a dedicated spindle reset, bit 18 = 1 is recommended (see also MD 20112 $MC_START_MODE_MASK, bit 18).
+	When using SCC for your own spindle reset, bit 18 = 1 is recommended (see also MD 20112 $MC_START_MODE_MASK, bit 18).
 Bit 18 = 1:
 	Reference axis for G96/G961/G962 is retained.
 
@@ -611,7 +612,13 @@ Bit 19= 0:
 Bit 19 = 1:
 	The two adjustable software limit switches remain active after reset.
 
-Corresponds with:
+Bit 20: Reset response for $P_USEKT (use kind of tool)
+Bit 20= 0:
+     After the RESET, $P_USEKT is set to $MC_USEKT_RESET_VALUE (default=0).
+Bit 20 = 1:
+    On RESET, $P_USEKT is retained.
+
+Related to:
 MD20120 $MC_TOOL_RESET_VALUE
 MD20130 $MC_CUTTING_EDGE_RESET_VALUE
 MD20150 $MC_GCODE_RESET_VALUES
@@ -620,14 +627,7 @@ MD20140 $MC_TRAFO_RESET_VALUE
 MD20112 $MC_START_MODE_MASK
 MD20121 $MC_TOOL_PRESEL_RESET_VALUE
 MD20118 $MC_GEOAX_CHANGE_RESET
-
-
-
-
-
-
-
-
+MD20123 $MC_USEKT_RESET_VALUE
 
 </description>
 </parameter>
@@ -636,7 +636,7 @@ MD20118 $MC_GEOAX_CHANGE_RESET
 <brief>Definition of basic setting of control after part program start</brief>
 <description>Definition of the initial setting of the control at the start of the part program with respect to G codes (in particular, active plane and active settable work offset), tool length offset, transformation, and axis couplings by setting the following bits:
 
-Bit 0: Not assigned: MD20112 $MC_START_MODE_MASK is evaluated every time a part program starts up
+Bit 0: Not assigned: MD20112 $MC_START_MODE_MASK is evaluated every time a part program starts
 Bit 1: Suppress aux. funct. output on tool selection
 Bit 2: Not assigned, but reserved (see corresponding bit in RESET_MODE_MASK)
 Bit 3: Not assigned, but reserved (see corresponding bit in RESET_MODE_MASK)
@@ -645,7 +645,7 @@ Bit 5: Start response for G code "Settable work offset"
 Bit 6: Start response for "Active tool length offset"
 Bit 7: Start response for "Active kinematic transformation"
 Bit 8: Start response for "Coupled-motion axes"
-Bit 9:Start response for "Tangential correction"
+Bit 9: Start response for "Tangential correction"
 Bit 10: Start response for "Synchronous spindle"
 Bit 11: Not assigned, but reserved (see corresponding bit in RESET_MODE_MASK)
 Bit 12: Start response for "Geo axis replacement"
@@ -656,6 +656,7 @@ Bit 16: Start response for "Master spindle"
 Bit 17: Start response for "Master toolholder"
 Bit 18: Start response for "Reference axis for G96/G961/G962"
 Bit 19: Reserved     "Adjustable software limit switch ineffective"
+Bit 20: Reserved     "$P_USEKT reset response"
 
 Meaning of individual bits:
 
@@ -684,51 +685,51 @@ Bit 5 = 1:
 Bit 6 = 0:
 	The current setting for active tool length offset is retained.
 	If tool or magazine management is active, the tool currently on the active toolholder (spindle) is always selected.
-	If the tool that is currently on the spindle is disabled, it is automatically replaced by a suitable spare tool.
-	If such a spare tool does not exist, an alarm is output.
+	If the tool that is currently on the spindle is disabled, it is automatically replaced by a suitable replacement tool.
+	If such a replacement tool does not exist, an alarm is output.
 Bit 6 = 1:
 	Initial setting for active tool length offset according to MD20120 $MC_TOOL_RESET_VALUE, MD20130 $MC_CUTTING_EDGE_RESET_VALUE, MD20123 $MC_USEKT_RESET_VALUE, and MD20132 $MC_SUMCORR_RESET_VALUE.
-	If MD22550 $MC_TOOL_CHANGE_MODE == 1, the tool selected via MD20121 $MC_TOOL_PRESEL_RESET_VALUE is preselected in addition.
+	If MD22550 $MC_TOOL_CHANGE_MODE = 1, the tool selected via MD20121 $MC_TOOL_PRESEL_RESET_VALUE is preselected in addition.
 	If tool or magazine management is active, MD20120 $MC_TOOL_RESET_NAME is used instead of MD20122 $MC_TOOL_RESET_VALUE.
 
 Bit 7 = 0:
 	The current setting for active transformation is retained.
 Bit 7 = 1:
-	Initial setting for active transformation after reset/end-of-part-program according to MD20140 $MC_TRAFO_RESET_VALUE
+	Initial setting for active transformation after reset/end of part program according to MD20140 $MC_TRAFO_RESET_VALUE
 
 Bit 8 = 0:
 	Coupled-motion axis groupings remain active.
 Bit 8 = 1:
-	Coupled-motion axis groupings are ungrouped.
+	Coupled-motion axis groupings are deactivated.
 
 Bit 9 = 0:
 	Tangential correction remains active.
 Bit 9 = 1:
-	Tangential correction is switched off.
+	Tangential correction is deactivated.
 
 Bit 10 = 0:
 	Non-configured synchronous spindle coupling remains active.
 Bit 10 = 1:
-	Non-configured synchronous spindle coupling is switched off.
+	Non-configured synchronous spindle coupling is deactivated.
 
 Bit 11 :   Reserved (revolutional feedrate)
 
 Bit 12 = 0:
 	A changed geometry axis assignment remains active when the part program starts up.
 Bit 12 = 1:
-	If machine data MD20118 $MC_GEOAX_CHANGE_RESET is set, a changed geometry axis assignment is deleted when the part program starts up.
+	If machine data MD20118 $MC_GEOAX_CHANGE_RESET is set, a changed geometry axis assignment is deleted when the part program starts.
 
 Bit 13 = 0:
 	Master value couplings remain active.
 Bit 13 = 1:
-	Master value couplings are canceled.
+	Master value couplings are deactivated.
 
 Bit 14 :   Reserved (basic frame)
 
 Bit 15 = 0:
 	Active electronic gearboxes remain active.
 Bit 15 = 1:
-	Active electronic gearboxes are canceled.
+	Active electronic gearboxes are deactivated.
 
 Bit 16 = 0:
 	The current setting of the master spindle (SETMS) is retained.
@@ -738,7 +739,7 @@ Bit 16 = 1:
 Bit 17 = 0:
 	The current setting of the master toolholder (SETMTH) is retained (relevant only if tool or magazine management is active)
 Bit 17 = 1:
-	Only if MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER&gt; 0: Inital setting for the master toolholder according to  MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER.
+	Only if MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER&gt; 0: Inital setting for the master toolholder according to MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER.
 	Otherwise, the setting for the master spindle applies.
 
 Bit 18 = 0:
@@ -747,7 +748,7 @@ Bit 18 = 0:
 Bit 18 = 1:
 	Reference axis for G96/G961/G962 is retained.
 
-Corresponds with:
+Related to:
 MD20120 $MC_TOOL_RESET_VALUE
 MD20130 $MC_CUTTING_EDGE_RESET_VALUE
 MD20150 $MC_GCODE_RESET_VALUES
@@ -756,7 +757,6 @@ MD20140 $MC_TRAFO_RESET_VALUE
 MD20110 $MC_RESET_MODE_MASK
 MD20121 $MC_TOOL_PRESEL_RESET_VALUE
 MD20118 $MC_GEOAX_CHANGE_RESET
-
 
 </description>
 </parameter>
@@ -779,50 +779,92 @@ Bit 1 (LSB) = 1:
 <parameter number="20115" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_REFP_LOCK_ASUP</name>
 <brief>Process interrupt program despite non-referenced axes</brief>
-<description>Despite non-referenced axes, an assigned user ASUB is processed for the interrupt whose bit is set.
-Bit 0 is assigned to interrupt 1.
-Bit 1 is assigned to interrupt channel 2, etc.
+<description>Despite non-referenced axes, the assigned ASUB with the set bit is processed for the interrupt.
 
-Corresponds to:
-	MD11602 $MN_ASUP_START_MASK
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+Bit 0 = 1: Enable interrupt 1 (user interrupt)
+Bit 1 = 1: Enable interrupt 2 (user interrupt)
+...
+Bit  7 = 1: Enable interrupt 8 (user interrupt)
 
-The machine data MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK and MD20115 $MC_IGNORE_REFP_LOCK_ASUP replace bit 1 from MD11602 $MN_ASUP_START_MASK.
-If MD20700 $MC_REFP_NC_START_LOCK is equal to 0, the setting in MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK will be ignored.
+Bit  8 = 1: Enable interrupt 9 (system interrupt, reserved)
+Bit  9 = 1: Enable interrupt 10 (system interrupt, reserved)
+Bit 10 = 1: Enable interrupt 11 (system interrupt, reserved)
+...
+Bit 31 = 1: Enable interrupt 32 (system interrupt, reserved)
+
+Notice
+System interrupts can start system ASUBs with traversing motions
+
+Notes
+1. Replace following machine data MD11602 $MN_ASUP_START_MASK, bit1.
+ - MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK
+ - MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+
+2. If MD20700 $MC_REFP_NC_START_LOCK == 0, the setting in MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK will be ignored, and non-referenced axes will be ignored.
+
+Related to:
+MD11602 $MN_ASUP_START_MASK
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20116" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_INHIBIT_ASUP</name>
 <brief>Execute interrupt program despite read-in disable</brief>
-<description>In spite of the set read-in disable, an assigned user ASUB is completely executed for the interrupt channel with the set bit.
-Bit 0 is assigned to interrupt channel 1.
-Bit 1 is assigned to interrupt channel 2, etc.
+<description>The assigned ASUB with the set bit is executed in spite of read-in disable being set.
+
+Bit 0 = 1: Enable interrupt 1 (user interrupt)
+Bit 1 = 1: Enable interrupt 2 (user interrupt)
+...
+Bit  7 = 1: Enable interrupt 8 (user interrupt)
+
+Bit  8 = 1: Enable interrupt 9 (system interrupt, reserved)
+Bit  9 = 1: Enable interrupt 10 (system interrupt, reserved)
+Bit 10 = 1: Enable interrupt 11 (system interrupt, reserved)
+..
+Bit 31 = 1: Enable interrupt 32 (system interrupt, reserved)
+
+NOTICE:
+System ASUBs started by system interrupts may contain traversing motions.
 
 Related to:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20117" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_SINGLEBLOCK_ASUP</name>
 <brief>Execute interrupt program completely despite single block</brief>
-<description>In spite of the set single-block processing mode, an assigned user ASUB is completely executed for the relevant channel with the set bit.
-Bit 0 is assigned to interrupt channel 1.
-Bit 1 is assigned to interrupt channel 2, etc.
-The MD is only active with single block type 1.
+<description>In spite of the set single-block processing mode, the assigned ASUB with the set bit is executed for the interrupt.
+
+Bit  0 = 1: Enable interrupt 1 (user interrupt)
+Bit  1 = 1: Enable interrupt 2 (user interrupt)
+...
+Bit  7 = 1: Enable interrupt 8 (user interrupt)
+
+Bit  8 = 1: Enable interrupt 9 (system interrupt, reserved)
+Bit  9 = 1: Enable interrupt 10 (system interrupt, reserved)
+Bit 10 = 1: Enable interrupt 11 (system interrupt, reserved)
+...
+Bit 31 = 1: Enable interrupt 32 (system interrupt, reserved)
+
+NOTICE:
+System-ASUBs started by system interrupts may contain traversing motions.
+
+Note:
+The machine data is only active with single block SBL1.
 
 Related to:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20118" type="BOOLEAN" dim="0">
@@ -1154,7 +1196,7 @@ The following applies for Sinumerik 828D:
 MD	Index	Value
 		Turning	Milling CGrinding SGrinding
 	[5]	0	1        -         -
-	[7]	1	1        1         1
+	[7]	-	-        1         1
 	[12]	0	0        0         0
 	[15]	0	-        0         -
 For Sinumerik 808D, the following applies:
@@ -1169,15 +1211,24 @@ MD	IndexValue	t
 <description>This MD is only evaluated if bit 0 is set in MD20110 $MC_RESET_MODE_MASK.
 For each entry in MD20150 $MC_GCODE_RESET_VALUES (that is for each G group), this MD is used to determine whether, on reset/part program end, the setting in MD20150 $MC_GCODE_RESET_VALUES is used again (MD = 0) or the current setting is retained (MD = 1).
 
-Example:
+Example 1:
 Here, the basic setting for the 6th G group (current plane) is read from MD20150 $MC_GCODE_RESET_VALUES at each reset / part program end:
 MD20150 $MC_GCODE_RESET_VALUES[5]=1 ; reset value of the 6th G group is G17
-MD20152 $MC_GCODE_RESET_MODE[5]=0 ; basic setting for 6th G group corresponds, after; reset / part program end; to MD20150 $MC_GCODE_RESET_VALUES[5]
+MD20152$MC_GCODE_RESET_MODE[5]=0 ; after reset / part program end, the basic setting for 6th G group corresponds to MD20150 $MC_GCODE_RESET_VALUES[5]
 
 However, if the current setting for the 6th G group (current plane) is to be retained after reset / part program end, then the following setting results:
-MD20150 $MC_GCODE_RESET_VALUES[5]=1 ; reset value of the 6th G group is M17
-MD20152 $MC_GCODE_RESET_MODE[5]=1 ; current setting for 6th G group
+MD20150 $MC_GCODE_RESET_VALUES[5]=1 ; reset value of the 6th G group is G17
+MD20152 $MC_GCODE_RESET_MODE[5]=1 ; current setting for the 6th G group
 ;is retained even after reset / part program end.
+
+Example 2:
+Here, the basic setting for the 8th G group (work offset) is read from MD20150 $MC_GCODE_RESET_VALUES at each reset / part program end
+MD20150 $MC_GCODE_RESET_VALUES[7]=2 ; Reset value of the 8th G group is G54
+MD20152 $MC_GCODE_RESET_MODE[7]=0 after reset / part program end, the basic setting for the 8th G group corresponds to MD20150 $MC_GCODE_RESET_VALUES[7]
+If G54 was already active, especially at the time of reset, the values of the corresponding data handling frame at the time of reset are activated.
+
+However, if the current setting for the 8th G group (work offset) is to be retained after reset / part program end, then the following setting results:
+MD20152 $MC_GCODE_RESET_MODE[7]=1 ; if a work offset (e.g. G54) was active at the time of reset, then the values of the corresponding data handling frame at the time of reset are activated (that is UIFR[1] with G54)
 
 Related to:
 MD20110 $MC_RESET_MODE_MASK
@@ -1260,8 +1311,8 @@ References:
 </parameter>
 <parameter number="20171" type="DOUBLE" dim="0">
 <name>SURF_BLOCK_PATH_LIMIT</name>
-<brief>Maximale Verfahrlänge eines NC-Satzes für die Funktion COMPSURF</brief>
-<description>Das Maschinendatum bestimmt die maximale Verfahrlänge eines Satzes, der noch als komprimierbar angesehen wird. Längere Sätze unterbrechen die Glättung und werden normal abgefahren.
+<brief>Maximum traverse length of an NC block for the COMPSURF function</brief>
+<description>The machine data defines the maximum traverse length of a block that is still compressed. Longer blocks interrupt the smoothing and are traversed normally.
 </description>
 </parameter>
 <parameter number="20172" type="DOUBLE" dim="0">
@@ -1281,8 +1332,21 @@ References:
 </parameter>
 <parameter number="20173" type="DOUBLE" dim="0">
 <name>SURF_VELO_TOL</name>
-<brief>maximal erlaubte Abweichung des Bahnvorschubs bei Kompression mit COMPSURF</brief>
-<description>Der Wert gibt für den Bahnvorschub die maximal erlaubte Abweichung für die Kompression an. Je größer der Wert ist, umso mehr kurze Sätze können in einen langen Satz komprimiert werden.
+<brief>Maximum permitted deviation of the path feed on compression with COMPSURF</brief>
+<description>The value specifies the maximum permitted deviation for compression for the path feed. The larger the value, the more short blocks can be compressed into one long block.
+</description>
+</parameter>
+<parameter number="28174" type="DOUBLE" dim="0">
+<name>MAX_SURF_TOL</name>
+<brief>Maximum contour tolerance of the COMPSURF function</brief>
+<description>Maximum permitted contour tolerance of the function COMPSURF if a special option is not set.
+Without this option, the associated option alarm is triggered if a larger tolerance is programmed with, for example, CTOL.
+</description>
+</parameter>
+<parameter number="28175" type="DOUBLE" dim="0">
+<name>MIN_SURF_TOL</name>
+<brief>Minimum tolerance of the COMPSURF function</brief>
+<description>Minimum effective contour tolerance of the function COMPSURF. Lower values programmed with, for example, CTOL are ignored and limited to this value.
 </description>
 </parameter>
 <parameter number="20180" type="DOUBLE" dim="1">
@@ -1330,18 +1394,28 @@ If its content is less than 0 or greater than or equal to the maximum number of 
 <parameter number="20191" type="DWORD" dim="0" display="HEX">
 <name>IGN_PROG_STATE_ASUP</name>
 <brief>Do not display interrupt program execution on OPI</brief>
-<description>If the ASUB is started, OPI variables
-progStatus and chanStatus do not change, i.e. the HMI does not see this normally short program execution.
+<description>The execution of the ASUB assigned to the interrupt is NOT displayed by the OPI variables "progStatus" and "chanStatus".
 
-Bit 0 is assigned to interrupt channel 1.
-Bit 1 is assigned to interrupt channel 2, etc.
+Bit  0 = 1: Enable interrupt 1 (user interrupt)
+Bit  1 = 1: Enable interrupt 2 (user interrupt)
+...
+Bit  7 = 1: Enable interrupt 8 (user interrupt)
 
-Korrespondiert mit:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+Bit  8 = 1: Enable interrupt 9 (system interrupt, reserved)
+Bit  9 = 1: Enable interrupt 10 (system interrupt, reserved)
+Bit 10 = 1: Enable interrupt 11 (system interrupt, reserved)
+...
+Bit 31 = 1: Enable interrupt 32 (system interrupt, reserved)
+
+NOTICE:
+System ASUBs started by system interrupts may contain traversing motions.
+
+Related to:
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20192" type="DWORD" dim="0" display="HEX">
@@ -1397,17 +1471,29 @@ Corresponds to:
 <parameter number="20194" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_NONCSTART_ASUP</name>
 <brief>Permit ASUB in spite of "Interlock NC-START" if user alarms present.</brief>
-<description>If a user alarm is present from the number range 65500-65999, an ASUB start from reset is permitted in spite of the response "Interlock NC-START", which has these alarms. An ASUB start from an active or stopped state is not influenced by this.
+<description>A user alarm from the number range 65500-65999 sets the signal "NC start interlock". By default, an ASUB is not executed on account of interrupts.
+Despite the presence of signal "NC start interlock", the assigned ASUB with the set bit is executed for the interrupt:
 
-Bit 0 is assigned to interrupt 1.
-Bit 1 is assigned to 2, etc.
+Bit  0 = 1: Enable interrupt 1 (user interrupt)
+Bit  1 = 1: Enable interrupt 2 (user interrupt)
+...
+Bit  7 = 1: Enable interrupt 8 (user interrupt)
 
-Corresponds with:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
+Bit  8 = 1: Enable interrupt 9 (system interrupt, reserved)
+Bit  9 = 1: Enable interrupt 10 (system interrupt, reserved)
+Bit 10 = 1: Enable interrupt 11 (system interrupt, reserved)
+...
+Bit 31 = 1: Enable interrupt 32 (system interrupt, reserved)
+
+NOTICE:
+System ASUBs started by system interrupts may contain traversing motions.
+
+Related to:
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
 </description>
 </parameter>
 <parameter number="20196" type="DWORD" dim="0" display="HEX">
@@ -1950,6 +2036,8 @@ Special cases:
 <description>Look Ahead special functions:
 Bit 0 = 1:
 	The Safety Integrated setpoint limitation is already taken into account in Look Ahead.
+Bit 1 = 1:
+	The Safety Integrated setpoint limitation is taken into account in detail in the block.
 </description>
 </parameter>
 <parameter number="20460" type="DOUBLE" dim="0">
@@ -2010,12 +2098,14 @@ To disable this function, enter 1.0.
 <parameter number="20470" type="BYTE" dim="0">
 <name>CPREC_WITH_FFW</name>
 <brief>Programmable contour accuracy</brief>
-<description>This machine data defines the behavior of the programmable function CPRECON.
+<description>This machine data defines the behaviour of the programmable function CPRECON.
 
 0: The CPRECON function is inactive when feedforward control is activated simultaneously.
 1:  CPRECON is also active with feedforward control.
-2: As 1, but the function is parameterized with MD32415 $MA_EQUIV_CPREC_TIME.
+2: As 1, but the function is parameterised with MD32415 $MA_EQUIV_CPREC_TIME.
 3: As 2, but any contour accuracy programmed with CTOL has priority over SD42450 $SC_CONTPREC.
+4: CPRECON is active independently of the feedforward control and jerk filter. Only MD32415 $MA_EQUIV_CPREC_TIME is taken into account in the calculation of the contour error. All time constants that have effects on the contour error must be summated and entered MD32415 $MA_EQUIV_CPREC_TIME.
+5: As 4, but a contour accuracy that may have been programmed with CTOL has priority over SD42450 $SC_CONTPREC.
 
 The values 0 and 1 are no longer recommended. They only provide compatibility with older software versions.
 
@@ -2399,17 +2489,20 @@ There is an entry for all dynamic G code groups.
 <parameter number="20610" type="DOUBLE" dim="0">
 <name>ADD_MOVE_ACCEL_RESERVE</name>
 <brief>Acceleration margin for overlaid movements</brief>
-<description>This machine data contains the factor which defines the acceleration margin which is not used by a path movement in order to provide sufficient acceleration reserves for an overlaid movement for the velocity control.
-A factor of 0.2 means that the path axes utilize 80% of the path acceleration in normal operation. Only when a request for overlaid movement is made, can 100% of the path acceleration be utilized.
+<description>This machine data contains the factor that defines the acceleration and velocity margins which are not used by the path movements on the machine axes in order to provide sufficient acceleration and velocity margins for an overlaid movement for the velocity control.
+A factor of 0.2 means that the path axes utilize 80% of the path acceleration and of the maximum velocity in normal operation. Only when a request for overlaid movement is made, can 100% of the path acceleration and velocity be utilized.
 
 MD irrelevant for:
 	Error states that lead to a rapid stop. In addition, the limitation is also ineffective for positioning axes.
 
 Special cases:
-	At the moment the machine data is only taken into account if the function "Fast retraction" is first activated.
+	At the moment the machine data is only taken into account:
+	    If the function "Fast retraction" is already activated
+	    If the function "Online tool length compensation" is activated by the program command TOFFON
 
 Related to:
-	MD32300 $MA_MAX_AX_ACCEL (axis acceleration)
+	MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
+	MD32300 $MA_MAX_AX_ACCEL (maximum axis acceleration)
 </description>
 </parameter>
 <parameter number="20620" type="DOUBLE" dim="0">
@@ -3168,7 +3261,7 @@ Start =  180 degrees -&gt; modulo range  180 &lt;-&gt;540 degrees
 Start = -180 degrees -&gt; modulo range -180 &lt;-&gt;180 degrees
 </description>
 </parameter>
-<parameter number="21140" type="BOOLEAN" dim="0">
+<parameter number="21140" type="BOOLEAN" dim="1">
 <name>DYN_ORI_OFF_ON</name>
 <brief>Activation of the dynamic override of the orientation</brief>
 <description>The dynamic override of the tool orientation is activated with this MD. The current orientation is then corrected according to the current path velocity. This enables, for example, the jet of water jet machines to be corrected as a function of the velocity. See also the MDs
@@ -3177,7 +3270,7 @@ MD21142 $MC_DYN_ORI_OFF_VEL
 MD21144 $MC_DYN_ORI_OFF_ANGLE
 </description>
 </parameter>
-<parameter number="21142" type="DOUBLE" dim="0">
+<parameter number="21142" type="DOUBLE" dim="1">
 <name>DYN_ORI_OFF_VEL</name>
 <brief>Jet speed</brief>
 <description>For the dynamic override of the tool orientation. The outflow speed of the water jet is specified with this data.
@@ -3298,34 +3391,57 @@ Meaning of the hundreds digit:
 <description>Rotary axes offset for the orientable tool holder is automatically accepted from the work offset activated on activation of the orientable tool holder for the rotary axes.
 </description>
 </parameter>
-<parameter number="21190" type="BYTE" dim="0" display="HEX">
+<parameter number="21190" type="DWORD" dim="0" display="HEX">
 <name>TOFF_MODE</name>
 <brief>Mode of correction in tool direction</brief>
 <description>This machine data specifies the online correction mode in tool direction via $AA_TOFF[ ].
 
 Bit 0: Behavior of $AA_TOFF in case of a RESET
-0: $AA_TOFF is deseclected in case of a RESET
-1: $AA_TOFF is maintained also after RESET
+0: $AA_TOFF is deselected on a RESET
+1: $AA_TOFF is retained beyond a RESET
 
-Bit 1: Effect of the value assignment on the 1st component of $AA_TOFF[ ]
-0: absolute value
-1: incremental value (integrator)
+Bit 1: Effect of the value assigned to the 1st component of $AA_TOFF[ ]
+0: Absolute value
+1: Incremental value (integrator)
 
-Bit 2: Effect of the value assignment on the  2nd component of $AA_TOFF[ ]
-0: absolute value
-1: incremental value (integrator)
+Bit 2: Effect of the value assigned to the 2nd component of $AA_TOFF[ ]
+0: Absolute value
+1: Incremental value (integrator)
 
-Bit 3: Effect of the value assignment on the 3rd component of $AA_TOFF[ ]
-0: absolute value
-1: incremental value (integrator)
+Bit 3: Effect of the value assigned to the 3rd component of $AA_TOFF[ ]
+0: Absolute value
+1: Incremental value (integrator)
 
+Bit 4: Response of $AA_TOFF motion on NC stop
+0:	Motion is interrupted on NC stop
+1:	Motion remains active on NC stop
 
+Bit 5: Response of $AA_TOFF motion on RESET and end of program
+0:	Motion is interrupted on RESET or end of program
+1:	Motion remains active on RESET or end of program
 
+Bit 6: Effect of the setting data $SC_TOFF_LIMIT_MINUS
+0:	The lower limit $SC_TOFF_LIMIT_MINUS has no effect. -$SC_TOFF_LIMIT is taken as the lower limit.
+1:	The lower limit $SC_TOFF_LIMIT_MINUS is effective.
 
+Bit 7: Blockwise suppression of $AA_TOFF with SUPA
+0:	$AA_TOFF is not suppressed blockwise with SUPA.
+1:	$AA_TOFF is suppressed blockwise with SUPA.
 
+Bit 8: Response of the $AA_TOFF handwheel travel at $AA_TOFF_LIMIT / $AA_TOFF_LIMIT_MINUS.
+0:   Interruption, that means collection of the distances preset via the handwheel
+1:   Abortion of the traversing movement, that means no collection
 
+Bit 9: $AA_TOFF handwheel override possible without activation by TOFFON.
+0: $AA_TOFF handwheel override possible only after activation of the $AA_TOFF function by TOFFON.
+1: $AA_TOFF handwheel override possible without activation of the $AA_TOFF function by TOFFON.
 
-
+Bit 10: Axis assignment of the TOFF components on plane change.
+0: The axis components are exchanged cyclically on plane change from G17 to G18 or G19. This means that all three axes of the rotated coordinate system point in the positive axis directions of the initial coordinate system.
+1: The coordinate system is rotated -90 degrees around the X axis on plane change from G17 to G18, and 90 degrees around the Y axis on plane change from G17 to G18.
+   In both cases, the rotated Z axis points in the same direction as when bit 10 is not set.
+   The other two axes are exchanged in comparison to the setting with bit 10 not set, and one of the two axes points in the negative direction.
+   This setting should only be used if compatibility with older software versions is required (SW 4.5 and older). This setting is not recommended for new developments.
 </description>
 </parameter>
 <parameter number="21194" type="DOUBLE" dim="1">
@@ -3369,6 +3485,14 @@ References:
 0:	Mirroring of the contour is NOT taken into account when determining the retraction direction.
 </description>
 </parameter>
+<parameter number="21203" type="DWORD" dim="0" display="HEX">
+<name>LIFTFAST_MODE_MASK</name>
+<brief>Settings for fast retraction</brief>
+<description>Bit0: Behavior of LFWP with active frame
+=0 If the retraction direction is defined with LFWP, the active frame is not effective.
+=1 If the retraction direction is defined with LFWP, the active frame is effective. In this case MD21202 $MC_LIFTFAST_WITH_MIRROR has no effect.
+</description>
+</parameter>
 <parameter number="21204" type="DWORD" dim="0" display="HEX">
 <name>LIFTFAST_STOP_COND</name>
 <brief>Stop behavior with fast retraction</brief>
@@ -3386,22 +3510,20 @@ Bit1: Feed disable in channel NC/PLC interface signal &lt;Vorschubsperre/&gt; (F
 <parameter number="21210" type="DWORD" dim="0" display="HEX">
 <name>SETINT_ASSIGN_FASTIN</name>
 <brief>HW assignment of ext. NCK input byte for NC progr. interrupts</brief>
-<description>HW assignment of the fast input byte for NC program interrupts
-Bit 0 to 7:
-	Number of input used
-Bit 16 to 23:
-	Mask of signals that the channel is not to evaluate
-Bit 24 to 31:
-	Mask of signals that are to be evaluated in inverted form
-	Bit set: Interrupt initiated by falling edge.
+<description>Assignment of input bytes for processing user interrupts in NC programs (SETINT)
 
-Possible inputs:
-1:
-	On board-inputs of the 840D (4 fast + 4 bits via VDI default)
-2 - 5:
-	External digital inputs (fast NCK I/Os or VDI default)
-128 - 129:
-	Comparator byte (results from fast analog inputs or VDI default)
+Bit 0 ... 7: Number of the input byte (see below)
+
+Bit 16 ... 23: Selection mask for the signals that are NOT evaluated in the channel
+
+Bit 24 to 31: Selection mask for the signals that are evaluated in the channel in INVERTED form
+Bit x = 0: Interrupt triggered by rising edge
+Bit x = 1: Interrupt triggered by falling edge.
+
+Input bytes:
+Byte 1: On-board inputs of the NCU module (DB)
+Bytes 2 - 5: External digital inputs (fast NCK I/Os or default via NC/PLC interface)
+Bytes 128 - 129: Comparator byte (result from fast analogue inputs or default via NC/PLC interface)
 </description>
 </parameter>
 <parameter number="21220" type="DWORD" dim="0" display="HEX">
@@ -3643,7 +3765,7 @@ The setting in this MD is significant only when MD: TRAFO_AXES_IN_n[0] = 0, i.e.
 </parameter>
 <parameter number="21502" type="DOUBLE" dim="0">
 <name>TRACLG_CTRLSPI_VERT_OFFSET</name>
-<brief>vert. position offset of regulating axis in centerless grinding</brief>
+<brief>Vert. position offset of regulating axis in centerless grinding</brief>
 <description>The vertical offset for the regulating axis is specified in this MD.
 </description>
 </parameter>
@@ -4408,8 +4530,7 @@ If MD22621 $MC_ENABLE_START_MODE_MASK_PRT is in its initial setting, MD22620 $MC
 Bit0 =  1:
 	If a "search via program test" (English abbr. SERUPRO) is started from RESET (PI service _N_FINDBL mode paramter == 5), MD22620 $MC_START_MODE_MASK_PRT replaces MD20112 $MC_START_MODE_MASK.
 
-This method can be used to set a start behavior differing from PLC start when the search
-is started.
+This method can be used to set a start behavior differing from PLC start when the search is started.
 </description>
 </parameter>
 <parameter number="22622" type="DWORD" dim="0" display="HEX">
@@ -4890,7 +5011,7 @@ References:
 </parameter>
 <parameter number="24130" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_1</name>
-<brief>Tool handling with 1st active transformation</brief>
+<brief>Tool handling with active 1st transformation</brief>
 <description>This machine data states for each channel whether the tool is handled during the 1st transformation or externally.
 This machine data is evaluated only with specific transformations.
 It is evaluated on the condition that the orientation of the tool with reference to the Basic Coordinate System cannot be changed by the transformation. In standard transformations, only the "inclined-axis transformation" fulfills this condition.
@@ -5113,7 +5234,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="24466" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_8</name>
-<brief>Tool handling with 8th active transformation</brief>
+<brief>Tool handling with active 8th transformation</brief>
 <description>This machine data states for each channel whether the tool is handled during the 8th transformation or externally.
 This machine data is evaluated only with specific transformations.
 It is evaluated on the condition that the orientation of the tool with reference to the Basic Coordinate System cannot be changed by the transformation. In standard transformations, only "inclined-axis transformation" fulfills this condition.
@@ -5159,7 +5280,7 @@ The method of operation of protection zones and working area limitations varies 
 </parameter>
 <parameter number="24484" type="BYTE" dim="1">
 <name>TRAFO_GEOAX_ASSIGN_TAB_10</name>
-<brief>Assignment of geometry axes to channel axes f. transformation 10</brief>
+<brief>Assignment of geometry axes to channel axes for transformation 10</brief>
 <description>Assignment table of geometry axes with transformation 10
 Same as AXCONF_GEOAX_ASSIGN_TAB, but only effective when transformation 10 is active.
 </description>
@@ -6141,7 +6262,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25106" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_11</name>
-<brief>Tool handling with 11th active transformation</brief>
+<brief>Tool handling with active 11th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 11th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6169,7 +6290,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25116" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_12</name>
-<brief>Tool handling with 12th active transformation</brief>
+<brief>Tool handling with active 12th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 12th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6197,7 +6318,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25126" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_13</name>
-<brief>Tool handling with 13th active transformation</brief>
+<brief>Tool handling with active 13th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 13th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6225,7 +6346,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25136" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_14</name>
-<brief>Tool handling with 14th active transformation</brief>
+<brief>Tool handling with active 14th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 14th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6253,7 +6374,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25146" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_15</name>
-<brief>Tool handling with 15th active transformation</brief>
+<brief>Tool handling with active 15th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 15th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6281,7 +6402,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25156" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_16</name>
-<brief>Tool handling with 16th active transformation</brief>
+<brief>Tool handling with active 16th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 16th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6309,7 +6430,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25166" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_17</name>
-<brief>Tool handling with 17th active transformation</brief>
+<brief>Tool handling with active 17th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 17th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6337,7 +6458,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25176" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_18</name>
-<brief>Tool handling with 18th active transformation</brief>
+<brief>Tool handling with active 18th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 18th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6365,7 +6486,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25186" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_19</name>
-<brief>Tool handling with 19th active transformation</brief>
+<brief>Tool handling with active 19th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 19th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -6393,7 +6514,7 @@ Otherwise the meaning corresponds to TRAFO_GEOAX_ASSIGN_TAB_1.
 </parameter>
 <parameter number="25196" type="BOOLEAN" dim="0">
 <name>TRAFO_INCLUDES_TOOL_20</name>
-<brief>Tool handling with 20th active transformation</brief>
+<brief>Tool handling with active 20th transformation</brief>
 <description>This MD defines for each channel, whether the tool is treated in the 20th transformation or externally.
 Other than that it has the same meaning as TRAFO_INCLUDES_TOOL_1.
 </description>
@@ -7161,7 +7282,7 @@ Meaning of the individual bits:
 Bits 0 - 3:	Activating $AC_REQUIRED_PARTS
 ------------------------------------------------------------------------
 Bit 0 = 1:	Counter $AC_REQUIRED_PARTS is activated
-Further significance of bits 1-3 only when bit 0 =1 and $AC_REQUIRED_PARTS &gt; 0:
+Further meaning of bits 1-3 only when bit 0 =1 and $AC_REQUIRED_PARTS &gt; 0:
 Bit 1 = 0:	Alarm/VDI output if $AC_ACTUAL_PARTS corresponds to $AC_REQUIRED_PARTS
 Bit 1 = 1:	Alarm/VDI output if $AC_SPECIAL_PARTS corresponds to $AC_REQUIRED_PARTS
 Bit 2	Reserved!
@@ -7175,7 +7296,7 @@ Bit 5 = 0:	Counter $AC_TOTAL_PARTS is incremented by 1 with a VDI output of M02/
 Bit 5 = 1:	Counter $AC_TOTAL_PARTS is incremented by 1 with output of the M command from MD PART_COUNTER_MCODE[0]
 Bit 6 = 0:	$AC_TOTAL_PARTS also active with program test/block search
 Bit 6 = 1:	No machining $AC_TOTAL_PARTS with program test/block search
-Bit 7 = 1:	Counter $AC_TOTAL_PARTS is incremented by 1 when jumping back with GOTOS
+Bit 7 = 1:	Counter $AC_TOTAL_PARTS is incremented by 1 on a return with GOTOS
 
 Bits 8 - 11:	Activating $AC_ACTUAL_PARTS
 -------------------------------------------------------------------------
@@ -7185,7 +7306,7 @@ Bit 9 = 0:	Counter $AC_ACTUAL_PARTS is incremented by 1 with a VDI output of M02
 Bit 9 = 1:	Counter $AC_ACTUAL_PARTS is incremented by 1 with output of the M command from MD PART_COUNTER_MCODE[1]
 Bit 10 = 0:	$AC_ACTUAL_PARTS also active with program test/block search
 Bit 10 = 1:	No machining $AC_ACTUAL_PARTS with program test/block search
-Bit 11 = 1:	Counter $AC_ACTUAL_PARTS is incremented by 1 when jumping back with GOTOS
+Bit 11 = 1:	Counter $AC_ACTUAL_PARTS is incremented by 1 on a return with GOTOS
 
 Bit 12 - 15:	Activating $AC_SPECIAL_PARTS
 -------------------------------------------------------------------------
@@ -7195,37 +7316,37 @@ Bit 13 = 0:	Counter $AC_SPECIAL_PARTS is incremented by 1 with a VDI output of M
 Bit 13 = 1:	Counter $AC_SPECIAL_PARTS is incremented by 1 with output of the M command from MD PART_COUNTER_MCODE[2]
 Bit 14 = 0:	$AC_SPECIAL_PARTS also active with program test/block search
 Bit 14 = 1:	No machining $AC_SPECIAL_PARTS with program test/block search
-Bit 15 = 1:	Counter $AC_SPECIAL_PARTS is incremented by 1 when jumping back with GOTOS
+Bit 15 = 1:	Counter $AC_SPECIAL_PARTS is incremented by 1 on a return with GOTOS
+
+Bit 16 - 19:	Extension $AC_TOTAL_PARTS
+-------------------------------------------------------------------------
+Meaning of the bits 16-19 applies only if Bit4 =1 and $AC_REQUIRED_PARTS &gt; 0:
+Bit 16 = 0:	$AC_TOTAL_PARTS is active in MDI mode
+Bit 16 = 1:	No machining $AC_TOTAL_PARTS in MDI mode
+Bit 17	Reserved!
+Bit 18	Reserved!
+Bit 19	Reserved!
+
+Bit 20 - 23:	Extension $AC_ACTUAL_PARTS
+-------------------------------------------------------------------------
+Meaning of bits 20-23 only if bit8 =1 and $AC_REQUIRED_PARTS &gt; 0:
+Bit 20 = 0:	$AC_ACTUAL_PARTS is active in MDI mode
+Bit 20 = 1:	No machining $AC_ACTUAL_PARTS in MDI mode
+Bit 21	Reserved!
+Bit 22	Reserved!
+Bit 23	Reserved!
+
+Bit 24 - 27:	Extension $AC_SPECIAL_PARTS
+-------------------------------------------------------------------------
+Meaning of bits 24-27 only if bit12 =1 and $AC_REQUIRED_PARTS &gt; 0:
+Bit 24 = 0:	$AC_SPECIAL_PARTS is active in MDI mode
+Bit 24 = 1:	No machining $AC_SPECIAL_PARTS in MDI mode
+Bit 25	Reserved!
+Bit 26	Reserved!
+Bit 27	Reserved!
 
 Related to:
 	MD27882 $MC_PART_COUNTER_MCODE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </description>
 </parameter>
 <parameter number="27882" type="BYTE" dim="1">
@@ -7353,20 +7474,27 @@ Related to:
 </parameter>
 <parameter number="28071" type="DWORD" dim="0">
 <name>MM_NUM_SURF_LEVELS</name>
-<brief>Dimensionierung der Funktion COMPSURF (DRAM)</brief>
-<description>Legt die Größe der internen Datenstrukturen der Funktion COMPSURF fest. Mit größeren Werten wächst die erreichbare Oberflächenqualität, aber auch der Rechenzeit- und Speicherplatzbedarf.
-Mit dem Wert 0 ist die Funktion COMPSURF in einem Kanal nicht vorhanden, belegt also auch keinen Speicherplatz.
-Das Maschinendatum hat nur dann eine Wirkung, wenn die Option Top-Surface vorhanden ist.
+<brief>Dimensioning of the COMPSURF function (DRAM)</brief>
+<description>Defines the size of the internal data structures of the COMPSURF function. A larger value means a better surface finish is achieved but also that more CPU time and memory space are required.
+With the value 0, the COMPSURF function is not present in a channel, and therefore occupies no memory space.
+The machine data only has an effect if the Top Surface option is used.
 </description>
 </parameter>
 <parameter number="28072" type="DWORD" dim="0">
 <name>MM_MAXNUM_SURF_GROUPS</name>
-<brief>Dimensionierung der Funktion COMPSURF bzgl. Achsgruppen (DRAM)</brief>
-<description>Legt die Größe der internen Datenstrukturen der Funktion COMPSURF bzgl. verschiedener Achsgruppen wie Geometrie-, Orientierungs- und anderer Achstypen fest. Mit größeren Werten wächst die Güte der Glättung, aber auch der Rechenzeit- und Speicherplatzbedarf.
-Das Maschinendatum hat nur dann eine Wirkung, wenn die Option Top-Surface vorhanden ist.
+<brief>Dimensioning of the COMPSURF function in respect of axis groups (DRAM)</brief>
+<description>Defines the size of the internal data structures of the COMPSURF function in respect of various axis groups, such as geometry, orientation, and other axis types. Larger values mean better quality smoothing, but also more use of CPU time and memory space.
+The machine data only has an effect if the Top Surface option is used.
 
-Korrespondiert mit:
+Related to:
 	SD42473 $SC_ACTNUM_SURF_GROUPS
+</description>
+</parameter>
+<parameter number="28073" type="DWORD" dim="0">
+<name>MM_SURF_BUFFER_SIZE</name>
+<brief>Dimensioning of the block buffer of the function COMPSURF (DRAM)</brief>
+<description>Determines the maximum number of blocks in the internal buffer of the function COMPSURF.
+The machine data is only effective if the Top-Surface option is present, and MD28071 $MC_NUM_SURF_LEVELS in the channel is not equal to 0.
 </description>
 </parameter>
 <parameter number="28079" type="DWORD" dim="0">
@@ -7856,8 +7984,8 @@ The guide value for free-form surface applications is: 18..20
 </parameter>
 <parameter number="28534" type="DWORD" dim="0">
 <name>MM_LOOKAH_NUM_AC_TEST</name>
-<brief>Anzahl der Debug-Variablen für LookAhead-Test</brief>
-<description>Anzahl der Debug-Variablen für LookAhead-Test.
+<brief>Number of debug variables for lookahead test</brief>
+<description>Number of debug variables for lookahead test.
 </description>
 </parameter>
 <parameter number="28535" type="DWORD" dim="0">
