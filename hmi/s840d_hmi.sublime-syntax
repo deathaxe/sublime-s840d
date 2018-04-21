@@ -783,9 +783,8 @@ contexts:
       scope: entity.name.softkey.s840d_hmi
       push:
         - meta_scope: meta.softkey.s840d_hmi
-        - match: (=)\s*(?=\()
-          captures:
-            1: keyword.operator.assignment.s840d_hmi
+        - match: =
+          scope: keyword.operator.assignment.s840d_hmi
           set: def-softkey-attr
         - include: line-end
 
@@ -793,6 +792,8 @@ contexts:
     - match: \(
       scope: meta.softkey.parameters.s840d_hmi punctuation.section.parameters.begin.s840d_hmi
       set: def-softkey-attr-caption
+    - match: \s+
+      scope: meta.softkey.s840d_hmi
     - include: line-end
 
   def-softkey-attr-caption:
