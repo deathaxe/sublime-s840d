@@ -405,6 +405,305 @@ DEF FOO(2) = (S32), ; comment
 ;                      ^^^ constant.language.attribute.state
 ;                         ^ punctuation.section.parameters.end
 
+CHANGE(var_name)
+; <- meta.class.dialog.body keyword.definition.method.change.begin
+;^^^^^^^^^^^^^^^^ meta.class.dialog.body
+;     ^^^^^^^^^^ meta.function.parameters.change
+;^^^^^ keyword.definition.method.change.begin
+;     ^ punctuation.section.parameters.begin
+;      ^^^^^^^^ variable.other
+;              ^ punctuation.section.parameters.end
+END_CHANGE
+; <- meta.class.dialog.body keyword.definition.method.change.end
+;^^^^^^^^^ meta.class.dialog.body keyword.definition.method.change.end
+
+CHANNEL
+; <- meta.class.dialog.body keyword.definition.method.channel.begin
+;^^^^^^ meta.class.dialog.body keyword.definition.method.channel.begin
+END_CHANNEL
+; <- meta.class.dialog.body keyword.definition.method.channel.end
+;^^^^^^^^^^ meta.class.dialog.body keyword.definition.method.channel.end
+
+CONTROL
+; <- meta.class.dialog.body keyword.definition.method.control.begin
+;^^^^^^ meta.class.dialog.body keyword.definition.method.control.begin
+END_CONTROL
+; <- meta.class.dialog.body keyword.definition.method.control.end
+;^^^^^^^^^^ meta.class.dialog.body keyword.definition.method.control.end
+
+FOCUS(var_name)
+; <- meta.class.dialog.body keyword.definition.method.focus.begin
+;^^^^^^^^^^^^^^^ meta.class.dialog.body
+;    ^^^^^^^^^^ meta.function.parameters.focus
+;^^^^ keyword.definition.method.focus.begin
+;    ^ punctuation.section.parameters.begin
+;     ^^^^^^^^ variable.other
+;             ^ punctuation.section.parameters.end
+END_FOCUS
+; <- meta.class.dialog.body keyword.definition.method.focus.end
+;^^^^^^^^ meta.class.dialog.body keyword.definition.method.focus.end
+
+LANGUAGE
+; <- meta.class.dialog.body keyword.definition.method.language.begin
+;^^^^^^^ meta.class.dialog.body keyword.definition.method.language.begin
+    DLGL(S_LANG)
+;<- meta.class.dialog.body meta.block.method.language
+;^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.language
+;   ^^^^ meta.function-call
+;       ^^^^^^^^ meta.function-call.arguments
+;   ^^^^ support.function
+;       ^ punctuation.section.arguments.begin
+;        ^^^^^^ support.variable.language
+;              ^ punctuation.section.arguments.end
+END_LANGUAGE
+; <- meta.class.dialog.body keyword.definition.method.language.end
+;^^^^^^^^^^^ meta.class.dialog.body keyword.definition.method.language.end
+
+; METHOD SYNTAX TESTS
+LOAD
+; <- meta.class.dialog.body keyword.definition.method.load.begin
+;^^^ meta.class.dialog.body keyword.definition.method.load.begin
+    Hd="dialog title"
+; <- meta.class.dialog.body meta.block.method.load
+;^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.load
+;   ^^ entity.other.attribute-name
+;     ^ keyword.operator.assignment
+;      ^ punctuation.definition.string.begin
+;      ^^^^^^^^^^^^^^ string.quoted.double
+;                   ^ punctuation.definition.string.end
+    VS1.ac=7
+; <- meta.class.dialog.body meta.block.method.load
+;^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.load
+;   ^^^ entity.name.softkey
+;      ^ punctuation.accessor
+;       ^^ entity.other.attribute-name
+;         ^ keyword.operator.assignment
+;          ^ constant.numeric.integer
+    FOO.val = RNP( "DB10.DBB25" )
+; <- meta.class.dialog.body meta.block.method.load
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.load
+;             ^^^ meta.function-call - meta.function-call.arguments
+;                ^^^^^^^^^^^^^^^^ meta.function-call.arguments
+;                                ^ - meta.function-call
+;   ^^^ variable.other
+;      ^ punctuation.accessor.parameters
+;       ^^^ entity.other.attribute-name
+;           ^ keyword.operator.assignment
+;             ^^^ support.function
+;                ^ punctuation.section.arguments.begin
+;                  ^ punctuation.definition.string.begin
+;                  ^^^^^^^^^^^^ string.quoted.double
+;                             ^ punctuation.definition.string.end
+;                               ^ punctuation.section.arguments.end
+    CALL("function")
+;  ^ - meta.function-call
+;   ^^^^ meta.function-call
+;       ^^^^^^^^^^^^ meta.function-call.arguments
+;                   ^ - meta.function-call
+;   ^^^^ support.function
+;       ^ punctuation.section.arguments.begin
+;        ^ punctuation.definition.string.begin
+;        ^^^^^^^^^^ string.quoted.double
+;                 ^ punctuation.definition.string.end
+;                  ^ punctuation.section.arguments.end
+
+; IF ELSE CONTROL STRUCTURE TEST
+    IF FOO == FALSE
+;   ^^ keyword.control.flow.conditional
+;      ^^^ variable.other
+;          ^^ keyword.operator.relational
+;             ^^^^^ constant.language.boolean
+      BAR.val = 10
+;     ^^^ variable.other
+;        ^ punctuation.accessor.parameters
+;         ^^^ entity.other.attribute-name
+;             ^ keyword.operator.assignment
+;               ^^ constant.numeric.integer
+    ELSE
+;   ^^^^ keyword.control.flow.conditional
+      BAR.val = 10
+;     ^^^ variable.other
+;        ^ punctuation.accessor.parameters
+;         ^^^ entity.other.attribute-name
+;             ^ keyword.operator.assignment
+;               ^^ constant.numeric.integer
+    ENDIF
+;   ^^^^^ keyword.control.flow.conditional
+
+; DO WHILE CONTROL STRUCTURE TEST
+    DO_WHILE FOO.vld
+;   ^^^^^^^^ keyword.control.flow.loop
+;            ^^^ variable.other
+;               ^ punctuation.accessor.parameters
+;                ^^^ entity.other.attribute-name
+      BAR.val = 10
+;     ^^^ variable.other
+;        ^ punctuation.accessor.parameters
+;         ^^^ entity.other.attribute-name
+;             ^ keyword.operator.assignment
+;               ^^ constant.numeric.integer
+    LOOP
+;   ^^^^ keyword.control.flow.loop
+
+; DO UNTIL CONTROL STRUCTURE TEST
+    DO_UNTIL NOT FOO.vld
+;   ^^^^^^^^ keyword.control.flow.loop
+;            ^^^ keyword.operator.boolean
+;                ^^^ variable.other
+;                   ^ punctuation.accessor.parameters
+;                    ^^^ entity.other.attribute-name
+      BAR.val = 10
+;     ^^^ variable.other
+;        ^ punctuation.accessor.parameters
+;         ^^^ entity.other.attribute-name
+;             ^ keyword.operator.assignment
+;               ^^ constant.numeric.integer
+    LOOP
+;   ^^^^ keyword.control.flow.loop
+
+; SWITCH CASE CONTROL STRUCTURE TEST
+    SWITCH (FOO)
+;          ^^^^^ meta.group
+;   ^^^^^^ keyword.control.flow.conditional
+;          ^ punctuation.section.group.begin
+;           ^^^ variable.other
+;              ^ punctuation.section.group.end
+    CASE 1
+;   ^^^^ keyword.control.flow.conditional
+;        ^ constant.numeric.integer
+        BAR.val = 10
+;       ^^^ variable.other
+;          ^ punctuation.accessor.parameters
+;           ^^^ entity.other.attribute-name
+;               ^ keyword.operator.assignment
+;                 ^^ constant.numeric.integer
+    DEFAULT
+;   ^^^^^^^ keyword.control.flow.conditional
+        BAR.val = 50
+;       ^^^ variable.other
+;          ^ punctuation.accessor.parameters
+;           ^^^ entity.other.attribute-name
+;               ^ keyword.operator.assignment
+;                 ^^ constant.numeric.integer
+    END_SWITCH
+;   ^^^^^^^^^^ keyword.control.flow.conditional
+END_LOAD
+; <- meta.class.dialog.body keyword.definition.method.load.end
+;^^^^^^^ meta.class.dialog.body keyword.definition.method.load.end
+
+UNLOAD
+; <- meta.class.dialog.body keyword.definition.method.unload.begin
+;^^^^^ meta.class.dialog.body keyword.definition.method.unload.begin
+    LM("MASK")
+;<- meta.class.dialog.body meta.block.method.unload
+;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.unload
+;   ^^ meta.function-call
+;     ^^^^^^^^ meta.function-call.arguments
+;   ^^ support.function
+END_UNLOAD
+; <- meta.class.dialog.body keyword.definition.method.unload.end
+;^^^^^^^^^ meta.class.dialog.body keyword.definition.method.unload.end
+
+OUTPUT(output_name, 1)
+; <- meta.class.dialog.body keyword.definition.method.output.begin
+;^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body
+;     ^^^^^^^^^^^^ meta.function.parameters.output.name
+;                  ^^^ meta.function.parameters.output.version
+;^^^^^ keyword.definition.method.output.begin
+;     ^ punctuation.section.parameters.begin
+;      ^^^^^^^^^^^ string.unquoted entity.name.function.output
+;                 ^ punctuation.separator
+;                   ^ constant.numeric.integer
+;                    ^ punctuation.section.parameters.end
+   "CYCLE(""" FOO """," BAR "," BAZ ")"
+; <- meta.class.dialog.body meta.block.method.output
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.output
+;  ^^^^^^^^^^ string.quoted.double
+;             ^^^ variable.other
+;                 ^^^^^ string.quoted.double
+;                       ^^^ variable.other
+;                           ^^^ string.quoted.double
+;                               ^^^ variable.other
+;                                   ^^^ string.quoted.double
+END_OUTPUT
+; <- meta.class.dialog.body keyword.definition.method.output.end
+;^^^^^^^^^ meta.class.dialog.body keyword.definition.method.output.end
+
+PRESS(ENTER)
+; <- meta.class.dialog.body keyword.definition.method.press.begin
+;^^^^^^^^^^^^ meta.class.dialog.body
+;    ^^^^^^^ meta.function.parameters.press.softkey
+;^^^^ keyword.definition.method.press.begin
+;    ^ punctuation.section.parameters.begin
+;     ^^^^^ entity.name.key
+;          ^ punctuation.section.parameters.end
+    LM("MASK")
+;<- meta.class.dialog.body meta.block.method.press
+;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.press
+;   ^^ meta.function-call
+;     ^^^^^^^^ meta.function-call.arguments
+;   ^^ support.function
+END_PRESS
+; <- meta.class.dialog.body keyword.definition.method.press.end
+;^^^^^^^^ meta.class.dialog.body keyword.definition.method.press.end
+
+RESOLUTION
+; <- meta.class.dialog.body keyword.definition.method.resolution.begin
+;^^^^^^^^^ meta.class.dialog.body keyword.definition.method.resolution.begin
+    LM("MASK")
+;<- meta.class.dialog.body meta.block.method.resolution
+;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.resolution
+;   ^^ meta.function-call
+;     ^^^^^^^^ meta.function-call.arguments
+;   ^^ support.function
+END_RESOLUTION
+; <- meta.class.dialog.body keyword.definition.method.resolution.end
+;^^^^^^^^^^^^^ meta.class.dialog.body keyword.definition.method.resolution.end
+
+RESUME
+; <- meta.class.dialog.body keyword.definition.method.resume.begin
+;^^^^^ meta.class.dialog.body keyword.definition.method.resume.begin
+    LM("MASK")
+;<- meta.class.dialog.body meta.block.method.resume
+;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.resume
+;   ^^ meta.function-call
+;     ^^^^^^^^ meta.function-call.arguments
+;   ^^ support.function
+END_RESUME
+; <- meta.class.dialog.body keyword.definition.method.resume.end
+;^^^^^^^^^ meta.class.dialog.body keyword.definition.method.resume.end
+
+SUB(sub_name)
+; <- meta.class.dialog.body keyword.definition.method.sub.begin
+;^^^^^^^^^^^^^ meta.class.dialog.body
+;  ^^^^^^^^^^ meta.function.parameters.sub.name
+;^^ keyword.definition.method.sub.begin
+;  ^ punctuation.section.parameters.begin
+;   ^^^^^^^^ string.unquoted entity.name.function
+;           ^ punctuation.section.parameters.end
+    LM("MASK")
+;<- meta.class.dialog.body meta.block.method.sub
+;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.sub
+;   ^^ meta.function-call
+;     ^^^^^^^^ meta.function-call.arguments
+;   ^^ support.function
+END_SUB
+; <- meta.class.dialog.body keyword.definition.method.sub.end
+;^^^^^^ meta.class.dialog.body keyword.definition.method.sub.end
+
+SUSPEND
+; <- meta.class.dialog.body keyword.definition.method.suspend.begin
+;^^^^^^ meta.class.dialog.body keyword.definition.method.suspend.begin
+    LM("MASK")
+;<- meta.class.dialog.body meta.block.method.suspend
+;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.suspend
+;   ^^ meta.function-call
+;     ^^^^^^^^ meta.function-call.arguments
+;   ^^ support.function
+END_SUSPEND
+; <- meta.class.dialog.body keyword.definition.method.suspend.end
+;^^^^^^^^^^ meta.class.dialog.body keyword.definition.method.suspend.end
+
 //END    ; //M(NAME)
 ; <- meta.class.dialog.end keyword.class.end
 ;^^^^ meta.class.dialog.end keyword.class.end
