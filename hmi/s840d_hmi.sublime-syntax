@@ -839,6 +839,7 @@ contexts:
     - include: def-method-accesslevel
     - include: def-method-activate
     - include: def-method-change
+    - include: def-method-channel
     - include: def-method-control
     - include: def-method-focus
     - include: def-method-language
@@ -920,7 +921,9 @@ contexts:
               set: def-method-change-body
             - include: operand
             - include: illegal
-        - include: def-method-change-body
+        - match: $
+          set: def-method-change-body
+        - include: illegal
 
   def-method-change-body:
     - meta_content_scope: meta.block.method.change.s840d_hmi
@@ -989,7 +992,19 @@ contexts:
   def-method-focus:
     - match: \b(?i:FOCUS)\b
       scope: keyword.definition.method.focus.begin.s840d_hmi
-      push: def-method-focus-body
+      push:
+        - match: \(
+          scope: punctuation.section.parameters.begin.s840d_hmi
+          set:
+            - meta_scope: meta.function.parameters.focus.s840d_hmi
+            - match: \)|$
+              scope: punctuation.section.parameters.end.s840d_hmi
+              set: def-method-focus-body
+            - include: operand
+            - include: illegal
+        - match: $
+          set: def-method-focus-body
+        - include: illegal
 
   def-method-focus-body:
     - meta_content_scope: meta.block.method.focus.s840d_hmi
@@ -1093,7 +1108,8 @@ contexts:
     - match: ','
       scope: punctuation.separator.s840d_hmi
       set: def-method-output-argument-version
-    - include: operand
+    - match: \b\w+\b
+      scope: string.unquoted.s840d_hmi entity.name.function.output.s840d_hmi
     - include: def-method-output-argument-end
 
   def-method-output-argument-version:
@@ -1115,6 +1131,7 @@ contexts:
     # register not allowed in output
     - match: \b(?i:REG)\b
       scope: invalid.illegal.s840d_hmi
+    - include: comment
     - include: expressions
 
 ###############################################################################
@@ -1144,7 +1161,9 @@ contexts:
             - match: '{{key}}'
               scope: entity.name.key.s840d_hmi
             - include: illegal
-        - include: line-end
+        - match: $
+          set: def-method-press
+        - include: illegal
 
   def-method-press-body:
     - meta_content_scope: meta.block.method.press.s840d_hmi
@@ -1220,7 +1239,8 @@ contexts:
             - match: \)|$
               scope: punctuation.section.parameters.end.s840d_hmi
               set: def-method-sub-body
-            - include: operand
+            - match: \b\w+\b
+              scope: string.unquoted.s840d_hmi entity.name.function.sub.s840d_hmi
             - include: illegal
         - include: def-method-sub-body
 
