@@ -315,6 +315,96 @@ DEF FOO(2) = (S32), ; comment
 ;                                                                                                                           ^ invalid.illegal.separator
 ;                                                                                                                            ^ punctuation.section.parameters.end
 
+; SOFTKEY DEFINITION TESTS
+  HS1 = ( "caption", AC4, SE2, TP0 ) ; horizontal softkey
+; ^^^^^^ meta.softkey - meta.softkey.parameters.caption
+;       ^ meta.softkey.parameters - meta.softkey.parameters.caption
+;        ^^^^^^^^^^^ meta.softkey.parameters.caption - meta.softkey.parameters.attributes
+;                   ^^^^^^^^^^^^^^^^ meta.softkey.parameters.attributes - meta.softkey.parameters.caption
+;                                   ^ - meta.softkey
+; ^^^ entity.name.softkey
+;     ^ keyword.operator.assignment
+;       ^ punctuation.section.parameters.begin
+;         ^ punctuation.definition.string.begin
+;         ^^^^^^^^^ string.quoted.double
+;                 ^ punctuation.definition.string.end
+;                  ^ punctuation.separator
+;                    ^^^ constant.language.attribute.accesslevel
+;                       ^ punctuation.separator
+;                         ^^^ constant.language.attribute.state
+;                            ^ punctuation.separator
+;                              ^^^ constant.language.attribute.alignment.text
+;                                  ^ punctuation.section.parameters.end
+;                                    ^^^^^^^^^^^^^^^^^^^^^ comment.line
+  VS1 = ( ["\\icon.png", "caption"], AC3, SE3, TP1 ) ; horizontal softkey
+; ^^^^^^ meta.softkey - meta.softkey.parameters.caption
+;       ^ meta.softkey.parameters - meta.softkey.parameters.caption
+;        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.softkey.parameters.caption - meta.softkey.parameters.attributes
+;                                   ^^^^^^^^^^^^^^^^ meta.softkey.parameters.attributes - meta.softkey.parameters.caption
+;                                                   ^ - meta.softkey
+;        ^ - meta.caption-group
+;         ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.caption-group
+;                                  ^ - meta.caption-group
+; ^^^ entity.name.softkey
+;     ^ keyword.operator.assignment
+;       ^ punctuation.section.parameters.begin
+;         ^ punctuation.section.caption-group.begin
+;          ^ punctuation.definition.string.begin
+;          ^^^^^^^^^^^^ string.quoted.double
+;                     ^ punctuation.definition.string.end
+;                      ^ punctuation.separator
+;                        ^ punctuation.definition.string.begin
+;                        ^^^^^^^^^ string.quoted.double
+;                                ^ punctuation.definition.string.end
+;                                 ^ punctuation.section.caption-group.end
+;                                  ^ punctuation.separator
+;                                    ^^^ constant.language.attribute.accesslevel
+;                                       ^ punctuation.separator
+;                                         ^^^ constant.language.attribute.state
+;                                            ^ punctuation.separator
+;                                              ^^^ constant.language.attribute.alignment.text
+;                                                  ^ punctuation.section.parameters.end
+;                                                    ^^^^^^^^^^^^^^^^^^^^^ comment.line
+  VS6 = ($86008)
+; ^^^^^^ meta.softkey - meta.softkey.parameters.caption
+;       ^ meta.softkey.parameters - meta.softkey.parameters.caption
+;        ^^^^^^^ meta.softkey.parameters.caption - meta.softkey.parameters.attributes
+;               ^ - meta.softkey
+; ^^^ entity.name.softkey
+;     ^ keyword.operator.assignment
+;       ^ punctuation.section.parameters.begin
+;        ^^^^^^ variable.language.textid
+;              ^ punctuation.section.parameters.end
+  VS7 = (["\\icon.png", $86008])
+; ^^^^^^ meta.softkey - meta.softkey.parameters.caption
+;       ^ meta.softkey.parameters - meta.softkey.parameters.caption
+;        ^^^^^^^^^^^^^^^^^^^^^^^ meta.softkey.parameters.caption
+;                               ^ - meta.softkey
+; ^^^ entity.name.softkey
+;     ^ keyword.operator.assignment
+;       ^ punctuation.section.parameters.begin
+;        ^ punctuation.section.caption-group.begin
+;         ^ punctuation.definition.string.begin
+;         ^^^^^^^^^^^^ string.quoted.double
+;                    ^ punctuation.definition.string.end
+;                     ^ punctuation.separator
+;                       ^^^^^^ variable.language.textid
+;                             ^ punctuation.section.caption-group.end
+;                              ^ punctuation.section.parameters.end
+  VS8 = (SOFTKEY_BACK, SE2)
+; ^^^^^^ meta.softkey - meta.softkey.parameters.caption
+;       ^ meta.softkey.parameters - meta.softkey.parameters.caption
+;        ^^^^^^^^^^^^^ meta.softkey.parameters.caption - meta.softkey.parameters.attributes
+;                     ^^^^^ meta.softkey.parameters.attributes - meta.softkey.parameters.caption
+;                          ^ - meta.softkey
+; ^^^ entity.name.softkey
+;     ^ keyword.operator.assignment
+;       ^ punctuation.section.parameters.begin
+;        ^^^^^^^^^^^^ variable.language.softkeyid
+;                    ^ punctuation.separator
+;                      ^^^ constant.language.attribute.state
+;                         ^ punctuation.section.parameters.end
+
 //END    ; //M(NAME)
 ; <- meta.class.dialog.end keyword.class.end
 ;^^^^ meta.class.dialog.end keyword.class.end
