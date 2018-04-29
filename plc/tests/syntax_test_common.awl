@@ -945,6 +945,59 @@
 //          ^ punctuation.terminator.line
 
 ///////////////////////////////////////////////////////////////////////////////
+// datablock operations                                                      //
+///////////////////////////////////////////////////////////////////////////////
+
+      AUF   DB 10;
+// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//       ^^^^^^^^^ meta.operand.datablock.s7.awl
+//                ^ - meta.operand.datablock.s7.awl
+//    ^^^ keyword.operator.load.db.s7.awl
+//          ^^^^^ variable.language.db.s7.awl
+//               ^ punctuation.terminator.line.s7.awl
+      AUF   DB [MW 10];
+// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//       ^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
+//                     ^ - meta.operand.datablock.s7.awl
+//    ^^^ keyword.operator.load.db.s7.awl
+//          ^^^^^^^^^^ variable.language.db.s7.awl
+//                    ^ punctuation.terminator.line.s7.awl
+      AUF   "IDB_Block";
+// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//       ^^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
+//                      ^ - meta.operand.datablock.s7.awl
+//    ^^^ keyword.operator.load.db.s7.awl
+//          ^^^^^^^^^^^ string.quoted.double.s7.awl
+//          ^ punctuation.definition.string.begin.s7.awl
+//           ^^^^^^^^^ variable.other.symbol.s7.awl
+//                    ^ punctuation.definition.string.end.s7.awl
+//                     ^ punctuation.terminator.line.s7.awl
+      AUF   DBNO;
+// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//       ^^^^^^^^ meta.operand.datablock.s7.awl
+//               ^ - meta.operand.datablock.s7.awl
+//    ^^^ keyword.operator.load.db.s7.awl
+//          ^^^^ invalid.illegal
+//              ^ punctuation.terminator.line.s7.awl
+      AUF   DINO;
+// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//       ^^^^^^^^ meta.operand.datablock.s7.awl
+//               ^ - meta.operand.datablock.s7.awl
+//    ^^^ keyword.operator.load.db.s7.awl
+//          ^^^^ invalid.illegal
+//              ^ punctuation.terminator.line.s7.awl
+      TDB   ;
+// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
+//    ^^^ keyword.operator.db.s7.awl
+//          ^ punctuation.terminator.line.s7.awl
+
+///////////////////////////////////////////////////////////////////////////////
 // logical operations                                                        //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -1156,6 +1209,62 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^^^^^ invalid.illegal
+//              ^ punctuation.terminator.line
+//                 ^^ punctuation.definition.comment.begin
+//                 ^^^^^^^^^^ comment.line.double-slash
+      L     T 10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//          ^^^^ variable.language.timer
+//              ^ punctuation.terminator.line
+//                 ^^ punctuation.definition.comment.begin
+//                 ^^^^^^^^^^ comment.line.double-slash
+      L     T [MW10];  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//          ^^^^^^^^ variable.language.timer
+//            ^^^^^^ meta.brackets
+//            ^ punctuation.section.brackets.begin
+//             ^^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                     ^^ punctuation.definition.comment.begin
+//                     ^^^^^^^^^^ comment.line.double-slash
+      L     Z 10;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//          ^^^^ variable.language.counter
+//              ^ punctuation.terminator.line
+//                 ^^ punctuation.definition.comment.begin
+//                 ^^^^^^^^^^ comment.line.double-slash
+      L     Z [MW10];  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//          ^^^^^^^^ variable.language.counter
+//            ^^^^^^ meta.brackets
+//            ^ punctuation.section.brackets.begin
+//             ^^^^ variable.language.address
+//                 ^ punctuation.section.brackets.end
+//                  ^ punctuation.terminator.line
+//                     ^^ punctuation.definition.comment.begin
+//                     ^^^^^^^^^^ comment.line.double-slash
+      L     DBNO;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//          ^^^^ variable.language
+//              ^ punctuation.terminator.line
+//                 ^^ punctuation.definition.comment.begin
+//                 ^^^^^^^^^^ comment.line.double-slash
+      L     DINO;  // comment
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//          ^^^^ variable.language
 //              ^ punctuation.terminator.line
 //                 ^^ punctuation.definition.comment.begin
 //                 ^^^^^^^^^^ comment.line.double-slash
@@ -1636,6 +1745,36 @@
 //         ^^^^^^^^^^ string.quoted.double
 //                  ^ punctuation.definition.string.end
 //                    ^ punctuation.section.parens.begin
+           INTF    := DB 2,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^ meta.mapping.value - meta.mapping.key
+//                        ^ meta.mapping
+//         ^^^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^ variable.language.db.s7.awl
+           TMR     := T 2,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^ meta.mapping.value - meta.mapping.key
+//                       ^ meta.mapping
+//         ^^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^ variable.language.timer.s7.awl
+           CNT     := Z 2,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^ meta.mapping.value - meta.mapping.key
+//                       ^ meta.mapping
+//         ^^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^ variable.language.counter.s7.awl
            SIG     := "msgs".A700127,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
