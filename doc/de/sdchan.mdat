@@ -107,7 +107,7 @@ Er wird bewertet, wie ein bei G94 programmiertes F-Wort.
 <description>Mit dem Setting-Datum SERUPRO_SYNC_MASK kann für den Suchlauf-Typ-SERUPRO ein synchronisiertes Anfahren eingestellt werden.
 SERUPRO benutzt die Funktion REPOS um von der aktuellen Maschinenposition zum Zielsatz des Suchlaufs zu kommen. Zwischen dem Wiederanfahrsatz und dem Zielsatz kann via SERUPRO_SYNC_MASK eine Synchronisation zwischen den Kanälen erzwungen werden, die der Verwendung von WAIT-Marken entsprechen würden.
 
-Bemerkung: 
+Bemerkung:
 Zwischen Wiederanfahrsatz und Zielsatz kann der Anwender im Teileprogramm keine WAIT-Marken programmieren.
 SERUPRO_SYNC_MASK aktiviert diese internen WAIT-Marke, und bestimmt für diesen Kanal, auf welche anderen Kanäle gewartet werden soll.
 
@@ -116,26 +116,26 @@ Jetzt wird im Serupro-Anfahren zwischen Wiederanfahrsatz und Zielsatz ein neuer 
 
 Die verwendete internen WAIT-Marke kann vom Anwender nicht explizit programmiert werden.
 
-Achtung: 
+Achtung:
 Der Anwender kann analog zum Teileprogramm den Fehler machen, dass er in einem Kanal den Marker nicht setzt, damit warten die anderen Kanäle natürlich für immer!
 
-Bemerkung: 
+Bemerkung:
 Die Bitmaske kann einen Kanal enthalten, der nicht existiert (Kanallücken), ohne dass es zum Dead-Lock kommt.
 Beispiel für Kanal 3:    SD42125 $SC_SERUPRO_SYNC_MASK= 0x55  und Kanal 5 existiert nicht, so wird WAITM( 101, 1,3,7) eingesetzt.
 Bemerkung: Der Satzinhalt entspricht "WAITM( 101, 1,3,5,7)", der Anwender sieht diesen Satzinhalt nicht, er sieht REPOSA!
-Bemerkung: 
+Bemerkung:
 	SERUPRO_SYNC_MASK wird ausgewertet, sobald der Teileprogrammbefehl REPOSA interpretiert wird.
 SERUPRO_SYNC_MASK kann noch verändert werden, wenn SERUPRO im Zustand "Suchziel gefunden" steht.
 Wird REPOSA bereits abgearbeitet, kann eine Änderung von SERUPRO_SYNC_MASK nur dann wirksam werden, wenn ein neues REPOS aufgezogen wird. Dies geschieht z.B. durch:
 - Starten eines neuen ASUPs.
 - STOP-JOG-AUTO-START
 - STOP - Anwahl eines neuen REPOS-Modes RMI/RMN/RME/RMB - START
-Bemerkung: 
+Bemerkung:
 Verwendet man das Prog-Event zum Suchlauf und steht der NCK auf Alarm 10208 so wirkt eine Veränderung von SERUPRO_SYNC_MASK nicht, außer man zieht ein neues REPOS auf.
 SERUPRO_SYNC_MASK == 0   es wird kein (!) Satz eingefügt.
-Bemerkung:  
+Bemerkung:
 	Wird in SD42125 $SC_SERUPRO_SYNC_MASK das Bit für den aktuellen Kanal nicht gesetzt so wird kein (!) Satz eingefügt.
-Beispiel: 
+Beispiel:
 Wird in Kanal-1 SD42125 $SC_SERUPRO_SYNC_MASK= 0xE programmiert, so wird  kein (!) Satz eingefügt.
 Diese Belegung ist für eine kommende Funktion reserviert!
 </description>
@@ -165,7 +165,7 @@ In SD42160 $SC_EXTERN_FIXED_FEEDRATE_F1_F9[0], muss der Eilgang Vorschub eingetr
 <parameter number="42162" type="DOUBLE" dim="0">
 <name>EXTERN_DOUBLE_TURRET_DIST</name>
 <brief>Werkzeugabstand des Doppelrevolverkopfes</brief>
-<description>Abstand der beiden Werkzeuge eines Doppelrevolverkopfes. 
+<description>Abstand der beiden Werkzeuge eines Doppelrevolverkopfes.
 Der Abstand wird mit G68 als additive Nullpunktverschiebung aktiviert, wenn MD10812 $MN_EXTERN_DOUBLE_TURRET_ON = TRUE gesetzt ist.
 </description>
 </parameter>
@@ -279,24 +279,24 @@ korrespondierend mit ....
 </parameter>
 <parameter number="42465" type="DOUBLE" dim="0">
 <name>SMOOTH_CONTUR_TOL</name>
-<brief>maximale Konturabweichung beim Überschleifen</brief>
+<brief>Maximale Konturabweichung beim Überschleifen</brief>
 <description>Mit diesem Settingdatum wird die maximale Toleranz beim Überschleifen für die Kontur festgelegt.
 
-Korrespondiert mit: 
+Korrespondiert mit:
 	MD20480 $MC_SMOOTHING_MODE,
 	SD42466 $SC_SMOOTH_ORI_TOL
 </description>
 </parameter>
 <parameter number="42466" type="DOUBLE" dim="0">
 <name>SMOOTH_ORI_TOL</name>
-<brief>maximale Abweichung der WZ-Orientierung beim Überschleifen</brief>
+<brief>Maximale Abweichung der WZ-Orientierung beim Überschleifen</brief>
 <description>Mit diesem Settingdatum wird die maximale Toleranz beim Überschleifen
 für die Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale
 erlaubte Winkelabweichung der Werkzeugorientierung bestimmt.
 Dieses Datum ist nur wirksam, falls eine Orientierungstransformation
 aktiv ist.
 
-Korrespondiert mit: 
+Korrespondiert mit:
 	MD20480 $MC_SMOOTHING_MODE,
 	SD42465 $SC_SMOOTH_CONTUR_TOL
 </description>
@@ -340,20 +340,20 @@ Korrespondiert mit:
 </parameter>
 <parameter number="42475" type="DOUBLE" dim="0">
 <name>COMPRESS_CONTUR_TOL</name>
-<brief>maximale Konturabweichung beim Kompressor</brief>
+<brief>Maximale Konturabweichung beim Kompressor</brief>
 <description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Kontur festgelegt.
 </description>
 </parameter>
 <parameter number="42476" type="DOUBLE" dim="0">
 <name>COMPRESS_ORI_TOL</name>
-<brief>maximale Abweichung der Werkzeugorientierung beim Kompressor</brief>
+<brief>Maximale Abweichung der Werkzeugorientierung beim Kompressor</brief>
 <description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale erlaubte Winkelabweichung der Werkzeugorientierung bestimmt.
 Dieses Datum ist nur wirksam, falls eine Orientierungstransformation aktiv ist.
 </description>
 </parameter>
 <parameter number="42477" type="DOUBLE" dim="0">
 <name>COMPRESS_ORI_ROT_TOL</name>
-<brief>maximale Abweichung der Werkzeugdrehung beim Kompressor</brief>
+<brief>Maximale Abweichung der Werkzeugdrehung beim Kompressor</brief>
 <description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Drehung der Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale erlaubte Winkelabweichung der Drehung des Werkzeugs bestimmt.
 Dieses Datum ist nur wirksam, falls eine Orientierungstransformation aktiv ist.
 Eine Drehung der Werkzeugorientierung ist nur bei 6-Achs Maschinen möglich.
@@ -409,18 +409,18 @@ Enthält die maßgebliche Stelle eine andere Zahl als 1, 2 oder 3, also insbesonde
 Zum Begriff "Werkzeuge mit Schneidenlage":
 Das sind Werkzeuge mit Werkzeugnummern zwischen 400 und 599 (Dreh- und Schleifwerkzeuge), deren Schneidenlage einen Wert zwischen 1 und 8 hat. Dreh- und Schleifwerkzeuge mit Schneidenlage 0 oder 9 bzw. anderen, nicht definierten Werten, werden wie Fräswerkzeuge behandelt.
 
-Hinweis: 
+Hinweis:
 	Wird der Wert dieses Settingdatums innerhalb eines Programmes verändert, so empfiehlt es sich, vor dem Beschreiben einen Vorlaufstop (stopre) zu programmieren, da sonst die Gefahr besteht, dass in davor liegenden Programmteilen der neue Wert verwendet wird. Der umgekehrte Fall ist unkritisch, d.h. wird das Settingdatum beschrieben, greifen nachfolgende NC-Sätze mit Sicherheit auf den geänderte Wert zu.
 </description>
 </parameter>
 <parameter number="42496" type="BOOLEAN" dim="0">
 <name>CUTCOM_CLSD_CONT</name>
 <brief>Verhalten der Werkzeugradiuskorrektur bei geschlossener Kontur</brief>
-<description>FALSE: 
+<description>FALSE:
 	FALL A: Ergeben sich bei einer (nahezu) geschlossenen Kontur, die aus zwei aufeinanderfolgenden Kreissätzen oder einem Kreis- und einem Linearsatz besteht, bei Korrektur an der Innenseite zwei Schnittpunkte, so wird entsprechend dem Standardverfahren der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzanfang liegt.
 	Ein Kontur wird dann als (nahezu) geschlossen betrachtet, wenn der Abstand zwischen dem Startpunkt des ersten Satzes und dem Endpunkt des zweiten Satzes kleiner ist als 10% des wirksamen Korrekturradius aber nicht größer als 1000 Weginkremente (entspr. 1mm bei 3 Nachkommastellen).
 	FALL B: Schneidet bei der Korrektur an der Innenseite und einem Satzübergang zwischen einer Geraden und einem Kreis mit einem Öffnungswinkel vom mehr als etwa 315 Grad die Offsetkurve der Geraden die Offsetkurve des Kreises in zwei Punkten, so wird entsprechend dem Standardverfahren der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzanfang liegt.
-TRUE:  
+TRUE:
 	FALL A: In der gleichen Situation wie oben beschrieben wird der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzende liegt.
 	FALL B: In der gleichen Situation wie oben beschrieben wird der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzende liegt. Dies jedoch nur dann, wenn der Betrag der dadurch verursachten Konturverletzung kleiner ist als die wirksame Konturtoleranz. Zur wirksamen Konturtoleranz siehe die Beschreibung "Kontur/Orientierungstoleranz" in FB1. Die aktuell wirksame Toleranz kann mit $AC_CTOL gelesen werden. Ist die derart programmierte Toleranz Null, wirkt eine fest eingestellte Toleranz von 0.002mm.
 	Maßgebend ist der Toleranzwert, der bei Aktivierung der Werkzeugradiuskorrektur mit G41 bzw. G42 gültig ist.
@@ -428,7 +428,7 @@ TRUE:
 </parameter>
 <parameter number="42500" type="DOUBLE" dim="0">
 <name>SD_MAX_PATH_ACCEL</name>
-<brief>maximale Bahnbeschleunigung</brief>
+<brief>Maximale Bahnbeschleunigung</brief>
 <description>Settingdatum für zusätzliche Begrenzung der (tangentialen) Bahnbeschleunigung
 
 korrespondierend mit ...
@@ -447,7 +447,7 @@ korrespondierend mit ...
 </parameter>
 <parameter number="42510" type="DOUBLE" dim="0">
 <name>SD_MAX_PATH_JERK</name>
-<brief>maximaler bahnbezogener Ruck als Settingdatum</brief>
+<brief>Maximaler bahnbezogener Ruck als Settingdatum</brief>
 <description>Maximaler bahnbezogener Ruck kann zusätzlich zu MD20600 $MC_MAX_PATH_JERK den Ruck begrenzen.
 
 
@@ -623,21 +623,21 @@ Per default ist die Koordinate einer Achse mit Durchmesserprogrammierung im Durc
 <brief>Mode Joggen von Kreisen</brief>
 <description>Mit diesem Settingdatum wird beim Joggen von Kreisen eingestellt:
 
-Bit 0 = 0 : 
+Bit 0 = 0 :
 	Fahren nach + erzeugt ein Verfahren auf einer Kreisbahn gegen den Uhrzeigersinn, ein Fahren nach - verfährt im Uhrzeigersinn.
-Bit 0 = 1 : 
+Bit 0 = 1 :
 	Fahren nach + erzeugt ein Verfahren auf einer Kreisbahn im Uhrzeigersinn, ein Fahren nach - verfährt gegen den Uhrzeigersinn.
-Bit 1 = 0 : 
+Bit 1 = 0 :
 	Es wird bei der Abprüfung der Begrenzung durch den vorgegebenen Kreis bzw. das durch Start- und Endwinkel begrenzte Kreissegment der Werkzeugradius nicht berücksichtigt.
-Bit 1 = 1 : 
+Bit 1 = 1 :
 	Es wird bei der Abprüfung der Begrenzung durch den vorgegebenen Kreis bzw. das durch Start- und Endwinkel begrenzte Kreissegment der Werkzeugradius berücksichtigt.
-Bit 2 = 0 : 
+Bit 2 = 0 :
 	Es findet eine Innenbearbeitung statt. Der Kreisradius in SD42691 $SC_JOG_CIRCLE_RADIUS ist der maximal mögliche Radius.
-Bit 2 = 1 : 
+Bit 2 = 1 :
 	Es findet eine Außenbearbeitung statt. Der Kreisradius in SD42691 $SC_JOG_CIRCLE_RADIUS ist der minimal mögliche Radius.
-Bit 3 = 0 : 
+Bit 3 = 0 :
 	Bei einem Vollkreis wird der Radius vom Kreismittelpunkt ausgehend in Richtung der Ordinate (2. Geometrieachse) der Ebene vergrößert
-Bit 3 = 1 : 
+Bit 3 = 1 :
 	Bei einem Vollkreis wird der Radius vom Kreismittelpunkt ausgehend in Richtung der Abszisse (1. Geometrieachse) der Ebene vergrößert
 Dieses Settingdatum sollte über die Bedienoberfläche geschrieben werden.
 </description>
@@ -705,10 +705,10 @@ Die Vorzeichen der Werkzeuglängekomponenten sind unabhängig davon, ob ein Frame 
 <parameter number="42910" type="BOOLEAN" dim="0">
 <name>MIRROR_TOOL_WEAR</name>
 <brief>Vorzeichenwechsel Werkzeugverschleiß beim Spiegeln</brief>
-<description>TRUE:  
+<description>TRUE:
 	Wird ein Frame mit Spiegeln aktiviert, werden die Vorzeichen der Verschleißwerte der entsprechenden Komponenten invertiert. Die Ver- schleißwerte der Komponenten, die nicht gespiegelten Achsen zugeordnet sind, bleiben unverändert.
 
-FALSE: 
+FALSE:
 	Die Vorzeichen der Verschleißwerte sind unabhängig davon, ob ein Frame mit Spiegeln aktiv ist.
 </description>
 </parameter>
@@ -805,7 +805,7 @@ Hat das Settingdatum SD42950 $SC_TOOL_LENGTH_TYPE den Wert 3, wirkt dieses Setti
 <name>TOOL_LENGTH_CONST_T</name>
 <brief>Wechsel der Werkzeuglängenkomponenten für Drehwerkzeuge bei Ebenenwechsel</brief>
 <description>Dieses Settingdatum wird nur dann ausgewertet, wenn das SD42950 $SC_TOOL_LENGTH_TYPE den Wert 3 hat. Unter dieser Voraussetzung hat es folgende Bedeutung:
-Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeuglängenkomponenten (Länge, Verschleiß und Basismaß) von Drehwerkzeugen (Werkzeugtyp 400 bis 599) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert.
+Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeuglängenkomponenten (Länge, Verschleiß und Basismaß) von Dreh- und Schleifwerkzeugen (Werkzeugtypen 400 bis 599) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert.
 Die Zuordnung der Werkzeugorientierungskomponenten wird durch dieses Settingdatum nicht beeinflusst. Gegebenenfalls muss das Settingdatum SD42957 $SC_TOOL_ORI_CONST_T entsprechend gesetzt werden.
 Die Zuordnung der Werkzeuglängekomponenten zu den Geometrieachsen ergibt sich aus dem Wert des Settingdatums gemäß der folgenden Tabelle.
 Bei der Darstellung in der Tabelle wird davon ausgegangen, dass die Geometrieachsen 1 bis 3 mit X, Y und Z bezeichnet sind. Für die Zuordnung einer Korrektur zu einer Achse ist jedoch nicht der Achsbezeichner, sondern die Achsreihenfolge maßgebend.
@@ -832,7 +832,7 @@ Wert
 
 1:	Die Zuordnung der Werkzeuglängenkomponenten erfolgt unabhängig vom tatsächlichen Werkzeugtyp immer wie bei Fräswerkzeugen.
 
-2.	Die Zuordnung der Werkzeuglängenkomponenten erfolgt unabhängig vom tatsächlichen Werkzeugtyp immer wie bei Drehwerkzeugen.
+2.	Die Zuordnung der Werkzeuglängenkomponenten erfolgt unabhängig vom tatsächlichen Werkzeugtyp immer wie bei Dreh- und Schleifwerkzeugen.
 
 3.	Die Zuordnung der Werkzeuglängenkomponenten erfolgt getrennt für Dreh- und Schleifwerkzeuge (Werkzeugtypen 400 bis 599) einerseits und alle anderen Werkzeuge (Fräswerkzeuge) andererseits.
 
@@ -840,7 +840,7 @@ Wert
      Fräswerkzeuge:
         Die Zuordnung der Werkzeuglängenkomponenten wird durch SD42940 $SC_TOOL_LENGTH_CONST bestimmt.
 
-     Drehwerkzeuge:
+     Dreh- und Schleifwerkzeuge:
         Die Zuordnung der Werkzeuglängenkomponenten wird durch SD42942 $SC_TOOL_LENGTH_CONST_T bestimmt.
 
 Das Settingdatum wirkt auch auf die den Längenkomponenten zugeordneten Verschleißwerte.
@@ -854,11 +854,11 @@ Ist das SD42940 $SC_TOOL_LENGTH_CONST gesetzt, so wird in den dort definierten T
 Das Orientierungskoordinatensystem wird bestimmt durch den Orientierungsvektor und einen darauf senkrecht stehenden Orientierungsnormalenvektor. Es wird vervollständigt durch einen dritten Vektor, den sogenannten Binormalenvektor, der sich aus dem Kreuzprodukt aus Orientierungsnormalenvektor und Orientierungsvektor ergibt.
 Die Grundorientierung wird dabei durch die Einer- und Zehnerstelle des Settingdatums bestimmt. Zulässig sind außer dem Wert 0 nur die Werte 17, 18 und 19. Alle andern Werte werden so behandelt, als sei der Wert 17.
 
-           Orientierungs-    Orientierungs-      Binormalen-  
-Inhalt        vektor         normalenvektor        vektor     
- 17*        (0, 0, 1)          (0, 1, 0)          (1, 0, 0)   
- 18         (0, 1, 0)          (1, 0, 0)          (0, 0, 1)   
- 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)   
+           Orientierungs-    Orientierungs-      Binormalen-
+Inhalt        vektor         normalenvektor        vektor
+ 17*        (0, 0, 1)          (0, 1, 0)          (1, 0, 0)
+ 18         (0, 1, 0)          (1, 0, 0)          (0, 0, 1)
+ 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)
 * Jeder Wert ungleich 0, der nicht gleich einem der drei aufgeführten Werte ist, wird wie der Wert 17 bewertet.
 Ist n der Inhalt 100er-Stelle des Settingdatums, wird das Koordinatensystem mit dem Winkel n * 90 Grad um den Orientierungsvektor gedreht. Für n sind die Werte 0 bis 3 zulässig. Größere Werte werden wie der Wert 0 bewertet.
 Ist das Vorzeichen des Settingdatums negativ, wird das Koordinatensystem um 180 Grad um die Achse gedreht, die durch die ursprüngliche Lage des Orientierungsnormlenvektors (d.h. vor einer eventuellen Drehung wegen n ungleich 0) definiert ist.
@@ -876,15 +876,15 @@ Soll das Settingdatum auch für solche Werkzeuge wirksam sein, muss die 1000er-St
 <parameter number="42956" type="DWORD" dim="0">
 <name>TOOL_ORI_CONST_T</name>
 <brief>Wechsel der Werkzeugorientierungskomp. für Drehwerkzeuge bei Ebenenwechsel</brief>
-<description>Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeugorientierungskomponenten von Dreh- und Schleifwerkzeugen (Werkzeugtyp 400 bis 599) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert. Es hat keine Bedeutung für Werkzeuge, die keine Dreh- oder Schleifwerkzeuge sind.
+<description>Ist dieses Settingdatum ungleich Null, so wird die Zuordnung der Werkzeugorientierungskomponenten von Dreh- und Schleifwerkzeugen (Werkzeugtypen 400 bis 599) zu den Geometrieachsen bei einem Wechsel der Bearbeitungsebene (G17 - G19) nicht verändert. Es hat keine Bedeutung für Werkzeuge, die keine Dreh- oder Schleifwerkzeuge sind.
 Das Orientierungskoordinatensystem wird bestimmt durch den Orientierungsvektor und einen darauf senkrecht stehenden Orientierungsnormalenvektor. Es wird vervollständigt durch einen dritten Vektor, den sogenannten Binormalenvektor, der sich aus dem Kreuzprodukt aus Orientierungsnormalenvektor und Orientierungsvektor ergibt.
 Die Grundorientierung wird dabei durch die Einer- und Zehnerstelle des Settingdatums bestimmt. Zulässig sind außer dem Wert 0 nur die Werte 17, 18 und 19. Alle andern Werte werden so behandelt, als sei der Wert 18.
 
-           Orientierungs-    Orientierungs-      Binormalen-  
-Inhalt        vektor         normalenvektor        vektor     
- 17         (0, 0, 1)          (0, 1, 0)          (1, 0, 0)   
- 18*        (0, 1, 0)          (1, 0, 0)          (0, 0, 1)   
- 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)   
+           Orientierungs-    Orientierungs-      Binormalen-
+Inhalt        vektor         normalenvektor        vektor
+ 17         (0, 0, 1)          (0, 1, 0)          (1, 0, 0)
+ 18*        (0, 1, 0)          (1, 0, 0)          (0, 0, 1)
+ 19         (1, 0, 0)          (0, 0, 1)          (0, 1, 0)
 * Jeder Wert ungleich 0, der nicht gleich einem der drei aufgeführten Werte ist, wird wie der Wert 18 bewertet.
 Ist n der Inhalt 100er-Stelle des Settingdatums, wird das Koordinatensystem mit dem Winkel n * 90 Grad um den Orientierungsvektor gedreht. Für n sind die Werte 0 bis 3 zulässig. Größere Werte werden wie der Wert 0 bewertet.
 Ist das Vorzeichen des Settingdatums negativ, wird das Koordinatensystem um 180 Grad um die Achse gedreht, die durch die ursprüngliche Lage des Orientierungsnormlenvektors (d.h. vor einer eventuellen Drehung wegen n ungleich 0) definiert ist.
@@ -895,7 +895,7 @@ Orientierungsnormalenvektor  (1,  0,  0)
 Binormalenvektor             (0 , 0, -1)
 
 Behandlung von Werkzeugen mit explizit programmierter Werkzeugorientierung mittels Schneidendaten ($TC_DPV..):
-Bei der Werkzeugen, bei denen die Orientierung auf diese Art definiert ist, wird dieses Settingdatum normalerweise ignoriert, d.h. die programmierten Orientierungsvektoren werden abhängig von der aktiven Bearbeitungsebene (G17 - G19) den Geometrieachsen zugeordnet.
+Bei den Werkzeugen, bei denen die Orientierung auf diese Art definiert ist, wird dieses Settingdatum normalerweise ignoriert, d.h. die programmierten Orientierungsvektoren werden abhängig von der aktiven Bearbeitungsebene (G17 - G19) den Geometrieachsen zugeordnet.
 Soll das Settingdatum auch für solche Werkzeuge wirksam sein, muss die 1000er-Stelle gleich 1 sein. Dabei werden die 100er-Stelle und das Vorzeichen nicht ausgewertet, d.h. das Settingdatum definiert ausschließlich, wie die Orientierungskomponenten den Geometrieachsrichtungen zugeordnet werden. Es werden keine zusätzlichen Drehungen ausgeführt.
 </description>
 </parameter>
@@ -920,13 +920,24 @@ Dieser Grenzwert wirkt auf den absolut wirksamen Korrekturbetrag durch $AA_TOFF.
 Über die Systemvariable $AA_TOFF_LIMIT kann abgefragt werden, ob sich der Korrekturwert im Grenzbereich befindet.
 </description>
 </parameter>
+<parameter number="42972" type="DOUBLE" dim="1">
+<name>TOFF_LIMIT_MINUS</name>
+<brief>Untergrenze des Korrekturwertes $AA_TOFF</brief>
+<description>Untergrenze des Korrekturwertes, der mittels Synchronaktionen über die Systemvariable $AA_TOFF vorgegeben werden kann.
+
+Dieser Grenzwert wirkt auf den wirksamen Korrekturbetrag durch $AA_TOFF in Minus-Richtung.
+Dieser Grenzwert wird nur wirksam, wenn $MC_TOFF_MODE Bit6 = 1 gesetzt ist.
+
+Über die Systemvariable $AA_TOFF_LIMIT kann abgefragt werden, ob sich der Korrekturwert im Grenzbereich befindet.
+</description>
+</parameter>
 <parameter number="42974" type="BOOLEAN" dim="0">
 <name>TOCARR_FINE_CORRECTION</name>
 <brief>Feinverschiebung TCARR ein / aus</brief>
-<description>TRUE:   
+<description>TRUE:
 	Bei der Aktivierung eines orientierbaren Werkzeugträgers werden die Feinverschiebungswerte berücksichtigt.
 
-FALSE:  
+FALSE:
 	Bei der Aktivierung eines orientierbaren Werkzeugträgers werden die Feinverschiebungswerte nicht berücksichtigt.
 </description>
 </parameter>
@@ -945,13 +956,13 @@ Das Maschinendatum 21110 $MC_X_AXIS_IN_OLD_X_Z_PLANE wird nicht ausgewertet.
 Die folgenden Erläuterungen beziehen sich auf die G17-Ebene mit den Achsen XY in der Bearbeitungsebene und der Werkzeugachse Z.
 
 SD42980 $SC_TOFRAME_MODE = 2000:
-Die Rotation um die Z-Achse wird so gewählt, dass der Winkel zwischen der neuen X-Achse und der alten X-Z-Ebene den gleichen Betrag hat wie der Winkel zwischen der neuen Y-Achse und der alten Y-Z-Ebene.Diese Einstellung entspricht dem Mittelwert der beiden Einstellungen, die sich bei den Werten 2001 bzw 2002 dieses Settingdatums ergeben würden. 
+Die Rotation um die Z-Achse wird so gewählt, dass der Winkel zwischen der neuen X-Achse und der alten X-Z-Ebene den gleichen Betrag hat wie der Winkel zwischen der neuen Y-Achse und der alten Y-Z-Ebene.Diese Einstellung entspricht dem Mittelwert der beiden Einstellungen, die sich bei den Werten 2001 bzw 2002 dieses Settingdatums ergeben würden.
 Sie wird auch wirksam, wenn die Einerstelle einen Wert größer 2 hat.
 
 SD42980 $SC_TOFRAME_MODE = 2001:
 Die neue X-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der X-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer Y-Achse minimal.
 
-SD42980 $SC_TOFRAME_MODE = 2002: 
+SD42980 $SC_TOFRAME_MODE = 2002:
 Die neue Y-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der Y-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer X-Achse minimal.
 
 Alle anderen Einstellungen des SD42980 $SC_TOFRAME_MODE (0,1,2,...1000,1001..) sollten bei Neuinbetriebnahmen nicht verwendet werden.
@@ -982,7 +993,7 @@ Optional kann als erstes Zeichen des Strings ein Vorzeichen (+ oder - Zeichen) g
 </parameter>
 <parameter number="42990" type="DWORD" dim="0">
 <name>MAX_BLOCKS_IN_IPOBUFFER</name>
-<brief>maximale Anzahl der Sätze im Ipo-Puffer</brief>
+<brief>Maximale Anzahl der Sätze im Ipo-Puffer</brief>
 <description>Mit diesem Settingdatum kann die maximale Anzahl der Sätze im Interpolationspuffers begrenzt werden. Dabei ist die maximale Zahl durch das MD28060 $MC_MM_IPO_BUFFER_SIZE festgelegt.
 Ein negativer Wert bedeutet dabei, dass keine Begrenzung der Anzahl der Sätze im Ipo-Puffer wirksam wird und die Anzahl der Sätze allein durch das MD28060 $MC_MM_IPO_BUFFER_SIZE bestimmt wird (Standard Einstellung).
 </description>
@@ -998,11 +1009,11 @@ Ein negativer Wert bedeutet dabei, dass keine Begrenzung der Anzahl der Sätze im
 <brief>Mode Joggen von Geometrieachsen</brief>
 <description>Mit diesem Settingdatum wird beim Joggen von Geometrieachsen eingestellt:
 
-Bit 0 = 1 : 
+Bit 0 = 1 :
 	Eine Verfahranforderung für die 1. Geometrieachse wird invertiert, d.h. eine Verfahranforderung nach + löst eine Verfahrbewegung nach - aus.
-Bit 1 = 1 : 
+Bit 1 = 1 :
 	Eine Verfahranforderung für die 2. Geometrieachse wird invertiert, d.h. eine Verfahranforderung nach + löst eine Verfahrbewegung nach - aus.
-Bit 2 = 1: 
+Bit 2 = 1:
 	Eine Verfahranforderung für die 3. Geometrieachse wird invertiert, d.h. eine Verfahranforderung nach + löst eine Verfahrbewegung nach - aus.
 </description>
 </parameter>

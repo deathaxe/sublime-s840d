@@ -3,13 +3,10 @@
 <parameter number="9006" type="DWORD" dim="0" display="DECIMAL">
 <name>DISPLAY_SWITCH_OFF_INTERVAL</name>
 <brief>Zeit für Bildschirmdunkelschaltung</brief>
-<description>Mit diesem Maschinendatum wird die Zeitdauer in Minuten festgelegt, nach deren Ablauf der Bildschirm automatisch 
-dunkelgeschaltet wird, falls zwischenzeitlich an der Tastatur kein Tastendruck erfolgt ist.
+<description>Mit diesem Maschinendatum wird die Zeitdauer in Minuten festgelegt, nach deren Ablauf der Bildschirm automatisch dunkelgeschaltet wird, falls zwischenzeitlich an der Tastatur kein Tastendruck erfolgt ist.
 Mit Wert 0 ist die automatische Hell-/Dunkelschaltung ausgeschaltet.
 Hinweis:
-Die automatische Hell-/Dunkelschaltung des Bildschirms wird nur durchgeführt, wenn das NST Bildschirm dunkel = 0 ist.
-korrespondierend mit:
-NST Bildschirm dunkel (DB19, ... DBX0.1)
+Die automatische Hell-/Dunkelschaltung des Bildschirms wird nur durchgeführt, wenn das NC/PLC-Nahtstellensignal &lt;NST_Bildschirm_dunkel/&gt; (Bildschirm dunkel) = 0 ist.
 </description>
 </parameter>
 <parameter number="9009" type="BYTE" dim="0" display="DECIMAL">
@@ -24,9 +21,9 @@ Grundkonfiguration für das Shift-Verhalten der Tastatur
 <parameter number="9032" type="STRING" dim="1" display="ASCII">
 <name>HMI_MONITOR</name>
 <brief>PLC-Datum für HMI-Bildinfo festlegen</brief>
-<description>Offsetbehafteter Zeiger auf einen PLC-Datenbaustein. Dieser wird benötigt, um Monitorinformationen des HMI 
+<description>Offsetbehafteter Zeiger auf einen PLC-Datenbaustein. Dieser wird benötigt, um Monitorinformationen des HMI
 an die PLC zu melden, z.B.aktive HMI-Task.
- Format: PLC-spezifisches Format zur Angabe eines Datenbausteins mit Byteoffset 
+ Format: PLC-spezifisches Format zur Angabe eines Datenbausteins mit Byteoffset
 z.B. DB60.DBB10 für Datenbaustein 60, Byte 10
  Die vom HMI gemeldete Monitorinformation beträgt maximal 8 Byte.
 </description>
@@ -46,9 +43,9 @@ Steht kein Alarm an, so werden ggf. Zyklenalarme oder Programmmeldungen angezeig
 <name>ENABLE_CHANNEL_MSG_FILTER</name>
 <brief>Programmmeldungen kanalspezifisch filtern</brief>
 <description>0: Es werden die Programmmeldungen aller Kanäle in der Alarm-/Meldezeile angezeigt
-Bei mehreren NCUs werden standardmäßig die Alarme und Meldungen aller  NCUs angezeigt, mit der 
+Bei mehreren NCUs werden standardmäßig die Alarme und Meldungen aller  NCUs angezeigt, mit der
 Einstellung ServerMode Enabled=false in slaesvcconf.xml kann dies auf die aktuelle NCU eingeschränkt sein.
-1: Es werden nur die Programmmeldungen des aktuellen Kanals der aktuellen NC angezeigt. 
+1: Es werden nur die Programmmeldungen des aktuellen Kanals der aktuellen NC angezeigt.
 </description>
 </parameter>
 <parameter number="9100" type="BYTE" dim="0" display="DECIMAL">
@@ -113,6 +110,21 @@ Bei Hilfebildern, die ausschließlich animiert sind, wirkt die Einstellung nicht.
 <name>ACCESS_HMI_EXIT</name>
 <brief>Schutzstufe Exit-Softkey</brief>
 <description>Schutzstufe für den Exit-Softkey (HMI-Neustart) im Bedienbereichsmenü
+</description>
+</parameter>
+<parameter number="9111" type="BYTE" dim="0" display="DECIMAL">
+<name>HMI_MEM_LIMIT_USER</name>
+<brief>Größe Speicherbereich Anwender in GB</brief>
+<description>Größe des zusätzlichenSpeicherbereichs für den Anwender auf der CF-Card bei gesetzter Option.
+Der Rest der verfügbaren 6 GB bleiben für Herstellerdaten.
+</description>
+</parameter>
+<parameter number="9112" type="DWORD" dim="0" display="DECIMAL">
+<name>HMI_SKIN</name>
+<brief>Design der Bedienoberfläche (Skin)</brief>
+<description>Design der Bedienoberfläche. Angegeben wird die Nummer des Skins.
+0 = Skin 0 (Traditionell)
+1 = Skin 1 (Neu)
 </description>
 </parameter>
 <parameter number="9900" type="BOOLEAN" dim="0" display="DECIMAL">

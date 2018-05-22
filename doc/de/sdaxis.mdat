@@ -64,7 +64,7 @@ korrespondierend mit ....
 </parameter>
 <parameter number="43120" type="DWORD" dim="0">
 <name>DEFAULT_SCALE_FACTOR_AXIS</name>
-<brief>axialer default Skalierungfaktor bei aktivem G51</brief>
+<brief>Axialer default Skalierungfaktor bei aktivem G51</brief>
 <description>Wenn kein axialer Scalefaktor I, J oder K im G51 Satz programmiert wird, wirkt SD43120 $SA_DEFAULT_SCALE_FACTOR_AXIS. Damit der Skalierungsfaktor wirkt, muss das MD22914 $MC_AXES_SCALE_ENABLE gesetzt sein.
 
 Korrespondiert mit:
@@ -122,7 +122,7 @@ Beim Beschreiben des SD mit unzulässigen Werten wird der Defaultwert wirksam.
 </parameter>
 <parameter number="43210" type="DOUBLE" dim="0">
 <name>SPIND_MIN_VELO_G25</name>
-<brief>programmierte Spindeldrehzahlbegrenzung G25</brief>
+<brief>Programmierte Spindeldrehzahlbegrenzung G25</brief>
 <description>In SPIND_MIN_VELO_G25 wird eine min. Spindeldrehzahlbegrenzung eingegeben, die die Spindel nicht unterschreiten darf. Die NCK begrenzt eine zu kleine Spindelsolldrehzahl auf diesen Wert.
 
 Die min. Spindeldrehzahl kann nur unterschritten werden durch:
@@ -141,7 +141,7 @@ SD irrelevant bei ......
 Korrespondiert mit:
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-In diesem SD wird eine min. Spindeldrehzahlbegrenzung eingegeben, die die Spindel nicht unterschreiten darf. Die NCK begrenzt eine zu kleine Spindelsolldrehzahl auf diesen Wert. 
+In diesem SD wird eine min. Spindeldrehzahlbegrenzung eingegeben, die die Spindel nicht unterschreiten darf. Die NCK begrenzt eine zu kleine Spindelsolldrehzahl auf diesen Wert.
 Die min. Spindeldrehzahl kann nur unterschritten werden durch:
 -	Spindelkorrektur 0%
 -	M5
@@ -368,7 +368,7 @@ korrespondierend mit ....
 In dieses Settingdatum wird das Klemmoment in % vom maximalen Motormoment eingetragen (entspricht bei VSA % vom max. Stromsollwert).
 Beachten Sie, dass ein Klemmoment größer 100% nur kurzzeitig anstehen darf, damit der Motor nicht beschädigt wird.
 Bei Anwahl der Funktion "Fahren auf Festanschlag" durch Programmierung FXS[.] ist die Voreinstellung des MD37010 $MA_FIXED_STOP_TORQUE_DEF bis zur Programmierung mit FXST[.] wirksam.
-Der Befehl FXST[x] bewirkt eine satzsynchrone Änderung dieses Settingdatums. Weiterhin kann das Settingdatum vom Bediener verändert werden. 
+Der Befehl FXST[x] bewirkt eine satzsynchrone Änderung dieses Settingdatums. Weiterhin kann das Settingdatum vom Bediener verändert werden.
 Das SD wirkt schon während des Anfahrens des Anschlags.
 Der Festanschlag gilt als erreicht, wenn bei MD37060 $MA_FIXED_STOP_ACKN_MASK,
 	Bit 1 = 0: (keine Quittierung notwendig) das NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht/&gt; (Festanschlag erreicht) von der NC gesetzt wird.
@@ -539,24 +539,24 @@ korrespondierent mit ....
 <description>Bitmaske:
 Bitnr.       | Bedeutung in OSCILL_CTRL_MASK
 ------------------------------------------------------------------------------
-0(LSB)-1     | 0: beim Abschalten der Pendelbewegung im nächsten 
+0(LSB)-1     | 0: beim Abschalten der Pendelbewegung im nächsten
              |    Umkehrpunkt stoppen
-             |    
-             | 1: beim Abschalten der Pendelbewegung im Umkehrpunkt 1 
+             |
+             | 1: beim Abschalten der Pendelbewegung im Umkehrpunkt 1
              |    stoppen
-             | 2: beim Abschalten der Pendelbewegung im Umkehrpunkt 2 
+             | 2: beim Abschalten der Pendelbewegung im Umkehrpunkt 2
              |    stoppen
              | 3: beim Abschalten der Pendelbewegung keinen Umkehrpunkt
              |    anfahren, falls keine Ausfeuerungshübe programmiert sind
 ------------------------------------------------------------------------------
 2            | 1: nach dem Ausfeuern Endposition anfahren
 ------------------------------------------------------------------------------
-3            | 1: wird die Pendelbewegung durch Restweglöschen abgebrochen, 
-             |    so sollen anschließend die Ausfeuerungshübe abgearbeitet 
+3            | 1: wird die Pendelbewegung durch Restweglöschen abgebrochen,
+             |    so sollen anschließend die Ausfeuerungshübe abgearbeitet
              |    werden und ggf. die Endposition angefahren werden
 ------------------------------------------------------------------------------
-4            | 1: wird die Pendelbewegung durch Restweglöschen abgebrochen, 
-             |    so wird wie beim Abschalten die entsprechende 
+4            | 1: wird die Pendelbewegung durch Restweglöschen abgebrochen,
+             |    so wird wie beim Abschalten die entsprechende
              |    Umkehrpositon angefahren
 ------------------------------------------------------------------------------
 5            | 1: geänderter Vorschub erst ab nächstem Umkehrpunkt wirksam
@@ -568,7 +568,7 @@ Bitnr.       | Bedeutung in OSCILL_CTRL_MASK
 ------------------------------------------------------------------------------
 8            | 1: Ausfeuerhub als Einfachhub nicht als Doppelhub ausführen
 ------------------------------------------------------------------------------
-9            | 1: Beim Starten zuerst die Startposition anfahren, siehe 
+9            | 1: Beim Starten zuerst die Startposition anfahren, siehe
              |    SD43790 $SA_OSCILL_START_POS
 ------------------------------------------------------------------------------
 

@@ -168,6 +168,9 @@ contexts:
       scope: keyword.operator.assignment.s7.awl
       set:
         - include: constants
+        - include: operands-datablock-absolute
+        - include: operands-counter-absolute
+        - include: operands-timer-absolute
         - include: string-double-quoted
         - include: code-termination
     - include: line-end
@@ -777,6 +780,8 @@ contexts:
         - meta_content_scope: meta.operand.numeric.s7.awl
         - include: constants
         - include: operands-binary
+        - include: operands-counter
+        - include: operands-timer
         - include: operands-symbols
         - include: code-termination
     # T
@@ -947,7 +952,10 @@ contexts:
   awl-stmt-mapping-value:
     - meta_content_scope: meta.mapping.value.s7.awl
     - include: constants
-    - include: operands-absolute-binary
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-timer-absolute
     - include: operands-symbols
     - include: awl-stmt-mapping-end
 
@@ -1238,42 +1246,45 @@ contexts:
 
   operands:
     - include: operands-binary
+    - include: operands-counter
+    - include: operands-datablock
     - include: operands-logical
+    - include: operands-timer
     - include: operands-symbols
 
-  operands-logical:
-    - include: operands-absolute-logical
-    - include: operands-indirect-logical
+###[ DATABLOCK ]###################################################################
+
+  operands-datablock:
+    - include: operands-datablock-absolute
+    - include: operands-datablock-indirect
+
+  operands-datablock-absolute:
+    # DB10, DB 10 : datablocks
+    - match: \bD[BI][ \t]*{{int}}
+      scope: variable.language.db.s7.awl
+
+  operands-datablock-indirect:
+    - match: \bD[BI](?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.db.s7.awl
+        - include: address-indirect
+        - include: scope-end
+
+###[ BINARY ]######################################################################
 
   operands-binary:
-    - include: operands-absolute-binary
-    - include: operands-indirect-binary
+    - include: operands-binary-absolute
+    - include: operands-binary-indirect
 
-  operands-absolute-logical:
-    # M 10.0, DIX 10.0, L 0.0, ...
-    - match: \b(?:DIX|[AELMV])\s*\d+(\.)\d+
-      scope: variable.language.address.s7.awl
-      captures:
-        1: punctuation.separator.decimal.s7.awl
-    - match: (?:==|<>|>=|<=|<|>)0\b
-      scope: variable.language.status.s7.awl
-    # DB10.DBX 10.0
-    - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
-      captures:
-        1: variable.language.db.s7.awl
-        2: punctuation.accessor.dot.s7.awl
-        3: variable.language.address.s7.awl
-        4: punctuation.separator.decimal.s7.awl
-
-  operands-absolute-binary:
+  operands-binary-absolute:
     - match: \b(?:DBNO|DINO|DBLG|DILG|STW)\b
       scope: variable.language.s7.awl
     # EB10, EW10, ED10, PEB10, PEW10, PED10
     # AB10, AW10, AD10, PAB10, PAW10, PAD10
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
-    # Z10, T10
-    - match: \b(?:(?:P?[AE]|[LMV])[BWD]|[ZT])[ \t]*{{int}}
+    # DIW10, DIW10, DID10
+    - match: \b(?:(?:P?[AE]|[LMV])[BWD])[ \t]*{{int}}
       scope: variable.language.address.s7.awl
     # DBB10, DIB10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
     - match: \b(?:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
@@ -1281,66 +1292,94 @@ contexts:
         1: variable.language.db.s7.awl
         2: punctuation.accessor.dot.s7.awl
         3: variable.language.address.s7.awl
-    # DIW10, DIW10, DID10
-    - match: \bDI[BWD][ \t]*{{int}}
-      scope: variable.language.address.s7.awl
 
-  operands-datablock:
-    - match: \bD[BI]\b
-      scope: variable.language.db.s7.awl
-      push:
-        # datablock number
-        - match: \d+
-          scope: constant.numeric.integer.db.s7.awl
-          pop: true
-        # indirect address
-        - match: \[
-          scope: punctuation.section.brackets.begin
-          set:
-            - meta_scope: meta.brackets.s7.awl
-            - match: \]
-              scope: punctuation.section.brackets.end.s7.awl
-              pop: true
-            - include: illegal-eol
-            - include: operands-absolute-binary
-            - include: operands-symbols
-
-  operands-indirect-binary:
+  operands-binary-indirect:
     # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...], AB[], EB[], PAB[], PEB[]
     # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...], AW[], EW[], PAW[], PEW[]
     # D[...], MD [...], LD [...], VD [...], DID [...], DID[...], AD[], ED[], PAD[], PED[]
-    - match: \b(?:P?[AE]|D[BI]|[LMV])?[BWD]\b
-      scope: variable.language.address.s7.awl
+    - match: \b(?:P?[AE]|D[BI]|[LMV])?[BWD](?=[ \t]*\[)
       push:
+        - meta_scope: variable.language.address.s7.awl
         - include: address-indirect
         - include: scope-end
 
-  operands-indirect-logical:
-    # DBX [AR1,P#0.0]
-    - match: \bD[BI]X\b      # FIXME: possibly merge with direct address?
+###[ COUNTER ]#####################################################################
+
+  operands-counter:
+    - include: operands-counter-absolute
+    - include: operands-counter-indirect
+
+  operands-counter-absolute:
+    # C10, C 10 : counter (english)
+    # Z10, Z 10 : counter (german)
+    - match: \b[CZ][ \t]*{{int}}
+      scope: variable.language.counter.s7.awl
+
+  operands-counter-indirect:
+    # C[MW10], C [MW10] : counter (english)
+    # Z[MW10], Z [MW10] : counter (german)
+    - match: \b[CZ](?=[ \t]*\[)
       push:
+        - meta_scope: variable.language.counter.s7.awl
         - include: address-indirect
         - include: scope-end
-    # [AR1,P#0.0]
-    - include: address-indirect
+
+###[ LOGICAL ]#####################################################################
+
+  operands-logical:
+    - include: operands-logical-absolute
+    - include: operands-logical-indirect
+
+  operands-logical-absolute:
+    # M 10.0, DIX 10.0, L 0.0, ...
+    - match: \b(?:DIX|[AELMV])\s*\d+(\.)\d+
+      scope: variable.language.address.s7.awl
+      captures:
+        1: punctuation.separator.decimal.s7.awl
+    # DB10.DBX 10.0
+    - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
+      captures:
+        1: variable.language.db.s7.awl
+        2: punctuation.accessor.dot.s7.awl
+        3: variable.language.address.s7.awl
+        4: punctuation.separator.decimal.s7.awl
+    # status register A0 A1
+    - match: (?:==|<>|>=|<=|<|>)0\b
+      scope: variable.language.status.s7.awl
     # BIE, OV
     - match: \b(?:BIE|OV)\b
       scope: variable.language.status.s7.awl
 
-  address-indirect:
-    - match: \[
-      scope: punctuation.section.brackets.begin.s7.awl
+  operands-logical-indirect:
+    # DBX [AR1,P#0.0]
+    - match: \bD[BI]X(?=[ \t]*\[)
       push:
-        - meta_scope: meta.brackets.s7.awl
-        - match: \]
-          scope: punctuation.section.brackets.end.s7.awl
-          pop: true
-        - include: illegal-eol
-        - include: constants-pointer
-        - include: operands-absolute-binary
-        - include: operands-symbols
-        - match: \bAR[12]\b
-          scope: variable.language.address.s7.awl
+        - meta_scope: variable.language.address.s7.awl
+        - include: address-indirect
+        - include: scope-end
+    # [AR1,P#0.0]
+    - include: address-indirect
+
+###[ TIMER ]#######################################################################
+
+  operands-timer:
+    - include: operands-timer-absolute
+    - include: operands-timer-indirect
+
+  operands-timer-absolute:
+    # T10, T 10 : timer
+    - match: \bT[ \t]*{{int}}
+      scope: variable.language.timer.s7.awl
+
+  operands-timer-indirect:
+    # T[MW10], T [MW10] : timer
+    - match: \bT(?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.timer.s7.awl
+        - include: address-indirect
+        - include: scope-end
+
+###[ SYMBOLS ]#####################################################################
 
   operands-symbols:
     # global symbols
@@ -1372,6 +1411,23 @@ contexts:
         2: variable.other.member.s7.awl
       push: array-index
     - include: scope-end
+
+###[ OPERANDS PROTOTYPES ]#########################################################
+
+  address-indirect:
+    - match: \[
+      scope: punctuation.section.brackets.begin.s7.awl
+      push:
+        - meta_scope: meta.brackets.s7.awl
+        - match: \]
+          scope: punctuation.section.brackets.end.s7.awl
+          pop: true
+        - include: illegal-eol
+        - include: constants-pointer
+        - include: operands-binary-absolute
+        - include: operands-symbols
+        - match: \bAR[12]\b
+          scope: variable.language.address.s7.awl
 
   array-index:
     # constant array index used in symbols

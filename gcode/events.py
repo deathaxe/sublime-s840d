@@ -17,7 +17,8 @@ class S840dNckViewEvents(sublime_plugin.ViewEventListener):
     def is_applicable(cls, settings):
         """Enable the listener for G-Code syntax only!"""
         syntax = settings.get('syntax') or ''
-        return 's840d_gcode' in syntax or 's840d_arc' in syntax
+        return any(s in syntax for s in (
+            's840d_arc', 's840d_def', 's840d_mpf', 's840d_spf', 's840d_tea'))
 
     @classmethod
     def applies_to_primary_view_only(cls):

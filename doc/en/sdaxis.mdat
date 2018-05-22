@@ -3,21 +3,21 @@
 <parameter number="43100" type="DWORD" dim="0">
 <name>LEAD_TYPE</name>
 <brief>Defines what is used as master value</brief>
-<description>Defines which value is to be used as master value: 
+<description>Defines which value is to be used as master value:
 
-0: Actual value 
-1: Setpoint 
+0: Actual value
+1: Setpoint
 2: Simulated master value
 </description>
 </parameter>
 <parameter number="43102" type="DOUBLE" dim="0">
 <name>LEAD_OFFSET_IN_POS</name>
 <brief>Offset of master value if coupled to this axis</brief>
-<description>Offset of the master value before use on the coupling. 
+<description>Offset of the master value before use on the coupling.
 
 If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
 
-Related to .... 
+Related to ....
 	SD43104 $SA_LEAD_SCALE_IN_POS
 	SD43106 $SA_LEAD_OFFSET_OUT_POS
 	SD43108 $SA_LEAD_SCALE_OUT_POS
@@ -26,11 +26,11 @@ Related to ....
 <parameter number="43104" type="DOUBLE" dim="0">
 <name>LEAD_SCALE_IN_POS</name>
 <brief>Scaling of master value if coupled to this axis</brief>
-<description>Scaling of the master value before use on the coupling. 
+<description>Scaling of the master value before use on the coupling.
 
 If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
 
-Related to .... 
+Related to ....
 	SD43102 $SA_LEAD_OFFSET_IN_POS
 	SD43106 $SA_LEAD_OFFSET_OUT_POS
 	SD43108 $SA_LEAD_SCALE_OUT_POS
@@ -39,11 +39,11 @@ Related to ....
 <parameter number="43106" type="DOUBLE" dim="0">
 <name>LEAD_OFFSET_OUT_POS</name>
 <brief>Offset of the functional value of the curve table</brief>
-<description>Offset of the master value before use on the coupling. 
+<description>Offset of the master value before use on the coupling.
 
 If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
 
-Related to .... 
+Related to ....
 	SD43102 $SA_LEAD_OFFSET_IN_POS
 	SD43104 $SA_LEAD_SCALE_IN_POS
 	SD43108 $SA_LEAD_SCALE_OUT_POS
@@ -52,11 +52,11 @@ Related to ....
 <parameter number="43108" type="DOUBLE" dim="0">
 <name>LEAD_SCALE_OUT_POS</name>
 <brief>Scaling of functional value of the curve table</brief>
-<description>Scaling of the function value before use of the curve table. 
+<description>Scaling of the function value before use of the curve table.
 
 If this axis is a master value coupled following axis with CTABP as the curve table and X as the master value, then its position setpoint is calculated from LEAD_OFFSET_OUT_POS + LEAD_SCALE_OUT_POS * CTABP( LEAD_OFFSET_IN_POS + LEAD_SCALE_IN_POS * X)
 
-Related to .... 
+Related to ....
 	SD43102 $SA_LEAD_OFFSET_IN_POS
 	SD43104 $SA_LEAD_SCALE_IN_POS
 	SD43106 $SA_LEAD_OFFSET_OUT_POS
@@ -136,7 +136,7 @@ The spindle speed may only fall below the minimum as a result of:
 - NC/PLC interface signal &lt;Pendeldrehzahl/&gt; (Oscillation speed)
 - Cancel S value
 
-SD irrelevant to ...... 
+SD irrelevant to ......
 	other spindle modes used in open-loop control mode (SPOS, M19, SPOSA)
 Related to:
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
@@ -184,8 +184,8 @@ MD10710 $MN_PROG_SD_RESET_SAVE_TAB
 Note:
 	MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be set so that the value written by the part program is transferred into the active file system on reset (that is the value is retained after reset).
 
-Related to .... 
-     SD43210 $SA_SPIND_MIN_VELO_G25 (programmed spindle speed limit G25) 
+Related to ....
+     SD43210 $SA_SPIND_MIN_VELO_G25 (programmed spindle speed limit G25)
      SD43230 $SA_SPIND_MAX_VELO_LIMS (programmed spindle speed limit with G96/961)
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
@@ -236,10 +236,10 @@ In which signify:
 
 -1=	The revolutional feedrate is derived from the master spindle of the channel in which the axis/spindle is active
 -2=	The revolutional feedrate is derived from the axis with machine axis index == 0 or the axis with an index in MD10002 $MN_AXCONF_LOGIC_MACHAX_TAB == 0.
--3=	The revolutional feedrate is derived from the master spindle of the channel in which the axis/spindle is active. No revolutional feedrate is active if the master spindle is at a standstill. 
+-3=	The revolutional feedrate is derived from the master spindle of the channel in which the axis/spindle is active. No revolutional feedrate is active if the master spindle is at a standstill.
 
 
-Related to .... 
+Related to ....
      SD42600 $SC_JOG_FEED_PER_REV_SOURCE (revolutional feedrate for geometry axes on which a frame with rotation acts in JOG mode.)
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
@@ -303,7 +303,7 @@ The positive working area limitation can be changed in the program with G26.
 SD irrelevant for ......
 	G code: WALIMOF
 
-Related to .... 
+Related to ....
      SD43400 $SA_WORKAREA_PLUS_ENABLE
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
@@ -395,7 +395,7 @@ The FXSW[x] command effects a block-synchronous change to this setting data. It 
 
 The value is otherwise transferred from MD37020 $MA_FIXED_STOP_WINDOW_DEF to the setting data when "Travel to fixed stop" is active.
 
-Related to .... 
+Related to ....
 	MD37020 $MA_FIXED_STOP_WINDOW_DEF (default setting for fixed stop monitoring window)
 </description>
 </parameter>
@@ -541,22 +541,22 @@ Bit no.       | Meaning in OSCILL_CTRL_MASK
 ------------------------------------------------------------------------------
 0(LSB)-1     | 0: Stop at the next reversal point if the
              |    oscillating movement is switched off
-             |    
+             |
              | 1: Stop at reversal point 1 if the
              |    oscillating movement is switched off
-             | 2: Stop at reversal point 2 if the 
+             | 2: Stop at reversal point 2 if the
              |    oscillating movement is switched off
              | 3: Do not approach a reversal point when the oscillating movement is switched off
              |    if no sparking-out strokes are programmed
 ------------------------------------------------------------------------------
 2            | 1: Approach end position after sparking out
 ------------------------------------------------------------------------------
-3            | 1: If the oscillating movement is canceled by delete distance-to-go, 
-             |    then the sparking-out strokes are to be executed afterwards 
+3            | 1: If the oscillating movement is canceled by delete distance-to-go,
+             |    then the sparking-out strokes are to be executed afterwards
              |    and the end position approached if necessary
 ------------------------------------------------------------------------------
-4            | 1: If the oscillating movement is canceled by delete distance-to-go, 
-             |    then the corresponding reversal point 
+4            | 1: If the oscillating movement is canceled by delete distance-to-go,
+             |    then the corresponding reversal point
              |    is approached on switch off
 ------------------------------------------------------------------------------
 5            | 1: Changed feedrate does not become active until the next reversal point
@@ -568,7 +568,7 @@ Bit no.       | Meaning in OSCILL_CTRL_MASK
 ------------------------------------------------------------------------------
 8            | 1: Execute sparking-out stroke as single stroke not as double stroke
 ------------------------------------------------------------------------------
-9            | 1: On starting, first approach the starting position, see 
+9            | 1: On starting, first approach the starting position, see
              |    SD43790 $SA_OSCILL_START_POS
 ------------------------------------------------------------------------------
 
@@ -634,7 +634,7 @@ SD irrelevant for ......
 Special cases, errors, ......
 	When SD43910 $SA_TEMP_COMP_SLOPE is greater than tan-ß_max, the slope tan-ß_max is used to calculate the position-dependent temperature compensation value internally. No alarm is output.
 
-Related to .... 
+Related to ....
 	MD32750 $MA_TEMP_COMP_TYPE              Temperature compensation type
 
 	SD43920 $SA_TEMP_COMP_REF_POSITION     Reference position for position-dependent temperature compensation
@@ -652,7 +652,7 @@ The axis traverses additionally the compensation value calculated for the curren
 SD irrelevant for ......
 	MD32750 $MA_TEMP_COMP_TYPE = 0 or 1
 
-Related to .... 
+Related to ....
 	MD32750 $MA_TEMP_COMP_TYPE    Temperature compensation type
 	SD43910 $SA_TEMP_COMP_SLOPE  Angle of slope for position-dependent temperature compensation
 </description>

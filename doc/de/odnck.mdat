@@ -20,11 +20,11 @@ Klassen-Id:
 Subsystem-ID:
 =============
 bei 808D gilt:
- 1   (0x01) PPU14*.* M 
- 2   (0x02) PPU14*.* T 
+ 1   (0x01) PPU14*.* M
+ 2   (0x02) PPU14*.* T
  3   (0x03) reserviert
- 4   (0x04) PPU16*.* M 
- 5   (0x05) PPU16*.* T 
+ 4   (0x04) PPU16*.* M
+ 5   (0x05) PPU16*.* T
  6   (0x06) reserviert
 
 bei 828D gilt:
@@ -157,15 +157,16 @@ OD19250 $ON_USER_MEM_BUFFERED zeigt damit den additiven Teil des Speichers relat
 <parameter number="19270" type="BYTE" dim="0">
 <name>PLC_USER_MEM_SIZE</name>
 <brief>zusätzlich 128 kByte PLC-Anwenderspeicher</brief>
-<description>Optionsdatum zur Freigabe der Ausbaustufen des STEP 7-Anwenderspeichers auf der PLC:
+<description>Optionsdatum zur Freigabe des STEP 7-Anwenderspeichers auf der PLC in 128kB Schritten
 
-1	128kB
-2	256kB
-3	384kB
-4	512kB (GA)
-.
-.
-12	1536kB (max.)
+1 Minimalausbau
+...
+4  Grundausbau
+5  GA + 128kB
+6  GA + 256kB
+7  GA + 384kB
+... etc.
+12 GA + 1MB (Maximalausbau)
 </description>
 </parameter>
 <parameter number="19280" type="BYTE" dim="0">
@@ -195,7 +196,7 @@ auf der PLC. ( Rasterung: 64kB )
 <name>COMP_MASK</name>
 <brief>Kompensationsoptionen</brief>
 <description>reserviert       TEMP  Temperaturkompensation axial.
-reserviert:      EEC   Spindelsteigungsfehlerkompensation 
+reserviert:      EEC   Spindelsteigungsfehlerkompensation
 Bit 2            CEC   Durchhangkompensation
 reserviert       QEC   Quadrantenfehlerkompensation mit neuronalem Netz
 reserviert       EGA   elektronischer Gewichtsausgleich
@@ -285,7 +286,9 @@ Bit 13:              Freigabe "Siemens Cycles Advanced Technology"
 Bit 14:              Freigabe "Balance cutting"
 Bit 15:              Freigabe "SINUMERIK Schleifen Advanced"
 Bit 16:              frei
-Bit 17:              Freigabe "Top Surface"
+Bit 17:              Freigabe "reserviert"
+Bit 18:              Freigabe "Orientierungsoffset statisch/dynamisch"
+Bit 19:              Reserved ""
 Bit 31:		Reserved ""
 </description>
 </parameter>
@@ -319,8 +322,10 @@ Bit 6:       Freigabe "Daten zur Maschinenwartung (MachineMaintenance)"
 -----:       Reserved "Direkttasten-/Handradanschluss auf MCP mit PROFIBUS DP" (nur PL)
 Bit 8:       Freigabe "Zyklenschutz"
 Bit 9:       Freigabe "Abarbeiten vom externen Speicher (EES)"
-Bit 10:      Freigabe "Automatisches Nachoptimieren mit AST"
+Bit 10:      Freigabe "AST Aufruf aus Teileprogramm"
 Bit 11:      Freigabe "CNC-Lock Funktion"
+Bit 12:      Freigabe "Zusätzlich 100MB CNC Anwenderspeicher"
+Bit 13:      Freigabe "AST addon Paket"
 ...
 Bit 28:	Reserved
 Bit 29:	Reserved
@@ -375,7 +380,7 @@ Stand 10/11/94: Transformation Centerless-Schleifen ist keine Option
 <description>Grundoption zum Betrieb einer F-PLC.
 </description>
 </parameter>
-<parameter number="19510" type="DWORD" dim="0">
+<parameter number="19510" type="DWORD" dim="0" display="HEX">
 <name>SAFE_FUNCTION_MASK</name>
 <brief>Funktionen Safety Integrated</brief>
 <description>Optionsdatum zur Freigabe von Funktionen Safety Integrated
@@ -479,7 +484,7 @@ $ON_TECHNO_EXTENTION_MASK[1-n]
  ausgeschaltet.
 </description>
 </parameter>
-<parameter number="19720" type="DWORD" dim="0">
+<parameter number="19720" type="DWORD" dim="0" display="HEX">
 <name>PLC_FUNCTION_MASK</name>
 <brief>Funktionen der SoftPLC</brief>
 <description>Optionsdatum zur Freigabe von Funktionen der SoftPLC
@@ -492,66 +497,67 @@ Bit 4      : Freigabe "32000 Ladder Steps"
 <brief>Bedienoptionen</brief>
 <description>Optionsdatum zur Freigabe von HMI-Funktionen:
 
-Bit 0 (LSB): Freigabe "Additional languages"                                                     OD19730 $MC_HMI_FUNCTION_MASK[0].0
------:       Reserved "external HMI"                                                             OD19730 $MC_HMI_FUNCTION_MASK[0].1
-Bit 2:       Freigabe "Network drive management"                                                 OD19730 $MC_HMI_FUNCTION_MASK[0].2
-Bit 3:       Freigabe "Multi channel step sequence programming"                                  OD19730 $MC_HMI_FUNCTION_MASK[0].3
-Bit 4:       Freigabe "manual machine"                                                           OD19730 $MC_HMI_FUNCTION_MASK[0].4
-Bit 5:       Freigabe "Add. 256 Mbyte HMI user memory on CF-Card of NCU"                         OD19730 $MC_HMI_FUNCTION_MASK[0].5
-Bit 6:       Freigabe "Simulation milling (2D dynamic, 3D static)"                               OD19730 $MC_HMI_FUNCTION_MASK[0].6
------:       Reserved "measuring cycles"                                                         OD19730 $MC_HMI_FUNCTION_MASK[0].7
-Bit 8:       Freigabe "SINUMERIK HMI copy license OA"                                            OD19730 $MC_HMI_FUNCTION_MASK[0].8
-Bit 9:       Reserved "war Ethernet 802Dsl pro"                                                  OD19730 $MC_HMI_FUNCTION_MASK[0].9
-Bit 10:      Freigabe "ShopTurn/Mill HMI für 840Di sl incl. HMI Advanced"                        OD19730 $MC_HMI_FUNCTION_MASK[0].10
-Bit 11:      Freigabe "Erweiterte Bedienfunktionen"                                              OD19730 $MC_HMI_FUNCTION_MASK[0].11
-Bit 12:      Freigabe "ShopMill/ShopTurn StepGuide"                                              OD19730 $MC_HMI_FUNCTION_MASK[0].12
-Bit 13:      Freigabe "Kinematik vermessen"                                                      OD19730 $MC_HMI_FUNCTION_MASK[0].13
-Bit 14:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopMill" OD19730 $MC_HMI_FUNCTION_MASK[0].14
-Bit 15:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopTurn" OD19730 $MC_HMI_FUNCTION_MASK[0].15
-Bit 16:      Freigabe "3D-Simulation 1 (Fertigteil)"                                             OD19730 $MC_HMI_FUNCTION_MASK[0].16
-Bit 17:      Freigabe "3D-Simulation 2 (Fertigteil und Arbeitsraum)                              OD19730 $MC_HMI_FUNCTION_MASK[0].17
-Bit 18:      Freigabe "Manuelle Maschine Plus"                                                   OD19730 $MC_HMI_FUNCTION_MASK[0].18
-Bit 19:      Freigabe "SINUMERIK HMI sl copy license OA programming"                             OD19730 $MC_HMI_FUNCTION_MASK[0].19
-------:      Reserved AP61 "SINUMERIK HMI sl copy license OA project"                            OD19730 $MC_HMI_FUNCTION_MASK[0].20
-------:      Reserved AP62 "SINUMERIK HMI sl copy license OA upgrade Programmieren"              OD19730 $MC_HMI_FUNCTION_MASK[0].21
-------:      Reserved AP63 "SINUMERIK HMI sl copy license OA upgrade Projektieren"               OD19730 $MC_HMI_FUNCTION_MASK[0].22
-Bit 23:      Freigabe  "SINUMERIK HMI sl Runtime OA Easy Screen"                                 OD19730 $MC_HMI_FUNCTION_MASK[0].23
-Bit 24:      Freigabe "Bedienen ohne SINUMERIK OP"                                               OD19730 $MC_HMI_FUNCTION_MASK[0].24
-------:      Reserved "Sinumerik *802* Ladder Editor"                                            OD19730 $MC_HMI_FUNCTION_MASK[0].25
-Bit 26:      Freigabe "CCG-Compiler (Nockenschleifen)"                                           OD19730 $MC_HMI_FUNCTION_MASK[0].26
-Bit 27:      Freigabe "CCG-SINUMERIK Operate Runtime OA Solution Partner"                        OD19730 $MC_HMI_FUNCTION_MASK[0].27
-Bit 28:      Freigabe "SINUMERIK HMI sl Runtime OA .net"                                         OD19730 $MC_HMI_FUNCTION_MASK[0].28
-Bit 29:      Freigabe "Access MyMachine /OPC UA"                                                 OD19730 $MC_HMI_FUNCTION_MASK[0].29
-Bit 30:      Reserved "SINUMERIK Operate /NCU (S00 - reserviert wg. SW4.6)"                      OD19730 $MC_HMI_FUNCTION_MASK[0].30
+Bit 0 (LSB): Freigabe "Additional languages"                                                     OD19730 $ON_HMI_FUNCTION_MASK[0].0
+-----:       Reserved "external HMI"                                                             OD19730 $ON_HMI_FUNCTION_MASK[0].1
+Bit 2:       Freigabe "Network drive management"                                                 OD19730 $ON_HMI_FUNCTION_MASK[0].2
+Bit 3:       Freigabe "Multi channel step sequence programming"                                  OD19730 $ON_HMI_FUNCTION_MASK[0].3
+Bit 4:       Freigabe "manual machine"                                                           OD19730 $ON_HMI_FUNCTION_MASK[0].4
+Bit 5:       Freigabe "Add. 256 Mbyte HMI user memory on CF-Card of NCU"                         OD19730 $ON_HMI_FUNCTION_MASK[0].5
+Bit 6:       Freigabe "Simulation milling (2D dynamic, 3D static)"                               OD19730 $ON_HMI_FUNCTION_MASK[0].6
+-----:       Reserved "measuring cycles"                                                         OD19730 $ON_HMI_FUNCTION_MASK[0].7
+Bit 8:       Freigabe "SINUMERIK HMI copy license OA"                                            OD19730 $ON_HMI_FUNCTION_MASK[0].8
+Bit 9:       Reserved "war Ethernet 802Dsl pro"                                                  OD19730 $ON_HMI_FUNCTION_MASK[0].9
+Bit 10:      Freigabe "ShopTurn/Mill HMI für 840Di sl incl. HMI Advanced"                        OD19730 $ON_HMI_FUNCTION_MASK[0].10
+Bit 11:      Freigabe "Erweiterte Bedienfunktionen"                                              OD19730 $ON_HMI_FUNCTION_MASK[0].11
+Bit 12:      Freigabe "ShopMill/ShopTurn StepGuide"                                              OD19730 $ON_HMI_FUNCTION_MASK[0].12
+Bit 13:      Freigabe "Kinematik vermessen"                                                      OD19730 $ON_HMI_FUNCTION_MASK[0].13
+Bit 14:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopMill" OD19730 $ON_HMI_FUNCTION_MASK[0].14
+Bit 15:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopTurn" OD19730 $ON_HMI_FUNCTION_MASK[0].15
+Bit 16:      Freigabe "3D-Simulation 1 (Fertigteil)"                                             OD19730 $ON_HMI_FUNCTION_MASK[0].16
+Bit 17:      Freigabe "3D-Simulation 2 (Fertigteil und Arbeitsraum)                              OD19730 $ON_HMI_FUNCTION_MASK[0].17
+Bit 18:      Freigabe "Manuelle Maschine Plus"                                                   OD19730 $ON_HMI_FUNCTION_MASK[0].18
+Bit 19:      Freigabe "SINUMERIK HMI sl copy license OA programming"                             OD19730 $ON_HMI_FUNCTION_MASK[0].19
+------:      Reserved AP61 "SINUMERIK HMI sl copy license OA project"                            OD19730 $ON_HMI_FUNCTION_MASK[0].20
+------:      Reserved AP62 "SINUMERIK HMI sl copy license OA upgrade Programmieren"              OD19730 $ON_HMI_FUNCTION_MASK[0].21
+------:      Reserved AP63 "SINUMERIK HMI sl copy license OA upgrade Projektieren"               OD19730 $ON_HMI_FUNCTION_MASK[0].22
+Bit 23:      Freigabe  "SINUMERIK HMI sl Runtime OA Easy Screen"                                 OD19730 $ON_HMI_FUNCTION_MASK[0].23
+Bit 24:      Freigabe "Bedienen ohne SINUMERIK OP"                                               OD19730 $ON_HMI_FUNCTION_MASK[0].24
+------:      Reserved "Sinumerik *802* Ladder Editor"                                            OD19730 $ON_HMI_FUNCTION_MASK[0].25
+Bit 26:      Freigabe "CCG-Compiler (Nockenschleifen)"                                           OD19730 $ON_HMI_FUNCTION_MASK[0].26
+Bit 27:      Freigabe "CCG-SINUMERIK Operate Runtime OA Solution Partner"                        OD19730 $ON_HMI_FUNCTION_MASK[0].27
+Bit 28:      Freigabe "SINUMERIK HMI sl Runtime OA .net"                                         OD19730 $ON_HMI_FUNCTION_MASK[0].28
+Bit 29:      Freigabe "Access MyMachine /OPC UA"                                                 OD19730 $ON_HMI_FUNCTION_MASK[0].29
+Bit 30:      Reserved "SINUMERIK Operate /NCU (S00 - reserviert wg. SW4.6)"                      OD19730 $ON_HMI_FUNCTION_MASK[0].30
 
 ADD ON
-Bit 0:       Freigabe "MC Information System RCS Host"                                           OD19730 $MC_HMI_FUNCTION_MASK[1].0
-Bit 1:       Freigabe "MC Information System RCS @Event"                                         OD19730 $MC_HMI_FUNCTION_MASK[1].1
-Bit 2:       Freigabe "MC Information System TPM Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].2
-Bit 3:       Freigabe "MC Information System TDI IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].3
-Bit 4:       Freigabe "MC Information System TDI Overview"                                       OD19730 $MC_HMI_FUNCTION_MASK[1].4
-Bit 5:       Freigabe "MC Information System TDI Toolhandling"                                   OD19730 $MC_HMI_FUNCTION_MASK[1].5
-Bit 6:       Freigabe "MC Information System TDI PLANNING"                                       OD19730 $MC_HMI_FUNCTION_MASK[1].6
-Bit 7:       Freigabe "MC Information System TDI Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].7
-Bit 8:       Freigabe "MC Information System TDI Toolplan Generation"                            OD19730 $MC_HMI_FUNCTION_MASK[1].8
-Bit 9:       Freigabe "MC Information System DNC Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].9
-Bit 10:      Freigabe "MC Information System DNC IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].10
-Bit 11:      Freigabe "MC Information System MDA Machine"                                        OD19730 $MC_HMI_FUNCTION_MASK[1].11
-Bit 12:      Freigabe "MC Information System MDA IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].12
-Bit 13:      Freigabe "MC Information System PMT IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].13
-Bit 14:      Freigabe "MC Information System PDA IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].14
-Bit 15:      Freigabe "MC Information System TPM IFC (Interface Client)"                         OD19730 $MC_HMI_FUNCTION_MASK[1].15
-Bit 16:      Freigabe "TRANSLINE 2000 HMI PRO sl"                                                OD19730 $MC_HMI_FUNCTION_MASK[1].16
-Bit 17:      Freigabe "MC Information System ADDM Agent"                                         OD19730 $MC_HMI_FUNCTION_MASK[1].17
-Bit 18:      Freigabe "MC Information System RPC SINUMERIK"                                      OD19730 $MC_HMI_FUNCTION_MASK[1].18
-Bit 19:      Freigabe "MC Information System TDI Statistic"                                      OD19730 $MC_HMI_FUNCTION_MASK[1].19
-Bit 20:      Freigabe "MC Information System TDI Ident Connection"                               OD19730 $MC_HMI_FUNCTION_MASK[1].20
-Bit 21:      Freigabe "Electronic Key System (EKS)"                                              OD19730 $MC_HMI_FUNCTION_MASK[1].21
-------:      Reserved                                                                            OD19730 $MC_HMI_FUNCTION_MASK[1].22
-Bit 23:      Freigabe "integrierter Spindelmonitor (S-Monitor)"                                  OD19730 $MC_HMI_FUNCTION_MASK[1].23
-Bit 24:      Freigabe "DXF-Reader"                                                               OD19730 $MC_HMI_FUNCTION_MASK[1].24
-Bit 25:      Freigabe "Sinumerik 828 Ladder Editor"                                              OD19730 $MC_HMI_FUNCTION_MASK[1].25
-Bit 26:      Freigabe "SINUMERIK SMART Bedienung"                                                OD19730 $MC_HMI_FUNCTION_MASK[1].2
+Bit 0:       Freigabe "MC Information System RCS Host"                                           OD19730 $ON_HMI_FUNCTION_MASK[1].0
+Bit 1:       Freigabe "MC Information System RCS @Event"                                         OD19730 $ON_HMI_FUNCTION_MASK[1].1
+Bit 2:       Freigabe "MC Information System TPM Machine"                                        OD19730 $ON_HMI_FUNCTION_MASK[1].2
+Bit 3:       Freigabe "MC Information System TDI IFC (Interface Client)"                         OD19730 $ON_HMI_FUNCTION_MASK[1].3
+Bit 4:       Freigabe "MC Information System TDI Overview"                                       OD19730 $ON_HMI_FUNCTION_MASK[1].4
+Bit 5:       Freigabe "MC Information System TDI Toolhandling"                                   OD19730 $ON_HMI_FUNCTION_MASK[1].5
+Bit 6:       Freigabe "MC Information System TDI PLANNING"                                       OD19730 $ON_HMI_FUNCTION_MASK[1].6
+Bit 7:       Freigabe "MC Information System TDI Machine"                                        OD19730 $ON_HMI_FUNCTION_MASK[1].7
+Bit 8:       Freigabe "MC Information System TDI Toolplan Generation"                            OD19730 $ON_HMI_FUNCTION_MASK[1].8
+Bit 9:       Freigabe "MC Information System DNC Machine"                                        OD19730 $ON_HMI_FUNCTION_MASK[1].9
+Bit 10:      Freigabe "MC Information System DNC IFC (Interface Client)"                         OD19730 $ON_HMI_FUNCTION_MASK[1].10
+Bit 11:      Freigabe "MC Information System MDA Machine"                                        OD19730 $ON_HMI_FUNCTION_MASK[1].11
+Bit 12:      Freigabe "MC Information System MDA IFC (Interface Client)"                         OD19730 $ON_HMI_FUNCTION_MASK[1].12
+Bit 13:      Freigabe "MC Information System PMT IFC (Interface Client)"                         OD19730 $ON_HMI_FUNCTION_MASK[1].13
+Bit 14:      Freigabe "MC Information System PDA IFC (Interface Client)"                         OD19730 $ON_HMI_FUNCTION_MASK[1].14
+Bit 15:      Freigabe "MC Information System TPM IFC (Interface Client)"                         OD19730 $ON_HMI_FUNCTION_MASK[1].15
+Bit 16:      Freigabe "TRANSLINE 2000 HMI PRO sl"                                                OD19730 $ON_HMI_FUNCTION_MASK[1].16
+Bit 17:      Freigabe "MC Information System ADDM Agent"                                         OD19730 $ON_HMI_FUNCTION_MASK[1].17
+Bit 18:      Freigabe "MC Information System RPC SINUMERIK"                                      OD19730 $ON_HMI_FUNCTION_MASK[1].18
+Bit 19:      Freigabe "MC Information System TDI Statistic"                                      OD19730 $ON_HMI_FUNCTION_MASK[1].19
+Bit 20:      Freigabe "MC Information System TDI Ident Connection"                               OD19730 $ON_HMI_FUNCTION_MASK[1].20
+Bit 21:      Freigabe "Electronic Key System (EKS)"                                              OD19730 $ON_HMI_FUNCTION_MASK[1].21
+------:      Reserved                                                                            OD19730 $ON_HMI_FUNCTION_MASK[1].22
+Bit 23:      Freigabe "integrierter Spindelmonitor (S-Monitor)"                                  OD19730 $ON_HMI_FUNCTION_MASK[1].23
+Bit 24:      Freigabe "DXF-Reader"                                                               OD19730 $ON_HMI_FUNCTION_MASK[1].24
+Bit 25:      frei (war "Sinumerik 828 Ladder Editor")                                            OD19730 $ON_HMI_FUNCTION_MASK[1].25
+Bit 26:      Freigabe "SINUMERIK extended touch"                                                 OD19730 $ON_HMI_FUNCTION_MASK[1].26
+Bit 27:      Freigabe "Run MyRobot /Handling Positiondisplay"                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
 </description>
 </parameter>
 <parameter number="19732" type="BYTE" dim="0" display="HEX" readonly="true">
@@ -559,7 +565,7 @@ Bit 26:      Freigabe "SINUMERIK SMART Bedienung"                               
 <brief>Bedienoptionen</brief>
 <description>Optionsdatum zur Freigabe von HMI-Funktionen:
 Bit 0 (LSB):  SINUMERIK Operate /NCU.
-Bit 1:        SINUMERIK Operate /PCU 
+Bit 1:        SINUMERIK Operate /PCU
 Bit 2:        SINUMERIK Operate /PC
 Bit 3:        SINUMERIK PCU-Basesoftware /IPC
 </description>

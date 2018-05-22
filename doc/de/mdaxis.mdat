@@ -129,7 +129,7 @@ Wird ein Eingang ausgewählt, an dem kein Geber angeschlossen ist, so wird der Al
 3:	Geber für Semi-Servo - nur bei vorhandener Onboard-Hardware
 4:	Absolutgeber allg. (z.B. mit EnDat-Schnittstelle)
 5:	reserviert
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0 
+Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 
 Korrespondiert mit:
 	PROFIdrive-Parameter P979 (vgl. dort)
@@ -412,7 +412,7 @@ Bit 13 = 1:
 Bit 14 = 0:
                  Beim kartesischen PTP-Fahren wird bei Softwareendschalterüberschreitung einer Rundachse die Strategie "kürzester Weg" beibehalten.
 Bit 14 = 1:
-                Es wird die Strategie "langer Weg" zur Vermeidung der Softwareendschalterüberschreitung verwendet, wenn beim kartesischen PTP-Fahren eine Rundachse mit der Strategie "kürzester Weg" über den Softwareendschalter fahren würde. 
+                Es wird die Strategie "langer Weg" zur Vermeidung der Softwareendschalterüberschreitung verwendet, wenn beim kartesischen PTP-Fahren eine Rundachse mit der Strategie "kürzester Weg" über den Softwareendschalter fahren würde.
 </description>
 </parameter>
 <parameter number="30460" type="DWORD" dim="0" display="HEX">
@@ -671,7 +671,7 @@ Wird ein hydraulischer Linearantrieb (HLA) als Rundachse projektiert, muss in di
 </parameter>
 <parameter number="31040" type="BOOLEAN" dim="1">
 <name>ENC_IS_DIRECT</name>
-<brief>direktes Messsystem (keine Übersetzung zur Lastposition)</brief>
+<brief>Direktes Messsystem (keine Übersetzung zur Lastposition)</brief>
 <description>MD = 1:
 Geber für Lageistwerterfassung ist direkt (ohne Zwischen-Getriebe) an der Maschine angebracht.
 MD = 0:
@@ -705,12 +705,12 @@ Das passive Messsystem wird ständig überwacht und aktualisiert.
 MD = 1:
 Das passive Messsystem wird automatisch geparkt. Es wird nicht mehr überwacht und aktualisiert, die Geberleitung kann ohne Alarm aufgetrennt werden.
 
-Hinweise: 
- - Eine Messsystemumschaltung auf ein geparktes Messsystem dauert länger als auf ein passives Messsystem. 
+Hinweise:
+ - Eine Messsystemumschaltung auf ein geparktes Messsystem dauert länger als auf ein passives Messsystem.
  - Aufgrund der Zeitdauer wird die Umschaltung im Achsstillstand empfohlen.
  - Nur bei Inkrementalgebern werden in Abhängigkeit von MD34210 $MA_ENC_REFP_STATE Position und Zustand "Messsystem ist referenziert" vom zuvor aktiven Messsystem übernommen. Erneutes Referenzieren ist in diesem Fall nicht zwingend erforderlich.
 
-Das Maschinendatum ist wirkungslos, wenn: 
+Das Maschinendatum ist wirkungslos, wenn:
  - MD30200 $MA_NUM_ENCS ist kleiner als 2
  - MD30240 $MA_ENC_TYPE=0
  - Das Messsystem wird antriebsseitig z.B. als Motormesssystem zur Drehzahlregelung verwendet. Empfehlung: Den Defaultwert des Maschinendatums bei einem Motormesssystem nicht verändern.
@@ -766,7 +766,7 @@ Korrespondiert mit:
 <description>In das MD ist der Nenner des Messgetriebes einzutragen.
 Der Index[n] des Maschinendatums hat folgende Codierung:
 [Encodernr.]: 0 oder 1
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0 
+Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 </description>
 </parameter>
 <parameter number="31080" type="DWORD" dim="1">
@@ -775,7 +775,7 @@ Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 <description>In das MD ist der Zähler des Messgetriebes einzutragen.
 Der Index[n] des Maschinendatums hat folgende Codierung:
 [Encodernr.]: 0 oder 1
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0 
+Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 </description>
 </parameter>
 <parameter number="31090" type="DOUBLE" dim="1">
@@ -900,7 +900,7 @@ Dieses MD wird nur bei einer Semi-Servo-Lösung wirksam.
 </parameter>
 <parameter number="32000" type="DOUBLE" dim="0">
 <name>MAX_AX_VELO</name>
-<brief>maximale Achsgeschwindigkeit</brief>
+<brief>Maximale Achsgeschwindigkeit</brief>
 <description>Geschwindigkeit, mit der die Achse maximal auf Dauer fahren kann. Der Wert begrenzt sowohl die positive wie die negative Achsgeschwindigkeit. Bei programmiertem Eilgang wird mit dieser Geschwindigkeit verfahren.
 Abhängig von dem MD30300 $MA_IS_ROT_AX ist die maximale Rund- bzw. Linearachsgeschwindigkeit einzugeben.
 In dem Maschinendatum muss die Maschinen- und Antriebsdynamik sowie die Grenzfrequenz der Istwerterfassung berücksichtigt werden.
@@ -1056,7 +1056,7 @@ Bit 9 = 0:
 	axiale Frames werden für Kommandoachsen berücksichtigt und für Kommandoachsen, die Geometrieachsen sind wird die Werkzeuglängenkorrektur berücksichtigt
 Bit 9 = 1:
 	axiale Frames und Werkzeuglängenkorrektur werden für Kommandoachsen NICHT berücksichtigt.
-	Wird das Werkzeug in einer aktiven Transformation behandelt, wird bei Geometrieachsen die Werkzeuglängenkorrektur berücksichtigt (wie bit9=0, siehe auch MD24130 $MC_TRAFO_INCLUDES_TOOL_1). 
+	Wird das Werkzeug in einer aktiven Transformation behandelt, wird bei Geometrieachsen die Werkzeuglängenkorrektur berücksichtigt (wie bit9=0, siehe auch MD24130 $MC_TRAFO_INCLUDES_TOOL_1).
 Bit 10 = 0:
 	Auch in der Betriebsart JOG ist bei aktiver Rotation ein Verfahren einer Geometrieachse als PLC- oder Kommandoachse NICHT erlaubt.
 Bit 10 = 1:
@@ -1149,9 +1149,9 @@ Bit 11 = 0
 Bit 11 = 1
 	Bei fehlendem VDI-Nahtstellensignal &lt;DriveReady/&gt; (Drive Ready) werden über das Handrad vorgegebene Wegstrecken aufgesammelt. Das Anstarten einer kontinuierlichen JOG-Bewegung bei Dauerbetrieb (MD41050 $SN_JOG_CONT_MODE_LEVELTRIGGRD 41050 = 0) bzw. einer inkrementellen JOG-Bewegung bei Dauerbetrieb (MS11300 $MN_JOG_INC_MODE_LEVELTRIGGRD 11300 = 0) wird als Verfahranforderung angezeigt und gespeichert. Bei "driveReady" = 1 wird die Verfahrbewegung gestartet.                                       |
 Bit 12 = 0
-	Unterbrechung bzw. Aufsammeln der über das Handrad vorgegebenen Wegstrecken bei sicherem Betriebshalt. 
+	Unterbrechung bzw. Aufsammeln der über das Handrad vorgegebenen Wegstrecken bei sicherem Betriebshalt.
 Bit 12 = 1
-	Abbruch der Verfahrbewegung bzw. kein Aufsammeln bei sicherem Betriebshalt. 
+	Abbruch der Verfahrbewegung bzw. kein Aufsammeln bei sicherem Betriebshalt.
 </description>
 </parameter>
 <parameter number="32090" type="DOUBLE" dim="0">
@@ -1304,7 +1304,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="32300" type="DOUBLE" dim="1">
 <name>MAX_AX_ACCEL</name>
-<brief>maximale Achsbeschleunigung</brief>
+<brief>Maximale Achsbeschleunigung</brief>
 <description>Beschleunigung, d.h. Sollgeschwindigkeitsänderung, mit der die Achse maximal beaufschlagt werden soll. Der Wert begrenzt sowohl die positive wie die negative Achsbeschleunigung.
 Abhängig von dem MD30300 $MA_IS_ROT_AX ist die maximale Winkel- bzw. Linearachsbeschleunigung einzugeben.
 Werden Achsen im Verbund linear interpoliert, so wird der Verbund so beschränkt, dass keine Achse überlastet wird. Hinsichtlich der Konturgenauigkeit ist die Regeldynamik zu berücksichtigen.
@@ -1350,7 +1350,7 @@ Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
 <parameter number="32320" type="DWORD" dim="0" display="HEX">
 <name>DYN_LIMIT_RESET_MASK</name>
 <brief>Resetverhalten von Dynamikbegrenzungen</brief>
-<description>Mit dem MD32320 $MA_DYN_LIMIT_RESET_MASK  wird das Reset-Verhalten von Dynamik begrenzenden Funktionen achsspezifisch und gruppenweise eingestellt. 
+<description>Mit dem MD32320 $MA_DYN_LIMIT_RESET_MASK  wird das Reset-Verhalten von Dynamik begrenzenden Funktionen achsspezifisch und gruppenweise eingestellt.
 Das MD ist bitcodiert, z.Z sind Bit 0 (LSB) und Bit 1 belegt.
 
 Bit 0 = 0:
@@ -1400,7 +1400,7 @@ Empfohlene Werte für Typ 1:
 Empfohlene Werte für Typ 2:
 	min: 1 Lageregeltakt bis max: 16 Lageregeltakte
 	Bei 2ms Lageregeltakt entspricht dies 0.002 s bis 0.032 s.
-Typ 3 benötigt die Einstellung von 
+Typ 3 benötigt die Einstellung von
 MD32410 $MA_AX_JERK_TIME
 MD32412 $MA_AX_JERK_FREQ
 MD32414 $MA_AX_JERK_DAMP.
@@ -1416,8 +1416,8 @@ Sonderfälle, Fehler:
 Korrespondiert mit:
 	MD32400 $MA_AX_JERK_ENABLE
 	MD32410 $MA_AX_JERK_TIME
-	sowie bei Typ3: 
-MD32412 $MA_AX_JERK_FREQ und 
+	sowie bei Typ3:
+MD32412 $MA_AX_JERK_FREQ und
 MD32414 $MA_AX_JERK_DAMP
 </description>
 </parameter>
@@ -1494,7 +1494,7 @@ MD18960 $MN_POS_DYN_MODE
 </parameter>
 <parameter number="32431" type="DOUBLE" dim="1">
 <name>MAX_AX_JERK</name>
-<brief>maximaler axialer Ruck bei Bahnbewegung</brief>
+<brief>Maximaler axialer Ruck bei Bahnbewegung</brief>
 <description>max. axialer Ruck bei Bahnbewegung
 
 Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
@@ -1502,7 +1502,7 @@ Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
 </parameter>
 <parameter number="32432" type="DOUBLE" dim="1">
 <name>PATH_TRANS_JERK_LIM</name>
-<brief>maximaler axialer Ruck am Satzübergang im Bahnsteuerbetrieb</brief>
+<brief>Maximaler axialer Ruck am Satzübergang im Bahnsteuerbetrieb</brief>
 <description>Die Steuerung begrenzt den Ruck (Beschleunigungssprung) am Satzübergang aus ungleich gekrümmten Konturstücken auf den eingestellten Wert bei aktiver Ruckbegrenzung.
 
 Nicht relevant bei:
@@ -1542,7 +1542,7 @@ Relevante Axiale Ruckbegrenzung bei G00 =:
 <parameter number="32436" type="DOUBLE" dim="0">
 <name>JOG_MAX_JERK</name>
 <brief>Maximaler axialer Ruck bei JOG-Bewegung</brief>
-<description>Der Ruckgrenzwert begrenzt die Änderung der Achsbeschleunigung nur in der Betriebsart JOG. 
+<description>Der Ruckgrenzwert begrenzt die Änderung der Achsbeschleunigung nur in der Betriebsart JOG.
 
 Das Verhalten des MD ist analog zu:
 	MD32430 $MA_JOG_AND_POS_MAX_JERK
@@ -1664,8 +1664,6 @@ MD32000 $MA_MAX_AX_VELO
 MD30200 $MA_NUM_ENCS
 (Anzahl der Messsysteme)
 MD30200 $MA_NUM_ENCS (Anzahl der Messsysteme)
-MD36500 $MA_ENC_CHANGE_TOL
-(Maximale Toleranz bei Lageistwertumschaltung)
 </description>
 </parameter>
 <parameter number="32457" type="DOUBLE" dim="0">
@@ -2199,7 +2197,7 @@ Korrespondiert mit:
 	MD32500 $MA_FRICT_COMP_ENABLE = 1
 	MD32490 $MA_FRICT_COMP_MODE = 3/4
 	MD32581 $MA_FRICT_ADAPT_TABLE_ACCEL
-	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME 
+	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME
 </description>
 </parameter>
 <parameter number="32587" type="DOUBLE" dim="1">
@@ -2215,7 +2213,7 @@ Korrespondiert mit:
 	MD32500 $MA_FRICT_COMP_ENABLE = 1
 	MD32490 $MA_FRICT_COMP_MODE = 3/4
 	MD32581 $MA_FRICT_ADAPT_TABLE_ACCEL
-	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME 
+	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME
 </description>
 </parameter>
 <parameter number="32588" type="DOUBLE" dim="1">
@@ -2231,7 +2229,7 @@ Korrespondiert mit:
 	MD32500 $MA_FRICT_COMP_ENABLE = 1
 	MD32490 $MA_FRICT_COMP_MODE = 3/4
 	MD32581 $MA_FRICT_ADAPT_TABLE_ACCEL
-	MD32576 $MA_ FRICT_TORQUE_STEP 
+	MD32576 $MA_ FRICT_TORQUE_STEP
 </description>
 </parameter>
 <parameter number="32610" type="DOUBLE" dim="1">
@@ -2323,7 +2321,7 @@ Hinweise:
 </parameter>
 <parameter number="32644" type="DOUBLE" dim="1">
 <name>STIFFNESS_DELAY_TIME</name>
-<brief>dynamische Steifigkeits-Regelung: Verzögerung</brief>
+<brief>Dynamische Steifigkeits-Regelung: Verzögerung</brief>
 <description>Konfiguration einer Korrektur-Totzeit der Dynamischen Steifigkeits-Regelung (DSC) bei optimiertem PROFIBUS/PROFINET-Zyklus, Einheit: Sekunden
 </description>
 </parameter>
@@ -2587,7 +2585,7 @@ MD36400 $MA_CONTOUR_TOL (Toleranzband Konturüberwachung)
 </parameter>
 <parameter number="32890" type="BOOLEAN" dim="0">
 <name>DESVAL_DELAY_ENABLE</name>
-<brief>axiales Sollwert-Phasenfilter</brief>
+<brief>Axiales Sollwert-Phasenfilter</brief>
 <description>Mit dem axialen Sollwert-Phasenfilter (Totzeit/Verzögerung) kann der Phasengang unabhängig vom Amplitudengang verändert werden (die üblichen Ruckfilter - vgl. MD32402 $MA_AX_JERK_MODE - beeinflussen dagegen Amplituden- und Phasengang gleichzeitig).
 1:	Sollwert-Phasenfilter (Verzögerung) ist aktiv.
 0:	Sollwert-Phasenfilter (Verzögerung) ist inaktiv.
@@ -2603,7 +2601,7 @@ Korrespondiert mit:
 Damit kann der axiale Sollwert-Phasengang unabhängig vom Amplitudengang eingestellt werden
 Zeitkonstanten im Bereich von 0 bis 64 Lagereglertakten sind einstellbar, das Phasenfilter kann bei z.B. 2ms Lagereglertakt also die Sollwerte um 0 bis 128ms verzögern.
  Eingabewerte ausserhalb dieser Grenzen werden implizit auf die genannten Grenzen (ohne Alarm) begrenzt.
- Hinweis: Verzögerungen in der Sollwertkette können systembedingt die Reaktion bei z.B. Gewindebohren, Safety-Rückzugsbewegungen oder Genauhalt/Satzwechsel verlangsamen bzw. verschlechtern, deshalb sollten so kleine Zeitkonstanten als möglich im MD eingestellt werden. 
+ Hinweis: Verzögerungen in der Sollwertkette können systembedingt die Reaktion bei z.B. Gewindebohren, Safety-Rückzugsbewegungen oder Genauhalt/Satzwechsel verlangsamen bzw. verschlechtern, deshalb sollten so kleine Zeitkonstanten als möglich im MD eingestellt werden.
 Das MD ist nur wirksam, wenn MD32890 $MA_DESVAL_DELAY_ENABLE = 1 ist.
 
 Korrespondiert mit:
@@ -2788,7 +2786,7 @@ Steht die Maschinenachse auf dem Referenznocken, beschleunigt sie auf die im MD3
 
 Bei Längenmesssystemen mit abstandscodierten Referenzmarken:
 Hat die Maschinenachse einen Referenznocken (Längenmesssysteme mit abstands-codierten Referenzmarken brauchen nicht zwangsweise einen Referenznocken) und steht die Maschinenachse auf dem Referenznocken, beschleunigt sie, unabhängig von der gedrückten Verfahrtaste plus/minus, auf die im MD34040 $MA_REFP_VELO_SEARCH_MARKER (Referenzpunktabschaltgeschwindigkeit) vorgegebene Geschwindigkeit entgegen der im MD34010 $MA_REFP_CAM_DIR_IS_MINUS vorgegebenen Richtung.
-Hinweis für Absolutgeber: 
+Hinweis für Absolutgeber:
 Die Richtung der Verfahrtaste ist auch für Justage der Absolutgeber von Bedeutung: Richtung für feste Position anfahren und Aktualisierung der Werte in MD34090 $MA_REFP_MOVE_DIST_CORR und MD34210 $MA_ENC_REFP_STATE.
 </description>
 </parameter>
@@ -2864,7 +2862,7 @@ Längenmesssystemen mit abstandscodierten Referenzmarken
 </parameter>
 <parameter number="34060" type="DOUBLE" dim="1">
 <name>REFP_MAX_MARKER_DIST</name>
-<brief>maximale Wegstrecke zur Referenzmarke</brief>
+<brief>Maximale Wegstrecke zur Referenzmarke</brief>
 <description>Bei inkrementellen Messsystemen:
 Fährt die Maschinenachse vom Referenznocken aus (NC/PLC-Nahtstellensignal &lt;VerzoegerungReferenzpunktverfahren/&gt; (Verzögerung Referenzpunktfahren) ist rückgesetzt) einen im MD34060 $MA_REFP_MAX_MARKER_DIST festgelegten Weg, ohne dass die Referenzmarke erkannt wird , bleibt die Achse stehen und der Alarm 20002 "Nullmarke fehlt" wird ausgegeben.
 
@@ -2919,7 +2917,7 @@ Verwendet eine Link-Achse einen Absolutgeber, so wird jede Änderung des MD34090 
 </parameter>
 <parameter number="34092" type="DOUBLE" dim="1">
 <name>REFP_CAM_SHIFT</name>
-<brief>elektronische Nockenverschiebung für inkrementelle Messsysteme</brief>
+<brief>Elektronische Nockenverschiebung für inkrementelle Messsysteme</brief>
 <description>Elektronische Nockenverschiebung für inkrementelle Messsysteme mit äquidistanten Nullmarken.
 
 Beim Auftreten des Referenznockensignals wird die Nullmarkensuche nicht sofort, sondern erst nach der Distanz von REFP_CAM_SHIFT verzögert gestartet.
@@ -3221,7 +3219,7 @@ Wert:       0       Default: 25 bit für Multi Turn Geber
 <brief>Schritte pro Geberumdrehung</brief>
 <description>Bei SSI-Absolutwertgebern wird hier über die Schritte pro Umdrehung des Gebers
 das Telegrammformat innerhalb der Telegrammlänge festgelegt.
-Wert:        0       rechtsbündig 
+Wert:        0       rechtsbündig
              1       8192 Schritte/Umdrehung im Tannenbaumformat
              2       4096 Schritte/Umdrehung im Tannenbaumformat
              3       2048 Schritte/Umdrehung im Tannenbaumformat
@@ -3241,8 +3239,8 @@ Wert:        0       rechtsbündig
 <name>WAIT_ENC_VALID</name>
 <brief>Parametrierung für Teileprogrammbefehl WAITENC</brief>
 <description>Parametrierung für Teileprogrammbefehl WAITENC:
-0: Achse wird beim Warten auf synchronisierte/referierte bzw. restaurierte Position per Teileprogrammbefehl WAITENC nicht berücksichtigt. 
-1: Es wird im Teileprogrammbefehl WAITENC gewartet, bis für diese Achse eine synchronisierte/referierte bzw. restaurierte Position zur Verfügung steht. 
+0: Achse wird beim Warten auf synchronisierte/referierte bzw. restaurierte Position per Teileprogrammbefehl WAITENC nicht berücksichtigt.
+1: Es wird im Teileprogrammbefehl WAITENC gewartet, bis für diese Achse eine synchronisierte/referierte bzw. restaurierte Position zur Verfügung steht.
 
 </description>
 </parameter>
@@ -3276,7 +3274,7 @@ Bei mehrkanaligen Systemen können in allen Kanälen gleiche Nummern vergeben werd
 <brief>Getriebestufenwechsel parametrieren</brief>
 <description>Bedeutung der Bitstellen:
 
-Bit 0 = 0 und Bit 1 = 0: 
+Bit 0 = 0 und Bit 1 = 0:
 	Es gibt ein unveränderliches Übersetzungsverhältnis zwischen Motor und Last. Es wirken die MD der ersten Getriebestufe. Ein Getriebestufenwechsel mit M40 bis M45 ist nicht möglich.
 
 Bit 0 = 1:
@@ -3339,7 +3337,7 @@ Bedeutung der Werte:
 <description>Mit SPIND_DEFAULT_MODE wird die zu dem unter MD35030 $MA_SPIND_DEFAULT_ACT_MASK festgelegten Zeitpunkt eingestellte Betriebsart der Spindel  aktiviert. Mit den folgenden Werten lassen sich die entsprechenden Spindel-Betriebsarten einstellen:
 0	Drehzahl-Mode, Lageregelung abgewählt
 1	Drehzahl-Mode, Lageregelung eingeschaltet
-2	Positioniermode, keine Prüfung auf synchronisiert/referenziert bei NC-Start 
+2	Positioniermode, keine Prüfung auf synchronisiert/referenziert bei NC-Start
 3	Achsbetrieb, mit MD34110 $MA_REFP_CYCLE_NR kann Referenzpflicht bei NC-Start projektiert/deaktiviert werden
 
 Korrespondiert mit:
@@ -3409,7 +3407,7 @@ Bit 12 = 1:
        = 0:
 	bisheriges Verhalten (Default)
 
-Mit den nachfolgenden Bits 16-20 können spindelspezifische M-Funktionen eingestellt werden, die an die VDI-Nahtstelle ausgegeben werden, 
+Mit den nachfolgenden Bits 16-20 können spindelspezifische M-Funktionen eingestellt werden, die an die VDI-Nahtstelle ausgegeben werden,
 wenn die dazu gehörige M-Funktionalität für den Programmablauf implizit erzeugt wurde.
 Bit 16: reserviert
 Bit 17: reserviert
@@ -3421,7 +3419,7 @@ Bit 19:"Ausgabe implizites M19 an PLC"
 
 Bit 20:"Ausgabe implizites M70 an PLC"
  = 0: Keine Erzeugung der impliziten Hilfsfunktion M70. Hinweis: Eine programmierte Hilfsfunktion M70 wird immer an die PLC ausgegeben.
- = 1: Beim Übergang in den Achsbetrieb wird implizit die Hilfsfunktion M70 erzeugt und an die PLC ausgegeben. Die Adresserweiterung entspricht der Spindelnummer. 
+ = 1: Beim Übergang in den Achsbetrieb wird implizit die Hilfsfunktion M70 erzeugt und an die PLC ausgegeben. Die Adresserweiterung entspricht der Spindelnummer.
 
 Bit 21: reserviert
 
@@ -3521,7 +3519,7 @@ Korrespondiert mit:
 <parameter number="35110" type="DOUBLE" dim="1">
 <name>GEAR_STEP_MAX_VELO</name>
 <brief>Maximaldrehzahl für Getriebestufenwechsel</brief>
-<description>In MD35110 $MA_GEAR_STEP_MAX_VELO wird die maximale Drehzahl (obere Schaltschwelle) der Getriebestufe für den automatischen Getriebestufenwechsel M40 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen. 
+<description>In MD35110 $MA_GEAR_STEP_MAX_VELO wird die maximale Drehzahl (obere Schaltschwelle) der Getriebestufe für den automatischen Getriebestufenwechsel M40 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen.
 
 falsch
 MD35110 $MA_GEAR_STEP_MAX_VELO [Getriebestufe1] =1000
@@ -3545,7 +3543,7 @@ MD35140 $MA_GEAR_STEP_MIN_VELO_LIMIT (min.  Drehzahl der Getriebestufe)
 <parameter number="35112" type="DOUBLE" dim="1">
 <name>GEAR_STEP_MAX_VELO2</name>
 <brief>2. Datensatz: Maximaldrehzahl für Getriebestufenwechsel</brief>
-<description>In GEAR_STEP_MAX_VELO2 wird für das interpolatorische Gewindebohren G331, G332 die größte Drehzahl (obere Schaltschwellen) der Getriebestufe für den automatischen Getriebestufenwechsel M40 G331 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen. 
+<description>In GEAR_STEP_MAX_VELO2 wird für das interpolatorische Gewindebohren G331, G332 die größte Drehzahl (obere Schaltschwellen) der Getriebestufe für den automatischen Getriebestufenwechsel M40 G331 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen.
 
 Die Aktivierung des 2. Getriebestufendatensatzes für das Gewindebohren mit G331/G332 erfolgt durch MD35010 $MA_GEAR_STEP_CHANGE_ENABLE Bit 5 für die Masterspindel.
 
@@ -3561,14 +3559,14 @@ MD35140 $MA_GEAR_STEP_MIN_VELO_LIMIT (min.  Drehzahl der Getriebestufe)
 <parameter number="35120" type="DOUBLE" dim="1">
 <name>GEAR_STEP_MIN_VELO</name>
 <brief>Minimaldrehzahl für Getriebestufenwechsel</brief>
-<description>In MD35120 $MA_GEAR_STEP_MIN_VELO wird die kleinste Drehzahl der Getriebestufe (untere Schaltschwelle) für den automatischen Getriebestufenwechsel M40 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen. 
-Weitere Beschreibung siehe MD35120 $MA_GEAR_STEP_MAX_VELO.
+<description>In MD35120 $MA_GEAR_STEP_MIN_VELO wird die kleinste Drehzahl der Getriebestufe (untere Schaltschwelle) für den automatischen Getriebestufenwechsel M40 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen.
+Weitere Beschreibung siehe MD35110 $MA_GEAR_STEP_MAX_VELO.
 
 Hinweis:
-- Wird eine Spindeldrehzahl programmiert, die kleiner ist als die kleinste Drehzahl der ersten Getriebestufe MD35120 $MA_GEAR_STEP_MIN_VELO[1], dann wird in die erste Getriebestufe geschaltet. 
+- Wird eine Spindeldrehzahl programmiert, die kleiner ist als die kleinste Drehzahl der ersten Getriebestufe MD35120 $MA_GEAR_STEP_MIN_VELO[1], dann wird in die erste Getriebestufe geschaltet.
 
 Nicht relevant bei:
-- Bei der Programmierung der Drehzahl 0 (S0) wenn MD35120 $MA_GEAR_STEP_MIN_VELO[1] &gt; 0 
+- Bei der Programmierung der Drehzahl 0 (S0) wenn MD35120 $MA_GEAR_STEP_MIN_VELO[1] &gt; 0
 
 Korrespondiert mit:
 MD35110 $MA_GEAR_STEP_MAX_VELO (maximale Drehzahl für automatische Getriebestufenauswahl M40)
@@ -3582,7 +3580,7 @@ MD35140 $MA_GEAR_STEP_MIN_VELO_LIMIT (min.  Drehzahl der Getriebestufe)
 <parameter number="35122" type="DOUBLE" dim="1">
 <name>GEAR_STEP_MIN_VELO2</name>
 <brief>2. Datensatz: Minimaldrehzahl für Getriebestufenwechsel</brief>
-<description>In GEAR_STEP_MIN_VELO2 wird für das interpolatorische Gewindebohren G331, G332 die kleinste Drehzahl (untere Schaltschwelle) der Getriebestufe für den automatischen Getriebestufenwechsel M40 G331 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen. 
+<description>In GEAR_STEP_MIN_VELO2 wird für das interpolatorische Gewindebohren G331, G332 die kleinste Drehzahl (untere Schaltschwelle) der Getriebestufe für den automatischen Getriebestufenwechsel M40 G331 S.. vorgegeben. Die Drehzahlbereiche der Getriebestufen müssen lückenlos aufeinander folgen oder können sich überlappen.
 
 Die Aktivierung des 2. Getriebestufendatensatzes für das Gewindebohren mit G331/G332 erfolgt durch MD35010 $MA_GEAR_STEP_CHANGE_ENABLE Bit 5 für die Masterspindel.
 
@@ -3618,7 +3616,7 @@ MD35120 $MA_GEAR_STEP_MIN_VELO (min. Drehzahl für automatische Getriebestufenaus
 <parameter number="35135" type="DOUBLE" dim="1">
 <name>GEAR_STEP_PC_MAX_VELO_LIMIT</name>
 <brief>Maximaldrehzahl der Getriebestufe bei Lageregelung</brief>
-<description>In MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT wird die maximale Drehzahl der aktuellen Getriebestufe bei aktiver Lageregelung projektiert. Die unter Berücksichtigung des Overrides erzeugten Drehzahlsollwerte werden auf diese Drehzahl begrenzt. 
+<description>In MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT wird die maximale Drehzahl der aktuellen Getriebestufe bei aktiver Lageregelung projektiert. Die unter Berücksichtigung des Overrides erzeugten Drehzahlsollwerte werden auf diese Drehzahl begrenzt.
 Ist der Wert 0 eingetragen (Voreinstellung), dann bilden 90% des Wertes aus dem MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT die maximale Drehzahl bei aktiver Lageregelung.
 
 Hinweis:
@@ -3789,7 +3787,7 @@ Dieses Datum hat auch Auswirkung auf die Bahnbewegung bei SOFT, BRISK, TRAFO
 <parameter number="35300" type="DOUBLE" dim="1">
 <name>SPIND_POSCTRL_VELO</name>
 <brief>Lageregeleinschaltdrehzahl</brief>
-<description>Beim Positionieren einer nicht in Lageregelung befindlichen Spindel aus einer hohen Drehzahl wird die Lageregelung erst aktiviert, wenn die Spindel die in MD35300 $MA_SPIND_POSCTRL_VELO hinterlegte getriebestufenabhängige Drehzahl erreicht oder unterschritten hat. 
+<description>Beim Positionieren einer nicht in Lageregelung befindlichen Spindel aus einer hohen Drehzahl wird die Lageregelung erst aktiviert, wenn die Spindel die in MD35300 $MA_SPIND_POSCTRL_VELO hinterlegte getriebestufenabhängige Drehzahl erreicht oder unterschritten hat.
 
 Die Drehzahl kann mit FA[Sn] aus dem Teileprogramm verändert werden. Das Verhalten der Spindel beim Positionieren unter verschiedenen Randbedingungen (Positionieren aus der Bewegung, Positionieren aus dem Stillstand) ist ausführlich in der Dokumentation beschrieben:
 /FB1/ Funktionshandbuch Grundfunktionen; Spindeln (S1), Kapitel "Spindelbetriebsart Positionierbetrieb"
@@ -4040,7 +4038,7 @@ Korrespondierend mit:
 <parameter number="36020" type="DOUBLE" dim="0">
 <name>POSITIONING_TIME</name>
 <brief>Verzögerungszeit Genauhalt fein</brief>
-<description>In dieses MD wird die Zeit eingegeben, nach deren Ablauf beim Einfahren in die Position (Lagesollwert hat Ziel erreicht) der Schleppfehler den Grenzwert für Genauhalt fein erreicht haben muss. 
+<description>In dieses MD wird die Zeit eingegeben, nach deren Ablauf beim Einfahren in die Position (Lagesollwert hat Ziel erreicht) der Schleppfehler den Grenzwert für Genauhalt fein erreicht haben muss.
 Dazu wird der aktuelle Schleppfehler auf den Grenzwert MD36010 $MA_STOP_LIMIT_FINE kontinuierlich überwacht. Bei Zeitüberschreitung wird der Alarm 25080 "Positionierüberwachung" ausgegeben und die Achse stillgesetzt. Das MD sollte so großzügig gewählt werden, dass die Überwachung im Normalbetrieb unter Berücksichtigung von Ausregelzeiten nicht anspricht.
 
 Korrespondiert mit:
@@ -4089,6 +4087,19 @@ Sonderfälle:
 
 Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Klemmvorgang_laeuft/&gt; (Klemmvorgang läuft)
+</description>
+</parameter>
+<parameter number="36051" type="DOUBLE" dim="0">
+<name>CLAMP_POS_TOL_TIME</name>
+<brief>Alarmverzögerungszeit für Klemmungsüberwachung</brief>
+<description>Das MD definiert die Zeit, wie lange die Klemmungstoleranz überschritten sein darf, bevor der Alarm 26000 "Klemmungsüberwachung" ausgegeben wird.
+Bei Überschreitung der Klemmungstoleranz vor Ablauf dieser Zeit wird der Anwender zunächst per NC/PLC-Nahtstellensignal &lt;Klemmungstoleranz_ueberschritten/&gt; (Klemmungstoleranz überschritten) informiert (ohne Alarm)
+Bei Unterschreitung der Klemmungstoleranz vor Ablauf dieser Zeit wird die Klemmungsüberwachung mit dem NC/PLC-Nahtstellensignal &lt;Klemmungstoleranz_ueberschritten/&gt; (Klemmungstoleranz überschritten) zurückgesetzt (ohne Alarm)
+
+Siehe MD36050 $MA_CLAMP_POS_TOL (Klemmungstoleranz).
+Korrespondiert mit:
+	NC/PLC-Nahtstellensignal &lt;Klemmvorgang_laeuft/&gt; (Klemmvorgang läuft)
+	NC/PLC-Nahtstellensignal &lt;Klemmungstoleranz_ueberschritten/&gt; (Klemmungstoleranz überschritten)
 </description>
 </parameter>
 <parameter number="36052" type="BYTE" dim="0" display="HEX">
@@ -4304,9 +4315,10 @@ Dieses MD muss an die Genauigkeit des Drehzahlreglers sowie der zulässigen Besch
 <brief>Toleranz bei Lageistwertumschaltung</brief>
 <description>In das MD wird die zulässige Abweichung zwischen den Istwerten der beiden Messsysteme eingetragen.
 Diese Differenz darf beim Umschalten des zur Regelung verwendeten Messsystems nicht überschritten werden, um zu starke Ausgleichsvorgänge zu verhindern. Andernfalls wird die Fehlermeldung 25100, "Achse %1 Messsystemumschaltung nicht möglich" generiert und die Umschaltung findet nicht statt.
+Dieses MD ist relevant nur bei MD30200 $MA_NUM_ENCS = 2.
 
-Nicht relevant:
-	Dieses MD ist irrelevant bei MD30200 $MA_NUM_ENCS = 0 oder 1.
+MD36500 begrenzt zusätzlich rampenförmig die Änderungsgeschwindigkeit der Losekompensationswerte in MD32450 $MA_BACKLASH. Die Begrenzung hängt von der Einstellung des Lageregeltaktes ab. Je kleiner der Wert in MD36500, umso länger dauert die Losekompensation bei Richtungswechsel.
+Dieses MD ist relevant nur bei MD30200 $MA_NUM_ENCS =1 oder 2.
 </description>
 </parameter>
 <parameter number="36510" type="DOUBLE" dim="0">
@@ -4349,7 +4361,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="36610" type="DOUBLE" dim="0">
 <name>AX_EMERGENCY_STOP_TIME</name>
-<brief>maximale Zeitdauer der Bremsrampe bei Fehlern</brief>
+<brief>Maximale Zeitdauer der Bremsrampe bei Fehlern</brief>
 <description>Dieses MD definiert die Zeitdauer der Bremsrampe von Achsen oder Spindeln bei Fehlern (z. B. Not-Halt), um von Maximalgeschwindigkeit/-Drehzahl in den Stillstand abzubremsen. Aus niedrigeren Geschwindigkeiten/Drehzahlen wird der Stillstand mit derselben Steigung/Brems-Beschleunigung dementsprechend früher erreicht.
 Achsen, deren Mechanik dies verträgt, sollen im Allgemeinen schlagartig mit Drehzahlsollwert 0 gestoppt werden. In diesen Fällen sind Werte in Größenordnung weniger ms sinnvoll (Voreinstellung).
 Spindeln dagegen müssen oft große bewegte Massen oder begrenzte Mechanik-Verhältnisse (z. B. Getriebe-Belastbarkeit) berücksichtigen. Hierfür wird eine längere Bremsrampe durch MD-Veränderung erforderlich.
@@ -4615,8 +4627,8 @@ Wert	=0:	Das Kriterium "Festanschlag erreicht" wird intern aufgrund der achsspez
 		Konturabweichung (Schwelle vorgegeben durch MD: FIXED_STOP_THRESHOLD) ermittelt.
 	=1:	Das Kriterium "Festanschlag erreicht" wird über einen externen Sensor ermittelt und
 		 der NC über das NC/PLC-Nahtstellensignal &lt;SensorFestanschlag/&gt; (Sensor Festanschlag) mitgeteilt.
-	=2:	Das Kriterium  "Festanschlag erreicht" wird angenommen, wenn entweder die 
-		Konturüberwachung (gem. Wert = 0) oder 
+	=2:	Das Kriterium  "Festanschlag erreicht" wird angenommen, wenn entweder die
+		Konturüberwachung (gem. Wert = 0) oder
 		das Signal des externen Sensors (gem. Wert = 1) angesprochen hat.
 </description>
 </parameter>
@@ -4649,8 +4661,8 @@ Mit dem Maschinendatum wird festgelegt, ob die Alarme
 20094 "Festanschlag abgebrochen" gemeldet werden.
 Wert	= 0:	unterdrücken Alarm 20091 "Festanschlag nicht erreicht"
 	= 2:	unterdrücken Alarme	20091 "Festanschlag nicht erreicht"  und
-			20094 "Festanschlag abgebrochen" 
-	= 3:	unterdrücken Alarm 20094 "Festanschlag abgebrochen" 
+			20094 "Festanschlag abgebrochen"
+	= 3:	unterdrücken Alarm 20094 "Festanschlag abgebrochen"
 Alle anderen zulässigen Werte ? 7 unterdrücken keine Alarme.
 </description>
 </parameter>
@@ -4947,7 +4959,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="37202" type="DOUBLE" dim="0">
 <name>COUPLE_POS_TOL_COARSE_2</name>
-<brief>zweiter Schwellwert für 'Synchronlaufüberwachung grob'</brief>
+<brief>Zweiter Schwellwert für 'Synchronlaufüberwachung grob'</brief>
 <description>Generische Kopplung - Zweite Synchronlaufüberwachung der istwertseitigen Synchronlaufdifferenz bei Positionskopplungen - Schwellenwert grob.
 Wird der Wert "0" eingetragen, dann ist die Überwachung inaktiv.
 
@@ -4980,7 +4992,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="37212" type="DOUBLE" dim="0">
 <name>COUPLE_POS_TOL_FINE_2</name>
-<brief>zweiter Schwellwert für 'Synchronlaufüberwachung fein'</brief>
+<brief>Zweiter Schwellwert für 'Synchronlaufüberwachung fein'</brief>
 <description>Generische Kopplung - Zweite Synchronlaufüberwachung der istwertseitigen Synchronlaufdifferenz bei Positionskopplungen - Schwellenwert fein.
 Wird der Wert "0" eingetragen, dann ist die Überwachung inaktiv.
 

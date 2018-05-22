@@ -134,7 +134,7 @@ In der Regel werden die ersten zwei oder drei Kanalachsen als Geometrieachsen ve
 SINUMERIK 802D hat 5 Kanalachsen.
 </description>
 </parameter>
-<parameter number="20082" type="STRING" dim="0">
+<parameter number="20082" type="STRING" dim="1">
 <name>AXCONF_CHANAX_DEFAULT_NAME</name>
 <brief>Default Achsname für Achsvariablen im Kanal</brief>
 <description>Variablen oder Parameter vom Typ Axis, die nicht initialisiert wurden, werden mit einem Default-Achsbezeichner initialisiert. Der Bezeichner ist über das MD20082 $MC_AXCONF_CHANAX_DEFAULT_NAME projektierbar. Wird dieses Maschinendatum mit einem Leerstring festgelegt, so wird wie bisher die 1. GEO-Achse verwendet.
@@ -376,7 +376,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="20108" type="DWORD" dim="0" display="HEX">
 <name>PROG_EVENT_MASK</name>
-<brief>ereignisgesteuerte Programmaufrufe</brief>
+<brief>Ereignisgesteuerte Programmaufrufe</brief>
 <description>Parametrierung der Ereignisse, bei denen das mit MD11620 $MN_PROG_EVENT_NAME eingestellte Anwenderprogramm (Voreinstellung: _N_PROG_EVENT_SPF) bzw. das Safety-Programm _N_SAFE_SPF implizit aufgerufen wird:
 Bit 0 = 1 : Teileprogramm-Start
 Bit 1 = 1 : Teileprogramm-Ende
@@ -779,50 +779,92 @@ Bit 1 (LSB) = 1:
 <parameter number="20115" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_REFP_LOCK_ASUP</name>
 <brief>Interruptprogramm trotz nicht referierter Achsen abarbeiten</brief>
-<description>Trotz nicht referierter Achsen wird für den Interrupt, dessen Bit gesetzt ist, ein zugeordnetes Anwender-ASUP abgearbeitet.
-Bit 0 ist dem Interrupt 1 zugeordnet.
-Bit 1 ist dem Interrupt 2 zugeordnet, usw.
+<description>Trotz nicht referierter Achsen wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet.
+
+Bit  0 = 1: Freigabe Interrupt  1 (Anwender-Interrupt)
+Bit  1 = 1: Freigabe Interrupt  2 (Anwender-Interrupt)
+...
+Bit  7 = 1: Freigabe Interrupt  8 (Anwender-Interrupt)
+
+Bit  8 = 1: Freigabe Interrupt 9 (System-Interrupt, reserviert)
+Bit  9 = 1: Freigabe Interrupt 10 (System-Interrupt, reserviert)
+Bit 10 = 1: Freigabe Interrupt 11 (System-Interrupt, reserviert)
+...
+Bit 31 = 1: Freigabe Interrupt 32 (System-Interrupt, reserviert)
+
+Achtung
+System-Interrupts können System-ASUPs mit Verfahrbewegungen starten
+
+Hinweise
+1. Folgenden Maschinendaten ersetzen MD11602 $MN_ASUP_START_MASK, Bit1.
+ - MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK
+ - MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+
+2. Bei MD20700 $MC_REFP_NC_START_LOCK == 0, wird die Einstellung im MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK ignoriert und nicht referierte Achsen werden immer ignoriert.
 
 Korrespondiert mit:
-	MD11602 $MN_ASUP_START_MASK
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
-
-Die Maschinendaten MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK und MD20115 $MC_IGNORE_REFP_LOCK_ASUP ersetzen Bit 1 aus MD11602 $MN_ASUP_START_MASK.
-Ist MD20700 $MC_REFP_NC_START_LOCK gleich 0, so wird die Einstellung in MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK ignoriert und nicht referierte Achsen werden immer ignoriert.
+MD11602 $MN_ASUP_START_MASK
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20116" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_INHIBIT_ASUP</name>
 <brief>Interruptprogramm trotz Einlesesperre abarbeiten</brief>
-<description>Trotz gesetzter Einlesesperre wird für den Interrupt, dessen Bit gesetzt ist, ein zugeordnetes Anwender-ASUP komplett abgearbeitet.
-Bit 0 ist dem Interrupt 1 zugeordnet.
-Bit 1 ist dem Interrupt 2 zugeordnet, usw.
+<description>Trotz gesetzter Einlesesperre wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet:
+
+Bit  0 = 1: Freigabe Interrupt  1 (Anwender-Interrupt)
+Bit  1 = 1: Freigabe Interrupt  2 (Anwender-Interrupt)
+...
+Bit  7 = 1: Freigabe Interrupt  8 (Anwender-Interrupt)
+
+Bit  8 = 1: Freigabe Interrupt 9 (System-Interrupt, reserviert)
+Bit  9 = 1: Freigabe Interrupt 10 (System-Interrupt, reserviert)
+Bit 10 = 1: Freigabe Interrupt 11 (System-Interrupt, reserviert)
+...
+Bit 31 = 1: Freigabe Interrupt 32 (System-Interrupt, reserviert)
+
+ACHTUNG:
+Von System-Interrupts gestartete System-ASUPs können Verfahrbewegungen enthalten.
 
 Korrespondiert mit:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20117" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_SINGLEBLOCK_ASUP</name>
 <brief>Interruptprogramm trotz Einzelsatz komplett abarbeiten</brief>
-<description>Trotz gesetzter Einzelsatzbearbeitung wird für den Interrupt, dessen Bit gesetzt ist, ein zugeordnetes Anwender-ASUP komplett abgearbeitet.
-Bit 0 ist dem Interrupt 1 zugeordnet.
-Bit 1 ist dem Interrupt 2 zugeordnet, usw.
-Das MD wirkt nur bei Einzelsatz Typ-1.
+<description>Trotz gesetzter Einzelsatzbearbeitung wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet:
+
+Bit  0 = 1: Freigabe Interrupt  1 (Anwender-Interrupt)
+Bit  1 = 1: Freigabe Interrupt  2 (Anwender-Interrupt)
+...
+Bit  7 = 1: Freigabe Interrupt  8 (Anwender-Interrupt)
+
+Bit  8 = 1: Freigabe Interrupt 9 (System-Interrupt, reserviert)
+Bit  9 = 1: Freigabe Interrupt 10 (System-Interrupt, reserviert)
+Bit 10 = 1: Freigabe Interrupt 11 (System-Interrupt, reserviert)
+...
+Bit 31 = 1: Freigabe Interrupt 32 (System-Interrupt, reserviert)
+
+ACHTUNG:
+Von System-Interrupts gestartete System-ASUPs können Verfahrbewegungen enthalten.
+
+Hinweis:
+Das Maschinendatum wirkt nur bei Einzelsatz SBL1.
 
 Korrespondiert mit:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20118" type="BOOLEAN" dim="0">
@@ -1169,7 +1211,7 @@ MD	Index	Wert
 <description>Diese MD wird nur bei gesetztem Bit 0 in MD20110 $MC_RESET_MODE_MASK ausgewertet!
 Mit diesem MD wird für jeden Eintag im MD20150 $MC_GCODE_RESET_VALUES (also für jede G-Gruppe) festgelegt, ob bei einem Reset/Teileprogrammende wieder die Einstellung entsprechend MD20150 $MC_GCODE_RESET_VALUES eingenommen wird (MD = 0), oder die momentan aktuelle Einstellung erhalten bleibt (MD = 1).
 
-Beispiel:
+Beispiel 1:
 Hier wird bei jedem Reset/Teileprogrammende die Grundstellung für die 6. G-Gruppe (aktuelle Ebene) aus dem MD20150 $MC_GCODE_RESET_VALUES gelesen:
 MD20150 $MC_GCODE_RESET_VALUES[5]=1 ; Resetvalue der 6. G-Gruppe ist G17
 MD20152 $MC_GCODE_RESET_MODE[5]=0 ; Grundstellung für 6. G-Gruppe ist nach Reset/Teileprogrammende entsprechend MD20150 $MC_GCODE_RESET_VALUES[5]
@@ -1178,6 +1220,15 @@ Soll die aktuelle Einstellung für die 6. G-Gruppe (aktuelle Ebene) jedoch über R
 MD20150 $MC_GCODE_RESET_VALUES[5]=1 ; Resetvalue der 6. G-Gruppe ist G17
 MD20152 $MC_GCODE_RESET_MODE[5]=1 ; aktuelle Einstellung für 6. G-Gruppe
 ;bleibt auch nach Reset/Teileprogrammende erhalten
+
+Beispiel 2:
+Hier wird bei jedem Reset/Teileprogrammende die Grundstellung für die 8. G-Gruppe (Nullpunktverschiebung) aus dem MD20150 $MC_GCODE_RESET_VALUES gelesen:
+MD20150 $MC_GCODE_RESET_VALUES[7]=2 ; Resetvalue der 8. G-Gruppe ist G54
+MD20152 $MC_GCODE_RESET_MODE[7]=0   ; Grundstellung für 8. G-Gruppe ist nach Reset/Teileprogrammende entsprechend MD20150 $MC_GCODE_RESET_VALUES[7]
+War insbesondere zum Resetzeitpunkt G54 bereits aktiv, so werden die Werte zum Resetzeitpunkt des entsprechenden Datenhaltungsframes aktiviert.
+
+Soll die aktuelle Einstellung für die 8. G-Gruppe (Nullpunktverschiebung) jedoch über Reset/Teileprogrammende hinaus erhalten bleiben, so ergibt sich folgende Einstellung:
+MD20152 $MC_GCODE_RESET_MODE[7]=1   ; War zum Resetzeitpunkt eine Nullpunktverschiebung (z.B. G54) aktiv, so werden die Werte zum Resetzeitpunkt des entsprechenden Datenhaltungsframes (bei G54 also UIFR[1]) aktiviert
 
 Korrespondierend mit:
 MD20110 $MC_RESET_MODE_MASK
@@ -1266,7 +1317,7 @@ Literatur:
 </parameter>
 <parameter number="20172" type="DOUBLE" dim="0">
 <name>COMPRESS_VELO_TOL</name>
-<brief>maximal erlaubte Abweichung des Bahnvorschubs bei Kompression</brief>
+<brief>Maximal erlaubte Abweichung des Bahnvorschubs bei Kompression</brief>
 <description>Der Wert gibt für den Bahnvorschub die maximal erlaubte Abweichung für die Kompression an. Je größer der Wert ist, umso mehr kurze Sätze können in einen langen Satz komprimiert werden. Die Maximalzahl komprimierbarer Sätze ist nach oben durch die Größe des Splinepuffers begrenzt.
 Die Kompressoren COMPON und COMPCURV begrenzen auf diese Weise eventuell die Kompression der Bahnachsen.
 Der Kompressor COMPCAD verhält sich anders: Er ignoriert Änderungen des F-Wortes, solange sie unterhalb der durch COMPRESS_VELO_TOL gegebenen Schwelle liegen. Ändert sich der programmierte Vorschub in einem Satz um mehr als COMPRESS_VELO_TOL, unterbricht COMPCAD die Kompression an diesem Satzübergang, damit der Vorschubwechsel exakt an der gewollten Position erfolgt.
@@ -1281,8 +1332,21 @@ Literatur:
 </parameter>
 <parameter number="20173" type="DOUBLE" dim="0">
 <name>SURF_VELO_TOL</name>
-<brief>maximal erlaubte Abweichung des Bahnvorschubs bei Kompression mit COMPSURF</brief>
+<brief>Maximal erlaubte Abweichung des Bahnvorschubs bei Kompression mit COMPSURF</brief>
 <description>Der Wert gibt für den Bahnvorschub die maximal erlaubte Abweichung für die Kompression an. Je größer der Wert ist, umso mehr kurze Sätze können in einen langen Satz komprimiert werden.
+</description>
+</parameter>
+<parameter number="28174" type="DOUBLE" dim="0">
+<name>MAX_SURF_TOL</name>
+<brief>Maximale Konturtoleranz der Funktion COMPSURF</brief>
+<description>Maximal erlaubte Konturtoleranz der Funktion COMPSURF, falls nicht eine spezielle Option gesetzt ist.
+Ohne diese Option kommt bei einer größeren Toleranz, die z.B. mit CTOL programmiert wird, der zugehörige Optionsalarm.
+</description>
+</parameter>
+<parameter number="28175" type="DOUBLE" dim="0">
+<name>MIN_SURF_TOL</name>
+<brief>Minimale Konturtoleranz der Funktion COMPSURF</brief>
+<description>Minimale wirksame Konturtoleranz der Funktion COMPSURF. Kleinere Werte, die z.B. mit CTOL programmiert sind, werden ignoriert und auf diesen Wert begrenzt.
 </description>
 </parameter>
 <parameter number="20180" type="DOUBLE" dim="1">
@@ -1330,18 +1394,28 @@ Ist sein Inhalt kleiner 0 oder größer oder gleich der in MD28081 $MC_MM_NUM_BASE
 <parameter number="20191" type="DWORD" dim="0" display="HEX">
 <name>IGN_PROG_STATE_ASUP</name>
 <brief>Ausführung des Interruptprogramms auf BTSS nicht anzeigen</brief>
-<description>Falls das ASUP gestartet wird, verändern sich die BTSS-Variablen
-progStatus und chanStatus nicht, d.h. das HMI sieht diese in der Regel kurze Programmverarbeitung nicht.
+<description>Das Ausführen des ASUPs, das dem Interrupt zugeordnet ist, wird durch die BTSS-Variablen "progStatus" und "chanStatus" NICHT angezeigt.
 
-Bit 0 ist dem Interrupt 1 zugeordnet.
-Bit 1 ist dem Interrupt 2 zugeordnet, usw.
+Bit  0 = 1: Freigabe Interrupt  1 (Anwender-Interrupt)
+Bit  1 = 1: Freigabe Interrupt  2 (Anwender-Interrupt)
+...
+Bit  7 = 1: Freigabe Interrupt  8 (Anwender-Interrupt)
+
+Bit  8 = 1: Freigabe Interrupt 9 (System-Interrupt, reserviert)
+Bit  9 = 1: Freigabe Interrupt 10 (System-Interrupt, reserviert)
+Bit 10 = 1: Freigabe Interrupt 11 (System-Interrupt, reserviert)
+...
+Bit 31 = 1: Freigabe Interrupt 32 (System-Interrupt, reserviert)
+
+ACHTUNG:
+Von System-Interrupts gestartete System-ASUPs können Verfahrbewegungen enthalten.
 
 Korrespondiert mit:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20194 $MC_IGNORE_NONCSTART_ASUP
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
 <parameter number="20192" type="DWORD" dim="0" display="HEX">
@@ -1397,17 +1471,29 @@ Korrespondiert mit:
 <parameter number="20194" type="DWORD" dim="0" display="HEX">
 <name>IGNORE_NONCSTART_ASUP</name>
 <brief>ASUP-Start trotz "Verriegelung NC-START" bei best. Anwenderalarmen zul.</brief>
-<description>Falls ein Anwenderalarm aus dem Nummernband 65500-65999 ansteht, ist ein ASUP-Start aus Reset heraus trotz der Reaktion "Verriegelung NC-START", die diese Alarme haben, erlaubt. Ein ASUP-Start aus aktivem oder gestoppten Zustand heraus wird nicht beeinflusst.
+<description>Durch einen Anwenderalarm aus dem Nummernband 65500 - 65999 wird das Signal "NC-Start Verriegelung" gesetzt. Dadurch werden standardmäßig auch keine ASUPs aufgrund von Interrupts abgearbeitet.
+Trotz anstehendem Signal "NC-Start Verriegelung" wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet:
 
-Bit 0 ist dem Interrupt 1 zugeordnet.
-Bit 1 ist dem Interrupt 2 zugeordnet, usw.
+Bit  0 = 1: Freigabe Interrupt  1 (Anwender-Interrupt)
+Bit  1 = 1: Freigabe Interrupt  2 (Anwender-Interrupt)
+...
+Bit  7 = 1: Freigabe Interrupt  8 (Anwender-Interrupt)
+
+Bit  8 = 1: Freigabe Interrupt 9 (System-Interrupt, reserviert)
+Bit  9 = 1: Freigabe Interrupt 10 (System-Interrupt, reserviert)
+Bit 10 = 1: Freigabe Interrupt 11 (System-Interrupt, reserviert)
+...
+Bit 31 = 1: Freigabe Interrupt 32 (System-Interrupt, reserviert)
+
+ACHTUNG:
+Von System-Interrupts gestartete System-ASUPs können Verfahrbewegungen enthalten.
 
 Korrespondiert mit:
-	MD11602 $MN_ASUP_START_MASK
-	MD20115 $MC_IGNORE_REFP_LOCK_ASUP
-	MD20116 $MC_IGNORE_INHIBIT_ASUP
-	MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
-	MD20191 $MC_IGN_PROG_STATE_ASUP
+MD11602 $MN_ASUP_START_MASK
+MD20115 $MC_IGNORE_REFP_LOCK_ASUP
+MD20116 $MC_IGNORE_INHIBIT_ASUP
+MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
+MD20191 $MC_IGN_PROG_STATE_ASUP
 </description>
 </parameter>
 <parameter number="20196" type="DWORD" dim="0" display="HEX">
@@ -1448,7 +1534,7 @@ Bit 0 = 1:
 </parameter>
 <parameter number="20202" type="BYTE" dim="0">
 <name>WAB_MAXNUM_DUMMY_BLOCKS</name>
-<brief>maximale Satzanzahl ohne Verfahrbewegung bei WAB</brief>
+<brief>Maximale Satzanzahl ohne Verfahrbewegung bei WAB</brief>
 <description>Maximale Zahl der Sätze, die zwischen dem WAB-Satz und dem Verfahrsatz, der die Richtung der Anfahr- bzw. Abfahrtangente bestimmt, liegen darf.
 </description>
 </parameter>
@@ -1512,7 +1598,7 @@ Deshalb wird bei sehr flachen Außenecken automatisch von G450 (Übergangskreis, g
 </parameter>
 <parameter number="20250" type="DWORD" dim="0">
 <name>CUTCOM_MAXNUM_DUMMY_BLOCKS</name>
-<brief>maximale Satzanzahl ohne Verfahrbewegung bei WRK</brief>
+<brief>Maximale Satzanzahl ohne Verfahrbewegung bei WRK</brief>
 <description>Während der aktiven WRK werden in der Regel nur Programmsätze mit Bewegungen von Geometrieachsen senkrecht zur aktuellen Werkzeugorientierung programmiert. Trotzdem können bei aktiver WRK auch einzelne Zwischensätze programmiert werden, die keine derartigen Weginformationen enthalten, wie z. B.:
 
 - Bewegungen in Richtung der Werkzeugorientierung
@@ -1562,7 +1648,7 @@ Bei FALSE ist das Verhalten identisch mit dem in älteren Softwareständen als 4.0
 </parameter>
 <parameter number="20262" type="DOUBLE" dim="0">
 <name>SPLINE_FEED_PRECISION</name>
-<brief>zulässiger relativer Fehler der Bahngeschwindigkeit bei Spline</brief>
+<brief>Zulässiger relativer Fehler der Bahngeschwindigkeit bei Spline</brief>
 <description>Dieses Maschinendatum wird nur ausgewertet, wenn MD28540 $MC_MM_ARCLENGTH_SEGMENTS größer 0 ist.
 Der Faktor gibt an, wie groß der relative Fehler der Bahngeschwindigkeit bei Splines, Kompressor und Polynominterpolation sein darf. Je kleiner der Faktor ist, umso mehr Rechenzeit wird in der Vorverarbeitung benötigt.
 Außerdem wird dann mehr Speicher zur Darstellung der Bogenlägenfunktion benötigt (siehe MD28540 $MC_MM_ARCLENGTH_SEGMENTS).
@@ -1950,6 +2036,8 @@ Sonderfälle:
 <description>Sonderfunktionen des Look Ahead:
 Bit 0 = 1:
 	Die Safety Integrated Sollwertbegrenzung wird bereits im Look Ahead berücksichtigt.
+Bit 1 = 1:
+	Die Safety Integrated Sollwertbegrenzung wird über den Satz detailliert berücksichtigt.
 </description>
 </parameter>
 <parameter number="20460" type="DOUBLE" dim="0">
@@ -2016,6 +2104,8 @@ Durch Eingabe von 1.0 wird die Funktion deaktiviert.
 1:  CPRECON ist auch bei Vorsteuerung wirksam.
 2: Wie 1, die Funktion wird aber mit MD32415 $MA_EQUIV_CPREC_TIME parametriert.
 3: Wie 2, aber eine eventuell mit CTOL programmierte Konturgenauigkeit hat Vorrang vor SD42450 $SC_CONTPREC.
+4: CPRECON ist unabhängig von der Vorsteuerung und Ruckfilter wirksam. Es wird ausschließlich MD32415 $MA_EQUIV_CPREC_TIME in der Berechnung des Konturfehlers betrachtet. Alle Zeitkonstanten, die Einflüsse auf den Konturfehler haben, müssen aufsummiert im MD32415 $MA_EQUIV_CPREC_TIME eingetragen werden.
+5: Wie 4, aber eine eventuell mit CTOL programmierte Konturgenauigkeit hat Vorrang vor SD42450 $SC_CONTPREC.
 
 Die Werte 0 und 1 werden nicht mehr empfohlen. SIe stellen lediglich noch die Kompatibilität zu älteren Softwareständen her.
 
@@ -2399,17 +2489,20 @@ Es gibt einen Eintrag für jede Dynamik-G-Code-Gruppe.
 <parameter number="20610" type="DOUBLE" dim="0">
 <name>ADD_MOVE_ACCEL_RESERVE</name>
 <brief>Beschleunigungsreserve für überlagerte Bewegungen</brief>
-<description>Das Maschinendatum enthält den Faktor, der die Beschleunigungsreserve festlegt, die die Bahnbewegung auf den Maschinenachsen ungenutzt lässt, um einer überlagerten Bewegung ausreichend Beschleunigungsreserve für die Geschwindigkeitsführung zu lassen.
-Der Faktor 0.2 bedeutet das die Bahnachsen im normalen Betrieb 80 % der Bahnbeschleunigung ausnutzen. Erst mit der Anforderung einer überlagerten Bewegung können die 100 % der Bahnbeschleunigung ausgenutzt werden.
+<description>Das Maschinendatum enthält den Faktor, der die Beschleunigungs- und Geschwindigkeitsreserve festlegt, die die Bahnbewegung auf den Maschinenachsen ungenutzt lässt, um einer überlagerten Bewegung ausreichend Beschleunigungs- und Geschwindigkeitsreserve für die Geschwindigkeitsführung zu lassen.
+Der Faktor 0.2 bedeutet das die Bahnachsen im normalen Betrieb 80 % der Bahnbeschleunigung und der maximalen Geschwindigkeit ausnutzen. Erst mit der Anforderung einer überlagerten Bewegung können die 100 % der Bahnbeschleunigung und der Geschwindigkeit ausgenutzt werden.
 
 Nicht relevant bei:
 	Fehlerzuständen, die zum Schnellstop führen. Die Begrenzung ist weiterhin unwirksam für Positionierachsen.
 
 Sonderfälle:
-	Das Maschinendatum wird zur Zeit nur berücksichtigt, wenn die Funktion "Schnelles Abheben" voraktiviert ist.
+	Das Maschinendatum wird zur Zeit nur berücksichtigt,
+	    wenn die Funktion "Schnelles Abheben" voraktiviert ist
+	    wenn die Funktion "Online-Werkzeuglängenkorrektur" mittels Programmbefehl TOFFON aktiviert ist
 
 Korrespondiert mit:
-	MD32300 $MA_MAX_AX_ACCEL (Achsbeschleunigung)
+	MD32000 $MA_MAX_AX_VELO (Maximale Achseschwindigkeit)
+	MD32300 $MA_MAX_AX_ACCEL (Maximale Achsbeschleunigung)
 </description>
 </parameter>
 <parameter number="20620" type="DOUBLE" dim="0">
@@ -2753,7 +2846,7 @@ Mit diesem Datum wird die maximal zulässige Differenz von Start- und Endradius b
 </parameter>
 <parameter number="21016" type="BOOLEAN" dim="0">
 <name>INVOLUTE_AUTO_ANGLE_LIMIT</name>
-<brief>automatische Winkelbegrenzung bei Evolventen-Interpolation</brief>
+<brief>Automatische Winkelbegrenzung bei Evolventen-Interpolation</brief>
 <description>Wird bei einer Evolventen der Drehwinkel programmiert (AR=Winkel), so ist der maximale Drehwinkel im Fall, dass die Evolvente sich zum Grundkreis hin bewegt (AR &lt; 0), begrenzt. Der maximale Drehwinkel wird dann erreicht, wenn die Evolvente den Grundkreis trifft.
 Im Normalfall wird, falls ein Winkel programmiert wird, der größer als der Maximalwinkel ist, ein Alarm ausgegeben und das NC-Programm abgebrochen.
 Ist dieses MD gleich TRUE gesetzt, dann wird für die Programmierung jeder beliebige Winkel ohne Alarm akzeptiert, gegebenenfalls wird dieser dann automatisch begrenzt.
@@ -2824,7 +2917,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="21080" type="DOUBLE" dim="0">
 <name>CUTCOM_PARALLEL_ORI_LIMIT</name>
-<brief>minimaler Winkel (Bahntangente / WZ-Orientierung) bei 3D-WRK</brief>
+<brief>Minimaler Winkel (Bahntangente / WZ-Orientierung) bei 3D-WRK</brief>
 <description>Bei der 3D-Werkzeuradiuskorrektur darf der Winkel zwischen der Bahntangente und der Werkzeugorientierung einen bestimmten Grenzwinkel nicht unterschreiten. Dieses Maschinendatum gibt diesen Winkel (in Grad) an.
 Je geringer der Wert dieses Maschinendatums gewählt wird, umso höher ist im allgemeinen der Rechenaufwand, der benötigt wird, um die Einhaltung der genannten Bedingungen zu überprüfen.
 Ausnahmen gelten für Linearsätze mit konstanter Orientierung.
@@ -2832,14 +2925,14 @@ Ausnahmen gelten für Linearsätze mit konstanter Orientierung.
 </parameter>
 <parameter number="21082" type="DOUBLE" dim="0">
 <name>CUTCOM_PLANE_ORI_LIMIT</name>
-<brief>minimaler Winkel zw. Flächennormnormalenv. und WZ-Orientierung</brief>
+<brief>Minimaler Winkel zw. Flächennormnormalenv. und WZ-Orientierung</brief>
 <description>Dieses Maschinendatum gibt beim 3D-Stirnfräsen den Winkel an, den Flächennormalenvektor und Werkzeugorientierung in jedem Punkt der Bahn mindestens bilden müssen, wenn mit einem Seitwärtswinkel ungleich Null gearbeitet wird und das Werkzeug kein Kugelfräser ist. Anderfalls wird beim Unterschreiten dieses Wertes die Bearbeitung mit einem Alarm abgebrochen.
 Je geringer der Wert dieses Maschinendatums gewählt wird, umso höher ist im allgemeinen der Rechenaufwand, der benötigt wird, um die Einhaltung der genannten Bedingung zu überprüfen.Das Maschinendatum ist nicht wirksam in Linearsätzen mit konstanter Orientierung. In diesem Fall sind beliebig kleine Winkel zugelassen, auch wenn der Seitwärtswinkel ungleich Null ist.
 </description>
 </parameter>
 <parameter number="21084" type="DOUBLE" dim="0">
 <name>CUTCOM_PLANE_PATH_LIMIT</name>
-<brief>minimaler Winkel zw. Flächennormalenvek. und Bahntang.-vektor</brief>
+<brief>Minimaler Winkel zw. Flächennormalenvek. und Bahntang.-vektor</brief>
 <description>Dieses Maschinendatum gibt beim 3D-Stirnfräsen den Winkel an, den Flächennormalenvektor und Bahntangentenvektor in jedem Punkt der Bahn mindestens bilden müssen. Anderfalls wird beim Unterschreiten dieses Wertes die Bearbeitung mit einem Alarm abgebrochen.
 Je geringer der Wert dieses Maschinendatums gewählt wird, umso höher ist im allgemeinen der Rechenaufwand, der benötigt wird, um die Einhaltung der genannten Bedingung zu überprüfen.
 </description>
@@ -3168,7 +3261,7 @@ Start =  180 Grad -&gt; Modulobereich  180 &lt;-&gt;540 Grad
 Start = -180 Grad -&gt; Modulobereich -180 &lt;-&gt;180 Grad
 </description>
 </parameter>
-<parameter number="21140" type="BOOLEAN" dim="0">
+<parameter number="21140" type="BOOLEAN" dim="1">
 <name>DYN_ORI_OFF_ON</name>
 <brief>Aktivierung dynamische Überlagerung der Orientierung</brief>
 <description>Mit diesem MD wird die dynamische Überlagerung der Werkzeugorientierung aktiviert. Die aktuelle Orientierung wird dann gemäss der aktuellen Bahngeschwindigkeit korrigiert. Damit kann z.B. der Strahl bei Wasserstrahl-Maschinen geschwindigkeitsabhängig korrigiert werden. Siehe hierzu auch die MD
@@ -3177,7 +3270,7 @@ MD21142 $MC_DYN_ORI_OFF_VEL
 MD21144 $MC_DYN_ORI_OFF_ANGLE
 </description>
 </parameter>
-<parameter number="21142" type="DOUBLE" dim="0">
+<parameter number="21142" type="DOUBLE" dim="1">
 <name>DYN_ORI_OFF_VEL</name>
 <brief>Strahl Geschwindigkeit</brief>
 <description>Zur dynamischen Überlagerung der Werkzeugorientierung. Mit diesem Datum wird die Austrittsgeschwindigkeit des Wasserstrahls angegeben.
@@ -3298,34 +3391,57 @@ Bedeutung der Hunderterstelle:
 <description>Der Offset der Rundachsen für den orientierbaren Werkzeugträger wird automatisch aus der bei Aktivierung des orientierbaren Werkzeugträgers für die Rundachsen aktiven Nullpunktsverschiebung übernommen.
 </description>
 </parameter>
-<parameter number="21190" type="BYTE" dim="0" display="HEX">
+<parameter number="21190" type="DWORD" dim="0" display="HEX">
 <name>TOFF_MODE</name>
 <brief>Wirkungsweise der Korrektur in Werkzeugrichtung</brief>
-<description>Mit diesem Maschindatum wird die Wirkungsweise der Online Korrektur in Werkzeugrichtung über $AA_TOFF[ ] eingestellt.
+<description>Mit diesem Maschinendatum wird die Wirkungsweise der Online Korrektur in Werkzeugrichtung über $AA_TOFF[ ] eingestellt.
 
-Bit 0: Verhalten von $AA_TOFF bei RESET
-0: $AA_TOFF wird bei RESET abgewählt
-1: $AA_TOFF bleibt über RESET hinaus erhalten
+Bit 0: Verhalten von $AA_TOFF bei RESET.
+0: $AA_TOFF wird bei RESET abgewählt.
+1: $AA_TOFF bleibt über RESET hinaus erhalten.
 
-Bit 1: Wirkung der Wertzuweisung auf die 1. Komponente von $AA_TOFF[ ]
-0: absoluter Wert
-1: inkrementeller Wert (Integrator)
+Bit 1: Wirkung der Wertzuweisung auf die 1. Komponente von $AA_TOFF[ ].
+0: Absoluter Wert
+1: Inkrementeller Wert (Integrator)
 
-Bit 2: Wirkung der Wertzuweisung auf die 2. Komponente von $AA_TOFF[ ]
-0: absoluter Wert
-1: inkrementeller Wert (Integrator)
+Bit 2: Wirkung der Wertzuweisung auf die 2. Komponente von $AA_TOFF[ ].
+0: Absoluter Wert
+1: Inkrementeller Wert (Integrator)
 
-Bit 3: Wirkung der Wertzuweisung auf die 3. Komponente von $AA_TOFF[ ]
-0: absoluter Wert
-1: inkrementeller Wert (Integrator)
+Bit 3: Wirkung der Wertzuweisung auf die 3. Komponente von $AA_TOFF[ ].
+0: Absoluter Wert
+1: Inkrementeller Wert (Integrator)
 
-Bit 4: Verhalten der $AA_TOFF Bewegung bei NC-Stop
-0:	Bewegung wird bei NC-Stop unterbrochen
-1:	Bewegung bleibt bei NC-Stop aktiv
+Bit 4: Verhalten der $AA_TOFF Bewegung bei NC-Stop.
+0: Bewegung wird bei NC-Stop unterbrochen.
+1: Bewegung bleibt bei NC-Stop aktiv.
 
-Bit 5: Verhalten der $AA_TOFF Bewegung bei RESET und Programmende
-0:	Bewegung wird bei RESET oder Programmende unterbrochen
-1:	Bewegung bleibt bei RESET oder Programmende aktiv
+Bit 5: Verhalten der $AA_TOFF Bewegung bei RESET und Programmende.
+0: Bewegung wird bei RESET oder Programmende unterbrochen.
+1: Bewegung bleibt bei RESET oder Programmende aktiv.
+
+Bit 6: Wirksamkeit des Settingdatums $SC_TOFF_LIMIT_MINUS.
+0: Die Untergrenze $SC_TOFF_LIMIT_MINUS wirkt nicht. Als Untergrenze wird -$SC_TOFF_LIMIT genommen.
+1: Die Untergrenze $SC_TOFF_LIMIT_MINUS wirkt.
+
+Bit 7: Satzweises Unterdrücken von $AA_TOFF bei SUPA.
+0: $AA_TOFF wird bei SUPA nicht satzweise unterdrückt.
+1: $AA_TOFF wird bei SUPA satzweise unterdrückt.
+
+Bit 8: Verhalten des $AA_TOFF-Handradfahrens am $AA_TOFF_LIMIT / $AA_TOFF_LIMIT_MINUS.
+0: Unterbrechung, d.h. Aufsammeln der über das Handrad vorgegebenen Wegstrecken.
+1: Abbruch der Verfahrbewegung, d.h. kein Aufsammeln.
+
+Bit 9: $AA_TOFF-Handradüberlagerung ohne Aktivierung durch TOFFON möglich.
+0: $AA_TOFF-Handradüberlagerung nur nach Aktivierung der $AA_TOFF-Funktion durch TOFFON möglich.
+1: $AA_TOFF-Handradüberlagerung ohne Aktivierung der $AA_TOFF-Funktion durch TOFFON möglich.
+
+Bit 10: Achszuordnung der TOFF-Komponenten bei Ebenenwechsel.
+0: Bei Ebenenwechsel von G17 nach G18 oder G19 werden die Achskomponenten zyklisch vertauscht. Das bedeutet, dass alle drei Achsen des gedrehten Koordinatensystems in die positiven Achsrichtungen des Ausgangskoordinatensystems zeigen.
+1: Bei Ebenenwechsel von G17 nach G18 wird das Koordinatensystem um -90 Grad um die X-Achse gedreht, bei Ebenenwechsel von G17 nach G18 um 90 Grad um die Y-Achse.
+   In beiden Fällen zeigt die gedrehte Z-Achse in die gleiche Richtung wie bei nicht gesetztem Bit 10.
+   Die beiden anderen Achsen sind gegenüber der Einstellung mit nicht gesetztem Bit 10 vertauscht, und eine der beiden Achsen zeigt in negative Richtung.
+   Diese Einstellung sollte nur noch verwendet werden, wenn Kompatibilität mit ältern Softwareständen notwendig ist (SW 4.5 und älter). Für Neuentwicklungen wird diese Einstellung nicht empfohlen.
 </description>
 </parameter>
 <parameter number="21194" type="DOUBLE" dim="1">
@@ -3369,6 +3485,14 @@ Literatur:
 0:	Spiegelung der Kontur wird bei der Bestimmung der Abheberichtung n i c h t berücksichtigt.
 </description>
 </parameter>
+<parameter number="21203" type="DWORD" dim="0" display="HEX">
+<name>LIFTFAST_MODE_MASK</name>
+<brief>Einstellungen für Schnellabheben</brief>
+<description>Bit0: Verhalten von LFWP bei aktivem Frame
+=0 Bei Definition der Abheberichtung mit LFWP wirkt der aktive Frame n i c h t.
+=1 Bei Definition der Abheberichtung mit LFWP wirkt der aktive Frame. In diesem Fall hat MD21202 $MC_LIFTFAST_WITH_MIRROR keine Wirkung.
+</description>
+</parameter>
 <parameter number="21204" type="DWORD" dim="0" display="HEX">
 <name>LIFTFAST_STOP_COND</name>
 <brief>Stoppverhalten beim Schnellabheben</brief>
@@ -3386,22 +3510,20 @@ Bit1: Vorschub-Sperre im Kanal NC/PLC-Nahtstellensignal &lt;Vorschubsperre/&gt; 
 <parameter number="21210" type="DWORD" dim="0" display="HEX">
 <name>SETINT_ASSIGN_FASTIN</name>
 <brief>HW-Zuordnung des ext. NCK-Eingangsbytes für NC-Progr.-Interrupts</brief>
-<description>HW-Zuordnung des schnellen Eingangsbytes für NC-Programm-Interrupts
-Bit 0 bis 7:
-	Nummer des verwendeten Einganges
-Bit 16 bis 23:
-	Maske der Signale, die der Kanal nicht auswerten soll
-Bit 24 bis 31:
-	Maske der Signale, die invertiert ausgewertet werden sollen.
-	Bit gesetzt: Interrupt wird von fallender Flanke ausgelöst.
+<description>Zuordnung von Eingangsbytes zur Verarbeitung von Anwender-Interrupts in NC-Programmen (SETINT)
 
-Mögliche Eingänge:
-1:
-	On Board-Eingänge der 840D (4 schnelle + 4Bits über VDI-Vorgabe)
-2 - 5:
-	externe digitale Eingänge (schnelle NCK-Peripherie oder VDI-Vorgabe)
-128 - 129:
-	Komparator-Byte (resultiert aus schnellen Analogeingängen oder VDI-Vorgabe)
+Bit 0 ... 7: Nummer des Eingangsbytes (siehe unten)
+
+Bit 16 ... 23: Auswahlmaske für die Signale, die im Kanal NICHT ausgewertet werden
+
+Bit 24 ... 31: Auswahlmaske für die Signale, die im Kanal INVERTIERT ausgewertet werden
+Bit x = 0: Interrupt wird bei steigender Flanke ausgelöst
+Bit x = 1: Interrupt wird bei fallender Flanke ausgelöst
+
+Eingangsbytes:
+Byte 1: On Board-Eingänge der NCU-Baugruppe (DB)
+Byte 2 - 5: externe digitale Eingänge (schnelle NC-Peripherie oder Vorgabe über NC/PLC-Nahtstelle)
+Byte 128 - 129: Komparator-Byte (Ergebnis aus schnellen Analogeingängen oder Vorgabe über NC/PLC-Nahtstelle)
 </description>
 </parameter>
 <parameter number="21220" type="DWORD" dim="0" display="HEX">
@@ -3447,7 +3569,7 @@ Bit 2 -  7: Speicherverhalten der Vorschubsignale
 </parameter>
 <parameter number="21240" type="DWORD" dim="1">
 <name>PREVENT_SYNACT_LOCK_CHAN</name>
-<brief>geschützte Synchronaktionen</brief>
+<brief>Geschützte Synchronaktionen</brief>
 <description>Das Maschinendatum legt einen Bereich von Synchronaktions-ID's fest.
 
 Synchronaktionen mit Id's in diesem Bereich können nicht überschrieben, gelöscht (Cancel) oder über Synchronaktionen gesperrt (lock) werden.
@@ -3643,7 +3765,7 @@ In diesem MD ist nur dann von Bedeutung, wenn das MD: TRAFO_AXES_IN_n[0] = 0 ist
 </parameter>
 <parameter number="21502" type="DOUBLE" dim="0">
 <name>TRACLG_CTRLSPI_VERT_OFFSET</name>
-<brief>vertikaler Positionsoffset Regelachse bei Centerless-Schleifen</brief>
+<brief>Vertikaler Positionsoffset Regelachse bei Centerless-Schleifen</brief>
 <description>In diesem MD wird der vertikale Offset für die Regelachse eingegeben.
 </description>
 </parameter>
@@ -4400,7 +4522,7 @@ Damit lässt sich bei Suchlauf-Start ein zum PLC-Start abweichendes Verhalten ein
 </parameter>
 <parameter number="22621" type="DWORD" dim="0" display="HEX">
 <name>ENABLE_START_MODE_MASK_PRT</name>
-<brief>schaltet MD22620 $MC_START_MODE_MASK_PRT frei</brief>
+<brief>Schaltet MD22620 $MC_START_MODE_MASK_PRT frei</brief>
 <description>Das MD22620 $MC_START_MODE_MASK_PRT wird via MD22621 $MC_ENABLE_START_MODE_MASK_PRT freigeschaltet.
 
 In der Grundstellung von MD22621 $MC_ENABLE_START_MODE_MASK_PRT ist MD22620 $MC_START_MODE_MASK_PRT unwirksam.
@@ -4408,8 +4530,7 @@ In der Grundstellung von MD22621 $MC_ENABLE_START_MODE_MASK_PRT ist MD22620 $MC_
 Bit0 =  1:
 	wenn "Suchlauf via Programmtest" (engl. kurz. SERUPRO) aus RESET heraus gestartet wird (PI-Dienst _N_FINDBL Mode-Paramter == 5), ersetzt MD22620 $MC_START_MODE_MASK_PRT das MD20112 $MC_START_MODE_MASK.
 
-Damit lässt sich bei Suchlauf-Start ein zum PLC-Start abweichendes Start-Verhalten
-einstellen.
+Damit lässt sich bei Suchlauf-Start ein zum PLC-Start abweichendes Start-Verhalten einstellen.
 </description>
 </parameter>
 <parameter number="22622" type="DWORD" dim="0" display="HEX">
@@ -7369,6 +7490,13 @@ Korrespondiert mit:
 	SD42473 $SC_ACTNUM_SURF_GROUPS
 </description>
 </parameter>
+<parameter number="28073" type="DWORD" dim="0">
+<name>MM_SURF_BUFFER_SIZE</name>
+<brief>Dimensionierung des Satzpuffers der Funktion COMPSURF (DRAM)</brief>
+<description>Bestimmt die maximale Anzahl der Sätze im internen Puffer der Funktion COMPSURF.
+Das Maschinendatum hat nur dann eine Wirkung, wenn die Option Top-Surface vorhanden ist und MD28071 $MC_NUM_SURF_LEVELS im Kanal ungleich 0 ist.
+</description>
+</parameter>
 <parameter number="28079" type="DWORD" dim="0">
 <name>MM_NUM_G_FRAMES</name>
 <brief>Anzahl der Grinding Frames (SRAM)</brief>
@@ -7802,7 +7930,7 @@ Hinweis:
 </parameter>
 <parameter number="28520" type="DWORD" dim="0">
 <name>MM_MAX_AXISPOLY_PER_BLOCK</name>
-<brief>maximale Anzahl der Achspolynome pro Satz</brief>
+<brief>Maximale Anzahl der Achspolynome pro Satz</brief>
 <description>Maximale Anzahl von Achspolynomen, die in einem Satz enthalten sein können.
 Im Normalfall enthält jeder Satz nur ein Polynom pro Achse, d.h. dieses Datum kann gleich Eins gesetzt werden.
 Mehr Polynome werden derzeit nur bei der neuen ADIS-Funktion mit G643 gebraucht.

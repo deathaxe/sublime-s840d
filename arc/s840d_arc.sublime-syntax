@@ -22,7 +22,7 @@
 # IN THE SOFTWARE.
 ###############################################################################
 ---
-name: S840D Archive
+name: S840D Archive (ARC)
 file_extensions:
   - arc
 first_line_match: (?i:%_N_[\w_]+)\b
@@ -45,8 +45,15 @@ contexts:
       set: [hmi-contents, header-path]
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
-    - match: (?:[MS]PF|INI|DEF|TEA)\b
-      set: [nck-contents, header-path]
+    - match: (?:DEF)\b
+      set: [def-contents, header-path]
+    - match: (?:MPF)\b
+      set: [mpf-contents, header-path]
+    - match: (?:SPF)\b
+      set: [spf-contents, header-path]
+    - match: (?:GUD|INI|RPA|TEA|TOA|UFR)\b
+      set: [tea-contents, header-path]
+
     # unknown signature
     - match: \W+
       scope: invalid.illegal.unknown-signature.s840d_arc
@@ -87,6 +94,18 @@ contexts:
     - meta_scope: source.s840d_hmi
     - include: scope:source.s840d_hmi
 
-  nck-contents:
-    - meta_scope: source.s840d_gcode
-    - include: scope:source.s840d_gcode
+  def-contents:
+    - meta_scope: source.s840d_gcode.def
+    - include: scope:source.s840d_gcode.def
+
+  mpf-contents:
+    - meta_scope: source.s840d_gcode.mpf
+    - include: scope:source.s840d_gcode.mpf
+
+  spf-contents:
+    - meta_scope: source.s840d_gcode.spf
+    - include: scope:source.s840d_gcode.spf
+
+  tea-contents:
+    - meta_scope: source.s840d_gcode.tea
+    - include: scope:source.s840d_gcode.tea

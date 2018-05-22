@@ -16,15 +16,14 @@
 <parameter number="30110" type="BYTE" dim="1">
 <name>CTRLOUT_MODULE_NR</name>
 <brief>Setpoint assignment: module number</brief>
-<description>Enter in this MD the number of the module within a bus segment through which the output is addressed.
-For axes on the PROFIBUS/PROFINET, the number of the drive assigned with MD13050 $MN_DRIVE_LOGIC_ADDRESS must be entered here (MD30110 $MA_CTRLOUT_MODULE_NR=n consequently points to MD13050 $MN_DRIVE_LOGIC_ADDRESS[n]).
+<description>In this MD, enter the number of the module within a bus segment through which the output is addressed.
+For an axis on the PROFIBUS/PROFINET, the logical I/O address from MD13050 $MN_DRIVE_LOGIC_ADDRESS[index] is assigned by entering index+1 in MD30110 $MA_CTRLOUT_MODULE_NR.
 </description>
 </parameter>
 <parameter number="30120" type="BYTE" dim="1">
 <name>CTRLOUT_NR</name>
 <brief>Setpoint assignment: Setpoint output on drive submodule/module</brief>
 <description> Number of the output on a module which is used to address the setpoint output.
-The index [n] of the machine data is encoded as follows: [setpoint branch]: 0
 The value is always 1 for modular drives.
 </description>
 </parameter>
@@ -38,7 +37,6 @@ The value is always 1 for modular drives.
 3:	Reserved
 4:	Reserved
 Note: instead of value 4, MD30132 $MA_IS_VIRTUAL_AX should now be used.
-Index [n] of the machine data has the following coding: [setpoint branch]: 0
 </description>
 </parameter>
 <parameter number="30132" type="BOOLEAN" dim="1">
@@ -84,7 +82,7 @@ For simulation axes/spindles, MD30200 $MA_NUM_ENCS &gt; 0 must be specified for 
 <brief>Actual value assignment: bus segment number.</brief>
 <description>Number of the bus segment, through which the encoder is addressed.
 The bus segments must be firmly assigned to the control systems.
-0:	local bus (FM357-3)
+0:	local bus
 1:	reserved (previously SIMODRIVE611D bus, 1st DCM)
 2:	reserved (previously local P bus)
 3:	reserved (previously SIMODRIVE611D-Bus, 2. DCM)
@@ -98,15 +96,14 @@ Index [n] has the following coding [Encoder no.]: 0 or 1
 <parameter number="30220" type="BYTE" dim="1">
 <name>ENC_MODULE_NR</name>
 <brief>Actual value assignment: Drive number/measuring circuit number</brief>
-<description>The number of the module within a bus segment (MD30210 $MA_ENC_SEGMENT_NR[n]) through which the encoder is addressed must be entered in the MD.
-For axes on PROFIBUS/PROFINET, the number of the drive assigned via MD13050 $MN_DRIVE_LOGIC_ADDRESS must be entered here (MD30220 $MA_ENC_MODULE_NR=n consequently points to MD13050 $MN_DRIVE_LOGIC_ADDRESS[n]).
+<description>In this MD, enter the number of the module within a bus segment through which the encoder is addressed.
+For an axis on the PROFIBUS/PROFINET, the logical I/O address from MD13050 $MN_DRIVE_LOGIC_ADDRESS[index] is assigned by entering index+1 in MD30220 $MA_ENC_MODULE_NR.
 
 The index[n] of the machine data has the following coding:
 [Encoder no.]: 0 or 1
 
 Related to:
-	MD30110 $MA_CTRLOUT_MODULE_NR[n]
-	(setpoint assignment: drive number/module number)
+	MD30110 $MA_CTRLOUT_MODULE_NR (setpoint assignment)
 </description>
 </parameter>
 <parameter number="30230" type="BYTE" dim="1">
@@ -354,7 +351,7 @@ Bit 1 = 0:
 	Determination of reference point position of rotary, distance-coded encoders analog (1:1) in relation to the mechanical absolute position.
 Bit 1 = 1:
 	Determination of reference point position of rotary, distance-coded encoders within the configured modulo range.
-	For rotary axes with MD30310 $MA_ROT_IS_MODULO=0, which use rotary, distance-coded encoder MD34200 $MA_ENC_REFP_MODE=3 the reference point position is determined in response to MD30330 $MA_MODULO_RANGE and MD30340 $MA_MODULO_RANGE_START. This is automatically adapted to the traversing limits of the modulo range. For rotary axes with MD30310 $MA_ROT_IS_MODULO=1, this bit has no significance, as the reference point position is always determined within the modulo range.
+	For rotary axes with MD30310 $MA_ROT_IS_MODULO=0, which use rotary, distance-coded encoder MD34200 $MA_ENC_REFP_MODE=3, the reference point position is determined in response to MD30330 $MA_MODULO_RANGE and MD30340 $MA_MODULO_RANGE_START. This is automatically adapted to the traversing limits of the modulo range. For rotary axes with MD30310 $MA_ROT_IS_MODULO=1, this bit has no significance, as the reference point position is always determined within the modulo range.
 
 Bit 2 = 0:
 	Modulo rotary axis positioned at G90 with AC as default.
@@ -369,17 +366,17 @@ Bit 3 = 1:
 Bit 4 = 0:
 	Synchronous spindle coupling, slave spindle: cancellation of feedrate enable will brake the coupled group.
 Bit 4 = 1:
-	Slave spindle: Feedrate enable only refers to the interpolation share of the overlaid motion (SPOS, etc.) and has no impact on the coupling.
+	Slave spindle: Feedrate enable only applies to the interpolation portion of the overlaid motion (SPOS, etc.) and has no impact on the coupling.
 
 Bit 5 = 0:
 	 Synchronous spindle coupling, slave spindle: Position control, feedforward control, and parameter block are set in response to the master spindle.
 Bit 5 = 1:
-	Synchronous spindle coupling: The parameters of the slave spindle are set as in the uncoupled case.
+	Synchronous spindle coupling: The parameters of the slave spindle are set as they would be without coupling.
 
 Bit 6 = 0:
-	Programming of FA, OVRA, ACC, and VELOLIM is applied separately for spindle and axis modes. The assignment is made by the programmed axis or spindle identifier.
+	Programming of FA, OVRA, ACC, and VELOLIM is applied separately to spindle and axis modes. The assignment is made by the programmed axis or spindle identifier.
 Bit 6 = 1:
-	Programming of FA, OVRA, ACC, and VELOLIM is applied in common for spindle and axis modes, irrespective of the programmed identifier.
+	Programming of FA, OVRA, ACC, and VELOLIM is applied jointly to spindle and axis modes, irrespective of the programmed identifier.
 
 Bit 7 = 0:
 	Synchronous spindle, correct synchronism error: Correction value $AA_COUP_CORR[Sn] is continuously calculated as long as the NC/PLC interface signal &lt;Synchronlauf_nachfuehren/&gt; (Correct synchronism) is set and setpoint-related synchronism is present.
@@ -397,25 +394,25 @@ Bit 9 = 1:
 Bit 10 = 0:
 	The maximum dynamic performance of a TRAIL or TANGON axis limits the maximum dynamic path response.
 Bit 10 = 1:
-	The maximum dynamic performance of a TRAIL or TANGON axis has no effect on the dynamic path response. This can lead to a longer overtravel of the dependent axis.
+	The maximum dynamic performance of a TRAIL or TANGON axis has no effect on the dynamic path response. This can result in a longer overtravel of the dependent axis.
 Bit 11 = 0:
-	Deactivation of the CP-SW limit monitoring
+	Deactivation of the CP software limit monitoring
 Bit 11 = 1:
-	Activation of the CP-SW limit monitoring for the following slave axes/spindles:
+	Activation of the CP software limit monitoring for the following slave axes/spindles:
 	- coupling, type CP with CPSETTYPE[FAx] = "CP"
-	- coupling, type CP, TRAIL, EG, LEAD or COUP with a maximum of one active master axis/spindle
+	- coupling, type CP, TRAIL, EG, LEAD, or COUP with a maximum of one active master axis/spindle
 Bit 12 = 0:
-	When resetting the control enable of the stationary axis/spindle (regarding this master axis/spindle) you must always switch over to actual value coupling, the same as for a fast stop after resetting the control enable during motion (alarm 21612). This is valid for generic couplings (with replacement cycles or for CP programming).
+	When resetting the control enable of the stationary axis/spindle (in respect of this master axis/spindle), you must always switch over to actual value coupling, just as for a fast stop after resetting the control enable during motion (alarm 21612). This applies to generic couplings (with replacement cycles or for CP programming).
 Bit 12 = 1:
-	When resetting the control enable of the stationary axis/spindle (regarding this master axis/spindle) the changeover to the actual value coupling is inhibited. This is valid for generic couplings (with replacement cycles or for CP programming).
+	When resetting the control enable of the stationary axis/spindle (in respect of this master axis/spindle), changeover to actual value coupling is inhibited. This applies to generic couplings (with replacement cycles or for CP programming).
 Bit 13 = 0:
-	An axial DRIVE setting by means of MD35240 $MA_ACCEL_TYPE_DRIVE[] or by programming DRIVEA() of an axis is ignored by the path dynamic response, if the relevant axis is interpolated with the path.
+	An axis-specific DRIVE setting by means of MD35240 $MA_ACCEL_TYPE_DRIVE[] or by programming DRIVEA() of an axis is ignored by the path dynamic response if the relevant axis is interpolated with the path.
 Bit 13 = 1:
-	An acceleration characteristic of an axis activated by MD35240 $MA_ACCEL_TYPE_DRIVE[] or by programming of DRIVEA() is taken into account when defining the path dynamic response, if the relevant axis is interpolated with the path.
-
-
-
-
+	An acceleration characteristic of an axis activated by MD35240 $MA_ACCEL_TYPE_DRIVE[] or by programming of DRIVEA() is taken into account when defining the path dynamic response if the relevant axis is interpolated with the path.
+Bit 14 = 0:
+                 During cartesian PTP traversing, the "shortest path" strategy for software limit crossing of a rotary axis is retained.
+Bit 14 = 1:
+                The "long path" strategy for avoiding the software limit crossing is used if a rotary axis were to cross the software limit switch during cartesian PTP traversing with the "shortest path" strategy.
 </description>
 </parameter>
 <parameter number="30460" type="DWORD" dim="0" display="HEX">
@@ -498,7 +495,7 @@ Special cases:
 	Alarm 17500 "Axis is not an indexing axis"
 	Alarm 17090 "Value violates upper limit"
 
-Related to: 
+Related to:
 	MD10910 $MN_INDEX_AX_POS_TAB_1 (indexing position table 1)
 	MD10900 $MN_INDEX_AX_LENGTH_POS_TAB_1
 	(no. of indexing positions used in table 1)
@@ -620,7 +617,7 @@ For G75, two (2) fixed point positions are assumed in MD30600 $MA_FIX_POINT_POS 
 <brief>Type of check of working area limitations.</brief>
 <description>With this machine data you can specify whether only the working area limitations of traversing axes are to be checked (0)
 
-or 
+or
 
 whether the stationary axes in a traversing block are also to be checked  (1).
 The value 0 corresponds to the behavior up to SW5.
@@ -708,12 +705,12 @@ The passive measuring system is continuously monitored and updated.
 MD = 1:
 The passive measuring system is automatically parked. It is no longer monitored or updated. The encoder cable can be disconnected without an alarm being issued.
 
-Notes: 
+Notes:
  - A measuring system switchover to a parked measuring system takes longer than a switch to a passive measuring system.
  - On account of the duration, an axis standstill is recommended for the switchover.
  - It is only with incremental encoders that the position and the state "Measuring system is referenced" are applied from the previously active measuring system as a function of MD34210 $MA_ENC_REFP_STATE. In this case, renewed referencing is not absolutely necessary.
 
-The machine data is inactive if: 
+The machine data is inactive if:
  - MD30200 $MA_NUM_ENCS is less than 2
  - MD30240 $MA_ENC_TYPE=0
  - The measuring system is used on the drive side, for example as a motor measuring system for speed control. Recommendation: Do not change the default value of the machine data for a motor measuring system.
@@ -769,7 +766,7 @@ Related to:
 <description>The measuring gearbox denominator is entered in this MD.
 The index [n] of the machine data has the following coding:
 [encoder no.]: 0 or 1
-The index [n] of the machine data has the following coding: [encoder no.]: 0 
+The index [n] of the machine data has the following coding: [encoder no.]: 0
 </description>
 </parameter>
 <parameter number="31080" type="DWORD" dim="1">
@@ -778,7 +775,7 @@ The index [n] of the machine data has the following coding: [encoder no.]: 0
 <description>The measuring gearbox numerator is entered in this MD.
 The index [n] of the machine data has the following coding:
 [encoder no.]: 0 or 1
-The index [n] of the machine data has the following coding: [encoder no.]: 0 
+The index [n] of the machine data has the following coding: [encoder no.]: 0
 </description>
 </parameter>
 <parameter number="31090" type="DOUBLE" dim="1">
@@ -792,7 +789,7 @@ The path traveled by the axis on each increment each time the traversing key is 
 The possible increment stages are defined globally for all axes in MD11330 $MN_JOG_INCR_SIZE_TAB [n] and in SD41010 $SN_JOG_VAR_INCR_SIZE.
 Entering a negative value reverses the direction of evaluation of the traverse keys and the handwheel rotation.
 
-Related to: 
+Related to:
 	MD11330 $MN_JOG_INCR_SIZE_TAB
 	SD41010 $SN_JOG_VAR_INCR_SIZE
 </description>
@@ -834,7 +831,7 @@ Corresponds with:
 The typical total delay time of the BERO message path for overtravel in the positive direction of movement is entered.
 This time includes:
 - the BERO edge delay time
-- the time for digitizing the signal 
+- the time for digitizing the signal
 - the time for processing the measured value, etc.
 The periods of time depend on the hardware used. The default value is typical for SIEMENS products. Adjustment by the customer is only required in exceptional cases.
 
@@ -856,7 +853,7 @@ MD34040 $MA_REFP_VELO_SEARCH_MARKER[n]
 The typical total delay time of the BERO message path for overtravel in the negative direction of movement is entered.
 The time includes:
 - the BERO edge delay time
-- the time for digitizing the signal 
+- the time for digitizing the signal
 - the time for processing the measured value, etc.
 The periods of time depend on the hardware used. The default value is typical for SIEMENS products. Adjustment by the customer is only required in exceptional cases.
 
@@ -878,7 +875,7 @@ MD34040 $MA_REFP_VELO_SEARCH_MARKER[n]
 The factor can be set for each axis individually, so that pure positioning axes are not dependent on G70/G71. The factors within the three geometry axes should not be different.
 The data influenced by G70/G71 are described in the Programming Guide.
 
-Related to: 
+Related to:
 	MD20150 $MC_GCODE_RESET_VALUES[n] (G group initial setting).
 </description>
 </parameter>
@@ -944,7 +941,7 @@ If DRF is active, the axis velocity for JOG must be reduced with MD32090 $MA_HAN
 Spindles in JOG mode:
 This machine data can also be used to define the JOG mode speed for specific spindles (if SD41200 $SN_JOG_SPIND_SET_VELO = 0). However, the speed can be modified with the spindle override switch.
 
-Related to: 
+Related to:
 MD32000 $MA_MAX_AX_VELO
 (maximum axis velocity)
 MD32050 $MA_JOG_REV_VELO
@@ -966,7 +963,7 @@ SD41130 $SN_JOG_ROT_AX_SET_VELO
 MD irrelevant for:
 	SD41100 $SN_JOG_REV_IS_ACTIVE = "0"
 
-Related to: 
+Related to:
 	SD41100 $SN_JOG_REV_IS_ACTIVE (revolutional feedrate with JOG active)
 	MD32050 $MA_JOG_REV_VELO (revolutional feedrate with JOG)
 </description>
@@ -980,7 +977,7 @@ This feedrate is active when SD41100 $SN_JOG_REV_IS_ACTIVE= 1 (revolutional feed
 MD irrelevant for:
 	Linear feedrate; i.e. SD41100 $SN_JOG_REV_IS_ACTIVE = 0
 
-Related to: 
+Related to:
 	SD41100 $SN_JOG_REV_IS_ACTIVE
 	(revolutional feedrate for JOG active)
 	MD32040 $MA_JOG_REV_VELO_RAPID
@@ -1002,7 +999,7 @@ Special cases:
 <parameter number="32070" type="DOUBLE" dim="0">
 <name>CORR_VELO</name>
 <brief>Axis velocity for override</brief>
-<description>Limitation of axis velocity for handwheel override, external work offset, continuous dressing, distance control $AA_OFF via synchronized actions related to the JOG velocity 
+<description>Limitation of axis velocity for handwheel override, external work offset, continuous dressing, distance control $AA_OFF via synchronized actions related to the JOG velocity
 MD32020 $MA_JOG_VELO,
 MD32010 $MA_JOG_VELO_RAPID,
 MD32050 $MA_JOG_REV_VELO,
@@ -1058,8 +1055,8 @@ Bit 8 = 1:
 Bit 9 = 0:
 	Axial frames are considered for command axes, and tool length compensation is considered for command axes which are geometry axes.
 Bit 9 = 1:
-	Axial frames and tool length compensation are NOT considered for command axes 
-	If the tool is treated in an active transformation, the tool length compensation is taken into account for geometry axes (as for bit9=0, see also MD24130 $MC_TRAFO_INCLUDES_TOOL_1). 
+	Axial frames and tool length compensation are NOT considered for command axes
+	If the tool is treated in an active transformation, the tool length compensation is taken into account for geometry axes (as for bit9=0, see also MD24130 $MC_TRAFO_INCLUDES_TOOL_1).
 Bit 10 = 0:
 	In JOG mode, too, traversing of a geometry axis as a PLC or command axis is NOT allowed with active rotation.
 Bit 10 = 1:
@@ -1152,9 +1149,9 @@ Bit 11 = 0
 Bit 11 = 1
 	With the VDI interface &lt;DriveReady/&gt; (Drive Ready) missing, the paths defined by the handwheel are collected. Start of a continuous JOG motion in continuous mode (MD41050 $SN_JOG_CONT_MODE_LEVELTRIGGRD 41050 = 0) or an incremental JOG motion in continuous mode (MS11300 $MN_JOG_INC_MODE_LEVELTRIGGRD 11300 = 0) is displayed and saved as a traversing request. With "driveReady" = 1 the traversing motion is started.                                   |
 Bit 12 = 0
-	Interruption or collection of the distances preset via the handwheel with safe operational stop. 
+	Interruption or collection of the distances preset via the handwheel with safe operational stop.
 Bit 12 = 1
-	Cancelation of the traversing motion or no collection with safe operational stop. 
+	Cancelation of the traversing motion or no collection with safe operational stop.
 </description>
 </parameter>
 <parameter number="32090" type="DOUBLE" dim="0">
@@ -1179,7 +1176,7 @@ Related to:
 <parameter number="32100" type="DWORD" dim="0">
 <name>AX_MOTION_DIR</name>
 <brief>Traversing direction (not control direction)</brief>
-<description>The direction of movement of the machine can be reversed with this MD. 
+<description>The direction of movement of the machine can be reversed with this MD.
 The control direction is, however, not destroyed; i.e. closed-loop control remains stable.
   -1:  Direction reversal
 0, 1: No direction reversal
@@ -1271,7 +1268,7 @@ The value of the speed setpoint in percent is to be entered in this MD, in relat
 Related to:
 	MD32250 $MA_RATED_OUTVAL[n] only makes sense in combination with MD32260 $MA_RATED_VELO[n].
 Example:
-1.	At a voltage of 5V, the drive reaches a speed of 
+1.	At a voltage of 5V, the drive reaches a speed of
 	1875 rpm ==&gt; RATED_OUTVAL = 50%, RATED_VELO = 11250 [degrees/s]
 2.	At a voltage of 8V, the drive reaches a speed of
 	3000 rpm ==&gt; RATED_OUTVAL = 80%, RATED_VELO = 18000 [degrees/s]
@@ -1475,7 +1472,7 @@ MD32430 $MA_JOG_AND_POS_MAX_JERK (axial jerk)
 <parameter number="32429" type="DOUBLE" dim="1">
 <name>MAX_JERK_STOP</name>
 <brief>Reserved: Maximum axial emergency jerk</brief>
-<description>Reserved for maximum axial jerk in emergency situations. A value of 0 has the same effect as MAX_AX_JERK. 
+<description>Reserved for maximum axial jerk in emergency situations. A value of 0 has the same effect as MAX_AX_JERK.
 
 Each field element corresponds to a G code in the 59th G code group.
 </description>
@@ -1483,7 +1480,7 @@ Each field element corresponds to a G code in the 59th G code group.
 <parameter number="32430" type="DOUBLE" dim="0">
 <name>JOG_AND_POS_MAX_JERK</name>
 <brief>Axial jerk</brief>
-<description>The jerk limit value limits the rate of change of axis acceleration in JOG and REF modes as well as in positioning axis mode with MD18960 $MN_POS_DYN_MODE=0. 
+<description>The jerk limit value limits the rate of change of axis acceleration in JOG and REF modes as well as in positioning axis mode with MD18960 $MN_POS_DYN_MODE=0.
 The setting and time calculation are made as for MD20600 $MC_MAX_PATH_JERK (path-related maximum jerk).
 
 Not relevant for:
@@ -1595,7 +1592,7 @@ See also MD32437 $MA_AX_JERK_VEL0 and MD32438 $MA_AX_JERK_VEL1.
 <parameter number="32440" type="DOUBLE" dim="0">
 <name>LOOKAH_FREQUENCY</name>
 <brief>Smoothing frequency for LookAhead</brief>
-<description>Acceleration procedures in continuous-path mode with LookAhead which execute with a higher frequency than that parameterized in this MD are smoothed as a function of the parameterization in MD20460 $MC_LOOKAH_SMOOTH_FACTOR. 
+<description>Acceleration procedures in continuous-path mode with LookAhead which execute with a higher frequency than that parameterized in this MD are smoothed as a function of the parameterization in MD20460 $MC_LOOKAH_SMOOTH_FACTOR.
 It is always the minimum of all the axes participating in the path which is determined.
 
 If vibrations are aroused in the mechanics of this axis and if their frequency is known, then this MD should be set to a lower value than this frequency.
@@ -1667,8 +1664,6 @@ MD32000 $MA_MAX_AX_VELO
 MD30200 $MA_NUM_ENCS
 (number of measuring systems)
 MD30200 $MA_NUM_ENCS (number of measuring systems)
-MD36500 $MA_ENC_CHANGE_TOL
-(maximum tolerance for actual position value changeover)
 </description>
 </parameter>
 <parameter number="32457" type="DOUBLE" dim="0">
@@ -1794,7 +1789,7 @@ Related to:
 	MD32560 $MA_FRICT_COMP_ACCEL2
 	Adaptation acceleration value 2
 	MD32570 $MA_FRICT_COMP_ACCEL3
-	Adaptation acceleration value 3 
+	Adaptation acceleration value 3
 	MD32540 $MA_FRICT_COMP_TIME
 	Friction compensation time constant
 </description>
@@ -1807,12 +1802,12 @@ The amplitude of the friction compensation value is entered in the 4th accelerat
 
 MD irrelevant for:
 	MD32510 $MA_FRICT_COMP_ADAPT_ENABLE = 0
-	MD32490 $MA_FRICT_COMP_MODE = 2 (neural QEC) 
+	MD32490 $MA_FRICT_COMP_MODE = 2 (neural QEC)
 
-Special cases: 
+Special cases:
 	In special cases, the value for FRICT_COMP_CONST_MIN may be even higher than for MD32520 $MA_FRICT_COMP_CONST_MAX.
 
-Related to: 
+Related to:
 	MD32500 $MA_FRICT_COMP_ENABLE
 	Friction compensation active
 	MD32510 $MA_FRICT_COMP_ADAPT_ENABLE
@@ -1835,10 +1830,10 @@ Related to:
 <description>The friction compensation value is entered via a DT1 filter.
 The add-on amplitude decays in accordance with the time constant.
 
-MD irrelevant for: 
+MD irrelevant for:
 	MD32500 $MA_FRICT_COMP_ENABLE = 0
 
-Related to: 
+Related to:
 	MD32500 $MA_FRICT_COMP_ENABLE
 	Friction compensation active
 	MD32520 $MA_FRICT_COMP_CONST_MAX
@@ -1853,7 +1848,7 @@ The adaptation acceleration values 1 to 3 are interpolation points for defining 
 
 For the 1st range (a &lt; MD32550), the add-on amplitude = a * MD32520/ MD32550
 
-MD irrelevant for: 
+MD irrelevant for:
 	MD32510 $MA_FRICT_COMP_ADAPT_ENABLE = 0
 	MD32490 $MA_FRICT_COMP_MODE = 2
 
@@ -1885,7 +1880,7 @@ In the 2nd acceleration range (MD32550 &lt;= a &lt;= MD32560), the switching amp
 In the 3rd acceleration range (MD32560 &lt;  a &lt;  MD32570), the switching amplitude = MD32520 + (MD32530-MD32520)/(MD32570-MD32560) * (a - MD32560).
 In the 4th acceleration range (MD32570 &lt;= a           ), the switching amplitude = MD32530.
 
-Not relevant for: 
+Not relevant for:
 	MD32510 $MA_FRICT_COMP_ADAPT_ENABLE = 0
 	MD32490 $MA_FRICT_COMP_MODE = 2
 
@@ -1917,7 +1912,7 @@ In the 2nd acceleration range (MD32550 &lt;= a &lt;= MD32560), the switching amp
 In the 3rd acceleration range (MD32560 &lt;  a &lt;  MD32570), the switching amplitude = MD32520 + (MD32530-MD32520)/(MD32570-MD32560) * (a - MD32560).
 In the 4th acceleration range (MD32570 &lt;= a           ), the switching amplitude = MD32530.
 
-Not relevant for: 
+Not relevant for:
 	MD32510 $MA_FRICT_COMP_ADAPT_ENABLE = 0
 	MD32490 $MA_FRICT_COMP_MODE = 2
 
@@ -2088,7 +2083,7 @@ Related to:
 <brief>Weighting of friction compensation value with short travel motions.</brief>
 <description>The optimum friction compensation value determined by the circularity test can cause overcompensation of this axis if compensation is activated and axial positioning movements are short.
 
-In such cases, a better setting can be achieved by reducing the amplitude of the friction compensation value and acts on all positioning blocks that are made within an interpolation cycle of the control. 
+In such cases, a better setting can be achieved by reducing the amplitude of the friction compensation value and acts on all positioning blocks that are made within an interpolation cycle of the control.
 
 The factor that has to be entered can be determined empirically and can be different from axis to axis because of the different friction conditions. The input range is between 0 and 100% of the value determined by the circularity test.
 
@@ -2202,7 +2197,7 @@ Related to:
 	MD32500 $MA_FRICT_COMP_ENABLE = 1
 	MD32490 $MA_FRICT_COMP_MODE = 3/4
 	MD32581 $MA_FRICT_ADAPT_TABLE_ACCEL
-	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME 
+	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME
 </description>
 </parameter>
 <parameter number="32587" type="DOUBLE" dim="1">
@@ -2218,7 +2213,7 @@ Related to:
 	MD32500 $MA_FRICT_COMP_ENABLE = 1
 	MD32490 $MA_FRICT_COMP_MODE = 3/4
 	MD32581 $MA_FRICT_ADAPT_TABLE_ACCEL
-	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME 
+	MD32574 $MA_ FRICT_V_PULSE_DECAY_TIME
 </description>
 </parameter>
 <parameter number="32588" type="DOUBLE" dim="1">
@@ -2234,7 +2229,7 @@ Related to:
 	MD32500 $MA_FRICT_COMP_ENABLE = 1
 	MD32490 $MA_FRICT_COMP_MODE = 3/4
 	MD32581 $MA_FRICT_ADAPT_TABLE_ACCEL
-	MD32576 $MA_ FRICT_TORQUE_STEP 
+	MD32576 $MA_ FRICT_TORQUE_STEP
 </description>
 </parameter>
 <parameter number="32610" type="DOUBLE" dim="1">
@@ -2377,7 +2372,7 @@ write protect function (compensation values) active.
 
 Related to:
  MD38000 $MA_MM_ENC_COMP_MAX_POINTS number of interpolation points with LEC
- NC/PLC interface signal &lt;Referiert-Synchronisiert1/&gt; (Referenced/synchronized 1) 
+ NC/PLC interface signal &lt;Referiert-Synchronisiert1/&gt; (Referenced/synchronized 1)
  NC/PLC interface signal &lt;Referiert-Synchronisiert2/&gt; (Referenced/synchronized 2)
 </description>
 </parameter>
@@ -2391,7 +2386,7 @@ Inter-axis machine geometry errors (e.g. sag and angularity errors) can be compe
 The function is not activated until the following conditions have been fulfilled:
 - The "Interpolatory compensation" option is set
 - The associated compensation tables have been loaded into the NC user memory and enabled (SD41300 $SN_CEC_TABLE_ENABLE[t] = 1)
-- The relevant position measuring system is referenced (NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt; = 1 (Referenced/synchronized 1 or 2)): 
+- The relevant position measuring system is referenced (NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt; = 1 (Referenced/synchronized 1 or 2)):
 
 0:	Sag compensation is not enabled for the compensation axis.
 
@@ -2410,7 +2405,7 @@ Related to:
 <description>Compensation data exist in:
 0:	inch system
 1:	metric system
- 
+
 </description>
 </parameter>
 <parameter number="32720" type="DOUBLE" dim="0">
@@ -2606,7 +2601,7 @@ Corresponds with:
 This means that the actual setpoint phase response can be set independently of the amplitude response
 Time constants in the range from 0 up to 64 position controller clock cycles can be set, the phase filter for e.g. 2ms position controller clock cycle, can delay setpoints by 0 to 128ms.
  Values entered outside these limits are implicitly limited to the specified limits (without alarm).
- Note: delays in the setpoint circuit, as a result of the system, slow down or have a negative impact on the response, e.g. for thread tapping, safety retraction motion or exact stop/block change; this means that the smallest time constants possible should be set in the MD. 
+ Note: delays in the setpoint circuit, as a result of the system, slow down or have a negative impact on the response, e.g. for thread tapping, safety retraction motion or exact stop/block change; this means that the smallest time constants possible should be set in the MD.
 The MD is only effective, if MD32890 $MA_DESVAL_DELAY_ENABLE = 1.
 
 Corresponds with:
@@ -2730,7 +2725,7 @@ The "Lubrication pulse" can be used with axes and spindles.
 Application example(s):
 The machine bed lubrication can be carried out as a function of the relevant traversed path.
 
-Note: 
+Note:
 	When 0 is entered, the NC/PLC interface signal &lt;Schmierimpuls/&gt; (Lubrication pulse) is set in every cycle.
 
 Related to:
@@ -2791,7 +2786,7 @@ If the machine axis is positioned on the reference cam, it accelerates to the ve
 
 For linear measuring systems with distance-coded reference marks:
 If the machine axis has a reference cam (linear measuring systems with distance-coded reference marks do not necessarily require a reference cam) and the machine axis is positioned on the reference cam, it accelerates, irrespectively of the plus/minus traversing key pressed, to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point creep velocity) in the direction opposite to that specified in MD34010 $MA_REFP_CAM_DIR_IS_MINUS.
-Note for absolute encoders: 
+Note for absolute encoders:
 The direction of the traversing key is also important when adjusting absolute encoders: direction for approach fixed position, and updating the values in MD34090 $MA_REFP_MOVE_DIST_CORR and MD34210 $MA_ENC_REFP_STATE.
 </description>
 </parameter>
@@ -2852,13 +2847,13 @@ The axis crosses the two reference marks at this velocity. The maximum velocity 
 <brief>Direction reversal to reference cam</brief>
 <description>This MD can be used to set the direction of search for the zero mark:
 
-MD34050 $MA_REFP_SEARCH_MARKER_REVERSE = 0 
-Synchronization with falling reference cam signal edge 
+MD34050 $MA_REFP_SEARCH_MARKER_REVERSE = 0
+Synchronization with falling reference cam signal edge
 The machine axis accelerates to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point creep velocity) in the opposite direction to that specified in MD34010 $MA_REFP_CAM_DIR_IS_MINUS (reference point approach in minus direction).
 If the axis leaves the reference cam (NC/PLC interface signal &lt;VerzoegerungReferenzpunktverfahren/&gt; (Reference point approach delay) is reset) the control is synchronized with the first zero mark.
 
 MD34050 $MA_REFP_SEARCH_MARKER_REVERSE = 1
-Synchronization with rising reference cam signal edge 
+Synchronization with rising reference cam signal edge
 The machine axis accelerates to the velocity defined in MD34020 $MA_REFP_VELO_SEARCH_CAM (reference point creep velocity) in the opposite direction to that specified in the MD34010 $MA_REFP_CAM_DIR_IS_MINUS. If the axis leaves the reference cam (NC/PLC interface signal &lt;VerzoegerungReferenzpunktverfahren/&gt; (Reference point approach delay) is reset), the machine axis decelerates to a halt and accelerates in the opposite direction towards the reference cam at the velocity specified in MD34040: $MA_REFP_VELO_SEARCH_MARKER. When the reference cam is reached (NC/PLC interface signal &lt;VerzoegerungReferenzpunktverfahren/&gt; (Reference point approach delay) is enabled) the control is synchronized with the first zero mark.
 
 MD irrelevant to:
@@ -2926,7 +2921,7 @@ If a link axis uses an absolute encoder, every modification of MD34090 $MA_REFP_
 <description>Electronic cam offset for incremental measuring systems with equidistant zero marks.
 
 When the reference cam signal occurs, the zero mark search does not start immediately but is delayed until after the distance from REFP_CAM_SHIFT.
-This ensures the reproducibility of the zero mark search through a defined selection of a zero mark, even with temperature-dependent expansion of the reference cam. 
+This ensures the reproducibility of the zero mark search through a defined selection of a zero mark, even with temperature-dependent expansion of the reference cam.
 
 Because the reference cam offset is calculated by the control in the interpolation cycle, the actual cam offset is at least REFP_CAM_SHIFT and at most REFP_CAM_SHIFT+(MD34040 $MA_REFP_VELO_SEARCH_MARKER*interpolation cycle)
 
@@ -2986,7 +2981,7 @@ In combination with MD30242 $MA_ENC_IS_INDEPENDENT = 2, the passive encoder is c
 <brief>Sequence of axes in channel-specific referencing</brief>
 <description>MD34110 $MA_REFP_CYCLE_NR = 0 -----&gt; axis-specific referencing
 	Axis-specific referencing is started separately for each machine axis with the NC/PLC interface signal &lt;Verfahrtasten_plus-minus/&gt; (Plus/minus travel keys).
-	Up to 8 axes (840D) can be referenced simultaneously. 
+	Up to 8 axes (840D) can be referenced simultaneously.
 	The following alternatives are provided for referencing the machine axes in a specific sequence:
 - The operator has to observe the correct sequence on startup.
 - The PLC checks the sequence on startup or defines the sequence itself.
@@ -3146,13 +3141,13 @@ MD 34310 =  0.02mm (distance between two reference marks corresponds to one grad
 <parameter number="34310" type="DOUBLE" dim="1">
 <name>ENC_MARKER_INC</name>
 <brief>Interval between two reference marks for distance-coded scales</brief>
-<description>The distances between two reference marks are defined variably, so that the position of the crossed reference marks can be determined accurately in linear measuring systems with distance-coded reference marks. 
-The difference between two reference mark distances is entered in MD34310 $MA_ENC_MARKER_INC. 
+<description>The distances between two reference marks are defined variably, so that the position of the crossed reference marks can be determined accurately in linear measuring systems with distance-coded reference marks.
+The difference between two reference mark distances is entered in MD34310 $MA_ENC_MARKER_INC.
 
 MD irrelevant for:
 	Incremental measuring systems
 
-Special cases: 
+Special cases:
 	On linear measuring systems with distance-coded reference marks supplied by Heidenhain, the interval between two reference marks is always equal to one graduation cycle.
 </description>
 </parameter>
@@ -3224,7 +3219,7 @@ Value:       0       Default: 25 bits for multi-turn encoder
 <brief>Steps per encoder revolution</brief>
 <description>In the case of SSI absolute value encoders, the steps per encoder revolution are used
 here to define the telegram format within the telegram length.
-Value:        0       right-aligned 
+Value:        0       right-aligned
              1       8192 steps/revolution in fir-tree format
              2       4096 steps/revolution in fir-tree format
              3       2048 steps/revolution in fir-tree format
@@ -3244,15 +3239,15 @@ Value:        0       right-aligned
 <name>WAIT_ENC_VALID</name>
 <brief>Parameter setting for part program command WAITENC</brief>
 <description>Parameter setting for part program command WAITENC:
-0: Axis is not taken into account when waiting for synchronized / referenced or restored position with part program command WAITENC. 
-1: A delay is applied in part program command WAITENC until a synchronized / referenced or restored position is available for this axis. 
+0: Axis is not taken into account when waiting for synchronized / referenced or restored position with part program command WAITENC.
+1: A delay is applied in part program command WAITENC until a synchronized / referenced or restored position is available for this axis.
 
 </description>
 </parameter>
 <parameter number="34990" type="DOUBLE" dim="1">
 <name>ENC_ACTVAL_SMOOTH_TIME</name>
 <brief>Smoothing time constant for actual values.</brief>
-<description>Using low-resolution encoders, a more continuous motion of coupled path or axis motions can be achieved with smoothed actual values. The bigger the time constant, the better the smoothing of actual values and the larger the overtravel. 
+<description>Using low-resolution encoders, a more continuous motion of coupled path or axis motions can be achieved with smoothed actual values. The bigger the time constant, the better the smoothing of actual values and the larger the overtravel.
 
 Smoothed actual values are used for:
 - Thread-cutting (G33, G34, G35)
@@ -3279,13 +3274,13 @@ With multi-channel systems, the same numbers can be assigned in all channels, ex
 <brief>Parameterize gear stage change</brief>
 <description>Meaning of bit places:
 
-Bit 0 = 0 and bit 1 = 0: 
+Bit 0 = 0 and bit 1 = 0:
 	There is an invariable gear ratio between motor and load. The MD of the first gear stage is active. Gear stage change is not possible with M40 to M45.
 
 Bit 0 = 1:
 	Gear stage change at undefined change position. The gear can have up to 5 gear stages, which can be selected with M40, M41 to M45. To support the gear stage change, the motor can carry out oscillating motions, which must be enabled by the PLC program.
 
-Bit 1 = 1: 
+Bit 1 = 1:
 	Same meaning as bit 0 = 1, although the gear stage change is carried out in a configured spindle position (SW 5.3 and higher). The change position is configured in MD35012 $MA_GEAR_STEP_CHANGE_POSITION. The position is approached in the current gear stage before the gear stage change. If this bit is set, bit 0 is not taken into account!
 
 Bit 2: Reserved
@@ -3295,7 +3290,7 @@ Bit 3 = 1:
 
 Bit 4: Reserved
 
-Bit 5 = 1: 
+Bit 5 = 1:
 	The second gear stage data set is used for tapping with G331/G332. The bit must be set for the master spindle used for tapping. Bit 0 or bit 1 must be set.
 
 Related to:
@@ -3358,12 +3353,12 @@ Corresponds with:
 1	POWER ON and NC program start
 2	POWER ON and RESET (M2/M30)
 
-Special cases: 
+Special cases:
 	If MD35040 $MA_SPIND_ACTIVE_AFTER_RESET = 1, the following supplementary conditions are applicable:
 - SPIND_DEFAULT_ACT_MASK should be set to 0
 - If this is not possible, the spindle must be at a standstill prior to activation.
 
-Related to: 
+Related to:
 	MD35020 $MA_SPIND_DEFAULT_MODE (initial spindle setting)
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET (spindle active after reset)
 </description>
@@ -3382,10 +3377,10 @@ SPIND_FUNC_RESET_MODE, bit 0 = 1 : "GWPS in every operating mode" is selected
 <description>This MD allows spindle-specific functions to be set.
 The MD is bit-coded, the following bits are assigned:
 Bit 0 = 1: Gear stage changes are suppressed with activated DryRun function for
-           block programming (M40, M41 to M45), programming via FC18, 
+           block programming (M40, M41 to M45), programming via FC18,
            and synchronized actions.
 Bit 1 = 1: Gear stage changes are suppressed with activated program test function
-           for block programming (M40, M41 to M45), programming via 
+           for block programming (M40, M41 to M45), programming via
            FC18, and synchronized actions.
 Bit 2 = 1: Gear stage change for programmed gear stage will finally be carried
            out after deselection of DryRun or program test functions with REPOS.
@@ -3412,7 +3407,7 @@ Bit 12 = 1:
        = 0:
 	Previous response (default)
 
-The following bits 16-20 can be used to set spindle-specific M functions which are output to the VDI interface 
+The following bits 16-20 can be used to set spindle-specific M functions which are output to the VDI interface
 if the corresponding M functionality has been generated implicitly for the program sequence.
 Bit 16: reserved
 Bit 17: reserved
@@ -3565,13 +3560,13 @@ MD35140 $MA_GEAR_STEP_MIN_VELO_LIMIT (min.  speed of gear stage)
 <name>GEAR_STEP_MIN_VELO</name>
 <brief>Minimum speed for gear stage change</brief>
 <description>MD35120 $MA_GEAR_STEP_MIN_VELO defines the minimum speed of the gear stage (lower switching threshold) for the automatic gear stage change M40 S... The speed ranges of the gear stages have to be defined so that there are no gaps between them or they can overlap.
-See MD35120 $MA_GEAR_STEP_MAX_VELO for more information.
+See MD35110 $MA_GEAR_STEP_MAX_VELO for more information.
 
 Note:
-- Programming a spindle speed which undershoots the lowest speed of the first gear stage MD35120 $MA_GEAR_STEP_MIN_VELO[1] triggers a switch to the first gear stage. 
+- Programming a spindle speed which undershoots the lowest speed of the first gear stage MD35120 $MA_GEAR_STEP_MIN_VELO[1] triggers a switch to the first gear stage.
 
 Not relevant for:
-- Programming of speed 0 (S0) if MD35120 $MA_GEAR_STEP_MIN_VELO[1] &gt; 0 
+- Programming of speed 0 (S0) if MD35120 $MA_GEAR_STEP_MIN_VELO[1] &gt; 0
 
 Related to:
 MD35110 $MA_GEAR_STEP_MAX_VELO (maximum speed for automatic gear stage selection M40)
@@ -3622,7 +3617,7 @@ MD35120 $MA_GEAR_STEP_MIN_VELO (min. speed for automatic gear stage selection M4
 <name>GEAR_STEP_PC_MAX_VELO_LIMIT</name>
 <brief>Maximum speed of the gear stage with position control</brief>
 <description>The maximum speed of the current gear stage is configured in MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT with position control active. The speed setpoints generated taking the override into account are limited to this speed.
-If a value of 0 is set (default), 90% of the value from MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT will become the maximum speed with position control active. 
+If a value of 0 is set (default), 90% of the value from MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT will become the maximum speed with position control active.
 
 Note:
 - The configured speed cannot exceed the value from MD35100 $MA_SPIND_VELO_LIMIT.
@@ -3677,7 +3672,7 @@ Example:
 MD 35150 $MA_SPIND_DES_VELO_TOL = 0.1
 The actual spindle speed must not deviate from the set speed by more than +/- 10%.
 
-Related to: 
+Related to:
 MD35500 $MA_SPIND_ON_SPEED_AT_IPO_START
 (feed enable for spindle in setpoint range)
 MD35100 $MA_SPIND_VELO_LIMIT
@@ -3703,7 +3698,7 @@ The spindle is in speed control mode with the function SPCOF.
 Special cases:
 	The acceleration in speed control mode (MD35200 $MA_GEAR_STEP_SPEEDCTRL_ACCEL) can be set so that the electric current limit is reached.
 
-Related to: 
+Related to:
 MD35210 $MA_GEAR_STEP_POSCTRL_ACCEL(acceleration in position control mode)
 MD35220 $MA_ACCEL_REDUCTION_SPEED_POINT (speed limit for reduced acceleration)
 </description>
@@ -3737,7 +3732,7 @@ Related to:
 <description>This machine data defines the threshold speed/velocity for spindles/positioning/path axes from which the acceleration reduction is to start. The reference is the defined maximum speed/velocity. The starting point is a percentage of the maximum values.
 Example: MD35220 $MA_ACCEL_REDUCTION_SPEED_POINT = 0.7, the maximum speed is 3000 rpm. Acceleration reduction starts at v_on = 2100 rpm, i.e. the maximum acceleration capacity is utilized in the speed range 0...2099.99 rpm. Reduced acceleration is used from 2100 rpm to the maximum speed.
 
-Related to: 
+Related to:
 	MD32000 $MA_MAX_AX_VELO
 	(maximum axis velocity)
 	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT
@@ -3800,7 +3795,7 @@ The speed can be changed with FA[Sn] from the part program. Please refer to the 
 Note:
 The active speed from MD35300 $MA_SPIND_POSCTRL_VELO cannot exceed the max. speed set in MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT. If MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT = 0, the value is limited to 90% of MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT.
 
-Related to: 
+Related to:
 	MD35350 $MA_SPIND_POSITIONING_DIR (direction of rotation during positioning from standstill, if no synchronization is available)
 	MD35100 $MA_SPIND_VELO_LIMIT (chuck speed)
 </description>
@@ -3824,7 +3819,7 @@ After reaching the positioning end (exact stop fine), the waiting time for block
 MD35350 $MA_SPIND_POSITIONING_DIR = 3 ---&gt; Clockwise direction of rotation
 MD35350 $MA_SPIND_POSITIONING_DIR = 4 ---&gt; Counterclockwise direction of rotation
 
-Related to: 
+Related to:
 MD35300 $MA_SPIND_POSCTRL_VELO (position control activation speed)
 </description>
 </parameter>
@@ -4094,6 +4089,19 @@ Related to:
 	NC/PLC interface signal &lt;Klemmvorgang_laeuft/&gt; (Blocking action active)
 </description>
 </parameter>
+<parameter number="36051" type="DOUBLE" dim="0">
+<name>CLAMP_POS_TOL_TIME</name>
+<brief>Alarm delay time for clamping monitoring</brief>
+<description>The MD defines the length of time for which the clamping tolerance can be exceeded before alarm 26000 "Clamping monitoring" is output.
+If the clamping tolerance is exceeded before the expiry of this time, the user is first informed via the NC/PLC interface signal &lt;Klemmungstoleranz_ueberschritten/&gt; (Clamping tolerance exceeded) (without alarm)
+If the clamping tolerance is undershot before the expiry of this time, the clamping monitoring is reset with the NC/PLC interface signal &lt;Klemmungstoleranz_ueberschritten/&gt; (Clamping tolerance exceeded) (without alarm)
+
+See MD36050 $MA_CLAMP_POS_TOL (clamping tolerance).
+Related to:
+	NC/PLC interface signal &lt;Klemmvorgang_laeuft/&gt; (Clamping process active)
+	NC/PLC interface signal &lt;Klemmungstoleranz_ueberschritten/&gt; (Clamping tolerance exceeded)
+</description>
+</parameter>
 <parameter number="36052" type="BYTE" dim="0" display="HEX">
 <name>STOP_ON_CLAMPING</name>
 <brief>Special functions with clamped axis</brief>
@@ -4162,7 +4170,7 @@ Related to:
 
 The PLC can select whether software limit switch 1 or 2 is to be active by means of the interface signal.
 
-For example: 
+For example:
 &lt;Softwareendschalter_2_Minus/&gt; = 0 (1st software limit switch minus) active for 1st axis
 &lt;Softwareendschalter_2_Minus/&gt; = 1 (2nd software limit switch minus) active for 1st axis
 
@@ -4238,7 +4246,7 @@ No automatic, software-internal limitation for encoders on the PROFIdrive drive;
 <description>Encoder frequency monitoring uses a hysteresis.
 MD36300 $MA_ENC_FREQ_LIMIT defines the encoder limit frequency. The encoder is switched off when this frequency is exceeded. The encoder is switched on again when the frequency falls below that defined in MD36302 $MA_ENC_FREQ_LIMIT_LOW.
 
-MD36300 $MA_ENC_FREQ_LIMITis entered directly in Hertz, 
+MD36300 $MA_ENC_FREQ_LIMITis entered directly in Hertz,
 whereas MD36302 $MA_ENC_FREQ_LIMIT_LOW is a fraction, expressed as a percentage, of MD36300 $MA_ENC_FREQ_LIMIT.
 MD36302 $MA_ENC_FREQ_LIMIT_LOW is therefore already correctly preset for most of the encoders used.
 Exception: In the case of absolute encoders with an En-Dat interface, the limit frequency of the absolute track is significantly lower than the limit frequency of the incremental track. A low value in MD36302 $MA_ENC_FREQ_LIMIT_LOW ensures that the encoder is not switched on again until it falls below the limit frequency of the absolute track, and therefore is not referenced until permitted by the absolute track. For spindles, this referencing is carried out automatically.
@@ -4307,9 +4315,10 @@ This MD has to be adapted to the accuracy of the speed controller as well as the
 <brief>Tolerance at actual position value change.</brief>
 <description>The permissible deviation between the actual values of the two measuring systems is entered in this MD.
 This difference must not be exceeded when switching over the measuring system used for closed-loop control, in order to avoid compensating processes that are too strong. Otherwise, the error message 25100 "Axis %1 Switchover of measuring system not possible" is generated and the switchover does not take place.
+This MD is relevant only if MD30200 $MA_NUM_ENCS = 2.
 
-MD irrelevant for:
-	MD30200 $MA_NUM_ENCS = 0 or 1.
+MD36500 also limits, in the form of a ramp, the rate of change of the backlash compensation values in MD32450 $MA_BACKLASH. The limitation depends on the setting of the position controller cycle. The lower the value in MD36500, the longer the duration of the backlash compensation during the change of direction.
+This MD is relevant only if MD30200 $MA_NUM_ENCS =1 or 2.
 </description>
 </parameter>
 <parameter number="36510" type="DOUBLE" dim="0">
@@ -4504,7 +4513,7 @@ Bit 1: Enable the Safe brake test (NC-controlled)
 = 0: Safe brake test not available
 = 1: Safe brake test can be executed under the control of the PLC
 
-Note: The user must ensure that Travel to fixed stop and Safe brake test are not assigned simultaneously. 
+Note: The user must ensure that Travel to fixed stop and Safe brake test are not assigned simultaneously.
 </description>
 </parameter>
 <parameter number="37002" type="BYTE" dim="0" display="HEX">
@@ -4616,26 +4625,26 @@ Related to:
 This machine data defines how the criterion "Fixed stop reached" is determined.
 Value	=0:	The criterion "Fixed stop reached" is determined internally on the basis of the axis-specific
 		contour deviation (threshold defined by MD: FIXED_STOP_THRESHOLD).
-	=1:	The criterion Fixed stop reached" is determined via an external sensor and 
+	=1:	The criterion Fixed stop reached" is determined via an external sensor and
 		signalled to the NC via the NC/PLC interface signal &lt;SensorFestanschlag/&gt; (Sensor fixed stop)
-	=2:	The criterion "Fixed stop reached" is accepted if either 
-		contour monitoring (MD = 0) or 
+	=2:	The criterion "Fixed stop reached" is accepted if either
+		contour monitoring (MD = 0) or
 		the signal of the external sensor (MD = 1) has responded.
 </description>
 </parameter>
 <parameter number="37050" type="BYTE" dim="0">
 <name>FIXED_STOP_ALARM_MASK</name>
 <brief>Enable of the fixed stop alarms</brief>
-<description>This machine data defines whether the alarms 
-20091 "Fixed stop not reached", 
-20094 "Fixed stop canceled" and 
+<description>This machine data defines whether the alarms
+20091 "Fixed stop not reached",
+20094 "Fixed stop canceled" and
 25042 "FOC: Standstill monitoring" are output.
 
 MD= 0
 	Suppression of alarm 20091 "Fixed stop not reached"
 MD= 2
-	Suppression of alarms 
-	20091 "Fixed stop not reached" and 
+	Suppression of alarms
+	20091 "Fixed stop not reached" and
 	20094 "Fixed stop canceled" (SW 4 and higher)
 MD=3
 	Suppression of alarm 20094 "Fixed stop canceled" (SW 4 and higher)
@@ -4652,8 +4661,8 @@ This machine date defines whether the alarms
 20094 "Fixed stop canceled" are output.
 Value	= 0:	Suppresses alarm 20091 "Fixed stop not reached"
 	= 2:	Suppresses alarms 	20091 "Fixed stop not reached" and
-			20094 "Fixed stop canceled" 
-	= 3:	Suppresses alarm 20094 "Fixed stop canceled" 
+			20094 "Fixed stop canceled"
+	= 3:	Suppresses alarm 20094 "Fixed stop canceled"
 All other permissible values ? 7 do not suppress any alarms.
 </description>
 </parameter>
@@ -4664,7 +4673,7 @@ All other permissible values ? 7 do not suppress any alarms.
 Bit value = 0: "Mode group ready" will be deleted (drives de-energized)
 Bit value = 1: "Mode group ready" remains active
 
-Bit0: Alarm 20090 Travel to fixed stop not possible 
+Bit0: Alarm 20090 Travel to fixed stop not possible
 Bit1: Alarm 20091 Fixed stop not reached
 Bit2: Alarm 20092 Travel to fixed stop still active
 Bit3: Alarm 20093 Standstill monitoring at fixed stop has triggered
@@ -5246,7 +5255,7 @@ The tolerance value is entered as a percentage of MD32000 $MA_MAX_AX_VELO.
 <parameter number="37274" type="BYTE" dim="0">
 <name>MS_MOTION_DIR_REVERSE</name>
 <brief>Inverting traversing direction slave axis</brief>
-<description>Inverting the traversing direction of a slave axis in the linked status. 
+<description>Inverting the traversing direction of a slave axis in the linked status.
 0:	Equidirectional to the master axis
 1:	Inverse to the master axis
 </description>
@@ -5351,7 +5360,7 @@ The MD is only relevant for controls with PROFIdrive drives. For these controls,
 
 The 1% default value corresponds to the original significance. The torque limit is transferred on the PROFIdrive with increments of 1%; the value 100 in the corresponding PROFIdrive message frame data cell corresponds to full torque reduction (i.e. without force).
 
-By changing this MD to 0.005%, for example, the value can be entered in increments of 0.005%, i.e. the increments for the torque limit value become finer by a factor of 200. 
+By changing this MD to 0.005%, for example, the value can be entered in increments of 0.005%, i.e. the increments for the torque limit value become finer by a factor of 200.
 For limitation to the rated torque, the value 0 is transmitted in this case; complete torque reduction (i.e. without force) characterizes the transmittable value 10000.
 To avoid misadaptation, the setting value of the MD must be selected to match the interpretation configured on the drive side or the firmly defined interpretation of the torque reduction value. If the setting of the control on the drive (manufacturer-specific drive parameter) is known (i.e. with SIEMENS drives), the software automatically sets the MD; in other words, in this case the MD is merely used for display purposes.
 </description>
@@ -5367,7 +5376,7 @@ To avoid misadaptation, the setting value of the MD must be selected to match th
 <name>MM_ENC_COMP_MAX_POINTS</name>
 <brief>Number of intermediate points for interpol. compensation (SRAM)</brief>
 <description>The number of interpolation points required per measuring system must be defined for the leadscrew error compensation.
-The required number can be calculated as follows using the defined parameters: 
+The required number can be calculated as follows using the defined parameters:
                                      $AA_ENC_COMP_MAX - $AA_ENC_COMP_MIN
 MD38000 $MA_MM_ENC_COMP_MAX_POINTS = ----------------------------------  + 1
                                                $AA_ENC_COMP_STEP

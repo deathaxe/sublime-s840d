@@ -3,9 +3,9 @@
 <parameter number="52000" type="BYTE" dim="0" display="DECIMAL">
 <name>DISP_COORDINATE_SYSTEM</name>
 <brief>Coordinate system position</brief>
-<description>With this MD you adapt the operator panel of the coordinate system to the machine's coordinate system. Depending on the selected position, all help screens, the sequence graphic, the simulation and the input fields with the circular direction specified will change automatically.
-Also note MD 52210 $MCS_FUNCTION_MASK_DISP, bit 1.
-
+<description>With this MD, you adapt the operator panel's coordinate system to the machine's coordinate system. Depending on the selected position, all help screens, the sequence graphic, the simulation, and the input fields with the circular direction specified will change automatically in the user interface.
+The machine data is evaluated in the cycles.
+Also note MD52210 $MCS_FUNCTION_MASK_DISP, bit 1.
 
 </description>
 </parameter>
@@ -13,8 +13,17 @@ Also note MD 52210 $MCS_FUNCTION_MASK_DISP, bit 1.
 <name>DISP_COORDINATE_SYSTEM_2</name>
 <brief>Coordinate system for turning on milling machines</brief>
 <description>With this MD you specify the coordinate system for turning operations on milling machines.
-See also MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
+See also MD52000 $MCS_DISP_COORDINATE_SYSTEM.
 
+
+</description>
+</parameter>
+<parameter number="52004" type="BYTE" dim="0" display="DECIMAL">
+<name>PROG_COORDINATE_SYS_CHAN</name>
+<brief>Coordinate system during programming as described in the specified channel</brief>
+<description>You can set this MD so that the coordinate system is displayed during programming as it is described in the specified channel.
+0: Display as described in own channel
+n: Display as described in channel n
 
 </description>
 </parameter>
@@ -51,10 +60,43 @@ See also MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
 <name>ADJUST_NUM_AXIS_BIG_FONT</name>
 <brief>Adapt number of act val w large font dynamically to no. of geometry axes</brief>
 <description>Adapt the number of actual values with large font if the number of geometry axes changes, e.g. due to transformations like TRANSMIT or TRACYL.
-0 = Only MD 52010 "DISP_NUM_AXIS_BIG_FONT" is valid. The number is assigned as a fixed value.
+0 = Only MD52010 "DISP_NUM_AXIS_BIG_FONT" is valid. The number is assigned as a fixed value.
 1 = Only the geometry axes are displayed in large font. MD 52010 "DISP_NUM_AXIS_BIG_FONT" is ignored.
 2 = The number of geometry axes plus the content of MD 52010 "DISP_NUM_AXIS_BIG_FONT"  are displayed in large font.
 
+</description>
+</parameter>
+<parameter number="52020" type="BYTE" dim="0" display="DECIMAL">
+<name>ORIAXES_EULER_ANGLE_NAME</name>
+<brief>Axis identifiers of the orientation axes: Euler angle or geometry axis name</brief>
+<description>This MD specifies whether the axis identifiers of the orientation axes are Euler angle names or channel geometry axis names.
+Possible values are:
+=  0 Orientation axis name from the channel block geometry axis name with the index 3 to 5
+=  1 Orientation axis name is the name of the Euler angle from the general machine data
+
+</description>
+</parameter>
+<parameter number="52032" type="BYTE" dim="0" display="DECIMAL">
+<name>STAT_DISPLAY_BASE</name>
+<brief>Number basis for display of articulated joint STAT</brief>
+<description>Numerical basis for displaying the articulated joint STAT
+If the value of the data is greater than 0, MD51032 $MNS_STAT_DISPLAY_BASE is ignored for this channel.
+00: MD51032 is active
+02: Representation as binary value
+10: Representation as decimal value
+16: Representation as hexadecimal value
+
+</description>
+</parameter>
+<parameter number="52033" type="BYTE" dim="0" display="DECIMAL">
+<name>TU_DISPLAY_BASE</name>
+<brief>Number basis for display of rotary axis position TU</brief>
+<description>Numerical basis for displaying the rotary axis position TU
+If the value of the data is greater than 0, MD51033 $MNS_TU_DISPLAY_BASE is ignored for this channel.
+00: MD51033 is active
+02: Representation as binary value
+10: Representation as decimal value
+16: Representation as hexadecimal value
 </description>
 </parameter>
 <parameter number="52200" type="BYTE" dim="0" display="DECIMAL">
@@ -66,19 +108,17 @@ See also MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
 2: milling
 3: cylindrical grinding
 4: surface grinding
-Also note MD 52201 $MCS_TECHNOLOGY_EXTENSION
+Also note MD52201 $MCS_TECHNOLOGY_EXTENSION
 </description>
 </parameter>
 <parameter number="52201" type="BYTE" dim="0" display="DECIMAL">
 <name>TECHNOLOGY_EXTENSION</name>
 <brief>Extended technology</brief>
-<description>Extended technology
+<description>Advanced technology
 0: no specific configuration
 1: turning
 2: milling
-3: cylindrical grinding
-4: surface grinding
-Also note MD 52200 $MCS_TECHNOLOGY.
+Also note MD52200 $MCS_TECHNOLOGY.
 Example:
 Turning machine with milling technology
 MD 52200 $MCS_TECHNOLOGY = 1
@@ -95,10 +135,10 @@ MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
 <parameter number="52206" type="BYTE" dim="1" display="DECIMAL">
 <name>AXIS_USAGE</name>
 <brief>Meaning of the axes in the channel</brief>
-<description>Significance of the axes in the channel
-0 = no special significance)
-1 = tool spindle (driven tool)
-2 = auxiliary spindle (driven tool)
+<description>Meaning of the axes in the channel
+0 = no special meaning)
+1 = tool spindle (rotating tool)
+2 = auxiliary spindle (rotating tool)
 3 = main spindle (turning)
 4 = separate C axis of the main spindle (turning)
 5 = counterspindle (turning)
@@ -106,7 +146,7 @@ MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
 7 = linear axis of the counterspindle (turning)
 8 = tailstock (turning)
 9 = steady rest (turning)
-10 = B axis in the head (turning)
+10 = B axis in the head (turning and cylindrical grinding)
 11 = reserved
 12 = B axis in the counterspindle (turning)
 13 = transverse travel X of the counterspindle (turning)
@@ -119,7 +159,7 @@ MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
 <description>Attributes of the axes
 Bit 0: rotates around 1st geometry axis (for rotary axes)
 Bit 1: rotates around 2nd geometry axis (for rotary axes)
-Bit 2: rotates around 3rd) geometry axis (for rotary axes
+Bit 2: rotates around 3rd geometry axis (for rotary axes)
 Bit 3: Positive direction of rotation is counter-clockwise (for rotary axes)
           The rotary axes are always viewed in the negative geometry axis direction.
           For turning machines, a spindle is always viewed from the interior.
@@ -127,23 +167,27 @@ Bit 4: Displayed direction of rotation for M3 is counter-clockwise (for spindles
           The viewing direction can be selected. Either viewed outward from the inside or from the outside toward the spindle.
           However, the same selection must be made for all spindles.
 Bit 5: Direction of rotation M3 corresponds to minus rotary axis (for spindles)
-          This bit must be set in the same way as PLC bit DBnn.DBX17.6!
-          (nn = 31 + machine axis index)
+          This bit must be set in the same way as a PLC bit.
+          For 840Dsl: PLC bit DBnn.DBX17.6, nn = 31 + machine axis index
+          For 828D  : PLC bit DB38xx.DBX2001.6, xx is machine axis index
 Bit 6: Display rotary axis as offset target for measuring
 Bit 7: Offer rotary axis in position pattern
           The orientation of the axis is defined using bits 0 - 2.
           If one of the bits 10 - 12 is set, these bits specify the orientation of the axis for position patterns.
-Bit 8: Offer rotary axis for blank clamp on milling machines)
+Bit 8: Offer rotary axis for blank clamp (on milling machines)
           The orientation of the axis is defined using bits 0 - 2.
 Bit 9: Spindle is not SPOS capable
 Bit 10: Rotary axis rotates around 1st geometry axis (only for position pattern)
 Bit 11: Rotary axis rotates around 2nd geometry axis (only for position pattern)
 Bit 12: Rotary axis rotates around 3rd geometry axis (only for position pattern)
-Note: For bits 0 - 2 and 10 - 12, only the 1st set bit is ever active.
+Bit 13: Position of the axis for blank selection from active WO (for rotary axes)
+            This enables a rotary axis set up with simulation/simultaneous recording to be automatically shown in the correct position.
 
+Note:
+For bits 0 - 2 and 10 - 12, only the 1st set bit is active in each case.
 
-
-
+Note on position pattern with rotary axes:
+If one of the bits 10 - 12 is set, these bits take precedence over bits 0 - 2.
 
 
 </description>
@@ -157,22 +201,26 @@ Bit 1: Face view when turning in the school coordinate system
 Bit 2: Hide softkey "T,S,M" in the jog area
 Bit 3: Generate automatic end-of-program in MDI (using the "Delete blocks" softkey)
 Bit 4: Display follow-on tool in the T,F,S window
-Bit 5: Hide "Actual Machine values" softkey
+Bit 5: Hide "Actual Machine (MCS) values" softkey
 Bit 6: Hide tool radius/diameter in the T,F,S window
 Bit 7: Hide tool lengths in the T,F,S window
 Bit 8: Hide tool icon in the T,F,S window
 Bit 9: Display "Simple input" selection
 Bit 10: Do not offer channel in the job lists
-Bit 11: For Work, activate the display of the logical spindles
-Bit 12: Hide mold making view for G code
-
+Bit 11: For Work (WCS), activate the display of the logical spindles
+Bit 12: Hide mould making view for G code
+Bit 13: Hide channel axes which are currently located in another channel
+	0: Display channel axes which are currently located in another channel in grey
+	1: Hide channel axes which are currently located in another channel
+Bit 14: Display overlay of the DRF under the machine
+Bit 15: Display overlay of the tool ($AA_TOFF) under the machine
 </description>
 </parameter>
 <parameter number="52211" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_DISP_ZOA</name>
 <brief>Function screen for displaying overview of work offsets</brief>
 <description>Function mask for displaying overview of work offsets
-Bit 0: Display Machine position
+Bit 0: Display Machine (MCS) position
 Bit 1: Reserved
 Bit 2: Display DRF offset
 Bit 3: Display $AA_OFF position offset
@@ -192,28 +240,29 @@ Bit 16: Display $P_ISO4FRAME
 Bit 17: Display $P_CYCFRAME
 Bit 18: Display sum of work offsets
 Bit 19: Display offset of active tool
-Bit 20: Display Work position
+Bit 20: Display Work (WCS) position
 Bit 21: Display BCS position
-
+Bit 22: Display $P_GFRAME
+Bit 23: Display TOFF
+Bit 24: Display overlay $AA_TOFF
 </description>
 </parameter>
 <parameter number="52212" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_TECH</name>
 <brief>Function mask Cross-technology</brief>
 <description>Function mask for all technologies
-Bit 0:	Enable swivel with tool carrier
-	0: Swivel plane/ tool with tool carrier not enabled
-	1: Swivel plane/ tool with tool carrier enabled 
-	Only swivel plane enabled, alignment of turning tool controlled by bit 10
+Bit 0:	Enable swivel plane/align tool with tool carrier
+	0: Swivel plane/align tool with tool carrier not enabled
+	1: Swivel plane/align tool with tool carrier enabled
 Bit 1:	Optimized travel along software limit switches (ShopMill/ShopTurn)
 	0: No optimized travel along software limit switches
 	1: Optimized travel along software limit switches
-	With optimized travel along the software limit switches, in the swiveled state (with table kinematics) any traversing motions which would go
+	With optimized travel along the software limit switches, in the swivelled state (with table kinematics) any traversing motions which would go
 	 beyond the software limit switches are truncated. This avoids the alarm 10720 "Axis software limit switches".
 Bit 2:	Special approach logic for step drill (ShopTurn)
 	0: Special approach logic for step drill disabled
 	1: Special approach logic for step drill active
-	When navigating around the retraction planes, the longest cutting edge (with the same cutting edge position as the active cutting edge) in the same machining direction is 
+	When navigating around the retraction planes, the longest cutting edge (with the same cutting edge position as the active cutting edge) in the same machining direction is
 	always taken into account.
 Bit 3:	Call block search cycle for ShopMill/ShopTurn
 	0: In the block search cycle PROG_EVENT.SPF, the cycles E_S_ASUP and F_S_ASUP are not called
@@ -229,7 +278,7 @@ Bit 5: 	Call SERUPRO block search function
 	0: In the block search cycle PROG_EVENT.SPF, the cycle CYCLE207 is not called.
 	1: In the block search cycle PROG_EVENT.SPF, the cycle for SERUPRO (CYCLE207) is called (for block search with SERUPRO program test).
 	After the block search with program test (SERUPRO), cycle CYCLE207 ensures the output of the collected machine commands.
-Bit 6: 	Work offset ZV can only be entered as an increment (ShopTurn)
+Bit 6: 	Work offset ZV cannot be entered as an absolute value (ShopTurn)
 	0: Parameter ZV, active work offset can be entered as an increment and as an absolute
 	1: Parameter ZV, active work offset can only be entered as an increment (ShopTurn)
 Bit 7: 	Detect expiry of tool lives in the program (ShopMill/ShopTurn)
@@ -241,39 +290,39 @@ Bit 8: 	Manual machine function active (ShopMill/ShopTurn)
 Bit 9: 	Selection/deselection of work offset via softkey
 	0: The WO selection/deselection softkey is not available in the work offset table of the settable WOs.
 	1:  The WO selection/deselection softkey is available in the work offset table of the settable WOs.
-Bit 10: 	Align turning tool via kinematic transformation
-	0: Turning tools aligned via tool carrier
-	1: Turning tools aligned via kinematic transformation
+Bit 10: 	Enable swivel plane/align tool with kinematic transformation
+	0: Swivel plane/align tool with kinematic transformation not enabled
+	1: Swivel plane/align tool with kinematic transformation enabled
 Bit 11:	Disable position check for drilling and milling tools (ShopTurn)
 	0: Cutting edge position check is active for drilling and milling tools
 	1: No cutting edge position check for drilling and milling tools
-	The check of the position of the cutting edge can be disabled for drilling and milling tools if this is necessary on account of the machine design.
+	The cutting edge position check can be disabled for drilling and milling tools if this is necessary on account of the machine design.
 Bit 12:	Alarm with positive Z offset (ShopTurn)
 	0: No alarm with positive Z offset
 	1: Alarm with positive Z offset
 	With a positive Z offset (TRANS), the alarm 62201 "Z offset not active on retraction planes!" is output.
-	The positive Z offset can be dangerous if it shifts the machining position out of the 
-	retraction area, as this can lead to collisions during approach or retraction 
-Bit 13:	Approach tool change point Y in Machine (ShopTurn)
-	0 = The tool change point in the Machine is only approached to 0 in the Y direction if MD 52241 $MCS_TOOL_CHANGE_POS_Y = 0).
-	1 = Tool change point in the MCS is always approached in the Y direction (see MD 52241 $MCS_TOOL_CHANGE_POS_Y).
-
-
-
+	The positive Z offset can be dangerous if it shifts the machining position out of the
+	retraction area, as this can result in collisions during approach or retraction
+Bit 13:	Approach tool change point Y in the machine coordinate system (ShopTurn)
+	0 = The tool change point in the work coordinate system is only approached to 0 in the Y direction if MD52241 $MCS_TOOL_CHANGE_POS_Y = 0.
+	1 = Tool change point in the machine coordinate system is always approached in the Y direction (see MD52241 $MCS_TOOL_CHANGE_POS_Y).
+Bit 14: With approach logic only check tool position with cutting edge (ShopTurn)
+	0: The approach logic always checks the tool position.
+	1: The approach logic only checks the tool position if a cutting edge is active.
 
 </description>
 </parameter>
 <parameter number="52214" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_MILL</name>
 <brief>Function mask Milling</brief>
-<description>Function mask for milling
+<description>Function screen for milling
 Bit 0:	Enable cylinder surface transformation (ShopMill)
 	0: Softkey not enabled for cylinder surface transformation
 	1: Cylinder surface transformation enabled
 Bit 1:	Offer fixed table for blank clamping (on milling machines)
 	0: Fixed table not offered for blank clamping
 	1: Offer fixed table for blank clamping
-	(This bit must only be set if the machine has a rotary axis and a fixed table for blank clamping.)
+	(This bit must only be set if a milling machine has a rotary axis and a fixed table for blank clamping.)
 Bit 2:	Special handling of side mill/saw for polyhedron
 	0: No special handling of side mill/saw for polyhedron
 	1: Special handling of side mill/saw for polyhedron
@@ -286,8 +335,8 @@ Bit 3:	Enable inside/rear machining (ShopTurn)
 Bit 4:	Enable spindle clamping (C axis) (ShopTurn)
 	0: The parameter "Clamp/release spindle" is not shown in drilling or milling screen forms. ShopTurn clamps the spindle automatically if this is advantageous for
 	machining.
-	1: The parameter "Clamp/release spindle" is shown in drilling and milling screen forms. The operator decides on the machining for which the spindle is clamped. 
-	If you have implemented the function "Clamp/release spindle" by using the machine manufacturer cycle CUST_TECHCYC.SPF, you can activate the parameter "Clamp/release spindle" 
+	1: The parameter "Clamp/release spindle" is shown in drilling and milling screen forms. The operator decides on the machining for which the spindle is clamped.
+	If you have implemented the function "Clamp/release spindle" by using the machine manufacturer cycle CUST_TECHCYC.SPF, you can activate the parameter "Clamp/release spindle"
 	in drilling and milling screen forms with this machine data.
 Bit 5:	Enable spindle control of tool spindle via user interface
 	0: Enable spindle control via the NC/PLC interface
@@ -295,7 +344,10 @@ Bit 5:	Enable spindle control of tool spindle via user interface
 Bit 6:	Enable spindle control of turning spindle via user interface
 	0: Enable spindle control via the NC/PLC interface
 	1: Enable spindle control via user interface
-
+Bit 7:	Offer fixed table for blank clamping (on drilling machines)
+	0: Fixed table not offered for blank clamping
+	1: Offer fixed table for blank clamping
+	(This bit must only be set if a drilling machine has a rotary axis and a fixed table for blank clamping.)
 
 </description>
 </parameter>
@@ -450,7 +502,7 @@ When the tool change point is approached, the Y axis is simultaneously traversed
 <name>REV_2_BORDER_TOOL_LENGTH</name>
 <brief>Limit value tool length X for 2nd turret</brief>
 <description>Limit value of tool length X for the 2nd turret:
-Limit value = 0: only one turret available 
+Limit value = 0: only one turret available
 Tool length X &lt; limit value: tool belongs to 1st turret/multifix
 Tool length X &gt;= limit value: tool belongs to 2nd turret/multifix
 </description>
@@ -633,8 +685,8 @@ The parallel axes cycle (CYCLE69) can also support a rotary axis during position
 <brief>Function mask for parallel axes cycle - CYCLE69</brief>
 <description>Function mask Parallel axes CYCLE69
 Bit 0: always traverse parallel axes individually (e.g. when clamping the parallel axes with M command)
-Bit 1: 
-Bit 2: workpiece reference value (compensation value) still effective after reset 
+Bit 1:
+Bit 2: workpiece reference value (compensation value) still effective after reset
           Value is globally accepted in data management in CYCLE69
 </description>
 </parameter>
@@ -644,26 +696,30 @@ Bit 2: workpiece reference value (compensation value) still effective after rese
 <description>Function mask for measuring cycles
 
 Bit 0: 	Workpiece measurement, probe input
-          	0: Workpiece probe connected at probe input 1
-          	1: Workpiece probe connected at probe input 2
+          	0: Workpiece probe connected to probe input 1
+          	1: Workpiece probe connected to probe input 2
 
-Bit 1: 	Workpiece measurement, turning technology, using a third geometry axis (Y axis) using
-         turning measuring cycles
-          	0: Y axis not used or not supported
-          	1: Values entered for the turning measuring cycles refer to the Y axis.
-	This means that the turning measuring cycles can use the Y axis as a measuring or bypass axis.
-              When measuring in the Y axis, correction of the tool length or work offset is always realized in the components of the second geometry axis (X axis).
-              Note: the values entered for the Y axis always refer to the diameter.
+Bit 1: 	Workpiece measurement, turning technology, use of a third geometry axis (Y axis) in turning technology by the
+         turning measurement cycles.
+          	0: No use or support of the Y axis.
+          	1: Default values for the turning measuring cycles refer to the Y axis.
+	             This means that the Y axis can be used as a measuring or bypassing axis by the turning measuring cycles.
+              The tool length or work offset is always corrected in the components of the second geometry axis (X axis) during measurement in the Y axis.
+              Note: The default values for the Y axis are related to the diameter.
 
-Bit 2: 	Correction angle calculated with/without active orientation transformation
-          	0: Correction angle calculated (_MEA_CORR_ANGLE[1]) only with active orientation transformation (TCARR, CYCLE800 or TRAORI)
-          	1: Correction angle calculated (_MEA_CORR_ANGLE[1]) even without active orientation transformation
-          	   and SD42940 $SC_TOOL_LENGTH_CONST 1000s digit = 1 (calculation of the tool orientation) is set
+Bit 2: 	Correction angle is calculated with/without orientation transformation
+          	0: Correction angle (_MEA_CORR_ANGLE[1]) is calculated only with an active orientation transformation(TCARR, CYCLE800 or TRAORI)
+          	1: Correction angle (_MEA_CORR_ANGLE[1]) is calculated even without an active orientation transformation
+          	   and SD42940 $SC_TOOL_LENGTH_CONST 1000s digit = 1 (calculation of tool orientation) is set
 
 Bit 16: 	Tool measurement, probe input
-          	0: Tool probe connected at probe input 1
-          	1: Tool probe connected at probe input 2
+          	0: Tool probe connected to probe input 1
+          	1: Tool probe connected to probe input 2
 
+Bit 17: Tool measurement turning, recoding of the cutting edge positions
+           0: No recoding
+           1: Internal recoding, cutting edge positions mirrored on the X axis
+              Tool revolver rotated through 180°, Z axis not mirrored
 
 </description>
 </parameter>
@@ -722,7 +778,7 @@ Bit 16: 	Tool measurement, probe input
 <parameter number="52806" type="BYTE" dim="0">
 <name>ISO_SCALING_SYSTEM</name>
 <brief>Basic system</brief>
-<description>Basic system: 
+<description>Basic system:
 0: not defined
 1: METRIC
 2: INCH

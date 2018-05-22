@@ -1,0 +1,11 @@
+%YAML 1.2
+---
+name: S840D Sub Program (SPF)
+file_extensions:
+  - spf
+first_line_match: (?i:PROC|;VERSION\:\s*\d+\.\d+\.\d+\.\d+)\b
+scope: source.s840d_gcode.spf
+
+contexts:
+  main:
+    - include: s840d_gcode.sublime-syntax

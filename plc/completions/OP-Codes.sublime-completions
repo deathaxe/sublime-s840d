@@ -75,6 +75,10 @@
     {"trigger": "INVD\t32bit binary",          "contents": "INVD  ;\n$0"},
     {"trigger": "NEGD\t32bit binary",          "contents": "NEGD  ;\n$0"},
 
+    // datablock
+    {"trigger": "AUF  <sym>\tdatablock",       "contents": "AUF   ${1:operand};\n$0"},
+    {"trigger": "TDB\tdatablock",              "contents": "TDB   ;\n$0"},
+
     // address register 1
     {"trigger": "LAR1\tAR1",                   "contents": "LAR1  ;\n$0"},
     {"trigger": "LAR1 <ptr>\tAR1",             "contents": "LAR1  P#${1:0.0};\n$0"},

@@ -5,7 +5,7 @@
 <brief>Lage des Koordinatensystems</brief>
 <description>Mit diesem MD passen Sie das Koordinatensystem der Bedienoberfläche an das Koordinatensystem der Maschine an. In der Bedienoberfläche ändern sich automatisch je nach gewählter Lage alle Hilfebilder, die Ablaufgrafik, die Simulation und die Eingabefelder mit Kreisrichtungsangabe.
 Das Maschinendatum wird in den Zyklen ausgewertet.
-Beachten Sie auch MD 52210 $MCS_FUNCTION_MASK_DISP, Bit 1.
+Beachten Sie auch MD52210 $MCS_FUNCTION_MASK_DISP, Bit 1.
 
 </description>
 </parameter>
@@ -13,8 +13,17 @@ Beachten Sie auch MD 52210 $MCS_FUNCTION_MASK_DISP, Bit 1.
 <name>DISP_COORDINATE_SYSTEM_2</name>
 <brief>Koordinatensystem für Drehen auf Fräsmaschinen</brief>
 <description>Mit diesem MD legen Sie das Koordinatensystem für Drehbearbeitungen auf Fräsmaschinen fest.
-Beachten Sie auch MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
+Beachten Sie auch MD52000 $MCS_DISP_COORDINATE_SYSTEM.
 
+
+</description>
+</parameter>
+<parameter number="52004" type="BYTE" dim="0" display="DECIMAL">
+<name>PROG_COORDINATE_SYS_CHAN</name>
+<brief>Koordinatensystem bei Programmierung wie im angegebenen Kanal beschrieben</brief>
+<description>Mit diesem MD können Sie einstellen, dass das Koordinatensystem bei der Programmierung so dargestellt wird, wie im angegebenen Kanal beschrieben.
+0: Darstellung wie im eigenen Kanal beschrieben
+n: Darstellung wie im Kanal n beschrieben
 
 </description>
 </parameter>
@@ -51,10 +60,43 @@ Beachten Sie auch MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
 <name>ADJUST_NUM_AXIS_BIG_FONT</name>
 <brief>Anzahl Istwerte mit großem Font dynamisch an Anzahl Geoachsen anpassen</brief>
 <description>Anzahl der Istwerte mit großem Font anpassen, wenn sich die Anzahl der Geoachsen ändert, z.B. durch Transformationen, wie TRANSMIT oder TRACYL.
-0 = nur MD 52010 "DISP_NUM_AXIS_BIG_FONT" ist gültig. Die Anzahl ist damit fest vorgegeben.
-1 = nur die Geoachsen werden mit großem Font dargestellt. MD 52010 "DISP_NUM_AXIS_BIG_FONT" wird ignoriert.
-2 = Anzahl der Geoachsen plus Inhalt MD 52010 "DISP_NUM_AXIS_BIG_FONT"  werden mit großem Font dargestellt.
+0 = nur MD52010 "DISP_NUM_AXIS_BIG_FONT" ist gültig. Die Anzahl ist damit fest vorgegeben.
+1 = nur die Geoachsen werden mit großem Font dargestellt. MD52010 "DISP_NUM_AXIS_BIG_FONT" wird ignoriert.
+2 = Anzahl der Geoachsen plus Inhalt MD52010 "DISP_NUM_AXIS_BIG_FONT"  werden mit großem Font dargestellt.
 
+</description>
+</parameter>
+<parameter number="52020" type="BYTE" dim="0" display="DECIMAL">
+<name>ORIAXES_EULER_ANGLE_NAME</name>
+<brief>Achsbezeichner der Orientierungsachsen: Euler-Winkel- oder Geoachsname</brief>
+<description>Das MD legt fest, ob die Achsbezeichner der Orientierungsachsen der Euler-Winkel-Name oder Kanal-Geoachsname ist.
+Mögliche Werte sind:
+=  0 Orientierungsachsname aus dem Kanalbaustein Geoachsname mit dem Index 3 bis 5
+=  1 Orientierungsachsname ist der Name des Euler-Winkels aus den allgemeinen Maschinendaten
+
+</description>
+</parameter>
+<parameter number="52032" type="BYTE" dim="0" display="DECIMAL">
+<name>STAT_DISPLAY_BASE</name>
+<brief>Zahlenbasis Anzeige Gelenkstellung STAT</brief>
+<description>Zahlenbasis für die Anzeige der Gelenkstellung STAT
+Ist der Wert des Datums größer 0, wird das MD51032 $MNS_STAT_DISPLAY_BASE für diesen Kanal ignoriert.
+00: MD51032 ist wirksam
+02: Darstellung als binärer Wert
+10: Darstellung als dezimaler Wert
+16: Darstellung als hexadezimaler Wert
+
+</description>
+</parameter>
+<parameter number="52033" type="BYTE" dim="0" display="DECIMAL">
+<name>TU_DISPLAY_BASE</name>
+<brief>Zahlenbasis Anzeige Lage der Rundachsen TU</brief>
+<description>Zahlenbasis für die Anzeige der Rundachsstellung TU
+Ist der Wert des Datums größer 0, wird das MD51033 $MNS_TU_DISPLAY_BASE für diesen Kanal ignoriert.
+00: MD51033 ist wirksam
+02: Darstellung als binärer Wert
+10: Darstellung als dezimaler Wert
+16: Darstellung als hexadezimaler Wert
 </description>
 </parameter>
 <parameter number="52200" type="BYTE" dim="0" display="DECIMAL">
@@ -66,21 +108,21 @@ Beachten Sie auch MD 52000 $MCS_DISP_COORDINATE_SYSTEM.
 2: Fräsen
 3: Rundschleifen
 4: Flachschleifen
-Beachten Sie auch MD 52201 $MCS_TECHNOLOGY_EXTENSION.
+Beachten Sie auch MD52201 $MCS_TECHNOLOGY_EXTENSION.
 </description>
 </parameter>
 <parameter number="52201" type="BYTE" dim="0" display="DECIMAL">
 <name>TECHNOLOGY_EXTENSION</name>
-<brief>erweiterte Technologie</brief>
-<description>erweiterte Technologie
+<brief>Erweiterte Technologie</brief>
+<description>Erweiterte Technologie
 0: keine spezifische Konfiguration
 1: Drehen
 2: Fräsen
-Beachten Sie auch MD 52200 $MCS_TECHNOLOGY.
+Beachten Sie auch MD52200 $MCS_TECHNOLOGY.
 Beispiel:
 Drehmaschine mit Frästechnologie
-MD 52200 $MCS_TECHNOLOGY = 1
-MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
+MD52200 $MCS_TECHNOLOGY = 1
+MD52201 $MCS_TECHNOLOGY_EXTENSION = 2
 </description>
 </parameter>
 <parameter number="52205" type="BYTE" dim="0" display="DECIMAL">
@@ -125,8 +167,9 @@ Bit 4: Angezeigte Drehrichtung bei M3 ist linksherum (bei Spindeln)
           Die Blickrichtung kann gewählt werden. Entweder aus dem Innenraum heraus oder von außen auf die Spindel.
           Es muss jedoch für alle Spindeln die gleiche Auswahl getroffen werden.
 Bit 5: Drehrichtung M3 entspricht Rotationsachse minus (bei Spindeln)
-          Dieses Bit muss analog zum PLC-Bit DBnn.DBX17.6 eingestellt werden!
-          (nn = 31 + Maschinenachsindex)
+          Dieses Bit muss analog zu einem PLC-Bit eingestellt werden.
+          Bei 840Dsl: PLC-Bit DBnn.DBX17.6, nn = 31 + Maschinenachsindex
+          Bei 828D  : PLC-Bit DB38xx.DBX2001.6, xx ist Maschinenachsindex
 Bit 6: Rotationsachse als Korrekturziel für Messen anzeigen
 Bit 7: Rotationsachse in Positionsmuster anbieten
           Die Orientierung der Achse wird mit den Bits 0 - 2 festgelegt.
@@ -137,12 +180,15 @@ Bit 9: Spindel ist nicht SPOS-fähig
 Bit 10: Rotationsachse dreht um 1. Geoachse (nur für Positionsmuster)
 Bit 11: Rotationsachse dreht um 2. Geoachse (nur für Positionsmuster)
 Bit 12: Rotationsachse dreht um 3. Geoachse (nur für Positionsmuster)
+Bit 13: Position der Achse bei Rohteilauswahl aus aktiver NPV (bei Rotationsachsen)
+            Hiermit kann eine aufbaubare Rundachse bei Simulation/Mitzeichnen automatisch an der richtigen Position dargestellt werden.
 
 Anmerkung:
 Bei den Bits 0 - 2 bzw. 10 - 12 wirkt jeweils nur das 1. gesetzte Bit.
 
 Anmerkung für Positionsmuster mit Rundachsen:
 Wenn eines der Bits 10 - 12 gesetzt ist, dann haben diese Bits Vorrang gegenüber den Bits 0 - 2.
+
 
 </description>
 </parameter>
@@ -163,7 +209,11 @@ Bit 9: Auswahl "Eingabe einfach" anzeigen
 Bit 10: Kanal nicht in Joblisten anbieten
 Bit 11: Für WKS die Anzeige der logischen Spindeln aktivieren
 Bit 12: Formenbauansicht für G-Code ausblenden
-
+Bit 13: Kanalachsen, die aktuell in anderem Kanal sind, ausblenden
+	0: Kanalachsen, die aktuell in einem anderen Kanal sind, grau anzeigen
+	1: Kanalachsen, die aktuell in einem anderen Kanal sind, ausblenden
+Bit 14: Überlagerung DRF unter Maschine anzeigen
+Bit 15: Überlagerung Werkzeug ($AA_TOFF) unter Maschine anzeigen
 </description>
 </parameter>
 <parameter number="52211" type="DWORD" dim="0" display="HEX">
@@ -193,16 +243,17 @@ Bit 19: Verschiebung aktives Werkzeug anzeigen
 Bit 20: WKS-Position anzeigen
 Bit 21: BKS-Position anzeigen
 Bit 22: $P_GFRAME anzeigen
+Bit 23: TOFF anzeigen
+Bit 24: Überlagerung $AA_TOFF anzeigen
 </description>
 </parameter>
 <parameter number="52212" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_TECH</name>
 <brief>Funktionsmaske Technologieübergreifend</brief>
 <description>Funktionsmaske Technologieübergreifend
-Bit 0:	Freigabe Schwenken mit Werkzeugträger
-	0: Schwenken Ebene/ Werkzeug mit Werkzeugträger nicht freigegeben
-	1: Schwenken Ebene/ Werkzeug mit Werkzeugträger freigegeben
-	Nur Schwenken Ebene freigeben, Ausrichten Drehwerkzeug wird über Bit 10 gesteuert
+Bit 0:	Freigabe Schwenken Ebene/Ausrichten Werkzeug mit Toolcarrier
+	0: Schwenken Ebene/Ausrichten Werkzeug mit Toolcarrier nicht freigegeben
+	1: Schwenken Ebene/Ausrichten Werkzeug mit Toolcarrier freigegeben
 Bit 1:	Optimiertes Fahren entlang Software-Endschaltern (ShopMill/ShopTurn)
 	0: Kein optimiertes Fahren entlang Software-Endschaltern
 	1: Optimiertes Fahren entlang Software-Endschaltern
@@ -227,7 +278,7 @@ Bit 5: 	Satzsuchlauf-Funktion SERUPRO aufrufen
 	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der Zyklus CYCLE207 nicht aufgerufen.
 	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird (bei Satzsuchlauf mit Programmtest - SERUPRO) der Zyklus für SERUPRO (CYCLE207) aufgerufen.
 	Der Zyklus CYCLE207 sorgt nach Satzsuchlauf mit Programmtest (SERUPRO) für die Ausgabe der aufgesammelten Maschinenbefehle.
-Bit 6: 	Nullpunktverschiebungswert ZV nur inkrementell eingebbar (ShopTurn)
+Bit 6: 	Nullpunktverschiebungswert ZV nicht absolut eingebbar (ShopTurn)
 	0: Parameter ZV, aktive Nullpunktverschiebung kann inkrementell und absolut eingegeben werden
 	1: Parameter ZV, aktive Nullpunktverschiebung nur inkrementell eingebbar (ShopTurn)
 Bit 7: 	Ablauf der Standzeit von Werkzeugen im Programm erkennen (ShopMill/ShopTurn)
@@ -239,9 +290,9 @@ Bit 8: 	Funktion Manuelle Maschine aktiv (ShopMill/ShopTurn)
 Bit 9: 	An-/Abwahl der Nullpunktverschiebung über Softkey
 	0: Der Softkey NPV Anwahl/-Abwahl ist in der Nullpunktverschiebungs-Tabelle der einstellbaren NPV nicht verfügbar.
 	1: Der Softkey NPV Anwahl/-Abwahl ist in der Nullpunktverschiebungs-Tabelle der einstellbaren NPV verfügbar.
-Bit 10: 	Ausrichten Drehwerkzeug über kinematische Transformation
-	0: Ausrichten von Drehwerkzeugen über Werkzeugträger
-	1: Ausrichten von Drehwerkzeugen über kinematische Transformation
+Bit 10:	Freigabe Schwenken Ebene/Ausrichten Werkzeug mit kinematischer Transformation
+	0: Schwenken Ebene/Ausrichten Werkzeug mit kinematischer Transformation nicht freigegeben
+	1: Schwenken Ebene/Ausrichten Werkzeug mit kinematischer Transformation freigegeben
 Bit 11:	Lagen-Check für Bohr- und Fräs- Werkzeuge abschalten(ShopTurn)
 	0: Schneidenlagen-Check, für Bohr- und Fräswerkzeuge ist aktiv
 	1: Kein Schneidenlagen-Check, für Bohr- und Fräswerkzeuge
@@ -253,8 +304,8 @@ Bit 12:	Alarm bei positiver Z-Verschiebung (ShopTurn)
 	Die positive Z-Verschiebung kann gefährlich sein, wenn hierdurch die Bearbeitungsposition aus dem Rückzugsbereich geschoben wird, da dies zu Kollisionen beim An- oder
 	Abfahren führen kann.
 Bit 13:	Werkzeugwechselpunkt Y im MKS anfahren (ShopTurn)
-	0: Der Werkzeugwechselpunkt wird in Y-Richtung im WKS auf 0 angefahren (gilt nur, wenn das MD 52241 $MCS_TOOL_CHANGE_POS_Y = 0 ist).
-	1: Der Werkzeugwechselpunkt wird in Y-Richtung immer im MKS angefahren (siehe MD 52241 $MCS_TOOL_CHANGE_POS_Y).
+	0: Der Werkzeugwechselpunkt wird in Y-Richtung im WKS auf 0 angefahren (gilt nur, wenn das MD52241 $MCS_TOOL_CHANGE_POS_Y = 0 ist).
+	1: Der Werkzeugwechselpunkt wird in Y-Richtung immer im MKS angefahren (siehe MD52241 $MCS_TOOL_CHANGE_POS_Y).
 Bit 14: Bei Anfahrlogik Werkzeugposition nur mit Schneide prüfen (ShopTurn)
 	0: Die Anfahrlogik prüft die Werkzeugposition immer.
 	1: Die Anfahrlogik prüft die Werkzeugposition nur, wenn eine Schneide aktiv ist.
@@ -271,7 +322,7 @@ Bit 0:	Freigabe Zylindermanteltransformation (ShopMill)
 Bit 1:	Festen Tisch für Rohteilaufspannung anbieten (an Fräsmaschinen)
 	0: keinen festen Tisch für Rohteilaufspannung anbieten
 	1: Festen Tisch für Rohteilaufspannung anbieten
-	(Dieses Bit muss nur gesetzt werden, wenn es an der Maschine eine Rotationsachse und einen festen Tisch für die Rohteilaufspannung gibt.)
+	(Dieses Bit muss nur gesetzt werden, wenn es an einer Fräsmaschine eine Rotationsachse und einen festen Tisch für die Rohteilaufspannung gibt.)
 Bit 2:	Sonderbehandlung von Scheibenfräser/Säge beim Mehrkant
 	0: keine Sonderbehandlung von Scheibenfräser/Säge beim Mehrkant
 	1: Sonderbehandlung von Scheibenfräsern/Säge beim Mehrkant
@@ -293,7 +344,10 @@ Bit 5:	Freigabe Spindelsteuerung Werkzeugspindel über Oberfläche
 Bit 6:	Freigabe Spindelsteuerung Drehspindel über Oberfläche
 	0: Freigabe Spindelsteuerung über die NC/PLC-Nahtstelle
 	1: Freigabe Spindelsteuerung über die Bedienoberfläche
-
+Bit 7:	Festen Tisch für Rohteilaufspannung anbieten (an Bohrwerken)
+	0: keinen festen Tisch für Rohteilaufspannung anbieten
+	1: Festen Tisch für Rohteilaufspannung anbieten
+	(Dieses Bit muss nur gesetzt werden, wenn es an einem Bohrwerk eine Rotationsachse und einen festen Tisch für die Rohteilaufspannung gibt.)
 
 </description>
 </parameter>
@@ -301,7 +355,7 @@ Bit 6:	Freigabe Spindelsteuerung Drehspindel über Oberfläche
 <name>FUNCTION_MASK_DRILL</name>
 <brief>Funktionsmaske Bohren</brief>
 <description>Funktionsmaske Bohren
-Bit 0:	CYCLE84 Eingabefelder Technologie  einblenden
+Bit 0:	CYCLE84 Eingabefelder Technologie einblenden
 	0: Eingabefelder ausblenden
 	1: Eingabefelder einblenden
 Bit 1:	CYCLE840 Eingabefelder Technologie einblenden
@@ -662,6 +716,10 @@ Bit 16: 	Werkzeugmessen, Messtastereingang
           	0: Werkzeugmesstaster am Messtastereingang 1 angeschlossen
           	1: Werkzeugmesstaster am Messtastereingang 2 angeschlossen
 
+Bit 17: Werkzeugmessen Drehen Umcodierung der Schneidenlagen
+           0: keine Umcodierung
+           1: Interne Umcodierung, Schneidenlagen an der X-Achse gespiegelt
+              Werkzeug-Revolver 180° gedreht, Z-Achse nicht gespiegelt
 
 </description>
 </parameter>
@@ -728,8 +786,8 @@ Bit 16: 	Werkzeugmessen, Messtastereingang
 </parameter>
 <parameter number="52808" type="BYTE" dim="0">
 <name>ISO_SIMULTAN_AXES_START</name>
-<brief>simultanes Anfahren der Bohrposition aller programmierten Achsen</brief>
-<description>simultanes Anfahren der Bohrposition aller programmierten Achsen
+<brief>Simultanes Anfahren der Bohrposition aller programmierten Achsen</brief>
+<description>Simultanes Anfahren der Bohrposition aller programmierten Achsen
 0: AUS
 1: EIN
 </description>

@@ -480,6 +480,10 @@ Wert 0: Um die Auslastung zu bestimmen, werden pro Kanal in jedem Zyklus der Prä
           * Es wird ein Satz von der Präparation an den Ipo-Buffer abgegeben.
           * Eine Funktion sammelt mehrere Sätze auf, um diese gemeinsam zu verarbeiten (Beispiel: Kompressor). Ausnahme ist Satzsuchlauf, bei dem die Satzaufsammlung ignoriert wird.
           * Zusätzlich wird der aktuelle, prozentuale Ipo-Puffer-Füllstand gespeichert.
+          * Die Präparation ist mit einer Aufgabe beschäftigt, die keine Satzverarbeitung durchführt, aber noch weitere Präparationszyklen benötigt. Dazu gehören:
+            * Satzsuchlauf
+            * Kollisionsvermeidung
+            * Stationsinitialisierung im Hochlauf
         Die Speicherung erfolgt für eine feste Anzahl von Präparationszyklen, aus denen dann zu Beginn jedes Präparationszyklus die Auslastung wie folgt berechnet wird:
           * Wurden in den letzten Präparationszyklen durchgängig Sätze verarbeitet (Sätze abgegeben und/oder aufgesammelt) und ist der IPO-Buffer nicht ausreichend befüllt, wird keine Rechenzeit abgegeben.
           * Wurden in den letzten Präparationszyklen durchgängig Sätze verarbeitet und ist der IPO-Buffer ausreichend befüllt, wird prinzipiell Rechenzeit abgegeben.
@@ -489,7 +493,7 @@ Wert 0: Um die Auslastung zu bestimmen, werden pro Kanal in jedem Zyklus der Prä
           * 0: Rechenzeitabgabe erfolgt nur, wenn alle Kanäle Rechenzeit abgeben können.
           * 1: Rechenzeitabgabe wird allein durch den ersten Kanal bestimmt.
           * 2: Rechenzeit wird immer jeden zweiten Prep-Zyklus abgegeben.
-        In Satzsuchlauf und bei aktiver Kollisionsvermeidung wird nie Rechenzeit abgegeben.
+        Daneben gibt es ein fest eingestelltes Taktverhältnis, sodass auch bei einer Abgabemöglichkeit die Präparation mindestens zweimal drankommt, bevor Rechenzeit freiwillig abgegeben wird.
 
 Wert 1: Es werden pro Kanal in jedem Zyklus der Präparationstask folgende Informationen gesammelt:
           * Es wird ein Satz von der Präparation an den Ipo-Buffer abgegeben.
@@ -497,9 +501,11 @@ Wert 1: Es werden pro Kanal in jedem Zyklus der Präparationstask folgende Inform
           * Die Präparation ist mit einer Aufgabe beschäftigt, die keine Satzverarbeitung durchführt, aber noch weitere Präparationszyklen benötigt. Dazu gehören:
             * Satzsuchlauf
             * Kollisionsvermeidung
+            * Stationsinitialisierung im Hochlauf
         Zu Beginn des Präparationszyklus wird der Lastzustand des vorhergehenden Zyklus ausgewertet:
           * Bei einkanaligen Steuerungen gilt: Ist mindestens eines der obigen Ereignisse eingetreten  wird die Rechenzeit nicht abgegeben.
           * Bei mehrkanaligen Steuerungen wird die Rechenzeit nur abgegeben, wenn jeder der Kanäle die Rechenzeit abgeben kann.
+        Daneben gibt es ein fest eingestelltes Taktverhältnis, sodass auch bei einer Abgabemöglichkeit die Präparation mindestens zweimal drankommt, bevor Rechenzeit freiwillig abgegeben wird.
 </description>
 </parameter>
 <parameter number="10160" type="DWORD" dim="0">
@@ -524,6 +530,17 @@ Wert 1: Es werden pro Kanal in jedem Zyklus der Präparationstask folgende Inform
 6.	Wert: Anzahl der PDUs, die minimal bei der Daten-Anforderungs-Meldung angefordert werden. (Damit nicht ständig Daten-Anforderungs-Meldungen ausgegeben werden)
 7.	Wert: Anzahl der PDUs, die maximal bei der Daten-Anforderungs-Meldung angefordert werden (Als Höchstwert darf hier 255 eingetragen werden, da mehr das Protokoll nicht hergibt!)
 8.	Wert: Anzahl der PDUs, die insgesamt maximal ausstehen dürfen
+</description>
+</parameter>
+<parameter number="10162" type="DOUBLE" dim="1">
+<name>COM_TIMING</name>
+<brief>Reaktionszeiten der Kommunikation.</brief>
+<description>Die Werte legen fest, mit welcher Verzögerung die Kommunikationsdienste maximal die Aufträge bearbeiten sollten.
+Es handelt sich um einen Wunschwert, der sich tatsächlich ergebende Wert hängt von der Belastung des Prozessors ab.
+Ein niedriger Wert beschleunigt u.U. die Kommunikation, geht aber zu Lasten anderer Funktionen, wie z.B. der Suchlauf-Geschwindigkeit.
+1. Wert: Variablen-Dienste
+2. Wert: PI-Dienste
+3. Wert: Domain-Dienste
 </description>
 </parameter>
 <parameter number="10170" type="DWORD" dim="0">
@@ -877,7 +894,7 @@ Verfügbar nur, wenn Bit 2 (0x4) in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK gesetzt i
 </parameter>
 <parameter number="10291" type="DWORD" dim="1">
 <name>CCS_TDA_PARAM_UNIT</name>
-<brief>physikalische Einheit der SIEMENS-OEM-Werkzeugdaten</brief>
+<brief>Physikalische Einheit der SIEMENS-OEM-Werkzeugdaten</brief>
 <description>Phys. Einheiten für die applikationsspezifischen WZ-spezifischen Daten:
 
 0:	Keine Einheit
@@ -1943,7 +1960,7 @@ Bei MD20110 $MC_RESET_MODE_MASK Bit0 = 1 und BIT14 = 0
 </parameter>
 <parameter number="10615" type="DWORD" dim="0" display="HEX">
 <name>NCBFRAME_POWERON_MASK</name>
-<brief>globale Basisframes nach Power On zurücksetzen</brief>
+<brief>Globale Basisframes nach Power On zurücksetzen</brief>
 <description>Mit diesem Maschinendatum wird festgelegt, ob globale Basisframes bei Power On in der Datenhaltung zurückgesetzt werden.
 D.h.
 - Verschiebungen werden auf 0,
@@ -3093,7 +3110,7 @@ Im Konfliktfall wird Alarm 14016 abgesetzt.
 <description>Nummer des Interrupteingangs, mit dem im ISO-Mode ein Schnellrückzug auf die mit G10.6 programmierte Position ausgelöst wird.
 </description>
 </parameter>
-<parameter number="10830" type="STRING" dim="0">
+<parameter number="10830" type="STRING" dim="1">
 <name>EXTERN_PRINT_DEVICE</name>
 <brief>Ausgabegerät für ISOPRINT</brief>
 <description>Pfad des Ausgabegerätes für ISOPRINT
@@ -3422,7 +3439,7 @@ MD = 1: Anwenderdaten der Hauptprogrammebene sind auch in den Unterprogrammebene
 </parameter>
 <parameter number="11140" type="DWORD" dim="1" display="HEX">
 <name>GUD_AREA_SAVE_TAB</name>
-<brief>zusätzliche Sicherung für GUD-Bausteine</brief>
+<brief>Zusätzliche Sicherung für GUD-Bausteine</brief>
 <description>Diese Datum gibt an, mit welchen Bereich der Inhalt des GUD Bausteins zusätzlich gesichert wird.
 MD11140 $MN_GUD_AREA_SAVE_TAB[0] : SGUD_DEF
 MD11140 $MN_GUD_AREA_SAVE_TAB[1] : MGUD_DEF
@@ -3751,6 +3768,14 @@ Es werden Zeilenprüfsummen und MD-Nummern, aber keine Kanalachsnamen als Feldind
 <name>PROFIBUS_SDB_NUMBER</name>
 <brief>SDB-Nummer</brief>
 <description>Nummer des verwendeten Systemdatenbausteins (SDB) zur Konfigurierung der Peripherie
+
+Es sind folgende Belegungen von MD11240[0,1,2,3] zugelassen:
+[0, -1, 0, 0] Telegramm 136 und Achserweiterung NX10.3
+[1, -1, 1, 1] Telegramm 136 und Achserweiterung NX15.3 (= Voreinstellung)
+[2, -1, 2, 2] Telegramm 136 und Achserweiterung NX15.3, 1x CU320-2 PN (nur PPU 26x.3/28x.3)
+[3, -1, 3, 3] Telegramm 116 und Achserweiterung NX10.3
+[4, -1, 4, 4] Telegramm 136 und Achserweiterung NX15.3, 1x CU310-2 PN (nur PPU 26x.3/28x.3)
+[5, -1, 5, 5] Telegramm 136 und Achserweiterung NX15.3, 2x CU310-2 PN (nur PPU 26x.3/28x.3)
 </description>
 </parameter>
 <parameter number="11241" type="DWORD" dim="0">
@@ -4090,7 +4115,7 @@ ausgewählt werden soll:
 </parameter>
 <parameter number="11353" type="DWORD" dim="1">
 <name>HANDWHEEL_LOGIC_ADDRESS</name>
-<brief>logische Handradslotadressen</brief>
+<brief>Logische Handradslotadressen</brief>
 <description>Nur bei PROFIBUS/PROFINET:
 Logische Basisadressen der Handradslots, wenn Handräder über PROFIBUS/PROFINET angeschlossen sind (MD11340 $MN_HANDWHEEL_SEGMENT = 5)
 </description>
@@ -4369,7 +4394,7 @@ Bit	Hex.	Bedeutung
 6:	0x40	26120 "$AA_ESR_ENABLE = 1 und Achse soll neutral werden"
 		26121 "Achse ist neutral und $AA_ESR_ENABLE =1 soll gesetzt werden"
 		26123 "$AA_ESR_ENABLE = 1 soll gesetzt werden, aber MD37500 $MA_ESR_REACTION ist nicht gesetzt"
-		26124 "$AC_ESR_TRIGGER ausgelöst, aber Achse ist neutral, ESR ignoriert diese Achse"
+		26124 "$AC_TRIGGER ausgelöst, aber Achse ist neutral, ESR ignoriert diese Achse"
 7:	0x80	10724 "Software-Limit am Satzanfang verletzt"
 		10734 "Arbeitsfeldbegrenzung am Satzanfang verletzt"
 		10737 "WKS-Arbeitsfeldbegrenzung am Satzanfang verletzt"
@@ -4605,22 +4630,19 @@ Bit 1.....15
 </parameter>
 <parameter number="11600" type="DWORD" dim="0" display="HEX">
 <name>BAG_MASK</name>
-<brief>Definiert das BAG Verhalten</brief>
-<description>Das MD beschreibt die Wirkung der VDI-Signale auf die Kanäle einer BAG in Bezug auf ASUPs/Interruptroutinen.
+<brief>Definiert das BAG-Verhalten</brief>
+<description>Das MD beschreibt die Wirkung der VDI-Signale auf alle Kanäle einer BAG in Bezug auf ASUPs/Interruptroutinen.
 BitNr.   Hexadez.   Bedeutung bei gesetztem Bit
          Wert
 
-Bit0:    0x0        Normale Reaktion auf BAG-Signale in allen Kanälen der BAG (wie SW 3)
-                    Umschalten aller Kanäle in eine Programmbetriebsart bei Interrupt.
+Bit0:    0x0        Normale Reaktion auf BAG-VDI-Signale (BAG-RESET, BAG-STOP, Einzelsatztype A und B, Betriebsartenanwahl) in allen Kanälen der BAG (wie SW 3). Zusätzlich werden alle Kanäle einer BAG in eine Programmbetriebsart umgeschalten, wenn ein Interrupt gestartet wird.
+                    Das bedeutet, wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, wechselt dieser Kanal intern automatisch die Betriebsart nach AUTO und alle anderen Kanäle der BAG werden ebenfalls nach AUTO geschaltet. Analog dazu finden am Ende des Interrupts ein automatischer Rückmodeswitch in allen Kanälen der BAG nach JOG statt.
 
-Bit0:    0x1        Keine Reaktion anderer BAG-VDI-Signale im Kanal, in dem eine
-                    Interruptbehandlung (ASUP) abläuft. (BAG-RESET, BAG-STOP. Einzelsatztype
-                    A und B, Betriebsartenanwahl). Zusätzlich findet nur in den Kanälen eine
-                    interne Betriebsartenumschaltung, welche eine Interruptanforderung erhalten haben.
+Bit0:    0x1        Wenn in einem Kanal der BAG ein Interrupt gestartet wird, reagiert dieser Kanal nicht mehr auf BAG-VDI-Signale (BAG-RESET, BAG-STOP, Einzelsatztype A und B, Betriebsartenanwahl), solange der Interrupt aktiv ist. Wenn beispielsweise BAG-STOP ausgelöst wird, werden alle Kanäle der BAG angehalten, der Interrupt läuft aber weiter. Ein Kanal-STOP  wirkt nach wie vor.
+                    Zusätzlich gilt, dass wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, nur dieser Kanal intern automatisch die Betriebsart nach AUTO wechselt, alle anderen Kanäle der BAG bleiben in der Betriebsart JOG. Der automatische Rückmodeswitch am Ende des Interrupts bezieht sich entsprechend auch nur auf den Kanal, in dem der Interrupt lief.
 
-Bit1:    0x1        Es findet nur in den Kanälen eine interne Betriebsartenumschaltung
-                    statt, welche eine Interruptanforderung erhalten haben.
-                    Dies ist ähnlich zu Bit0, BAG-VDI-Signal wirken aber auf den Interrupt.
+Bit1:    0x1        Wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, wechselt dieser Kanal intern automatisch die Betriebsart nach AUTO. Alle anderen Kanäle der BAG bleiben in der Betriebsart JOG. Der automatische Rückmodeswitch am Ende des Interrupts bezieht sich entsprechend auch nur auf den Kanal, in dem der Interrupt lief.
+                    Das Verhalten ist ähnlich zu Bit0, BAG-VDI-Signale (BAG-RESET, BAG-STOP, Einzelsatztype A und B, Betriebsartenanwahl) wirken aber auf den Interrupt. Das heißt, wenn Bit0 gesetzt ist, muss Bit1 nicht zwingend gesetzt werden (außer für die Funktionalität "Joggen in Asup", siehe MD11602 $MN_ASUP_START_MASK, Bit3).
 </description>
 </parameter>
 <parameter number="11602" type="DWORD" dim="0" display="HEX">
@@ -4741,7 +4763,8 @@ Prefix (_N_) und Suffix (_SPF) des Programmnamens werden - wenn nicht angegeben 
 Anwendung: diese Einstellung verhindert bei der Programmbearbeitung durch die Funktion "Execution from External Storage EES" unnötige Zugriffe auf den externen Speicher und beschleunigt damit z.B. den Aufruf der SIEMENS-Zyklen.
 
 0:   Bei Unterprogrammaufrufen wird das NC-Programm gemäß Suchpfad in allen Programmverzeichnissen gesucht
-1:   Bei Unterprogrammaufrufen wird das NC-Programm nur in den Zyklenverzeichnissen CMA, CUS und CST gesucht
+1:   Bei Unterprogrammaufrufen wird das NC-Programm nur in den Zyklenverzeichnissen CUS, CMA und CST gesucht
+2:   Bei Unterprogrammaufrufen wird das NC-Programm in dem mit der CALLPATH-Anweisung definierten Verzeichnis und danach in den Zyklenverzeichnissen CUS, CMA und CST gesucht
 
 </description>
 </parameter>
@@ -5094,7 +5117,7 @@ Der durch MD32000 $MA_MAX_AX_VELO vorgegebene Wert gilt als Obergrenze. Bei eine
 </parameter>
 <parameter number="12300" type="BOOLEAN" dim="0">
 <name>CENTRAL_LUBRICATION</name>
-<brief>zentrale Schmierung aktiv</brief>
+<brief>Zentrale Schmierung aktiv</brief>
 <description>Die axialen VDI-Signale fordern nach Überschreiten eines einstellbaren achsialen Weges (vgl. MD33050 $MA_LUBRICATION_DIST) bei der PLC einen Schmierimpuls an. Diese achsialen Impulse wirken (defaultmäßig) unabhängig voneinander.
 
 Wenn die Maschinenkonstruktion nun eine zentrale Schmierung vorsieht, d.h. der Schmierimpuls einer beliebigen Achse an allen Achsen wirkt, dann muss auch die zugehörige Wegüberwachung aller Achsen nach Schmierimpuls-Ausgabe neu gestartet werden, diese Start- Synchronisation der Überwachungen erfolgt durch MD12300 $MN_CENTRAL_LUBRICATION=TRUE.
@@ -5145,7 +5168,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="12550" type="DWORD" dim="0">
 <name>LINK_RETRY_CTR</name>
-<brief>maximale Anzahl der Wiederholungen für Telegrammübertragung</brief>
+<brief>Maximale Anzahl der Wiederholungen für Telegrammübertragung</brief>
 <description>Maximale Anzahl der Telegrammwiederholungen im Fehlerfall
 
 Nicht relevant bei:
@@ -5703,7 +5726,7 @@ hat keine Verbindung zu der realen Peripherie
 </parameter>
 <parameter number="13050" type="DWORD" dim="1">
 <name>DRIVE_LOGIC_ADDRESS</name>
-<brief>logische Antriebsadressen</brief>
+<brief>Logische Antriebsadressen</brief>
 <description>Nur bei PROFIdrive:
 Logische E/A-Adressen der PROFIdrive-Antriebe am PROFIBUS/PROFINET, die einer Achse zugeordnet werden können.
 Der Wert des MD ist die mit HW-Konfig (SIMATIC Manager S7) vergebene logische E/A-Adresse des Antriebs.
@@ -6102,8 +6125,9 @@ Enthält MD15710 $MN_TCA_CYCLE_NAME einen Leerstring, ist die Ersetzung deaktivie
 </parameter>
 <parameter number="15800" type="STRING" dim="0">
 <name>R_PARAM_NCK_NAME</name>
-<brief>Bezeichner der globalen NCK R-Parameter</brief>
-<description>Legt den Bezeichner für die globalen NCK R-Parameter fest
+<brief>Bezeichner der globalen R-Parameter</brief>
+<description>Legt den Bezeichner für die globalen R-Parameter fest.
+Eine Änderung des Bezeichners wird nur wirksam, wenn zum Power On Zeitpunkt die Anzahl der globalen R Parameter ( MD18156 $MN_MM_NUM_R_PARAM_NCK  ) gleich 0 ist.
 </description>
 </parameter>
 <parameter number="16800" type="STRING" dim="0">
@@ -6123,7 +6147,7 @@ Jede Extension muss aus genau drei Großbuchstaben bestehen.
 </parameter>
 <parameter number="17200" type="DOUBLE" dim="1">
 <name>GMMC_INFO_NO_UNIT</name>
-<brief>globale HMI Info (ohne physikalische Einheit)</brief>
+<brief>Globale HMI Info (ohne physikalische Einheit)</brief>
 <description>Die globalen Anzeigemaschinendaten
 
 - $MM_DISPLAY_RESOLTION
@@ -6136,7 +6160,7 @@ werden von HMI in den MD17200 $MN_GMMC_INFO_NO_UNIT[0] bis MD17200 $MN_GMMC_INFO
 </parameter>
 <parameter number="17201" type="BYTE" dim="1">
 <name>GMMC_INFO_NO_UNIT_STATUS</name>
-<brief>globale HMI Statusinfo (ohne physikalische Einheit)</brief>
+<brief>Globale HMI Statusinfo (ohne physikalische Einheit)</brief>
 <description>Wert 0: Eintrag nicht belegt
 Wert 1: Eintrag belegt
 </description>
@@ -6157,7 +6181,7 @@ Hinweis: Das MD17400 $MN_OEM_GLOBAL_INFO[0] wird bei Funktionen wie Logbuch, Liz
 </parameter>
 <parameter number="17500" type="DWORD" dim="0">
 <name>MAXNUM_REPLACEMENT_TOOLS</name>
-<brief>maximale Anzahl Werkzeuge in einer Werkzeuggruppe</brief>
+<brief>Maximale Anzahl Werkzeuge in einer Werkzeuggruppe</brief>
 <description>Nur mit aktiver Funktion Werkzeugverwaltung (WZMG) oder Werkzeugüberwachungsfunktion (WZMO) von Bedeutung
 Maximale Anzahl der Werkzeuge, die für den Systemparameter $TC_TP2 denselben Wert (Werkzeugname) haben.
 0: es gibt keine Überwachung, d.h. es kann eine beliebige Anzahl Werkzeuge pro Gruppe geben.
@@ -6257,7 +6281,7 @@ Hier nicht definierte Bits werden beim Schreiben des Maschinendatums ignoriert.
 </parameter>
 <parameter number="17520" type="DWORD" dim="0" display="HEX">
 <name>TOOL_DEFAULT_DATA_MASK</name>
-<brief>neues Werkzeug anlegen: Datenvorbelegung</brief>
+<brief>Neues Werkzeug anlegen: Datenvorbelegung</brief>
 <description>Bei Neudefinition eines Werkzeugs (Bits 0, 1, 2), oder der Neudefinition der Magazinplätze (Bit 3) können gewisse Daten des einstellbar mit festen Defaultwerten belegt werden. Bit 4 kann den Magazinplatzzustand 'Überlappung  erlaubt' ('H2000') an den Wert des Magazinplatzzustands 'gesperrt' ('H1') koppeln.  Damit können einfache Anwendungen davor bewahrt werden, sich mit Daten zu beschäftigen, die nicht zwingend mit individuellen Werten belegt werden müssen.
 
 Bit-Nr.: 0 Bitwert: 0 hexadezimaler Wert: -
@@ -6489,11 +6513,20 @@ Dieses Datum ist nicht schreibbar.
 <name>EES_MODE_INFO</name>
 <brief>Modus, in dem die Funktion EES arbeitet.</brief>
 <description>Modus, in dem die Funktion "Execution from External Storage" arbeitet:
-0: Die Funktion EES ist inaktiv, d.h., MD18365 $MN_MM_EES_ENABLE oder OD19334 $ON_SYSTEM_FUNCTION_MASK Bit9 sind nicht gesetzt.
-1: Teileprogramme können von einem externen Speicher abgearbeitet werden. Ein Globaler Teileprogrammspeicher ist nicht eingerichtet.
-   Mit Hilfe des programmierbaren Suchpfads kann dennoch ein Verzeichnis auf einem externen Speicher für die Ablage von Unterprogrammen genutzt werden.
-2: Es ist ein Globaler Teileprogrammspeicher auf einem externen Speicher eingerichtet.
-   Im Rahmen des Suchpfads werden Programme zunächst im NCK in den Verzeichnissen MPF/SPF/WKS gesucht und anschließend in den entsprechenden Verzeichnissen auf einem externen Speicher.
+Bit0(LSB) = 1
+    lokales EES aktiv (LOCAL_DRIVE der NCU als EES-Laufwerk verfügbar)
+
+Bit1 = 1
+    globales EES aktiv (alle verfügbaren Laufwerke (USB, incl. Lokales EES, sofern vorhanden)
+
+Bit2 = 1
+    Es ist ein globaler Teileprogrammspeicher auf einem externen Speicher eingerichtet.
+    Im Rahmen des Suchpfads werden Programme zunächst im NCK in den Verzeichnissen MPF/SPF/WKS gesucht und anschließend in den entsprechenden Verzeichnissen auf einem externen Speicher.
+
+Siehe auch:
+  OD19334 $ON_SYSTEM_FUNCTION_MASK Bit 9
+  OD19730 $MC_HMI_FUNCTION_MASK[0] Bit 5
+  MD10123 $MN_EES_LOCAL_ENABLE
 </description>
 </parameter>
 <parameter number="18050" type="DWORD" dim="0" readonly="true">
@@ -7005,7 +7038,7 @@ MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 </parameter>
 <parameter number="18105" type="DWORD" dim="0">
 <name>MM_MAX_CUTTING_EDGE_NO</name>
-<brief>maximaler Wert der D-Nummer</brief>
+<brief>Maximaler Wert der D-Nummer</brief>
 <description>Maximaler Wert der D-Nummer.
 Die maximale Anzahl der D-Nummern pro Schneide ist davon unberührt.
 Die mit dem Wert verbundene Überwachung der D-Nummernvergabe wirkt nur bei Neudefinition von D-Nummern. D.h., dass bestehende Datensätze nicht nachträglich - sofern das MD geändert wird - überprüft werden.
@@ -7024,7 +7057,7 @@ MD18106 $MN_MM_MAX_CUTTING_EDGE_PER_TOOL
 </parameter>
 <parameter number="18106" type="DWORD" dim="0">
 <name>MM_MAX_CUTTING_EDGE_PERTOOL</name>
-<brief>maximale Anzahl der D-Nummern pro Werkzeug</brief>
+<brief>Maximale Anzahl der D-Nummern pro Werkzeug</brief>
 <description>Maximale Anzahl von Schneiden (D-Korrekturen) pro Werkzeug (pro T-Nummer).
 Damit kann bei der Datendefinition mehr Sicherheit erreicht werden. Falls nur mit Werkzeugen mit einer Schneide gearbeitet wird, dann kann der Wert auf 1 eingestellt werden. Damit wird man bei der Datendefinition davor geschützt, mehr als eine Schneide dem Werkzeug zuzuweisen.
 Sinnvollerweise stellt man ein MD18105 $MN_MM_MAX_CUTTING_EDGE_NO gleich MD18106 $MN_MM_MAX_CUTTING_EDGE_PER_TOOL. Falls MD18105 $MN_MM_MAX_CUTTING_EDGE_NO größer MD18106 $MN_MM_MAX_CUTTING_EDGE_PER_TOOL gewählt wird, dann sollte man sich mit dem Unterschied von Korrekturnummer D und der Schneidennummer CE vertraut machen.
@@ -7054,7 +7087,7 @@ MD18110 $MN_MM_MAX_SUMCORR_PER_CUTTEDGE
 </parameter>
 <parameter number="18110" type="DWORD" dim="0">
 <name>MM_MAX_SUMCORR_PER_CUTTEDGE</name>
-<brief>maximale Anzahl der Summenkorrekturen pro Schneide (SRAM)</brief>
+<brief>Maximale Anzahl der Summenkorrekturen pro Schneide (SRAM)</brief>
 <description>Maximale Anzahl von Summenkorrekturen pro Schneide.
 Für MD18108 $MN_MM_NUM_SUMCORR &gt; 0 gilt:
 Das Datum ist nicht speicherbestimmend, sondern dient nur der Überwachung.
@@ -7242,8 +7275,8 @@ Korrespondiert mit:
 </parameter>
 <parameter number="18156" type="DWORD" dim="0">
 <name>MM_NUM_R_PARAM_NCK</name>
-<brief>Anzahl der global NCK R-Parameter (SRAM)</brief>
-<description>Legt die im NCK die verfügbare Anzahl von global R-Parameters fest.
+<brief>Anzahl der globalen R-Parameter (SRAM)</brief>
+<description>Legt die im NCK verfügbare Anzahl globaler R-Parameter fest.
 </description>
 </parameter>
 <parameter number="18160" type="DWORD" dim="0">
@@ -7566,7 +7599,7 @@ Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Re
 </parameter>
 <parameter number="18210" type="DWORD" dim="0" readonly="true">
 <name>MM_USER_MEM_DYNAMIC</name>
-<brief>ungepufferter Anwenderspeicher [kB]</brief>
+<brief>Ungepufferter Anwenderspeicher [kB]</brief>
 <description>Der in NCK verfügbare ungepufferte (volatile) Speicher.
 Mit MD18210 $MN_MM_USER_MEM_DYNAMIC wird die Größe des dem Anwender zur Verfügung stehenden ungepufferten Speichers sichtbar gemacht.
 In diesem Speicherbereich liegen verschiedene Arten von Anwenderdaten wie z.B.
@@ -7601,7 +7634,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="18230" type="DWORD" dim="0" readonly="true">
 <name>MM_USER_MEM_BUFFERED</name>
-<brief>gepufferter Anwenderspeicher</brief>
+<brief>Gepufferter Anwenderspeicher</brief>
 <description>Gepufferter (persistenter) Anwenderspeicher [kB].
 In diesem Speicherbereich liegen verschiedene Arten von Anwenderdaten
 z.B.:
@@ -7876,12 +7909,13 @@ Korrespondiert mit:
 <brief>Anzahl der System-Files</brief>
 <description>Index 0: Anzahl der temporären System-Dateien im passiven Filesystem (siehe auch MD18355 $MN_MM_T_FILE_MEM_SIZE);
          z.B.: Systemtraces
-Index 1: Anzahl der temporären Siemens-Zyklen im passiven Filesystem (siehe auch MD18354 $MN_MM_S_FILE_MEM_SIZE);
+Index 1: Anzahl der temporären Siemens-Zyklen im passiven Filesystem (siehe auch MD18354 $MN_MM_S_FILE_MEM_SIZE).
+         Das Datum kann zwar beschrieben werden, wird aber im Hochlauf mit dem von den Siemens-Zyklen angeforderten Wert überschrieben.
 </description>
 </parameter>
 <parameter number="18342" type="DWORD" dim="1">
 <name>MM_CEC_MAX_POINTS</name>
-<brief>maximale Anzahl der Stützpunkte bei Durchhangkompensation (SRAM)</brief>
+<brief>Maximale Anzahl der Stützpunkte bei Durchhangkompensation (SRAM)</brief>
 <description>Das MD bestimmt den Speicherplatz, der für Kompensationstabellen verfügbar ist.
 
 Bei MD18342 $MN_MM_CEC_MAX_POINTS = 0 wird kein Speicher für die Tabelle angelegt und damit ist die Funktion Durchhangkompensation nicht nutzbar.
@@ -7946,19 +7980,19 @@ Index 2 = reserviert
 </parameter>
 <parameter number="18354" type="DWORD" dim="1">
 <name>MM_S_FILE_MEM_SIZE</name>
-<brief>Index 0: Speichergröße für Zyklen/Dateien des NC-Herstellers</brief>
+<brief>Größe des Siemens-Zyklenprogrammspeichers</brief>
 <description>Speicher für Dateien des Steuerungsherstellers im passiven Filesystem ( in kB )
 
 In diesem Speicherbereich des passiven Filesystems liegen die Dateien des Steuerungsherstellers, z.B.: Zyklenprogramme, Systemdateien
 
 Die einstellbaren Werte hängen von der Hard- und Software-Konfiguration ab.
 Die einstellbare Größe des Speichers wird außer dem oberen Grenzwert
-für den Index = 0 durch die Größe des  verfügbaren gepufferten Speichers begrenzt.
-md="18230"&gt;siehe MD18230 $MN_MM_USER_MEM_BUFFERED begrenzt.
+für den Index = 0 durch die Größe des verfügbaren gepufferten Speichers (siehe MD18230 $MN_MM_USER_MEM_BUFFERED) begrenzt,
+für den Index = 1 durch die Größe des verfügbaren ungepufferten Speichers (siehe MD18210 $MN_MM_USER_MEM_DYNAMIC) begrenzt,
 für den Index = 2 durch die Größe des intern verfügbaren gepufferten (SRAM) Speichers begrenzt.
 
 Index 0 = Größe des gepufferten Zyklenprogrammspeichers
-Index 1 = Größe des ungepufferten Zyklenprogrammspeichers
+Index 1 = Größe des ungepufferten Siemens-Zyklenprogrammspeichers; das Datum kann zwar beschrieben werden, wird aber im Hochlauf mit dem von den Siemens-Zyklen angeforderten Wert überschrieben.
 Index 2 = Größe des gepufferten Speichers für Systemdateien im SRAM. Z.Bsp. Ablageort der NRK Fault-Datei.
 </description>
 </parameter>
@@ -8225,7 +8259,7 @@ Mit diesem MD wird die Anzahl der Polynome für Kurventabellen im dynamischen Spe
 </parameter>
 <parameter number="18450" type="DWORD" dim="0">
 <name>MM_NUM_CP_MODULES</name>
-<brief>max. Anz. der CP-Module</brief>
+<brief>Max. Anz. der CP-Module</brief>
 <description>Anzahl der NCK-weit verfügbaren CP-Koppelmodule
 
 Das MD definiert die max. zulässige Anzahl von CP-Kopplungen und reserviert den erforderlichen dynamischen Speicher (DRAM).
@@ -8333,6 +8367,14 @@ Der Wert entspricht der Anzahl der Feldelemente für das vordefinierte Feld $P_GF
 Ist der Wert des Datums größer 0, dann sind alle einstellbaren Frames nur global. Das MD28079 $MC_MM_NUM_G_FRAMES wird dann ignoriert.
 </description>
 </parameter>
+<parameter number="18604" type="DWORD" dim="0">
+<name>MM_GFRAME_FINE_TRANS</name>
+<brief>Feinverschiebung bei Grinding Frames</brief>
+<description>Steuert das Schreibrecht bzgl. der Feinverschiebung für alle Grinding Frames. Hierbei bedeutet
+0:	Das Beschreiben der Feinverschiebung für ein Grinding Frame ist weder über Bedienung noch über Programm möglich.
+1:	Das Beschreiben der Feinverschiebung für ein Grinding Frame ist über Bedienung oder Programm (abhängig von MD18600 $MC_MM_FRAME_FINE_TRANS) möglich.
+</description>
+</parameter>
 <parameter number="18660" type="DWORD" dim="1">
 <name>MM_NUM_SYNACT_GUD_REAL</name>
 <brief>Anzahl der projektierbaren GUD Variablen vom Typ Real</brief>
@@ -8423,7 +8465,7 @@ die Parameter können sowohl vom Teileprogramm als auch über Synchronaktionen gel
 </parameter>
 <parameter number="18664" type="DWORD" dim="1">
 <name>MM_NUM_SYNACT_GUD_CHAR</name>
-<brief>projektierbare GUD Variable Typ Char</brief>
+<brief>Projektierbare GUD Variable Typ Char</brief>
 <description>Mit dem MD18664 $MN_MM_NUM_SYNACT_GUD_CHAR[ ] können die
 einzelnen GUD  Bausteine um zusätzliche kanalspezifische
 Parameterbereiche vom Typ Char erweitert werden. Die Unterscheidung
@@ -8449,7 +8491,7 @@ Synchronaktionen gelesen und geschrieben werden.
 </parameter>
 <parameter number="18665" type="DWORD" dim="1">
 <name>MM_NUM_SYNACT_GUD_STRING</name>
-<brief>projektierbare GUD Variable Typ STRING</brief>
+<brief>Projektierbare GUD Variable Typ STRING</brief>
 <description>Mit dem MD18665 $MN_MM_NUM_SYNACT_GUD_STRING[ ] können die
 einzelnen GUD  Bausteine um zusätzliche kanalspezifische
 Parameterbereiche vom Typ STRING erweitert werden. Die Unterscheidung

@@ -25,6 +25,9 @@
 Bit 0: Werkzeugvoranwahl aktiv
 Bit 1: Gewindetiefe aus metrischer Gewindesteigung berechnen
 Bit 2: Gewindedurchm. und -tiefe aus Tabelle übernehmen
+Bit 3: Von Konturzyklen (CYCLE63, CYCLE64, CYCLE952) generierte Programme löschen
+          0: generierte Programme werden nicht gelöscht (Kompatibilität, wie bisher)
+          1: generierte Programme werden sofort nach Abarbeitung vom aufrufenden Zyklus wieder gelöscht
 </description>
 </parameter>
 <parameter number="55214" type="DWORD" dim="0" display="HEX">
@@ -33,6 +36,7 @@ Bit 2: Gewindedurchm. und -tiefe aus Tabelle übernehmen
 <description>Funktionsmaske Fräsen
 Bit 0: Grundeinstellung Fräszyklen im Gleichlauf
 Bit 2: Tiefenberech. Fräszyklen ohne Parameter SC
+Bit 3: Wirbelfräsen Inseln zuerst umrunden
 </description>
 </parameter>
 <parameter number="55216" type="DWORD" dim="0" display="HEX">
@@ -40,7 +44,7 @@ Bit 2: Tiefenberech. Fräszyklen ohne Parameter SC
 <brief>Funktionsmaske Bohren</brief>
 <description>Funktionsmaske Bohren
 Bit 1:    Ausdrehen CYCLE86: Drehung der Werkzeugebene beim Positionieren der Spindel berücksichtigen
-Bit 2:    Ausdrehen CYCLE86: Beim Positionieren der Spindel geschwenkte Tischkinematiken berücksichtigen (Werkzeugträger)
+Bit 2:    Ausdrehen CYCLE86: Beim Positionieren der Spindel geschwenkte Tischkinematiken berücksichtigen (Toolcarrier)
 Bit 3:    Gewindebohren CYCLE84: Überwachung Maschinendaten 31050 und 31060 der Spindel
 Bit 4:    Gewindebohren CYCLE840: Überwachung Maschinendaten 31050 und 31060 der Spindel
 Bit 6:    Ausdrehen CYCLE86: Spindelposition an Orientierung des Werkzeugs anpassen
@@ -59,6 +63,10 @@ Bit 0: Neue Gewindetabelle beim Gewindedrehen
 Bit 1:	reserviert (CYCLE93)
 Bit 2:	reserviert (CYCLE93)
 Bit 3: Fasen im CYCLE930 als Fasenlänge (CHF)
+Bit 4: Rückzug aus der Innenbearbeitung (CYCLE951)
+          0: Kompatibilität, wie bisher
+             Wenn im Zyklus ein notwendiges Nachziehen an der Ecke erkannt wird, erfolgt ein Rückzug des Werkzeuges aus der Innenbearbeitung, sonst nicht.
+          1: Es wird generell in der Schnittachse aus der Innenbearbeitung zurückgezogen.
 </description>
 </parameter>
 <parameter number="55220" type="DWORD" dim="0" display="HEX">
@@ -76,6 +84,15 @@ Der Faktor für die Berechnung der Orientierungstoleranz ist in folgenden Setting
 $SCS_MILL_TOL_FACTOR_ROUGH für die Bearbeitungsart Schruppen G-Gruppe 59 DYNROUGH
 $SCS_MILL_TOL_FACTOR_SEMIFIN für die Bearbeitungsart Vorschlichten G-Gruppe 59 DYNSEMIFIN
 $SCS_MILL_TOL_FACTOR_FINISH für die Bearbeitungsart Schlichten G-Gruppe 59 DYNFINISH
+Bit 2: Formenbaufunktion in Maske High Speed Settings auswählbar
+=0: Es wird automatisch die beste zur Verfügung stehende Formenbaufunktion verwendet
+- Option Top Surface nicht aktiv -&gt; Advanced Surface
+- Option Top Surface aktiv -&gt; Top Surface
+=1: In der Maske kann die Formenbaufunktion (Advanced Surface oder Top Surface) gewählt werden (nur wenn die Option Top Surface aktiv ist)
+Bit 3: Maske High Speed Settings ohne Option Advanced Surface
+=0: Die Maske High Speed Settings wird nur mit der Option Advanced Surface angeboten
+=1: Die Maske High Speed Settings wird auch ohne die Option Advanced Surface angeboten
+
 </description>
 </parameter>
 <parameter number="55221" type="DWORD" dim="0" display="HEX">
@@ -133,6 +150,22 @@ Zuordnung des Schwenkdatensatzes zum Werkzeug erfolgt durch SGUD _TC_GNO,
 wenn Technologie im MD52200 $MCS_TECHNOLOGY =3 Rundschleifen eingestellt ist
 Beispiel:
 _TC_GNO kann vom Maschinenhersteller im Werkzeugwechselprogramm L6 geschrieben werden
+Bit 10: Schwenken Ebene: Eingabefeld "Positionierrichtung" einblenden
+=0: Das Eingabefeld "Positionierrichtung" wird nicht angezeigt.
+=1: Das Eingabefeld "Positionierrichtung" wird bei Schwenktischen und Schwenkkopf/-tisch Kombinationen angezeigt.
+Bit 11: Positionieren beider Lösungen einer AB-Kinematik
+=0 Kompatibilität. Positionieren nur einer Lösung bei bestimmten Schwenkwinkeln
+=1 Positionieren beider vom NCK berechneten Lösungen
+Bit11 sollte bei Kinematiken =1 gesetzt werden, bei denen sich, in Grundstellung der Kinematik,
+keine der beiden Rundachsen um die Werkzeugachse dreht (AB-Kinematik mit Werkzeugachse in Z-Richtung)
+Bit 12: Schwenken Ebene, Ausrichten Wz: Resetverhalten unter Berücksichtigung der Rundachsenpositionen
+=0 Kompatibilität. Resetzustand bezieht sich auf die Endposition der Rundachsen des Schwenkdatensatzes
+=1 Resetzustand bezieht sich auf die aktuelle Position der Rundachsen des Schwenkdatensatzes
+Bei Bit12=0 werden in den Parametern $TC_CARR21/22 eine Linearachsbezeichner geschrieben.
+Damit wird bei Reset (TCOABS) der Werkzeugträger mit den Endpositionen der Rundachsen ($TC_CARR13/14) initialisiert.
+Bei Bit12=1 werden in den Parametern $TC_CARR21/22 die Namen der Rundachsen des Schwenkdatensatzes geschrieben.
+Damit wird bei Reset (TCOABS) der Werkzeugträger mit den Istwerten der Rundachsen initialisiert.
+
 
 </description>
 </parameter>
@@ -222,6 +255,16 @@ Statt dessen wird fest der Wert dieses Settingdatums verwendet.
 
 </description>
 </parameter>
+<parameter number="55400" type="DOUBLE" dim="0" display="DECIMAL">
+<name>MILL_ENGRAVE_POINT_RAD</name>
+<brief>Gravurzyklus CYCLE60: Kreisbahnradius zur Erzeugung des Zeichens "Punkt"</brief>
+<description>Eingabewert gleich Null: Das Zeichen "Punkt" wird durch eine einfache lineare Eintauchbewegung des Werkzeuges realisiert
+(Standardeinstellung für konventionelle Gravierwerkzeuge, Kompatibilität).
+Eingabewert größer Null: Das Zeichen "Punkt" wird als Kreis mit dem Radiuswert aus diesem Settingdatum ausgeführt
+(Einstellung für bestimmte Spezialwerkzeuge).
+
+</description>
+</parameter>
 <parameter number="55405" type="STRING" dim="1">
 <name>MILL_TRAORI_USERCYCLE_NAME</name>
 <brief>Programmname 5 Achs-Herstellerzyklus bei Aufruf  Zyklus High Speed Settings</brief>
@@ -230,11 +273,12 @@ Statt dessen wird fest der Wert dieses Settingdatums verwendet.
 </parameter>
 <parameter number="55410" type="DWORD" dim="0" display="HEX">
 <name>MILL_SWIVEL_ALARM_MASK</name>
-<brief>Aus- und Einblenden von Zyklenalarmen für CYCLE800</brief>
-<description>Anzeige von Zyklenalarmen im CYCLE800
+<brief>Aus- und Einblenden von Zyklenalarmen</brief>
+<description>Anzeige von Zyklenalarmen CYCLE800, CYCLE996, CYCLE9960
 Bit 0: Alarm 62186 anzeigen: aktive Nullpunktverschiebung  G54 ff. und Basis (Basisbezug) enthalten Drehungen
-Bit 1: Alarm 62187 anzeigen: aktive Basis und Basisbezug  (G500) enthalten Drehungen
+Bit 1: Alarm 62187 anzeigen: aktive Basis und Basisbezug (G500) enthalten Drehungen
 Bit 2: Alarm 61148 anzeigen: Schwenken Ebene mit aktivem Drehwerkzeug nicht möglich
+Bit 3: Alarm 61426 anzeigen: Vermessen Kinematik mit CYCLE9960/996. 1 = Alarm 61426 nicht anzeigen
 
 </description>
 </parameter>
@@ -647,6 +691,13 @@ Vorschub für das Kalibrieren eines Werkstückmesstasters in Automatik und JOG
 
 </description>
 </parameter>
+<parameter number="55631" type="DOUBLE" dim="0">
+<name>MEA_FEED_MEASURE_DEG</name>
+<brief>Messvorschub des Werkstückmesstasters beim Positionieren einer Rundachse</brief>
+<description>Messvorschub des Werkstückmesstasters beim Positionieren einer Rundachse
+
+</description>
+</parameter>
 <parameter number="55632" type="DOUBLE" dim="0">
 <name>MEA_FEED_RAPID_IN_PERCENT</name>
 <brief>Eilgangsgeschwindigkeit in Prozent, für Zwischenpositionierungen</brief>
@@ -676,14 +727,14 @@ Entsprechend dieser Einstellung werden unterschiedliche Geschwindigkeiten zum An
 <name>MEA_FEED_PLANE_VALUE</name>
 <brief>Verfahrgeschwindigkeit für die Zwischenpositionierung  in der Ebene</brief>
 <description>MEA_FEED_MEASURE
-Messvorschub Werkstück messen in Automatik und JOG
+Verfahrgeschwindigkeit für die Zwischenpositionierung  in der Ebene (in Automatik und JOG)
 
 </description>
 </parameter>
 <parameter number="55636" type="DOUBLE" dim="0">
 <name>MEA_FEED_FEEDAX_VALUE</name>
 <brief>Positioniergeschwindigkeit in der Zustellachse</brief>
-<description>Verfahrgeschwindigkeiten für die Zwischenpositionierung im Messzyklus in der Zustellachse, mit ohne Kollisionsüberwachung
+<description>Verfahrgeschwindigkeiten für die Zwischenpositionierung im Messzyklus in der Zustellachse, mit oder ohne Kollisionsüberwachung
 
 Hinweis:
 Den Wert der Geschwindigkeit in der Zustellachse gegebenenfalls an  den eingesetzten Messtastertyp und die
@@ -703,6 +754,13 @@ Entsprechend dieser Einstellung werden unterschiedliche Geschwindigkeiten zum An
 	Bei SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=0 und SD55632 $SCS_MEA_FEED_RAPID_IN_PERCENT=100 wirkt die maximale Achsgeschwindigkeit.
 </description>
 </parameter>
+<parameter number="55637" type="DOUBLE" dim="0">
+<name>MEA_FEED_POS_DEG</name>
+<brief>Vorschub  beim Positionieren einer Rundachse zwischen einzelnen Messungen</brief>
+<description>Vorschub  beim Positionieren einer Rundachse zwischen einzelnen Messungen
+
+</description>
+</parameter>
 <parameter number="55638" type="DOUBLE" dim="0">
 <name>MEA_FEED_FAST_MEASURE</name>
 <brief>Schneller Messvorschub</brief>
@@ -716,15 +774,15 @@ Die Anwendung des "schnellen Messvorschub" ist vom SD55740 $SCS_MEA_FUNCTION_MAS
 </parameter>
 <parameter number="55640" type="DOUBLE" dim="0">
 <name>MEA_FEED_CIRCLE</name>
-<brief>Kreisvorschub beim Messen Kreissegment</brief>
+<brief>Kreisvorschub beim Messen Kreissegment und Messen Kugel /3 Kugeln</brief>
 <description>MEA_FEED_CIRCLE
-Kreisvorschub beim Messen Kreissegment
+Kreisvorschub beim Messen Kreissegment und Messen Kugel /3 Kugeln
 
 </description>
 </parameter>
 <parameter number="55642" type="DOUBLE" dim="0">
 <name>MEA_EDGE_SAVE_ANG</name>
-<brief>zusätzlicher sicherer Winkel bei Messen Ecke</brief>
+<brief>Zusätzlicher sicherer Winkel bei Messen Ecke</brief>
 <description>Bei Kompatibilitätsprogrammen $SCS_MEA_EDGE_SAVE_ANG=10 einstellen.
 Der eingestellte Winkel wird als Sicherheitswinkel zum Messwinkel addiert.
 
@@ -747,13 +805,13 @@ der Kalibrierkugel innerhalb des Toleranzwertes im $SCS_MEA_KIN_DM_TOL liegt.
 <brief>Freie Komponente des Linearvektor</brief>
 <description>Freie Komponente des Linearvektor
   0 = alle Komponenten des Linearvektors berechnen
-  1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
-  2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
-  3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE[0/1] übernehmen
+  1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE übernehmen
+  2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE übernehmen
+  3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE übernehmen
   4 = freie Komponente für X aus aktiver Trafo beibehalten
   5 = freie Komponente für Y aus aktiver Trafo beibehalten
   6 = freie Komponente für Z aus aktiver Trafo beibehalten
-  10 = Vektorkette schließen
+  10 = Vektorkette schließen (nur bei Toolcarrier)
 
 </description>
 </parameter>
@@ -761,13 +819,33 @@ der Kalibrierkugel innerhalb des Toleranzwertes im $SCS_MEA_KIN_DM_TOL liegt.
 <name>MEA_KIN_VALUE</name>
 <brief>Kinematik komplett vermessen: Wert des Linearvektors</brief>
 <description>Kinematik komplett vermessen: Wert des Linearvektors
+SD55646[0] Wert für Rundachse 1
+SD55646[1] Wert für Rundachse 2
+siehe SD55645
 
 </description>
 </parameter>
 <parameter number="55647" type="DOUBLE" dim="0">
 <name>MEA_KIN_MIN_ANG_TRIANGLE</name>
 <brief>Minimaler Innenwinkel des Messdreiecks</brief>
-<description>Minimaler Innenwinkel des Messdreiecks
+<description>Kinematik komplett vermessen
+Minimaler Innenwinkel des Messdreiecks
+Wertebereich 2 bis 60 Grad
+
+</description>
+</parameter>
+<parameter number="55648" type="DOUBLE" dim="0">
+<name>MEA_KIN_MIN_ANG_POS</name>
+<brief>Minimaler Winkel beim Positionieren einer Rundachse</brief>
+<description>Kinematik komplett vermessen
+Minimaler Winkel beim Positionieren einer Rundachse zwischen den einzelnen Messungen
+
+</description>
+</parameter>
+<parameter number="55649" type="DOUBLE" dim="1" display="DECIMAL">
+<name>MEA_KIN_BALL_VEC</name>
+<brief>Kinematik komplett vermessen: Vektor der Kugelhalterung</brief>
+<description>Kinematik komplett vermessen: Vektor der Kugelhalterung
 
 </description>
 </parameter>
@@ -855,11 +933,22 @@ Bit 8: Kinematik vermessen, Messen mit aktivem Schwenken (TCARR) oder aktivem TR
 	             Beim Messen bleibt die entsprechende Orientierungstransformation aktiv.
 	             Ist keine Orientierungstransformation aktiv wird der Alarm 61167 ausgegeben.
 
-Bit 9: Anwenderspezifische Normierung der Rundachsvektoren V1xyz und V2xyz
+Bit 9: Kinematik vermessen, anwenderspezifische Normierung der Rundachsvektoren V1xyz und V2xyz
 	            0: Normierung der Rundachsvektoren V1xyz und V2xyz als Einheitsvektor
 	            1: anwenderspezifische Normierung der Rundachsvektoren V1xyz und V2xyz
 	             Bei der anwenderspezifische Normierung ist eine Vektorkomponente immer 1 oder -1.
 	             Die beiden restlichen Vektorkomponenten werden mit einem Faktor entsprechend umgerechnet.
+
+Bit 10: Kinematik komplett vermessen mit Referenzbezug
+	            0: Vermessen ohne Referenzbezug (Kompatibilät)
+	            1: Vermessen mit Referenzbezug bei Schwenkköpfen
+	             Der Referenzbezug beinhaltet die Funktionen "Referenzkopf vermessen"
+	             und "Kopf an Referenzkopf anpassen". siehe CYCLE9960
+
+Bit 11: Kinematik vermessen, Anzahl der Messpunkte bei Messen der Kalbrierkugel
+	            0: 10 Messpunkte bei Messen auf Kreisbahn (Kompatibilät)
+	            1:  8 Messpunkte bei Messen auf Kreisbahn
+	             Beim Messen achsparallel werden immer 10 Messpunkte angefahren
 
 Bit 15: Werkstückmessen, Kalibrieren Radius mit Startpunkt in Ringmitte, BA JOG
           	0: Der Startpunkt für Kalibrieren Radius muss nicht exakt in der Mitte des Kalibrierringes liegen.
@@ -1008,7 +1097,7 @@ Kreisradius zur Optimierung der Reibkompensation
 </parameter>
 <parameter number="55826" type="DWORD" dim="0" display="DECIMAL">
 <name>FRICT_OPT_ACT_STEP</name>
-<brief>aktuelle Schrittnummer bei Optimierung der Reibkompensation</brief>
+<brief>Aktuelle Schrittnummer bei Optimierung der Reibkompensation</brief>
 <description>Zeigt die aktuelle Schrittnummer bei Optimierung der Reibkompensation an
 </description>
 </parameter>
@@ -1040,6 +1129,17 @@ Kreisradius zur Optimierung der Reibkompensation
 <name>GRIND_FUNCTION_MASK</name>
 <brief>Funktionsmaske Schleifzyklen</brief>
 <description>Funktionsmaske Schleifzyklen
+
+</description>
+</parameter>
+<parameter number="55844" type="DOUBLE" dim="0" display="DECIMAL">
+<name>GRIND_MEA_KIN_TOL</name>
+<brief>Kinematik vermessen: Toleranz der Kinematikvektoren</brief>
+<description>Kinematik vermessen: Toleranz der Kinematikvektoren
+Beim Kinematik vermessen (CYCLE496) wird geprüft ob die gemessenen Vektoren
+innerhalb des Toleranzwertes vom Settingdatum $SCS_GRIND_MEA_KIN_TOL liegen.
+
+
 
 </description>
 </parameter>
