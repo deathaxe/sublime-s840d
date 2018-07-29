@@ -189,10 +189,10 @@ contexts:
       scope: entity.name.function.s840d_gcode
       set:
         - meta_content_scope: meta.function.name.s840d_gcode
+        - match: (?!.*\()
+          set: stmt-proc-attributes
         - match: (?=\()
           set: stmt-proc-parameters
-        - match: (?={{proc_attr}})
-          set: stmt-proc-attributes
         - include: line-end-or-illegal
     - include: line-end-or-illegal
 
