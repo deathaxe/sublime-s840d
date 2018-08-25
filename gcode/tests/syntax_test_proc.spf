@@ -85,9 +85,9 @@ N40 PROC name (VAR REAL DATA = -1.0) SBLOF DISPLOF ; comment
 
 ; valid procedure definition with attributes
 N50 PROC name SBLOF ACTBLOCNO ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
-;       ^^^^^^ meta.function.name
-;             ^^^^^^^^^^^^^^^ meta.function.attributes
+;   ^^^^ meta.function - meta.function.name
+;       ^^^^^ meta.function.name - meta.function.attributes
+;            ^^^^^^^^^^^^^^^^ meta.function.attributes - meta.function.name
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
@@ -97,8 +97,9 @@ N50 PROC name SBLOF ACTBLOCNO ; comment
 
 ; invalid procedure attribute used
 N70 PROC name FOOBAR ; comment
-;   ^^^^^^^^^^^^^^^^ meta.function
-;       ^^^^^^^^^^^^ meta.function.name
+;   ^^^^ meta.function - meta.function.name
+;       ^^^^^ meta.function.name - meta.function.attributes
+;            ^^^^^^^^ meta.function.attributes - meta.function.name
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
@@ -107,9 +108,9 @@ N70 PROC name FOOBAR ; comment
 
 ; invalid procedure attribute used
 N70 PROC name SBLOF FOOBAR DISPLOF ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
-;       ^^^^^^ meta.function.name
-;             ^^^^^^^^^^^^^^^^^^^^ meta.function.attributes
+;   ^^^^ meta.function - meta.function.name
+;       ^^^^^ meta.function.name - meta.function.attributes
+;            ^^^^^^^^^^^^^^^^^^^^^ meta.function.attributes - meta.function.name
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
@@ -121,13 +122,12 @@ N70 PROC name SBLOF FOOBAR DISPLOF ; comment
 ; procedure attribute must finalize a block
 N80 PROC name SBLOF (VAR BOOL DATA) ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
-;       ^^^^^^ meta.function.name
-;             ^^^^^^^^^^^^^^^^^^^^^ meta.function.attributes
+;       ^^^^^^^^^^^^ meta.function.name
+;                   ^^^^^^^^^^^^^^^ meta.function.parameters
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^ entity.name.function
-;             ^ storage.modifier
-;                   ^^^^^^^^^^^^^^ invalid.illegal
+;             ^^^^^ invalid.illegal
 ;                                   ^ comment.line
 
 N90 PROC name invalid (VAR BOOL - DATA) ; comment
