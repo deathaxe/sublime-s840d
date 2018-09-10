@@ -531,11 +531,12 @@ contexts:
     - include: iso-operands
     - include: iso-commands
     - include: nc-function-call
-    - include: operators-arithmetic # don't match as cycle
-    - include: operators-logical    # don't match as cycle
-    - include: booleans             # don't match as cycle
-    - include: axis-constants       # don't match as cycle
-    - include: illegal-keywords     # don't match as cycle
+    # don't match the following tokens as cycle
+    - include: operators-arithmetic
+    - include: operators-logical
+    - include: booleans
+    - include: axis-constants
+    - include: illegal-keywords
     # A single identifier in a line is matched as a custom procedure call
     # (unknown subprogram) if it does not match any known keyword or function.
     - match: '{{cycle}}(?=[ \t]*(?:$|[;\w\(]))'
@@ -762,25 +763,25 @@ contexts:
     # XC2.8 | XC 2.8 | XC+2.8 | XC-2.8 | XC=2.8 | XC.8 | XC .8
     # machine axes: X1/Y1/Z1/...
     # X2=2.8 | X2=+2.8 | X2=-2.8
-    - match: '(?x)
-              {{axis}}
+    - match: |-
+        (?x:
+          {{axis}}
+          (?:
+            \d+
               (?:
-                \d+
-                  (?:
-                    [ \t]+(?=[\.\d]) |
-                    [ \t]*(?=[-+=\[\(])
-                  ) |
-                [ \t]*(?=[-+=\.\d])
-              )'
+                [ \t]+(?=[\.\d]) |
+                [ \t]*(?=[-+=\[\(])
+              ) |
+            [ \t]*(?=[-+=\.\d])
+          )
+        )
       scope: support.variable.iso.position.s840d_gcode
       push: iso-value-float
     # parameter adresses ending with letters: F FA S ...
     # F2200.5 | F 2200.5 | F=2200.5 | F = 2200.5 | F.2205 | F .2205
     # parameter adresses ending with digit: F2 S2 ...
     # F2=2200.5 | F2 = 2200.5
-    - match: '(?x)
-              [FIJKOS]
-              (?:\d+(?=[ \t]*=)|(?=[ \t]*[-+=\.\d]))'
+    - match: '[FIJKOS](?:\d+(?=\s*=)|(?=\s*[-+=\.\d]))'
       scope: support.variable.iso.operand.s840d_gcode
       push: iso-value-float
     # M-function:   M2
