@@ -1406,7 +1406,7 @@ contexts:
     - include: scope-end
 
   axis-variables:
-    - match: '{{axis}}\d*\b'
+    - match: \b{{axis}}\d*\b
       scope: support.variable.axis.s840d_gcode
       push: array-index
     - match: S\d*\b
