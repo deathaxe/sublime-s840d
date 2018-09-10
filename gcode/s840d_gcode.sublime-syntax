@@ -41,13 +41,13 @@ variables:
   # loating point values
   float: (?:\d+\.?\d*|\.\d+)(?:EX[-+]?\d{1,3})?
   # normal identifiers start with 2 letters or '_' optinally followed by :alnum:
-  ident: '\b[A-Za-z_]{2}\w*\b'
-  # macro names start with letter or '_' optinally followed by :alnum:
-  macro: '\b[A-Za-z_]\w+\b'
-  # labels must start with 2 letters or '_' optinally followed by :alnum:
-  label: '[A-Za-z_]{2}\w*\b'
+  ident: \b[A-Za-z_]{2}[0-9A-Za-z_]*\b
+  # macro names start with letter or '_' optionally followed by :alnum:
+  macro: \b[A-Za-z_][0-9A-Za-z_]+\b
+  # labels must start with 2 letters or '_' optionally followed by :alnum:
+  label: \b[A-Za-z_]{2}[0-9A-Za-z_]*\b
   # cycle names or ISO cylce L0815
-  cycle: (?:[A-Za-z][A-Za-z_]\w*|L\d+)\b
+  cycle: (?:[A-Za-z][A-Za-z_][0-9A-Za-z_]*|L\d+)\b
   # procedure attributes
   proc_attr: (?i:ACTBLOCNO|DISPLO[NF]|ICYCO[FN]|IPTRLOCK|IPTRUNLOCK|PREPRO|SAVE|SBLO[FN])\b
 
@@ -60,7 +60,7 @@ contexts:
   main:
     - include: iso-blockno
     - include: comment-disabled
-    - match: (\w+)(:)|(?=\S)
+    - match: ({{label}})(:)|(?=\S)
       captures:
         1: entity.name.tag.label.s840d_gcode
         2: punctuation.terminator.tag.label.s840d_gcode
@@ -77,7 +77,7 @@ contexts:
   main-sublevel:
     - include: iso-blockno
     - include: comment-disabled
-    - match: (\w+)(:)|(?=\S)
+    - match: ({{label}})(:)|(?=\S)
       captures:
         1: entity.name.tag.label.s840d_gcode
         2: punctuation.terminator.tag.label.s840d_gcode
@@ -476,7 +476,7 @@ contexts:
       set:
         - meta_content_scope: meta.function-call.name.s840d_gcode
         # absolute path to cycle
-        - match: (?:/*\w+:)?/[/\w]+\b
+        - match: (?:/*[0-9A-Za-z_]+:)?/[0-9A-Za-z_/]+\b
           scope: string.unquoted.path.s840d_gcode
           set: cycle-call-arguments
         - match: '{{cycle}}'
@@ -1464,7 +1464,7 @@ contexts:
           set: array-index
 
         # unknown NC-Variable
-        - match: \$?\w*\b
+        - match: \$?[0-9A-Za-z_]*\b
           scope: support.variable.nck.unknown.s840d_gcode invalid.illegal.s840d_gcode
           set: array-index
 
