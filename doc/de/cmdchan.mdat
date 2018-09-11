@@ -85,6 +85,7 @@ Ist der Wert des Datums größer 0, wird das MD51032 $MNS_STAT_DISPLAY_BASE für di
 02: Darstellung als binärer Wert
 10: Darstellung als dezimaler Wert
 16: Darstellung als hexadezimaler Wert
+Das Maschinendatum aktiviert sowohl die Anzeige STAT kanalspezifisch im Grundbild als auch die Anzeige bei "TEACH IN".
 
 </description>
 </parameter>
@@ -97,6 +98,7 @@ Ist der Wert des Datums größer 0, wird das MD51033 $MNS_TU_DISPLAY_BASE für dies
 02: Darstellung als binärer Wert
 10: Darstellung als dezimaler Wert
 16: Darstellung als hexadezimaler Wert
+Das Maschinendatum aktiviert sowohl die Anzeige TU kanalspezifisch im Grundbild als auch die Anzeige bei "TEACH IN".
 </description>
 </parameter>
 <parameter number="52200" type="BYTE" dim="0" display="DECIMAL">
@@ -182,6 +184,7 @@ Bit 11: Rotationsachse dreht um 2. Geoachse (nur für Positionsmuster)
 Bit 12: Rotationsachse dreht um 3. Geoachse (nur für Positionsmuster)
 Bit 13: Position der Achse bei Rohteilauswahl aus aktiver NPV (bei Rotationsachsen)
             Hiermit kann eine aufbaubare Rundachse bei Simulation/Mitzeichnen automatisch an der richtigen Position dargestellt werden.
+Bit 14: Spindel im Achsbetrieb für Teach-In freischalten
 
 Anmerkung:
 Bei den Bits 0 - 2 bzw. 10 - 12 wirkt jeweils nur das 1. gesetzte Bit.
@@ -254,9 +257,9 @@ Bit 24: Überlagerung $AA_TOFF anzeigen
 Bit 0:	Freigabe Schwenken Ebene/Ausrichten Werkzeug mit Toolcarrier
 	0: Schwenken Ebene/Ausrichten Werkzeug mit Toolcarrier nicht freigegeben
 	1: Schwenken Ebene/Ausrichten Werkzeug mit Toolcarrier freigegeben
-Bit 1:	Optimiertes Fahren entlang Software-Endschaltern (ShopMill/ShopTurn)
-	0: Kein optimiertes Fahren entlang Software-Endschaltern
-	1: Optimiertes Fahren entlang Software-Endschaltern
+Bit 1:	Kein optimiertes Fahren entlang Software-Endschaltern (ShopMill/ShopTurn)
+	0: Optimiertes Fahren entlang Software-Endschaltern
+	1: Kein optimiertes Fahren entlang Software-Endschaltern
 	Beim optimierten Fahren entlang der Software-Endschalter werden im geschwenkten Zustand (bei Tischkinematiken) ggf. Verfahrbewegungen, die über die
 	Software-Endschalter hinausgehen würden, abgeschnitten. Hierdurch wird der Alarm 10720 "Achse Sofwareendschalter" vermieden.
 Bit 2: 	Spezielle Anfahrlogik für Stufenbohrer (ShopTurn)
@@ -297,18 +300,24 @@ Bit 11:	Lagen-Check für Bohr- und Fräs- Werkzeuge abschalten(ShopTurn)
 	0: Schneidenlagen-Check, für Bohr- und Fräswerkzeuge ist aktiv
 	1: Kein Schneidenlagen-Check, für Bohr- und Fräswerkzeuge
 	Der Check der Schneidenlage kann für Bohr- und Fräswerkzeuge abgeschaltet werden, wenn dies aufgrund des Maschinenaufbaus erforderlich ist.
-Bit 12:	Alarm bei positiver Z-Verschiebung (ShopTurn)
-	0: kein Alarm bei positiver Z-Verschiebung
-	1: Alarm bei positiver Z-Verschiebung
-	Bei einer positiven Z-Verschiebung (TRANS) wird der Alarm 62201 "Z-Verschiebung wirkt nicht auf die Rückzugsebenen!" ausgegeben.
-	Die positive Z-Verschiebung kann gefährlich sein, wenn hierdurch die Bearbeitungsposition aus dem Rückzugsbereich geschoben wird, da dies zu Kollisionen beim An- oder
-	Abfahren führen kann.
+Bit 12:	reserviert
 Bit 13:	Werkzeugwechselpunkt Y im MKS anfahren (ShopTurn)
 	0: Der Werkzeugwechselpunkt wird in Y-Richtung im WKS auf 0 angefahren (gilt nur, wenn das MD52241 $MCS_TOOL_CHANGE_POS_Y = 0 ist).
 	1: Der Werkzeugwechselpunkt wird in Y-Richtung immer im MKS angefahren (siehe MD52241 $MCS_TOOL_CHANGE_POS_Y).
 Bit 14: Bei Anfahrlogik Werkzeugposition nur mit Schneide prüfen (ShopTurn)
 	0: Die Anfahrlogik prüft die Werkzeugposition immer.
 	1: Die Anfahrlogik prüft die Werkzeugposition nur, wenn eine Schneide aktiv ist.
+Bit 15: $MC_TOOL_CARRIER_RESET_VALUE nach Satzsuchlauf nicht setzen
+	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der aktuelle Toolcarrier in das Maschinendatum $MC_TOOL_CARRIER_RESET_VALUE  geschrieben.
+	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der aktuelle Toolcarrier nicht in das Maschinendatum $MC_TOOL_CARRIER_RESET_VALUE geschrieben.
+Bit 16: Schwenken Ebene nach Satzsuchlauf nicht automatisch ausführen
+	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der Abschnitt für Standardzyklen: Schwenken Ebene ausgeführt
+	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der Abschnitt für Standardzyklen: Schwenken Ebene nicht ausgeführt
+Bit 17: Ausrichten Drehwerkzeug nach Satzsuchlauf nicht automatisch ausführen
+	0: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der Abschnitt für Ausrichten Drehwerkzeug ausgeführt.
+	1: Im Satzsuchlauf-Zyklus PROG_EVENT.SPF wird der Abschnitt für Ausrichten Drehwerkzeug nicht ausgeführt.
+
+
 
 </description>
 </parameter>
@@ -798,6 +807,18 @@ Bit 17: Werkzeugmessen Drehen Umcodierung der Schneidenlagen
 <description>Auswahl der Tieflochbohrart
 0: Tieflochbohren mit Spänebrechen
 1: Tieflochbohren mit Entspanen
+</description>
+</parameter>
+<parameter number="52818" type="DWORD" dim="0" display="HEX">
+<name>ISO_M_FUNCTION_MASK</name>
+<brief>Funktionsmaske ISO-Mode Fräsen</brief>
+<description>Funktionsmaske ISO-Mode Fräsen
+</description>
+</parameter>
+<parameter number="52819" type="DWORD" dim="0" display="HEX">
+<name>ISO_T_FUNCTION_MASK</name>
+<brief>Funktionsmaske ISO-Mode Drehen</brief>
+<description>Funktionsmaske ISO-Mode Drehen
 </description>
 </parameter>
 <parameter number="52840" type="DWORD" dim="0" display="HEX">

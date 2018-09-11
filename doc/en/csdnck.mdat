@@ -2,8 +2,8 @@
 <info>
 <parameter number="54215" type="DWORD" dim="0" display="HEX">
 <name>TM_FUNCTION_MASK_SET</name>
-<brief>Function mask Tool management</brief>
-<description>Function screen tool management
+<brief>Function mask for tool management</brief>
+<description>Function mask for tool management
 Bit 0:	Diameter display for rotating tools. It is not the radius value but the diameter that is displayed for rotating tools.
 Bit 1:	Default direction of rotation for all turning tools is M4. Direction of rotation M4 is assigned by default when turning tools are created.
 Bit 2:	Create tool without suggesting name.
@@ -299,13 +299,15 @@ Meaning of the parameter components
 </parameter>
 <parameter number="54633" type="DOUBLE" dim="1">
 <name>MEA_TP_TYPE</name>
-<brief>Tool probe type cube / wheel</brief>
+<brief>Tool probe type cube / wheel / probe head</brief>
 <description>Tool probe type
 
-0:     cube
-101: wheel in XY, working plane G17
-201: wheel in ZX, working plane G18
-301: wheel in YZ, working plane G19
+  0: Compatibility (measuring cycles: cube, turning surface shows probe head, milling surface shows wheel)
+101: Wheel in XY, working plane G17
+201: Wheel in ZX, working plane G18
+301: Wheel in YZ, working plane G19
+  2: Probe head
+  3: Cube
 </description>
 </parameter>
 <parameter number="54634" type="DOUBLE" dim="1">
@@ -416,13 +418,15 @@ Meaning of the parameter components
 </parameter>
 <parameter number="54648" type="DOUBLE" dim="1">
 <name>MEA_TPW_TYPE</name>
-<brief>Tool probe type cube / wheel</brief>
+<brief>Tool probe type cube / wheel / probe head</brief>
 <description>Tool probe type
 
-0:     cube
-101: wheel in XY, working plane G17
-201: wheel in ZX, working plane G18
-301: wheel in YZ, working plane G19
+  0: Compatibility (measuring cycles: cube, turning interface shows probe head, milling interface shows disc)
+101: Disk in XY, working plane G17
+201: Disk in ZX, working plane G18
+301: Disk in YZ, working plane G19
+  2: Probe head
+  3: Cube
 
 </description>
 </parameter>
@@ -719,8 +723,8 @@ $SNS_MEA_RESULT_OFFSET_TAB_LEN6[4]        ... offset value for radius regarding 
 </parameter>
 <parameter number="54740" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK</name>
-<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
-<description>Function screen form for measuring cycles
+<brief>Function mask for measuring cycles, workpiece and tool measuring</brief>
+<description>Function mask for measuring cycles
 
 Bit 0: Repeat measurement, workpiece measurement with offset in a tool,
            after tolerance exceeded for dimension difference (TDIF) or confidence range (TSA)
@@ -780,14 +784,15 @@ Bit 19: Tool measurement, milling technology, reducing the spindle speed at the 
 <parameter number="54750" type="DWORD" dim="0" display="HEX">
 <name>MEA_ALARM_MASK</name>
 <brief>Expert mode for cycle alarms</brief>
-<description>Bit 0  - 15 reserved for workpiece measurement
-Bit 16 - 31 reserved for tool measurement
+<description>Bit 2: With special transformations (e.g. robot transformations) it may be useful to deactivate the traversing distance reduction of the measurement block related to the software limit positions, and the corresponding alarms.
+Bit 3 - 15 Reserved for workpiece measurement
+Bit 16 - 31 Reserved for tool measurement
 </description>
 </parameter>
 <parameter number="54760" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK_PIECE</name>
 <brief>Setting f. input screen, measuring cycles in Automatic, workpiece measuring</brief>
-<description>	Setting for the input screen form, measuring cycles in automatic, workpiece measurement
+<description>	Setting for the input screen, measuring cycles in automatic, workpiece measurement
 
 Bit1	Display Selection of softkey 3D measurement
 Bit3	Enable Selection of probe calibration data field
@@ -808,12 +813,12 @@ Bit18 Select Number of measurements (_NMSP)
 Bit19 Select Offset with averaging (_TMV) 1)
 Bit20 Select Empirical values (_EVNUM)
 Bit21 Select Additive setup offset
-Bit22 Select Calibrate to unknown or known centre point
+Bit22 Select Calibrate to unknown or known center point
 Bit24 Select Calibrate with/without positional deviation
-Bit25 Select Work offset when measuring the angularity of the spindle
+Bit25 Enable Select Work offset when measuring the angularity of the spindle
 Bit26 Select Do not enable tool offset
 Bit27 Do not enable: Select tolerance of linear vectors with measurement of complete kinematics
-
+Bit28 Enable Select adapt tool length
 
 	If WO compensation bit 6..10 is not selected, then list "Measure only"..
 	If WO compensation bit 6..10 is selected, then always also list compensation in active WO in the input screen
@@ -826,7 +831,7 @@ Bit27 Do not enable: Select tolerance of linear vectors with measurement of comp
 <parameter number="54762" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK_TOOL</name>
 <brief>Setting for input screen, measuring cycles in Automatic, tool measuring</brief>
-<description>Setting for input mask, Measuring cycles in Automatic, Tool measurement
+<description>Setting for input screen, Measuring cycles in Automatic, Tool measurement
 	54762 MEA_FUNCTION_MASK_TOOL
 
 Bit3	Enable selection of tool probe calibration data field
@@ -839,6 +844,7 @@ Bit10 Select measuring function "Check teeth individually"
 Bit11 Select Spindle reversal when calibrating on the plane
 Bit12	Select Number of measurements (_NMSP)
 Bit13	Select Empirical values (_EVNUM)
+Bit14 Select offset correction with selection of direction
 
 	1) Measuring feed input applies to Automatic and JOG
 
@@ -847,10 +853,10 @@ Bit13	Select Empirical values (_EVNUM)
 </parameter>
 <parameter number="54764" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK_TURN</name>
-<brief>Setting for input mask, Measuring cycles in Automatic, Workpiece turning</brief>
+<brief>Setting for input screen, Measuring cycles in Automatic, Workpiece turning</brief>
 <description>	54764 MEA_FUNCTION_MASK_TURN
 
-	Setting for input mask, Measuring cycles Turning in Automatic
+	Setting for input screen, Measuring cycles Turning in Automatic
 
 Bit0	Measure inside/outside diameter with reversal
 Bit1	Measure inside/outside diameter "travel under turning center"?
@@ -861,7 +867,7 @@ Bit1	Measure inside/outside diameter "travel under turning center"?
 <parameter number="54780" type="DWORD" dim="0" display="HEX">
 <name>J_MEA_FUNCTION_MASK_PIECE</name>
 <brief>Settings for input screen Workpiece measurement in JOG</brief>
-<description>Settings for input mask Workpiece measuring in JOG
+<description>Settings for input screen Workpiece measuring in JOG
 
 Bit2	Activate compensation for electronic workpiece probe
 Bit3	Select probe calibration data field, enable
@@ -872,12 +878,13 @@ Bit8 Select WO compensation in global basic frame, enable
 Bit9 Select WO compensation in settable frame, enable
 Bit16 Select Workpiece measurement with spindle reversal
 Bit17 Select Align workpiece probe in switching direction
+Bit28 Select adapt tool length, enable
 </description>
 </parameter>
 <parameter number="54782" type="DWORD" dim="0" display="HEX">
 <name>J_MEA_FUNCTION_MASK_TOOL</name>
 <brief>Settings for input screen Tool measuring in JOG</brief>
-<description>Settings for input mask Tool measuring in JOG
+<description>Settings for input screen Tool measuring in JOG
 
 Bit2	Enable automatic tool measurement
 Bit3	Enable selection of tool probe calibration data field

@@ -141,16 +141,6 @@ SD irrelevant to ......
 Related to:
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-A minimum spindle speed limit below which the spindle must not fall is entered in this SD. The NCK limits the set spindle speed to this value if it is too low.
-The spindle speed may only fall below the minimum as a result of:
--	Spindelkorrektur 0%
--	M5
--	S0
-- NC/PLC interface signal &lt;VorschubHalt-SpindelHalt/&gt; (Spindle stop)
-- NC/PLC interface signal &lt;Reglerfreigabe/&gt; (Servo enable)
-- NC/PLC interface signal &lt;Kanalzustand-Reset/&gt; (Channel status: Reset)
-- NC/PLC interface signal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Delete distance-to-go/Spindle reset)
-- NC/PLC interface signal &lt;Pendeldrehzahl/&gt; (Oscillation speed)
 </description>
 </parameter>
 <parameter number="43220" type="DOUBLE" dim="0">
@@ -189,7 +179,6 @@ Related to ....
      SD43230 $SA_SPIND_MAX_VELO_LIMS (programmed spindle speed limit with G96/961)
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-A limit entered in SPIND_MAX_VELO_LIMS is active at constant cutting speed (G96 and G97) in addition to the constantly active limits. It can also be written in SPIND_MAX_VELO_LIMS in the part program with LIMS=.....
 </description>
 </parameter>
 <parameter number="43235" type="DOUBLE" dim="0">
@@ -307,9 +296,6 @@ Related to ....
      SD43400 $SA_WORKAREA_PLUS_ENABLE
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-The working area defined in the Machine in the positive direction of the axis concerned can be limited with axial working area limitation.
-The setting data can be changed on the operator panel in the operating area "Parameters".
-The positive working area limitation can be changed in the program with G26.
 </description>
 </parameter>
 <parameter number="43430" type="DOUBLE" dim="0">
@@ -326,9 +312,6 @@ Related to ....
      SD43410 $SA_WORKAREA_MINUS_ENABLE
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-The working area as defined in the Machine in the negative direction of the axis concerned can be limited with axial working area limitation.
-The setting data can be changed on the operator panel in the operating area "Parameters".
-The negative working area limitation can be changed in the program with G25.
 </description>
 </parameter>
 <parameter number="43500" type="BYTE" dim="0">
@@ -342,10 +325,6 @@ SD=1 Select "Travel to fixed stop"
 The setting data can only be overwritten by the part program with the command FXS[x]=1/0 when software version 2.x is installed.
 
 The status of the setting data is indicated on the operator panel in the "Parameters" area.
-The "Travel to fixed stop" function can be controlled with this setting data.
-Wert	=0:	Deselect "Travel to fixed stop"
-	=1:	Select "Travel to fixed stop"
-The setting data is overwritten by the part program with the command FXS[x]=1/0.
 </description>
 </parameter>
 <parameter number="43510" type="DOUBLE" dim="0">
@@ -365,15 +344,6 @@ The FXST[x] command effects a block-synchronous change to this setting data. It 
 
 Related to ....
 	MD37010 $MA_FIXED_STOP_TORQUE_DEF(default setting for clamping torque)
-The clamping torque is entered in this setting data as a % of the maximum motor torque (corresponds to % of max. current value with FDD).
-Note that a clamping torque greater than 100% may only be active briefly, as otherwise the motor will be damaged.
-When the function "Travel to fixed stop" is selected by programming FXS[.], the default setting of MD37010 $MA_FIXED_STOP_TORQUE_DEF is active until programming with FXST[.].
-The FXST[x] command effects a block-synchronous change to this setting data. The user can also change the setting data.
-The SD is already active during travel to the stop.
-The fixed stop is considered reached when, with MD37060 $MA_FIXED_STOP_ACKN_MASK,
-	bit 1 = 0 (no acknowledgment required), the interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC.
-	bit 1 = 1 (acknowledgment required), the interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached) is set by the NC
-		  and acknowledged by the NC/PLC interface signal &lt;Festanschlag_erreicht_quittieren/&gt; (Acknowledge fixed stop reached).
 </description>
 </parameter>
 <parameter number="43520" type="DOUBLE" dim="0">
@@ -533,7 +503,7 @@ Related to ....
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
 </description>
 </parameter>
-<parameter number="43770" type="DWORD" dim="0" display="HEX">
+<parameter number="43770" type="UDWORD" dim="0" display="HEX">
 <name>OSCILL_CTRL_MASK</name>
 <brief>Oscillation sequence control mask</brief>
 <description>Bit mask:
@@ -625,7 +595,7 @@ Related to ....
 <brief>Lead angle for position-dependent temperature compensation</brief>
 <description>In the case of position-dependent temperature compensation, the error curve characteristic of the temperature-dependent actual-value deviation can often be approximated by a straight line. This straight line is defined by a reference point P_0 and a slope tan-ß.
 SD43910 $SA_TEMP_COMP_SLOPE defines the slope tan-ß. This slope can be changed by the PLC user program as a function of the current temperature.
-The axis traverses additionally the compensation value calculated for the current actual position as soon as the position-dependent temperature compensation becomes active (MD32750 $MA_TEMP_COMP_TYPE = = 2 or 3).
+The axis traverses additionally the compensation value calculated for the relevant actual position as soon as the position-dependent temperature compensation becomes active (MD32750 $MA_TEMP_COMP_TYPE = = 2 or 3).
 MD32760 $MA_COMP_ADD_VELO_FACTOR limits the maximum angle of slope tan-ß_max of the error curve. This maximum angle of slope cannot be exceeded.
 
 SD irrelevant for ......
@@ -647,7 +617,7 @@ Related to ....
 <brief>Ref. position of position-dependent temperature compensation</brief>
 <description>In the case of position-dependent temperature compensation, the error curve characteristic of the temperature-dependent actual-value deviation can often be approximated by a straight line. This straight line is defined by a reference point P_0 and a slope tan-ß.
 SD43920 $SA_TEMP_COMP_REF_POSITION defines the position of the reference point P_0. This reference position can be changed by the PLC user program as a function of the current temperature.
-The axis traverses additionally the compensation value calculated for the current actual position as soon as the position-dependent temperature compensation becomes active (MD32750 $MA_TEMP_COMP_TYPE = 2 or 3).
+The axis traverses additionally the compensation value calculated for the relevant actual position as soon as the position-dependent temperature compensation becomes active (MD32750 $MA_TEMP_COMP_TYPE = 2 or 3).
 
 SD irrelevant for ......
 	MD32750 $MA_TEMP_COMP_TYPE = 0 or 1

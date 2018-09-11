@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <info>
+<parameter number="53030" type="DWORD" dim="0" display="DECIMAL">
+<name>AXIS_MAX_POWER</name>
+<brief>Maximalwert der Achsleistungsanzeige</brief>
+<description>Maximalwert der zulässigen Achsleistung in Prozent.
+Die Balkenanzeige wird im Bereich zwischen 0 und dem Wert von AXIS_MAX_POWER grün dargestellt.
+
+
+</description>
+</parameter>
+<parameter number="53031" type="DWORD" dim="0" display="DECIMAL">
+<name>AXIS_POWER_RANGE</name>
+<brief>Anzeigebereich der Achsleistungsanzeige</brief>
+<description>Skalenendwert für die Achsleistungsanzeige in Prozent. Der Wert muss größer oder gleich AXIS_MAX_POWER sein.
+Die Balkenanzeige wird im Bereich zwischen den Werten von AXIS_MAX_POWER und AXIS_POWER_RANGE rot dargestellt.
+</description>
+</parameter>
 <parameter number="53220" type="DOUBLE" dim="1" display="DECIMAL">
 <name>AXIS_MCS_POSITION</name>
 <brief>Position der Achse im MKS</brief>

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <info>
+<parameter number="53030" type="DWORD" dim="0" display="DECIMAL">
+<name>AXIS_MAX_POWER</name>
+<brief>Maximum value of axis power rating display</brief>
+<description>Maximum value of permissible axis power rating in percent.
+The display bar is shown green in the range between 0 and the value of AXIS_MAX_POWER.
+
+
+</description>
+</parameter>
+<parameter number="53031" type="DWORD" dim="0" display="DECIMAL">
+<name>AXIS_POWER_RANGE</name>
+<brief>Display range of axis power rating display</brief>
+<description>Scale end value for the axis power display as a percentage. The value must be greater than or equal to AXIS_MAX_POWER.
+The bar display is shown red in the area between the values of AXIS_MAX_POWER and AXIS_POWER_RANGE.
+</description>
+</parameter>
 <parameter number="53220" type="DOUBLE" dim="1" display="DECIMAL">
 <name>AXIS_MCS_POSITION</name>
 <brief>Position of axis in the Machine</brief>

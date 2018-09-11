@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <info>
-<parameter number="36901" type="DWORD" dim="0" display="HEX">
+<parameter number="36901" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_FUNCTION_ENABLE</name>
 <brief>Enable safety functions</brief>
 <description>The safe operation functions can be enabled for an axis/spindle with this data.
@@ -45,7 +45,7 @@ Related to: Global option
 The value in this MD must be equal to that in MD30300 $MA_IS_ROT_AX. A parameterization error is displayed if there is a difference.
 </description>
 </parameter>
-<parameter number="36903" type="DWORD" dim="0" display="HEX">
+<parameter number="36903" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_CAM_ENABLE</name>
 <brief>Function enable safe cam track</brief>
 <description>With this data, 30 safe cams can be enabled for the "safe cam track" function for an axis/spindle.
@@ -86,7 +86,7 @@ Related to:
 	MD36901: $MA_SAFE_FUNCTION_ENABLE
 </description>
 </parameter>
-<parameter number="36904" type="DWORD" dim="0" display="HEX">
+<parameter number="36904" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_ADD_FUNCTION_MASK</name>
 <brief>Enable additional functions for Safety Integrated</brief>
 <description>Bit 0: On the NCK side, braking is with stops B and C and not by the default "Speed setpoint 0". The braking on the drive side is based on the OFF3 ramp.
@@ -120,10 +120,10 @@ The entry refers to data field MD10393 $MN_SAFE_DRIVE_LOGIC_ADDRESS.
 The drive assigned must be the same as the one selected using MD30110 $MA_CTRLOUT_MODULE_NR and MD13050 $MN_DRIVE_LOGIC_ADDRESS.
 </description>
 </parameter>
-<parameter number="36907" type="DWORD" dim="0" display="HEX" readonly="true">
+<parameter number="36907" type="UDWORD" dim="0" display="HEX" readonly="true">
 <name>SAFE_DRIVE_PS_ADDRESS</name>
 <brief>PROFIsafe address of the drive</brief>
-<description>This NCK MD contains the PROFIsafe address of the drive asigned to this axis. This MD is read out during the power on of the drive. This address must be unique across all axes.
+<description>This NCK MD contains the PROFIsafe address of the drive assigned to this axis. This MD is read from drive parameter r9810 during power on. This address must be unique across all axes.
 This MD cannot be written, the PROFIsafe address must be parameterized in the drive.
 The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[2].
 </description>
@@ -207,6 +207,7 @@ With 1:
 <description>Definition of the grid spacing of the linear scale used.
 
 Not relevant for a rotary encoder.
+Alarm 27036 is triggered if the value changes.
 </description>
 </parameter>
 <parameter number="36918" type="DWORD" dim="0">
@@ -215,6 +216,7 @@ Not relevant for a rotary encoder.
 <description>Definition of the lines per revolution for a rotary encoder.
 
 Not relevant for a linear encoder.
+Alarm 27036 is triggered if the value changes.
 </description>
 </parameter>
 <parameter number="36919" type="BYTE" dim="0" readonly="true">
@@ -225,7 +227,7 @@ Not relevant for a linear encoder.
 </parameter>
 <parameter number="36920" type="DOUBLE" dim="0">
 <name>SAFE_ENC_GEAR_PITCH</name>
-<brief>Lead screw pitch</brief>
+<brief>Leadscrew pitch</brief>
 <description>Gear ratio between encoder and load for a linear axis with a rotary encoder.
 </description>
 </parameter>
@@ -303,16 +305,16 @@ The current value is selected via safety-related input signals (SGE).
 This type is read out from drive parameter r9527 when powering up. If a valid value has not been entered, alarm 27038 is output. If the drive parameter contains a valid value, this is compared with the last value stored in this MD. This MD is then overwritten. In the event of inequality, alarm 27035 is output. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
 </description>
 </parameter>
-<parameter number="36928" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="36928" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_ENC_IDENT</name>
 <brief>Encoder identification</brief>
-<description>Identification of the encoder evaluation used for Safety Integrated on this axis. This identification is read out during power-on by the encoder evaluation, and compared with the last value stored here. This MD is then overwritten. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
+<description>Identification of the encoder evaluation used for Safety Integrated on this axis. This identification is read out during power-on by the encoder evaluation (drive parameter r9881), and compared with the last value stored here. This MD is then overwritten. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
 
 Related to:
 	r9881: SI Motion Sensor Module Node Identifier second channel
 </description>
 </parameter>
-<parameter number="36929" type="DWORD" dim="0" display="HEX" readonly="true">
+<parameter number="36929" type="UDWORD" dim="0" display="HEX" readonly="true">
 <name>SAFE_ENC_CONF</name>
 <brief>Configuration of the redundant actual value</brief>
 <description>Configuration of the redundant actual value for DRIVE-CLiQ encoders:
@@ -328,8 +330,8 @@ Bit 2: Redundant coarse position MSB-/LSB-justified
 Bit 4: Binary comparison not possible
      = 0: Binary comparison possible
      = 1: Binary comparison not possible
-This information is read out from drive parameter r0474 during ramp-up and compared with the last value stored here. This MD is then overwritten. In the event of inequality, alarm 27035 is output. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
-If an unknown bit is set in drive parameter r0474, then alarm 27038 is output. The alarm output at this location can be suppressed using MD10096 $MN_SAFE_DIAGNOSIS_MASK, bit 3 = 1.
+This information is read out from drive parameter r0474 during ramp-up for DRIVE-CLiQ encoders, and compared with the last value stored here (the default values apply to SMI/SMC/SME encoders). This MD is then overwritten. In the event of inequality, alarm 27035 is output. The value of this MD is included in the calculation of MD36998 $MA_SAFE_ACT_CHECKSUM[1].
+If an unknown bit is set in drive parameter r0474, alarm 27038 is output. The alarm output at this location can be suppressed using MD10096 $MN_SAFE_DIAGNOSIS_MASK, bit 3 = 1.
 </description>
 </parameter>
 <parameter number="36930" type="DOUBLE" dim="0">
@@ -337,7 +339,7 @@ If an unknown bit is set in drive parameter r0474, then alarm 27038 is output. T
 <brief>Standstill tolerance</brief>
 <description>Definition of the tolerance for safe operational stop.
 
-The control triggers alarm 27010 with STOP B if the difference between position limit value und position actual value is greater than this tolerance when safe operational stop is selected. The position limit value is the position actual value at the time safe operational stop was selected.
+The control triggers alarm 27010 with STOP B if the difference between position limit value and actual position value is greater than this tolerance when safe operational stop is selected. The position limit value is the actual position value at the time safe operational stop was selected.
 
 Related to:
 	MD36956: $MA_SAFE_PULSE_DISABLE_DELAY
@@ -454,14 +456,14 @@ If the function "Safe cam track" has been enabled (MD36903 $MA_SAFE_CAM_ENABLE),
 n = 0 ... 29 stand for plus cam positions of SN1+, SN2+, ..., SN30+.
 
 Related to:
-	MD36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
+	MD36901: $MA_SAFE_FUNCTION_ENABLE[n]
+	MD36903: $MA_SAFE_CAM_ENABLE
 	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
 	MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
+	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
 
 </description>
 </parameter>
@@ -480,14 +482,14 @@ If the function "Safe cam track" has been enabled (MD36903 $MA_SAFE_CAM_ENABLE),
 n = 0 ... 29 stand for minus cam positions of SN1-, SN2-, ..., SN30-.
 
 Related to:
-	MD36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
+	MD36901: $MA_SAFE_FUNCTION_ENABLE
+	MD36903: $MA_SAFE_CAM_ENABLE
 	MD36936: $MA_SAFE_CAM_POS_PLUS[n]
 	MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
+	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
 
 </description>
 </parameter>
@@ -509,13 +511,12 @@ MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[5] = 100: cam 6 (index 5) is assigned to cam t
 If the position is within the range of this cam, a 0 is entered in SGA "Cam range" of the 1st cam track.
 
 Related to:
+	MD36903: $MA_SAFE_CAM_ENABLE
 	MD36936: $MA_SAFE_CAM_POS_PLUS[n]
 	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
+	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
 
 </description>
 </parameter>
@@ -533,7 +534,7 @@ Enter a value equal to or slightly larger than that in MD36942 $MA_SAFE_POS_TOL.
 <parameter number="36942" type="DOUBLE" dim="0">
 <name>SAFE_POS_TOL</name>
 <brief>Tolerance actual value cross-check</brief>
-<description>Because of varying installation locations for the encoder, backlash, torsion, lead screw error etc, the two actual positions acquired simultaneously by NCK and drive may differ from one another.
+<description>Because of varying installation locations for the encoder, backlash, torsion, leadscrew error etc, the two actual positions acquired simultaneously by NCK and drive may differ from one another.
 
 The tolerance for the cross-check of the actual positions in the two monitoring channels is entered in this data.
 
@@ -854,17 +855,20 @@ The functional test of the brake mechanics is canceled if the axis position devi
 The corresponding test function is enabled by MD37000 $MA_FIXED_STOP_MODE, bit 1.MD37000 $MA_FIXED_STOP_MODE bit 1.
 </description>
 </parameter>
-<parameter number="36968" type="DWORD" dim="0" display="HEX">
+<parameter number="36968" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_BRAKETEST_CONTROL</name>
 <brief>Advanced settings for the brake test</brief>
-<description>Advanced settings for the NC-controlled brake test.
+<description>Advanced settings for the NC-controlled and SINAMICS brake test.
 
-Bit 0: Selection of the average value of the torque limit
+Bit 0: Selection of the average value for the torque limit
 = 0:	Drive parameter p1532 is used as the average value of the torque limit
 = 1:	The torque measured at the time of selection of the brake test is used as the average value of the torque limit
 Bit 1: Criterion for reaching the torque limit in the PLC
 = 0:	The torque limit must be reached during the programmed traversing distance
 = 1:	The torque limit must be reached during the programmed time (PLC)
+Bit 2: Selection of the positioning behavior at the end of the SINAMICS brake test
+= 0:	Positioning at the current axis position
+= 1:	Positioning at the last programmed axis position
 </description>
 </parameter>
 <parameter number="36969" type="DOUBLE" dim="0" readonly="true">
@@ -875,10 +879,10 @@ All torques indicated as relative value refer to this reference variable.
 This MD is an image of drive parameter p2003
 </description>
 </parameter>
-<parameter number="36970" type="DWORD" dim="0" display="HEX">
+<parameter number="36970" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SVSS_DISABLE_INPUT</name>
 <brief>Input assignment SBH/SG deselection</brief>
-<description>This data defines the NCK input for selecting/deselecting the functions SBH and SG.
+<description>This data defines the NC input for selecting/deselecting the functions SBH and SG.
 
 Signal          Meaning
 = 0	SG or SBH is selected
@@ -905,10 +909,10 @@ Special cases:
 - Multiple input signals can be parameterized to the same system variable.
 </description>
 </parameter>
-<parameter number="36971" type="DWORD" dim="0" display="HEX">
+<parameter number="36971" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SS_DISABLE_INPUT</name>
 <brief>Input assignment SBH deselection</brief>
-<description>Assignment of the NCK input for deselecting the function safe operational stop.
+<description>Assignment of the NC input for deselecting the function safe operational stop.
 
 Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
 
@@ -922,7 +926,7 @@ Special cases:
 - This input is irrelevant if SG and SBH have been deselected (see MD36970 $MA_SAFE_SVSS_DISABLE_INPUT).
 </description>
 </parameter>
-<parameter number="36972" type="DWORD" dim="1" display="HEX">
+<parameter number="36972" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_VELO_SELECT_INPUT</name>
 <brief>Input assignment SG selection</brief>
 <description>This data defines the two inputs for selecting SG1, SG2, SG3 or SG4.
@@ -940,7 +944,7 @@ Bit 1            Bit 0              Selected SG
 1                  1                    SG4
 </description>
 </parameter>
-<parameter number="36973" type="DWORD" dim="0" display="HEX">
+<parameter number="36973" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_POS_SELECT_INPUT</name>
 <brief>Input assignment SE selection</brief>
 <description>This data defines the input for selecting safe limit positions 1 or 2.
@@ -952,7 +956,7 @@ Signal       Meaning
 = 1	SE2 is active
 </description>
 </parameter>
-<parameter number="36974" type="DWORD" dim="1" display="HEX">
+<parameter number="36974" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_GEAR_SELECT_INPUT</name>
 <brief>Input assignment speed ratio selection</brief>
 <description>Input assignment for selecting the gear ratio (gear stage).
@@ -969,10 +973,10 @@ Bit 2               Bit 1              Bit 0            Active gear stage
 1                     1                    1                   Stage 8
 </description>
 </parameter>
-<parameter number="36977" type="DWORD" dim="1" display="HEX">
+<parameter number="36977" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_EXT_STOP_INPUT</name>
 <brief>Input assignment for external stop request</brief>
-<description>This data defines the NCK inputs for selecting/deselecting the external brake requests.
+<description>This data defines the NC inputs for selecting/deselecting the external brake requests.
 
 n = 0, 1, 2, 3 stand for the various braking modes
 
@@ -987,10 +991,10 @@ Special cases:
 - The signal "Deselect external stop A" cannot be parameterized inverted. A parameter error is reported if there is an error.
 </description>
 </parameter>
-<parameter number="36978" type="DWORD" dim="1" display="HEX">
+<parameter number="36978" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_OVR_INPUT</name>
 <brief>Input assignment for SG override</brief>
-<description>Assignment of the NCK inputs for the override of the limit values of safe velocities 2 and 4.
+<description>Assignment of the NC inputs for the override of the limit values of safe velocities 2 and 4.
 
 Structure: See MD36970 $MA_SAFE_SVSS_DISABLE_INPUT
 
@@ -1017,7 +1021,7 @@ Related to:
 	MD36932: $MA_SAFE_VELO_OVR_FACTOR[n]
 </description>
 </parameter>
-<parameter number="36980" type="DWORD" dim="0" display="HEX">
+<parameter number="36980" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SVSS_STATUS_OUTPUT</name>
 <brief>Output assignment SBH/SG active</brief>
 <description>Assignment of the output for reporting the status of the functions safe velocity and safe operating stop.
@@ -1050,7 +1054,7 @@ Special cases:
   If MD bit 31 is set, the signal in question is first inverted. The (possibly inverted) output signals are then ANDed. The result is written to the system variable.
 </description>
 </parameter>
-<parameter number="36981" type="DWORD" dim="0" display="HEX">
+<parameter number="36981" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SS_STATUS_OUTPUT</name>
 <brief>Output assignment SBH active</brief>
 <description>This data defines the output or the system variable for the message "SBH active".
@@ -1062,7 +1066,7 @@ Signal       Meaning
 = 1	SBH is active
 </description>
 </parameter>
-<parameter number="36982" type="DWORD" dim="1" display="HEX">
+<parameter number="36982" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_VELO_STATUS_OUTPUT</name>
 <brief>Output assignment for active SG selection</brief>
 <description>This data defines the outputs or the system variables for the messages "SBH active bit 0" and "SBH active bit 1".
@@ -1071,7 +1075,6 @@ Structure see: MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
 
 n = 1, 0              stand for SG active bits 1, 0
 
-SG active
 Bit 1  Bit 0  Meaning:
 = 0    = 0    SG1 active if SBH/SG are active and SBH is not active
               SBH active if SBH/SG are active and SBH is active
@@ -1080,7 +1083,7 @@ Bit 1  Bit 0  Meaning:
 = 1    = 1    SG4 active
 </description>
 </parameter>
-<parameter number="36985" type="DWORD" dim="0" display="HEX">
+<parameter number="36985" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_VELO_X_STATUS_OUTPUT</name>
 <brief>Output assignment n &lt; n_x</brief>
 <description>This data defines the output or the system variable for the message "n &lt; nx".
@@ -1096,7 +1099,7 @@ Related to:
 	MD36946 $MA_SAFE_VELO_X
 </description>
 </parameter>
-<parameter number="36987" type="DWORD" dim="0" display="HEX">
+<parameter number="36987" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_REFP_STATUS_OUTPUT</name>
 <brief>Output assignment axis safely referenced</brief>
 <description>This data defines the output for the message "Axis safely referenced".
@@ -1108,7 +1111,7 @@ Signal       Meaning
 = 1	Axis is safely referenced
 </description>
 </parameter>
-<parameter number="36988" type="DWORD" dim="1" display="HEX">
+<parameter number="36988" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_PLUS_OUTPUT</name>
 <brief>Output assignment SN1 + to SN4 +</brief>
 <description>This data defines the outputs for the cam signals SN1 + to SN4 +.
@@ -1125,7 +1128,7 @@ Special cases:
 - If a cam is inverted and assigned to an output with another cam, the two cams are ANDed, resulting in a single cam signal for range detection.
 </description>
 </parameter>
-<parameter number="36989" type="DWORD" dim="1" display="HEX">
+<parameter number="36989" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_MINUS_OUTPUT</name>
 <brief>Output assignment SN1 - to SN4 -</brief>
 <description>This data defines the outputs for the minus cams SN1 - to SN4 -.
@@ -1142,7 +1145,7 @@ Special cases:
 - If a cam is negated and placed with another cam on an output, it is AND-ed and a single cam signal is generated for range recognition.
 </description>
 </parameter>
-<parameter number="36990" type="DWORD" dim="1" display="HEX">
+<parameter number="36990" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_ACT_STOP_OUTPUT</name>
 <brief>Output assignment of active stop</brief>
 <description>Assignment of the output signals for displaying the currently active stop.
@@ -1171,7 +1174,7 @@ Date and time of the last configuration change to safety related NCK axis machin
 Changes to the machine data included in the calculation of axis-specific checksums MD36998 $MA_SAFE_ACT_CHECKSUM[] are recorded.
 </description>
 </parameter>
-<parameter number="36994" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="36994" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_PREV_CONFIG</name>
 <brief>Data of previous safety axis configuration</brief>
 <description>Intermediate buffer for storing previous safety configuration data
@@ -1199,7 +1202,7 @@ Special cases:
 - If the MD is changed manually, this will be detected at the next Power ON and plausibility test. Another user agreement is required after referencing.
 </description>
 </parameter>
-<parameter number="36997" type="DWORD" dim="0" display="HEX">
+<parameter number="36997" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_ACKN</name>
 <brief>User acknowledge</brief>
 <description>This data displays the status of the user agreement.
@@ -1212,7 +1215,7 @@ Special cases:
 - If the MD is changed manually, then this will be detected at the next Power ON and plausibility test. Another user agreement is required after referencing.
 </description>
 </parameter>
-<parameter number="36998" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="36998" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_ACT_CHECKSUM</name>
 <brief>Actual checksum</brief>
 <description>The actual checksum calculated across the current values of the safety-related machine data after PowerOn or on RESET is entered here.
@@ -1222,7 +1225,7 @@ Index 1: Hardware component recognition
 Index 2: Drive assignment
 </description>
 </parameter>
-<parameter number="36999" type="DWORD" dim="1" display="HEX">
+<parameter number="36999" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_DES_CHECKSUM</name>
 <brief>Desired (expected) checksum</brief>
 <description>This data contains the set checksum calculated across the current values of the safety-related machine data and stored at the last machine acceptance.
@@ -1232,7 +1235,7 @@ Index 1: Hardware component recognition
 Index 2: Drive assignment
 </description>
 </parameter>
-<parameter number="37900" type="DWORD" dim="1" display="HEX">
+<parameter number="37900" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_TRACK_OUTPUT</name>
 <brief>Output assignment cam track 1 to 4</brief>
 <description>This data defines the outputs for the cam tracks 1 to 4.
@@ -1250,7 +1253,7 @@ The "Safe cam track" function is enabled in MD 36903 $MA_SAFE_CAM_ENABLE.
 
 </description>
 </parameter>
-<parameter number="37901" type="DWORD" dim="1" display="HEX">
+<parameter number="37901" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_1</name>
 <brief>Output assignment cam range for cam track 1</brief>
 <description>This data defines the outputs for the cam range of cam track 1.
@@ -1281,7 +1284,7 @@ Related to:
 
 </description>
 </parameter>
-<parameter number="37902" type="DWORD" dim="1" display="HEX">
+<parameter number="37902" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_2</name>
 <brief>Output assignment cam range for cam track 2</brief>
 <description>This data defines the outputs for the cam range of cam track 2.
@@ -1312,7 +1315,7 @@ Related to:
 
 </description>
 </parameter>
-<parameter number="37903" type="DWORD" dim="1" display="HEX">
+<parameter number="37903" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_3</name>
 <brief>Output assignment cam range for cam track 3</brief>
 <description>This data defines the outputs for the cam range of cam track 3.
@@ -1343,7 +1346,7 @@ Related to:
 
 </description>
 </parameter>
-<parameter number="37904" type="DWORD" dim="1" display="HEX">
+<parameter number="37904" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_4</name>
 <brief>Output assignment cam range for cam track 4</brief>
 <description>This data defines the outputs for the cam range of cam track 4.
@@ -1374,7 +1377,7 @@ Related to:
 
 </description>
 </parameter>
-<parameter number="37906" type="DWORD" dim="1" display="HEX">
+<parameter number="37906" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_1</name>
 <brief>Output assignment cam range bit for cam track 1</brief>
 <description>This data defines the outputs for the cam range bits of cam track 1.
@@ -1399,7 +1402,7 @@ Note:
 
 </description>
 </parameter>
-<parameter number="37907" type="DWORD" dim="1" display="HEX">
+<parameter number="37907" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_2</name>
 <brief>Output assignment cam range bit for cam track 2</brief>
 <description>This data defines the outputs for the cam range bits of cam track 2.
@@ -1424,7 +1427,7 @@ Note:
 
 </description>
 </parameter>
-<parameter number="37908" type="DWORD" dim="1" display="HEX">
+<parameter number="37908" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_3</name>
 <brief>Output assignment cam range bit for cam track 3</brief>
 <description>This data defines the outputs for the cam range bits of cam track 3.
@@ -1449,7 +1452,7 @@ Note:
 
 </description>
 </parameter>
-<parameter number="37909" type="DWORD" dim="1" display="HEX">
+<parameter number="37909" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_4</name>
 <brief>Output assignment cam range bit for cam track 4</brief>
 <description>This data defines the outputs for the cam range bits of cam track 4.
@@ -1494,7 +1497,7 @@ Related to:
 	p9567, p9569
 </description>
 </parameter>
-<parameter number="37950" type="DWORD" dim="0" display="HEX">
+<parameter number="37950" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_INFO_ENABLE</name>
 <brief>SIC/SCC and PROFIsafe enable</brief>
 <description>MD to enable the evaluation of the SIC/SCC telegram between the control and drive, and to enable the transfer of the PROFIsafe telegram between the F-PLC and the drive

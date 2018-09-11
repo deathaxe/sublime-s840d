@@ -17,8 +17,6 @@ MD20050 $MC_AXCONF_GEOAX_ASSIGN_TAB[ 1 ] = 0  ; 2. Geo-Achse nicht definiert
 MD20050 $MC_AXCONF_GEOAX_ASSIGN_TAB[ 2 ] = 2  ; 3. Geo-Achse = 2. Kanalachse
 
 Die hier getroffene Zuordnung gilt, wenn keine Transformation aktiv ist. Bei aktiver Transformation n wird die transformationsspezifische Zuordnungstabelle MD24... $MC_TRAFO_GEOAX_ASSIGN_TAB_... wirksam.
-Dieses MD ordnet einer Geometrieachse eine Kanalachse zu.
-Die Zuordnung ist für alle 3 Geometrieachsen (X, Y, Z) zu treffen. Wird für eine Geometrieachse keine Zuordnung getroffen, ist der Wert 0 einzutragen. Damit ist diese Geometrieachse nicht vorhanden und kann nicht programmiert werden. Z.B. entfällt bei der Technologie "Drehen" die 2. Geometrieachse Y -&gt; Eintrag: Wert 0 (siehe Standardvorbesetzung für Drehen).
 </description>
 </parameter>
 <parameter number="20060" type="STRING" dim="1">
@@ -42,7 +40,7 @@ Sonderfälle:
 	- S Spindeldrehzahl (S-Funktion)        - T Werkzeug (T-Funktion)
 
 - Ebenfalls unzulässig sind Schlüsselworte (z.B. DEF, SPOS etc.) und vordefinierte Bezeichner (z.B. ASPLINE, SOFT).
-- Die Verwendung eines Achsbezeichners, bestehend aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99), bietet gegenüber der Vergabe eines allgemeinen Bezeichners leichte Vorteile in der Blockzykluszeit.
+- Die Verwendung eines Achsbezeichners, bestehend aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99), bietet gegenüber der Vergabe eines allgemeinen Bezeichners leichte Vorteile in der Satzwechselzeit.
 - Die Geometrieachsen in unterschiedlichen Kanälen können gleiche Namen haben.
 
 Korrespondiert mit:
@@ -94,12 +92,6 @@ Korrespondiert mit:
 	MD11640 $MN_ENABLE_CHAN_AX_GAP
 weiterführende Literatur:
 	Funktionsbeschreibung B3.
-Dieses MD ordnet einer Kanalachse eine Maschinenachse zu.
-SINUMERIK 802D hat 5 Kanalachsen.
-Für die im Kanal aktivierten Achsen müssen in MD20080 $AXCONF_CHANAX_NAME_TAB
-Kanal-Achsbezeichner vorgegeben werden. Diese Achsen sind programmierbar.
-
-Eine Maschinenachse, die keiner Kanalachse zugeordnet wurde, ist nicht aktiv, d. h. keine Achsregelung, keine Anzeige auf dem Bildschirm.
 </description>
 </parameter>
 <parameter number="20080" type="STRING" dim="1">
@@ -124,14 +116,10 @@ Sonderfälle:
 	- S Spindeldrehzahl (S-Funktion)       - T Werkzeug (T-Funktion)
 
 - Ebenfalls unzulässig sind Schlüsselworte (z.B. DEF, SPOS etc.) und vordefinierte Bezeichner (z.B. ASPLINE, SOFT).
-- Die Verwendung eines Achsbezeichners, bestehend aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99), bietet gegenüber der Vergabe eines allgemeinen Bezeichners leichte Vorteile in der Blockzykluszeit.
+- Die Verwendung eines Achsbezeichners, bestehend aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99), bietet gegenüber der Vergabe eines allgemeinen Bezeichners leichte Vorteile in der Satzwechselzeit.
 - Für Kanalachsen, die Geometrieachsen zugeordnet sind (im Normalfall die ersten drei Kanalachsen), muss in diesem MD kein eigener Name eingegeben werden.
 
 Nicht erlaubte Achsbezeichner werden mit Hochlauf-Alarm abgelehnt.
-In diesem MD wird der Name der Kanalachse eingegeben.
-Die Anzeige einer Kanalachse im WKS (Werkstückkoordinatensystem) erfolgt  mit diesem Namen. Dieser Name wird auch im Programm geschrieben.
-In der Regel werden die ersten zwei oder drei Kanalachsen als Geometrieachsen verwendet (siehe auch MD 20050: AXCONF_GEOAX_ASSIGN_TAB). Die verbleibenden Kanalachsen werden  als Zusatzachsen bezeichnet.
-SINUMERIK 802D hat 5 Kanalachsen.
 </description>
 </parameter>
 <parameter number="20082" type="STRING" dim="1">
@@ -175,7 +163,7 @@ Korrespondiert mit:
 <name>SPIND_RIGID_TAPPING_M_NR</name>
 <brief>M-Funktion für das Umschalten in den gesteuerten Achsbetrieb.</brief>
 <description>Mit diesem Maschinendatum wird die M-Hilfsfunktionsnummer definiert, mit der die Spindel in den Achsbetrieb umgeschaltet wird.
-Die im Maschinendatum definierte M-Nummer ersetzt M70 im Siemens-Sprachmode.
+Die im Maschinendatum definierte M-Nummer ersetzt M70 im Siemens-Mode.
 
 Hinweis:
 	An der VDI-Nahtstelle wird als Kennung für die Umschaltung in den Achsbetrieb immer M70 mit der entsprechenden Adresserweiterung ausgegeben.
@@ -241,7 +229,7 @@ Siehe auch:
 	MD22560 $MC_TOOL_CHANGE_M_CODE
 </description>
 </parameter>
-<parameter number="20098" type="DWORD" dim="1" display="HEX">
+<parameter number="20098" type="UDWORD" dim="1" display="HEX">
 <name>DISPLAY_AXIS</name>
 <brief>Achse auf HMI anzeigen</brief>
 <description>Kennung, ob die Achse vom HMI als Maschinen-, Geometrie-, bzw. Hilfsachse angezeigt werden soll.
@@ -294,21 +282,21 @@ Korrespondiert mit:
 	MD30460 $MA_BASE_FUNCTION_MASK
 </description>
 </parameter>
-<parameter number="20105" type="DWORD" dim="0" display="HEX">
+<parameter number="20105" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_REFP_LOCK</name>
-<brief>Prog-Events trotz nicht referierter Achsen starten.</brief>
-<description>Ereignisgesteuerte Programmaufrufe (Prog-Events) können bezüglich ihres Verhaltens bei nicht referierter Achsen eingestellt werden.
+<brief>Prog-Events trotz nicht referenzierter Achsen starten.</brief>
+<description>Ereignisgesteuerte Programmaufrufe (Prog-Events) können bezüglich ihres Verhaltens bei nicht referenzierter Achsen eingestellt werden.
 
 Bit 0 = 1 :
-	Prog-Event nach Teileprogramm-Start ignoriert nicht referierte Achsen
+	Prog-Event nach Teileprogramm-Start ignoriert nicht referenzierte Achsen
 Bit 1 = 1 :
-	Prog-Event nach Teileprogramm-Ende ignoriert nicht referierte Achsen
+	Prog-Event nach Teileprogramm-Ende ignoriert nicht referenzierte Achsen
 Bit 2 = 1 :
-	Prog-Event nach Bedientafel-Reset ignoriert nicht referierte Achsen
+	Prog-Event nach Bedientafel-Reset ignoriert nicht referenzierte Achsen
 Bit 3 = 1 :
-	Prog-Event nach Hochlauf ignoriert nicht referierte Achsen
+	Prog-Event nach Hochlauf ignoriert nicht referenzierte Achsen
 Bit 4 = 1 :
-	Prog-Event nach 1.Start nach Suchlauf ignoriert nicht referierte Achsen
+	Prog-Event nach 1.Start nach Suchlauf ignoriert nicht referenzierte Achsen
 Bit 5 = 1 :
 	reserviert
 
@@ -319,10 +307,10 @@ Korrespondiert mit:
 	MD20192 $MC_PROG_EVENT_IGN_PROG_STATE
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 Die Maschinendaten MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK und MD20115 $MC_IGNORE_REFP_LOCK_ASUP ersetzen Bit 1 aus MD11602 $MN_ASUP_START_MASK.
-Ist MD20700 $MC_REFP_NC_START_LOCK gleich 0, so wird die Einstellung in MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK ignoriert und nicht referierte Achsen werden immer ignoriert.
+Ist MD20700 $MC_REFP_NC_START_LOCK gleich 0, so wird die Einstellung in MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK ignoriert und nicht referenzierte Achsen werden immer ignoriert.
 </description>
 </parameter>
-<parameter number="20106" type="DWORD" dim="0" display="HEX">
+<parameter number="20106" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_SINGLEBLOCK</name>
 <brief>Prog-Events ignorieren den Einzelsatz</brief>
 <description>Ereignisgesteuerte Programmaufrufe (Prog-Events) können bezüglich ihres Verhaltens bei Einzelsatz eingestellt werden.
@@ -348,7 +336,7 @@ Korrespondiert mit:
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 </description>
 </parameter>
-<parameter number="20107" type="DWORD" dim="0" display="HEX">
+<parameter number="20107" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_INHIBIT</name>
 <brief>Prog-Events ignorieren die Einlesesperre</brief>
 <description>Ereignisgesteuerte Programmaufrufe (Prog-Events) können bezüglich ihres Verhaltens bei Einlesesperre eingestellt werden.
@@ -374,10 +362,11 @@ Korrespondiert mit:
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 </description>
 </parameter>
-<parameter number="20108" type="DWORD" dim="0" display="HEX">
+<parameter number="20108" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_MASK</name>
 <brief>Ereignisgesteuerte Programmaufrufe</brief>
-<description>Parametrierung der Ereignisse, bei denen das mit MD11620 $MN_PROG_EVENT_NAME eingestellte Anwenderprogramm (Voreinstellung: _N_PROG_EVENT_SPF) bzw. das Safety-Programm _N_SAFE_SPF implizit aufgerufen wird:
+<description>Parametrierung der Ereignisse, bei denen das mit MD11620 $MN_PROG_EVENT_NAME eingestellte Anwenderprogramm (Voreinstellung: _N_PROG_EVENT_SPF) implizit aufgerufen wird:
+Parametrierung der Ereignisse, bei denen das Safety-Programm _N_SAFE_SPF implizit aufgerufen wird.
 Bit 0 = 1 : Teileprogramm-Start
 Bit 1 = 1 : Teileprogramm-Ende
 Bit 2 = 1 : Bedientafel-Reset
@@ -400,9 +389,12 @@ Korrespondiert mit:
 	MD20107 $MC_PROG_EVENT_IGN_INHIBIT
 	MD20192 $MC_PROG_EVENT_IGN_PROG_STATE
 	MD20193 $MC_PROG_EVENT_IGN_STOP
+
+Hinweis:
+Das Siemens-Zyklenpaket enthält den Zyklus  /_N_CST_DIR/_N_PROG_EVENT_SPF, der standardmäßig für die Bearbeitung der ereignisgesteuerten Programmaufrufe verwendet werden soll. Er enthält Unterprogrammaufrufe für die jeweilige Hersteller- und Endanwender-Applikation (Details siehe Dokumentation "Standardzyklus PROG-EVENT.SPF").
 </description>
 </parameter>
-<parameter number="20109" type="DWORD" dim="0" display="HEX">
+<parameter number="20109" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_MASK_PROPERTIES</name>
 <brief>Eigenschaften der Prog-Events</brief>
 <description>Parametrierung weiterer Eigenschaften der ereignisgesteuerten Programmaufrufe (kurz Prog-Event), d.h. das MD20108 $MC_PROG_EVENT_MASK wird weiter parametriert.
@@ -410,7 +402,7 @@ Bit 0 = 1 :
 	Ein ASUP aus dem Kanalzustand RESET gestartet zieht kein Progevent nach sich.
 </description>
 </parameter>
-<parameter number="20110" type="DWORD" dim="0" display="HEX">
+<parameter number="20110" type="UDWORD" dim="0" display="HEX">
 <name>RESET_MODE_MASK</name>
 <brief>Festlegung der Steuerungs-Grundstellung nach Reset/TP-Ende</brief>
 <description>Festlegung der Grundstellung der Steuerung nach Hochlauf und Reset/Teileprogrammende bezüglich G-Codes (insbesondere aktuelle Ebene und einstellbarer Nullpunktverschiebung), Werkzeuglängenkorrektur und Transformation durch Setzen folgender Bits :
@@ -631,12 +623,12 @@ MD20123 $MC_USEKT_RESET_VALUE
 
 </description>
 </parameter>
-<parameter number="20112" type="DWORD" dim="0" display="HEX">
+<parameter number="20112" type="UDWORD" dim="0" display="HEX">
 <name>START_MODE_MASK</name>
 <brief>Festlegung der Grundstellung der Steuerung nach Teileprogrammstart</brief>
 <description>Festlegung der Grundstellung der Steuerung bei Teileprogrammstart in Bezug auf G-Codes (insbesondere aktuelle Ebene und einstellbarer Nullpunktverschiebung), Werkzeuglängenkorrektur, Transformation und Achskopplungen durch Setzen folgender Bits:
 
-Bit 0: nicht belegt: MD20112 $MC_START_MODE_MASK wird bei jedem Teileprogrammstart ausgewertet
+Bit 0: Startmode
 Bit 1: Hilfefunktionsausgabe bei Werkzeuganwahl unterdrücken
 Bit 2: Nicht verwendet, jedoch reserviert (s. entsprechendes Bit in RESET_MODE_MASK)
 Bit 3: Nicht verwendet, jedoch reserviert (s. entsprechendes Bit in RESET_MODE_MASK)
@@ -659,6 +651,12 @@ Bit 19: Reserviert     "veränderbare SW-Endschalter unwirksam"
 Bit 20: Reserviert     "$P_USEKT Resetverhalten"
 
 Bedeutung der einzelnen Bits:
+
+Bit 0 = 0:
+	Die Bits 8 (TRAIL),10(COUP), Bit13(LEAD) und Bit15(EG) werden bei Teileprogramstart und ereignisgesteuerte Programmaufrufe des Progevent-ASUP ausgewertet
+
+Bit 0 = 1:
+	Die Bits 8 (TRAIL),10(COUP), Bit13(LEAD) und Bit15(EG) werden nur bei Teileprogramstart ausgewertet
 
 Bit 1 = 0:
 	Hifu-Ausgabe (D, T, M, DL) an PLC bei Werkzeuganwahl entsprechend der MDs MD20120 $MC_TOOL_RESET_VALUE, MD20130 $MC_CUTTING_EDGE_RESET_VALUE, MD20121 $MC_TOOL_PRESEL_RESET_VALUE und MD22550 $MC_TOOL_CHANGE_MODE.
@@ -760,7 +758,7 @@ MD20118 $MC_GEOAX_CHANGE_RESET
 
 </description>
 </parameter>
-<parameter number="20114" type="DWORD" dim="0" display="HEX">
+<parameter number="20114" type="UDWORD" dim="0" display="HEX">
 <name>MODESWITCH_MASK</name>
 <brief>Unterbrechung MDA durch Betriebsartwechsel</brief>
 <description>Nach einer Programmunterbrechung im MDA-Betrieb (z. B. um eine Messung am Werkstück durchzuführen und die Werkzeugverschleißwerte zu korrigieren oder nach Werkzeugbruch) kann durch Wechseln in die Betriebsart "JOG" das Werkzeug im Handbetrieb von der Kontur weggefahren werden.
@@ -776,10 +774,10 @@ Bit 1 (LSB) = 1:
 	Hält die NCK in der Programmverarbeitung auf einem Teileprogrammsatz an, in dem das Repositionieren nicht möglich ist, wird beim Versuch in eine Handbetriebsart umzuschalten, kein Alarm erzeugt.
 </description>
 </parameter>
-<parameter number="20115" type="DWORD" dim="0" display="HEX">
+<parameter number="20115" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_REFP_LOCK_ASUP</name>
-<brief>Interruptprogramm trotz nicht referierter Achsen abarbeiten</brief>
-<description>Trotz nicht referierter Achsen wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet.
+<brief>Interruptprogramm trotz nicht referenzierter Achsen abarbeiten</brief>
+<description>Trotz nicht referenzierter Achsen wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet.
 
 Bit  0 = 1: Freigabe Interrupt  1 (Anwender-Interrupt)
 Bit  1 = 1: Freigabe Interrupt  2 (Anwender-Interrupt)
@@ -800,7 +798,7 @@ Hinweise
  - MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK
  - MD20115 $MC_IGNORE_REFP_LOCK_ASUP
 
-2. Bei MD20700 $MC_REFP_NC_START_LOCK == 0, wird die Einstellung im MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK ignoriert und nicht referierte Achsen werden immer ignoriert.
+2. Bei MD20700 $MC_REFP_NC_START_LOCK == 0, wird die Einstellung im MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK ignoriert und nicht referenzierte Achsen werden immer ignoriert.
 
 Korrespondiert mit:
 MD11602 $MN_ASUP_START_MASK
@@ -810,7 +808,7 @@ MD20191 $MC_IGN_PROG_STATE_ASUP
 MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
-<parameter number="20116" type="DWORD" dim="0" display="HEX">
+<parameter number="20116" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_INHIBIT_ASUP</name>
 <brief>Interruptprogramm trotz Einlesesperre abarbeiten</brief>
 <description>Trotz gesetzter Einlesesperre wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet:
@@ -837,7 +835,7 @@ MD20191 $MC_IGN_PROG_STATE_ASUP
 MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
-<parameter number="20117" type="DWORD" dim="0" display="HEX">
+<parameter number="20117" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_SINGLEBLOCK_ASUP</name>
 <brief>Interruptprogramm trotz Einzelsatz komplett abarbeiten</brief>
 <description>Trotz gesetzter Einzelsatzbearbeitung wird für den Interrupt, dessen Bit gesetzt ist, das zugeordnete ASUP abgearbeitet:
@@ -960,7 +958,7 @@ Weiterführende Literatur:
 	Funktionsbeschreibung: Koordinatensysteme (K2)
 </description>
 </parameter>
-<parameter number="20125" type="DWORD" dim="0" display="HEX">
+<parameter number="20125" type="UDWORD" dim="0" display="HEX">
 <name>CUTMOD_ERR</name>
 <brief>Fehlerbehandlung für die Funktion CUTMOD</brief>
 <description>Bei Wirksamwerden der Funktion CUTMOD (durch expliziten Aufruf oder durch eine Werkzeuganwahl) können verschiedene Fehlerzustände auftreten. Für jeden dieser möglichen Fehlerzustände kann mit diesem Maschinendatum eingestellt werden, ob der Fehler zu einer Alarmausgabe führen soll, und falls ja, ob ein solcher Alarm nur angezeigt werden soll (Warnhinweis), oder ob die Interpretation des Teileprogramms abgebrochen werden soll.
@@ -1020,7 +1018,7 @@ Es bestimmt, ob nach Satzsuchlauf mit Berechnung WZ-Wechselbefehle, WZ-Vorbereit
 Anmerkung 1:
 Ohne aktive Magazinverwaltung wird der Werkzeugwechsel-M-Code nicht aufgesammelt, wenn er keiner Hilfsfunktionsgruppe zugeordnet ist. Mit aktiver Magazinverwaltung entspricht dies dem MD-Wert = 0
 Anmerkung 2:
-Der Wert = 0 ist z.Bsp. sinnvoll, wenn nach Erreichen des Suchlaufziels die augesammelten WZ-Wechselkommandos an PLC in einem ASUP-Programm mit Hilfe der Befehle GETSELT, GETEXET ausgegeben werden
+Der Wert = 0 ist z.B. sinnvoll, wenn nach Erreichen des Suchlaufziels die augesammelten WZ-Wechselkommandos an PLC in einem ASUP-Programm mit Hilfe der Befehle GETSELT, GETEXET ausgegeben werden
 
 Korrespondierend mit:
 MD22560 $MC_TOOL_CHANGE_M_CODE
@@ -1054,12 +1052,6 @@ MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
 
 
-Festlegung des Transformationsdatensatzes, der im Hochlauf und bei Reset bzw. Teileprogrammende in Abhängigkeit vom MD20110 $MC_RESET_MODE_MASK und bei Teileprogrammstart in Abhängigkeit vom MD20112 $MC_START_MODE_MASK angewählt wird.
-Nummer des Transformationsdatensatzes (1...n) entsprechend MD24100 $MC_TRAFO_TYPE_1 bis TRAFO_TYPE_n.
-
-Nicht relevant MD20110 $MC_RESET_MODE_MASK:
-MD20110 $MC_RESET_MODE_MASK, Bit 0 = 0
-MD20112 $MC_START_MODE_MASK
 </description>
 </parameter>
 <parameter number="20142" type="STRING" dim="0">
@@ -1071,7 +1063,7 @@ Nicht relevant:
 MD20110 $MC_RESET_MODE_MASK, Bit 0 = 0
 </description>
 </parameter>
-<parameter number="20144" type="BYTE" dim="0" display="HEX">
+<parameter number="20144" type="UBYTE" dim="0" display="HEX">
 <name>TRAFO_MODE_MASK</name>
 <brief>Funktionsanwahl der kinematischen Transformation</brief>
 <description>Wählt bestimmte Funktionalität der kinematischen Transformation aus durch Setzen folgender Bits:
@@ -1123,7 +1115,7 @@ Benennung		Gruppe		Standardwert bei 840D
 GCODE_RESET_VALUES[0]	    1		2 (G1)
 GCODE_RESET_VALUES[1]	    2		0 (inaktiv)
 GCODE_RESET_VALUES[2]	    3		0 (inaktiv)
-GCODE_RESET_VALUES[3]	    4		2 (STARTFIFO)
+GCODE_RESET_VALUES[3]	    4		1 (STARTFIFO)
 GCODE_RESET_VALUES[4]	    5		0 (inaktiv)
 GCODE_RESET_VALUES[5]	    6		1 (G17)
 GCODE_RESET_VALUES[6]	    7		1 (G40)
@@ -1134,7 +1126,7 @@ GCODE_RESET_VALUES[10]	   11		0 (inaktiv)
 GCODE_RESET_VALUES[11]	   12		1 (G601)
 GCODE_RESET_VALUES[12]	   13		2 (G71)
 GCODE_RESET_VALUES[13]	   14		1 (G90)
-GCODE_RESET_VALUES[14]	   15		2 (G94)
+GCODE_RESET_VALUES[14]	   15		1 (G94)
 GCODE_RESET_VALUES[15]	   16		1 (CFC)
 GCODE_RESET_VALUES[16]	   17		1 (NORM)
 GCODE_RESET_VALUES[17]	   18		1 (G450)
@@ -1194,11 +1186,12 @@ GCODE_RESET_VALUES[69]	   70		1 (nicht festgelegt)
 <description>Festlegung der nicht veränderbaren SIEMENS-G-Codes-Modes
 für Sinumerik 828D gilt:
 MD	Index	Wert
-		Turning	Milling CGrinding SGrinding
-	[5]	0	1        -         -
+		Turning	Milling
+	[5]	0	1
+	[7]	1	1
+	[12]	0	0
+	[15]	0
 	[7]	-	-        1         1
-	[12]	0	0        0         0
-	[15]	0	-        0         -
 für Sinumerik 808D gilt:
 MD	Index	Wert
 		Turning	Milling
@@ -1241,11 +1234,11 @@ MD20112 $MC_START_MODE_MASK
 <brief>Löschstellung der G-Gruppen im ISO-Mode</brief>
 <description>Beim Nutzen einer externen NC-Programmiersprache Festlegung der G-Codes, die im Hochlauf und bei Reset bzw. Teileprogrammende in Abhängigkeit vom MD20110 $MC_RESET_MODE_MASK und bei Teileprogrammstart in Abhängigkeit vom MD20112 $MC_START_MODE_MASK wirksam werden.
 Folgende externe Programmiersprachen sind möglich:
-	ISO2-Dialekt-Milling
-	ISO3-Dialekt-Turning
+	ISO-Mode Milling
+	ISO-Mode Turning
 Die zu verwendende G-Gruppen-Einteilung ergibt sich aus den aktuellen SINUMERIK-Dokumentationen.
 Folgende Gruppen innerhalb des MD20154 $MC_EXTERN_GCODE_RESET_VALUES sind schreibbar:
-ISO2-Dialekt-M:
+ISO-Mode M:
 	G-Gruppe 2:  G17/G18/G19
 	G-Gruppe 3:  G90/G91
 	G-Gruppe 5:  G94/G95
@@ -1253,7 +1246,7 @@ ISO2-Dialekt-M:
 	G-Gruppe 13: G96/G97
 	G-Gruppe 14: G54-G59
 
-ISO3-Dialekt-T:
+ISO-Mode T:
 	G-Gruppe 2:  G96/G97
 	G-Gruppe 3:  G90/G91
 	G-Gruppe 5:  G94/G95
@@ -1267,7 +1260,7 @@ ISO3-Dialekt-T:
 <description>Diese MD wird nur bei gesetztem Bit0 in MD20110 $MC_RESET_MODE_MASK (siehe dort) ausgewertet!
 Mit diesem MD wird für jeden Eintrag im MD20154 $MC_EXTERN_GCODE_RESET_VALUES (also für jede G-Gruppe) festgelegt, ob bei einem Reset/Teileprogrammende wieder die Einstellung entsprechend MD20154 $MC_EXTERN_GCODE_RESET_VALUES eingenommen wird ( MD = 0 ), oder die momentan aktuelle Einstellung erhalten bleibt ( MD = 1 ).
 
-Beispiel für ISO-Dialekt M:
+Beispiel für ISO-Mode M:
 Hier wird bei jedem Reset/Teileprogrammende die Grundstellung für die 14. G-Gruppe (einstellbare Nullpunktverschiebung) aus dem MD20154 $MC_EXTERN_GCODE_RESET_VALUES gelesen:
 
 MD20154 $MC_EXTERN_GCODE_RESET_VALUES[13]=1 ;Resetvalue der 14. G-Gruppe
@@ -1313,6 +1306,7 @@ Literatur:
 <name>SURF_BLOCK_PATH_LIMIT</name>
 <brief>Maximale Verfahrlänge eines NC-Satzes für die Funktion COMPSURF</brief>
 <description>Das Maschinendatum bestimmt die maximale Verfahrlänge eines Satzes, der noch als komprimierbar angesehen wird. Längere Sätze unterbrechen die Glättung und werden normal abgefahren.
+Wird der Wert 0 eingetragen, so wird die maximale Verfahrlänge in der Steuerung durch die vorgegeben Toleranz bestimmt.
 </description>
 </parameter>
 <parameter number="20172" type="DOUBLE" dim="0">
@@ -1336,17 +1330,29 @@ Literatur:
 <description>Der Wert gibt für den Bahnvorschub die maximal erlaubte Abweichung für die Kompression an. Je größer der Wert ist, umso mehr kurze Sätze können in einen langen Satz komprimiert werden.
 </description>
 </parameter>
-<parameter number="28174" type="DOUBLE" dim="0">
+<parameter number="20174" type="DOUBLE" dim="0">
 <name>MAX_SURF_TOL</name>
 <brief>Maximale Konturtoleranz der Funktion COMPSURF</brief>
 <description>Maximal erlaubte Konturtoleranz der Funktion COMPSURF, falls nicht eine spezielle Option gesetzt ist.
 Ohne diese Option kommt bei einer größeren Toleranz, die z.B. mit CTOL programmiert wird, der zugehörige Optionsalarm.
 </description>
 </parameter>
-<parameter number="28175" type="DOUBLE" dim="0">
+<parameter number="20175" type="DOUBLE" dim="0">
 <name>MIN_SURF_TOL</name>
 <brief>Minimale Konturtoleranz der Funktion COMPSURF</brief>
 <description>Minimale wirksame Konturtoleranz der Funktion COMPSURF. Kleinere Werte, die z.B. mit CTOL programmiert sind, werden ignoriert und auf diesen Wert begrenzt.
+</description>
+</parameter>
+<parameter number="20176" type="DOUBLE" dim="1">
+<name>SURF_SYSTEM_PARAM</name>
+<brief>Systemparameter für COMPSURF</brief>
+<description>Systemparameter für COMPSURF.
+</description>
+</parameter>
+<parameter number="20177" type="DWORD" dim="0">
+<name>SURF_ORI_PRESMOOTH</name>
+<brief>Orientierungsvorglättung für COMPSURF</brief>
+<description>Vorglättung der Orientierung, falls "CTOL" und "OTOL" sehr unterschiedlich sind, um die Orientierungstoleranz besser ausnutzen zu können.
 </description>
 </parameter>
 <parameter number="20180" type="DOUBLE" dim="1">
@@ -1360,7 +1366,7 @@ Dabei ist
 s = MD20180 $MC_TOCARR_ROT_ANGLE_INCR[i]
 d = MD20182 $MC_TOCARR_ROT_ANGLE_OFFSET[i]
 mit i gleich 0 für die 1. und i gleich 1 für die zweite Achse.
-Ist dieses Maschindatum gleich Null, findet keine Rundung statt.
+Ist dieses Maschinendatum gleich Null, findet keine Rundung statt.
 </description>
 </parameter>
 <parameter number="20182" type="DOUBLE" dim="1">
@@ -1368,14 +1374,14 @@ Ist dieses Maschindatum gleich Null, findet keine Rundung statt.
 <brief>Rundachsoffset des orientierbaren Werkzeugträgers</brief>
 <description>Dieses Maschinedatum gibt bei orientierbarem Werkzeugträger den Offset der Rundachse an, wenn deren Position nicht kontinuierlich veränderbar ist.
 Es wird nur ausgewertet, wenn MD20180 $MC_TOCARR_ROT_ANGLE_INCR ungleich Null ist.
-Zur genauen Bedeutung dieses Maschindatums, siehe die Beschreibung von MD20180 $MC_TOCARR_ROT_ANGLE_INCR.
+Zur genauen Bedeutung dieses Maschinendatums, siehe die Beschreibung von MD20180 $MC_TOCARR_ROT_ANGLE_INCR.
 </description>
 </parameter>
 <parameter number="20184" type="DWORD" dim="0">
 <name>TOCARR_BASE_FRAME_NUMBER</name>
 <brief>Nummer des Basisframes für Aufnahme des Tischoffsets.</brief>
 <description>Dieses Maschinendatum gibt an, in welchem kanalspezifischen Basisframe der Tischoffset eines orientierbaren Werkzeugträgers mit drehbarem Tisch geschrieben wird.
-Diese Maschindatum muss auf einen gültigen Basisframe verweisen.
+Diese Maschinendatum muss auf einen gültigen Basisframe verweisen.
 Ist sein Inhalt kleiner 0 oder größer oder gleich der in MD28081 $MC_MM_NUM_BASE_FRAMES eingestellten maximalen Basisframeanzahl, führt die Anwahl eines entsprechenden Werkzeugträgers zu einem Alarm.
 </description>
 </parameter>
@@ -1391,7 +1397,7 @@ Ist sein Inhalt kleiner 0 oder größer oder gleich der in MD28081 $MC_MM_NUM_BASE
 <description>Gibt für jeden Kanal die Eingabegrenze für die rotatorischen Feinverschiebungswerte eines orientierbaren Werkzeugträgers an.
 </description>
 </parameter>
-<parameter number="20191" type="DWORD" dim="0" display="HEX">
+<parameter number="20191" type="UDWORD" dim="0" display="HEX">
 <name>IGN_PROG_STATE_ASUP</name>
 <brief>Ausführung des Interruptprogramms auf BTSS nicht anzeigen</brief>
 <description>Das Ausführen des ASUPs, das dem Interrupt zugeordnet ist, wird durch die BTSS-Variablen "progStatus" und "chanStatus" NICHT angezeigt.
@@ -1418,7 +1424,7 @@ MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
 MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
-<parameter number="20192" type="DWORD" dim="0" display="HEX">
+<parameter number="20192" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_PROG_STATE</name>
 <brief>Ausführung des Prog-Events auf BTSS nicht anzeigen</brief>
 <description>Ereignisgesteuerte Programmaufrufe (Prog-Events) können bezüglich ihres Verhaltens an der BTSS-Schnittstelle beeinflusst werden.
@@ -1445,7 +1451,7 @@ Korrespondiert mit:
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 </description>
 </parameter>
-<parameter number="20193" type="DWORD" dim="0" display="HEX">
+<parameter number="20193" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_STOP</name>
 <brief>Prog-Events ignoriert die Stop-Taste</brief>
 <description>Ereignisgesteuerte Programmaufrufe (Prog-Events) können bezüglich ihres Verhaltens zur Stop-Taste beeinflusst werden.
@@ -1468,7 +1474,7 @@ Korrespondiert mit:
 	MD20192 $MC_PROG_EVENT_IGN_PROG_STATE
 </description>
 </parameter>
-<parameter number="20194" type="DWORD" dim="0" display="HEX">
+<parameter number="20194" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_NONCSTART_ASUP</name>
 <brief>ASUP-Start trotz "Verriegelung NC-START" bei best. Anwenderalarmen zul.</brief>
 <description>Durch einen Anwenderalarm aus dem Nummernband 65500 - 65999 wird das Signal "NC-Start Verriegelung" gesetzt. Dadurch werden standardmäßig auch keine ASUPs aufgrund von Interrupts abgearbeitet.
@@ -1496,7 +1502,7 @@ MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
 MD20191 $MC_IGN_PROG_STATE_ASUP
 </description>
 </parameter>
-<parameter number="20196" type="DWORD" dim="0" display="HEX">
+<parameter number="20196" type="UDWORD" dim="0" display="HEX">
 <name>TOCARR_ROTAX_MODE</name>
 <brief>ToolCarrier: Rotachseinst. bei nicht definierten Achspositionen</brief>
 <description>Das Maschinendatum ist bitcodiert. Bit 0 gilt für orientierbare Werkzeugträger mit einer Achse, Bit 1 für solche mit 2 Achsen.
@@ -1506,6 +1512,7 @@ Bei der Bestimmung der Achspositionen eines orientierbaren Werkzeugträgers aus e
  Ist das entsprechende Bit 1, wird die Drehung mit Hilfe der Rundachse des orientierbaren Werkzeugträgers ausgeführt. Der resultierende Frame enthält keine Drehung mehr.
 Beispiel:
 Ein Werkzeug zeigt in Grundstellung in Z-Richtung, und es gibt eine Achse des orientierbaren Werkzeugträgers, die das Werkstück um Z dreht (C_Achse). Soll das Werkzeug parallel zur Z-Achse eines drehenden Frames ausgerichtet werden, und der Frame dreht nur um die Z-Achse, bleibt die Werkzeugorientierung unverändert, wenn die C-Achse gedreht wird. Die Bedingung, dass das Werkzeug in Richtung der durch den Frame definierten Z-Achse zeigen soll, ist deshalb für jede beliebige Position der Z-Achse erfüllt.
+Bit 2: Ist dieses Bit gesetzt, wird in einer singulären Stellung, bei der es auf Grund der Ausrichtung der zur Orientierung senkrechten Koordinatenachsen eine eindeutig Lösung gibt, in der Systemvariable $P_TCSOL der Wert 1 als Zahl der Lösungen ausgegeben. Ist dieses Bit nicht gesetzt, werden zwei Lösungen ausgegeben (die Winkel um die Orientierungsachse unterscheiden sich dabei um 180 Grad). Diese Variante ist aus Gründen der Kompatibilität zu älteren Softwareständen erforderlich.
 </description>
 </parameter>
 <parameter number="20200" type="BYTE" dim="0">
@@ -1514,7 +1521,7 @@ Ein Werkzeug zeigt in Grundstellung in Z-Richtung, und es gibt eine Achse des or
 <description>Gibt die Maximalzahl der Sätze ohne Verfahrinformationen in der Korrekturebene (Dummysätze) an, die bei aktiver Fase/Rundung zwischen zwei Sätzen mit Verfahrinformation stehen dürfen.
 </description>
 </parameter>
-<parameter number="20201" type="DWORD" dim="0" display="HEX">
+<parameter number="20201" type="UDWORD" dim="0" display="HEX">
 <name>CHFRND_MODE_MASK</name>
 <brief>Verhalten Fase/Rundung</brief>
 <description>Festlegungen zum Verhalten Fase/Rundung
@@ -1720,7 +1727,7 @@ Es gibt dabei folgende Möglichkeiten:
 1:	Die Endlagen werden bei aktiver Transformation präparativ geprüft.
 </description>
 </parameter>
-<parameter number="20310" type="DWORD" dim="0" display="HEX">
+<parameter number="20310" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_MANAGEMENT_MASK</name>
 <brief>Aktivierung der Werkzeugverwaltungsfunktionen</brief>
 <description>MD = 0: WZV inaktiv
@@ -1737,6 +1744,7 @@ Bit 3=1: Nebenplatzbetrachtung aktiv
 Bit 0 bis Bit 3 müssen wie beim MD18080 $MN_MM_TOOL_MANAGEMENT_MASK gesetzt sein.
 Bit 4=1: Die PLC hat die Möglichkeit, eine T-Vorbereitung mit geänderten Parametern noch einmal anzufordern.
 Mit diesem Bit wird der Quittierungsstatus "2", "7" und "103" freigegeben. Dadurch wird die WZ-Anwahl in NCK neu berechnet.
+Hinweis: Bit4=1 (PLC darf Werkzeug ablehnen) und Bit23=1 (Interpreter wählt Werkzeug aus) schließen sich gegenseitig aus.
 
 Bit 5 bis Bit 8
 Bit 5 und Bit 7 beziehen sich auf die Hauptspindel
@@ -1809,6 +1817,7 @@ Bit 23=0: Standardeinstellung
 Die WZV wählt das WZ optimal sicher im Hauptlauf an, d.h. der Interpreter muss eventuell bei der Korrekturanwahl auf das Ende der WZ-Anwahl warten.
 Bit 23=1: Für Einfachanwendungen
 Der Interpreter wählt das WZ selbst aus, d.h. es ist keine Synchronisation mit dem Hauptlauf bei der Korrekturanwahl nötig. (Falls WZ nach Anwahl, aber vor Einwechseln Einsatzfähigkeit verliert, kann nicht korrigierbarer Alarm die Folge sein.)
+Hinweis: Bit4=1 (PLC darf Werkzeug ablehnen) und Bit23=1 (Interpreter wählt Werkzeug aus) schließen sich gegenseitig aus.
 Bit 24=0: Standardeinstellung
 Falls die PLC Kommandos 8 und 9 (Asynchroner Transfer) ein WZ auf einen für ein anderes WZ reservierten Platz bewegen wollen, so wird das mit Alarm abgewiesen.
 Bit 24=1: Falls die PLC Kommandos 8 und 9 ein WZ auf einen für ein anderes WZ mit "reserviert für WZ aus Zwischenspeicher" (Bitwerte="H4" reservierten Platz bewegen sollen, so ist das möglich. Diese Platzreservierung wird dazu vor der Ausführung der Bewegung entfernt ("reserviert für neu zu beladenes WZ" (Bitwert="H8") bleibt wirksam).
@@ -1821,12 +1830,9 @@ MD20110 $MC_RESET_MODE_MASK
 MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER
 MD22560 $MC_TOOL_CHANGE_M_CODE
 
-Wert = 0: 	keine Werkzeugüberwachung
-Wert = 0x2: 	Werkzeugüberwachung  aktiviert
-	(nur möglich, wenn Option "Werkzeugüberwachung" vorhanden ist)
 </description>
 </parameter>
-<parameter number="20320" type="DWORD" dim="0" display="HEX">
+<parameter number="20320" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_TIME_MONITOR_MASK</name>
 <brief>Zeitüberwachung für WZ im Werkzeughalter</brief>
 <description>Aktivierung der Werkzeug-Zeitüberwachung für die Werkzeug-Halter bzw. Spindeln 1...x.
@@ -1844,7 +1850,7 @@ TOOL_GRIND_AUTO_TMON = 1 : automatische Überwachung eingeschaltet
 TOOL_GRIND_AUTO_TMON = 0 : automatische Überwachung ausgeschaltet
 </description>
 </parameter>
-<parameter number="20360" type="DWORD" dim="0" display="HEX">
+<parameter number="20360" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_PARAMETER_DEF_MASK</name>
 <brief>Definition der Werkzeug-Parameter</brief>
 <description>Definition der Wirkung der Werkzeug-Parameter.
@@ -1901,6 +1907,9 @@ Bit20:
 Bit21:
 	Ist dieses Bit Null, wird bei CUTMOD mit ToolCarrier bei der Schneidenlagenmodifikation eine eventuell vorhandene Drehung im Part-Anteil des ToolCarriers berücksichtigt. Frames werden ignoriert.
      Ist dieses Bit 1, wird bei CUTMOD mit ToolCarrier bei der Schneidenlagenmodifikation an Stelle des Part-Anteils des ToolCarriers der aktive Gesamtframe berücksichtigt. Der Gesamtframe kann dabei auch einen Part-Anteil des ToolCarriers enthalten.
+Bit22:
+	Ist dieses Bit Null, wird bei aktiver kinematischer Transformation ein nicht zu transformierender Verschleißanteil des Werkzeugs (siehe SD42935 $SC_WEAR_TRANSFORM) statisch mit der Stellung der Transformation berücksichtigt, die zum Zeitpunkt der Werkzeuganwahl gültig war.
+	Ist dieses Bit 1, wird bei aktiver kinematischer Transformation ein nicht zu transformierender Verschleißanteil des Werkzeugs (siehe SD42935 $SC_WEAR_TRANSFORM) in Echtzeit mit der jeweils aktuellen Stellung der Transformation berücksichtigt.
 </description>
 </parameter>
 <parameter number="20370" type="DWORD" dim="1">
@@ -1925,7 +1934,7 @@ Beispiele:
 <parameter number="20380" type="BYTE" dim="0">
 <name>TOOL_CORR_MODE_G43G44</name>
 <brief>Behandlung der Werkzeuglängenkorrektur bei G43 / G44</brief>
-<description>Das Maschinendatum bestimmt im ISO-Dialekt-M (G43 / G44) die Art, wie mit H programmierte Längenkorrekturen verarbeitet werden.
+<description>Das Maschinendatum bestimmt im ISO-Mode M (G43 / G44) die Art, wie mit H programmierte Längenkorrekturen verarbeitet werden.
 0:	Modus A
 	Die Werkzeuglänge H wirkt immer auf die dritte Geometrieachse (in der Regel Z)
 1:	Modus B
@@ -1951,7 +1960,7 @@ Beispiele:
 <parameter number="20384" type="BOOLEAN" dim="0">
 <name>TOOL_CORR_MULTIPLE_AXES</name>
 <brief>Werkzeuglängenkorrektur in mehreren Achsen gleichzeitig</brief>
-<description>Dieses Maschinendatum bestimmt bei der Werkzeuglängenkorrektur im ISO-Dialekt--M (ISO2) (G43 / G44), ob es im Modus C (Auswahl der Achse, auf die die Korrektur wirkt, durch Angabe des betreffenden Achsbuchstabens) zulässig sein soll, dass die Korrektur gleichzeitig auf mehrere Achsen wirkt.
+<description>Dieses Maschinendatum bestimmt bei der Werkzeuglängenkorrektur im ISO-Mode M (ISO2) (G43 / G44), ob es im Modus C (Auswahl der Achse, auf die die Korrektur wirkt, durch Angabe des betreffenden Achsbuchstabens) zulässig sein soll, dass die Korrektur gleichzeitig auf mehrere Achsen wirkt.
 
 Ist dieses Maschinendatum 1, ist diese Art der Programmierung erlaubt, andernfalls wird dies mit einem Alarm abgelehnt.
 </description>
@@ -1959,7 +1968,7 @@ Ist dieses Maschinendatum 1, ist diese Art der Programmierung erlaubt, andernfal
 <parameter number="20390" type="BOOLEAN" dim="0">
 <name>TOOL_TEMP_COMP_ON</name>
 <brief>Aktivierung der Temperaturkompensation für Werkzeuglänge</brief>
-<description>Mit diesem Maschindatum wird die Temperaturkompensation in Werkzeugrichtung aktiviert (s. auch SD42960 $SC_TOOL_TEMP_COMP)
+<description>Mit diesem Maschinendatum wird die Temperaturkompensation in Werkzeugrichtung aktiviert (s. auch SD42960 $SC_TOOL_TEMP_COMP)
 </description>
 </parameter>
 <parameter number="20392" type="DOUBLE" dim="1">
@@ -1972,8 +1981,8 @@ Wird ein Temperaturkompensationswert vorgegeben, der größer als dieser Grenzwert
 <parameter number="20396" type="BOOLEAN" dim="0">
 <name>TOOL_OFFSET_DRF_ON</name>
 <brief>Handradüberlagerung in Werkzeugrichtung</brief>
-<description>Mit diesem Maschindatum wird die Handradüberlagerung in Werkzeugrichtung aktiviert.
-Ist dieses Maschindatum gesetzt, wirkt eine aktive Handradüberlagerung in der Achse, die der Länge L1 des aktiven Werkzeugs zugeordnet ist, in der Richtung, die durch die Werkzeugorientierung bestimmt ist.
+<description>Mit diesem Maschinendatum wird die Handradüberlagerung in Werkzeugrichtung aktiviert.
+Ist dieses Maschinendatum gesetzt, wirkt eine aktive Handradüberlagerung in der Achse, die der Länge L1 des aktiven Werkzeugs zugeordnet ist, in der Richtung, die durch die Werkzeugorientierung bestimmt ist.
 
 Beispiel:
 Es ist G17 aktiv, das Werkzeug ist ein Fräswerkzeug, die Werkzeuglänge L1 ist deshalb der Z-Achse (der 3. Geometrieachse) zugeordnet.
@@ -2020,8 +2029,8 @@ Beim Wechsel zwischen Standard-LookAhead und erweitertem LookAhead bzw. umgekehr
 </parameter>
 <parameter number="20450" type="DOUBLE" dim="0">
 <name>LOOKAH_RELIEVE_BLOCK_CYCLE</name>
-<brief>Entlastungsfaktor für die Blockzykluszeit</brief>
-<description>Blockzyklusprobleme treten aus folgendem Grund auf:
+<brief>Entlastungsfaktor für die Satzwechselzeit</brief>
+<description>Satzwechselprobleme treten aus folgendem Grund auf:
 Die Verfahrlänge der abzuarbeitenden NC-Sätze ist so kurz, dass die LookAhead-Funktion die Maschinengeschwindigkeit reduzieren muss um der Satzaufbereitung genügend Zeit zur Verfügung zu stellen. In dieser Situation kann ein ständiges Abbremsen und Beschleunigen der Bahnbewegung auftreten.
 Mit diesem Datum wird festgelegt, wie sehr derartige Geschwindigkeits-Schwankungen gedämpft werden sollen.
 
@@ -2030,7 +2039,7 @@ Sonderfälle:
 	Der Wert 0.0 bedeutet: Funktion ist deaktiviert.
 </description>
 </parameter>
-<parameter number="20455" type="BYTE" dim="0" display="HEX">
+<parameter number="20455" type="UBYTE" dim="0" display="HEX">
 <name>LOOKAH_FUNCTION_MASK</name>
 <brief>Sonderfunktionen des Look Ahead</brief>
 <description>Sonderfunktionen des Look Ahead:
@@ -2043,11 +2052,12 @@ Bit 1 = 1:
 <parameter number="20460" type="DOUBLE" dim="0">
 <name>LOOKAH_SMOOTH_FACTOR</name>
 <brief>Glättungsfaktor bei Look Ahead</brief>
-<description>Zugunsten einer ruhigeren Bahngeschwindigkeitsführung kann ein Glättungsfaktor vorgegeben werden.
-Er bestimmt den maximal zulässigen Produktivitätsverlust.
-Beschleunigungsvorgänge, die weniger als dieser Faktor zu einer kürzeren Programmlaufzeit beitragen, werden dann nicht durchgeführt.
+<description>Achtung: Diese Funktion ist obsolet und wird nicht mehr unterstützt!
+Zugunsten einer ruhigeren Bahngeschwindigkeitsführung konnte ein Glättungsfaktor vorgegeben werden.
+Er bestimmte den maximal zulässigen Produktivitätsverlust.
+Beschleunigungsvorgänge, die weniger als dieser Faktor zu einer kürzeren Programmlaufzeit beitragen, wurden dann nicht durchgeführt.
 
-Betrachtet werden dabei nur Beschleunigungsvorgänge, deren Frequenz oberhalb der im MD32440 $MA_LOOKAH_FREQUENCY parametrierten Frequenz liegen.
+Betrachtet wurden dabei nur Beschleunigungsvorgänge, deren Frequenz oberhalb der im MD32440 $MA_LOOKAH_FREQUENCY parametrierten Frequenz liegen.
 Durch Eingabe von 0.0 wird die Funktion deaktiviert.
 </description>
 </parameter>
@@ -2074,7 +2084,7 @@ Korrespondiert mit:
 	FIFOCTRL
 </description>
 </parameter>
-<parameter number="20464" type="DWORD" dim="0" display="HEX">
+<parameter number="20464" type="UDWORD" dim="0" display="HEX">
 <name>PATH_MODE_MASK</name>
 <brief>Bahnverhalten</brief>
 <description>Mit diesem Maschinendatum kann das Bahnverhalten beeinflusst werden
@@ -2088,10 +2098,11 @@ Bit0:
 <parameter number="20465" type="DOUBLE" dim="1">
 <name>ADAPT_PATH_DYNAMIC</name>
 <brief>Adaption der Bahndynamik</brief>
-<description>Mit diesem Anpassfaktor kann die Dynamik von Änderungen der Bahngeschwindigkeit verringert werden.
-ADAPT_PATH_DYNAMIC[0] ist bei Brisk wirksam und reduziert die zulässige Beschleunigung.
-ADAPT_PATH_DYNAMIC[1] ist bei Soft wirksam und reduziert den zulässigen Ruck.
-Betrachtet werden dabei nur Beschleunigungsvorgänge, deren Frequenz oberhalb der im MD32440 $MA_LOOKAH_FREQUENCY parametrierten Frequenz liegen.
+<description>Achtung: Diese Funktion ist obsolet und wird nicht mehr unterstützt!
+Mit diesem Anpassfaktor konnte die Dynamik von Änderungen der Bahngeschwindigkeit verringert werden.
+ADAPT_PATH_DYNAMIC[0] war bei Brisk wirksam und reduzierte die zulässige Beschleunigung.
+ADAPT_PATH_DYNAMIC[1] war bei Soft wirksam und reduzierte den zulässigen Ruck.
+Betrachtet wurden dabei nur Beschleunigungsvorgänge, deren Frequenz oberhalb der im MD32440 $MA_LOOKAH_FREQUENCY parametrierten Frequenz liegen.
 Durch Eingabe von 1.0 wird die Funktion deaktiviert.
 </description>
 </parameter>
@@ -2121,6 +2132,7 @@ Korrespondiert mit:
 <description>Mit diesem MD wird die Bahnlänge der Teilsätze eingestellt, wie sie bei der Orientierungsglättung mit ORISON gebildet werden.
 Damit dieses Datum wirksam wird, muss das Zerteilen von Sätzen bei ORISON mit dem MD20478 $MC_ORISON_MODE ermöglicht sein
 (Wert 100).
+Wenn für dieses MD eine Länge eingestellt wird, die deutlich kürzer als die Standardlänge von 0.5 mm ist, kann es zu Problemen mit der Performance und der Wirkung der Orientierungsglättung bei großen Toleranzen kommen. Wenn diese Länge verringert wird, muss in der Regel auch der Satzpuffer für die Orientierungsglättung (MD28590 $MC_MM_ORISON_BLOCKS) vergrößert werden, damit die Orientierungsglättung noch über eine hinreichend große Bahnlänge wirken kann.
 </description>
 </parameter>
 <parameter number="20478" type="DWORD" dim="0">
@@ -2330,7 +2342,7 @@ Eintrag für jede Dynamik-G-Code-Gruppe.
 Eintrag für jede Dynamik-G-Code-Gruppe.
 </description>
 </parameter>
-<parameter number="20488" type="BYTE" dim="0" display="HEX">
+<parameter number="20488" type="UBYTE" dim="0" display="HEX">
 <name>SPLINE_MODE</name>
 <brief>Einstellung für Splineinterpolation</brief>
 <description>Mit diesem MD werden die Einstellungen bei Splineinterpolation festgelegt. Damit kann die Aufteilung der Splineabschnitte auf die NC-Sätze beeinflusst werden. Bei Spline Interpolation werden, falls dies möglich ist, die Splinesätze so zusammengefasst, dass keine zu kurze Sätze entstehen, die zu einer Reduzierung der möglichen Bahngeschwindigkeit führen kann.
@@ -2388,11 +2400,11 @@ Es gilt:
 2:	Verhalten wie bei G602 (Positionierfenster grob) aktiv.
 3:	Verhalten wie bei G603 (Sollwert erreicht) aktiv.
 
-4:	wie 0,
-	zusätzlich wird beim Wechsel von G00 nach Nicht-G00 vorausschauend im G00-Satz der Override des nachfolgenden Nicht-G00-Satzes berücksichtigt.
+4:	wie 0, kein Stopp am Satzübergang.
+	Bei Bahnsteuerbetrieb wird bei Satzwechseln von G0 zu Nicht-G0 im G0-Satz vorausschauend der aktuelle Wert der Vorschubkorrektur des nachfolgenden Nicht-G0-Satzes berücksichtigt. Abhängig von der Achsdynamik und der Bahnlänge des aktuellen Satzes erfolgt der Satzwechsel mit der exakten bzw. bestmöglich angepassten Geschwindigkeit des Folgesatzes.
 
-5:	wie 0,
-	zusätzlich wird beim Wechsel von G00 nach Nicht-G00 und Nicht-G00 nach G00 vorausschauend der Override des nachfolgenden Satzes berücksichtigt.
+5:	wie 0, kein Stopp am Satzübergang.
+	Bei Bahnsteuerbetrieb wird bei Satzwechseln von G0 zu Nicht-G0 und Nicht-G0 zu G0 vorausschauend der aktuelle Wert der Vorschubkorrektur (G0 zu Nicht-G0) bzw. der Eilgangkorrektur (Nicht-G0 zu G0) des nachfolgenden Satzes berücksichtigt. Abhängig von der Achsdynamik und der Bahnlänge des aktuellen Satzes erfolgt der Satzwechsel mit der exakten bzw. bestmöglich angepassten Geschwindigkeit des Folgesatzes.
 </description>
 </parameter>
 <parameter number="20560" type="DOUBLE" dim="0">
@@ -2457,13 +2469,16 @@ Ist dieser Faktor Null wird nicht geglättet.
 Es gibt einen Eintrag für jede Dynamik-G-Code-Gruppe.
 </description>
 </parameter>
-<parameter number="20606" type="BOOLEAN" dim="1">
+<parameter number="20606" type="DWORD" dim="1">
 <name>PREPDYN_SMOOTHING_ON</name>
 <brief>Aktivieren der Glättung der Krümmung</brief>
 <description>Einschalten der Glättung der Krümmung und Torsion.
 Die Glättung der Krümmung bzw. Torsion führt zu einem homogeneren Verlauf der Bahngeschwindigkeit.
 Es wird nur dann geglättet, falls auch der zugehörige Faktor MD20605 $MC_PREPDYN_SMOOTHING_FACTOR &gt; 0 ist.
-
+Bedeutung:
+0:	Krümmungsglättung aus.
+1:	Krümmungsglättung eingeschaltet.
+2:	Krümmungsglättung auch für Achskopplungen eingeschaltet.
 Es gibt einen Eintrag für jede Dynamik-G-Code-Gruppe.
 
 </description>
@@ -2547,7 +2562,7 @@ Korrespondiert mit:
 = 0: keine Begrenzung
 </description>
 </parameter>
-<parameter number="20624" type="DWORD" dim="0" display="HEX">
+<parameter number="20624" type="UDWORD" dim="0" display="HEX">
 <name>HANDWH_CHAN_STOP_COND</name>
 <brief>Festlegung des Verhaltens des Handradfahrens kanalspezifisch</brief>
 <description>Festlegung des Verhaltens des Handradfahrens auf kanalspezifische VDI-Nahtstellensignale (Bit 0 bis Bit 7) bzw. CP-SW-Limit-Stop bzw. Stopp durch eine OEM Anwendung (Bit 7):
@@ -2621,11 +2636,11 @@ Bit 16 = 1:
 <parameter number="20700" type="BYTE" dim="0">
 <name>REFP_NC_START_LOCK</name>
 <brief>NC-Startsperre ohne Referenzpunkt</brief>
-<description>0:	Das NC/PLC-Nahtstellensignal &lt;NC-Start/&gt; (NC-Start) zum Starten von Teileprogrammen oder Teileprogrammsätzen (MDA und Überspeichern) ist wirksam, auch wenn eine oder alle Achsen des Kanals noch nicht referiert sind.
+<description>0:	Das NC/PLC-Nahtstellensignal &lt;NC-Start/&gt; (NC-Start) zum Starten von Teileprogrammen oder Teileprogrammsätzen (MDA und Überspeichern) ist wirksam, auch wenn eine oder alle Achsen des Kanals noch nicht referenziert sind.
 	Damit die Achsen nach NC-Start trotzdem die richtige Position erreichen, muss das Werkstückkoordinatensystem (WKS) durch andere Methoden auf einen richtigen Wert gesetzt werden (Ankratzmethode, automatische Nullpunktverschiebungsermittlung, etc.).
 
-1:	Diejenigen Achsen, die im axialen MD34110 $MA_REFP_CYCLE_NR als referenzpunktpflichtig appliziert wurden (Wert &gt; -1), müssen referiert sein, bevor NC-Start erlaubt wird.
-2:	Erweiterung der Einstellung 1 in der Form, dass für NC-Start in MDA oder Überspeichern der Achs-Zustand "Position restauriert" anstelle von "referiert" ausreichend ist.
+1:	Diejenigen Achsen, die im axialen MD34110 $MA_REFP_CYCLE_NR als referenzpunktpflichtig appliziert wurden (Wert &gt; -1), müssen referenziert sein, bevor NC-Start erlaubt wird.
+2:	Erweiterung der Einstellung 1 in der Form, dass für NC-Start in MDA oder Überspeichern der Achs-Zustand "Position restauriert" anstelle von "referenziert" ausreichend ist.
 </description>
 </parameter>
 <parameter number="20730" type="BOOLEAN" dim="0">
@@ -2634,22 +2649,30 @@ Bit 16 = 1:
 <description>Mit diesem Maschinendatum wird das Interpolationsverhalten bei G0 festgelegt:
 
 0:	Nicht-Lineare Interpolation (RTLIOF): Jede Bahnachse interpoliert als Einzelachse (Positionierachse) unabhängig von den anderen Achsen mit der Eilganggeschwindigkeit der Achse (MD32000 $MA_MAX_AX_VELO).
+     Das ist aber nur in einfachen Fällen möglich:
+             - Keine Transformation aktiv (TRAORI, TRANSMIT etc.).
+             - G60 aktiv (Anhalten am Satzende).
+             - Kein Kompressor aktiv (COMPOF).
+             - Keine Werkzeugradiuskorrektur aktiv (G40).
+             - Kein Konturhandrad angewählt.
+             - Kein Nibbeln aktiv.
+     Wenn eine dieser Bedingungen nicht erfüllt ist, wird linear interpoliert wie mit dem Wert 1 (RTLION).
 
 1:	Lineare Interpolation (RTLION): Die Bahnachsen werden gemeinsam interpoliert.
 </description>
 </parameter>
-<parameter number="20734" type="DWORD" dim="0" display="HEX">
+<parameter number="20734" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_FUNCTION_MASK</name>
 <brief>Funktionsmaske für externe Sprache</brief>
-<description>Mit diesem Maschinendatum werden Funktionen im ISO Mode beeinflusst.
+<description>Mit diesem Maschinendatum werden Funktionen im ISO-Mode beeinflusst.
 
 Bit0: 0:
-	ISO Mode T: "A" und "C" werden als Achsen interpretiert. Wenn Konturzug programmiert wird, muss vor "A" oder "C" ein Komma stehen.
+	ISO-Mode T: "A" und "C" werden als Achsen interpretiert. Wenn Konturzug programmiert wird, muss vor "A" oder "C" ein Komma stehen.
       1:
 	"A" und "C" im Teileprogramm werden immer als Konturzug interpretiert. Es darf keine Achse "A" oder "C" geben.
 
 Bit1: 0:
-	ISO Mode T: G10 P &lt; 100 Werkzeuggeometrie
+	ISO-Mode T: G10 P &lt; 100 Werkzeuggeometrie
 	                P &gt; 100 Werkzeugverschleiß
       1:
 	            G10 P &lt; 10000 Werkzeuggeometrie
@@ -2661,9 +2684,9 @@ Bit2: 0:
 	wenn G95 aktiv ist, in Spindelumdrehungen
 
 Bit3: 0:
-	Fehler in ISO Scanner führen zu Alarm
+	Fehler in ISO-Mode führen zu Alarm
       1:
-	Fehler im ISO Scannner werden nicht ausgegeben, es wird der Satz an den Siemens-Translator weitergegeben.
+	Fehler im ISO-Mode werden nicht ausgegeben, es wird der Satz im Siemens-Mode übersetzt.
 
 Bit4: 0:
 	G00 wird mit dem aktuellen Genauhalt - Bahnsteuerbetrieb G Code verfahren
@@ -2691,9 +2714,9 @@ Bit8: 0:
 	Bei Gewindezyklen wird der F-Wert als Steigung interpretiert übergeben.
 
 Bit9: 0:
-	Bei ISO Mode T wird bei G84, G88 im Standardmode F bei G95 mit 0.01mm bzw.0.0001inch mult.
+	Bei ISO-Mode T wird bei G84, G88 im Standardmode F bei G95 mit 0.01mm bzw.0.0001inch mult.
       1:
-	Bei ISO Mode T wird bei G84, G88 im Standardmode F bei G95 mit 0.001mm bzw.0.00001inch mult.
+	Bei ISO-Mode T wird bei G84, G88 im Standardmode F bei G95 mit 0.001mm bzw.0.00001inch mult.
 
 Bit10: 0:
 	Bei M96 Pxx wird beim Interrupt immer das mit Pxx progr. Programm aufgerufen
@@ -2716,14 +2739,19 @@ Bit13: 0:
 	G10 wird mit internem STOPRE ausgeführt
 
 Bit14: 0:
-	ISO_mode T: kein Alarm, wenn im T-Befehl keine Schneide programmiert wurde.
+	ISO-Mode T: kein Alarm, wenn im T-Befehl keine Schneide programmiert wurde.
          1:
-                ISO-mode T: Alarm 14185, wenn im T-Befehl keine Schneide programmiert wurde.
+     ISO-Mode T: Alarm 14185, wenn im T-Befehl keine Schneide programmiert wurde.
 
 Bit 15: 0:
-	ISO_mode M: G51 Scale, die achsialen Scalefactoren I, J, K wirken bei 'pocketcalculator notation' wie programmiert.
+	ISO-Mode M: G51 Scale, die achsialen Scalefactoren I, J, K wirken bei 'pocketcalculator notation' wie programmiert.
         1:
-     ISO_mode M: G51 Scale, die achsialen Scalefactoren I, J, K werden bei 'pocketcalculator notation' mit dem Wert aus MD22910 $MC_WEIGHTING_FACTOR_FOR_SCALE multipliziert.
+     ISO-Mode M: G51 Scale, die achsialen Scalefactoren I, J, K werden bei 'pocketcalculator notation' mit dem Wert aus MD22910 $MC_WEIGHTING_FACTOR_FOR_SCALE multipliziert.
+
+Bit 16: 0:
+	Bei Kreisprogrammierung mit Radius R werden fehlende Geometrieachsen der angewählten Ebene nicht ergänzt. Das enstpricht dem Verhalten im Siemens-Mode
+        1:
+     Bei Kreisprogrammierung mit Radius R werden fehlende Geometrieachsen der angewählten Ebene mit inkrementellem Weg 0 ergänzt
 </description>
 </parameter>
 <parameter number="20750" type="BOOLEAN" dim="0">
@@ -3023,11 +3051,17 @@ Bedeutung der Tausenderstelle: Verhalten bahnrelativer Orientierung bei Aktivier
 	Die bahnrelative Orientierung wird in Aktivierungs- bzw. Deaktivierungssätzen der Werkzeugkorrektur nicht eingehalten. In diesen Sätzen bleibt dann die Werkzeugorientierung normalerweise konstant. Es ist jedoch erlaubt in diesen Sätzen eine Werkzeugorientierung zu programmieren, die dann in diesen Sätzen verfahren wird. Die Programmierung der Orientierung kann in diesen Sätzen jedoch nur mit Vektoren erfolgen, die Programmierung von Rundachspositionen ist nicht erlaubt..
 </description>
 </parameter>
-<parameter number="21096" type="DWORD" dim="0" display="HEX">
+<parameter number="21096" type="UDWORD" dim="0" display="HEX">
 <name>OFF_ORI_MODE</name>
 <brief>Wirkungsweise der Überlagerung der Werkzeugorientierung</brief>
-<description>Mit diesem Maschinendatum wird die Wirkungsweise der Überlagerung der Werkzeugorientierung mit den Systemvariablen
-$AC_OFF_O, $AC_OFF_R, $AC_OFF_LEAD, $AC_OFF_TILT und $AC_OFF_THETA eingestellt.
+<description>Mit diesem Maschinendatum wird die Wirkungsweise der Überlagerung der Werkzeugorientierung mit den Systemvariablen (Bit 0-15)
+$AC_OFF_O[i], $AC_OFF_R[i], $AC_OFF_LEAD, $AC_OFF_TILT, $AC_OFF_THETA, $AC_OFF_O_ANGLE und $AC_OFF_R_ANGLE
+und den Programmvariablen (Bit 16-31)
+$P_OFF_O[i], $P_OFF_R[i], $P_OFF_LEAD, $P_OFF_TILT, $P_OFF_THETA, $P_OFF_O_ANGLE und $P_OFF_R_ANGLE eingestellt.
+
+ ---------------------------------------------------------
+ Bit 0-15: Wirkungsweise der Überlagerungen im Interpolator
+ ---------------------------------------------------------
 
 Bit 0: Verhalten der Systemvariablen bei RESET
 0: Offset wird bei RESET abgewählt
@@ -3057,27 +3091,47 @@ Bit 6: Wirkung der Wertzuweisung auf die Systemvariable $AC_OFF_THETA
 0: absoluter Wert
 1: inkrementeller Wert (Integrator)
 
-Bit 7: Unterdrückung des Alarms 20301
+Bit 7: Wirkung der Wertzuweisung auf die Systemvariable $AC_OFF_O_ANGLE
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
+
+Bit 8: Wirkung der Wertzuweisung auf die Systemvariable $AC_OFF_R_ANGLE
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
+
+Bit 9: Unterdrückung des Alarms 20301
 0: Alarm wird ausgegeben
 1: Alarm wird unterdrückt
 
-Bit 8: Wirkung der Wertzuweisung auf die Komponenten der Systemvariablen $P_OFF_O[i]
+ ---------------------------------------------------------
+ Bit 16-31: Wirkungsweise der Überlagerungen im NC-Programm
+ ---------------------------------------------------------
+
+Bit 16: Wirkung der Wertzuweisung auf die Komponenten der Systemvariablen $P_OFF_O[i]
 0: absoluter Wert
 1: inkrementeller Wert (Integrator)
 
-Bit 9: Wirkung der Wertzuweisung auf die Komponenten der Systemvariablen $P_OFF_R[i]
+Bit 17: Wirkung der Wertzuweisung auf die Komponenten der Systemvariablen $P_OFF_R[i]
 0: absoluter Wert
 1: inkrementeller Wert (Integrator)
 
-Bit 10: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_LEAD
+Bit 18: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_LEAD
 0: absoluter Wert
 1: inkrementeller Wert (Integrator)
 
-Bit 11: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_TILT
+Bit 19: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_TILT
 0: absoluter Wert
 1: inkrementeller Wert (Integrator)
 
-Bit 12: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_THETA
+Bit 20: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_THETA
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
+
+Bit 21: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_O_ANGLE
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
+
+Bit 22: Wirkung der Wertzuweisung auf die Systemvariable $P_OFF_R_ANGLE
 0: absoluter Wert
 1: inkrementeller Wert (Integrator)
 </description>
@@ -3121,7 +3175,7 @@ FALSE:	Bezug sind die G-Codes ORIWKS und ORIMKS
 TRUE :	Bezug sind die G-Codes ORIAXES, ORIVECT, ORIPLANE, ORICONxx und ORICURVE der 51. G-Code Gruppe
 </description>
 </parameter>
-<parameter number="21106" type="DWORD" dim="0" display="HEX">
+<parameter number="21106" type="UDWORD" dim="0" display="HEX">
 <name>CART_JOG_SYSTEM</name>
 <brief>Koordinatensysteme beim kartesischen JOG</brief>
 <description>Dieses Maschinendatum hat zweierlei Bedeutung. Zum Einen dient es dazu, die Funktion "Kartesisches Handverfahren" zu aktivieren. Zum Zweiten kann damit festgelegt werden, zwischen welchen Bezugssystemen eine Umschaltung ausgeführt werden kann.
@@ -3189,7 +3243,7 @@ Die Werte der Einer-, der Zehner-, der Hunderter- und der Tausenderstellen werde
 0 =	Bei automatischer Definition eines Frame (TOFRAME), dessen Z-Richtung gleich der aktuellen Werkzeugorientierung ist, wird das neue Koordinatensystem so belassen, wie es sich aus der Kinematik der Maschine ergibt, d.h. man stellt sich ein Koordinatensystem am Werkzeug befestigt vor, das sich mit dem Werkzeug (Orientierung) dreht.
 
 ab SW 5.3:
-Dieses Maschindatum wirkt nur dann, wenn die drei niederwertigen Dezimalstellen (Einer, Zehner und Hunderter) des SD42980 $SC_TOFRAME_MODE gleich Null ist. Andernfalls wird die Framedefinition durch SD42980 $SC_TOFRAME_MODE bestimmt.
+Dieses Maschinendatum wirkt nur dann, wenn die drei niederwertigen Dezimalstellen (Einer, Zehner und Hunderter) des SD42980 $SC_TOFRAME_MODE gleich Null ist. Andernfalls wird die Framedefinition durch SD42980 $SC_TOFRAME_MODE bestimmt.
 
 Nicht relevant:
 	keine Orientierungsprogrammierung
@@ -3367,7 +3421,7 @@ Bedeutung der Einerstelle:
 1:	Verletzt die zunächst bestimmte Orientierungsbahn die Achsgrenzen der Orientierungsachsen, wird versucht, den Endpunkt so anzupassen, dass eine Bewegung möglich ist.
 	Dabei wird zunächst versucht, die zweite Lösung zu verwenden. (Bei der Umrechnung Orientierung ==&gt; Achswinkel ergeben sich i. A. immer zwei verschiedene Lösungen). Verletzt auch diese Lösung die Achsgrenzen, wird versucht, eine zulässige Lösung zu finden, indem bei beiden Lösungen beide Rundachsen um Vielfache von 360 Grad verändert werden.
 	Die beschriebenen Veränderungen der Endpositionen werden nur ausgeführt, wenn Achsinterpolation der Rundachsen aktiv ist.
-2:	Die Überwachungen und gegebenfalls Veränderungen der Rundachspositionen sind die gleichen wie beim Wert 1 des Maschindatums.
+2:	Die Überwachungen und gegebenfalls Veränderungen der Rundachspositionen sind die gleichen wie beim Wert 1 des Maschinendatums.
 	Veränderungen sind aber auch dann zulässig, wenn Vektorinterpolation (Großkreisinterpolation, Kegelmantelinterpolation usw.) aktiv ist. Ist in einem solchen Fall eine Veränderung der Rundachspositionen notwendig, wird auf Achsinterpolation umgeschaltet. Die ursprünglich programmierte Orientierungsbahn wird dann in der Regel nicht mehr eingehalten.
 
 Bedeutung der Zehnerstelle:
@@ -3391,46 +3445,46 @@ Bedeutung der Hunderterstelle:
 <description>Der Offset der Rundachsen für den orientierbaren Werkzeugträger wird automatisch aus der bei Aktivierung des orientierbaren Werkzeugträgers für die Rundachsen aktiven Nullpunktsverschiebung übernommen.
 </description>
 </parameter>
-<parameter number="21190" type="DWORD" dim="0" display="HEX">
+<parameter number="21190" type="UDWORD" dim="0" display="HEX">
 <name>TOFF_MODE</name>
 <brief>Wirkungsweise der Korrektur in Werkzeugrichtung</brief>
-<description>Mit diesem Maschinendatum wird die Wirkungsweise der Online Korrektur in Werkzeugrichtung über $AA_TOFF[ ] eingestellt.
+<description>Mit diesem Maschinendatum wird die Wirkungsweise der Online-Korrektur in Werkzeugrichtung über $AA_TOFF[ ] eingestellt.
 
-Bit 0: Verhalten von $AA_TOFF bei RESET.
-0: $AA_TOFF wird bei RESET abgewählt.
-1: $AA_TOFF bleibt über RESET hinaus erhalten.
+Bit 0: Verhalten von $AA_TOFF bei RESET
+0: $AA_TOFF wird bei RESET abgewählt
+1: $AA_TOFF bleibt über RESET hinaus erhalten
 
-Bit 1: Wirkung der Wertzuweisung auf die 1. Komponente von $AA_TOFF[ ].
-0: Absoluter Wert
-1: Inkrementeller Wert (Integrator)
+Bit 1: Wirkung der Wertzuweisung auf die 1. Komponente von $AA_TOFF[ ]
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
 
-Bit 2: Wirkung der Wertzuweisung auf die 2. Komponente von $AA_TOFF[ ].
-0: Absoluter Wert
-1: Inkrementeller Wert (Integrator)
+Bit 2: Wirkung der Wertzuweisung auf die 2. Komponente von $AA_TOFF[ ]
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
 
-Bit 3: Wirkung der Wertzuweisung auf die 3. Komponente von $AA_TOFF[ ].
-0: Absoluter Wert
-1: Inkrementeller Wert (Integrator)
+Bit 3: Wirkung der Wertzuweisung auf die 3. Komponente von $AA_TOFF[ ]
+0: absoluter Wert
+1: inkrementeller Wert (Integrator)
 
-Bit 4: Verhalten der $AA_TOFF Bewegung bei NC-Stop.
-0: Bewegung wird bei NC-Stop unterbrochen.
-1: Bewegung bleibt bei NC-Stop aktiv.
+Bit 4: Verhalten der $AA_TOFF Bewegung bei NC-Stop
+0:	Bewegung wird bei NC-Stop unterbrochen
+1:	Bewegung bleibt bei NC-Stop aktiv
 
-Bit 5: Verhalten der $AA_TOFF Bewegung bei RESET und Programmende.
-0: Bewegung wird bei RESET oder Programmende unterbrochen.
-1: Bewegung bleibt bei RESET oder Programmende aktiv.
+Bit 5: Verhalten der $AA_TOFF Bewegung bei RESET und Programmende
+0:	Bewegung wird bei RESET oder Programmende unterbrochen
+1:	Bewegung bleibt bei RESET oder Programmende aktiv
 
-Bit 6: Wirksamkeit des Settingdatums $SC_TOFF_LIMIT_MINUS.
-0: Die Untergrenze $SC_TOFF_LIMIT_MINUS wirkt nicht. Als Untergrenze wird -$SC_TOFF_LIMIT genommen.
-1: Die Untergrenze $SC_TOFF_LIMIT_MINUS wirkt.
+Bit 6: Wirksamkeit des Settingdatums $SC_TOFF_LIMIT_MINUS
+0:	Die Untergrenze $SC_TOFF_LIMIT_MINUS wirkt nicht. Als Untergrenze wird -$SC_TOFF_LIMIT genommen.
+1:	Die Untergrenze $SC_TOFF_LIMIT_MINUS wirkt.
 
-Bit 7: Satzweises Unterdrücken von $AA_TOFF bei SUPA.
-0: $AA_TOFF wird bei SUPA nicht satzweise unterdrückt.
-1: $AA_TOFF wird bei SUPA satzweise unterdrückt.
+Bit 7: Satzweises Unterdrücken von TOFF bei SUPA
+0:	TOFF wird bei SUPA nicht satzweise unterdrückt.
+1:	TOFF wird bei SUPA satzweise unterdrückt.
 
-Bit 8: Verhalten des $AA_TOFF-Handradfahrens am $AA_TOFF_LIMIT / $AA_TOFF_LIMIT_MINUS.
-0: Unterbrechung, d.h. Aufsammeln der über das Handrad vorgegebenen Wegstrecken.
-1: Abbruch der Verfahrbewegung, d.h. kein Aufsammeln.
+Bit 8: Verhalten des TOFF-Handradfahrens am TOFF_LIMIT / TOFF_LIMIT_MINUS
+0:   Unterbrechung, d.h. Aufsammeln der über das Handrad vorgegebenen Wegstrecken
+1:   Abbruch der Verfahrbewegung, d.h. kein Aufsammeln
 
 Bit 9: $AA_TOFF-Handradüberlagerung ohne Aktivierung durch TOFFON möglich.
 0: $AA_TOFF-Handradüberlagerung nur nach Aktivierung der $AA_TOFF-Funktion durch TOFFON möglich.
@@ -3447,13 +3501,13 @@ Bit 10: Achszuordnung der TOFF-Komponenten bei Ebenenwechsel.
 <parameter number="21194" type="DOUBLE" dim="1">
 <name>TOFF_VELO</name>
 <brief>Geschwindigkeit für die Online-Korrektur in Werkzeugrichtung</brief>
-<description>Geschwindigkeit für die Online Korrektur in Werkzeugrichtung [ mm/min ] über $AA_TOFF[ ]
+<description>Geschwindigkeit für die Online-Korrektur in Werkzeugrichtung [ mm/min ] über $AA_TOFF[ ]
 </description>
 </parameter>
 <parameter number="21196" type="DOUBLE" dim="1">
 <name>TOFF_ACCEL</name>
 <brief>Beschleunigung für die Online-Korrektur in Werkzeugrichtung</brief>
-<description>Beschleunigung für die Online Korrektur in Werkzeugrichtung [ m/s**2 ] über $AA_TOFF[ ]
+<description>Beschleunigung für die Online-Korrektur in Werkzeugrichtung [ m/s**2 ] über $AA_TOFF[ ]
 </description>
 </parameter>
 <parameter number="21198" type="DOUBLE" dim="0">
@@ -3485,7 +3539,7 @@ Literatur:
 0:	Spiegelung der Kontur wird bei der Bestimmung der Abheberichtung n i c h t berücksichtigt.
 </description>
 </parameter>
-<parameter number="21203" type="DWORD" dim="0" display="HEX">
+<parameter number="21203" type="UDWORD" dim="0" display="HEX">
 <name>LIFTFAST_MODE_MASK</name>
 <brief>Einstellungen für Schnellabheben</brief>
 <description>Bit0: Verhalten von LFWP bei aktivem Frame
@@ -3493,7 +3547,7 @@ Literatur:
 =1 Bei Definition der Abheberichtung mit LFWP wirkt der aktive Frame. In diesem Fall hat MD21202 $MC_LIFTFAST_WITH_MIRROR keine Wirkung.
 </description>
 </parameter>
-<parameter number="21204" type="DWORD" dim="0" display="HEX">
+<parameter number="21204" type="UDWORD" dim="0" display="HEX">
 <name>LIFTFAST_STOP_COND</name>
 <brief>Stoppverhalten beim Schnellabheben</brief>
 <description>Legt das Stoppverhalten der Liftfast-Bewegung bei verschiedenen Stop-Bedindungen fest
@@ -3507,9 +3561,9 @@ Bit1: Vorschub-Sperre im Kanal NC/PLC-Nahtstellensignal &lt;Vorschubsperre/&gt; 
 =1 kein Stop der Rückzugbewegung bei Vorschub-Sperre im Kanal
 </description>
 </parameter>
-<parameter number="21210" type="DWORD" dim="0" display="HEX">
+<parameter number="21210" type="UDWORD" dim="0" display="HEX">
 <name>SETINT_ASSIGN_FASTIN</name>
-<brief>HW-Zuordnung des ext. NCK-Eingangsbytes für NC-Progr.-Interrupts</brief>
+<brief>HW-Zuordnung des ext. NC-Eingangsbytes für NC-Progr.-Interrupts</brief>
 <description>Zuordnung von Eingangsbytes zur Verarbeitung von Anwender-Interrupts in NC-Programmen (SETINT)
 
 Bit 0 ... 7: Nummer des Eingangsbytes (siehe unten)
@@ -3526,10 +3580,10 @@ Byte 2 - 5: externe digitale Eingänge (schnelle NC-Peripherie oder Vorgabe über 
 Byte 128 - 129: Komparator-Byte (Ergebnis aus schnellen Analogeingängen oder Vorgabe über NC/PLC-Nahtstelle)
 </description>
 </parameter>
-<parameter number="21220" type="DWORD" dim="0" display="HEX">
+<parameter number="21220" type="UDWORD" dim="0" display="HEX">
 <name>MULTFEED_ASSIGN_FASTIN</name>
-<brief>Zuordnung der NCK-Peripherie für 'mehrere Vorschübe im Satz'</brief>
-<description>Mit dem MD21220 $MC_MULTFEED_ASSIGN_FASTIN (Zuordnung der Eingangsbytes der NCK-Peripherie für "Mehrere Vorschübe in einem Satz") können maximal zwei digitale Eingangsbytes bzw. Komparator-Eingangsbytes der NCK-Peripherie dem Eingangsbyte für die Funktion "Mehrere Vorschübe in einem Satz" zugeordnet werden.
+<brief>Zuordnung der NC-Peripherie für 'mehrere Vorschübe im Satz'</brief>
+<description>Mit dem MD21220 $MC_MULTFEED_ASSIGN_FASTIN (Zuordnung der Eingangsbytes der NC-Peripherie für "Mehrere Vorschübe in einem Satz") können maximal zwei digitale Eingangsbytes bzw. Komparator-Eingangsbytes der NC-Peripherie dem Eingangsbyte für die Funktion "Mehrere Vorschübe in einem Satz" zugeordnet werden.
 Weiterhin können mit dem Maschinendatum die zugeordneten Eingangssignale invertiert werden.
 
 Das MD hat folgende Codierung:
@@ -3553,7 +3607,7 @@ Als Nummer für ein Komparator-Eingangsbyte ist anzugeben:
 129:       für Komparator 2 (entspricht 81Hex)
 </description>
 </parameter>
-<parameter number="21230" type="BYTE" dim="0" display="HEX">
+<parameter number="21230" type="UBYTE" dim="0" display="HEX">
 <name>MULTFEED_STORE_MASK</name>
 <brief>Speicherverhalten für 'mehrere Vorschübe im Satz'</brief>
 <description>Die Priorität der Signale für die Vorschübe F2 - F7 der Funktion "Mehrere Vorschübe in einem Satz" fällt mit wachsender Bitnummer innerhalb des Eingangsbytes. Das höchstpriore Signal bestimmt den aktuellen Vorschub.
@@ -3576,7 +3630,7 @@ Synchronaktionen mit Id's in diesem Bereich können nicht überschrieben, gelöscht
 
 Mit 0,0 gibt es keinen Bereich von geschützten Synchronaktionen. Die Werte werden als Absolutwerte gelesen und Ober- und Unterwert können in beliebiger Reihenfolge angegeben werden.
 
-Wird ein Wert mit -1 projektiert, so wird die Projektierung des allgemeinen Maschindatums wirksam.
+Wird ein Wert mit -1 projektiert, so wird die Projektierung des allgemeinen Maschinendatums wirksam.
 
 Hinweis:
 	Während der Erstellung von geschützten statischen Synchronaktionen, sollte der Schutz aufgehoben werden, da sonst bei jeder Änderung Power On notwendig ist, um die Logik neu definieren zu können.
@@ -3680,7 +3734,7 @@ Korrespondiert mit:
 	(Schwellwert für Synchronlauf fein)
 </description>
 </parameter>
-<parameter number="21330" type="DWORD" dim="0" display="HEX">
+<parameter number="21330" type="UDWORD" dim="0" display="HEX">
 <name>COUPLE_RESET_MODE_1</name>
 <brief>Kopplungs-Abbruch-Verhalten:</brief>
 <description>Mit diesem Maschinendatum wird das Verhalten des Synchronbetriebs für das mit den Maschinendatum COUPLE_AXIS_1[n] projektierte Synchronspindelpaar festgelegt.
@@ -3921,12 +3975,10 @@ Sonderfälle:
 <parameter number="22030" type="DWORD" dim="1">
 <name>AUXFU_ASSIGN_VALUE</name>
 <brief>Hilfsfunktionswert</brief>
-<description>Falls der Wert in diesem MD kleiner 0 ist, werden alle Hilfsfunktionen dieses Typs und dieser
-Adresserweiterung dieser Gruppe zugeordnet.
-siehe MD22010 $MC_AUXFU_ASSIGN_TYPE[n]  (Hilfsfunktionsart)
+<description>siehe MD22010 $MC_AUXFU_ASSIGN_TYPE[n]  (Hilfsfunktionsart)
 </description>
 </parameter>
-<parameter number="22035" type="DWORD" dim="1" display="HEX">
+<parameter number="22035" type="UDWORD" dim="1" display="HEX">
 <name>AUXFU_ASSIGN_SPEC</name>
 <brief>Ausgabe-Spezifikation</brief>
 <description>Spezifikation des Ausgabeverhaltens der anwenderdefinierten Hilfsfunktionen.
@@ -3941,8 +3993,8 @@ Bit 6 = 1	Ausgabe während der Bewegung
 Bit 7 = 1	Ausgabe am Satzende
 Bit 8 = 1	keine Ausgabe nach Satzsuchlauf Type 1,2,4
 Bit 9 = 1	Aufsammlung während Satzsuchlauf Type 5 (SERUPRO)
-Bit 10 = 1 keine Ausgabe während Satzsuchlauf Type 5 (SERUPRO)
-Bit 11 = 1	kanalübergreifende Hilfsfunktion (SERUPRO)
+Bit 10 = 1	keine Ausgabe während Satzsuchlauf Type 5 (SERUPRO)
+Bit 11 = 1	kanalübergreifende Hilfsfunktion während Satzsuchlauf Type 5 (SERUPRO)
 Bit 12 = 1	Ausgabe erfolgte über Synchronaktion
 Bit 13 = 1 implizite Hilfsfunktion
 Bit 14 = 1 aktives M01
@@ -3993,7 +4045,7 @@ Diese Einstellung kann nur für die Indices 5 - 17 und 21 geändert werden!
 Diese Einstellung kann nicht geändert werden!
 </description>
 </parameter>
-<parameter number="22080" type="DWORD" dim="1" display="HEX">
+<parameter number="22080" type="UDWORD" dim="1" display="HEX">
 <name>AUXFU_PREDEF_SPEC</name>
 <brief>Ausgabe-Spezifikation</brief>
 <description>Spezifikation des Ausgabeverhaltens der vordefinierten Hilfsfunktionen.
@@ -4009,7 +4061,7 @@ Bit 7 = 1	Ausgabe am Satzende
 Bit 8 = 1	keine Ausgabe nach Satzsuchlauf Type 1,2,4
 Bit 9 = 1   Aufsammlung während Satzsuchlauf Type 5 (SERUPRO)
 Bit 10 = 1	keine Ausgabe während Satzsuchlauf Type 5 (SERUPRO)
-Bit 11 = 1	kanalübergreifende Hilfsfunktion (SERUPRO)
+Bit 11 = 1	kanalübergreifende Hilfsfunktion während Satzsuchlauf Type 5 (SERUPRO)
 Bit 12 = 1	Ausgabe erfolgte über Synchronaktion
 Bit 13 = 1 implizite Hilfsfunktion
 Bit 14 = 1 aktives M01
@@ -4063,12 +4115,12 @@ Weiterführende Literatur:
 
 Achtung:
 	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] hat eine höhere Priorität!
 </description>
 </parameter>
 <parameter number="22210" type="BYTE" dim="0">
 <name>AUXFU_S_SYNC_TYPE</name>
-<brief>Ausgabezeitpunkt der S-Funktionen (Werte siehe MD 22200)</brief>
+<brief>Ausgabezeitpunkt der S-Funktionen</brief>
 <description>Synchronisation der S-Hilfsfunktionen bzgl. einer mitprogrammierten Achsbewegung.
 0 = Ausgabe vor der Bewegung
 1 = Ausgabe während der Bewegung
@@ -4077,14 +4129,13 @@ Achtung:
 4 = Ausgabe entsprechend der vordefinierten Ausgabespezifikation
 
 Achtung:
-	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] hat eine höhere Priorität!
 
 </description>
 </parameter>
 <parameter number="22220" type="BYTE" dim="0">
 <name>AUXFU_T_SYNC_TYPE</name>
-<brief>Ausgabezeitpunkt der T-Funktionen (Werte siehe MD 22200)</brief>
+<brief>Ausgabezeitpunkt der T-Funktionen</brief>
 <description>Synchronisation der T-Hilfsfunktionen bzgl. einer mitprogrammierten Achsbewegung.
 0 = Ausgabe vor der Bewegung
 1 = Ausgabe während der Bewegung
@@ -4093,14 +4144,13 @@ Achtung:
 4 = Ausgabe entsprechend der vordefinierten Ausgabespezifikation
 
 Achtung:
-	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] hat eine höhere Priorität!
 
 </description>
 </parameter>
 <parameter number="22230" type="BYTE" dim="0">
 <name>AUXFU_H_SYNC_TYPE</name>
-<brief>Ausgabezeitpunkt der H-Funktionen (Werte siehe MD 22200)</brief>
+<brief>Ausgabezeitpunkt der H-Funktionen</brief>
 <description>Synchronisation der H-Hilfsfunktionen bzgl. einer mitprogrammierten Achsbewegung.
 0 = Ausgabe vor der Bewegung
 1 = Ausgabe während der Bewegung
@@ -4109,13 +4159,13 @@ Achtung:
 
 Achtung:
 	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] hat eine höhere Priorität!
 
 </description>
 </parameter>
 <parameter number="22240" type="BYTE" dim="0">
 <name>AUXFU_F_SYNC_TYPE</name>
-<brief>Ausgabezeitpunkt der F-Funktionen (Werte siehe MD 22200)</brief>
+<brief>Ausgabezeitpunkt der F-Funktionen</brief>
 <description>Synchronisation der F-Hilfsfunktionen bzgl. einer mitprogrammierten Achsbewegung.
 0 = Ausgabe vor der Bewegung
 1 = Ausgabe während der Bewegung
@@ -4124,14 +4174,13 @@ Achtung:
 4 = Ausgabe entsprechend der vordefinierten Ausgabespezifikation
 
 Achtung:
-	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] hat eine höhere Priorität!
 
 </description>
 </parameter>
 <parameter number="22250" type="BYTE" dim="0">
 <name>AUXFU_D_SYNC_TYPE</name>
-<brief>Ausgabezeitpunkt der D-Funktionen (Werte siehe MD22200)</brief>
+<brief>Ausgabezeitpunkt der D-Funktionen</brief>
 <description>Synchronisation der D-Hilfsfunktionen bzgl. einer mitprogrammierten Achsbewegung.
 0 = Ausgabe vor der Bewegung
 1 = Ausgabe während der Bewegung
@@ -4140,15 +4189,14 @@ Achtung:
 4 = Ausgabe entsprechend der vordefinierten Ausgabespezifikation
 
 Achtung:
-	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] hat eine höhere Priorität!
 
 </description>
 </parameter>
 <parameter number="22252" type="BYTE" dim="0">
 <name>AUXFU_DL_SYNC_TYPE</name>
 <brief>Ausgabezeitpunkt DL-Funktionen</brief>
-<description>Synchronisation der Hilfsfunktion bezüglich einer mitprogrammierten Bewegung.
+<description>Synchronisation der Hilfsfunktion bzgl.  einer mitprogrammierten Bewegung.
 0 = Ausgabe vor der Bewegung
 1 = Ausgabe während der Bewegung
 2 = Ausgabe am Ende des Satzes
@@ -4156,8 +4204,7 @@ Achtung:
 4 = Ausgabe entsprechend der vordefinierten Ausgabespezifikation
 
 Achtung:
-	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] oder
-	eine projektierte Ausgabespezifikation der Gruppe durch MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] und hat höhere Priorität!
+	Eine projektierte Ausgabespezifikation einer Hilfsfunktion durch MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] hat eine höhere Priorität!
 
 </description>
 </parameter>
@@ -4251,7 +4298,8 @@ Stehen alle acht Werte auf null (Vorbelegung), werden wie bisher als Defaulteins
 <description>Wird der Weg der FGROUP-Achsen klein zu dem der Nicht-FGROUP-Achsen, müssen Letztere sehr schnell werden, um der Bahn zu folgen. Ist der Weg exakt 0, fahren sie dagegen mit dem programmierten Vorschub. Mit dem Maschinendatum kann man diesen abrupten Übergang weich gestalten.
 Wert 0: Keine Behandlung dieses abrupten Übergangs. Kompatible Einstellung zum Verhalten vor Softwarestand 6
 Wert 1: Ab einer Schwelle des Wegverhältnisses von  MD22440 $MC_FGROUP_PATH_RATIO werden die Wege der Nicht-FGROUP-Achsen zunehmend berücksichtigt. Das gilt aber nur in polynomialen Sätzen mit sich deutlich ändernden Weganteilen. Kompatible Einstellung zum Verhalten vor Softwarestand NCK.P7_91
-Wert 2: Wie 1, aber ohne die Einschränkungen. Empfohlene Einstellung für Formenbauanwendungen
+Wert 2: Wie 1, aber ohne die Einschränkungen.
+Wert 3: Wie 2, aber mit verbessertem Verhalten für den Fall, dass keine Geometrieachsen in FGROUP sind. Empfohlene Einstellung für Formenbauanwendungen und Sondermaschinen.
 .
 Korrespondiert mit:
 	MD22420 $MC_FGROUP_DEFAULT_AXES, MD22440 $MC_FGROUP_PATH_RATIO
@@ -4288,7 +4336,7 @@ Achtung:
 	Es ist nicht gewährleistet, dass ein PLC-Anwenderprogramm jederzeit einen satzsynchronen Zusammenhang zwischen aktivem NC-Satz und den anliegenden G-Codes hat (Bsp. Bahnbetrieb mit sehr kurzen Sätzen).
 </description>
 </parameter>
-<parameter number="22515" type="DWORD" dim="0" display="HEX">
+<parameter number="22515" type="UDWORD" dim="0" display="HEX">
 <name>GCODE_GROUPS_TO_PLC_MODE</name>
 <brief>Verhalten der G-Gruppenübergabe an PLC</brief>
 <description>Zur Einstellung des Verhaltens, wie die G-Gruppen datenmäßig in der PLC zu interpretieren sind.
@@ -4363,7 +4411,7 @@ Korrespondiert mit:
 	MD22550 $MC_TOOL_CHANGE_MODE
 </description>
 </parameter>
-<parameter number="22562" type="DWORD" dim="0" display="HEX">
+<parameter number="22562" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_CHANGE_ERROR_MODE</name>
 <brief>Verhalten bei Fehlern im Werkzeugwechsel.</brief>
 <description>Verhalten im Falle auftretender Fehler/Probleme beim programmierten Werkzeugwechsel.
@@ -4509,7 +4557,7 @@ Korrespondiert mit:
 	SD42100 $SC_DRY_RUN_FEED, MD22600 $MC_SERUPRO_SPEED_MODE
 </description>
 </parameter>
-<parameter number="22620" type="DWORD" dim="0" display="HEX">
+<parameter number="22620" type="UDWORD" dim="0" display="HEX">
 <name>START_MODE_MASK_PRT</name>
 <brief>Grundstellung bei speziellen Starts</brief>
 <description>Dieses Maschinendatum wird via MD22621 $MC_ENABLE_START_MODE_MASK_PRT freigeschaltet.
@@ -4520,7 +4568,7 @@ Ist MD22620 $MC_START_MODE_MASK_PRT für den Fall "Suchlauf via Programmtest" (ku
 Damit lässt sich bei Suchlauf-Start ein zum PLC-Start abweichendes Verhalten einstellen. Die Bedeutung der bitweisen Belegung von MD22620 $MC_START_MODE_MASK_PRT ist identisch zu MD20112 $MC_START_MODE_MASK.
 </description>
 </parameter>
-<parameter number="22621" type="DWORD" dim="0" display="HEX">
+<parameter number="22621" type="UDWORD" dim="0" display="HEX">
 <name>ENABLE_START_MODE_MASK_PRT</name>
 <brief>Schaltet MD22620 $MC_START_MODE_MASK_PRT frei</brief>
 <description>Das MD22620 $MC_START_MODE_MASK_PRT wird via MD22621 $MC_ENABLE_START_MODE_MASK_PRT freigeschaltet.
@@ -4533,7 +4581,7 @@ Bit0 =  1:
 Damit lässt sich bei Suchlauf-Start ein zum PLC-Start abweichendes Start-Verhalten einstellen.
 </description>
 </parameter>
-<parameter number="22622" type="DWORD" dim="0" display="HEX">
+<parameter number="22622" type="UDWORD" dim="0" display="HEX">
 <name>DISABLE_PLC_START</name>
 <brief>Teileprogrammstart via PLC erlauben.</brief>
 <description>Teileprogrammstart via PLC erlauben.
@@ -4549,7 +4597,7 @@ BIT0 = 1
 	Ein Teileprogramm kann in diesem Kanal nur mit dem Teileprogrammbefehl "START" aus einem anderen Kanal gestartet werden. Der Start via PLC ist verriegelt.
 </description>
 </parameter>
-<parameter number="22680" type="DWORD" dim="0" display="HEX">
+<parameter number="22680" type="UDWORD" dim="0" display="HEX">
 <name>AUTO_IPTR_LOCK</name>
 <brief>Unterbrechungszeiger sperren</brief>
 <description>Mit MD22680 $MC_AUTO_IPTR_LOCK werden Programmbereiche festgelegt, in denen die jeweils angegebenen Kopplungsarten aktiv sind. Erfolgt nun in einen derart definierten Programmbereich ein Programmabbruch, so wird im Unterbrechungszeiger (BTSS-Baustein InterruptionSearch) nicht der aktuell bearbeitete Teileprogrammsatz abgelegt, sondern der letzte Satz vor dem Aktivieren der Kopplung.
@@ -4622,7 +4670,7 @@ Es ermöglicht den Zugriff auf ein Array-Element.
 z.B: Verwendung als Achsindex beim Zugriff auf Achsdaten.
 </description>
 </parameter>
-<parameter number="22714" type="DWORD" dim="0" display="HEX">
+<parameter number="22714" type="UDWORD" dim="0" display="HEX">
 <name>MM_TRACE_DATA_FUNCTION</name>
 <brief>Aktivierung der Diagnose</brief>
 <description>Das Maschinendatum ist nur für Diagnosezwecke.
@@ -4679,6 +4727,9 @@ Bit Nr. Bedeutung bei gesetztem Bit
        Es wird sowohl ein statischer Teil zum Zeitpunkt der Trace-Generierung ausgegeben sowie ein satzbezogener Teil bei den dynamischen Satzdaten.
 22     Config-Daten-Ausgabe (statisch)
 23     Aufzeichnung, wenn Rechenzeit im Vorlauf abgegeben wird (nur aktiv, wenn Bit 0 gesetzt ist).
+24     Aufzeichnung von Multi-Threading-Abläufen (Multicore).
+25     Aufzeichnung der Externen Kommunikation.
+26     Aufzeichnung von Geometriedaten: Positionen, vLim, vLimSafety, OVR, Klemmung, etc.
 </description>
 </parameter>
 <parameter number="22800" type="BYTE" dim="0">
@@ -4760,7 +4811,7 @@ Voraussetzung:
 	G58 und G59 ist möglich.
 </description>
 </parameter>
-<parameter number="24002" type="DWORD" dim="0" display="HEX">
+<parameter number="24002" type="UDWORD" dim="0" display="HEX">
 <name>CHBFRAME_RESET_MASK</name>
 <brief>Aktive kanalspezifische Basisframes nach Reset</brief>
 <description>Bitmaske für die Reseteinstellung der kanalspezifischen Basisframes, die im Kanal eingerechnet werden.
@@ -4772,7 +4823,7 @@ Bei MD20110 $MC_RESET_MODE_MASK Bit0 = 1 und BIT14 = 0
 	Das Gesamt-Basisframe wird bei Reset abgewählt.
 </description>
 </parameter>
-<parameter number="24004" type="DWORD" dim="0" display="HEX">
+<parameter number="24004" type="UDWORD" dim="0" display="HEX">
 <name>CHBFRAME_POWERON_MASK</name>
 <brief>Kanalspezifische Basisframes nach Power On zurücksetzen</brief>
 <description>Mit diesem Maschinendatum wird festgelegt ob kanalspezifische Basisframes bei Power On in der Datenhaltung zurückgesetzt werden.
@@ -4790,7 +4841,7 @@ Korrespondiert mit:
 	MD10615 $MN_NCBFRAME_POWERON_MASK
 </description>
 </parameter>
-<parameter number="24006" type="DWORD" dim="0" display="HEX">
+<parameter number="24006" type="UDWORD" dim="0" display="HEX">
 <name>CHSFRAME_RESET_MASK</name>
 <brief>Aktive Systemframes nach Reset</brief>
 <description>Bitmaske für die Reseteinstellung der kanalspezifischen Systemframes, die im Kanal eingerechnet werden.
@@ -4812,7 +4863,7 @@ Korrespondiert mit:
 	MD28082 $MC_MM_SYSTEM_FRAME_MASK
 </description>
 </parameter>
-<parameter number="24007" type="DWORD" dim="0" display="HEX">
+<parameter number="24007" type="UDWORD" dim="0" display="HEX">
 <name>CHSFRAME_RESET_CLEAR_MASK</name>
 <brief>Löschen von Systemframes bei Reset</brief>
 <description>Bitmaske zum Löschen von kanalspezifischen Systemframes in der Datenhaltung bei Reset.
@@ -4831,7 +4882,7 @@ Bit 10:	Systemframe $P_ISO4FR (ISO G51 Scale) wird bei Reset gelöscht.
 Bit 11:    Systemframe $P_RELFR wird bei Reset gelöscht.
 </description>
 </parameter>
-<parameter number="24008" type="DWORD" dim="0" display="HEX">
+<parameter number="24008" type="UDWORD" dim="0" display="HEX">
 <name>CHSFRAME_POWERON_MASK</name>
 <brief>Systemframes nach Power On zurücksetzen</brief>
 <description>Mit diesem Maschinendatum wird festgelegt, ob kanalspezifische Systemframes bei Power On in der Datenhaltung zurückgesetzt werden. D. h. Verschiebungen und Drehungen werden auf 0, Skalierungen auf 1 gesetzt. Spiegeln wird ausgeschaltet.
@@ -4862,7 +4913,7 @@ Korrespondiert mit:
 1: Programmierbarer Frame bleibt nach Reset erhalten.
 </description>
 </parameter>
-<parameter number="24020" type="DWORD" dim="0" display="HEX">
+<parameter number="24020" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_SUPPRESS_MODE</name>
 <brief>Positionen bei Frameunterdrückung</brief>
 <description>Bitmaske zur Projektierung der Positionen bei Frameunterdrückungen (SUPA, G153, G53).
@@ -4879,7 +4930,7 @@ Bit 1: Positionsvariablen sind ohne Frameunterdrückung.
 1:	ENS ergibt sich aus dem WKS transformiert mit dem $P_CYCFRAME.
 </description>
 </parameter>
-<parameter number="24040" type="DWORD" dim="0" display="HEX">
+<parameter number="24040" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_ADAPT_MODE</name>
 <brief>Anpassungen von aktiven Frames</brief>
 <description>Bitmaske zur Anpassung der aktiven Frames bzgl. der Achskonstellation
@@ -4892,7 +4943,7 @@ Bit 2:
 	Skalierungen aller Geometrieachsen in den aktiven Frames werden auf den Wert 1 gesetzt.
 </description>
 </parameter>
-<parameter number="24050" type="DWORD" dim="0" display="HEX">
+<parameter number="24050" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_SAA_MODE</name>
 <brief>Speichern und aktivieren von Datenhaltungsframes</brief>
 <description>Bitmaske Save And Activate von Datenhaltungsframes.
@@ -4904,7 +4955,7 @@ Bit 1:
 	Datenhaltungsframes werden durch Systemfunktionen, wie TOROT, PAROT, ext. Nullpunktverschiebung, Transformationen nicht implizit beschrieben.
 </description>
 </parameter>
-<parameter number="24080" type="DWORD" dim="0" display="HEX">
+<parameter number="24080" type="UDWORD" dim="0" display="HEX">
 <name>USER_FRAME_POWERON_MASK</name>
 <brief>Eigenschaften für einstellbaren Frame parametrieren</brief>
 <description>Durch Setzen folgender Bits werden bestimmte Eigenschaften des einstellbaren Frames aktiviert:
@@ -4983,21 +5034,12 @@ Korrespondiert mit:
 
 Literatur:
 	/FB/, F2, "5-Achs-Transformation"
-
-Achszuordnung am Eingang der 1. Transformation
-Beispiel Transmit:
-Der Index i nimmt bei TRANSMIT die Werte  0,1, 2 an.
-MD24110 $MC_TRAFO_AXES_IN_1[0]= 	Kanalachsnummer der Achse senkrecht zur Rundachse
-MD24110 $MC_TRAFO_AXES_IN_1[1]=	Kanalachsnummer der Rundachse
-MD24110 $MC_TRAFO_AXES_IN_1[2]=	Kanalachsnummer der Achse parallel zur Rundachse
-Beispiel für TRACYL: siehe Kapitel TRACYL
 </description>
 </parameter>
 <parameter number="24120" type="BYTE" dim="1">
 <name>TRAFO_GEOAX_ASSIGN_TAB_1</name>
 <brief>Zuordnung der Geometrieachsen zu Kanalachsen bei Transformation 1</brief>
 <description>MD gibt für den Fall der aktiven Transformation 1 an, auf welche Kanalachsen die Achsen des kartesischen Koordinatensystems abgebildet werden.
-Der Index i nimmt bei TRANSMIT die Werte 0, 1, 2 an. Er bezieht sich auf die erste, zweite und dritte Geometrieachse.
 
 Nicht relevant:
 	keine Transformation
@@ -5013,9 +5055,9 @@ Literatur:
 <name>TRAFO_INCLUDES_TOOL_1</name>
 <brief>Werkzeugbehandlung bei aktiver 1. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 1. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5050,9 +5092,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_2</name>
 <brief>Werkzeugbehandlung bei aktiver 2. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 2. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5085,9 +5127,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_3</name>
 <brief>Werkzeugbehandlung bei aktiver 3. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 3. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5120,9 +5162,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_4</name>
 <brief>Werkzeugbehandlung bei aktiver 4. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 4. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5149,9 +5191,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_5</name>
 <brief>Werkzeugbehandlung bei aktiver 5. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 5. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5178,9 +5220,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_6</name>
 <brief>Werkzeugbehandlung bei aktiver 6. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 6. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5207,9 +5249,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_7</name>
 <brief>Werkzeugbehandlung bei aktiver 7. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 7. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5236,9 +5278,9 @@ Die Bedeutung entspricht ansonsten TRAFO_GEOAX_ASSIGN_TAB_1.
 <name>TRAFO_INCLUDES_TOOL_8</name>
 <brief>Werkzeugbehandlung bei aktiver 8. Transformation</brief>
 <description>Das MD gibt für jeden Kanal an, ob das Werkzeug in der 8. Transformation oder extern behandelt wird.
-Dieses Maschindatum wird nur bei bestimmten Transformationen ausgewertet.
+Dieses Maschinendatum wird nur bei bestimmten Transformationen ausgewertet.
 Bedingung für eine mögliche Auswertung ist, dass die Orientierung des Werkzeugs in Bezug auf das Basikoordinatensystem durch die Transformation nicht verändert werden kann. Bei den Standardtransformationen ist diese Bedingung nur für die "Schräge-Achse-Transformation" erfüllt.
-Ist dieses Maschindatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
+Ist dieses Maschinendatum gesetzt, bezieht sich das Basiskoordinatensystem (BKS) auch bei aktiver Transformation auf den Werkzeugbezugspunkt, während es sich andernfalls auf die Werkzeugspitze (Tool Center Point - TCP) bezieht.
 Entsprechend unterschiedlich ist die Wirkungsweise von Schutzbereichen und Arbeitsfeldbegrenzungen.
 </description>
 </parameter>
@@ -5556,7 +5598,8 @@ Nur bei aktiver 5-Achs Transformation 1 wirksam.
 <parameter number="24590" type="BOOLEAN" dim="0">
 <name>TRAFO5_ROT_OFFSET_FROM_FR_1</name>
 <brief>Offset der Transformations-Rundachsen aus NPV</brief>
-<description>Der programmierbare Offset für Orientierungsachsen wird automatisch aus der bei Einschalten einer Orientierungstransformation für die Orientierungsachsen aktiven Nullpunktsverschiebung übernommen.
+<description>Mit dem Offset für die Orientierungsachsen der 5/6-Achs Transformation werden die Positionen (Winkel) der Rundachsen festgelegt bei denen die Werkzeugorientierung sich in Grundstellung befindet. Dieser Offset setzt sich aus 2 Anteilen zusammen. Einmal ist dies der Wert des MD24510 $MC_TRAFO5_ROT_AX_OFFSET_1 für die 1. Orientierungstransformation. Für die weiteren Orientierungstransformationen sind dies die Werte der MD24610/25210/25310 $MC_TRAFO5_ROT_AX_OFFSET_2/3/4/. Der 2. Anteil wird beim Einschalten der Transformation definiert. Entweder direkt als optionalen Parameter bei dem Sprachbefehl TRAORI(), oder er kann aus einer aktiven Nullpunktverschiebung der Rundachsen, die beim Einschalten der Transformation aktiv ist, übernommen werden. Diese Übernahme in den Offset der Orientierungsachsen erfolgt nur, falls dieses MD den Wert TRUE hat und falls die Nullpunktverschiebungen beim Einschalten der Transformation erhalten bleiben, d.h. das MD10602: $MN_FRAME_GEOAX_CHANGE_MODE &gt; 0 ist.
+Hinweis: Die automatische Übernahme von aktiven Nullpunktverschiebungen in den Offset ist im Normalfall nur für die Polachse bei Tischkinematiken sinnvoll. D.h. zum Beispiel bei einer AC-Kinematik für die C-Achse. Falls bei einer anderen Orientierungsachse, insbesondere bei der Nichtpolachse, der Offset verändert wird, ändert sich dadurch das kinematische Verhalten der Transformation und kann dazu führen, dass die Ausgleichsbewegungen der Linearachsen nicht mehr stimmen.
 </description>
 </parameter>
 <parameter number="24594" type="DOUBLE" dim="1">
@@ -5804,9 +5847,10 @@ Korrespondiert mit:
 </parameter>
 <parameter number="24685" type="BYTE" dim="1">
 <name>TRAFO5_ORIAX_ASSIGN_TAB_2</name>
-<brief>Orientierungsachs-/Kanalachszuordnung Transformation 1</brief>
+<brief>Orientierungsachs-/Kanalachszuordnung Transformation 2</brief>
 <description>Zuordnungstabelle der Orientierungsachsen bei 5-Achs Transformation 2
 Nur bei aktiver 5-Achs Transformation 2 wirksam.
+Die Bedeutung entspricht ansonsten TRAFO5_ORIAX_ASSIGN_TAB_1.
 </description>
 </parameter>
 <parameter number="24690" type="BOOLEAN" dim="0">
@@ -5932,7 +5976,7 @@ MD24850 $MC_TRACYL_ROT_AX_OFFSET_2
 	Die ENS-Frames enthalten transformierte axiale Verschiebungen der Rundachse.
 </description>
 </parameter>
-<parameter number="24806" type="BYTE" dim="0" display="HEX">
+<parameter number="24806" type="UBYTE" dim="0" display="HEX">
 <name>TRACYL_BASE_TOOL_COMP_1</name>
 <brief>Kompensation des BASE_TOOL im Frame TRACYL 1</brief>
 <description>Mit diesem bitcodierten Maschinendatum können Komponenten des BaseTool's über das Transformationsframe
@@ -5997,7 +6041,7 @@ Korrespondiert mit:
 	Die ENS-Frames enthalten transformierte axiale Verschiebungen der Rundachse.
 </description>
 </parameter>
-<parameter number="24856" type="BYTE" dim="0" display="HEX">
+<parameter number="24856" type="UBYTE" dim="0" display="HEX">
 <name>TRACYL_BASE_TOOL_COMP_2</name>
 <brief>Kompensation des BASE_TOOL im Frame TRACYL 2</brief>
 <description>Mit diesem bitcodierten Maschinendatum können Komponenten des BaseTool's über das Transformationsframe
@@ -6061,7 +6105,7 @@ Korrespondiert mit:
 	Die ENS-Frames enthalten transformierte Drehungen um die Rundachse.
 </description>
 </parameter>
-<parameter number="24906" type="BYTE" dim="0" display="HEX">
+<parameter number="24906" type="UBYTE" dim="0" display="HEX">
 <name>TRANSMIT_BASE_TOOL_COMP_1</name>
 <brief>Kompensation des BASE_TOOL im Frame TRANSMIT 1</brief>
 <description>Mit diesem bitcodierten Maschinendatum können Komponenten des BaseTool's über das Transformationsframe
@@ -6126,7 +6170,7 @@ Korrespondiert mit:
 	Die ENS-Frames enthalten transformierte Drehungen um die Rundachse.
 </description>
 </parameter>
-<parameter number="24956" type="BYTE" dim="0" display="HEX">
+<parameter number="24956" type="UBYTE" dim="0" display="HEX">
 <name>TRANSMIT_BASE_TOOL_COMP_2</name>
 <brief>Kompensation des BASE_TOOL im Frame TRANSMIT 2</brief>
 <description>Mit diesem bitcodierten Maschinendatum können Komponenten des BaseTool's über das Transformationsframe
@@ -6662,6 +6706,7 @@ Die Bedeutung entspricht ansonsten TRAFO5_TOOL_VECTOR_1.
 <name>TRAFO5_ORIAX_ASSIGN_TAB_3</name>
 <brief>Orientierungsachs-/Kanalachszuordnung Transformation 3</brief>
 <description>Zuordnungstabelle der Orientierungsachsen bei 5-Achs Transformation 3
+Nur bei aktiver 5-Achs Transformation 3 wirksam.
 Die Bedeutung entspricht ansonsten TRAFO5_ORIAX_ASSIGN_TAB_1.
 </description>
 </parameter>
@@ -6834,6 +6879,7 @@ Die Bedeutung entspricht ansonsten TRAFO5_TOOL_VECTOR_1.
 <name>TRAFO5_ORIAX_ASSIGN_TAB_4</name>
 <brief>Orientierungsachs-/Kanalachszuordnung Transformation 4</brief>
 <description>Zuordnungstabelle der Orientierungsachsen bei 5-Achs Transformation 4
+Nur bei aktiver 5-Achs Transformation 4 wirksam.
 Die Bedeutung entspricht ansonsten TRAFO5_ORIAX_ASSIGN_TAB_1.
 </description>
 </parameter>
@@ -6891,7 +6937,7 @@ Zur Dokumentation siehe TRACON_CHAIN_1
 Zur Dokumentation siehe TRACON_CHAIN_1
 </description>
 </parameter>
-<parameter number="26000" type="DWORD" dim="0" display="HEX">
+<parameter number="26000" type="UDWORD" dim="0" display="HEX">
 <name>PUNCHNIB_ASSIGN_FASTIN</name>
 <brief>Hardware-Zuordnung für Eingangsbyte bei Hubsteuerung</brief>
 <description>Zuordnung des schnellen Eingangsbytes für "Stanzen und Nibbeln"
@@ -6903,10 +6949,10 @@ Bit 24-30: frei
 Mit diesem Datum wird festgelegt, welches Eingangsbyte für das Signal "Hub aktiv" verwendet werden soll.
 
 = 1:
-	die On-Board-Eingänge (4 schnelle NCK-Eingänge) werden verwendet
+	die On-Board-Eingänge (4 schnelle NC-Eingänge) werden verwendet
 
 = 2, 3, 4, 5:
-	die externen digitalen NCK-Eingänge werden verwendet
+	die externen digitalen NC-Eingänge werden verwendet
 
 128-129:
 	Komparator-Byte (resultiert aus schnellen Analogeingängen oder VDI-Vorgabe)
@@ -6915,12 +6961,12 @@ Korrespondiert mit:
 	MD26006 $MC_NIBBLE_PUNCH_INMASK[n]
 
 Literatur:
-	/FB/, A4, Digitale und analoge NCK-Peripherie
+	/FB/, A4, Digitale und analoge NC-Peripherie
 
 Das Signal ist ab SW 3.2 standardmäßig high aktiv, d.h. es findet damit eine Drahtbruchüberwachung statt. Soll das Signal low aktiv sein, so muss z.B. für die Outboard-Eingänge das MD auf den Wert MD ="H 0001 0001" gesetzt werden.
 </description>
 </parameter>
-<parameter number="26002" type="DWORD" dim="0" display="HEX">
+<parameter number="26002" type="UDWORD" dim="0" display="HEX">
 <name>PUNCHNIB_ASSIGN_FASTOUT</name>
 <brief>Hardware-Zuordnung für Ausgangsbyte bei Hubsteuerung</brief>
 <description>Mit diesem Datum wird festgelegt, welches Ausgangsbyte für die Hubsteuerung verwendet werden soll.
@@ -6935,16 +6981,16 @@ mögliche Eingänge:
 	on-Board-Ausgänge der 840D (4 schnelle + 4 Bits über VDI-Vorgabe)
 
 2-5:
-	externe dig. Ausgänge (schnelle NCK-Peripherie oder VDI-Vorgabe)
+	externe dig. Ausgänge (schnelle NC-Peripherie oder VDI-Vorgabe)
 
 Korrespondiert mit:
 	MD26004 $MC_NIBBLE_PUNCH_OUTMASK[n]
 
 Literatur:
-	/FB/, A4, Digitale und analoge NCK-Peripherie
+	/FB/, A4, Digitale und analoge NC-Peripherie
 </description>
 </parameter>
-<parameter number="26004" type="BYTE" dim="1" display="HEX">
+<parameter number="26004" type="UBYTE" dim="1" display="HEX">
 <name>NIBBLE_PUNCH_OUTMASK</name>
 <brief>Maske für schnelle Ausgangsbits</brief>
 <description>Maske für die schnellen Ausgabebits beim Stanzen und Nibbeln
@@ -6960,7 +7006,7 @@ Korrespondiert mit:
 	MD26002 $MC_PUNCHNIB_ASSIGN_FASTOUT
 </description>
 </parameter>
-<parameter number="26006" type="BYTE" dim="1" display="HEX">
+<parameter number="26006" type="UBYTE" dim="1" display="HEX">
 <name>NIBBLE_PUNCH_INMASK</name>
 <brief>Maske für schnelle Eingangsbits</brief>
 <description>Es können insgesamt 8 Bytemasken für die Ausgabe der schnellen Bits mit diesem Datum definiert werden.
@@ -7009,7 +7055,7 @@ Korrespondiert mit:
 	MD26012 $MC_PUNCHNIB_ACTIVATION
 </description>
 </parameter>
-<parameter number="26010" type="DWORD" dim="0" display="HEX">
+<parameter number="26010" type="UDWORD" dim="0" display="HEX">
 <name>PUNCHNIB_AXIS_MASK</name>
 <brief>Festlegung der Stanz- und Nibbelachsen</brief>
 <description>Definiert die am Stanzen und Nibbeln beteiligten Achsen. d.h: Alle hier definierten Achsen müssen jeweils in Ruhe sein, wenn gestanzt oder genibbelt wird.
@@ -7096,7 +7142,7 @@ Beispiel:
 1:	Alarm, wenn zwischen den Hüben das Stanzsignal wackelt
 </description>
 </parameter>
-<parameter number="27100" type="DWORD" dim="0" display="HEX">
+<parameter number="27100" type="UDWORD" dim="0" display="HEX">
 <name>ABSBLOCK_FUNCTION_MASK</name>
 <brief>Basissätze mit Absolutwerten parametrieren</brief>
 <description>Parametrierung der Funktion "Basissätze mit Absolutwerten"
@@ -7190,17 +7236,9 @@ MD = 3:	Nibbeln
 MD = 4:	...
 
 (Weitere Technologien bei Bedarf nachtragen.)
-Auswahl der Technologie für Anzeige- und Bedienzwecke (HMI)
-0: 	Fräsen
-1: 	Drehen
-2:	Schleifen
-	21:	Außenrundschleifen
-	22:	Flachschleifen
-3:	Nibbeln
-Damit werden im HMI technologieabhängige Bilder und Softkeys bereitgestellt.
 </description>
 </parameter>
-<parameter number="27850" type="DWORD" dim="0" display="HEX">
+<parameter number="27850" type="UDWORD" dim="0" display="HEX">
 <name>PROG_NET_TIMER_MODE</name>
 <brief>Beeinflussung der Programmlaufzeit-Netto-Zähler</brief>
 <description>Die Programmlaufzeit wird über Systemvariablen gemessen und kann ausgelesen werden. Man kann damit ausgeben, wie weit der aktuelle Fertigungszustand eines Teileprogramms ist. Über dieses MD können kanalspezifisch eingestellt werden:
@@ -7219,7 +7257,7 @@ Bit 2 bis 31
 	Reserviert
 </description>
 </parameter>
-<parameter number="27860" type="DWORD" dim="0" display="HEX">
+<parameter number="27860" type="UDWORD" dim="0" display="HEX">
 <name>PROCESSTIMER_MODE</name>
 <brief>Aktivierung und Beeinflussung der Programm-Laufzeit-Messung</brief>
 <description>Unter der Funktion Programm-Laufzeit werden Timer als Systemvariable bereitgestellt. Während die NCK-spezifischen Timer immer aktiviert sind (für Zeitmessungen seit dem letzten Steuerungshochlauf), müssen die kanalspezifischen Timer über dieses Maschinendatum gestartet werden.
@@ -7272,7 +7310,7 @@ Bit 10 bis 31
 	Reserviert
 </description>
 </parameter>
-<parameter number="27880" type="DWORD" dim="0" display="HEX">
+<parameter number="27880" type="UDWORD" dim="0" display="HEX">
 <name>PART_COUNTER</name>
 <brief>Aktivierung der Werkstück-Zähler</brief>
 <description>Mit diesem Maschinendatum können die Werkstück-Zähler konfiguriert werden.
@@ -7519,7 +7557,7 @@ Der Wert entspricht der Anzahl der Feldelemente für das vordefinierte Feld $P_CH
 Es wird dafür gepufferter Speicher reserviert.
 </description>
 </parameter>
-<parameter number="28082" type="DWORD" dim="0" display="HEX">
+<parameter number="28082" type="UDWORD" dim="0" display="HEX">
 <name>MM_SYSTEM_FRAME_MASK</name>
 <brief>Systemframes (SRAM)</brief>
 <description>Bitmaske zur Projektierung von kanalspezifischen Systemframes, die im Kanal eingerechnet werden.
@@ -7538,7 +7576,7 @@ Bit 10:	Systemframe $P_ISO4FR für ISO G51 Scale
 Bit 11:     Systemframe $P_RELFR für relative Koordinatensysteme
 </description>
 </parameter>
-<parameter number="28083" type="DWORD" dim="0" display="HEX">
+<parameter number="28083" type="UDWORD" dim="0" display="HEX">
 <name>MM_SYSTEM_DATAFRAME_MASK</name>
 <brief>Systemframes (SRAM)</brief>
 <description>Bitmaske zur Projektierung von kanalspezifischen Systemframes in der Datenhaltung (SRAM).
@@ -7848,24 +7886,66 @@ Reserviert für SIEMENS-Applikationen.
 <description>Mit diesem Werkzeug wird die Funktionalität "Werkzeugradiuskorrektur für Konturwerkzeuge" freigegeben.
 </description>
 </parameter>
+<parameter number="28291" type="BOOLEAN" dim="0">
+<name>MM_SMOOTH_SURFACE_NORMALS</name>
+<brief>Interpolation der Flächennormalen über Polynome freischalten.</brief>
+<description>Mit diesem Maschinendatum wird die Behandlung der Flächennormalen über Polynome ermöglicht. Es wird u.a. für die Glättung der Flächennormalen mit der Funktion COMPSURF benötigt.
+</description>
+</parameter>
 <parameter number="28300" type="BOOLEAN" dim="1">
 <name>MM_PROTOC_USER_ACTIVE</name>
 <brief>Aktivierung der Protokollierung für einen User</brief>
 <description>Aktivierung der Protokollierung für einen User.
 Die User 0 und 1, sowie 5 - 9 sind für System-Funktionen reserviert.
 Die User 2, 3 und 4 dürfen von OEM verwendet werden.
+
+Die einzelnen Werte betreffen die User der Protokollierfunktion, welche folgenden Funktionen zugeordnet sind:
+0: Reserviert für Systemfunktionen: Mitzeichnen, Simulation, Synchronaktionen-Analyse
+1: Reserviert für Systemfunktionen: Ermittlung der Programm-Laufzeiten, Multi-Step-Editor
+2: Reserviert für OEM-Applikationen
+3: Reserviert für OEM-Applikationen
+4: Reserviert für OEM-Applikationen
+5: Reserviert für Systemfunktionen: Trace
+6: Reserviert für Systemfunktionen: Trace
+7: Reserviert für Systemfunktionen: Trace
+8: Reserviert für Systemfunktionen: Trace
+9: Reserviert für Systemfunktionen: Fahrtenschreiber
 </description>
 </parameter>
 <parameter number="28301" type="DWORD" dim="1">
 <name>MM_PROTOC_NUM_ETP_OEM_TYP</name>
 <brief>Anzahl von OEM-Event-Typen ETP.</brief>
 <description>Anzahl von OEM-Event-Typen im BTSS-Baustein ETP.
+
+Die einzelnen Werte betreffen die User der Protokollierfunktion, welche folgenden Funktionen zugeordnet sind:
+0: Reserviert für Systemfunktionen: Mitzeichnen, Simulation, Synchronaktionen-Analyse
+1: Reserviert für Systemfunktionen: Ermittlung der Programm-Laufzeiten, Multi-Step-Editor
+2: Reserviert für OEM-Applikationen
+3: Reserviert für OEM-Applikationen
+4: Reserviert für OEM-Applikationen
+5: Reserviert für Systemfunktionen: Trace
+6: Reserviert für Systemfunktionen: Trace
+7: Reserviert für Systemfunktionen: Trace
+8: Reserviert für Systemfunktionen: Trace
+9: Reserviert für Systemfunktionen: Fahrtenschreiber
 </description>
 </parameter>
 <parameter number="28302" type="DWORD" dim="1">
 <name>MM_PROTOC_NUM_ETP_STD_TYP</name>
 <brief>Anzahl von Standard-Event-Typen ETP.</brief>
 <description>Anzahl von Standard-Event-Typen im BTSS-Baustein ETP, die benötigt werden.
+
+Die einzelnen Werte betreffen die User der Protokollierfunktion, welche folgenden Funktionen zugeordnet sind:
+0: Reserviert für Systemfunktionen: Mitzeichnen, Simulation, Synchronaktionen-Analyse
+1: Reserviert für Systemfunktionen: Ermittlung der Programm-Laufzeiten, Multi-Step-Editor
+2: Reserviert für OEM-Applikationen
+3: Reserviert für OEM-Applikationen
+4: Reserviert für OEM-Applikationen
+5: Reserviert für Systemfunktionen: Trace
+6: Reserviert für Systemfunktionen: Trace
+7: Reserviert für Systemfunktionen: Trace
+8: Reserviert für Systemfunktionen: Trace
+9: Reserviert für Systemfunktionen: Fahrtenschreiber
 </description>
 </parameter>
 <parameter number="28400" type="DWORD" dim="0">
@@ -7932,9 +8012,11 @@ Hinweis:
 <name>MM_MAX_AXISPOLY_PER_BLOCK</name>
 <brief>Maximale Anzahl der Achspolynome pro Satz</brief>
 <description>Maximale Anzahl von Achspolynomen, die in einem Satz enthalten sein können.
-Im Normalfall enthält jeder Satz nur ein Polynom pro Achse, d.h. dieses Datum kann gleich Eins gesetzt werden.
-Mehr Polynome werden derzeit nur bei der neuen ADIS-Funktion mit G643 gebraucht.
-In diesem Fall muss dieses Datum mindestens den Wert drei haben.
+Im Normalfall enthält jeder Satz nur ein Polynom pro Achse, d.h. dieses Datum kann gleich 1 gesetzt werden.
+Mehr Polynome werden in folgenden Fällen gebraucht:
+Bei Überschleifen mit G642-G645 muss dieses Datum mindestens den Wert 3 haben.
+Bei Verwendung von COMPCAD (Advanced Surface) werden 5 empfohlen.
+Bei Verwendung von COMPSURF werden 15 empfohlen.
 </description>
 </parameter>
 <parameter number="28530" type="DWORD" dim="0">
@@ -7957,11 +8039,12 @@ Als Richtwerte gelten:
 5:	für G643 und G644, wenn Geometrie- und Rundachsen verfahren werden
 5:	für COMPCAD
 5:	für dyn.Transformation
+8:	für COMPSURF
 
 Ein zu kleiner Wert kann zu zusätzlichen Geschwindigkeitsbegrenzungen führen, wenn nicht genügend Sätze für die Interpolation bereitgestellt werden können.
-MD28530 $MC_MM_PATH_VELO_SEGMENTS erhöht zusätzlich den Speicherbedarf des dyn. LookAhead. Größere Werte als 5 sind nur in Sonderfällen sinnvoll.
+MD28530 $MC_MM_PATH_VELO_SEGMENTS erhöht zusätzlich den Speicherbedarf des dyn. LookAhead. Größere Werte als 8 sind nur in Sonderfällen sinnvoll.
 
-3 ... 5 :
+3 ... 8 :
 	Empfohlene Einstellung.
 </description>
 </parameter>
@@ -7978,7 +8061,7 @@ Das Datum sollte nur für die Kanäle gesetzt werden, in denen auch Freiformfläche
 0   : Standard-LookAhead ist aktiv.
 &gt; 0 : Erweiterter LookAhead ist aktiv, wenn über MD20443 $MC_LOOKAH_FFORM einschaltet.
 
-Als Richtwert gilt:  18..20: für Freiformflächen-Anwendungen
+Als Einstellwert für Freiformflächen-Anwendungen gilt 18.
 
 </description>
 </parameter>
@@ -8002,12 +8085,13 @@ Soll z.B. ein Vorschubprofil wirksam werden, bei dem sowohl am Anfang als auch a
 <brief>Anzahl Speicherelementen zur Darstellung der Bogenlängenfunktion</brief>
 <description>Verfügbare Anzahl von Speicherelementen für die Bogenlängenfunktion zur Parametrierung von Polynomen.
 Ist dieses Maschinendatum gleich null, so wird eine feste Intervalleinteilung bei der Darstellung der Bogenlängenfunktion verwendet. In diesem Fall ist die berechnete Funktion nur tangentenstetig. Dies kann zu Unstetigkeiten der Achsbeschleunigungen führen.
-Wird die Funktion G643 bzw. G644 zum Überschleifen und/oder COMPCAD verwendet, sollte dieses MD mindestens den Wert 10 haben. In diesem Fall ist die Funktion darüberhinaus krümmungsstetig, was zu einem glatteren Verlauf sowohl der Bahngeschwindigkeit als auch der Achsgeschwindigkeiten und Beschleunigungen führt.
-Wesentlich größere Werte als 10 sind nur in Sonderfällen sinnvoll.
+Wird die Funktion G643 bzw. G644 zum Überschleifen und/oder COMPCAD oder COMPSURF verwendet, sollte dieses MD mindestens den Wert 10 haben. In diesem Fall ist die Funktion darüberhinaus krümmungsstetig, was zu einem glatteren Verlauf sowohl der Bahngeschwindigkeit als auch der Achsgeschwindigkeiten und Beschleunigungen führt.
+Bei Verwendung von COMPSURF und 3-Achs-Anwendungen sind 10 ausreichend.
+Bei Verwendung von COMPSURF und 5-Achs-Anwendungen können Werte bis zu 20 sinnvoll sein.
 Für die Genauigkeit ist nicht nur der Wert von MD28540 $MC_MM_ARCLENGTH_SEGMENTS maßgebend, sondern auch MD20262 $MC_SPLINE_FEED_PRECISION.
 </description>
 </parameter>
-<parameter number="28560" type="DWORD" dim="0" display="HEX">
+<parameter number="28560" type="UDWORD" dim="0" display="HEX">
 <name>MM_SEARCH_RUN_RESTORE_MODE</name>
 <brief>Restore von Daten nach einer Simulation</brief>
 <description>Bitmaske zur Wiederherstellung von Daten bei Abbruch einer simulierten Programmbearbeitung. Es gilt:
@@ -8051,6 +8135,12 @@ Damit wird der maximale Wert des 1. Index der Systemvariablen $P_WORKAREA_CS...[
 <brief>Anzahl Sätze zur Geschwindigkeitsvorbereitung</brief>
 <description>Mit diesem MD werden die Anzahl von Sätzen festgelegt, die bei der Festlegung der Bahngeschwindigkeit (Geschwindigkeitsvorbereitung) berücksichtigt werden. Hat dieses MD den Wert Null, so werden zur Festlegung der maximalen Bahngeschwindigkeit eines Satzes nur die jeweiligen Bewegungen der Achsen in diesem Satz berücksichtigt. Wird  bei der Festlegung der Bahngeschwindigkeit auch die Geometrie in benachbarten Sätzen berücksichtigt erhält man einen gleichmäßigeren Verlauf der Bahngeschwindigkeit.
 
+</description>
+</parameter>
+<parameter number="28620" type="DWORD" dim="0">
+<name>MM_NUM_FEATURE_BLOCKS</name>
+<brief>Anzahl Sätze für vorausschauende Merkmalerkennung. Z.B. Schlitzerkennung.</brief>
+<description>Gibt die Minimalzahl der Sätze an, die für die Merkmalerkennung gleichzeitig betrachtet werden.
 </description>
 </parameter>
 </info>

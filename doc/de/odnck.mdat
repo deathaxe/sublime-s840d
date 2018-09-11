@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <info>
-<parameter number="19010" type="BYTE" dim="1" display="HEX" readonly="true">
+<parameter number="19010" type="UBYTE" dim="1" display="HEX" readonly="true">
 <name>SYSTEM_INFO</name>
 <brief>Systeminformation</brief>
 <description>Systeminformation
@@ -15,6 +15,7 @@ Klassen-Id:
  5   (0x5) 828D
  6   (0x6) 840Dsl (SW 4.4 und höher)
  7   (0x7) 808D
+ 8   (0x8) 840evo
 15   (0xF) Simulation
 
 Subsystem-ID:
@@ -26,29 +27,35 @@ bei 808D gilt:
  4   (0x04) PPU16*.* M
  5   (0x05) PPU16*.* T
  6   (0x06) reserviert
+ 7   (0x07) PPU15*.* M
+ 8   (0x08) PPU15*.* T
 
 bei 828D gilt:
- 1   (0x01) PPU26*.* T
- 2   (0x02) PPU26*.* M
+ 1   (0x01) SW26*.* T
+ 2   (0x02) SW26*.* M
  3   (0x03) reserviert
- 4   (0x04) PPU28*.* T
- 5   (0x05) PPU28*.* M
+ 4   (0x04) SW28*.* T
+ 5   (0x05) SW28*.* M
  6   (0x06) reserviert
- 7   (0x07) PPU24*.* T
- 8   (0x08) PPU24*.* M
+ 7   (0x07) SW24*.* T
+ 8   (0x08) SW24*.* M
  9   (0x09) reserviert
-10   (0x0A) PPU28*.* T Adv.
-11   (0x0B) PPU28*.* M Adv.
-81/1 (0x51) PPU24*.* GC
-81/2 (0x51) PPU24*.* GS
-83/1 (0x53) PPU26*.* GC
-83/2 (0x53) PPU26*.* GS
-85/1 (0x55) PPU28*.* GC
-85/2 (0x55) PPU28*.* GS
+10   (0x0A) SW28*.* T Adv.
+11   (0x0B) SW28*.* M Adv.
+81/1 (0x51) SW24*.* GC
+81/2 (0x51) SW24*.* GS
+83/1 (0x53) SW26*.* GC
+83/2 (0x53) SW26*.* GS
+85/1 (0x55) SW28*.* GC Adv.
+85/2 (0x55) SW28*.* GS Adv.
 
 bei 840Dsl gilt:
   4   (0xA4) 31-3
   5   (0xA5) 31-3e
+
+bei 840evo gilt:
+  4   (0xB4) 31-3
+  5   (0xB5) 31-3e
 
 Exportkennung:
 =============
@@ -102,10 +109,10 @@ nicht bearbeitet.
 <name>NUM_SPL_IO</name>
 <brief>SI, Kennung für Anzahl ext. SPL_I/O</brief>
 <description> Mit dem Wert im Optionsdatum kann die Anzahl der externen SPL-I/Os gewählt werden :
- = 0 : Die SPL hat keine I/O.
- = 1 : Die SPL hat maximal 4/4 I/O.
- = 2 : Die SPL hat maximal 64/64 I/O.
- = 3 : Die SPL hat maximal 192/192 I/O.
+ = 0 : Die SPL hat keine externen I/O.
+ = 1 : Die SPL hat maximal 4/4 externe I/O.
+ = 2 : Die SPL hat maximal 64/64 externe I/O.
+ = 3 : Die SPL hat maximal 192/192 externe I/O.
 </description>
 </parameter>
 <parameter number="19142" type="BYTE" dim="0">
@@ -180,7 +187,7 @@ auf der PLC. ( Rasterung: 64kB )
 14 = 896
 </description>
 </parameter>
-<parameter number="19296" type="BYTE" dim="0" display="HEX">
+<parameter number="19296" type="UBYTE" dim="0" display="HEX">
 <name>PERFORMANCE_INDEX</name>
 <brief>Performance-Option</brief>
 <description>Optionsdatum zur Freigabe der Performance-Option
@@ -192,7 +199,7 @@ auf der PLC. ( Rasterung: 64kB )
  0x8 (4.Stufe)     : &lt;2ms
 </description>
 </parameter>
-<parameter number="19300" type="BYTE" dim="0" display="HEX">
+<parameter number="19300" type="UDWORD" dim="0" display="HEX">
 <name>COMP_MASK</name>
 <brief>Kompensationsoptionen</brief>
 <description>reserviert       TEMP  Temperaturkompensation axial.
@@ -202,16 +209,18 @@ reserviert       QEC   Quadrantenfehlerkompensation mit neuronalem Netz
 reserviert       EGA   elektronischer Gewichtsausgleich
 Bit 5            BiEEC bidirektionale Spindelsteigungsfehlerkompensation
 Bit 6            FRICT Reibkompensation (integriert)
+Bit 7            NOCO Nick-Kompensation ADVANCED
+Bit 8            NOCO Nick-Kompensation ECO
 </description>
 </parameter>
-<parameter number="19308" type="DWORD" dim="0" display="HEX">
+<parameter number="19308" type="UDWORD" dim="0" display="HEX">
 <name>SINAMICS_FUNCTION_MASK</name>
 <brief>Antriebsoptionen</brief>
 <description>Optionsdatum zur Freigabe von SINAMICS Antriebsfunktionen:
 Bit 0 (LSB):  Freigabe "'Advanced Positioning Control' (APC)" (Antriebsparameter r108 Bit 7)
 </description>
 </parameter>
-<parameter number="19310" type="DWORD" dim="0" display="HEX">
+<parameter number="19310" type="UDWORD" dim="0" display="HEX">
 <name>AXIS_FUNCTION_MASK</name>
 <brief>axiale Optionen</brief>
 <description>Optionsdatum zur Freigabe axialer Funktionen:
@@ -227,7 +236,7 @@ Alarm 8040 wird ausgegeben, wenn das entsprechende Bit des Optionsdatums
 nicht gesetzt ist.
 </description>
 </parameter>
-<parameter number="19320" type="DWORD" dim="0" display="HEX">
+<parameter number="19320" type="UDWORD" dim="0" display="HEX">
 <name>TECHNO_FUNCTION_MASK</name>
 <brief>technologische Optionen</brief>
 <description>Optionsdatum zur Freigabe technologiebezogener Funktionen
@@ -235,11 +244,11 @@ nicht gesetzt ist.
 Bit 1:       Freigabe "Adaptive Control (Auswertung interner Antriebsgrößen)"
 Bit 2:       Freigabe "SINUMERIK HMI OA copy licence WinCC flexible CE" (OP)
 Bit 3:       Freigabe "Pendelfunktionen"   ( MD43780 $SA_OSCILL_IS_ACTIVE )
-Bit 4:       Freigabe "Werkzeugverwaltung" ( MD20310 $MC_TOOL_MANAGEMENT_MASK )
+-----:       Reserved "Werkzeugverwaltung" ( MD20310 $MC_TOOL_MANAGEMENT_MASK )
 Bit 5:       Freigabe "Nibbeln/Stanzen" ( MD26012 $MC_PUNCHNIB_ACTIVATION )
 Bit 6:       Freigabe "Konturtunnel-Überwachung" ( MD21050 $MC_CONTOUR_TUNNEL_TOL )
 -----:       Reserved "F-Wort-Interpolation" ( FLIN/FCUB/FPO ) keine Option seit 10/2000
------:       Reserved "Countinuous Dressing" ( FTOCON/FTOCOF ) keine Option seit 10/2000
+-----:       Reserved "Continuous Dressing" ( FTOCON/FTOCOF ) keine Option seit 10/2000
 Bit 9:       Freigabe "Tangentialsteuerung" ( TANON/TANGOF )
 ------:      Reserved "Synchronspindel/Mehrkantdrehen" ( COUPON/COUPOF )
 Bit 11:      Freigabe "Bahngeschwindigkeitsabhängige Analogwertausgabe($AC_VACTB/$AC_VACTW)"
@@ -260,11 +269,11 @@ Bit 24:      Freigabe "antriebsautarker Generatorbetrieb" bei SIMODRIVE (MD37500
 ------:      Reserved "Mehrfachaufspannung (ShopMill)"
 ------:      Reserved "NCU-Link mit unterschiedlichen Ipo- und Lagereglertakte (siehe Beschreibung von FAST_IPO_LINK bzw. MD18780 $MN_MM_NCU_LINK_MASK)
 Bit 28:      Freigabe "Anzeige Volumenmodell (ShopTurn)"
-Bit 29:      Freigabe "Online-Überlagerung in Werkzeugrichtung" ($AA_TOFF[])
+Bit 29:      Freigabe "Online-Überlagerung in Werkzeugrichtung" ($AA_TOFF[], Handradüberlagerung in Automatik in Werkzeugrichtung)
 Bit 30:      Freigabe "Bearbeitungspaket Fräsen (Pkg/nur Platzhalter für Sammeloption)"
 </description>
 </parameter>
-<parameter number="19321" type="DWORD" dim="0" display="HEX">
+<parameter number="19321" type="UDWORD" dim="0" display="HEX">
 <name>TECHNO_FUNCTION_MASK_1</name>
 <brief>technologische Optionen</brief>
 <description>Optionsdatum zur Freigabe technologiebezogener Funktionen.
@@ -286,13 +295,13 @@ Bit 13:              Freigabe "Siemens Cycles Advanced Technology"
 Bit 14:              Freigabe "Balance cutting"
 Bit 15:              Freigabe "SINUMERIK Schleifen Advanced"
 Bit 16:              frei
-Bit 17:              Freigabe "reserviert"
+Bit 17:              Freigabe "Top Surface"
 Bit 18:              Freigabe "Orientierungsoffset statisch/dynamisch"
-Bit 19:              Reserved ""
+Bit 19:              frei
 Bit 31:		Reserved ""
 </description>
 </parameter>
-<parameter number="19330" type="DWORD" dim="0" display="HEX">
+<parameter number="19330" type="UDWORD" dim="0" display="HEX">
 <name>IPO_FUNCTION_MASK</name>
 <brief>Interpolation</brief>
 <description>Optionsdatum zur Freigabe interpolationsbezogener Funktionen
@@ -309,7 +318,7 @@ Bit 8:       Freigabe "Kompressor 3 Achsbearbeitung (COMPON/COMPCAD/COMPCURV) (S
 Bit 31:      Reserved ""
 </description>
 </parameter>
-<parameter number="19334" type="DWORD" dim="0" display="HEX">
+<parameter number="19334" type="UDWORD" dim="0" display="HEX">
 <name>SYSTEM_FUNCTION_MASK</name>
 <brief>Systemoptionen</brief>
 <description>-----:(LSB): Reserved "FlashFileSystem (FFS)" ist keine Option, sondern Standard.
@@ -329,11 +338,11 @@ Bit 13:      Freigabe "AST addon Paket"
 ...
 Bit 28:	Reserved
 Bit 29:	Reserved
-Bit 30:	Reserved
+Bit 30:	Reserved "Sonderfunktion SBM"
 Bit 31:	Reserved
 </description>
 </parameter>
-<parameter number="19340" type="BYTE" dim="0" display="HEX">
+<parameter number="19340" type="UBYTE" dim="0" display="HEX">
 <name>PROG_MASK</name>
 <brief>Programmoptionen</brief>
 <description>Optionsdatum zur Freigabe programmbearbeitungsbezogener Funktionen.
@@ -343,13 +352,13 @@ Bit 1:	Freigabe "Technologiezyklen" und "Synchronaktionen Stufe2"
 Bit 2:	Freigabe "Betriebsartübergreifende Aktionen (ASUP und SYNACT)"
 </description>
 </parameter>
-<parameter number="19400" type="BYTE" dim="0" display="HEX">
+<parameter number="19400" type="UBYTE" dim="0" display="HEX">
 <name>FFW_MODE_MASK</name>
 <brief>Vorsteuerung</brief>
 <description>Reserviert
 </description>
 </parameter>
-<parameter number="19410" type="DWORD" dim="0" display="HEX">
+<parameter number="19410" type="UDWORD" dim="0" display="HEX">
 <name>TRAFO_TYPE_MASK</name>
 <brief>Transformationsoptionen</brief>
 <description>Freigabe der Tranformationen
@@ -363,10 +372,10 @@ Bedeutung der gesetzten Bits in OD19410 $ON_TRAFO_TYPE_MASK:
 
 Bit 0 (LBS): TRAFO5           (5-Achs-Trafo) erlaubt
 Bit 1      : TRANSMIT/TRACYL  (Transmit/Zylindermantelkurven-Transformation) erlaubt
-Bit 2      : Reserved
+Bit 2      : reserved
 Bit 3      : TRAANG           (Transformation schräge Achse) erlaubt
-Bit 4      : TRAOEM           (OEM-Transformationen) erlaubt
-Bit 5      : TRACON           (Verkettete-Transformationen) erlaubt
+Bit 4      : reserved         (war OEM-Transformationen) erlaubt
+Bit 5      : reserved         (war Verkettete-Transformationen) erlaubt
 Bit 6      : TRAFO7           (7-Achs-Trafo) erlaubt
 Bit 7      : TRANSMIT/TRACYL  (Transmit/Zylindermantelkurven-Transformation, ohne reale Y-Achse) erlaubt
 Bit 8      : TRAANG           (Schräge Achse, feste Winkel) erlaubt
@@ -380,7 +389,7 @@ Stand 10/11/94: Transformation Centerless-Schleifen ist keine Option
 <description>Grundoption zum Betrieb einer F-PLC.
 </description>
 </parameter>
-<parameter number="19510" type="DWORD" dim="0" display="HEX">
+<parameter number="19510" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_FUNCTION_MASK</name>
 <brief>Funktionen Safety Integrated</brief>
 <description>Optionsdatum zur Freigabe von Funktionen Safety Integrated
@@ -388,7 +397,7 @@ Bit 0 = 0: maximal 3 FSEND- und 3 FRECV-Verbindungen verfügbar
 Bit 0 = 1: mehr als 3 FSEND- und 3 FRECV-Verbindungen verfügbar
 </description>
 </parameter>
-<parameter number="19610" type="DWORD" dim="1" display="HEX">
+<parameter number="19610" type="UDWORD" dim="1" display="HEX">
 <name>TECHNO_EXTENSION_MASK</name>
 <brief>technologische Erweiterungen</brief>
 <description>Optionsdatum zum freischalten von Technologiefunktionen die als nachladbare
@@ -484,7 +493,7 @@ $ON_TECHNO_EXTENTION_MASK[1-n]
  ausgeschaltet.
 </description>
 </parameter>
-<parameter number="19720" type="DWORD" dim="0" display="HEX">
+<parameter number="19720" type="UDWORD" dim="0" display="HEX">
 <name>PLC_FUNCTION_MASK</name>
 <brief>Funktionen der SoftPLC</brief>
 <description>Optionsdatum zur Freigabe von Funktionen der SoftPLC
@@ -492,7 +501,7 @@ Bit 0 (LSB): Freigabe "DB-Adressierung für PROFINET-MSTT"
 Bit 4      : Freigabe "32000 Ladder Steps"
 </description>
 </parameter>
-<parameter number="19730" type="DWORD" dim="1" display="HEX">
+<parameter number="19730" type="UDWORD" dim="1" display="HEX">
 <name>HMI_FUNCTION_MASK</name>
 <brief>Bedienoptionen</brief>
 <description>Optionsdatum zur Freigabe von HMI-Funktionen:
@@ -514,15 +523,15 @@ Bit 13:      Freigabe "Kinematik vermessen"                                     
 Bit 14:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopMill" OD19730 $ON_HMI_FUNCTION_MASK[0].14
 Bit 15:      Freigabe "Mitzeichnen (Echtzeitsimulation der akt. Bearbeitung) MigA; für ShopTurn" OD19730 $ON_HMI_FUNCTION_MASK[0].15
 Bit 16:      Freigabe "3D-Simulation 1 (Fertigteil)"                                             OD19730 $ON_HMI_FUNCTION_MASK[0].16
-Bit 17:      Freigabe "3D-Simulation 2 (Fertigteil und Arbeitsraum)                              OD19730 $ON_HMI_FUNCTION_MASK[0].17
+Bit 17:      frei                                                                                OD19730 $ON_HMI_FUNCTION_MASK[0].17
 Bit 18:      Freigabe "Manuelle Maschine Plus"                                                   OD19730 $ON_HMI_FUNCTION_MASK[0].18
-Bit 19:      Freigabe "SINUMERIK HMI sl copy license OA programming"                             OD19730 $ON_HMI_FUNCTION_MASK[0].19
+------:      Reserved "war AP60 Run MyHMI /3GL -&gt; 19732 $ON_HMI_MASK"                            OD19730 $ON_HMI_FUNCTION_MASK[0].19
 ------:      Reserved AP61 "SINUMERIK HMI sl copy license OA project"                            OD19730 $ON_HMI_FUNCTION_MASK[0].20
 ------:      Reserved AP62 "SINUMERIK HMI sl copy license OA upgrade Programmieren"              OD19730 $ON_HMI_FUNCTION_MASK[0].21
 ------:      Reserved AP63 "SINUMERIK HMI sl copy license OA upgrade Projektieren"               OD19730 $ON_HMI_FUNCTION_MASK[0].22
 Bit 23:      Freigabe  "SINUMERIK HMI sl Runtime OA Easy Screen"                                 OD19730 $ON_HMI_FUNCTION_MASK[0].23
 Bit 24:      Freigabe "Bedienen ohne SINUMERIK OP"                                               OD19730 $ON_HMI_FUNCTION_MASK[0].24
-------:      Reserved "Sinumerik *802* Ladder Editor"                                            OD19730 $ON_HMI_FUNCTION_MASK[0].25
+------:      Reserved "SINUMERIK *802* Ladder Editor"                                            OD19730 $ON_HMI_FUNCTION_MASK[0].25
 Bit 26:      Freigabe "CCG-Compiler (Nockenschleifen)"                                           OD19730 $ON_HMI_FUNCTION_MASK[0].26
 Bit 27:      Freigabe "CCG-SINUMERIK Operate Runtime OA Solution Partner"                        OD19730 $ON_HMI_FUNCTION_MASK[0].27
 Bit 28:      Freigabe "SINUMERIK HMI sl Runtime OA .net"                                         OD19730 $ON_HMI_FUNCTION_MASK[0].28
@@ -555,12 +564,12 @@ Bit 21:      Freigabe "Electronic Key System (EKS)"                             
 ------:      Reserved                                                                            OD19730 $ON_HMI_FUNCTION_MASK[1].22
 Bit 23:      Freigabe "integrierter Spindelmonitor (S-Monitor)"                                  OD19730 $ON_HMI_FUNCTION_MASK[1].23
 Bit 24:      Freigabe "DXF-Reader"                                                               OD19730 $ON_HMI_FUNCTION_MASK[1].24
-Bit 25:      frei (war "Sinumerik 828 Ladder Editor")                                            OD19730 $ON_HMI_FUNCTION_MASK[1].25
+Bit 25:      frei (war "SINUMERIK 828 Ladder Editor")                                            OD19730 $ON_HMI_FUNCTION_MASK[1].25
 Bit 26:      Freigabe "SINUMERIK extended touch"                                                 OD19730 $ON_HMI_FUNCTION_MASK[1].26
-Bit 27:      Freigabe "Run MyRobot /Handling Positiondisplay"                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
+Bit 27:      Freigabe "Run MyRobot /Handling"                                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
 </description>
 </parameter>
-<parameter number="19732" type="BYTE" dim="0" display="HEX" readonly="true">
+<parameter number="19732" type="UBYTE" dim="0" display="HEX" readonly="true">
 <name>HMI_MASK</name>
 <brief>Bedienoptionen</brief>
 <description>Optionsdatum zur Freigabe von HMI-Funktionen:
@@ -568,34 +577,37 @@ Bit 0 (LSB):  SINUMERIK Operate /NCU.
 Bit 1:        SINUMERIK Operate /PCU
 Bit 2:        SINUMERIK Operate /PC
 Bit 3:        SINUMERIK PCU-Basesoftware /IPC
+Bit 4:        SINUMERIK Operate /universal client
+Bit 5:        Run MyHMI /3GL
+Bit 6:        SINUMERIK Operate Display Manager
 </description>
 </parameter>
-<parameter number="19740" type="DWORD" dim="1" display="HEX">
+<parameter number="19740" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_MASK</name>
 <brief>Antriebs Grund-Lizenzen Bits</brief>
 <description>Optionsdatum
 </description>
 </parameter>
-<parameter number="19742" type="BYTE" dim="1">
+<parameter number="19742" type="UBYTE" dim="1" display="DECIMAL">
 <name>DRIVE_CNT</name>
-<brief>Antriebs Count-Lizenzen</brief>
+<brief>Antriebs Zähllizenzen</brief>
 <description>Optionsdatum
 </description>
 </parameter>
-<parameter number="19750" type="DWORD" dim="1" display="HEX">
+<parameter number="19750" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_EXTENSION_MASK</name>
 <brief>Antriebs OA Lizenzen Bits</brief>
 <description>Optionsdatum
 </description>
 </parameter>
-<parameter number="19830" type="DWORD" dim="0" display="HEX">
+<parameter number="19830" type="UDWORD" dim="0" display="HEX">
 <name>COLLISION_MASK</name>
 <brief>Funktionsumfang der Kollisionsvermeidung</brief>
 <description>Funktionsumfang der Kollisionsvermeidung
 
-Bit 0 (LSB): Kollisionsvermeidung (Maschine, Werkzeug)
-Bit 1:       reserviert
-Bit 2:       reserviert
+Bit 0 (LSB): Kollisionsvermeidung
+Bit 1:       Kollisionsvermeidung Basic
+Bit 2:       Kollisionsvermeidung Advanced
 
 </description>
 </parameter>
