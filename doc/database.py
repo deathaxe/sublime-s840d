@@ -7,7 +7,7 @@ import sublime
 
 from .. import lib
 
-doc_version = "11.09.2019"  # should not be here!
+doc_version = "15.09.2018"  # should not be here!
 
 
 def tooltip(view, keyword, lang='en'):

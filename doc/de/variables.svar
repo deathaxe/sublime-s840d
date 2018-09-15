@@ -320,8 +320,7 @@ Falls die Funktion 'Alarmverzögerung von T nach M06' aktiv ist, dann ist bei fe
 <parameter type="DOUBLE" dim="1">
 <name>$P_TOOLL</name>
 <brief>aktive Werkzeuggesamtlänge</brief>
-<description>$P_TOOLL[n]
-aktive Werkzeuggesamtlänge
+<description>$P_TOOLL[1] bis $P_TOOLL[3] entsprechen den Werten in $TC_DP3[] bis $TC_DP5[] inklusiv aktiven Werkzeugkorrekturen unabhängig von der Ebenenanwahl und unabhängig von Settingdaten wie $SC_TOOL_LENGTH_CONST u.a.
 </description>
 </parameter>
 
@@ -1368,13 +1367,15 @@ Ist eine mit kinematischen Ketten definierte Transformation aktiv, enthält die 
 <name>$P_TRAFO_PARSET</name>
 <brief>Transformationsdatensatznummer</brief>
 <description>Die Variable enthält den Wert 0, wenn keine kinematische Transformation aktiv ist.
+
 Ist eine konventionell (d.h. nicht mit kinematischen Ketten) definierte Transformation aktiv, enthält die Variable die Nummer des aktuellen Transformationsdatensatzes.
+
+Ist eine mit kinematischen Ketten definierte Transformation aktiv, enthält die Variable die Nummer des $NT-Datensatzes mit einem Offset von 1000, d.h. die erste Transformation liefert den Wert 1001.
+
   Beachte Sonderbedeutung bei parametrierter persistenter Transformation
     (Bit 1 der $MC_TRAFO_MODE_MASK auf 1 gesetzt):
     Bei TRACON werden die Nummer des Datensatzes der ersten verkettete Transformation zurückgegeben.
     Ist nur die persistente Transformation aktiv, so wird 0 zurückgegeben.
-    Ist nur die persistente Transformation aktiv, so wird 0 zurückgegeben.
-Ist eine mit kinematischen Ketten definierte Transformation aktiv, enthält die Variable die Nummer des $NT-Datensatzes mit einem Offset von 1000, d.h. die erste Transformation liefert den Wert 1001.
 </description>
 </parameter>
 
@@ -6240,8 +6241,7 @@ $P_PROG_SUFFIX[1] liefert die Dateierweiterung des Programms in der Programmeben
 <parameter type="INT" dim="1">
 <name>$AC_SYNA_STATE</name>
 <brief>Status einer Synchronaktion</brief>
-<description>Über die die Variable $AC_SYNA_STATE[ID] kann der Status einer Synchronaktion gelesen werden. Der Index ID ist die ID der modalen
-oder statischen Synchronaktion, für die der Status gelesen werden soll. Der Wert ist bitcodiert.
+<description>Über die Variable $AC_SNY_STATE[&lt;ID&gt;] kann der Status einer Synchronaktion gelesen werden. Der Index &lt;ID&gt; ist die ID der modalen oder statischen Synchronaktion, deren Status gelesen wird. Der Wert ist bitcodiert.
 
 Bitbeschreibung:
 Bit 0 = 0: Kein Lock
@@ -6250,6 +6250,29 @@ Bit 1 = 0: Kein Lock von PLC
 Bit 1 = 1: Lock von PLC
 Bit 2 = 0: Kein Lock von Synchronaktion
 Bit 2 = 1: Lock von Synchronaktion
+
+Die Sperren mit denen eine Synchronaktion gesperrt werden kann, haben unterschiedliche Priorität.
+- Priorität 1: Sperre durch PLC
+- Priorität 2: Sperre durch eine Synchronaktion
+- Priorität 3: Einzelsperre durch PLC
+
+Höchste Priorität: 1
+
+Die Systemvariable liefert immer den Wert der Sperre mit der höchsten Priorität.
+
+Beispiele:
+
+Keine Sperre: 0
+
+Kanalweite Sperre durch PLC: 3 (Bit 0 und Bit 1 sind gesetzt)
+
+Einzelsperre durch PLC: 3 (Bit 0 und Bit 1 sind gesetzt)
+
+Kanalweite Sperre durch PLC und eine Synchronaktion: 3 (Bit 0 und Bit 1 sind gesetzt)
+
+Sperre durch eine Synchronaktion: 5 (Bit 0 und Bit 2 sind gesetzt)
+
+Einzelsperre durch PLC und eine Synchronaktion: 5 (Bit 0 und Bit 2 sind gesetzt)
 </description>
 </parameter>
 
@@ -8462,7 +8485,7 @@ $TC_DPCS10[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP13</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_SCP13[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP3: $TC_SCP13[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP13[d]
@@ -8472,7 +8495,7 @@ $TC_SCP13[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP14</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_SCP14[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP4: $TC_SCP14[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP14[d]
@@ -8482,7 +8505,7 @@ $TC_SCP14[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP15</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_SCP15[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP5: $TC_SCP15[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP15[d]
@@ -8492,7 +8515,7 @@ $TC_SCP15[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP16</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_SCP16[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP6: $TC_SCP16[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP16[d]
@@ -8502,7 +8525,7 @@ $TC_SCP16[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP17</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_SCP17[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP7: $TC_SCP17[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP17[d]
@@ -8512,7 +8535,7 @@ $TC_SCP17[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP18</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_SCP18[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP8: $TC_SCP18[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP18[d]
@@ -8522,7 +8545,7 @@ $TC_SCP18[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP19</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_SCP19[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP9: $TC_SCP19[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP19[d]
@@ -8532,7 +8555,7 @@ $TC_SCP19[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP20</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_SCP20[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP10: $TC_SCP20[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP20[d]
@@ -8542,7 +8565,7 @@ $TC_SCP20[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP21</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_SCP21[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP11: $TC_SCP21[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP21[d]
@@ -8552,7 +8575,7 @@ $TC_SCP21[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP23</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_SCP23[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP3: $TC_SCP23[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP23[d]
@@ -8562,7 +8585,7 @@ $TC_SCP23[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP24</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_SCP24[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP4: $TC_SCP24[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP24[d]
@@ -8572,7 +8595,7 @@ $TC_SCP24[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP25</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_SCP25[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP5: $TC_SCP25[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP25[d]
@@ -8582,7 +8605,7 @@ $TC_SCP25[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP26</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_SCP26[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP6: $TC_SCP26[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP26[d]
@@ -8592,7 +8615,7 @@ $TC_SCP26[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP27</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_SCP27[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP7: $TC_SCP27[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP27[d]
@@ -8612,7 +8635,7 @@ $TC_SCP28[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP29</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_SCP29[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP9: $TC_SCP29[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP29[d]
@@ -8622,7 +8645,7 @@ $TC_SCP29[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP30</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_SCP30[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP10: $TC_SCP30[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP30[d]
@@ -8632,7 +8655,7 @@ $TC_SCP30[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP31</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_SCP31[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP11: $TC_SCP31[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP31[d]
@@ -8642,7 +8665,7 @@ $TC_SCP31[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP33</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_SCP33[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP3: $TC_SCP33[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP33[d]
@@ -8652,7 +8675,7 @@ $TC_SCP33[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP34</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_SCP34[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP4: $TC_SCP34[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP34[d]
@@ -8662,7 +8685,7 @@ $TC_SCP34[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP35</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_SCP35[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP5: $TC_SCP35[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP35[d]
@@ -8672,7 +8695,7 @@ $TC_SCP35[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP36</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_SCP36[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP6: $TC_SCP36[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP36[d]
@@ -8682,7 +8705,7 @@ $TC_SCP36[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP37</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_SCP37[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP7: $TC_SCP37[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP37[d]
@@ -8692,7 +8715,7 @@ $TC_SCP37[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP38</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_SCP38[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP8: $TC_SCP38[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP38[d]
@@ -8702,7 +8725,7 @@ $TC_SCP38[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP39</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_SCP39[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP9: $TC_SCP39[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP39[d]
@@ -8712,7 +8735,7 @@ $TC_SCP39[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP40</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_SCP40[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP10: $TC_SCP40[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP40[d]
@@ -8722,7 +8745,7 @@ $TC_SCP40[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP41</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_SCP41[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP11: $TC_SCP41[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP41[d]
@@ -8732,7 +8755,7 @@ $TC_SCP41[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP43</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_SCP43[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP3: $TC_SCP43[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP43[d]
@@ -8742,7 +8765,7 @@ $TC_SCP43[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP44</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_SCP44[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP4: $TC_SCP44[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP44[d]
@@ -8752,7 +8775,7 @@ $TC_SCP44[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP45</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_SCP45[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP5: $TC_SCP45[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP45[d]
@@ -8762,7 +8785,7 @@ $TC_SCP45[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP46</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_SCP46[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP6: $TC_SCP46[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP46[d]
@@ -8772,7 +8795,7 @@ $TC_SCP46[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP47</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_SCP47[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP7: $TC_SCP47[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP47[d]
@@ -8782,7 +8805,7 @@ $TC_SCP47[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP48</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_SCP48[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP8: $TC_SCP48[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP48[d]
@@ -8792,7 +8815,7 @@ $TC_SCP48[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP49</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_SCP49[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP9: $TC_SCP49[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP49[d]
@@ -8802,7 +8825,7 @@ $TC_SCP49[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP50</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_SCP50[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP10: $TC_SCP50[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP50[d]
@@ -8812,7 +8835,7 @@ $TC_SCP50[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP51</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_SCP51[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP11: $TC_SCP51[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP51[d]
@@ -8822,7 +8845,7 @@ $TC_SCP51[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP53</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_SCP53[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP3: $TC_SCP53[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP53[d]
@@ -8832,7 +8855,7 @@ $TC_SCP53[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP54</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_SCP54[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP4: $TC_SCP54[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP54[d]
@@ -8842,7 +8865,7 @@ $TC_SCP54[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP55</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_SCP55[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP5: $TC_SCP55[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP55[d]
@@ -8852,7 +8875,7 @@ $TC_SCP55[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP56</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_SCP56[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP6: $TC_SCP56[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP56[d]
@@ -8862,7 +8885,7 @@ $TC_SCP56[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP57</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_SCP57[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP7: $TC_SCP57[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP57[d]
@@ -8872,7 +8895,7 @@ $TC_SCP57[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP58</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_SCP58[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP8: $TC_SCP58[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP58[d]
@@ -8882,7 +8905,7 @@ $TC_SCP58[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP59</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_SCP59[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP9: $TC_SCP59[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP59[d]
@@ -8892,7 +8915,7 @@ $TC_SCP59[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP60</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_SCP60[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP10: $TC_SCP60[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP60[d]
@@ -8902,7 +8925,7 @@ $TC_SCP60[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP61</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_SCP61[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP11: $TC_SCP61[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP61[d]
@@ -8912,7 +8935,7 @@ $TC_SCP61[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP63</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_SCP63[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP3: $TC_SCP63[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP63[d]
@@ -8922,7 +8945,7 @@ $TC_SCP63[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP64</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_SCP64[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP4: $TC_SCP64[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP64[d]
@@ -8932,7 +8955,7 @@ $TC_SCP64[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP65</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_SCP65[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP5: $TC_SCP65[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP65[d]
@@ -8942,7 +8965,7 @@ $TC_SCP65[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP66</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_SCP66[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP6: $TC_SCP66[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP66[d]
@@ -8952,7 +8975,7 @@ $TC_SCP66[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP67</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_SCP67[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP7: $TC_SCP67[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP67[d]
@@ -8962,7 +8985,7 @@ $TC_SCP67[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP68</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_SCP68[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP8: $TC_SCP68[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP68[d]
@@ -8972,7 +8995,7 @@ $TC_SCP68[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP69</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_SCP69[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP9: $TC_SCP69[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP69[d]
@@ -8982,7 +9005,7 @@ $TC_SCP69[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP70</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_SCP70[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP10: $TC_SCP70[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP70[d]
@@ -8992,7 +9015,7 @@ $TC_SCP70[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_SCP71</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_SCP71[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Verschleiß-Korrektur zu $TC_DP11: $TC_SCP71[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_SCP71[d]
@@ -9002,7 +9025,7 @@ $TC_SCP71[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP13</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_ECP13[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP3: $TC_ECP13[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP13[d]
@@ -9012,7 +9035,7 @@ $TC_ECP13[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP14</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_ECP14[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP4: $TC_ECP14[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP14[d]
@@ -9022,7 +9045,7 @@ $TC_ECP14[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP15</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_ECP15[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP5: $TC_ECP15[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP15[d]
@@ -9032,7 +9055,7 @@ $TC_ECP15[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP16</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_ECP16[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP6: $TC_ECP16[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP16[d]
@@ -9042,7 +9065,7 @@ $TC_ECP16[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP17</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_ECP17[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP7: $TC_ECP17[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP17[d]
@@ -9052,7 +9075,7 @@ $TC_ECP17[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP18</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_ECP18[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP8: $TC_ECP18[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP18[d]
@@ -9062,7 +9085,7 @@ $TC_ECP18[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP19</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_ECP19[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP9: $TC_ECP19[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP19[d]
@@ -9072,7 +9095,7 @@ $TC_ECP19[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP20</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_ECP20[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP10: $TC_ECP20[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP20[d]
@@ -9082,7 +9105,7 @@ $TC_ECP20[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP21</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_ECP21[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP11: $TC_ECP21[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP21[d]
@@ -9092,7 +9115,7 @@ $TC_ECP21[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP23</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_ECP23[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP3: $TC_ECP23[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP23[d]
@@ -9102,7 +9125,7 @@ $TC_ECP23[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP24</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_ECP24[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP4: $TC_ECP24[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP24[d]
@@ -9112,7 +9135,7 @@ $TC_ECP24[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP25</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_ECP25[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP5: $TC_ECP25[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP25[d]
@@ -9122,7 +9145,7 @@ $TC_ECP25[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP26</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_ECP26[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP6: $TC_ECP26[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP26[d]
@@ -9132,7 +9155,7 @@ $TC_ECP26[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP27</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_ECP27[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP7: $TC_ECP27[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP27[d]
@@ -9142,7 +9165,7 @@ $TC_ECP27[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP28</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_ECP28[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP8: $TC_ECP28[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP28[d]
@@ -9152,7 +9175,7 @@ $TC_ECP28[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP29</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_ECP29[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP9: $TC_ECP29[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP29[d]
@@ -9162,7 +9185,7 @@ $TC_ECP29[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP30</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_ECP30[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP10: $TC_ECP30[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP30[d]
@@ -9172,7 +9195,7 @@ $TC_ECP30[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP31</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_ECP31[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP11: $TC_ECP31[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP31[d]
@@ -9182,7 +9205,7 @@ $TC_ECP31[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP33</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_ECP33[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP3: $TC_ECP33[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP33[d]
@@ -9192,7 +9215,7 @@ $TC_ECP33[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP34</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_ECP34[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP4: $TC_ECP34[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP34[d]
@@ -9202,7 +9225,7 @@ $TC_ECP34[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP35</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_ECP35[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP5: $TC_ECP35[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP35[d]
@@ -9212,7 +9235,7 @@ $TC_ECP35[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP36</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_ECP36[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP6: $TC_ECP36[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP36[d]
@@ -9222,7 +9245,7 @@ $TC_ECP36[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP37</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_ECP37[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP7: $TC_ECP37[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP37[d]
@@ -9232,7 +9255,7 @@ $TC_ECP37[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP38</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_ECP38[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP8: $TC_ECP38[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP38[d]
@@ -9242,7 +9265,7 @@ $TC_ECP38[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP39</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_ECP39[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP9: $TC_ECP39[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP39[d]
@@ -9252,7 +9275,7 @@ $TC_ECP39[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP40</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_ECP40[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP10: $TC_ECP40[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP40[d]
@@ -9262,7 +9285,7 @@ $TC_ECP40[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP41</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_ECP41[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP11: $TC_ECP41[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP41[d]
@@ -9272,7 +9295,7 @@ $TC_ECP41[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP43</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_ECP43[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP3: $TC_ECP43[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP43[d]
@@ -9282,7 +9305,7 @@ $TC_ECP43[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP44</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_ECP44[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP4: $TC_ECP44[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP44[d]
@@ -9292,7 +9315,7 @@ $TC_ECP44[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP45</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_ECP45[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP5: $TC_ECP45[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP45[d]
@@ -9302,7 +9325,7 @@ $TC_ECP45[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP46</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_ECP46[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP6: $TC_ECP46[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP46[d]
@@ -9312,7 +9335,7 @@ $TC_ECP46[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP47</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_ECP47[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP7: $TC_ECP47[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP47[d]
@@ -9322,7 +9345,7 @@ $TC_ECP47[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP48</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_ECP48[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP8: $TC_ECP48[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP48[d]
@@ -9332,7 +9355,7 @@ $TC_ECP48[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP49</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_ECP49[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP9: $TC_ECP49[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP49[d]
@@ -9342,7 +9365,7 @@ $TC_ECP49[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP50</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_ECP50[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP10: $TC_ECP50[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP50[d]
@@ -9352,7 +9375,7 @@ $TC_ECP50[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP51</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_ECP51[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP11: $TC_ECP51[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP51[d]
@@ -9362,7 +9385,7 @@ $TC_ECP51[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP53</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_ECP53[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP3: $TC_ECP53[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP53[d]
@@ -9372,7 +9395,7 @@ $TC_ECP53[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP54</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_ECP54[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP4: $TC_ECP54[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP54[d]
@@ -9382,7 +9405,7 @@ $TC_ECP54[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP55</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_ECP55[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP5: $TC_ECP55[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP55[d]
@@ -9392,7 +9415,7 @@ $TC_ECP55[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP56</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_ECP56[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP6: $TC_ECP56[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP56[d]
@@ -9402,7 +9425,7 @@ $TC_ECP56[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP57</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_ECP57[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP7: $TC_ECP57[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP57[d]
@@ -9412,7 +9435,7 @@ $TC_ECP57[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP58</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_ECP58[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP8: $TC_ECP58[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP58[d]
@@ -9422,7 +9445,7 @@ $TC_ECP58[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP59</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_ECP59[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP9: $TC_ECP59[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP59[d]
@@ -9432,7 +9455,7 @@ $TC_ECP59[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP60</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_ECP60[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP10: $TC_ECP60[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP60[d]
@@ -9442,7 +9465,7 @@ $TC_ECP60[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP61</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_ECP61[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP11: $TC_ECP61[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP61[d]
@@ -9452,7 +9475,7 @@ $TC_ECP61[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP63</name>
 <brief>Korrektur zu $TC_DP3</brief>
-<description>Korrektur zu $TC_DP3: $TC_ECP63[t,d] analog $TC_DP12[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP3: $TC_ECP63[t,d] analog $TC_DP12[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP63[d]
@@ -9462,7 +9485,7 @@ $TC_ECP63[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP64</name>
 <brief>Korrektur zu $TC_DP4</brief>
-<description>Korrektur zu $TC_DP4: $TC_ECP64[t,d] analog $TC_DP13[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP4: $TC_ECP64[t,d] analog $TC_DP13[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP64[d]
@@ -9472,7 +9495,7 @@ $TC_ECP64[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP65</name>
 <brief>Korrektur zu $TC_DP5</brief>
-<description>Korrektur zu $TC_DP5: $TC_ECP65[t,d] analog $TC_DP14[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP5: $TC_ECP65[t,d] analog $TC_DP14[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP65[d]
@@ -9482,7 +9505,7 @@ $TC_ECP65[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP66</name>
 <brief>Korrektur zu $TC_DP6</brief>
-<description>Korrektur zu $TC_DP6: $TC_ECP66[t,d] analog $TC_DP15[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP6: $TC_ECP66[t,d] analog $TC_DP15[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP66[d]
@@ -9492,7 +9515,7 @@ $TC_ECP66[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP67</name>
 <brief>Korrektur zu $TC_DP7</brief>
-<description>Korrektur zu $TC_DP7: $TC_ECP67[t,d] analog $TC_DP16[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP7: $TC_ECP67[t,d] analog $TC_DP16[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP67[d]
@@ -9502,7 +9525,7 @@ $TC_ECP67[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP68</name>
 <brief>Korrektur zu $TC_DP8</brief>
-<description>Korrektur zu $TC_DP8: $TC_ECP68[t,d] analog $TC_DP17[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP8: $TC_ECP68[t,d] analog $TC_DP17[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP68[d]
@@ -9512,7 +9535,7 @@ $TC_ECP68[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP69</name>
 <brief>Korrektur zu $TC_DP9</brief>
-<description>Korrektur zu $TC_DP9: $TC_ECP69[t,d] analog $TC_DP18[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP9: $TC_ECP69[t,d] analog $TC_DP18[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP69[d]
@@ -9522,7 +9545,7 @@ $TC_ECP69[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP70</name>
 <brief>Korrektur zu $TC_DP10</brief>
-<description>Korrektur zu $TC_DP10: $TC_ECP70[t,d] analog $TC_DP19[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP10: $TC_ECP70[t,d] analog $TC_DP19[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP70[d]
@@ -9532,7 +9555,7 @@ $TC_ECP70[d]
 <parameter type="DOUBLE" dim="2">
 <name>$TC_ECP71</name>
 <brief>Korrektur zu $TC_DP11</brief>
-<description>Korrektur zu $TC_DP11: $TC_ECP71[t,d] analog $TC_DP20[t,d]
+<description>ortsabhängige Einstell-Korrektur zu $TC_DP11: $TC_ECP71[t,d] analog $TC_DP20[t,d]
 
 bei aktiver Funktion 'flache D-Nummernverwaltung' ist die Syntax folgende:
 $TC_ECP71[d]

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info svar="840Dsl_sysvar_lists_man_1217_en-US">
+
+
+<parameter type="INT" dim="0">
+<name>$PC_TRAFO_NUM</name>
+<brief>Transformation data set number</brief>
+<description>The variable contains the value 0, if no kinematic transformation or the persistent transformation is active.
+
+If a conventionally defined (i.e. not by kinematic chains) transformation is active, the variable contains the number of the current transformation data set (the number n in the machine data $MC_TRAFO_TYPE_n).
+
+With an active TRACON transformation, the data set number of the TRACON transformation is returned, in other words, not the data set number of one of the included, chained part transformations.
+
+If a transformation defined by kinematic chains is active, the variable contains the number of the $NT data set with an offset of 1000, this means that the first transformation returns the value 1001. In this case, the system variable then returns the same value as $P_TRAFO_PARSET.
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="2">
+<name>$AC_TOOL_O_CORR_DIR</name>
+<brief>Active override of the orientation</brief>
+<description> Active override of the tool orientation in different coordinate systems:
+
+$AC_TOOL_O_CORR_DIR[n,i]
+n = 1, 2, 3: Components of the vector
+i = 0, 1, 2: Coordinate system (0 : BCS, 1: PCS, 2: SZS)
+
+This vector is the direction vector of the plane created by the two vectors $AC_TOOL_O_CORR and $AC_TOOL_O_ACT.
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="0">
+<name>$AC_TOOL_O_CORR_ANGLE</name>
+<brief>Active override of the orientation</brief>
+<description>This system variable returns the angle in degrees between the two vectors $AC_TOOL_O_CORR and $AC_TOOL_O_ACT. This angle does not depend on the coordinate system in which the direction vector $AC_TOOL_O_CORR_DIR[] is read. If no override of the orientation is active in the interpolator, this angle is 0.0
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="2">
+<name>$AC_TOOL_R_CORR_DIR</name>
+<brief>Active override of the rotation vector of the orientation</brief>
+<description> Active override of the rotation of the tool orientation in different coordinate systems (only with 6-axis kinematics):
+
+$AC_TOOL_R_CORR_DIR[n,i]
+n = 1, 2, 3: Components of the vector
+i = 0, 1, 2: Coordinate system (0 : BCS, 1: PCS, 2: SZS)
+
+This vector is the direction vector of the plane created by the two vectors $AC_TOOL_R_CORR and $AC_TOOL_R_ACT.
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="0">
+<name>$AC_TOOL_R_CORR_ANGLE</name>
+<brief>Active override of the rotation of the orientation</brief>
+<description>This system variable returns the angle in degrees between the two vectors $AC_TOOL_R_CORR and $AC_TOOL_R_ACT. This angle does not depend on the coordinate system in which the direction vector $AC_TOOL_R_CORR_DIR[] is read. If no override of the orientation is active in the interpolator, this angle is 0.0
+</description>
+</parameter>
+
+<parameter type="INT" dim="0">
+<name>$P_NCKTYPE</name>
+<brief>NCK type</brief>
+<description>The system variable returns the NCK type.
+
+6000: SOLUTIONLINE
+10700: 840D sl
+14000: 802D sl T/M
+14000: 802D sl N/G o. C/U
+14500: 808D
+15000: 840Di sl
+16000: 828D
+</description>
+</parameter>
+
+<parameter type="INT" dim="0">
+<name>$AN_CUTRACE</name>
+<brief>Trigger variable for the SINAMICS trace function</brief>
+<description> Writing the value 1 when using telegram 390, 391 or 395 sets bit 4 in all Control Units in drive parameter  r898  "Control  word  drive  object  1" activated by MD13120 $MN_CONTROL_UNIT_LOGIC_ADDRESS.
+
+The trigger tripped by the telegram must have previously been parameterized in the trace.
+
+The variable has the following values:
+
+Write:
+0: No action
+1: Trip trigger
+
+Read:
+Always 0 because the trigger cannot be read back
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="1">
+<name>$VA_TRACK_ERR_CONTR</name>
+<brief>Control deviation of the axis</brief>
+<description>The variable $VA_TRACK_ERR_CONTR[X] returns the control deviation at the input of the position controller
+</description>
+</parameter>
+
+</info>
