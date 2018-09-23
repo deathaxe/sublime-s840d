@@ -109,8 +109,8 @@
 ;^^^^ source.s840d_hmi meta.class.grid
 %_N_INITIAL_INI
 N11660 $MN_NUM_EG=10
-; <- source.s840d_gcode comment.blockno.s840d_gcode
-;^^^^^^^^^^^^^^^^^^^ source.s840d_gcode
+; <- source.s840d_arc comment.blockno.s840d_gcode
+;^^^^^^^^^^^^^^^^^^^ source.s840d_arc
 ;^^^^^ comment.blockno.s840d_gcode
 ;      ^ punctuation.definition.variable.nck.s840d_gcode
 ;       ^^^^^^^^^ support.variable.nck.machdata.s840d_gcode
