@@ -30,6 +30,18 @@
 ;     ^ punctuation.separator.mapping.key-value
 ;      ^^^^^^^^^^^ entity.name.tag.dest-path.s840d_arc
 ; ---------------------------------------------------------------------
+; valid PATH tag
+%_N_CYCLE_SPF
+;$PATH=/_N_CMA_DIR
+;VERSION: 1.0.0.0 ;DATE: 2018-09-10
+;         ^^^^^^^ constant.language.version
+;          ^ punctuation.separator.sequence
+;            ^ punctuation.separator.sequence
+;              ^ punctuation.separator.sequence
+;                        ^^^^^^^^^^ constant.language.date
+;                            ^ punctuation.separator.sequence
+;                               ^ punctuation.separator.sequence
+; ---------------------------------------------------------------------
 ; PATH tag must not contain whitespace
 %_N_CYCLE_SPF
 ;$PATH= /_N_CMA_DIR

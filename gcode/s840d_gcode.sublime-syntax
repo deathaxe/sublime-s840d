@@ -58,6 +58,10 @@ variables:
 contexts:
 
   main:
+    - match: ^
+      set: [main-toplevel, comment-doc-meta, comment-doc-version]
+
+  main-toplevel:
     - include: iso-blockno
     - include: comment-disabled
     - match: ({{label}})(:)|(?=\S)
@@ -126,6 +130,46 @@ contexts:
     - match: ','
       scope: punctuation.separator.comma.s840d_gcode
       push: after-operator
+
+###############################################################################
+# DOCUMENTATION AND VERSIONINFO
+###############################################################################
+
+  comment-doc:
+    - match: ^
+      set: [comment-doc-meta, comment-doc-version]
+
+  comment-doc-meta:
+    - meta_content_scope: comment.line.s840d_gcode
+    - match: ''
+      pop: true
+
+  comment-doc-version:
+    - match: (;)VERSION:\s+(\d{1,2}(\.)\d{1,2}(\.)\d{1,2}(\.)\d{1,2}\b)?
+      captures:
+        1: punctuation.definition.comment.begin.s840d_gcode
+        2: constant.language.version.s840d_gcode
+        3: punctuation.separator.sequence.s840d_gcode
+        4: punctuation.separator.sequence.s840d_gcode
+        5: punctuation.separator.sequence.s840d_gcode
+      set: comment-doc-date
+    - include: comment-doc-end
+
+  comment-doc-date:
+    - match: ;DATE:\s+(\d{4}(-)\d{2}(-)\d{2}\b)
+      captures:
+        1: constant.language.date.s840d_gcode
+        2: punctuation.separator.sequence.s840d_gcode
+        3: punctuation.separator.sequence.s840d_gcode
+      set: comment-doc-end
+    - match: $\n?|;
+      set: comment-doc-end
+
+  comment-doc-end:
+    - match: ^;
+      scope: punctuation.definition.comment.begin.s840d_gcode
+    - match: ^
+      pop: true
 
 ###############################################################################
 # DEFINITIONS
@@ -218,9 +262,13 @@ contexts:
 
   stmt-proc-attributes:
     - meta_content_scope: meta.function.attributes.s840d_gcode
+    - match: \n
+      set: [comment-doc]
+    - match: (?=;)
+      set: [comment-doc, comment-line]
     - match: '{{proc_attr}}'
       scope: storage.modifier.function.s840d_gcode
-    - include: line-end-or-illegal
+    - include: illegal
 
 ###############################################################################
 # MACRO DEFINITION

@@ -8,6 +8,7 @@ from .gcode.commands.minify import S840dMinifyCommand
 from .gcode.commands.protect import S840dProtectCommand
 from .gcode.commands.blockno import S840dRenumberCommand
 from .gcode.commands.goto import S840dGotoDefinitionCommand
+from .gcode.commands.version import S840dBumpVersion
 from .plc.commands.merge import S840dAwlLoadMergeCommand
 from .plc.commands.split import S840dAwlSaveSplitCommand
 
