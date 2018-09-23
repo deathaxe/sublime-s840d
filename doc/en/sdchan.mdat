@@ -14,8 +14,8 @@ Note:
 <name>THREAD_RAMP_DISP</name>
 <brief>Acceleration behavior of axis when thread cutting</brief>
 <description>The SD is active for thread cutting with G33 (G34, G35).
-It features two elements that define the behavior of the thread axis during runup (1st element) and during deceleration/smoothing (2nd element).
-The values have the same properties for thread run-in and thread run-out:
+It has three elements that define the behavior of the thread axis during runup (1st element), during deceleration/smoothing "G33(G34, G35) to G00/G01" (2nd element) and during smoothing between 2 thread blocks (3rd element).
+The first two values have the same properties for thread run-in and thread run-out:
 
 &lt;0:
 	The thread axis is started/decelerated with configured acceleration. Jerk is according to the current programming of BRISK/SOFT. Behavior is compatible with MD 20650__THREAD_START_IS_HARD = FALSE used until now.
@@ -24,10 +24,26 @@ The values have the same properties for thread run-in and thread run-out:
 	Starting/deceleration of the feed axis during thread cutting is stepped. Behavior is compatible with MD 20650__THREAD_START_IS_HARD = TRUE used until now.
 
 &gt;0:
-	The maximum thread starting or deceleration path is specified. The specified distance can lead to acceleration overload of the axis. The SD is written from the block when DITR (displacement thread ramp) is programmed.
+	The maximum thread starting or deceleration path is specified. The specified distance can lead to acceleration overload of the axis. The SD is written from the block when DITR (displacement thread ramp) is programmed. An overlong path has no effect.
 
 Note:
-MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be be set so that the value written by the part program is transferred to the active file system on reset (that is the value is retained after reset.)
+MD 10710 $MN_PROG_SD_RESET_SAVE_TAB can be set so that the value written by the part program is transferred to the active file system on reset (this means the value is retained after reset.)
+
+The 3rd value permits smoothing at a corner between 2 thread blocks in order to soften the transition. It is not rounded by smoothing if the dynamics of the machine permit a hard transition, for example on account of MD32310 $MA_MAX_ACCEL_OVL_FACTOR:
+-1:
+     The transition is made as geometrically soft as possible.
+0:
+     The corner is left with hard retraction, the axes follow the specification of the control loops.
+ &gt; 0:
+     Reserved for an expansion of the function.
+
+
+The 3rd value defines the geometric tolerance that may be used at a corner between 2 thread blocks in order to soften the transition:
+ &lt; or = 0:
+     The corner is left with hard retraction, the axes follow the specification of the control loops.
+ &gt; 0:
+     The transition is made as geometrically soft as possible by using this tolerance.
+
 </description>
 </parameter>
 <parameter number="42100" type="DOUBLE" dim="0">
@@ -181,24 +197,17 @@ Application: Debug mode for testing part programs.
 </parameter>
 <parameter number="42300" type="DOUBLE" dim="1">
 <name>COUPLE_RATIO_1</name>
-<brief>Speed ratio for synchr. spindle mode, numerator, denominator</brief>
-<description>This setting data defines the speed ratio parameters for the fixed coupling configuration defined with the channel-specific MD21300 $MC_COUPLE_AXIS_1[n].
+<brief>Speed ratio for synchronous spindle mode</brief>
+<description>This setting data defines the speed ratio for the fixed coupling configuration defined with the channel-specific MD21300 $MC_COUPLE_AXIS_1[n].
 
-The linear correlation between the leading and following spindles is determined by the speed ratio k_Ü. This ratio is defined by two speed ratio parameters in the form of a numerator [n=0] and a denominator [n=1]. This enables the speed ratio to be defined very precisely.
+The linear correlation between the leading and following spindles is determined by the speed ratio. The speed ratio is defined by the specification of the numerator and the denominator.
 
-k_Ü =  Speed ratio parameter of numerator / Speed ratio parameter of denominator
+Speed ratio = numerator / denominator = SD42300 $SC_COUPLE_RATIO[0] / SD42300 $SC_COUPLE_RATIO[1]
 
-	= SD42300 $SC_COUPLE_RATIO[0] / SD42300 $SC_COUPLE_RATIO[1]
+ The speed ratio parameters can be altered in the NC part program with the language instruction COUPDEF provided that this is not locked by the channel-specific MD21340 $MC_COUPLE_IS_WRITE_PROT_1.
+ However, the parameterized values of SD42300 $SC_COUPLE_RATIO_1 are not changed.
 
-The speed ratio parameters can be altered in the NC part program with the language instruction COUPDEF provided that this is not locked by the channel-specific MD21340 $MC_COUPLE_IS_WRITE_PROT_1.
-However, the parameterized values of SD42300 $SC_COUPLE_RATIO_1 are not changed.
-The calculation of k_Ü is initiated with POWER ON.
-
-SD irrelevant for ......
-User-defined coupling
-
-Related to ....
-	SD42300 $SC_COUPLE_RATIO_1 currently has the same action as a machine data (e.g. active after POWER ON). The SD data are therefore displayed and input in the same way as channel-specific machine data.
+The calculation of the speed ratio is initiated with Power On.
 </description>
 </parameter>
 <parameter number="42400" type="DOUBLE" dim="0">
@@ -329,7 +338,7 @@ Related to:
 	MD28072 $MC_MM_MAXNUM_SURF_GROUPS
 </description>
 </parameter>
-<parameter number="42474" type="DWORD" dim="1">
+<parameter number="42474" type="DWORD" dim="1" readonly="true">
 <name>SURF_SMOOTHING_LEVEL</name>
 <brief>Optimization level for the COMPSURF function.</brief>
 <description>The setting data defines the smoothing stage of the COMPSURF function. A higher value means smoother surfaces but also lower accuracy.
@@ -359,10 +368,17 @@ This data is only active if an orientation transformation is active.
 Turning the tool orientation is only possible with 6-axis machines.
 </description>
 </parameter>
+<parameter number="42478" type="DOUBLE" dim="0">
+<name>SURF_PERF_ADJUST</name>
+<brief>Adaptation of the CPU time utilization with COMPSURF.</brief>
+<description>Represents a compromise between computational utilization and accuracy. The higher the value, the lower the computational utilization, the lower the value the higher the accuracy.
+A sharper surface can be achieved, especially by COMPSURF with "Smoothing off" (MIN_SURF_RADIUS = 0).
+</description>
+</parameter>
 <parameter number="42480" type="BOOLEAN" dim="0">
 <name>STOP_CUTCOM_STOPRE</name>
 <brief>Alarm response with tool radius compensation and preproc. stop</brief>
-<description>If this setting data is TRUE, block execution is stopped by preprocessing stop and active tool radius compensation, and does not resume until after a user acknowledgement (START).
+<description>If this setting data is TRUE, block execution is stopped by preprocessing stop and active tool radius compensation, and does not resume until after a user acknowledgment (START).
 If it is FALSE, machining is not interrupted at such a program point.
 </description>
 </parameter>
@@ -420,9 +436,9 @@ Note:
 	CASE A: If two intersections arise on correction of the inner side with an (almost) closed contour consisting of two successive circle blocks or a circle and a linear block, by default the intersection is chosen that is located on the first partial contour nearer to the beginning of the block.
 	A contour is considered (almost) closed if the distance between the starting point of the first block and the end point of the second block is less than 10% of the active compensation radius, but not greater than 1000 path increments (corresponds to 1mm with 3 decimal places).
 	CASE B: If on correction of the inner side and a block transition between a straight line and a circle with an angle of aperture of more than approx. 315 degrees, the offset curve of the straight line intersects the offset curve of the circle at two points, by default the point of intersection is chosen that is located on the first partial contour nearer to the beginning of the block.
-TRUE:
-	CASE A: In the same situation as described above, the point of intersection is chosen that is located on the first partial contour nearer to the block end.
-	CASE B: In the same situation as described above, the point of intersection is chosen that is located on the first partial contour nearer to the block end, but only if the absolute value of the contour violation caused by this is less than the effective contour tolerance. For the effective contour tolerance, see the description "Contour/orientation tolerance" in FB1. The currently effective tolerance can be read with $AC_CTOL. If a tolerance of zero is programmed in this way, a permanently assigned tolerance of 0.002mm applies.
+     In this situation, the two curves involved are almost completely excluded.
+TRUE: With two successive curves (as described above), whose offset curves intersect twice, the intersection is chosen that lies nearer to the end of the first curve. Whereby a slight contour violation at the beginning of the block of the first curve and at the end of the block of the second curve is accepted in order to be able to completely process both curves.
+But only if the absolute value of the contour violation caused by this is less than the effective contour tolerance. For the effective contour tolerance, see the description "Contour/orientation tolerance" in FB1. The currently effective tolerance can be read with $AC_CTOL. If a tolerance of zero is programmed in this way, a permanently assigned tolerance of 0.002mm applies.
 	The tolerance value is applied that is valid for activation of the tool radius correction with G41 or G42.
 </description>
 </parameter>
@@ -682,8 +698,8 @@ The SD contains the physical spindle which actually exists.
 
 Special cases, errors, ......
 Notes:
-- The zero index (SPIND_ASSIGN_TAB[0]) is only used to display the master spindle selected in the channel and must not be overwritten.
-- Changes to the spindle converter take effect immediately. It is therefore not advisable to change the spindle converter for spindles used in a part program from the HMI or PLC while a part program is running.
+- The zero index (SPIND_ASSIGN_TAB[0]) is only used to display the master spindle (= logical spindle number) selected in the channel, and it must not be overwritten.
+- Changes to the spindle converter take effect immediately. Therefore it is not advisable to change the spindle converter for spindles used in a part program from the HMI or PLC while a part program is running.
 - After "delete SRAM", the numbers of the logical and physical spindles are identical.
 </description>
 </parameter>
@@ -745,7 +761,7 @@ FALSE:
 The sign for wear of the tool length components and the tool radius is not inverted.
 </description>
 </parameter>
-<parameter number="42935" type="DWORD" dim="0">
+<parameter number="42935" type="UDWORD" dim="0" display="HEX">
 <name>WEAR_TRANSFORM</name>
 <brief>Transformations for tool components</brief>
 <description>This setting data is bit-coded.
@@ -928,7 +944,7 @@ Whether the offset value is within the limit range can be checked via the $AA_TO
 This limit value acts on the active correction through $AA_TOFF in the minus direction.
 This limit value is only effective if $MC_TOFF_MODE Bit6 = 1 is set.
 
-Über die Systemvariable $AA_TOFF_LIMIT kann abgefragt werden, ob sich der Korrekturwert im Grenzbereich befindet.
+Whether the offset value is within the limit range can be checked via the $AA_TOFF_LIMIT system variable.
 </description>
 </parameter>
 <parameter number="42974" type="BOOLEAN" dim="0">
@@ -939,6 +955,16 @@ This limit value is only effective if $MC_TOFF_MODE Bit6 = 1 is set.
 
 FALSE:
 	On activating an orientable tool holder, the fine offset are not considered.
+</description>
+</parameter>
+<parameter number="42977" type="BOOLEAN" dim="0">
+<name>SLOT_FORM_RECOGN</name>
+<brief>Slot recognition on/off</brief>
+<description>TRUE:
+	With active tool radius compensation, narrow slots are detected and traversed.
+
+FALSE:
+	With active tool radius compensation, narrow slots are ignored
 </description>
 </parameter>
 <parameter number="42980" type="DWORD" dim="0">

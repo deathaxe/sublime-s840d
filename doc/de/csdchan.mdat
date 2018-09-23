@@ -36,13 +36,13 @@ Bit 3: Von Konturzyklen (CYCLE63, CYCLE64, CYCLE952) generierte Programme lösche
 <description>Funktionsmaske Fräsen
 Bit 0: Grundeinstellung Fräszyklen im Gleichlauf
 Bit 2: Tiefenberech. Fräszyklen ohne Parameter SC
-Bit 3: Wirbelfräsen Inseln zuerst umrunden
 </description>
 </parameter>
 <parameter number="55216" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_DRILL_SET</name>
 <brief>Funktionsmaske Bohren</brief>
 <description>Funktionsmaske Bohren
+Bit 0:    Gewindebohren CYCLE84: Spindeldrehrichtung im Zyklus umkehren
 Bit 1:    Ausdrehen CYCLE86: Drehung der Werkzeugebene beim Positionieren der Spindel berücksichtigen
 Bit 2:    Ausdrehen CYCLE86: Beim Positionieren der Spindel geschwenkte Tischkinematiken berücksichtigen (Toolcarrier)
 Bit 3:    Gewindebohren CYCLE84: Überwachung Maschinendaten 31050 und 31060 der Spindel
@@ -67,6 +67,12 @@ Bit 4: Rückzug aus der Innenbearbeitung (CYCLE951)
           0: Kompatibilität, wie bisher
              Wenn im Zyklus ein notwendiges Nachziehen an der Ecke erkannt wird, erfolgt ein Rückzug des Werkzeuges aus der Innenbearbeitung, sonst nicht.
           1: Es wird generell in der Schnittachse aus der Innenbearbeitung zurückgezogen.
+Bit 5: Neues Überschleifverhalten in Gewindeschneidzyklen abschalten
+          0: Das neue Überschleifverhalten zwischen Gewindesätzen (G33, G34, G35 ...) ist in den Gewindezyklen aktiv.
+             Damit wird in Gewindesätzen, die zum Ein-, Auslauf oder als Übergangselement des Gewindes dienen, die Dynamikanpassung verbessert,
+             in dem eine höhere Anteil der Satzlänge für die Dynamikanpassung herangezogen wird.
+             Voraussetzung für diese Funktion ist die Settingdateneinstellung SD 42010 $SC_THREAD_RAMP_DISP[2]=-1.
+          1: Das neue Überschleifverhalten zwischen Gewindesätzen wirkt nicht (Kompatibilität).
 </description>
 </parameter>
 <parameter number="55220" type="DWORD" dim="0" display="HEX">
@@ -77,8 +83,8 @@ Bit 0: Eingabefelder Technologie einblenden
 =0: Eingabefelder Technologie nicht einblenden
 =1: Eingabefelder Technologie einblenden
 Bit 1: Orientierungstoleranz (OTOL) als Faktor der Toleranz (CTOL) oder direkt eingeben
-Das Bit 1 ist nur für Maschinen mit eingerichteter Orientierungtransformation relevant
-=0: Orientierungstoleranz (OTOL) wird  als Faktor der eingegenenen Toleranz berechnet
+Das Bit 1 ist nur für Maschinen mit eingerichteter Orientierungstransformation relevant
+=0: Orientierungstoleranz (OTOL) wird  als Faktor der eingegebenen Toleranz berechnet
 =1: Orientierungstoleranz (OTOL) direkt in der Eingabemaske eingeben
 Der Faktor für die Berechnung der Orientierungstoleranz ist in folgenden Settingdaten gespeichert
 $SCS_MILL_TOL_FACTOR_ROUGH für die Bearbeitungsart Schruppen G-Gruppe 59 DYNROUGH
@@ -92,6 +98,9 @@ Bit 2: Formenbaufunktion in Maske High Speed Settings auswählbar
 Bit 3: Maske High Speed Settings ohne Option Advanced Surface
 =0: Die Maske High Speed Settings wird nur mit der Option Advanced Surface angeboten
 =1: Die Maske High Speed Settings wird auch ohne die Option Advanced Surface angeboten
+Bit 4: Auswahl Glättung anzeigen
+=0: Auswahl Glättung nicht anzeigen (entspricht Glättung = ja)
+=1: Auswahl Glättung anzeigen
 
 </description>
 </parameter>
@@ -112,31 +121,28 @@ Bit 2: Auswahl "Abwahl" des Schwenkdatensatzes zulassen
 Bit 3: Aktive Schwenkebene unter Schwenken in JOG anzeigen
 =0: Aktive Schwenkebene unter Schwenken in JOG nicht anzeigen
 =1: Aktive Schwenkebene unter Schwenken in JOG anzeigen
-Bit 4: Eingabewerte beim Schwenken in Polstellung der Maschinenkinematik auswerten
-Ausgehend von der Polstellung der Maschinenkinematik werden die Eingabewerte beim Schwenken
-so ausgewertet, das ein kontinuierliches Schwenken um die Polachse möglich ist
-Polachse ist die 2.Rundachse des Schwenkdatensatzes, die um die Werkzeugachse dreht
-Beispiel: Rundachse C dreht um Z bei G17./
-weitere Einstellungen Polachse:
-- Winkelbereich (Verfahrbereich) von &gt;360 Grad im Schwenkdatensatz
-- Die Rundachse darf nicht als Moduloachse vereinbart sein. $MA_ROT_IS_MODULO[AX]=0
-Polstellung bedeutet, das die 1.Rundachse des Schwenkdatensatzes in Grundstellung steht
+Bit 4: Eingabewerte beim Schwenken in Polstellung der Maschinenkinematik in Grundstellung auswerten
 =0: Auswertung der Eingabewerte beim Schwenken in Polstellung
 =1: keine Auswertung der Eingabewerte beim Schwenken in Polstellung (Kompatibilität)
+Ausgehend von der Grundstellung der Maschinenkinematik werden die Eingabewerte beim Schwenken so ausgewertet, dass ein kontinuierliches Schwenken um die Polachse möglich ist
+Polachse ist die Rundachse des Schwenkdatensatzes, die um die Werkzeugachse dreht
+Beispiel: Rundachse C dreht um Z bei G17./
+weitere Einstellungen Polachse:
+  Winkelbereich (Verfahrbereich) von &gt;=360 Grad im Schwenkdatensatz
 Bit 5: Ausrichten Werkzeug (Technologie Drehen) mittels Frameberechnung (TCOFRY) oder absolut (TCOABS)
-Die Berechung der Werkzeugorientierung des orientierbaren Werkzeugträgers erfolgt
-entweder über eine Frameberechung (TCOFRY bei G18) oder absolut mit TCOABS
+Die Berechnung der Werkzeugorientierung des orientierbaren Werkzeugträgers erfolgt
+entweder über eine Frameberechnung (TCOFRY bei G18) oder absolut mit TCOABS.
 Bei einer B-Achskinematik einer Drehmaschine kann die Werkzeugspindel in Grundstellung der Kinematik
 entweder parallel zu Z oder zu X eingerichtet sein. Siehe auch unter Inbetriebnahme "Schwenkdaten".
-Bei Neuinbetriebnahmen wird empfohlen das Bit 5=1 zu setzen:
-=0: Ausrichten Werkzeug mittles Frameberechnung (TCOFRY bei G18)
+Bei Neuinbetriebnahmen wird empfohlen, das Bit 5=1 zu setzen:
+=0: Ausrichten Werkzeug mittels Frameberechnung (TCOFRY bei G18, Kompatibilität)
 =1: Ausrichten Werkzeug absolut (TCOABS)
 Bit 6: Schwenkmodus "direkt" unter Schwenken in JOG nicht anbieten
 =0: Schwenkmodus "direkt" wird unter Schwenken in JOG angeboten
 =1: Schwenkmodus "direkt" wird unter Schwenken in JOG nicht angeboten
 Bit 7: Schwenken Ebene: Richtungsauswahl in Grundstellung der Kinematik
 Verhalten bei Schwenken Ebene in Grundstellung der Kinematik, wenn vom NCK zwei Lösungen berechnet werden:
-=0: Bei Richtungsauswahl + oder - werden beide berechneten Lösungen der Rundachsen angefahren.
+=0: Bei Richtungsauswahl + oder - werden beide berechneten Lösungen der Rundachsen angefahren. (Kompatibilität)
 =1: Bei Richtungsauswahl + oder - wird nur eine der berechneten Lösungen der Rundachsen angefahren.
 Kompatibilität zur PowerLine bis SW 7.x bzw. SolutionLine bis SW 1.x
 Bit 8: Nullpunktverschiebung der Rundachsen des Schwenkdatensatzes als Offset verfahren
@@ -165,6 +171,15 @@ Bei Bit12=0 werden in den Parametern $TC_CARR21/22 eine Linearachsbezeichner ges
 Damit wird bei Reset (TCOABS) der Werkzeugträger mit den Endpositionen der Rundachsen ($TC_CARR13/14) initialisiert.
 Bei Bit12=1 werden in den Parametern $TC_CARR21/22 die Namen der Rundachsen des Schwenkdatensatzes geschrieben.
 Damit wird bei Reset (TCOABS) der Werkzeugträger mit den Istwerten der Rundachsen initialisiert.
+Bit 13: Aktivierung der erweiterten Auswertung der Drehungen beim achsweisen Schwenken in Polstellung.
+=0 keine Auswertung der Drehungen beim Schwenken in Polstellung (Kompatibilität) Es gelten die Einstellungen der Bits 4, 7 und 11
+=1 Erweiterte Auswertung der Drehungen beim Schwenken in Polstellung
+Bei einer Kinematik mit 2 Rundachsen, kann eine der Rundachsen zur Polachse werden. Eine Rundachse ist dann in Pollage, wenn sie um die Werkzeugachse dreht. Im Gegensatz zu Bit4 werden beim Setzen von Bit13 auch dann die Eingabewerte ausgewertet, wenn die 1. Rundachse nicht in Grundstellung ist.
+Beispiel: Tischkinematik mit 1. Rundachse A (dreht um X) und 2. Rundachse B (dreht um Y) G17
+   Nach achsweisem Schwenken um Y und anschließend um X=90° ist die 2. Rundachse in Pollage.
+Einstellung für Schwenkdatensatz: Rundachsbezug muss auf die Rundachse eingestellt sein, die nicht die Polachse ist (im Beispiel: Rundachse 1).
+Mit Setzen des Bits werden die eingegebenen Drehungen so ausgewertet, dass ein kontinuierliches Schwenken um die Polachse/Werkzeugachse möglich ist. Dabei gilt, dass die "+" Lösung des CYCLE800 keine zusätzliche Drehung und die "-" Lösung dagegen eine zusätzliche 180° Drehung im Actframe in der Werkzeugachse hat.
+Mit Setzen des Bit13 haben die Einstellungen der Bits 4, 7 und 11 keine Wirkung.
 
 
 </description>
@@ -804,14 +819,16 @@ der Kalibrierkugel innerhalb des Toleranzwertes im $SCS_MEA_KIN_DM_TOL liegt.
 <name>MEA_KIN_MODE</name>
 <brief>Freie Komponente des Linearvektor</brief>
 <description>Freie Komponente des Linearvektor
-  0 = alle Komponenten des Linearvektors berechnen
-  1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE übernehmen
-  2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE übernehmen
-  3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE übernehmen
-  4 = freie Komponente für X aus aktiver Trafo beibehalten
-  5 = freie Komponente für Y aus aktiver Trafo beibehalten
-  6 = freie Komponente für Z aus aktiver Trafo beibehalten
-  10 = Vektorkette schließen (nur bei Toolcarrier)
+Einerstelle
+   0 = alle Komponenten des Linearvektors berechnen
+   1 = freie Komponente für X aus $SCS_MEA_KIN_VALUE übernehmen
+   2 = freie Komponente für Y aus $SCS_MEA_KIN_VALUE übernehmen
+   3 = freie Komponente für Z aus $SCS_MEA_KIN_VALUE übernehmen
+   4 = freie Komponente für X aus aktiver Trafo beibehalten
+   5 = freie Komponente für Y aus aktiver Trafo beibehalten
+   6 = freie Komponente für Z aus aktiver Trafo beibehalten
+Zehnerstelle
+  1x = Vektorkette schließen, nur bei Toolcarrier (55645[0] für die Kopfkette, 55645[1] für die Tischkette)
 
 </description>
 </parameter>
@@ -829,16 +846,17 @@ siehe SD55645
 <name>MEA_KIN_MIN_ANG_TRIANGLE</name>
 <brief>Minimaler Innenwinkel des Messdreiecks</brief>
 <description>Kinematik komplett vermessen
-Minimaler Innenwinkel des Messdreiecks
+Gilt nur für 3 Messpunkte. Minimaler Innenwinkel des Messdreiecks.
 Wertebereich 2 bis 60 Grad
 
 </description>
 </parameter>
 <parameter number="55648" type="DOUBLE" dim="0">
 <name>MEA_KIN_MIN_ANG_POS</name>
-<brief>Minimaler Winkel beim Positionieren einer Rundachse</brief>
+<brief>Minimaler Winkelbereich zur Messung einer Rundachse </brief>
 <description>Kinematik komplett vermessen
-Minimaler Winkel beim Positionieren einer Rundachse zwischen den einzelnen Messungen
+Minimaler Messbereich einer Rundachse. Ist der Messbereich einer Rundachse kleiner als 90°, so ist mit Ungenauigkeiten, bedingt durch die Messungenauigkeiten im Mikrometerbereich des Messtasters, zu rechnen.
+Wertebereich 10 bis 180 Grad
 
 </description>
 </parameter>
@@ -1059,6 +1077,24 @@ Bit 29: Auswahl Dateiformat für Standardprotokoll Messen im JOG
 1: Umdrehungen
 </description>
 </parameter>
+<parameter number="55818" type="DWORD" dim="0" display="HEX">
+<name>ISO_M_FUNCTION_MASK</name>
+<brief>Funktionsmaske ISO-Mode Fräsen</brief>
+<description>Funktionsmaske ISO-Mode Fräsen
+</description>
+</parameter>
+<parameter number="55819" type="DWORD" dim="0" display="HEX">
+<name>ISO_T_FUNCTION_MASK</name>
+<brief>Funktionsmaske ISO-Mode Drehen</brief>
+<description>Funktionsmaske ISO-Mode Drehen
+Bit 0: Ausführung Resteckenschnitt
+          0: kompletter Resteckenschnitt wird ausgeführt (Kompatibilität)
+          1: ohne kompletten Resteckenschnitt
+Bit 1: Abspanen Schruppen (G71/G72) ohne Schneidenradiuskorrektur
+          0: Schruppen mit aktiver Schneidenradiuskorrektur (mit G41/G42, Kompatibilität)
+          1: Schruppen ohne Schneidenradiuskorrektur (mit G40)
+</description>
+</parameter>
 <parameter number="55820" type="DOUBLE" dim="0" display="DECIMAL">
 <name>FRICT_OPT_RADIUS</name>
 <brief>Kreisradius zur Optimierung der Reibkompensation</brief>
@@ -1120,8 +1156,8 @@ Kreisradius zur Optimierung der Reibkompensation
 </parameter>
 <parameter number="55835" type="STRING" dim="1" display="ASCII">
 <name>AST_MMCA</name>
-<brief>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"</brief>
-<description>Ersatz für $P_MMCA beim Aufrufen von MMC mit Qittungsmodus "N"
+<brief>Ersatz für $P_MMCA beim Aufrufen von AST mit Qittungsmodus "N"</brief>
+<description>Ersatz für $P_MMCA beim Aufrufen von AST mit Qittungsmodus "N"
 
 </description>
 </parameter>

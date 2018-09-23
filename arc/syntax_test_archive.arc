@@ -30,6 +30,18 @@
 ;     ^ punctuation.separator.mapping.key-value
 ;      ^^^^^^^^^^^ entity.name.tag.dest-path.s840d_arc
 ; ---------------------------------------------------------------------
+; valid PATH tag
+%_N_CYCLE_SPF
+;$PATH=/_N_CMA_DIR
+;VERSION: 1.0.0.0 ;DATE: 2018-09-10
+;         ^^^^^^^ constant.language.version
+;          ^ punctuation.separator.sequence
+;            ^ punctuation.separator.sequence
+;              ^ punctuation.separator.sequence
+;                        ^^^^^^^^^^ constant.language.date
+;                            ^ punctuation.separator.sequence
+;                               ^ punctuation.separator.sequence
+; ---------------------------------------------------------------------
 ; PATH tag must not contain whitespace
 %_N_CYCLE_SPF
 ;$PATH= /_N_CMA_DIR
@@ -97,8 +109,8 @@
 ;^^^^ source.s840d_hmi meta.class.grid
 %_N_INITIAL_INI
 N11660 $MN_NUM_EG=10
-; <- source.s840d_gcode comment.blockno.s840d_gcode
-;^^^^^^^^^^^^^^^^^^^ source.s840d_gcode
+; <- source.s840d_arc comment.blockno.s840d_gcode
+;^^^^^^^^^^^^^^^^^^^ source.s840d_arc
 ;^^^^^ comment.blockno.s840d_gcode
 ;      ^ punctuation.definition.variable.nck.s840d_gcode
 ;       ^^^^^^^^^ support.variable.nck.machdata.s840d_gcode

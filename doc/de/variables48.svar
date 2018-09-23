@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info svar="840Dsl_sysvar_lists_man_1217_de-DE">
+
+<parameter type="DOUBLE" dim="2">
+<name>$AC_TOOL_O_CORR_DIR</name>
+<brief>Aktive Überlagerung der Orientierung</brief>
+<description>Aktive Überlagerung der Werkzeugorientierung in verschiedenen Koordinatensystemen:
+
+$AC_TOOL_O_CORR_DIR[n,i]
+n = 1, 2, 3: Komponenten des Vektors
+i = 0, 1, 2: Koordinatensystem (0 : BCS, 1: PCS, 2: ENS)
+
+Dieser Vektor ist der Richtungsvektor der Ebene, die von den beiden Vektoren $AC_TOOL_O_CORR und $AC_TOOL_O_ACT aufgespannt wird.
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="0">
+<name>$AC_TOOL_O_CORR_ANGLE</name>
+<brief>Aktive Überlagerung der Orientierung</brief>
+<description> Diese Systemvariable liefert den Winkel in Grad zwischen den beiden Vektoren $AC_TOOL_O_CORR und $AC_TOOL_O_ACT. Dieser Winkel ist nicht davon abhängig in welchem Koordinatensystem der Richtungsvektor $AC_TOOL_O_CORR_DIR[] gelesen wird. Falls keine Überlagerung der Orientierung im Interpolator aktiv ist, wird dieser Winkel 0.0
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="2">
+<name>$AC_TOOL_R_CORR_DIR</name>
+<brief>Aktive Überlagerung des Drehvektors der Orientierung</brief>
+<description> Aktive Überlagerung der Drehung der Werkzeugorientierung in verschiedenen Koordinatensystemen (nur bei 6-Achs Kinematiken):
+
+$AC_TOOL_R_CORR_DIR[n,i]
+n = 1, 2, 3: Komponenten des Vektors
+i = 0, 1, 2: Koordinatensystem (0 : BCS, 1: PCS, 2: ENS)
+
+Dieser Vektor ist der Richtungsvektor der Ebene, die von den beiden Vektoren $AC_TOOL_R_CORR und $AC_TOOL_R_ACT aufgespannt wird.
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="0">
+<name>$AC_TOOL_R_CORR_ANGLE</name>
+<brief>Aktive Überlagerung der Drehung der Orientierung</brief>
+<description>Diese Systemvariable liefert den Winkel in Grad zwischen den beiden Vektoren $AC_TOOL_R_CORR und $AC_TOOL_R_ACT. Dieser Winkel ist nicht davon abhängig in welchem Koordinatensystem der Richtungsvektor $AC_TOOL_R_CORR_DIR[] gelesen wird. Falls keine Überlagerung der Orientierung im Interpolator aktiv ist, wird dieser Winkel 0.0
+</description>
+</parameter>
+
+<parameter type="INT" dim="0">
+<name>$AN_CUTRACE</name>
+<brief>Trigger-Variable für die SINAMICS-Tracefunktion</brief>
+<description>Variable zum Triggern der Tracefunktion im SINAMICS.
+
+Durch das Schreiben des Wertes 1 wird bei Verwendung von Telegramm 390, 391 oder 395 in allen über MD13120 $MN_CONTROL_UNIT_LOGIC_ADDRESS aktivierten Control-Units im Antriebsparameter r898 "Steuerwort Antriebsobjekt 1" das Bit 4 gesetzt.
+
+Die Triggerauslösung durch das Telegramm muss im Trace zuvor parametriert worden sein.
+
+Die Variable hat folgende Werte:
+
+Schreiben:
+0: keine Aktion
+1: Trigger auslösen
+
+Lesen:
+stets 0, da der Trigger nicht rücklesbar ist
+</description>
+</parameter>
+
+<parameter type="INT" dim="0">
+<name>$P_NCKTYPE</name>
+<brief>NCK-Typ</brief>
+<description>Die Systemvariable liefert den NCK-Typ.
+
+6000: SOLUTIONLINE
+10700: 840D sl
+14000: 802D sl T/M
+14000: 802D sl N/G o. C/U
+14500: 808D
+15000: 840Di sl
+16000: 828D
+</description>
+</parameter>
+
+<parameter type="INT" dim="0">
+<name>$PC_TRAFO_NUM</name>
+<brief>Transformationsdatensatznummer</brief>
+<description> Die Variable enthält den Wert 0, wenn keine kinematische Transformation oder aber die persistente Transformation aktiv ist.
+
+Ist eine konventionell (d.h. nicht mit kinematischen Ketten) definierte Transformation aktiv, enthält die Variable die Nummer des aktuellen Transformationsdatensatzes (die Nummer n im Maschinendatum $MC_TRAFO_TYPE_n).
+
+Bei einer aktiven TRACON-Transformation wird die Datensatznummer der TRACON-Transformation zurückgegeben, d.h. nicht die Datensatznummer einer der enthaltenen, verketten Teiltransformationen.
+
+Ist eine mit kinematischen Ketten definierte Transformation aktiv, enthält die Variable die Nummer des $NT-Datensatzes mit einem Offset von 1000, d.h. die erste Transformation liefert den Wert 1001. Die Systemvariable liefert damit in diesem Fall den gleichen Wert wie $P_TRAFO_PARSET.
+</description>
+</parameter>
+
+<parameter type="DOUBLE" dim="1">
+<name>$VA_TRACK_ERR_CONTR</name>
+<brief>Regeldifferenz der Achse</brief>
+<description>Die Variable $VA_TRACK_ERR_CONTR[X] liefert die Regeldifferenz am Eingang des Lagereglers
+</description>
+</parameter>
+
+</info>

@@ -73,8 +73,6 @@ Input value "2": (linking of enable and direction of travel signals):
 <brief>Number of encoders</brief>
 <description>The number of encoders of the axis or spindle is to be entered in the MD for actual position value sensing (the differentiation between direct and indirect measuring systems, i.e. the locations at which these encoders are installed, is then specified, for example, in MD31040 $MA_ENC_IS_DIRECT).
 For simulation axes/spindles, MD30200 $MA_NUM_ENCS &gt; 0 must be specified for referencing.
-0: Without measuring system (possible for spindles)
-1: Spindle/axis with measuring system (in the motor or direct)
 </description>
 </parameter>
 <parameter number="30210" type="BYTE" dim="1">
@@ -121,7 +119,7 @@ If an input is selected, to which no encoder is connected, alarm 300008 "Measuri
 </parameter>
 <parameter number="30240" type="BYTE" dim="1">
 <name>ENC_TYPE</name>
-<brief>Encoder type of actual value sensing (actual position value).</brief>
+<brief>Encoder type of actual value acquisition (actual position value).</brief>
 <description>Encoder type:
 0:	Simulation
 1:	Raw signal encoder (high resolution)
@@ -129,7 +127,6 @@ If an input is selected, to which no encoder is connected, alarm 300008 "Measuri
 3:	Encoder for semi servo - only when the onboard hardware is available
 4:	General absolute encoders (e.g. EnDat interface)
 5:	Reserved
-The index[n] of the machine data has the following coding [encoderno.]: 0
 
 Corresponds with
 	PROFIdrive parameter P979 (refer there)
@@ -197,7 +194,7 @@ Note:
 <parameter number="30260" type="DWORD" dim="1">
 <name>ABS_INC_RATIO</name>
 <brief>Absolute encoder: Ratio of absolute to incremental resolution</brief>
-<description>Absolute track resolution in relation to the incremental signal resolution.
+<description>Absolute track resolution in relation to the incremental track resolution.
 This MD only applies for absolute encoders:
 
 -	PROFIBUS drives:
@@ -205,19 +202,25 @@ This MD only applies for absolute encoders:
 	In the case of plausible drive parameters (e.g. in PROFIdrive parameter P979) the value of this MD is automatically calculated and updated from drive parameters (if parameter read-out has not been deactivated with MD13070 $MN_DRIVE_FUNCTION_MASK, bit2)
 
 
-Implausible drive parameters (e.g. multiplication of absolute track higher than that of the incremental signal) are rejected and replaced by the value entered in the current MD.
+Implausible drive parameters (e.g. multiplication of absolute track higher than that of the incremental track) are rejected and replaced by the value entered in the current MD.
 Implausible input values in the current MD (e.g. value=0) are reset to the default value. In addition, alarm 26025 or 26002 is output to inform the user accordingly.
+
+If MD31700 $MA_ENC_EDS_ACTIVE = 1, this machine data has no function and is replaced by MD31730 $MA_ABS_INC_RATIO_EDS.
+
+Related to:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31730 $MA_ABS_INC_RATIO_EDS
 </description>
 </parameter>
 <parameter number="30270" type="BYTE" dim="1">
 <name>ENC_ABS_BUFFERING</name>
 <brief>Absolute encoder: Traversing range extension</brief>
-<description>This MD defines the way in which the absolute encoder position is buffered, and whether a traversing range extension is active on software side (exceeding the limits of the absolute value encoder range that can be displayed on the hardware).
+<description>This MD defines the way in which the absolute encoder position is buffered, and whether a traversing range extension is active in the software (exceeding the limits of the absolute encoder range that can be displayed on the hardware).
 
 "0" = standard = traversing range extension (compare ACT_POS_ABS) is active.
-"1" = traversing range extension on software side is inactive.
-When using an absolute linear scale, there will not be a traversing range overflow for mechanical reasons. This MD is therefore only valid for rotary absolute value encoders.
-For rotary absolute value encoders, the traversing range that can be clearly displayed on the encoder side, is stored in MD34220 $MA_ENC_ABS_TURNS_MODULO. You can do without a traversing range extension without any problems (a hardware counter overflow that might be within the traversing range is concealed in the software via shortest-path decision):
+"1" = traversing range extension in the software is inactive.
+When using an absolute linear scale, there will not be a traversing range overflow for mechanical reasons. This MD is therefore only valid for rotary absolute encoders.
+For rotary absolute encoders, the traversing range that can be clearly displayed on the encoder side is stored in MD34220 $MA_ENC_ABS_TURNS_MODULO. You can do without a traversing range extension without any problems (a hardware counter overflow that might be within the traversing range is concealed in the software via shortest-path decision):
 
 a.	in linear axes or limited rotary axes, if the actual traversing range on the load side is smaller than the traversing range on the load side that corresponds to MD34220 $MA_ENC_ABS_TURNS_MODULO.
 
@@ -227,7 +230,10 @@ Number of rotations on the load side = ENC_ABS_TURNS_MODULO * gear ratio
 
 (Example: ENC_ABS_TURNS_MODULO = 4096 encoder rotations, gear 25:32, i.e. number of rotations on load side = 4096*(25/32)=3200).
 Notice:
-	If you do not meet the conditions under a. or b., you run the risk of getting a wrong absolute encoder position at next Power ON or encoder activation after parking without prewarning if the traversing range extension is not working. Therefore, the traversing range extension remains active in the standard version.
+	If the conditions under a. or b. are not met, there is a risk of getting a wrong absolute encoder position at next Power ON or encoder activation after parking without prewarning if the traversing range extension is not working. Therefore, the traversing range extension remains active in the standard version.
+
+If MD31700 $MA_ENC_EDS_ACTIVE = 1, a traversing range extension is not possible. Alarm 26017 therefore requests the traversing range extension to be switched off with a rotary absolute encoder with reference to this machine data.
+If the traversing range extension is essential (because for example the conditions stated under b. for deactivation are not fulfilled), MD31700 $MA_ENC_EDS_ACTIVE must not be activated.
 
 Related to:
 	MD30240 $MA_ENC_TYPE
@@ -236,6 +242,7 @@ Related to:
 	MD30250 $MA_ACT_POS_ABS
 	MD34220 $MA_ENC_ABS_TURNS_MODULO
 	MD34090 $MA_REFP_MOVE_DIST_CORR
+	MD31700 $MA_ENC_EDS_ACTIVE
 </description>
 </parameter>
 <parameter number="30300" type="BOOLEAN" dim="0">
@@ -338,7 +345,7 @@ If FALSE: On RESET, a neutral axis is reassigned to the NC program.
 If TRUE:  On RESET, a neutral axis remains in the neutral axis state and an axis assigned to the NC program becomes a neutral axis
 </description>
 </parameter>
-<parameter number="30455" type="DWORD" dim="0" display="HEX">
+<parameter number="30455" type="UDWORD" dim="0" display="HEX">
 <name>MISC_FUNCTION_MASK</name>
 <brief>Axis functions</brief>
 <description>Bit 0 = 0:
@@ -415,7 +422,7 @@ Bit 14 = 1:
                 The "long path" strategy for avoiding the software limit crossing is used if a rotary axis were to cross the software limit switch during cartesian PTP traversing with the "shortest path" strategy.
 </description>
 </parameter>
-<parameter number="30460" type="DWORD" dim="0" display="HEX">
+<parameter number="30460" type="UDWORD" dim="0" display="HEX">
 <name>BASE_FUNCTION_MASK</name>
 <brief>Axis functions</brief>
 <description>Axis-specific functions can be set using this MD.
@@ -468,16 +475,22 @@ Bit 9 = 1:
 	The PRESETON is inhibited. PRESETONS is enabled.
 </description>
 </parameter>
-<parameter number="30465" type="DWORD" dim="0" display="HEX">
+<parameter number="30465" type="UDWORD" dim="0" display="HEX">
 <name>AXIS_LANG_SUB_MASK</name>
 <brief>Substitution of NC language commands</brief>
-<description>MD30465 $MA_AXIS_LANG_SUB_MASK defines for the leading spindle(s) of a coupling (synchronous spindle coupling, ELG, tangential tracking, coupled motion, master value coupling, master/slave) which language constructs/functions are to be substituted by the user program set by MD15700 $MN_LANG_SUB_NAME / MD15702 $MN_LANG_SUB_PATH (default: /_N_CMA_DIR/_N_LANG_SUB_SPF).
+<description>MD30465 $MA_AXIS_LANG_SUB_MASK defines for the leading spindle(s) of a coupling (synchronous spindle coupling, electronic gear, coupled motion, master value coupling, master-slave) which language constructs/functions are to be substituted by the user program set by MD15700 $MN_LANG_SUB_NAME / MD15702 $MN_LANG_SUB_PATH (default: /_N_CMA_DIR/_N_LANG_SUB_SPF).
 The substitution is executed only if a coupling is active for the relevant spindle and, in the case of a gear stage change, only if a gear stage change is actually pending.
+Bit 0 and bit 1 are relevant for the axis coupling types: synchronous spindle coupling, electronic gear, coupled motion and master value coupling.
+Bit 2 and bit 3 are relevant for the master-slave coupling
 
 Bit 0 = 1:
-	Automatic (M40) and direct (M41-M45) gear stage change
+	Axis coupling: Automatic (M40) and direct (M41-M45) gear stage change
 Bit 1 = 1:
-	Spindle positioning with SPOS/SPOSA/M19
+	Axis coupling: Spindle positioning with SPOS/SPOSA/M19
+Bit 2 = 1:
+	Master-slave coupling: Automatic (M40) and direct (M41-M45) gear stage change
+Bit 3 = 1:
+	Master-slave coupling: Spindle positioning with SPOS/SPOSA/M19
 </description>
 </parameter>
 <parameter number="30500" type="BYTE" dim="0">
@@ -626,8 +639,8 @@ The value 0 corresponds to the behavior up to SW5.
 <parameter number="31000" type="BOOLEAN" dim="1">
 <name>ENC_IS_LINEAR</name>
 <brief>Linear scale</brief>
-<description>MD = 1: Encoder for position actual-value acquisition is linear (linear scale).
-MD = 0: Encoder for position actual-value acquisition is rotary.
+<description>MD = 1: Encoder for actual position value acquisition is linear (linear scale).
+MD = 0: Encoder for actual position value acquisition is rotary.
 
 The index [n] of the machine data has the following coding:
 [encoder no.]: 0 or 1
@@ -648,8 +661,13 @@ Index [n] of the machine data has the following coding:
 <description>For rotary measuring system only:
 The number of encoder lines per encoder revolution must be entered in this MD.
 Index [n] of the machine data has the following coding:
-[encoder no.]: 0 or 1
-The index[n] of the machine data has the following coding: [encoder no.]: 0
+[Encoder no.]: 0 or 1
+
+If MD31700 $MA_ENC_EDS_ACTIVE = 1, this machine data has no function, and is replaced by MD31710 $MA_ENC_RESOL_EDS.
+
+Related to:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31710 $MA_ENC_RESOL_EDS
 </description>
 </parameter>
 <parameter number="31025" type="DWORD" dim="1">
@@ -658,6 +676,12 @@ The index[n] of the machine data has the following coding: [encoder no.]: 0
 <description>For PROFIdrive only:
 This MD describes the measuring system multiplication on PROFIBUS/PROFINET.
 Default value 2048 means: changing by just one encoder line can be seen in bit11 of the actual PROFIdrive value XIST1, that is, the actual encoder value is multiplied by 2 to the power of 11= 2048.
+
+If MD31700 $MA_ENC_EDS_ACTIVE = 1, this machine data has no function, and is replaced by MD31720 $MA_ENC_PULSE_MULT_EDS.
+
+Related to:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31720 $MA_ENC_PULSE_MULT_EDS
 </description>
 </parameter>
 <parameter number="31030" type="DOUBLE" dim="0">
@@ -673,9 +697,9 @@ If a hydraulic linear drive (HLA) is configured as rotary axis, it must be speci
 <name>ENC_IS_DIRECT</name>
 <brief>Direct measuring system (no compilation to load position)</brief>
 <description>MD = 1:
-Encoder for actual position value sensing is attached directly to the machine (without an intermediate gear unit).
+Encoder for actual position value acquisition is attached directly to the machine (without an intermediate gear unit).
 MD = 0:
-	Encoder for actual position value sensing is attached to the motor (MD31060 $MA_DRIVE_AX_RATIO_NUMERA and MD31050 $MA_DRIVE_AX_RATIO_DENOM are included in the encoder valuation).
+	Encoder for actual position value acquisition is attached to the motor (MD31060 $MA_DRIVE_AX_RATIO_NUMERA and MD31050 $MA_DRIVE_AX_RATIO_DENOM are included in the encoder valuation).
 
 The index[n] of the machine data has the following coding:
 [encoder no.]: 0 or 1
@@ -766,7 +790,6 @@ Related to:
 <description>The measuring gearbox denominator is entered in this MD.
 The index [n] of the machine data has the following coding:
 [encoder no.]: 0 or 1
-The index [n] of the machine data has the following coding: [encoder no.]: 0
 </description>
 </parameter>
 <parameter number="31080" type="DWORD" dim="1">
@@ -775,7 +798,6 @@ The index [n] of the machine data has the following coding: [encoder no.]: 0
 <description>The measuring gearbox numerator is entered in this MD.
 The index [n] of the machine data has the following coding:
 [encoder no.]: 0 or 1
-The index [n] of the machine data has the following coding: [encoder no.]: 0
 </description>
 </parameter>
 <parameter number="31090" type="DOUBLE" dim="1">
@@ -842,7 +864,7 @@ The machine data is available for all encoders.
 Related to:
 MD34200 $MA_ENC_REFP_MODE (referencing mode)
 MD34040 $MA_REFP_VELO_SEARCH_MARKER[n]
-	(reference point creep velocity [Enc. no.])
+	(reference point shutdown velocity [Enc. no.])
 </description>
 </parameter>
 <parameter number="31123" type="DOUBLE" dim="1">
@@ -864,13 +886,13 @@ The machine data is available for all encoders.
 Related to:
 MD34200 $MA_ENC_REFP_MODE (referencing mode)
 MD34040 $MA_REFP_VELO_SEARCH_MARKER[n]
-(creep velocity [Enc. no.])
+(shutdown velocity [Enc. no.])
 </description>
 </parameter>
 <parameter number="31200" type="DOUBLE" dim="0">
 <name>SCALING_FACTOR_G70_G71</name>
 <brief>Factor for converting values while G70/G71 is active</brief>
-<description>The inch/metric conversion factor by which the programmed geometry of an axis (position, polynomial coefficients, radius for circular programming,...) is multiplied when the programmed value for G code group G70/G71 differs from the initial setting value (set in MD20150 $MC_GCODE_RESET_VALUES[n]) is entered in this MD.
+<description>The inch/metric conversion factor by which the programmed geometry of an axis (position, polynomial coefficients, radius for circle programming,...) is multiplied when the programmed value for G code group G70/G71 differs from the initial setting value (set in MD20150 $MC_GCODE_RESET_VALUES[n]) is entered in this MD.
 
 The factor can be set for each axis individually, so that pure positioning axes are not dependent on G70/G71. The factors within the three geometry axes should not be different.
 The data influenced by G70/G71 are described in the Programming Guide.
@@ -896,6 +918,73 @@ This MD is only effective for a semi-servo solution
 <name>TRACE_VDI_AX</name>
 <brief>Trace-specification for axial VDI signals</brief>
 <description>This machine data determines whether the axial VDI signals for this axis are recorded in the NCSC trace (according to MD18794 $MN_MM_TRACE_VDI_SIGNAL).
+</description>
+</parameter>
+<parameter number="31700" type="BOOLEAN" dim="1">
+<name>ENC_EDS_ACTIVE</name>
+<brief>Activate EDS use</brief>
+<description>For SINAMICS only:
+MD = 0: encoder data set switchover, EDS is not used, POWERON-MDs $MA_ENC_RESOL etc. are active
+MD = 1: encoder data set switchover, EDS is used, NEWCONF-MDs $MA_ENC_RESOL_EDS etc. are active
+
+The index[n] of the machine data has the following coding:
+[Encoder no.]: 0 or 1
+
+Related to:
+	MD31020 $MA_ENC_RESOL
+	MD31710 $MA_ENC_RESOL_EDS
+	MD31025 $MA_ENC_PULSE_MULT
+	MD31720 $MA_ENC_PULSE_MULT_EDS
+	MD30260 $MA_ABS_INC_RATIO
+	MD31730 $MA_ABS_INC_RATIO_EDS
+</description>
+</parameter>
+<parameter number="31710" type="DWORD" dim="1">
+<name>ENC_RESOL_EDS</name>
+<brief>Encoder marks per revolution with EDS use</brief>
+<description>For SINAMICS only:
+The machine data is only active if MD31700 $MA_ENC_EDS_ACTIVE = 1 and replaces MD31020 $MA_ENC_RESOL
+
+Only with rotating measuring system:
+The encoder marks per encoder revolution with EDS use are to be entered in the MD.
+The index[n] of the machine data has the following coding:
+[Encoder no.]: 0 or 1
+
+Related to :
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31020 $MA_ENC_RESOL
+</description>
+</parameter>
+<parameter number="31720" type="DWORD" dim="1">
+<name>ENC_PULSE_MULT_EDS</name>
+<brief>Encoder multiplication (high resolution) with EDS use</brief>
+<description>For SINAMICS only:
+The machine data is only active if MD31700 $MA_ENC_EDS_ACTIVE = 1, and replaces MD31025 $MA_ENC_PULSE_MULT
+
+This MD describes the measuring system multiplication with EDS use on the PROFIBUS/PROFINET.
+The standard value 2048 means: A change by one single encoder mark is visible in bit11 of the PROFIdrive actual value XIST1, the encoder actual value is therefore multiplied by 2 to the power of 11=2048.
+
+Related to:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31025 $MA_ENC_PULSE_MULT
+</description>
+</parameter>
+<parameter number="31730" type="DWORD" dim="1">
+<name>ABS_INC_RATIO_EDS</name>
+<brief>Absolute encoder: ratio of absolute to incremental resolution with EDS use</brief>
+<description>For SINAMICS only:
+The machine data is only active if MD31700 $MA_ENC_EDS_ACTIVE = 1, and replaces MD30260 $MA_ABS_INC_RATIO
+
+Ratio of the absolute track resolution to the incremental track resolution with EDS use.
+This MD only applies with an absolute encoder:
+
+-	PROFIBUS drives:
+	Ratio of the absolute information XIST2 to the incremental information XIST1.
+
+
+Related to:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD30260 $MA_ABS_INC_RATIO
 </description>
 </parameter>
 <parameter number="32000" type="DOUBLE" dim="0">
@@ -1010,7 +1099,7 @@ The maximum permissible velocity is the maximum velocity in MD32000 $MA_MAX_AX_V
 The conversion into linear or rotary axis velocity is made according to MD30300 $MA_IS_ROT_AX.
 </description>
 </parameter>
-<parameter number="32074" type="DWORD" dim="0" display="HEX">
+<parameter number="32074" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_OR_CORRPOS_NOTALLOWED</name>
 <brief>Frame or tool length compensation are not permissible</brief>
 <description>This machine data is used to define the effectiveness of the frames and tool length compensations for indexing axes, PLC axes and command axes started from synchronized actions.
@@ -1092,7 +1181,7 @@ Bit 11 = 1:
  0:	No limitation
 </description>
 </parameter>
-<parameter number="32084" type="DWORD" dim="0" display="HEX">
+<parameter number="32084" type="UDWORD" dim="0" display="HEX">
 <name>HANDWH_STOP_COND</name>
 <brief>Handwheel travel behavior</brief>
 <description>Definition of the response of the handwheel travel to axis-specific VDI interface signals or the CP-SW limit stop or a stop from an OEM application:
@@ -1222,7 +1311,7 @@ When entering the servo gain factor it is important to take into account that th
 Other factors are:
 - Speed setpoint adjustment (MD32260 $MA_RATED_VELO, MD32250 $MA_RATED_OUTVAL)
   or automatic speed setpoint interface adjustment (with MD32250 $MA_RATED_OUTVAL = 0 etc.)
-- Correct actual value recording of the position encoder (no. of encoder marks, high resolution, encoder mounting location, gear etc.)
+- Correct actual value recording of the position encoder (no. of encoder pulses, high resolution, encoder mounting location, gear etc.)
 - Correct actual speed recording on the drive (standardization, possibly tacho compensation, tacho generator)
 
 Note:
@@ -1250,7 +1339,7 @@ A value of the MD less than 0.001 disables the integral component of the PI cont
 Position overshoots may occur if the integral component is used. For this reason, this functionality may only be used in special cases.
 </description>
 </parameter>
-<parameter number="32230" type="BYTE" dim="0" display="HEX">
+<parameter number="32230" type="UBYTE" dim="0" display="HEX">
 <name>POSCTRL_CONFIG</name>
 <brief>Configuration of the position controller structure</brief>
 <description>Configuration of the position controller structure:
@@ -1277,7 +1366,7 @@ Example:
 
 All three examples are possible for one and the same drive/converter. The ratio of the two values is decisive; it is the same in all three examples.
 
-MD32250 $MA_RATED_OUTVAL and MD32260 $MA_RATED_VELO describe physical characteristics of converter and drive; they can therefore only be determined by means of a measurement or commissioning instructions (converter, drive).
+MD32250 $MA_RATED_OUTVAL and MD32260 $MA_RATED_VELO describe physical properties of converter and drive; they can therefore only be determined by means of a measurement or commissioning instructions (converter, drive).
 
 b.)
 Scaling of the manipulated variable with digital PROFIdrive drives:
@@ -1314,7 +1403,7 @@ Not relevant for error states that lead to quick stop.
 Each field element corresponds to a G code in the 59th G code group.
 
 Related to:
-                    MD32210 $MA_MAX_ACCEL_OVL_FACTOR
+                    MD32310 $MA_MAX_ACCEL_OVL_FACTOR
                     MD32434 $MA_G00_ACCEL_FACTOR
                     MD32433 $MA_SOFT_ACCEL_FACTOR
                     MD20610 $MC_ADD_MOVE_ACCEL_RESERVE
@@ -1347,7 +1436,7 @@ Each field element corresponds to a G code in the 59th G group.
 
 </description>
 </parameter>
-<parameter number="32320" type="DWORD" dim="0" display="HEX">
+<parameter number="32320" type="UDWORD" dim="0" display="HEX">
 <name>DYN_LIMIT_RESET_MASK</name>
 <brief>Reset behavior of dynamic response limitation.</brief>
 <description>MD32320 $MA_DYN_LIMIT_RESET_MASK is used to set the reset response of functions limiting dynamic response for specific axes and groups.
@@ -1426,7 +1515,7 @@ MD32414 $MA_AX_JERK_DAMP
 <brief>Time constant for axial jerk filter</brief>
 <description>Time constant of the axial jerk filter which causes a smoother axis setpoint characteristic. The jerk filter will only be active, if the time constant is higher than a position control cycle.
 
-Not active in case of errors that cause a change in follow-up mode (for example EMERGENCY STOP99:
+Not active in case of errors that cause a change in follow-up mode (for example EMERGENCY STOP)
 
 Special cases:
 	Machine axes that are supposed to be interpolating with one another, must have the same effective jerk filtering (for example the same time constant for tapping without compensating chuck).
@@ -1471,7 +1560,7 @@ MD32430 $MA_JOG_AND_POS_MAX_JERK (axial jerk)
 </parameter>
 <parameter number="32429" type="DOUBLE" dim="1">
 <name>MAX_JERK_STOP</name>
-<brief>Reserved: Maximum axial emergency jerk</brief>
+<brief>Reserved: Maximum axial EMERGENCY JERK</brief>
 <description>Reserved for maximum axial jerk in emergency situations. A value of 0 has the same effect as MAX_AX_JERK.
 
 Each field element corresponds to a G code in the 59th G code group.
@@ -1627,12 +1716,18 @@ Related to:
 	MD32450 $MA_BACKLASH[n]
 </description>
 </parameter>
-<parameter number="32454" type="BYTE" dim="1">
+<parameter number="32454" type="UBYTE" dim="1" display="HEX">
 <name>BACKLASH_MODE</name>
 <brief>Backlash compensation mode</brief>
-<description>0:	The backlash compensation value is not restored at Power On.
+<description>Bit 0 = 0:
+	The backlash compensation value is not restored at Power On.
+Bit 0 = 1:
+	The backlash compensation value is restored at Power On.
 
-1:	The backlash compensation value is restored at Power On.
+Bit 1 = 0:
+	The backlash compensation responds to other compensation movements (temperature compensation, sag and angularity error compensation).
+Bit 1 = 1:
+	The backlash compensation does not respond to other compensation movements (temperature compensation, sag and angularity error compensation).
 </description>
 </parameter>
 <parameter number="32455" type="DOUBLE" dim="1">
@@ -2366,14 +2461,14 @@ The MD is used on linear drives (MD13080 $MN_DRIVE_TYPE_DP=3) instead of MD32650
 <brief>Encoder/spindle error compensation.</brief>
 <description>1: LEC (leadscrew error compensation) is activated for the measuring system.
  This enables leadscrew and measuring system errors to be compensated.
- The function is not enabled internally until the relevant measuring system has been referenced (NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt; (Referenced/synchronized 1 or 2) = 1).
+ The function is not enabled internally until the relevant measuring system has been referenced (NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt; (Referenced/synchronized 1 or 2) = 1).
 write protect function (compensation values) active.
 0: LEC is not active for the axis/measuring system.
 
 Related to:
  MD38000 $MA_MM_ENC_COMP_MAX_POINTS number of interpolation points with LEC
- NC/PLC interface signal &lt;Referiert-Synchronisiert1/&gt; (Referenced/synchronized 1)
- NC/PLC interface signal &lt;Referiert-Synchronisiert2/&gt; (Referenced/synchronized 2)
+ NC/PLC interface signal &lt;Referenziert-Synchronisiert1/&gt; (Referenced/synchronized 1)
+ NC/PLC interface signal &lt;Referenziert-Synchronisiert2/&gt; (Referenced/synchronized 2)
 </description>
 </parameter>
 <parameter number="32710" type="BOOLEAN" dim="0">
@@ -2386,7 +2481,7 @@ Inter-axis machine geometry errors (e.g. sag and angularity errors) can be compe
 The function is not activated until the following conditions have been fulfilled:
 - The "Interpolatory compensation" option is set
 - The associated compensation tables have been loaded into the NC user memory and enabled (SD41300 $SN_CEC_TABLE_ENABLE[t] = 1)
-- The relevant position measuring system is referenced (NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt; = 1 (Referenced/synchronized 1 or 2)):
+- The relevant position measuring system is referenced (NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt; = 1 (Referenced/synchronized 1 or 2)):
 
 0:	Sag compensation is not enabled for the compensation axis.
 
@@ -2395,7 +2490,9 @@ Related to:
 	Number of interpolation points for sag compensation
 	SD41300 $SN_CEC_TABLE_ENABLE[t]
 	Enable evaluation of sag compensation table t
-	NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt;
+	SD41310 $SN_CEC_TABLE_WEIGHT[t]
+	Weighting factor of the sag compensation table t
+	NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(referenced/synchronized 1 or 2)
 </description>
 </parameter>
@@ -2425,7 +2522,7 @@ Related to:
 	Enable sag compensation
 	SD41300 $SN_CEC_TABLE_ENABLE[t]
 	Enable evaluation of sag compensation table t
-	NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt;
+	NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(referenced/synchronized 1 or 2)
 
 
@@ -2450,13 +2547,13 @@ Related to:
 	Maximum axis velocity
 	SD41300 $SN_CEC_TABLE_ENABLE[t]
 	Enable evaluation of sag compensation table t
-	NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt;
+	NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(referenced/synchronized 1 or 2)
 
 
 </description>
 </parameter>
-<parameter number="32750" type="BYTE" dim="0" display="HEX">
+<parameter number="32750" type="UBYTE" dim="0" display="HEX">
 <name>TEMP_COMP_TYPE</name>
 <brief>Temperature compensation type</brief>
 <description>The type of temperature compensation applicable to the machine axis is activated in MD32750 $MA_TEMP_COMP_TYPE.
@@ -2645,7 +2742,7 @@ With the main run variables $AA_LOAD, $AA_POWER, $AA_TORQUE, and $AA_CURR, the f
 
 To compensate any peaks, the measured values can be smoothed with a PT1 filter. The filter time constant is defined with MD32920 $MA_AC_FILTER_TIME (filter smoothing time constant for adaptive control).
 
-When measuring the drive torque setpoint value or the current actual value, the filter is active in addition to the filters available in the drive. The two filters are connected in series, if both signifcantly and slightly smoothed values are required in the system. The filter is switched off when a smoothing time of 0 seconds is entered.
+When measuring the drive torque setpoint value or the actual current value, the filter is active in addition to the filters available in the drive. The two filters are connected in series, if both signifcantly and slightly smoothed values are required in the system. The filter is switched off when a smoothing time of 0 seconds is entered.
 </description>
 </parameter>
 <parameter number="32925" type="DOUBLE" dim="0">
@@ -2770,7 +2867,7 @@ For smoothing of corner with G645 tolerance MD33100 $MA_COMPRESS_POS_TOL becomes
 The referencing cycle starts immediately with phase 2 (see documentation)
 
 Machine axes that have only one zero mark over the whole travel range or rotary axes that have only one zero mark per revolution do not require an additional reference cam that selects the zero mark (select MD34000 $MA_REFP_CAM_IS_ACTIVE = 0).
-The machine axis marked this way accelerates to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point creep velocity) when the plus/minus traversing key is pressed, and synchronizes with the next zero mark.
+The machine axis marked this way accelerates to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point shutdown velocity) when the plus/minus traversing key is pressed, and synchronizes with the next zero mark.
 </description>
 </parameter>
 <parameter number="34010" type="BOOLEAN" dim="0">
@@ -2786,8 +2883,6 @@ If the machine axis is positioned on the reference cam, it accelerates to the ve
 
 For linear measuring systems with distance-coded reference marks:
 If the machine axis has a reference cam (linear measuring systems with distance-coded reference marks do not necessarily require a reference cam) and the machine axis is positioned on the reference cam, it accelerates, irrespectively of the plus/minus traversing key pressed, to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point creep velocity) in the direction opposite to that specified in MD34010 $MA_REFP_CAM_DIR_IS_MINUS.
-Note for absolute encoders:
-The direction of the traversing key is also important when adjusting absolute encoders: direction for approach fixed position, and updating the values in MD34090 $MA_REFP_MOVE_DIST_CORR and MD34210 $MA_ENC_REFP_STATE.
 </description>
 </parameter>
 <parameter number="34020" type="DOUBLE" dim="0">
@@ -2811,7 +2906,7 @@ Linear measuring systems with distance-coded reference marks
 </parameter>
 <parameter number="34040" type="DOUBLE" dim="1">
 <name>REFP_VELO_SEARCH_MARKER</name>
-<brief>Creep velocity</brief>
+<brief>Shutdown velocity</brief>
 <description>1) For incremental measuring systems:
 This is the velocity at which the axis travels during the time between initial detection of the reference cam and synchronization with the first zero mark (phase 2).
 Traversing direction: Opposite to the direction specified for the cam search (MD34010 $MA_REFP_CAM_DIR_IS_MINUS)
@@ -2849,7 +2944,7 @@ The axis crosses the two reference marks at this velocity. The maximum velocity 
 
 MD34050 $MA_REFP_SEARCH_MARKER_REVERSE = 0
 Synchronization with falling reference cam signal edge
-The machine axis accelerates to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point creep velocity) in the opposite direction to that specified in MD34010 $MA_REFP_CAM_DIR_IS_MINUS (reference point approach in minus direction).
+The machine axis accelerates to the velocity specified in MD34040 $MA_REFP_VELO_SEARCH_MARKER (reference point shutdown velocity) in the opposite direction to that specified in MD34010 $MA_REFP_CAM_DIR_IS_MINUS (reference point approach in minus direction).
 If the axis leaves the reference cam (NC/PLC interface signal &lt;VerzoegerungReferenzpunktverfahren/&gt; (Reference point approach delay) is reset) the control is synchronized with the first zero mark.
 
 MD34050 $MA_REFP_SEARCH_MARKER_REVERSE = 1
@@ -2988,7 +3083,7 @@ In combination with MD30242 $MA_ENC_IS_INDEPENDENT = 2, the passive encoder is c
 - The channel-specific referencing function is used.
 
 MD34110 $MA_REFP_CYCLE_NR = 1 -----&gt; channel-specific referencing
-	Channel-specific referencing is started with the NC/PLC interface signal &lt;Referieren_aktivieren/&gt; (Activate referencing). The control acknowledges a successful start with the NC/PLC interface signal &lt;Referieren_aktiv/&gt; (Referencing active). Each machine axis assigned to the channel can be referenced with channel-specific referencing (this is achieved internally on the control by simulating the plus/minus traversing keys). The axis-specific MD34110 $MA_REFP_CYCLE_NR can be used to define the sequence in which the machine axes are referenced:
+	Channel-specific referencing is started with the NC/PLC interface signal &lt;Referenzieren_aktivieren/&gt; (Activate referencing). The control acknowledges a successful start with the NC/PLC interface signal &lt;Referenzieren_aktiv/&gt; (Referencing active). Each machine axis assigned to the channel can be referenced with channel-specific referencing (this is achieved internally on the control by simulating the plus/minus traversing keys). The axis-specific MD34110 $MA_REFP_CYCLE_NR can be used to define the sequence in which the machine axes are referenced:
 	-1 means:
 	The machine axis is not started by channel-specific referencing, and NC start is possible without referencing this axis.
 	0 means:
@@ -3006,8 +3101,8 @@ Setting the channel-specific MD20700 $MC_REF_NC_START_LOCK (NC start disable wit
 MD irrelevant to:
 	Axis-specific referencing
 Related to:
-	NC/PLC interface signal &lt;Referieren_aktivieren/&gt; (Activate referencing)
-	NC/PLC interface signal &lt;Referieren_aktiv/&gt; (Referencing active)
+	NC/PLC interface signal &lt;Referenzieren_aktivieren/&gt; (Activate referencing)
+	NC/PLC interface signal &lt;Referenzieren_aktiv/&gt; (Referencing active)
 </description>
 </parameter>
 <parameter number="34200" type="BYTE" dim="1">
@@ -3031,42 +3126,6 @@ Related to:
 	Referencing for linear measuring systems with distance-coded reference marks:
 	Linear measuring system with distance-coded reference marks over 4 zero marks (increased safety).
 
-The mounted position measuring systems can be classified for referencing as follows with MD34200 $MA_ENC_REFP_MODE:
-- MD34200 $MA_ENC_REFP_MODE = 0
-	If an absolute encoder is available: MD34100 $MA_REFP_SET_POS is taken over
-	Other encoders: Reference point approach is not possible.
-- MD34200 $MA_ENC_REFP_MODE = 1
-	Referencing of incremental measuring systems:
-	Incremental, rotary measuring system
-	Incremental, linear measuring system (linear measuring system)
-	Zero pulse on the encoder track (not with absolute encoders)
-- MD34200 $MA_ENC_REFP_MODE = 2 :
-	BERO with 1-edge detection. Also possible with absolute encoders. After referencing, the absolute encoder is additionally marked as "calibrated".
-- MD34200 $MA_ENC_REFP_MODE = 3
-	Referencing on linear measuring systems with distance-coded reference marks:
-	Linear measuring system with distance-coded reference marks (Heidenhain)
-- MD34200 $MA_ENC_REFP_MODE = 4 :
-	The positive and negative edges of the BERO reference point are passed one after the other, and the respective actual values are registered.
-	The average of these values is the synchronization point.
-	Two-edge evaluation allows compensation for any possible drift and/or temperature-related expansion of the BERO.
-- MD34200 $MA_ENC_REFP_MODE = 5:
-	When the BERO is passed, the zero mark search is started when the negative BERO edge is detected, and it is referenced to the next zero mark detected.
-- MD34200 $MA_ENC_REFP_MODE = 6
-	Measuring system calibration to an already referenced encoder
-	(not NCU 570)
-- MD34200 $MA_ENC_REFP_MODE = 7
-	BERO with configured approach velocity for axis and spindle applications (SW3.6 and higher)(MD34040 $MA_REFP_VELO_SEARCH_MARKER[n]
-	(Reference point creep velocity [enc. no.].
-- MD34200 $MA_ENC_REFP_MODE = 8
-	Referencing for linear measuring systems with distance-coded reference marks:
-	Linear measuring system with distance-coded reference marks over 4 zero marks (increased safety).
-
-When the BERO is passed in mode 5, the zero mark search is started when the negative BERO edge is detected, and synchronized with the next zero mark.
-
-Mode 6 can be used as a direct measuring system for measuring system configurations with incremental encoders, and as an indirect measuring system for those with absolute encoders. At the time of referencing, the absolute measuring system is already referenced by the incremental encoder.
-The absolute position is accepted by the incremental encoder after traversing the distance MD34080 $MA_REFP_MOVE_DIST&gt; of the measured backlash. After which it is referenced.
-Caution:
-	This mode is only available with SIMODRIVE611D drives.
 </description>
 </parameter>
 <parameter number="34210" type="BYTE" dim="1">
@@ -3125,7 +3184,7 @@ Manipulating this MD normally causes automatic absolute encoder maladjustment (M
 <brief>Basic distance of reference marks of distance-coded encoders.</brief>
 <description>In addition to the incremental encoder track, a further encoder track is available with distance-coded measuring systems for determining the absolute encoder position. This encoder track has reference marks at defined, different distances. The basic distance between the fixed reference marks (which are the reference marks that are always the same distance from one another) can be taken from the data sheet, and directly transferred into machine data MD34300 $MA_ENC_REFP_MARKER_DIST.
 
-With the basic distance between the fixed reference marks (MD34300 $MA_ENC_REFP_MARKER_DIST), the distance between two reference marks (MD34310 $MA_ENC_MARKER_INC), and the number of encoder marks (MD31020 $MA_ENC_RESOL) on angular measuring systems or the graduation cycle (MD31010 $MA_ENC_GRID_POINT_DIST) on linear measuring systems, the absolute encoder position can be determined once two successive reference marks have been crossed.
+With the basic distance between the fixed reference marks (MD34300 $MA_ENC_REFP_MARKER_DIST), the distance between two reference marks (MD34310 $MA_ENC_MARKER_INC), and the number of encoder pulses (MD31020 $MA_ENC_RESOL) on angular measuring systems or the graduation cycle (MD31010 $MA_ENC_GRID_POINT_DIST) on linear measuring systems, the absolute encoder position can be determined once two successive reference marks have been crossed.
 
 MD34300 $MA_ENC_REFP_MARKER_DIST is also used for a plausibility check of reference mark distances.
 
@@ -3185,7 +3244,7 @@ Related to:
 	(reference point distance/target point for distance-coded system)
 </description>
 </parameter>
-<parameter number="34400" type="BYTE" dim="1" display="HEX">
+<parameter number="34400" type="UBYTE" dim="1" display="HEX">
 <name>ENC_SSI_STATUS</name>
 <brief>Synchronization data for SSI absolute value encoder</brief>
 <description>Synchronization data for SSI absolute value encoder:
@@ -3269,7 +3328,7 @@ If other spindle numbers are to be assigned, the function "spindle converter" mu
 With multi-channel systems, the same numbers can be assigned in all channels, except for those spindles active in several channels (replacement axes/spindles MD 30550: $MA_AXCONF_ASSIGN_MASTER_CHAN).
 </description>
 </parameter>
-<parameter number="35010" type="DWORD" dim="0" display="HEX">
+<parameter number="35010" type="UDWORD" dim="0" display="HEX">
 <name>GEAR_STEP_CHANGE_ENABLE</name>
 <brief>Parameterize gear stage change</brief>
 <description>Meaning of bit places:
@@ -3345,7 +3404,7 @@ Corresponds with:
 	MD20700 $MC_REFP_NC_START_LOCK (NC start disable without reference point)
 </description>
 </parameter>
-<parameter number="35030" type="BYTE" dim="0" display="HEX">
+<parameter number="35030" type="UBYTE" dim="0" display="HEX">
 <name>SPIND_DEFAULT_ACT_MASK</name>
 <brief>Time at which initial spindle setting is effective</brief>
 <description>SPIND_DEFAULT_ACT_MASK specifies the time at which the operating mode defined in MD35020 $MA_SPIND_DEFAULT_MODE becomes effective. The initial spindle setting can be assigned the following values at the following points in time:
@@ -3363,7 +3422,7 @@ Related to:
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET (spindle active after reset)
 </description>
 </parameter>
-<parameter number="35032" type="DWORD" dim="0" display="HEX">
+<parameter number="35032" type="UDWORD" dim="0" display="HEX">
 <name>SPIND_FUNC_RESET_MODE</name>
 <brief>Reset response of individual spindle functions</brief>
 <description>This data allows the "GWPS in every operating mode" function to be selected/deselected.
@@ -3371,7 +3430,7 @@ SPIND_FUNC_RESET_MODE, bit 0 = 0 : "GWPS in every operating mode" is deselected
 SPIND_FUNC_RESET_MODE, bit 0 = 1 : "GWPS in every operating mode" is selected
 </description>
 </parameter>
-<parameter number="35035" type="DWORD" dim="0" display="HEX">
+<parameter number="35035" type="UDWORD" dim="0" display="HEX">
 <name>SPIND_FUNCTION_MASK</name>
 <brief>Spindle functions</brief>
 <description>This MD allows spindle-specific functions to be set.
@@ -3387,13 +3446,13 @@ Bit 2 = 1: Gear stage change for programmed gear stage will finally be carried
 Bit 3: reserved
 Bit 4 = 1:
 	The programmed speed is transferred to SD 43200 $SA_SPIND_S (incl. speed default settings via FC18 and synchronized actions).
-	S programmings that are not speed programmings are not written to the SD. These include, for example, S value with constant cutting velocity (G96, G961), S value with revolution-related dwell time (G4).
+	S programmings that are not speed programmings are not written to the SD. These include, for example, S value with constant cutting speed (G96, G961), S value with revolution-related dwell time (G4).
 Bit 5 = 1:
 	The content of SD 43200 $SA_SPIND_S is applied as the speed setpoint for JOG. If the content is zero, then other JOG speed default settings become active (see SD 41200 JOG_SPIND_SET_VELO).
 Bit 6: reserved
 Bit 7: reserved
 Bit 8 = 1:
-	The programmed cutting velocity is transferred to SD 43202 $SA_SPIND_CONSTCUT_S (incl. default settings via FC18). S programmings, that are not cutting velocity programmings, are not written to the SD. These include, for example, S value outside of constant cutting velocity (G96, G961, G962), S value with revolution-related dwell time (G4), S value in synchronized actions.
+	The programmed cutting speed is transferred to SD 43202 $SA_SPIND_CONSTCUT_S (incl. default settings via FC18). S programmings, that are not cutting speed programmings, are not written to the SD. These include, for example, S value outside of constant cutting speed (G96, G961, G962), S value with revolution-related dwell time (G4), S value in synchronized actions.
 Bit 9: reserved
 
 Bit 10 = 0:
@@ -3426,7 +3485,11 @@ Bit 21: reserved
 Bit 22 = 0: As of NCK version 78.00.00: The NC/PLC interface signal &lt;M3M4_invertieren/&gt; (invert M3/M4) is applied to the function for interpolatory tapping G331/G332.
 Bit 22 = 1: Response is compatible with SW releases prior to NCK version 78.00.00: The NC/PLC interface signal &lt;M3M4_invertieren/&gt;  (invert M3/M4) is not applied to the function for interpolatory tapping G331/G332.
 
-MD is Corresponds with:
+Bit 23: "Calculation of the acceleration reduction with velocity control DRIVE"
+ = 0: The currently active spindle speed limit is used as the maximum speed to calculate the acceleration reduction (compatibility mode).
+ = 1: Only machine data MD35100 $MA_SPIND_VELO_LIMIT, MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT and, with position control, MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT are used for the maximum speed to calculate the acceleration reduction."
+
+MD corresponds with:
 	MD20850 $MC_SPOS_TO_VDI
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET
 	MD35020 $MA_SPIND_DEFAULT_MODE
@@ -3730,15 +3793,15 @@ Related to:
 <name>ACCEL_REDUCTION_SPEED_POINT</name>
 <brief>Speed for reduced acceleration</brief>
 <description>This machine data defines the threshold speed/velocity for spindles/positioning/path axes from which the acceleration reduction is to start. The reference is the defined maximum speed/velocity. The starting point is a percentage of the maximum values.
+The maximum speed for spindles is determined as the lowest value from machine data MD35100 $MA_SPIND_VELO_LIMIT, MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT and, with position control, MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT.
 Example: MD35220 $MA_ACCEL_REDUCTION_SPEED_POINT = 0.7, the maximum speed is 3000 rpm. Acceleration reduction starts at v_on = 2100 rpm, i.e. the maximum acceleration capacity is utilized in the speed range 0...2099.99 rpm. Reduced acceleration is used from 2100 rpm to the maximum speed.
 
 Related to:
-	MD32000 $MA_MAX_AX_VELO
-	(maximum axis velocity)
-	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT
-	(maximum gear stage speed)
-	MD35230 $MA_ACCEL_REDUCTION_FACTOR
-	(reduced acceleration)
+	MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
+	MD35100 $MA_SPIND_VELO_LIMIT (maximum spindle speed)
+	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT (maximum gear stage speed)
+	MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT (maximum gear stage speed with position control)
+	MD35230 $MA_ACCEL_REDUCTION_FACTOR (reduced acceleration)
 </description>
 </parameter>
 <parameter number="35230" type="DOUBLE" dim="0">
@@ -3782,6 +3845,7 @@ This MD also influences the path motion with SOFT, BRISK, TRAFO
 0:	Constant
 1:	Hyperbolic
 2:	Linear
+The end point of the acceleration curve for spindles depending on MD35035 $MA_SPIND_FUNCTION_MASK Bit23 is selected either from the maximum speed determined from MD35100 $MA_SPIND_VELO_LIMIT, MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT and MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT or the relevant currently active speed limit.
 </description>
 </parameter>
 <parameter number="35300" type="DOUBLE" dim="1">
@@ -3809,7 +3873,6 @@ After reaching the positioning end (exact stop fine), there is a waiting time eq
 The delay time is activated for:
 - Gear stage change at defined spindle position. After reaching the position configured in MD35012 $MA_GEAR_STEP_CHANGE_POSITION, there is a waiting period equal to the time specified here. After expiry of this time, the position control is switched off for an active direct measuring system, and the NC/PLC interface signals &lt;Getriebe_umschalten/&gt; (Change gear) and &lt;SollgetriebestufeA-C/&gt; (Setpoint gear stage A-C) are output.
 - Block search upon the output of an accumulated positioning block (SPOS, SPOSA, M19).
-After reaching the positioning end (exact stop fine), the waiting time for block search is activated by the output of an accumulated positioning block (SPOS).
 </description>
 </parameter>
 <parameter number="35350" type="BYTE" dim="0">
@@ -3921,8 +3984,6 @@ Byte = 2:
 	In addition to 1, traversing path axes are also stopped before machining begins, e.g. continuous-path mode (G64) and the change from rapid traverse (G0) to a machining block (G1, G2,..). The path is stopped at the last G0 block, and does not start traversing until the spindle is within the set speed range. If the spindle speed is re-programmed between two machining blocks, and the spindle speed is not yet in the setpoint range during transition from the first to the second machining block, the traversing path axes are also braked.
 Restriction:
 If the spindle is re-programmed by the PLC (FC18) or a synchronized action "shortly" before the end of the last G0 block, the path decelerates on the basis of the dynamic limitations. Since the spindle programming is asynchronous, a traverse can be made into the machining block if necessary. If the spindle has reached the setpoint speed range, machining starts from this position.
-If the spindle is re-programmed by a synchronized action "shortly" before the end of the last G0 block, the path decelerates on the basis of the dynamic limitations. Since the spindle programming is asynchronous, a traverse can be made into the machining block if necessary. If the spindle has reached the setpoint speed range, machining starts from this position.
-If the spindle is re-programmed by the PLC (FC18) "shortly" before the end of the last G0 block, the path decelerates on the basis of the dynamic limitations. Since the spindle programming is asynchronous, a traverse can be made into the machining block if necessary. If the spindle has reached the setpoint speed range, machining starts from this position.
 
 Byte  = 3:
 	No longer available for SW 5.3 and higher.
@@ -4014,7 +4075,6 @@ Special cases:
 
 Related to:
 	MD 36020: $MA_POSITIONING_TIME (delay time, exact stop fine)
-See MD36000 $MA_STOP_LIMIT_COARSE (exact stop fine)
 </description>
 </parameter>
 <parameter number="36012" type="DOUBLE" dim="1">
@@ -4102,7 +4162,7 @@ Related to:
 	NC/PLC interface signal &lt;Klemmungstoleranz_ueberschritten/&gt; (Clamping tolerance exceeded)
 </description>
 </parameter>
-<parameter number="36052" type="BYTE" dim="0" display="HEX">
+<parameter number="36052" type="UBYTE" dim="0" display="HEX">
 <name>STOP_ON_CLAMPING</name>
 <brief>Special functions with clamped axis</brief>
 <description>This MD defines how a blocked axis is taken into account.
@@ -4123,14 +4183,16 @@ Bit 2 =0:
 	If an axis is to be blocked in continuous-path mode, it must be ensured in the part program that the path axes are stopped to make sure that there is time for setting the blockage.
 
 Bit 2 =1:
-	If an axis is to be blocked in continuous-path mode, the LookAhead function stops the path motion prior to the next non-G0 block, if the axis has not yet been blocked by that time, i.e. the PLC has not yet set the feedrate override to zero.
+	If an axis is to be blocked in continuous-path mode, the LookAhead function stops the path motion prior to or in the next non-G0 block, if the axis has not yet been blocked by that time, i.e. the PLC has not yet set the feedrate override to zero.
 </description>
 </parameter>
 <parameter number="36060" type="DOUBLE" dim="0">
 <name>STANDSTILL_VELO_TOL</name>
 <brief>Threshold velocity/speed 'Axis/spindle in stop'</brief>
-<description>This MD defines the standstill range for the axis velocity / spindle speed. If the current actual velocity of the axis or the actual speed of the spindle is less than the value entered in this MD, the NC/PLC interface signal &lt;AchseSpindel_steht/&gt; (Axis/spindle stationary) is set.
-To bring the axis/spindle to a standstill under control, the pulse enable should not be removed until the axis/spindle is at a standstill. Otherwise the axis will coast down.
+<description>This MD defines the standstill range for the axis velocity / spindle speed. If the actual velocity of the axis or the actual speed of the spindle is less than the value entered in this MD, the NC/PLC interface signal &lt;AchseSpindel_steht/&gt; (Axis/spindle stationary) is set.
+To bring the axis/spindle to a standstill under control, the pulse enable should not be removed until the axis/spindle is at a standstill. Otherwise it will coast down.
+In order to obtain robust stationary information in the NC/PLC interface signal &lt;AchseSpindel_steht/&gt; (axis/spindle stationary), fluctuations in the axis velocity or the spindle speed in comparison to the average value in the software are more strongly evaluated by the ratio between MD10071 $MN_IPO_CYCLE_TIME and MD10061 $MN_POSCTRL_CYCLE_TIME.
+For a robust threshold setting, the maximum fluctuation in axis velocity or spindle speed observed at a standstill must be multiplied by this ratio.
 Related to:
  NC/PLC interface signal &lt;AchseSpindel_steht/&gt; (Axis/spindle stationary)
 </description>
@@ -4220,6 +4282,8 @@ The index of the machine data has the following coding: [control parameter set n
 The maximum speed setpoint depends on whether there are any setpoint limitations in the speed and current controller.
 An alarm is output and the axis is stopped when the limit is exceeded.
 The limit is to be selected so that the maximum velocity (rapid traverse) can be reached, and an appropriate additional control margin is available.
+
+Note: If a value corresponding to the upper limit (200%) is entered, this value is automatically corrected by the system to 199,9999%. This correction is made for technical reasons.
 </description>
 </parameter>
 <parameter number="36220" type="DOUBLE" dim="1">
@@ -4244,12 +4308,12 @@ No automatic, software-internal limitation for encoders on the PROFIdrive drive;
 <name>ENC_FREQ_LIMIT_LOW</name>
 <brief>Encoder limit frequency for new encoder synchronization.</brief>
 <description>Encoder frequency monitoring uses a hysteresis.
-MD36300 $MA_ENC_FREQ_LIMIT defines the encoder limit frequency. The encoder is switched off when this frequency is exceeded. The encoder is switched on again when the frequency falls below that defined in MD36302 $MA_ENC_FREQ_LIMIT_LOW.
+MD36300 $MA_ENC_FREQ_LIMIT defines the encoder limit frequency. The encoder is deactivated when this frequency is exceeded. The encoder is re-activated when the frequency falls below that defined in MD36302 $MA_ENC_FREQ_LIMIT_LOW.
 
-MD36300 $MA_ENC_FREQ_LIMITis entered directly in Hertz,
-whereas MD36302 $MA_ENC_FREQ_LIMIT_LOW is a fraction, expressed as a percentage, of MD36300 $MA_ENC_FREQ_LIMIT.
+MD36300 $MA_ENC_FREQ_LIMIT is entered directly in Hertz,
+whereas MD36302 $MA_ENC_FREQ_LIMIT_LOW is a fraction, expressed as a percentage of MD36300 $MA_ENC_FREQ_LIMIT.
 MD36302 $MA_ENC_FREQ_LIMIT_LOW is therefore already correctly preset for most of the encoders used.
-Exception: In the case of absolute encoders with an En-Dat interface, the limit frequency of the absolute track is significantly lower than the limit frequency of the incremental track. A low value in MD36302 $MA_ENC_FREQ_LIMIT_LOW ensures that the encoder is not switched on again until it falls below the limit frequency of the absolute track, and therefore is not referenced until permitted by the absolute track. For spindles, this referencing is carried out automatically.
+Exception: In the case of absolute encoders with an En-Dat interface, the limit frequency of the absolute track is significantly lower than the limit frequency of the incremental track. A low value in MD36302 $MA_ENC_FREQ_LIMIT_LOW ensures that the encoder is not re-activated until it falls below the limit frequency of the absolute track, and therefore is not referenced until permitted by the absolute track. For spindles, this referencing is carried out automatically.
 
 Example EnDat encoder EQN 1325:
 Limit frequency of the electronics of the incremental track: 430 kHz
@@ -4362,7 +4426,7 @@ Related to:
 <parameter number="36610" type="DOUBLE" dim="0">
 <name>AX_EMERGENCY_STOP_TIME</name>
 <brief>Maximum time for braking ramp in case of error.</brief>
-<description>This MD defines the braking ramp time that an axis or spindle requires to brake from maximum velocity/speed to a standstill in the event of errors (e.g. emergency stop). At the same lead/brake acceleration, standstill is reached correspondingly earlier from lower velocities/speeds.
+<description>This MD defines the braking ramp time that an axis or spindle requires to brake from maximum velocity/speed to a standstill in the event of errors (e.g. EMERGENCY STOP). At the same lead/brake acceleration, standstill is reached correspondingly earlier from lower velocities/speeds.
 Mechanically robust axes are normally stopped abruptly with speed setpoint 0; values in the lower ms range are appropriate in these cases (default setting).
 However, high moving masses or limited mechanical conditions (e.g. gear load capacity) often have to be taken into account for spindles. This means that the MD has to be changed to set a longer braking ramp.
 
@@ -4399,7 +4463,7 @@ Related to:
 For SINAMICS drives: Drive parameter P1082 (maximum speed / velocity)
 </description>
 </parameter>
-<parameter number="36690" type="DWORD" dim="0" display="HEX">
+<parameter number="36690" type="UDWORD" dim="0" display="HEX">
 <name>AXIS_DIAGNOSIS</name>
 <brief>Internal data for test purposes</brief>
 <description>Internal data for test purposes
@@ -4481,7 +4545,7 @@ Note: Values 3 and 4 are reserved
 Note: The value range of MD36730 $MA_DRIVE_SIGNAL_TRACKING can be restricted because of reduced functions of control systems
 </description>
 </parameter>
-<parameter number="36750" type="BYTE" dim="0" display="HEX">
+<parameter number="36750" type="UBYTE" dim="0" display="HEX">
 <name>AA_OFF_MODE</name>
 <brief>Effect of value assignment for axial override of synchr. action.</brief>
 <description>Mode setting for axial offset $AA_OFF
@@ -4502,7 +4566,7 @@ Bit 3: $AA_OFF motion remains active on NC stop
 1:	Motion remains active on NC stop
 </description>
 </parameter>
-<parameter number="37000" type="BYTE" dim="0" display="HEX">
+<parameter number="37000" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_MODE</name>
 <brief>Travel to fixed stop mode</brief>
 <description>Activation of subfunctions of "Travel to fixed stop".
@@ -4516,7 +4580,7 @@ Bit 1: Enable the Safe brake test (NC-controlled)
 Note: The user must ensure that Travel to fixed stop and Safe brake test are not assigned simultaneously.
 </description>
 </parameter>
-<parameter number="37002" type="BYTE" dim="0" display="HEX">
+<parameter number="37002" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_CONTROL</name>
 <brief>Sequence control for travel to fixed stop</brief>
 <description>Sequence control for travel to fixed stop.
@@ -4547,11 +4611,6 @@ In the case of "Travel to fixed stop" with an analog drive (611-A) and fixed cla
 Related to:
 	MD37070 $MA_FIXED_STOP_ANA_TORQUE
 	SD 43510: FIXED_STOP_TORQUE
-The clamping torque is set in this machine data as a % of the maximum motor torque (in the case of FDD this corresponds to % of the max. current setpoint).
-The clamping torque becomes active as soon as the fixed stop is reached or the NC/PLC interface signal &lt;Festanschlag_erreicht_quittieren/&gt; (Acknowledge fixed stop reached) has been set.
-The entered value is a default and is active only as long as
-- no clamping torque has been programmed with command FXST[x]
-- the clamping torque set in SD 43510: FIXED_STOP_TORQUE was not changed after fixed stop had been reached.
 </description>
 </parameter>
 <parameter number="37012" type="DOUBLE" dim="0">
@@ -4622,14 +4681,6 @@ Related to:
 	MD37030 $MA_FIXED_STOP_THRESHOLD
 	(threshold for fixed stop detection)
 	NC/PLC interface signal &lt;SensorFestanschlag/&gt; (Sensor fixed stop)
-This machine data defines how the criterion "Fixed stop reached" is determined.
-Value	=0:	The criterion "Fixed stop reached" is determined internally on the basis of the axis-specific
-		contour deviation (threshold defined by MD: FIXED_STOP_THRESHOLD).
-	=1:	The criterion Fixed stop reached" is determined via an external sensor and
-		signalled to the NC via the NC/PLC interface signal &lt;SensorFestanschlag/&gt; (Sensor fixed stop)
-	=2:	The criterion "Fixed stop reached" is accepted if either
-		contour monitoring (MD = 0) or
-		the signal of the external sensor (MD = 1) has responded.
 </description>
 </parameter>
 <parameter number="37050" type="BYTE" dim="0">
@@ -4656,17 +4707,9 @@ Add value 16
 Errors occurring during travel to fixed stop can be read out from the status variable $AA_FXS irrespective of the setting of the alarm screen.
 
 Standard: 1 = Alarms 20091, 20094 and 25042 are triggered
-This machine date defines whether the alarms
-20091 "Fixed stop not reached" and
-20094 "Fixed stop canceled" are output.
-Value	= 0:	Suppresses alarm 20091 "Fixed stop not reached"
-	= 2:	Suppresses alarms 	20091 "Fixed stop not reached" and
-			20094 "Fixed stop canceled"
-	= 3:	Suppresses alarm 20094 "Fixed stop canceled"
-All other permissible values ? 7 do not suppress any alarms.
 </description>
 </parameter>
-<parameter number="37052" type="BYTE" dim="0" display="HEX">
+<parameter number="37052" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_ALARM_REACTION</name>
 <brief>Reaction with fixed stop alarms</brief>
 <description>Behavior of VDI signal "Mode group ready" in case of fixed stop alarms:
@@ -4684,9 +4727,9 @@ All other bits without meaning.
 Standard: 0 = All alarms de-energize the drives
 </description>
 </parameter>
-<parameter number="37060" type="BYTE" dim="0" display="HEX">
+<parameter number="37060" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_ACKN_MASK</name>
-<brief>Waiting for PLC acknowledgements during travel to fixed stop</brief>
+<brief>Waiting for PLC acknowledgments during travel to fixed stop</brief>
 <description>This machine data defines whether or not the NC waits for acknowledgment messages from the PLC when the "Travel to fixed stop" function is active.
 
 Bit 0 = 0
@@ -4729,7 +4772,7 @@ This torque limit is required to ensure that:
 
 </description>
 </parameter>
-<parameter number="37080" type="BYTE" dim="0" display="HEX">
+<parameter number="37080" type="UBYTE" dim="0" display="HEX">
 <name>FOC_ACTIVATION_MODE</name>
 <brief>Initial setting of modal torque/force limitation</brief>
 <description>The initial setting of the modal torque/force limitation is set with this MD after reset and PowerOn:
@@ -4743,6 +4786,18 @@ Bit 1: Response after reset
 = 1 : FOCON (modal)
 
 Default setting: FOCOF after reset and PowerOn
+</description>
+</parameter>
+<parameter number="37090" type="UDWORD" dim="0" display="HEX">
+<name>COLLISION_EXT_AXIS_MASK</name>
+<brief>Settings of the external collision avoidance</brief>
+<description>Settings of the external collision avoidance:
+
+Bit 0: Braking response
+= 0 : Braking signals are ignored
+= 1 : Braking signals are effective
+
+Bit 1: reserved
 </description>
 </parameter>
 <parameter number="37100" type="BYTE" dim="0">
@@ -4784,17 +4839,17 @@ Related to:
 <brief>Gantry warning limit</brief>
 <description>Value &gt; 0
 
-	With gantry axes, the difference between the position actual values of the leading and synchronized axes is constantly monitored.
+	With gantry axes, the difference between the actual position values of the leading and synchronized axes is constantly monitored.
 
-	MD37110 $MA_GANTRY_POS_TOL_WARNING is used to define a limit value for the position actual value difference; when the limit is exceeded, warning 10652 "Warning limit exceeded" is output. However, the gantry axes are not stopped internally in the control. The warning threshold must therefore be selected so that the machine can withstand the position actual value deviation between the gantry axes without sustaining mechanical damage.
+	MD37110 $MA_GANTRY_POS_TOL_WARNING is used to define a limit value for the actual position value difference; when the limit is exceeded, warning 10652 "Warning limit exceeded" is output. However, the gantry axes are not stopped internally in the control. The warning threshold must therefore be selected so that the machine can withstand the actual position value deviation between the gantry axes without sustaining mechanical damage.
 
 	Furthermore, the NC/PLC interface signal &lt;Gantry-Warngrenze_ueberschritten/&gt; (Gantry warning limit exceeded) to the PLC is set to "1". The PLC user program can thus initiate the necessary measures (e.g. program interruption at block end) when the warning limit is exceeded.
 
-	As soon as the current position actual value difference has dropped below the warning limit again, the message is canceled and the interface signal "Gantry warning limit exceeded" is reset.
+	As soon as the actual current position value difference has dropped below the warning limit again, the message is canceled and the interface signal "Gantry warning limit exceeded" is reset.
 
 	Effect of the gantry warning limit on the gantry synchronization process:
 
-	The position actual value difference between the leading and synchronized axes is determined during gantry synchronization. If the deviation is less than the gantry warning limit, the synchronizing motion of the gantry axes is automatically started internally in the control.
+	The actual position value difference between the leading and synchronized axes is determined during gantry synchronization. If the deviation is less than the gantry warning limit, the synchronizing motion of the gantry axes is automatically started internally in the control.
 
 	Otherwise the synchronizing motion has to be initiated via the PLC interface (interface signal &lt;Gantry-Synchronisationslauf_starten/&gt; (Start gantry synchronization process))
 
@@ -4818,7 +4873,7 @@ Related to:
 <parameter number="37120" type="DOUBLE" dim="0">
 <name>GANTRY_POS_TOL_ERROR</name>
 <brief>Gantry trip limit</brief>
-<description>With gantry axes, the difference between the position actual values of the leading and synchronized axes is continuously monitored. MD37120 $MA_GANTRY_POS_TOL_ERROR defines the maximum permissible deviation in position actual value between the synchronized axis and the leading axis in the gantry axis grouping. Violation of this limit value is monitored only if the gantry axis grouping is already synchronized (NC/PLC interface signal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry grouping is synchronized) = 1); otherwise the value set in MD37130 $MA_GANTRY_POS_TOL_REF is used.
+<description>With gantry axes, the difference between the actual position values of the leading and synchronized axes is continuously monitored. MD37120 $MA_GANTRY_POS_TOL_ERROR defines the maximum permissible deviation in actual position value between the synchronized axis and the leading axis in the gantry axis grouping. Violation of this limit value is monitored only if the gantry axis grouping is already synchronized (NC/PLC interface signal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry grouping is synchronized) = 1); otherwise the value set in MD37130 $MA_GANTRY_POS_TOL_REF is used.
 
 When this limit value is exceeded, alarm 10653 "Error limit exceeded" is output. The gantry axes are immediately stopped internally in the control to prevent any damage to the machine.
 
@@ -4839,7 +4894,7 @@ Related to:
 <parameter number="37130" type="DOUBLE" dim="0">
 <name>GANTRY_POS_TOL_REF</name>
 <brief>Gantry trip limit during referencing</brief>
-<description>With gantry axes, the difference between the position actual values of the leading and synchronized axes is continuously monitored. MD37130 $MA_GANTRY_POS_TOL_REF defines the maximum permissible difference between the position actual values of the synchronized axis and the leading axis that is monitored if the gantry axis grouping has not yet been synchronized (NC/PLC interface signal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry grouping is synchronized) = 0).
+<description>With gantry axes, the difference between the actual position values of the leading and synchronized axes is continuously monitored. MD37130 $MA_GANTRY_POS_TOL_REF defines the maximum permissible difference between the actual position values of the synchronized axis and the leading axis that is monitored if the gantry axis grouping has not yet been synchronized (NC/PLC interface signal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry grouping is synchronized) = 0).
 
 Alarm 10653 "Error limit exceeded" is output if the limit value is exceeded. The gantry axes are immediately stopped internally in the control to prevent any damage to the machine.
 
@@ -4887,7 +4942,7 @@ Corresponds with:
 
 </description>
 </parameter>
-<parameter number="37150" type="DWORD" dim="0" display="HEX">
+<parameter number="37150" type="UDWORD" dim="0" display="HEX">
 <name>GANTRY_FUNCTION_MASK</name>
 <brief>Gantry functions</brief>
 <description>Special gantry functions are set with this MD.
@@ -4916,7 +4971,7 @@ Bit 2 = 1
 	Alarm 10655 "Synchronization in progress" is not output
 </description>
 </parameter>
-<parameter number="37160" type="DWORD" dim="0" display="HEX">
+<parameter number="37160" type="UDWORD" dim="0" display="HEX">
 <name>LEAD_FUNCTION_MASK</name>
 <brief>Functions for master value coupling</brief>
 <description>With this MD, special functions of master value coupling are set.
@@ -5082,7 +5137,7 @@ Related to:
 	MD37268 $MA_MS_TORQUE_WEIGHT_SLAVE
 </description>
 </parameter>
-<parameter number="37253" type="DWORD" dim="0" display="HEX">
+<parameter number="37253" type="UDWORD" dim="0" display="HEX">
 <name>MS_FUNCTION_MASK</name>
 <brief>Master/slave settings</brief>
 <description>Parameterizing a master/slave coupling
@@ -5258,6 +5313,250 @@ The tolerance value is entered as a percentage of MD32000 $MA_MAX_AX_VELO.
 <description>Inverting the traversing direction of a slave axis in the linked status.
 0:	Equidirectional to the master axis
 1:	Inverse to the master axis
+</description>
+</parameter>
+<parameter number="37300" type="UDWORD" dim="0">
+<name>NOCO_ENABLE</name>
+<brief>Activation of the nodding compensation values</brief>
+<description>Activation of the injection values of the nodding compensation
+
+Bit 0 = 0:
+	MD37318 $MA_NOCO_COMPLIANCE_1 not active
+Bit 0 = 1:
+	MD37318 $MA_NOCO_COMPLIANCE_1 active
+
+Bit 1 = 0:
+	MD37328 $MA_NOCO_COMPLIANCE_2 not active
+Bit 1 = 1:
+	MD37328 $MA_NOCO_COMPLIANCE_2 active
+
+Bit 2 = 0:
+	MD37338 $MA_NOCO_COMPLIANCE_3 not active
+Bit 2 = 1:
+	MD37338 $MA_NOCO_COMPLIANCE_3 active
+
+Related to:
+	MD37318 $MA_NOCO_COMPLIANCE_1
+	MD37328 $MA_NOCO_COMPLIANCE_2
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37302" type="DOUBLE" dim="0">
+<name>NOCO_FILTER_TIME</name>
+<brief>Time constant for smoothing the nodding compensation values</brief>
+<description>The time constant is used to smooth the injected values of the nodding compensation. The smoothing is not effective if the time constant is less than 0.1 of the position controller cycles.
+
+Related to:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37318 $MA_NOCO_COMPLIANCE_1
+	MD37328 $MA_NOCO_COMPLIANCE_2
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37310" type="DWORD" dim="0">
+<name>NOCO_INPUT_AX_1</name>
+<brief>Machine axis that causes a nodding motion</brief>
+<description>Number of the machine axis that causes a nodding motion in this axis in order to activate the nodding compensation. The nodding compensation acts in combination with MD37318 $MA_NOCO_COMPLIANCE_1.
+
+Related to:
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37312" type="DWORD" dim="0">
+<name>NOCO_ADAPT_AX_1</name>
+<brief>Machine axis whose position affects the nodding motion</brief>
+<description>Number of the machine axis whose position affects the nodding motion in this axis.
+The position-dependent adaptation of the nodding compensation takes place in combination with MD 37316 $MA_NOCO_ADAPT_POS_1 and MD37318 $MA_NOCO_COMPLIANCE_1.
+A position-dependent adaptation is only active if a machine axis number is parameterized and there is a value greater than 1 in MD37314 $MA_NOCO_ADAPT_NUM_1.
+
+Related to:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37314 $MA_NOCO_ADAPT_NUM_1
+	MD37316 $MA_NOCO_ADAPT_POS_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37314" type="DWORD" dim="0">
+<name>NOCO_ADAPT_NUM_1</name>
+<brief>Number of positions of the adaptation curve of the nodding compensation</brief>
+<description>Number of the axis positions used for the position-dependent adaptation of the nodding compensation.
+A position-dependent adaptation is only active if the number of positions is greater than 1 and a machine axis number is parameterized in MD37312 $MA_NOCO_ADAPT_AX_1.
+
+Related to:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37316 $MA_NOCO_ADAPT_POS_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37316" type="DOUBLE" dim="1">
+<name>NOCO_ADAPT_POS_1</name>
+<brief>Positions of the adaptation curve of the nodding compensation</brief>
+<description>Positions of the machine axis from MD37312 $MA_NOCO_ADAPT_AX_1 at which the compliance factors in MD37318 $MA_NOCO_COMPLIANCE_1 are active.
+A position-dependent adaptation is only active if the number of positions in MD37314 $MA_NOCO_ADAPT_NUM_1 is greater than 1 and a machine axis number is parameterized in MD37312 $MA_NOCO_ADAPT_AX_1.
+
+Related to:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37314 $MA_NOCO_ADAPT_NUM_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37318" type="DOUBLE" dim="1">
+<name>NOCO_COMPLIANCE_1</name>
+<brief>Compliance factor for nodding compensation</brief>
+<description>Factor for compensating the nodding motion caused by MD37310 $MA_NOCO_INPUT_AX_1.
+Compliance factor = compliance in the position (m)/ acceleration (m/s2)
+If no position-dependent adaptation is active, only the value in MD37318 $MA_NOCO_COMPLIANCE_1[0] is active.
+With active position-dependent adaptation, as many values from MD37318 $MA_NOCO_COMPLIANCE_1 are active as are parameterized in MD37314 $MA_NOCO_ADAPT_NUM_1.
+
+Related to:
+	MD37300 $MA_NOCO_ENABLE
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37314 $MA_NOCO_ADAPT_NUM_1
+	MD37316 $MA_NOCO_ADAPT_POS_1
+</description>
+</parameter>
+<parameter number="37320" type="DWORD" dim="0">
+<name>NOCO_INPUT_AX_2</name>
+<brief>Machine axis that causes a nodding motion</brief>
+<description>Number of the machine axis that causes a nodding motion in this axis in order to activate the nodding compensation. The nodding compensation acts in combination with MD37328 $MA_NOCO_COMPLIANCE_2.
+
+Related to:
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37322" type="DWORD" dim="0">
+<name>NOCO_ADAPT_AX_2</name>
+<brief>Machine axis whose position affects the nodding motion</brief>
+<description>Number of the machine axis whose position affects the nodding motion in this axis.
+The position-dependent adaptation of the nodding compensation takes place in combination with MD 37326 $MA_NOCO_ADAPT_POS_2 and MD37328 $MA_NOCO_COMPLIANCE_2.
+A position-dependent adaptation is only active if a machine axis number is parameterized and there is a value greater than 1 in MD37324 $MA_NOCO_ADAPT_NUM_2.
+
+Related to:
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37324 $MA_NOCO_ADAPT_NUM_2
+	MD37326 $MA_NOCO_ADAPT_POS_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37324" type="DWORD" dim="0">
+<name>NOCO_ADAPT_NUM_2</name>
+<brief>Number of positions of the adaptation curve of the nodding compensation</brief>
+<description>Number of the axis positions used for the position-dependent adaptation of the nodding compensation.
+A position-dependent adaptation is only active if the number of positions is greater than 1 and a machine axis number is parameterized in MD37322 $MA_NOCO_ADAPT_AX_2.
+
+Related to:
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37326 $MA_NOCO_ADAPT_POS_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37326" type="DOUBLE" dim="1">
+<name>NOCO_ADAPT_POS_2</name>
+<brief>Positions of the adaptation curve of the nodding compensation</brief>
+<description>Positions of the machine axis from MD37322 $MA_NOCO_ADAPT_AX_2 at which the compliance factors in MD37328 $MA_NOCO_COMPLIANCE_2 are active.
+A position-dependent adaptation is only active if the number of positions in MD37324 $MA_NOCO_ADAPT_NUM_2 is greater than 1 and a machine axis number is parameterized in MD37322 $MA_NOCO_ADAPT_AX_2.
+
+Related to:
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37324 $MA_NOCO_ADAPT_NUM_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37328" type="DOUBLE" dim="1">
+<name>NOCO_COMPLIANCE_2</name>
+<brief>Compliance factor for nodding compensation</brief>
+<description>Factor for compensating the nodding motion caused by MD37320 $MA_NOCO_INPUT_AX_2.
+Compliance factor = compliance in the position (m)/ acceleration (m/s2)
+If no position-dependent adaptation is active, only the value in MD37328 $MA_NOCO_COMPLIANCE_2[0] is active.
+With active position-dependent adaptation, as many values from MD37328 $MA_NOCO_COMPLIANCE_2 are active as are parameterized in MD37324 $MA_NOCO_ADAPT_NUM_2.
+
+Related to:
+	MD37300 $MA_NOCO_ENABLE
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37324 $MA_NOCO_ADAPT_NUM_2
+	MD37326 $MA_NOCO_ADAPT_POS_2
+</description>
+</parameter>
+<parameter number="37330" type="DWORD" dim="0">
+<name>NOCO_INPUT_AX_3</name>
+<brief>Machine axis that causes a nodding motion</brief>
+<description>Number of the machine axis that causes a nodding motion in this axis in order to activate the nodding compensation. The nodding compensation acts in combination with MD37338 $MA_NOCO_COMPLIANCE_3.
+
+Related to:
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37332" type="DWORD" dim="0">
+<name>NOCO_ADAPT_AX_3</name>
+<brief>Machine axis whose position affects the nodding motion</brief>
+<description>Number of the machine axis whose position affects the nodding motion in this axis.
+The position-dependent adaptation of the nodding compensation takes place in combination with MD 37336 $MA_NOCO_ADAPT_POS_3 and MD37338 $MA_NOCO_COMPLIANCE_3.
+A position-dependent adaptation is only active if a machine axis number is parameterized and there is a value greater than 1 in MD37334 $MA_NOCO_ADAPT_NUM_3.
+
+Related to:
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37334 $MA_NOCO_ADAPT_NUM_3
+	MD37336 $MA_NOCO_ADAPT_POS_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37334" type="DWORD" dim="0">
+<name>NOCO_ADAPT_NUM_3</name>
+<brief>Number of positions of the adaptation curve of the nodding compensation</brief>
+<description>Number of the axis positions used for the position-dependent adaptation of the nodding compensation.
+A position-dependent adaptation is only active if the number of positions is greater than 1 and a machine axis number is parameterized in MD37332 $MA_NOCO_ADAPT_AX_3.
+
+Related to:
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37336 $MA_NOCO_ADAPT_POS_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37336" type="DOUBLE" dim="1">
+<name>NOCO_ADAPT_POS_3</name>
+<brief>Positions of the adaptation curve of the nodding compensation</brief>
+<description>Positions of the machine axis from MD37332 $MA_NOCO_ADAPT_AX_3 at which the compliance factors in MD37338 $MA_NOCO_COMPLIANCE_3 are active.
+A position-dependent adaptation is only active if the number of positions in MD37334 $MA_NOCO_ADAPT_NUM_3 is greater than 1 and a machine axis number is parameterized in MD37332 $MA_NOCO_ADAPT_AX_3.
+
+Related to:
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37334 $MA_NOCO_ADAPT_NUM_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37338" type="DOUBLE" dim="1">
+<name>NOCO_COMPLIANCE_3</name>
+<brief>Compliance factor of the nodding compensation</brief>
+<description>Factor for compensating the nodding motion caused by MD37330 $MA_NOCO_INPUT_AX_3.
+Compliance factor = compliance in the position (m)/ acceleration (m/s2)
+If no position-dependent adaptation is active, only the value in MD37338 $MA_NOCO_COMPLIANCE_3[0] is active.
+With active position-dependent adaptation, as many values from MD37338 $MA_NOCO_COMPLIANCE_3 are active as are parameterized in MD37334 $MA_NOCO_ADAPT_NUM_3.
+
+Related to:
+	MD37300 $MA_NOCO_ENABLE
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37334 $MA_NOCO_ADAPT_NUM_3
+	MD37336 $MA_NOCO_ADAPT_POS_3
 </description>
 </parameter>
 <parameter number="37400" type="DOUBLE" dim="0">

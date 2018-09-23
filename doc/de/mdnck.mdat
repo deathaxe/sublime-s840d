@@ -32,20 +32,13 @@ S Spindeldrehzahl       (S-Funktion)       T Werkzeug (T-Funktion)
 
 Ebenfalls unzulässig sind Schlüsselworte (z.B. DEF, SPOS etc.) und vordefinierte Bezeichner (z.B. ASPLINE, SOFT).
 
-Die Verwendung eines Achsbezeichners bestehend aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99) bietet gegenüber der Vergabe eines allgemeinen Bezeichners leichte Vorteile in der Blockzykluszeit.
+Die Verwendung eines Achsbezeichners bestehend aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99) bietet gegenüber der Vergabe eines allgemeinen Bezeichners leichte Vorteile in der Satzwechselzeit.
 
 Wird für eine Maschinenachse kein Bezeichner vergeben, so gilt der vordefinierte Name ("AXn" für die n-te Maschinenachse).
 
 korrespondierend mit ....
 	MD20060 $MC_AXCONF_GEOAX_NAME_TAB (Geometrieachsname im Kanal [GEOAchsnr.]
 	MD20080 $MC_AXCONF_CHANAX_NAME_TAB (Kanalachsname im Kanal [Kanalachsnr.]
-In diesem MD wird der Name der Maschinenachse eingegeben.
--	Die Verwendung eines Achsbezeichners bestehend aus einem gültigen Adressbuchstaben
-(A, B, C, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99) sollte vorrangig benutzt werden.
--	Der gewählte Maschinenachsbezeichner muss in der Benennung von Geometrieachsen (X, Y, Z) und weiteren Kanalachsen (MD20080 $MC_AXCONF_CHANAX_NAME_TAB abweichen - sofern eine Transformation (z.B.: TRANSMITT) vorgesehen ist.
-Anmerkung: Transformationen sind bei SINUMERIK 802D im SW-Stand P1 nicht verfügbar.
--	Ein "freier" eingegebener Maschinenachsbezeichner (Achsname) darf kein Name, Adresse, Schlüsselwort oder vordefinierter Bezeichner sein, der in der Steuerung bereits benutzt wird oder für sonstige Funktionalität reserviert ist (z.B.: SPOS, DIAMON, ...).
-Hinweis: Es ist nicht die gesamte Funktionalität des Steuerungssystems SINUMERIK bei 802D dokumentiert. Ein freier Achsname ist deshalb nur bedingt anwendbar.
 </description>
 </parameter>
 <parameter number="10002" type="STRING" dim="1">
@@ -243,7 +236,7 @@ Anzeige der Interpolator-Taktzeit.
 Bei Zahlenwerte kleiner als 1 wird der Ipotakt untersetzt. Der Wert wird so angepasst, dass nur Laufzeiten für die Kommunikationstask möglich sind, die ein mehrfaches der Lagereglerzeit sind. Für die Kommunikationstask ist eine Aufrufperiode von ungefähr 10 ms sinnvoll.
 </description>
 </parameter>
-<parameter number="10073" type="DWORD" dim="0" display="HEX">
+<parameter number="10073" type="UDWORD" dim="0" display="HEX">
 <name>COM_IPO_STRATEGY</name>
 <brief>Strategie zur Kommunikationsaktivierung</brief>
 <description>Die Aufrufhäufigkeit der Kommunikationstasks ist durch das MD10072 $MN_COM_IPO_TIME_RATIO steuerbar.
@@ -388,7 +381,7 @@ Voraussetzung: Die Funktion "Execution from External Storage" ist aktiv.
 <name>TIME_LIMIT_NETTO_COM_TASK</name>
 <brief>Laufzeitbegrenzung der Kommunikation zur HMI</brief>
 <description>Netto-Laufzeitlimit der Kommunikations-Sub-Task
-Der Vorlauf und die Kommunikationstask teilen sich die Restzeit, die von den zyklischen Tasks übrigbleibt. Von dieser Restzeit verwendet die Kommunikation den eingestellten Wert auf Kosten der Vorlaufzeit, d.h. die Netto-Blockzykluszeit erhöht sich um den eingestellten Wert. Das Datum dient der Optimierung der Blockzykluszeit bei der Funktion "Blockweises Nachladen von Teileprogrammen".
+Der Vorlauf und die Kommunikationstask teilen sich die Restzeit, die von den zyklischen Tasks übrigbleibt. Von dieser Restzeit verwendet die Kommunikation den eingestellten Wert auf Kosten der Vorlaufzeit, d.h. die Netto-Satzwechselzeit erhöht sich um den eingestellten Wert. Das Datum dient der Optimierung der Satzwechselzeit bei der Funktion "Blockweises Nachladen von Teileprogrammen".
 </description>
 </parameter>
 <parameter number="10131" type="BYTE" dim="0">
@@ -458,7 +451,7 @@ Der Vorlauf und die Kommunikationstasks (Antriebskommunikation und Domaindienst)
 <parameter number="10150" type="DWORD" dim="0">
 <name>PREP_DRIVE_TASK_CYCLE_RATIO</name>
 <brief>Faktor für Antriebskommunikation</brief>
-<description>Das Maschinendatum legt fest, mit welchem Teilungsverhältnis die Antriebskommunikationstask in der nichtzyklischen Zeitebene aktiviert wird. Dadurch lässt sich der Zeitanteil der Präparation an der nichtzyklischen Zeitebene vergrößern, was zu kleineren Blockzykluszeiten führt. Die Kommunikation zu den digitalen Antrieben wird dadurch insbesondere bei Programmverarbeitung verlangsamt.
+<description>Das Maschinendatum legt fest, mit welchem Teilungsverhältnis die Antriebskommunikationstask in der nichtzyklischen Zeitebene aktiviert wird. Dadurch lässt sich der Zeitanteil der Präparation an der nichtzyklischen Zeitebene vergrößern, was zu kleineren Satzwechselzeiten führt. Die Kommunikation zu den digitalen Antrieben wird dadurch insbesondere bei Programmverarbeitung verlangsamt.
 </description>
 </parameter>
 <parameter number="10156" type="DWORD" dim="0">
@@ -511,7 +504,7 @@ Wert 1: Es werden pro Kanal in jedem Zyklus der Präparationstask folgende Inform
 <parameter number="10160" type="DWORD" dim="0">
 <name>PREP_COM_TASK_CYCLE_RATIO</name>
 <brief>Faktor für HMI-Kommunikation</brief>
-<description>Das Maschinendatum legt fest, mit welchem Teilungsverhältnis die Kommunikationstask in der nichtzyklischen Zeitebene aktiviert wird. Dadurch lässt sich der Zeitanteil der Präparation an der nichtzyklischen Zeitebene vergrößern, was zu kleineren Blockzykluszeiten führt. Die externe Kommunikation (Filetransfer) wird dadurch insbesondere bei Programmverarbeitung (blockweises Nachladen) verlangsamt.
+<description>Das Maschinendatum legt fest, mit welchem Teilungsverhältnis die Kommunikationstask in der nichtzyklischen Zeitebene aktiviert wird. Dadurch lässt sich der Zeitanteil der Präparation an der nichtzyklischen Zeitebene vergrößern, was zu kleineren Satzwechselzeiten führt. Die externe Kommunikation (Filetransfer) wird dadurch insbesondere bei Programmverarbeitung (blockweises Nachladen) verlangsamt.
 </description>
 </parameter>
 <parameter number="10161" type="DWORD" dim="1">
@@ -645,7 +638,7 @@ Die Genauigkeit der Eingabe von Winkel-Positionen wird auf die Rechenfeinheit be
 Um die ausgeführte Rundung leicht nachvollziehbar zu halten, ist es sinnvoll, für die Rechenfeinheit 10er-Potenzen zu verwenden.
 </description>
 </parameter>
-<parameter number="10220" type="DWORD" dim="0" display="HEX">
+<parameter number="10220" type="UDWORD" dim="0" display="HEX">
 <name>SCALING_USER_DEF_MASK</name>
 <brief>Aktivierung der Normierungsfaktoren</brief>
 <description>Bitmaske für die Auswahl der Bezugsgröße für die Daten (z. B. Maschinen- und Settingdaten), die eine physikalische Einheit besitzen, werden je nach Grundsystem (metrisch/inch) in den untenstehenden, voreingestellten Einheiten interpretiert. Sollen für einzelne physikalische Einheiten andere Ein-/Ausgabe-Einheiten verwendet werden, so werden mit diesem Maschinendatum die zugehörigen Normierungsfaktoren (eingetragen in MD10230 $MN_SCALING_FACTORS_USER_DEF[n]) aktiviert.
@@ -822,7 +815,7 @@ SD41506 $SN_SW_CAM_MINUS_POS_TAB_4
 SD41507 $SN_SW_CAM_PLUS_POS_TAB_4
 </description>
 </parameter>
-<parameter number="10280" type="DWORD" dim="0" display="HEX">
+<parameter number="10280" type="UDWORD" dim="0" display="HEX">
 <name>PROG_FUNCTION_MASK</name>
 <brief>Bitmaske zur Parametrierung verschiedener Teilprogrammbefehle</brief>
 <description>Bitmaske zur Parametrierung verschiedener Teilprogrammbefehle
@@ -830,10 +823,10 @@ SD41507 $SN_SW_CAM_PLUS_POS_TAB_4
 Bit	Hexadez.	Bedeutung bei gesetztem Bit
 	Wert
 
-0:	0x1		Bearbeitung der Vergleichsbefehle "&gt;" und "&lt;" wie bis SW 6.3:
+0:	0x1		Bearbeitung der Vergleichsbefehle "&gt;" und "&lt;" wie bei SINUMERIK 840D:
 			Teilprogrammdaten vom Typ REAL werden intern im IEEE-Format von 64 Bit dargestellt. Diese Darstellungsform bringt es mit sich, dass Dezimalzahlen ungenau abgebildet werden, wenn die 52-Bit breite Mantisse dieses Formats nicht ausreicht, um die Zahl in Zweier-Potenzen darzustellen. Um diesem Problem zu begegnen, wird bei allen Vergleichsbefehlen ( ==, &lt;&gt;,&gt;=, &lt;=,&gt; und &lt; ) auf eine relative Gleichheit von 1E-12 geprüft.
 
-			Durch Setzen von Bit 0 wird dieses Verfahren für die Vergleiche auf größer (&gt;) und kleiner ( &lt; ) ausgeschaltet. (Kompatibilitätsstellung zu Softwareständen vor SW 6.4)
+			Durch Setzen von Bit 0 wird dieses Verfahren für die Vergleiche auf größer (&gt;) und kleiner ( &lt; ) ausgeschaltet. (Kompatibilitätsstellung zu SINUMERIK 840D)
 
 1:	0x2		Programmieren der Kanalnamen aus dem MD20000 $MC_CHAN_NAME
 			Mit dem Setzen von Bit1 kann der im MD20000 $MC_CHAN_NAME abgelegte Kanalname im Teileprogramm programmiert werden. So kann z. B. bei den Programmkoordinierungsbefehlen (START(), INIT(), WAIT() etc.) statt eines numerischen Wertes für die Kanalnummer auch der Kanalname programmiert werden.
@@ -847,7 +840,7 @@ Bit	Hexadez.	Bedeutung bei gesetztem Bit
 			Damit dauert ein G4 F0.001 auch nur einen Takt, bei einem Ipo-Takt von 1 msec.
 </description>
 </parameter>
-<parameter number="10284" type="DWORD" dim="0" display="HEX">
+<parameter number="10284" type="UDWORD" dim="0" display="HEX">
 <name>DISPLAY_FUNCTION_MASK</name>
 <brief>Verhalten verschiedener Anzeige-Variablen</brief>
 <description>Bitmaske zur Parametrierung verschiedener Anzeige-Variablen:
@@ -955,40 +948,40 @@ Korrespondiert mit:
 </parameter>
 <parameter number="10300" type="BYTE" dim="0">
 <name>FASTIO_ANA_NUM_INPUTS</name>
-<brief>Anzahl der aktiven analogen NCK-Eingänge</brief>
-<description>Mit diesem Maschinendatum wird die Anzahl der an der Steuerung nutzbaren analogen NCK-Eingänge festgelegt.
+<brief>Anzahl der aktiven analogen NC-Eingänge</brief>
+<description>Mit diesem Maschinendatum wird die Anzahl der an der Steuerung nutzbaren analogen NC-Eingänge festgelegt.
 
-Nur diese analogen NCK-Eingänge können vom NC-Teileprogramm angesprochen bzw. NC-Funktionen zugeordnet werden.
+Nur diese analogen NC-Eingänge können vom NC-Teileprogramm angesprochen bzw. NC-Funktionen zugeordnet werden.
 
-Falls mit dem Maschinendatum mehr analoge NCK-Eingänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, wird für die hardwaremäßig nicht vorhandenen Eingänge steuerungsintern der binäre Analogistwert gleich Null gesetzt. Der NCK-Wert kann von der PLC noch verändert werden.
+Falls mit dem Maschinendatum mehr analoge NC-Eingänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, wird für die hardwaremäßig nicht vorhandenen Eingänge steuerungsintern der binäre Analogistwert gleich Null gesetzt. Der NCK-Wert kann von der PLC noch verändert werden.
 
 Hinweis:
-	Für die Bearbeitung der digitalen und analogen NCK-Peripherie wird CPU-Rechenzeit auf der Interpolationsebene benötigt. Um die Interpolationstaktzeit nicht unnötig zu belasten, sollte daher die Anzahl der aktiven NCK-Peripherie entsprechend den Maschinenanforderungen gewählt werden.
+	Für die Bearbeitung der digitalen und analogen NC-Peripherie wird CPU-Rechenzeit auf der Interpolationsebene benötigt. Um die Interpolationstaktzeit nicht unnötig zu belasten, sollte daher die Anzahl der aktiven NC-Peripherie entsprechend den Maschinenanforderungen gewählt werden.
 </description>
 </parameter>
 <parameter number="10310" type="BYTE" dim="0">
 <name>FASTIO_ANA_NUM_OUTPUTS</name>
-<brief>Anzahl der aktiven analogen NCK-Ausgänge</brief>
-<description>Mit diesem Maschinendatum wird die Anzahl der an der Steuerung nutzbaren analogen NCK-Ausgänge festgelegt.
+<brief>Anzahl der aktiven analogen NC-Ausgänge</brief>
+<description>Mit diesem Maschinendatum wird die Anzahl der an der Steuerung nutzbaren analogen NC-Ausgänge festgelegt.
 
-Nur diese analogen NCK-Ausgänge können vom NC-Teileprogramm angesprochen bzw. NC-Funktionen zugeordnet werden.
+Nur diese analogen NC-Ausgänge können vom NC-Teileprogramm angesprochen bzw. NC-Funktionen zugeordnet werden.
 
-Falls mit dem Maschinendatum mehr analoge NCK-Ausgänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, erfolgt keine Alarmmeldung. Die vom Teileprogramm vorgegebenen Analogwerte können von der PLC gelesen werden.
+Falls mit dem Maschinendatum mehr analoge NC-Ausgänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, erfolgt keine Alarmmeldung. Die vom Teileprogramm vorgegebenen Analogwerte können von der PLC gelesen werden.
 
 Hinweis:
-	Für die Bearbeitung der digitalen und analogen NCK-Peripherie wird CPU-Rechenzeit auf der Interpolationsebene benötigt. Um die Interpolationstaktzeit nicht unnötig zu belasten, sollte daher die Anzahl der aktiven NCK-Peripherie entsprechend den Maschinenanforderungen gewählt werden.
+	Für die Bearbeitung der digitalen und analogen NC-Peripherie wird CPU-Rechenzeit auf der Interpolationsebene benötigt. Um die Interpolationstaktzeit nicht unnötig zu belasten, sollte daher die Anzahl der aktiven NC-Peripherie entsprechend den Maschinenanforderungen gewählt werden.
 </description>
 </parameter>
 <parameter number="10320" type="DWORD" dim="1">
 <name>FASTIO_ANA_INPUT_WEIGHT</name>
-<brief>Bewertungsfaktor für die analogen NCK-Eingänge</brief>
-<description>Hiermit kann für jeden analogen NCK-Eingang [n] ein Bewertungsfaktor festgelegt werden, mit dem eine Anpassung an die verschiedenen AD-Wandler (abhängig von der Peripherie-Baugruppe) möglich ist.
+<brief>Bewertungsfaktor für die analogen NC-Eingänge</brief>
+<description>Hiermit kann für jeden analogen NC-Eingang [n] ein Bewertungsfaktor festgelegt werden, mit dem eine Anpassung an die verschiedenen AD-Wandler (abhängig von der Peripherie-Baugruppe) möglich ist.
 
 In dieses Maschinendatum ist der Wert einzutragen, der im Teileprogramm mit dem Befehl x = $A_INA[n] gelesen werden soll, wenn der zugehörige Analog-Eingang [n] maximal ausgesteuert wird, bzw. über die PLC-Nahtstelle für diesen Eingang der Wert +32767 vorgegeben wird.
 
 Es wird der vom AD-Wandler oder von der PLC-Nahtstelle gelesene Wert mit dem Faktor (FASTIO_ANA_INPUT_WEIGHT / 32767) multipliziert, bevor er im Teileprogramm mit der Systemvariable $A_INA[n] gelesen werden kann.
 
-Anwendung des Bewertungsfaktors bei "analoge NCK-Eingänge ohne Hardware": Bei einem Bewertungsfaktor = 32767 sind die Wertvorgaben von Teileprogramm und von PLC zahlenmäßig identisch (1:1-Kommunikation zwischen Teileprogramm und PLC). Dies ist vorteilhaft, wenn die analogen NCK-Ein-/Ausgänge als reine PLC-Ein-/Ausgänge ohne Analog-Hardware verwendet werden.
+Anwendung des Bewertungsfaktors bei "analoge NC-Eingänge ohne Hardware": Bei einem Bewertungsfaktor = 32767 sind die Wertvorgaben von Teileprogramm und von PLC zahlenmäßig identisch (1:1-Kommunikation zwischen Teileprogramm und PLC). Dies ist vorteilhaft, wenn die analogen NC-Ein-/Ausgänge als reine PLC-Ein-/Ausgänge ohne Analog-Hardware verwendet werden.
 
 Hinweis:
 	Die Komparatorschwellwerte SD41600 $SN_COMPAR_THRESHOLD_1 bzw. SD41601 $SN_COMPAR_THRESHOLD_2 werden entsprechend ihrer Zuordnung zu einem Analog-Eingang für den Vergleich ebenfalls auf MD10320 $MN_FASTIO_ANA_INPUT_WEIGHT normiert
@@ -996,69 +989,69 @@ Hinweis:
 	Der CC-Zugriff auf Analogwerte wird von FASTIO_ANA_INPUT_WEIGHT nicht beeinflusst.
 
 Korrespondiert mit:
-	NC/PLC-Nahtstellensignal &lt;Setzwert_von_PLC_der_analogenNCK-Eingaenge/&gt; (Setzwert von PLC der analogen NCK-Eingänge)
+	NC/PLC-Nahtstellensignal &lt;Setzwert_von_PLC_der_analogenNC-Eingaenge/&gt; (Setzwert von PLC der analogen NC-Eingänge)
 </description>
 </parameter>
 <parameter number="10330" type="DWORD" dim="1">
 <name>FASTIO_ANA_OUTPUT_WEIGHT</name>
-<brief>Bewertungsfaktor für die analogen NCK-Ausgänge</brief>
-<description>Hiermit kann für jeden analogen NCK-Ausgang [n] ein Bewertungsfaktor festgelegt werden, mit dem eine Anpassung an die verschiedenen DA-Wandler (abhängig von der verwendeten Peripherie-Baugruppe) möglich ist.
+<brief>Bewertungsfaktor für die analogen NC-Ausgänge</brief>
+<description>Hiermit kann für jeden analogen NC-Ausgang [n] ein Bewertungsfaktor festgelegt werden, mit dem eine Anpassung an die verschiedenen DA-Wandler (abhängig von der verwendeten Peripherie-Baugruppe) möglich ist.
 
 [hw] = Index (0 bis 7) für Adressierung der externen analogen Ausgänge
 
 In dieses Maschinendatum ist der Wert x einzutragen, der bei Programmierung von $A_OUTA[n] = x im Teileprogramm die maximale Aussteuerung des zugehörigen Analog-Ausgangs [n] bewirken bzw. in der PLC-Nahtstelle für diesen Ausgang den Wert +32767 erzeugen soll.
 
-Anwendung des Bewertungsfaktors bei "analoge NCK-Ausgänge ohne Hardware": Bei einem Bewertungsfaktor = 32767 sind die Wertvorgaben von Teileprogramm und von PLC zahlenmäßig identisch (1:1-Kommunikation zwischen Teileprogramm und PLC). Dies ist vorteilhaft, wenn die analogen NCK-Ausgänge als reine PLC-Ausgänge ohne Analog-Hardware verwendet werden.
+Anwendung des Bewertungsfaktors bei "analoge NC-Ausgänge ohne Hardware": Bei einem Bewertungsfaktor = 32767 sind die Wertvorgaben von Teileprogramm und von PLC zahlenmäßig identisch (1:1-Kommunikation zwischen Teileprogramm und PLC). Dies ist vorteilhaft, wenn die analogen NC-Ausgänge als reine PLC-Ausgänge ohne Analog-Hardware verwendet werden.
 
 Korrespondiert mit:
-	NC/PLC-Nahtstellensignal &lt;Setzwert_von_PLC_der_analogenNCK-Ausgaenge/&gt; (Setzwert von PLC der analogen NCK-Ausgänge)
-	NC/PLC-Nahtstellensignal &lt;Sollwert_der_analogenNCK-Ausgaenge/&gt; (Sollwert der analogen NCK-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Setzwert_von_PLC_der_analogenNC-Ausgaenge/&gt; (Setzwert von PLC der analogen NC-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Sollwert_der_analogenNC-Ausgaenge/&gt; (Sollwert der analogen NC-Ausgänge)
 </description>
 </parameter>
 <parameter number="10350" type="BYTE" dim="0">
 <name>FASTIO_DIG_NUM_INPUTS</name>
-<brief>Anzahl der aktiven digitalen NCK-Eingangsbytes</brief>
-<description>Hiermit wird die Byteanzahl der an der Steuerung nutzbaren digitalen NCK-Eingänge festgelegt.
+<brief>Anzahl der aktiven digitalen NC-Eingangsbytes</brief>
+<description>Hiermit wird die Byteanzahl der an der Steuerung nutzbaren digitalen NC-Eingänge festgelegt.
 
-Diese digitalen NCK-Eingänge können direkt vom Teileprogramm gelesen werden. Desweiteren kann der an den HW-Eingängen anliegende Signalzustand von der PLC verändert werden.
+Diese digitalen NC-Eingänge können direkt vom Teileprogramm gelesen werden. Desweiteren kann der an den HW-Eingängen anliegende Signalzustand von der PLC verändert werden.
 
-Falls mit dem Maschinendatum mehr digitale NCK-Eingänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, werden für die hardwaremäßig nicht vorhandenen Eingänge steuerungsintern der Signalzustand gleich 0 gelesen. Der NCK-Wert kann von der PLC noch verändert werden.
+Falls mit dem Maschinendatum mehr digitale NC-Eingänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, werden für die hardwaremäßig nicht vorhandenen Eingänge steuerungsintern der Signalzustand gleich 0 gelesen. Der NCK-Wert kann von der PLC noch verändert werden.
 
 Korrespondiert mit:
-	NC/PLC-Nahtstellensignal &lt;Sperre_der_digitalenNCK-Eingaenge1-8/&gt; (Sperre der digitalen NCK-Eingänge 1-8);
+	NC/PLC-Nahtstellensignal &lt;Sperre_der_digitalenNC-Eingaenge1-8/&gt; (Sperre der digitalen NC-Eingänge 1-8);
  NC/PLC-Nahtstellensignal &lt;Sperre_der_externen_digitalenEingaenge9-40/&gt; (Sperre der externen digitalen Eingänge des NCK 9-40)
-	NC/PLC-Nahtstellensignal &lt;Setzen_der_digitalenNCK-Eingaenge_von_PLC1-9/&gt; (Setzen der digitalen NCK-Eingänge von PLC 1-9);
+	NC/PLC-Nahtstellensignal &lt;Setzen_der_digitalenNC-Eingaenge_von_PLC1-9/&gt; (Setzen der digitalen NC-Eingänge von PLC 1-9);
  NC/PLC-Nahtstellensignal &lt;Werte_vonPLCfuer_die_externen_digitalen_Eingaenge9-40/&gt; (Werte von PLC für die externen digitalen Eingänge des NCK 9-40)
-	NC/PLC-Nahtstellensignal &lt;Istwert_der_digitalenNCK-Eingaenge/&gt; (Istwert der  digitalen NCK-Eingänge)
+	NC/PLC-Nahtstellensignal &lt;Istwert_der_digitalenNC-Eingaenge/&gt; (Istwert der  digitalen NC-Eingänge)
 </description>
 </parameter>
 <parameter number="10360" type="BYTE" dim="0">
 <name>FASTIO_DIG_NUM_OUTPUTS</name>
-<brief>Anzahl der aktiven digitalen NCK-Ausgangsbytes</brief>
-<description>Hiermit wird die Byteanzahl der an der Steuerung nutzbaren digitalen NCK-Ausgänge festgelegt.
+<brief>Anzahl der aktiven digitalen NC-Ausgangsbytes</brief>
+<description>Hiermit wird die Byteanzahl der an der Steuerung nutzbaren digitalen NC-Ausgänge festgelegt.
 
-Diese digitalen NCK-Ausgänge können direkt vom Teileprogramm gesetzt werden. Von der PLC können
-- die digitalen Ausgänge mit dem NC/PLC-Nahtstellensignal &lt;Sperre_der_digitalenNCK-Ausgaenge/&gt; (Sperre der digitalen NCK-Ausgänge) definiert auf "0" gesetzt werden.
-- mit dem NC/PLC-Nahtstellensignal &lt;Ueberschreibmaske_der_digitalenNCK-Ausgaenge/&gt; (Überschreibmaske der digitalen NCK-Ausgänge) der NCK-Wert verändert werden.
-- mit dem NC/PLC-Nahtstellensignal &lt;Vorgabemaske_der_digitalenNCK-Ausgaenge/&gt; (Vorgabemaske der digitalen NCK-Ausgänge) ein PLC-Wert vorgegeben werden.
+Diese digitalen NC-Ausgänge können direkt vom Teileprogramm gesetzt werden. Von der PLC können
+- die digitalen Ausgänge mit dem NC/PLC-Nahtstellensignal &lt;Sperre_der_digitalenNC-Ausgaenge/&gt; (Sperre der digitalen NC-Ausgänge) definiert auf "0" gesetzt werden.
+- mit dem NC/PLC-Nahtstellensignal &lt;Ueberschreibmaske_der_digitalenNC-Ausgaenge/&gt; (Überschreibmaske der digitalen NC-Ausgänge) der NCK-Wert verändert werden.
+- mit dem NC/PLC-Nahtstellensignal &lt;Vorgabemaske_der_digitalenNC-Ausgaenge/&gt; (Vorgabemaske der digitalen NC-Ausgänge) ein PLC-Wert vorgegeben werden.
 
-Falls mit dem Maschinendatum mehr digitale NCK-Ausgänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, erfolgt keine Alarmmeldung. Die vom Teileprogramm vorgegebenen Signalzustände können von der PLC gelesen werden.
+Falls mit dem Maschinendatum mehr digitale NC-Ausgänge definiert wurden als hardwaremäßig an der Steuerung bestückt sind, erfolgt keine Alarmmeldung. Die vom Teileprogramm vorgegebenen Signalzustände können von der PLC gelesen werden.
 
 Sonderfälle:
-Die digitalen NCK-Ausgänge 5 bis 8 können nur von der PLC bearbeitet werden (keine Hardware-Ausgänge).
+Die digitalen NC-Ausgänge 5 bis 8 können nur von der PLC bearbeitet werden (keine Hardware-Ausgänge).
 
 Korrespondiert mit:
-	NC/PLC-Nahtstellensignal &lt;Sperre_der_digitalenNCK-Ausgaenge/&gt; (Sperre der digitalen NCK-Ausgänge)
-	NC/PLC-Nahtstellensignal &lt;Ueberschreibmaske_der_digitalenNCK-Ausgaenge/&gt; (Überschreibmaske der digitalen NCK-Ausgänge)
-	NC/PLC-Nahtstellensignal &lt;Setzwert_von_PLC_der_digitalenNCK-Ausgaenge/&gt; (Setzwert von PLC der digitalen NCK-Ausgänge)
-	NC/PLC-Nahtstellensignal &lt;Vorgabemaske_der_digitalenNCK-Ausgaenge/&gt; (Vorgabemaske der digitalen NCK-Ausgänge)
-	NC/PLC-Nahtstellensignal &lt;Sollwert_der_digitalenNCK-Ausgaenge/&gt; (Sollwert der digitalen NCK-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Sperre_der_digitalenNC-Ausgaenge/&gt; (Sperre der digitalen NC-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Ueberschreibmaske_der_digitalenNC-Ausgaenge/&gt; (Überschreibmaske der digitalen NC-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Setzwert_von_PLC_der_digitalenNC-Ausgaenge/&gt; (Setzwert von PLC der digitalen NC-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Vorgabemaske_der_digitalenNC-Ausgaenge/&gt; (Vorgabemaske der digitalen NC-Ausgänge)
+	NC/PLC-Nahtstellensignal &lt;Sollwert_der_digitalenNC-Ausgaenge/&gt; (Sollwert der digitalen NC-Ausgänge)
 </description>
 </parameter>
-<parameter number="10361" type="DWORD" dim="1" display="HEX">
+<parameter number="10361" type="UDWORD" dim="1" display="HEX">
 <name>FASTIO_DIG_SHORT_CIRCUIT</name>
 <brief>Kurzschluss digitaler Ein- und Ausgänge</brief>
-<description>Definierte Kurzschlüsse zwischen digitalen Ausgangs- und Eingangssignalen der schnellen NCK-Peripherie werden realisiert, indem die von der schnellen NCK-Peripherie bzw. der PLC-Nahtstelle eingelesenen Signale mit definierten Ausgangssignalen verknüpft werden.
+<description>Definierte Kurzschlüsse zwischen digitalen Ausgangs- und Eingangssignalen der schnellen NC-Peripherie werden realisiert, indem die von der schnellen NC-Peripherie bzw. der PLC-Nahtstelle eingelesenen Signale mit definierten Ausgangssignalen verknüpft werden.
 
 Bei der Verknüpfung bleiben die Ausgangssignale stets unverändert, die intern zu berücksichtigenden Eingänge gehen aus den gelesenen Eingängen und der Verknüpfung hervor. Werden für ein Eingangsbit mehrere Ausgangsbits im überschreibenden Modus spezifiziert, bestimmt die letzte in der Liste definierte Zuordnung das Ergebnis.
 
@@ -1096,12 +1089,12 @@ Korrespondiert mit:
 	MD10350 $MN_FASTIO_DIG_NUM_INPUTS,
 	MD10360 $MN_FASTIO_DIG_NUM_OUTPUTS.
 
-Literatur:         /FB/, A4, "Digitale und analoge NCK-Peripherie"
+Literatur:         /FB/, A4, "Digitale und analoge NC-Peripherie"
 </description>
 </parameter>
-<parameter number="10362" type="DWORD" dim="1" display="HEX">
+<parameter number="10362" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_ANA_FASTIN</name>
-<brief>Hardware-Zuordnung der schnellen analogen NCK-Eingänge</brief>
+<brief>Hardware-Zuordnung der schnellen analogen NC-Eingänge</brief>
 <description>Bei PROFIBUS/PROFINET:
    1. + 2. Byte geben die logische Basisadresse des I/O Slots auf dem PROFIBUS/PROFINET an:
 Wert 0000 bedeutet KEIN aktiver Slot
@@ -1122,9 +1115,9 @@ Korrespondiert mit:
 	MD10364 $MN_HW_ASSIGN_ANA_FASTOUT
 </description>
 </parameter>
-<parameter number="10364" type="DWORD" dim="1" display="HEX">
+<parameter number="10364" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_ANA_FASTOUT</name>
-<brief>Hardware-Zuordnung der externen analogen NCK-Ausgänge</brief>
+<brief>Hardware-Zuordnung der externen analogen NC-Ausgänge</brief>
 <description>Bei PROFIBUS/PROFINET:
    1. + 2. Byte geben die logische Basisadresse des I/O Slots auf dem PROFIBUS/PROFINET an:
 Wert 0000 bedeutet KEIN aktiver Slot
@@ -1143,9 +1136,9 @@ Korrespondiert mit:
 	MD10362 $MN_HW_ASSIGN_ANA_FASTIN
 </description>
 </parameter>
-<parameter number="10366" type="DWORD" dim="1" display="HEX">
+<parameter number="10366" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_DIG_FASTIN</name>
-<brief>Hardware-Zuordnung der externen digitalen NCK-Eingänge</brief>
+<brief>Hardware-Zuordnung der externen digitalen NC-Eingänge</brief>
 <description>Bei PROFIBUS/PROFINET:
    1. + 2. Byte geben die logische Basisadresse des I/O Slots auf dem PROFIBUS/PROFINET an:
 Wert 0000 bedeutet KEIN aktiver Slot
@@ -1185,9 +1178,9 @@ Korrespondiert mit:
 	MD10364 $MN_HW_ASSIGN_ANA_FASTOUT
 </description>
 </parameter>
-<parameter number="10368" type="DWORD" dim="1" display="HEX">
+<parameter number="10368" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_DIG_FASTOUT</name>
-<brief>Hardware-Zuordnung der externen digitalen NCK-Ausgänge</brief>
+<brief>Hardware-Zuordnung der externen digitalen NC-Ausgänge</brief>
 <description>Bei PROFIBUS/PROFINET:
    1. + 2. Byte geben die logische Basisadresse des I/O Slots auf dem PROFIBUS/PROFINET an:
 Wert 0000 bedeutet KEIN aktiver Slot
@@ -1315,7 +1308,7 @@ PLC-Peripherie muss im allgemeinen immer im Big-Endian-Format (value = 1) angest
 <description>Der Compilezyklenanwender hat die Möglichkeit auf der PLC-Anwendernahtstelle Daten innerhalb eines Datenbausteins frei zu definieren. Dabei legt er als Anwender selbst die Größe seiner Nahtstelle von NCK an PLC fest. Dieses Maschinendatum beschreibt die Länge des Bereiches auf der VDI-Nahtstelle in Bytes, welche die NCK-Outputschnittstelle definiert. Dieses und das MD10400 $MN_CC_VDI_IN_DATA dürfen in Summe den Wert 400 nicht überschreiten.
 </description>
 </parameter>
-<parameter number="10420" type="DWORD" dim="0" display="HEX">
+<parameter number="10420" type="UDWORD" dim="0" display="HEX">
 <name>CC_ASSIGN_FASTOUT_MASK</name>
 <brief>Reservierung externer Ausgänge für Compilezyklen</brief>
 <description>Reservierung schneller HW-Ausgänge für CC-Anwendung
@@ -1329,7 +1322,7 @@ Bit 15: unterdrückt Hochlaufalarm 4275 ( Mehrfach-Zuordnung digitaler Ausgang )
 Bit 31: unterdrückt Hochlaufalarm 4275 ( Mehrfach-Zuordnung analoger Ausgang )
 </description>
 </parameter>
-<parameter number="10430" type="DWORD" dim="0" display="HEX">
+<parameter number="10430" type="UDWORD" dim="0" display="HEX">
 <name>CC_HW_DEBUG_MASK</name>
 <brief>Hardware-Debugmaske für Compilezyklen</brief>
 <description>Einstellung spezieller Reaktionen peripherer HW-Anschaltungen für NCK-Debug
@@ -1425,12 +1418,12 @@ Korrespondiert mit:
 	SD41523 $SN_SW_CAM_PLUS_TIME_TAB_2[n] (Vorhalte- bzw. Verzögerungszeit an den Plusnocken 9 - 16)
 </description>
 </parameter>
-<parameter number="10470" type="DWORD" dim="0" display="HEX">
+<parameter number="10470" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_1</name>
-<brief>HW-Zuordnung für die Ausgabe der Nocken 1-8 an NCK-Peripherie</brief>
-<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NCK-Peripherie ausgegeben werden.
+<brief>HW-Zuordnung für die Ausgabe der Nocken 1-8 an NC-Peripherie</brief>
+<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NC-Peripherie ausgegeben werden.
 
-Mit diesem Maschinendatum erfolgt für die Nockenpaare 1 -8 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NCK-Peripherie.
+Mit diesem Maschinendatum erfolgt für die Nockenpaare 1 -8 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NC-Peripherie.
 
 Weiterhin können mit dem Maschinendatum die zugeordneten Ausgangssignale invertiert werden.
 
@@ -1458,12 +1451,12 @@ Als Byteadresse für die digitalen Ausgänge ist anzugeben:
 2 - 5:          für externe Bytes
 </description>
 </parameter>
-<parameter number="10471" type="DWORD" dim="0" display="HEX">
+<parameter number="10471" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_2</name>
-<brief>HW-Zuordnung für die Ausgabe der Nocken 9-16 an NCK-Peripherie</brief>
-<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NCK-Peripherie ausgegeben werden.
+<brief>HW-Zuordnung für die Ausgabe der Nocken 9-16 an NC-Peripherie</brief>
+<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NC-Peripherie ausgegeben werden.
 
-Mit diesem Maschinendatum erfolgt für die Nockenpaare 9 - 16 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NCK-Peripherie.
+Mit diesem Maschinendatum erfolgt für die Nockenpaare 9 - 16 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NC-Peripherie.
 
 Weiterhin können mit dem Maschinendatum die zugeordneten Ausgangssignale invertiert werden.
 
@@ -1491,12 +1484,12 @@ Als Byteadresse für die digitalen Ausgänge ist anzugeben:
 2 - 5:             für externe Bytes
 </description>
 </parameter>
-<parameter number="10472" type="DWORD" dim="0" display="HEX">
+<parameter number="10472" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_3</name>
-<brief>HW-Zuordnung für die Ausgabe der Nocken 17-24 an NCK-Peripherie</brief>
-<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NCK-Peripherie ausgegeben werden.
+<brief>HW-Zuordnung für die Ausgabe der Nocken 17-24 an NC-Peripherie</brief>
+<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NC-Peripherie ausgegeben werden.
 
-Mit diesem Maschinendatum erfolgt für die Nockenpaare 17 - 24 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NCK-Peripherie.
+Mit diesem Maschinendatum erfolgt für die Nockenpaare 17 - 24 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NC-Peripherie.
 
 Weiterhin können mit dem Maschinendatum die zugeordneten Ausgangssignale invertiert werden.
 
@@ -1524,12 +1517,12 @@ Als Byteadresse für die digitalen Ausgänge ist anzugeben:
 2 - 5:       für externe Bytes
 </description>
 </parameter>
-<parameter number="10473" type="DWORD" dim="0" display="HEX">
+<parameter number="10473" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_4</name>
-<brief>HW-Zuordnung für die Ausgabe der Nocken 25-32 an NCK-Peripherie</brief>
-<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NCK-Peripherie ausgegeben werden.
+<brief>HW-Zuordnung für die Ausgabe der Nocken 25-32 an NC-Peripherie</brief>
+<description>Zusätzlich zur Ausgabe an die PLC kann der Status der Nockensignale an die NC-Peripherie ausgegeben werden.
 
-Mit diesem Maschinendatum erfolgt für die Nockenpaare 25 - 32 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NCK-Peripherie.
+Mit diesem Maschinendatum erfolgt für die Nockenpaare 25 - 32 die Hardwarezuordnung der Minus- und Plus-Nockensignale zu den verwendeten digitalen Ausgangsbytes der NC-Peripherie.
 
 Weiterhin können mit dem Maschinendatum die zugeordneten Ausgangssignale invertiert werden.
 
@@ -1558,10 +1551,10 @@ Als Byteadresse für die digitalen Ausgänge ist anzugeben:
 2 - 5:       für externe Bytes
 </description>
 </parameter>
-<parameter number="10480" type="DWORD" dim="0" display="HEX">
+<parameter number="10480" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_TIMER_FASTOUT_MASK</name>
 <brief>Maske für die Ausgabe von Nockensign. über Timer-Interr. auf NCU</brief>
-<description>Mit diesem Maschinendatum kann für 4 Nockenpaare eine timergesteuerte Ausgabe auf den 4 On-Board-Ausgängen der NCK-Peripherie angewählt werden.
+<description>Mit diesem Maschinendatum kann für 4 Nockenpaare eine timergesteuerte Ausgabe auf den 4 On-Board-Ausgängen der NC-Peripherie angewählt werden.
 
 Dabei werden die Minus- und Plus-Signale eines Nockenpaares "EXKLUSIV-ODER"-verknüpft als ein Signal ausgegeben.
 
@@ -1591,7 +1584,7 @@ Hinweis:
 Steht für die in dem MD angegebenen Nockenpaare mehr als ein Signalwechsel im IPO-Takt an, so bestimmt das Nockenpaar mit der niedrigsten Nummer den Ausgabezeitpunkt. Die anderen Signalwechsel erfolgen zum selben Zeitpunkt.
 </description>
 </parameter>
-<parameter number="10485" type="DWORD" dim="0" display="HEX">
+<parameter number="10485" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_MODE</name>
 <brief>Verhalten der SW-Nocken</brief>
 <description>Bedeutung der einzelnen Bits:
@@ -1657,7 +1650,7 @@ Wirkt z.Z. nur bei MD10485 $MN_SW_CAM_MODE Bit0 = 0
     Hinweis: Bei PROFINET können mehrere Slots nicht zu einem Bereich zusammengefasst werden.
 </description>
 </parameter>
-<parameter number="10502" type="DWORD" dim="1" display="HEX">
+<parameter number="10502" type="UDWORD" dim="1" display="HEX">
 <name>DPIO_RANGE_ATTRIBUTE_IN</name>
 <brief>Attribute der PROFIBUS/PROFINET-Peripherie</brief>
 <description>Attribute der PROFIBUS/PROFINET-Peripherie
@@ -1675,6 +1668,10 @@ Wirkt z.Z. nur bei MD10485 $MN_SW_CAM_MODE Bit0 = 0
   Bit 3: Slot-Lebenszeichen-Alarme
          0: Slot-Lebenszeichen-Alarme werden ausgegeben.
          1: Slot-Lebenszeichen-Alarme werden unterdrückt.
+
+  Bit 4...7: (reserviert für Erweiterungen)
+
+  Bit 8...31: reserviert für die Zuordnung zu Compile-Zyklen-Funktionen (siehe Dokumentation der CC-Funktion)
 </description>
 </parameter>
 <parameter number="10510" type="DWORD" dim="1">
@@ -1693,7 +1690,7 @@ Hinweis: Die Logische Slotadresse muss ausserhalb des PLC-Prozessabbildes liegen
     Hinweis: Bei PROFINET können mehrere Slots nicht zu einem Bereich zusammengefasst werden.
 </description>
 </parameter>
-<parameter number="10512" type="DWORD" dim="1" display="HEX">
+<parameter number="10512" type="UDWORD" dim="1" display="HEX">
 <name>DPIO_RANGE_ATTRIBUTE_OUT</name>
 <brief>Attribute der PROFIBUS/PROFINET-Peripherie</brief>
 <description>Attribute der PROFIBUS/PROFINET-Peripherie
@@ -1710,6 +1707,10 @@ Hinweis: Die Logische Slotadresse muss ausserhalb des PLC-Prozessabbildes liegen
   Bit 3: Slot-Lebenszeichen-Alarme
          0: Slot-Lebenszeichen-Alarme werden ausgegeben.
          1: Slot-Lebenszeichen-Alarme werden unterdrückt.
+
+  Bit 4...7: (reserviert für Erweiterungen)
+
+  Bit 8...31: reserviert für die Zuordnung zu Compile-Zyklen-Funktionen (siehe Dokumentation der CC-Funktion)
 </description>
 </parameter>
 <parameter number="10520" type="DWORD" dim="1">
@@ -1787,7 +1788,7 @@ Korrespondiert mit:
 	MD10541 $MN_COMPAR_TYPE_2
 </description>
 </parameter>
-<parameter number="10540" type="DWORD" dim="0" display="HEX">
+<parameter number="10540" type="UDWORD" dim="0" display="HEX">
 <name>COMPAR_TYPE_1</name>
 <brief>Parametrierung für Komparatorbyte 1</brief>
 <description>Mit diesem MD können für die einzelnen Ausgangsbits (0 bis 7) des Komparatorbytes 1 folgende Einstellungen gesetzt werden:
@@ -1801,12 +1802,12 @@ Korrespondiert mit:
 
 - Bit 16 bis 23:     Zuweisung eines HW-Ausgangsbytes für die Ausgabe der
           Komparatorzustände (Angabe der Byteadresse)
-          Byte = 0:  keine Ausgabe über digitale NCK-Ausgänge
-          Byte = 1:  Ausgabe über digitale Onboard-NCK-Ausgänge (1 bis 4)
-          Byte = 2:  Ausgabe über externe digitale NCK-Ausgänge 9 bis 16
-          Byte = 3:  Ausgabe über externe digitale NCK-Ausgänge 17 bis 24
-          Byte = 4:  Ausgabe über externe digitale NCK-Ausgänge 25 bis 32
-          Byte = 5:  Ausgabe über externe digitale NCK-Ausgänge 33 bis 40
+          Byte = 0:  keine Ausgabe über digitale NC-Ausgänge
+          Byte = 1:  Ausgabe über digitale Onboard-NC-Ausgänge (1 bis 4)
+          Byte = 2:  Ausgabe über externe digitale NC-Ausgänge 9 bis 16
+          Byte = 3:  Ausgabe über externe digitale NC-Ausgänge 17 bis 24
+          Byte = 4:  Ausgabe über externe digitale NC-Ausgänge 25 bis 32
+          Byte = 5:  Ausgabe über externe digitale NC-Ausgänge 33 bis 40
 
 - Bit 24 bis 31:     Invertiermaske für die Ausgabe der Komparatorzustände (Bit 0 bis 7)
           Bit = 0:   Ausgangsbit wird nicht invertiert
@@ -1820,7 +1821,7 @@ Korrespondiert mit:
 	MD10360 $MN_FASTIO_DIG_NUM_OUTPUTS
 </description>
 </parameter>
-<parameter number="10541" type="DWORD" dim="0" display="HEX">
+<parameter number="10541" type="UDWORD" dim="0" display="HEX">
 <name>COMPAR_TYPE_2</name>
 <brief>Parametrierung für Komparatorbyte 2</brief>
 <description>Mit diesem MD können für die einzelnen Ausgangsbits (0 bis 7) des Komparatorbytes 2 folgende Einstellungen gesetzt werden:
@@ -1834,12 +1835,12 @@ Korrespondiert mit:
 
 - Bit 16 bis 23: Zuweisung eines HW-Ausgangsbytes für die Ausgabe der Komparatorzustände (Angabe der Byteadresse)
 
-- Byte = 0:        keine Ausgabe über digitale NCK-Ausgänge
-    Byte = 1:        Ausgabe über digitale Onboard-NCK-Ausgänge (1 bis 4)
-    Byte = 2:        Ausgabe über externe digitale NCK-Ausgänge 9 bis 16
-    Byte = 3:        Ausgabe über externe digitale NCK-Ausgänge 17 bis 24
-    Byte = 4:        Ausgabe über externe digitale NCK-Ausgänge 25 bis 32
-    Byte = 5:        Ausgabe über externe digitale NCK-Ausgänge 33 bis 40
+- Byte = 0:        keine Ausgabe über digitale NC-Ausgänge
+    Byte = 1:        Ausgabe über digitale Onboard-NC-Ausgänge (1 bis 4)
+    Byte = 2:        Ausgabe über externe digitale NC-Ausgänge 9 bis 16
+    Byte = 3:        Ausgabe über externe digitale NC-Ausgänge 17 bis 24
+    Byte = 4:        Ausgabe über externe digitale NC-Ausgänge 25 bis 32
+    Byte = 5:        Ausgabe über externe digitale NC-Ausgänge 33 bis 40
 
 - Bit 24 bis 31:    Invertiermaske für die Ausgabe der Komparatorzustände (Bit 0 bis 7)
     Bit = 0:         Ausgangsbit wird nicht invertiert
@@ -1946,7 +1947,7 @@ bezogen werden.
 Bei Werte ungleich 0 wird die Achse gespiegelt, wenn sie noch nicht gespiegelt ist. Bei einem Wert gleich 0 wird eine Spiegelung ausgeschaltet.
 </description>
 </parameter>
-<parameter number="10613" type="DWORD" dim="0" display="HEX">
+<parameter number="10613" type="UDWORD" dim="0" display="HEX">
 <name>NCBFRAME_RESET_MASK</name>
 <brief>Aktive NCU-globale Basisframes nach Reset</brief>
 <description>Bitmaske für die Reseteinstellung der NCU-globalen Basisframes, die im Kanal eingerechnet werden.
@@ -1958,7 +1959,7 @@ Bei MD20110 $MC_RESET_MODE_MASK Bit0 = 1 und BIT14 = 0
 	Das Gesamt-Basisframe wird bei Reset abgewählt.
 </description>
 </parameter>
-<parameter number="10615" type="DWORD" dim="0" display="HEX">
+<parameter number="10615" type="UDWORD" dim="0" display="HEX">
 <name>NCBFRAME_POWERON_MASK</name>
 <brief>Globale Basisframes nach Power On zurücksetzen</brief>
 <description>Mit diesem Maschinendatum wird festgelegt, ob globale Basisframes bei Power On in der Datenhaltung zurückgesetzt werden.
@@ -1975,7 +1976,7 @@ Korrespondiert mit:
 	MD24004 $MC_CHBFRAME_POWERON_MASK
 </description>
 </parameter>
-<parameter number="10616" type="DWORD" dim="0" display="HEX">
+<parameter number="10616" type="UDWORD" dim="0" display="HEX">
 <name>MAPPED_FRAME_MASK</name>
 <brief>Freigabe Frame-Mapping</brief>
 <description>Bitmaske von kanalspezifischen Datenhaltungsframes, deren axiale Frames auf andere axiale Frames abgebildet werden können.
@@ -1998,7 +1999,7 @@ Bit13:	$P_UIFR	Einstellbare Frames
 Bit14:	$P_GFR		Grinding Frames
 </description>
 </parameter>
-<parameter number="10617" type="DWORD" dim="0" display="HEX">
+<parameter number="10617" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_SAVE_MASK</name>
 <brief>Verhalten von Frames bei SAVE-Unterprogrammen</brief>
 <description>Mit diesem Maschinendatum wird festgelegt, welche Frames beim Rücksprung aus einem Unterprogramm mit SAVE-Attribut restauriert werden.
@@ -2028,12 +2029,12 @@ Wert = 1:
 Beim Unterprogramm-Rücksprung wird der Grinding Frame zum Zeitpunkt des Unterprogrammaufrufs reaktiviert.
 </description>
 </parameter>
-<parameter number="10618" type="BYTE" dim="0" display="HEX">
+<parameter number="10618" type="UBYTE" dim="0" display="HEX">
 <name>PROTAREA_GEOAX_CHANGE_MODE</name>
 <brief>Schutzbereich beim Umschalten von Geometrieachsen</brief>
 <description>Mit diesem Maschinendatum wird festgelegt, ob beim Wechsel einer Transformation oder beim Geoachstausch eventuell aktive Schutzbereiche erhalten bleiben oder deaktiviert werden.
 
-Das Maschindatum ist bitkodiert mit folgenden Bedeutungen:
+Das Maschinendatum ist bitkodiert mit folgenden Bedeutungen:
 
 Bit 0 = 0:
 	Schutzbereiche werden bei Transformationswechsel deaktiviert.
@@ -2074,6 +2075,17 @@ Bit 1 = 1:
 
 - Ebenfalls unzulässig sind Schlüsselworte (z.B. DEF, SPOS etc.) und  vordefinierte Bezeichner (z.B. ASPLINE, SOFT).
 - Ein Winkelbezeichner besteht aus einem gültigen Adressbuchstaben (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), gefolgt von einer optionalen numerischen Erweiterung (1-99).
+</description>
+</parameter>
+<parameter number="10621" type="DOUBLE" dim="0">
+<name>COLLISION_PREP_CALC_TIME</name>
+<brief>Maximale Rechenzeit der präparativen Kollisionsprüfung.</brief>
+<description>Mit diesem Maschinendatum wird die maximale Rechenzeit der präparativen Kollisionsprüfung eingestellt.
+&gt;0: nach der eingestellten Zeit wird die präparativen Kollisionsprüfung des aktuellen Satzes unterbrochen. Damit wird der externen Kommunikation Rechenzeit zur Verfügung gestellt.
+  0:  die präparativen Kollisionsprüfung wird nicht unterbrochen. Damit wird der externen Kommunikation während der Kollisionsprüfung keine Rechenzeit zur Verfügung gestellt.
+      In Extremfällen kann ein Kommunikationsausfall zwischen HMI und NCK entstehen.
+
+Es wird ein Wert von 0.5s empfohlen.
 </description>
 </parameter>
 <parameter number="10622" type="DOUBLE" dim="0">
@@ -2268,13 +2280,7 @@ dem mit diesem Datum eingestellten Faktor und der mit den MD33100 $MA_COMPRESS_P
 Als minimale Abtastzeit kann, die mit dem MD10680 $MN_MIN_CONTOUR_SAMPLING_TIME eingestellte Zeit nicht unterschritten werden.
 </description>
 </parameter>
-<parameter number="10690" type="DOUBLE" dim="0">
-<name>DRAW_POS_TRIGGER_TIME</name>
-<brief>Triggerzeit für Ipo-event 'DRAW_POS'</brief>
-<description>Es lässt sich damit eine Zeit einstellen, innerhalb der auf jeden Fall ein Ipo-event zur Positionsausgabe generiert wird. Wird hier ein Wert eingetragen, der kleiner als der aktuelle Interpolationstakt ist, so wird  der Trigger nur bei komplexen Geometrien gemäß der maximalen Sehnenlänge und bei nichtkomplexen Geometrien im letzten Interpolationspunkt aktiviert.
-</description>
-</parameter>
-<parameter number="10700" type="BYTE" dim="0" display="HEX">
+<parameter number="10700" type="UBYTE" dim="0" display="HEX">
 <name>PREPROCESSING_LEVEL</name>
 <brief>Programmvorverarbeitungsstufe</brief>
 <description>Bit 0= 0:
@@ -2308,7 +2314,7 @@ Literatur:
 	/PG/, "Programmieranleitung Grundlagen" (EXTERN-Deklaration)
 </description>
 </parameter>
-<parameter number="10702" type="DWORD" dim="0" display="HEX">
+<parameter number="10702" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_SINGLEBLOCK_MASK</name>
 <brief>Einzelsatzstopp verhindern</brief>
 <description>Dieses Maschinendatum verhindert, dass auf bestimmten Sätzen  bei Einzelsatz
@@ -2447,7 +2453,7 @@ Achtung:
 	Allerdings wird die Funktion erst mit einem im Programmablauf "späteren" Satz wirksam! Mit dem nächsten (impliziten) StopRe-Satz wird die Funktion wirksam.
 </description>
 </parameter>
-<parameter number="10707" type="DWORD" dim="0" display="HEX">
+<parameter number="10707" type="UDWORD" dim="0" display="HEX">
 <name>PROG_TEST_MASK</name>
 <brief>Programmtest Modi</brief>
 <description>Bit-Codierte Maske für Programmtest Betrieb
@@ -2464,7 +2470,7 @@ Programmtest in der Simulation wird immer über den NCKMode PI aktiviert.
 Programmtest-Satzsuchlauf wird immer über den Find-Pi aktiviert.
 </description>
 </parameter>
-<parameter number="10708" type="DWORD" dim="0" display="HEX">
+<parameter number="10708" type="UDWORD" dim="0" display="HEX">
 <name>SERUPRO_MASK</name>
 <brief>Satzsuchlauf Modi</brief>
 <description>Bit-Codierte Maske für Satzsuchlauf via Programm-Test (Abk. SERUPRO).
@@ -2741,7 +2747,7 @@ $C_DL_PROG : TRUE wenn Adresse DL programmiert wurde
 $C_DL      : Wert der Adresse DL
 </description>
 </parameter>
-<parameter number="10719" type="DWORD" dim="0" display="HEX">
+<parameter number="10719" type="UDWORD" dim="0" display="HEX">
 <name>T_NO_FCT_CYCLE_MODE</name>
 <brief>Parametrierung der T-Funktionsersetzung</brief>
 <description>Mit diesem Maschinendatum wird die Bearbeitung des Substitutionsunterprogramms für die Werkzeug  bzw. Werkzeugkorrekturanwahl parametriert.
@@ -2793,7 +2799,7 @@ Achtung: Abhängig vom Maschinendatum MD10721 $MN_OPERATING_MODE_EXTENDED wird un
 1 = Anwahl der Betriebsart JOG, wenn PLC-Signal "Retract-Daten verfügbar" (&lt;Retract_Daten_verfuegbar/&gt;) in mindestens einem Kanal der Betriebsartengruppe gesetzt ist
 </description>
 </parameter>
-<parameter number="10722" type="DWORD" dim="0" display="HEX">
+<parameter number="10722" type="UDWORD" dim="0" display="HEX">
 <name>AXCHANGE_MASK</name>
 <brief>Parametrierung des Achstausch-Verhaltens</brief>
 <description>Über dieses Maschinendatum kann man den Achstausch-Verhalten
@@ -2822,7 +2828,7 @@ Bit3 = 0 bedeutet, dass für jede Achse von der PLC ein Achstausch angefordert we
 </parameter>
 <parameter number="10724" type="STRING" dim="1" readonly="true">
 <name>NC_SYS_CODE_CONF_NAME_TAB</name>
-<brief>Liste interner NC-Codes</brief>
+<brief>Liste umprojektierter NC-Codes</brief>
 <description>Bezeichner-Liste interner NC-Codes
 reserviert für interne Applikationen
 </description>
@@ -2833,7 +2839,7 @@ reserviert für interne Applikationen
 <description>Das Datum bestimmt, ob die Signale der VDI-Nahtstelle, die den JOG Mode ( kontinuierlich, INC10000, ... INC1 ) einstellen, als Schalter (level triggered) oder als Taster (edge triggered) wirken. Im letzteren Fall wird NCK-intern eine Selbsthaltung der zuletzt gedrückten Taste eingestellt.
 </description>
 </parameter>
-<parameter number="10735" type="DWORD" dim="0" display="HEX">
+<parameter number="10735" type="UDWORD" dim="0" display="HEX">
 <name>JOG_MODE_MASK</name>
 <brief>Einstellungen für Betriebsart Jog</brief>
 <description>Bit 0:
@@ -2909,7 +2915,7 @@ Wertebereich:
 
 </description>
 </parameter>
-<parameter number="10760" type="DWORD" dim="0" display="HEX">
+<parameter number="10760" type="UDWORD" dim="0" display="HEX">
 <name>G53_TOOLCORR</name>
 <brief>Wirkungsweise bei G53, G153 und SUPA</brief>
 <description>Mit diesem MD wird festgelegt, ob bei den Sprachbefehlen G53, G153 und SUPA auch die Werkzeuglängen- und die Werkzeugradiuskorrektur unterdrückt werden soll.
@@ -2994,7 +3000,7 @@ Einschränkungen: siehe MD10715 $MN_M_NO_FCT_CYCLE
 	MD26008 $MC_NIBBLE_PUNCH_CODE
 </description>
 </parameter>
-<parameter number="10808" type="DWORD" dim="0" display="HEX">
+<parameter number="10808" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_INTERRUPT_BITS_M96</name>
 <brief>Interruptprogramm (ASUP) aktivieren</brief>
 <description>Mit dem Setzen der verschiedenen Bits kann der Ablauf der mit M96 P.. aktivierten Interruptroutine beeinflusst werden.
@@ -3016,7 +3022,7 @@ Bit 3 = 1
 	Interrupt-Programm erst am Ende des Bearbeitungszyklus starten.
 </description>
 </parameter>
-<parameter number="10810" type="BYTE" dim="1" display="HEX">
+<parameter number="10810" type="UBYTE" dim="1" display="HEX">
 <name>EXTERN_MEAS_G31_P_SIGNAL</name>
 <brief>Zuordnung der Messeingänge für G31 P..</brief>
 <description>Mit dem Maschinendatum wird eine Zuordnung der Messeingänge 1 und 2 zu den mit G31 P1 ( - P4) programmierten P-Nummern festgelegt. Das Maschinendatum ist Bit- Codiert. Es werden nur Bit 0 und Bit 1 ausgewertet. Ist z. B. in MD10810 $MN_EXTERN_MEAS_G31_P_SIGNAL[1] das Bit 0 = 1, wird mit G31 P2 der 1. Messeingang aktiviert. Mit MD10810 $MN_EXTERN_MEAS_G31_P_SIGNAL[3]=2 wird mit G31 P4 der 2. Messeingang aktiviert.
@@ -3116,7 +3122,7 @@ Im Konfliktfall wird Alarm 14016 abgesetzt.
 <description>Pfad des Ausgabegerätes für ISOPRINT
 </description>
 </parameter>
-<parameter number="10831" type="DWORD" dim="0" display="HEX">
+<parameter number="10831" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_PRINT_MODE</name>
 <brief>Ausgabegerät für ISOPRINT parametrieren</brief>
 <description>Ausgabegerät für ISOPRINT parametrieren
@@ -3217,7 +3223,7 @@ Aus dem programmierten T-Wort werden die über MD10889 $MN_EXTERN_DIGITS_OFFSET_N
 Die folgenden Stellen adressieren die Werkzeugnummer.
 </description>
 </parameter>
-<parameter number="10890" type="DWORD" dim="0" display="HEX">
+<parameter number="10890" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_TOOLPROG_MODE</name>
 <brief>Werkzeugwechsel-Programm bei externer Sprache</brief>
 <description>Konfiguration der Programmierung des Werkzeugwechsels bei externer Programmiersprache:
@@ -3360,7 +3366,7 @@ Korrespondiert mit:
 	MD30310 $MA_ROT_IS_MODULO (Moduloumwandlung für Rundachse)
 </description>
 </parameter>
-<parameter number="10940" type="DWORD" dim="0" display="HEX">
+<parameter number="10940" type="UDWORD" dim="0" display="HEX">
 <name>INDEX_AX_MODE</name>
 <brief>Einstellungen für Teilungsposition</brief>
 <description>Beeinflusst die Anzeige von Teilungspositionen (AA_ACT_INDEX_AX_POS_NO und aaActIndexAxPosNo).
@@ -3382,10 +3388,9 @@ einer Gruppe zugeordnet werden können. Es zählen nur die anwenderdefinierten Hil
 
 Korrespondiert mit:
 	MD22010 $MC_AUXFU_ASSIGN_TYPE[n].
-In das MD ist die Anzahl der Hilfsfunktionen,  die auf die Gruppen verteilt wurden, einzutragen. Es zählen nur die kundenspezifischen Hilfsfunktionen, nicht die vordefinierten Hilfsfunktionen.
 </description>
 </parameter>
-<parameter number="11110" type="DWORD" dim="1" display="HEX">
+<parameter number="11110" type="UDWORD" dim="1" display="HEX">
 <name>AUXFU_GROUP_SPEC</name>
 <brief>Hilfsfunktionsgruppenspezifikation</brief>
 <description>Hiermit wird das Ausgabeverhalten der Hilfsfunktionen einer Gruppe spezifiziert.
@@ -3402,7 +3407,7 @@ Bit 7 = 1	Ausgabe am Satzende
 Bit 8 = 1	keine Ausgabe nach Satzsuchlauf Type 1,2,4
 Bit 9 = 1	Aufsammlung während Satzsuchlauf Type 5 (SERUPRO)
 Bit 10 = 1 keine Ausgabe während Satzsuchlauf Type 5 (SERUPRO)
-Bit 11 = 1	kanalübergreifende Hilfsfunktion (SERUPRO)
+Bit 11 = 1	kanalübergreifende Hilfsfunktion während Satzsuchlauf Type 5 (SERUPRO)
 Bit 12 = 1	Ausgabe erfolgte über Synchronaktion
 Bit 13 = 1 implizite Hilfsfunktion
 Bit 14 = 1 aktives M01
@@ -3437,7 +3442,7 @@ MD = 0: Anwenderdaten der Hauptprogrammebene wirken nur in dieser Ebene.
 MD = 1: Anwenderdaten der Hauptprogrammebene sind auch in den Unterprogrammebenen sichtbar.
 </description>
 </parameter>
-<parameter number="11140" type="DWORD" dim="1" display="HEX">
+<parameter number="11140" type="UDWORD" dim="1" display="HEX">
 <name>GUD_AREA_SAVE_TAB</name>
 <brief>Zusätzliche Sicherung für GUD-Bausteine</brief>
 <description>Diese Datum gibt an, mit welchen Bereich der Inhalt des GUD Bausteins zusätzlich gesichert wird.
@@ -3597,7 +3602,7 @@ Das Maschinendatum kann mit den Werten 0 und 1 nur beschrieben werden, wenn auch
 Das Maschinendatum kann mit den Werten 0,1 und 2 nur beschrieben werden, wenn auch das entsprechende Kennwort aktiv ist.
 </description>
 </parameter>
-<parameter number="11190" type="DWORD" dim="0" display="HEX">
+<parameter number="11190" type="UDWORD" dim="0" display="HEX">
 <name>IBN_LOAD_FASTOPT</name>
 <brief>Optimierung der Serien-Inbetriebnahme</brief>
 <description>Optimierung der Serien-Inbetriebnahme
@@ -3614,7 +3619,7 @@ Korrespondiert mit:
  MD12551 $MN_TIMEOUT_LINK_COMMUNICATION
 </description>
 </parameter>
-<parameter number="11200" type="BYTE" dim="0" display="HEX">
+<parameter number="11200" type="UBYTE" dim="0" display="HEX">
 <name>INIT_MD</name>
 <brief>Laden der Standard-Maschinendaten beim nächsten Hochlauf</brief>
 <description>Nach dem Setzen des MD11200 $MN_INIT_MD muss ein Power On ausgelöst werden. Beim Hochlauf wird die Funktion ausgeführt und das MD wieder auf den Wert "0" zurückgesetzt.
@@ -3648,7 +3653,7 @@ Speicherkonfigurierende MD sind:
 	MD 38000 - 38999 (achsspezifische MD)
 </description>
 </parameter>
-<parameter number="11202" type="BYTE" dim="0" display="HEX">
+<parameter number="11202" type="UBYTE" dim="0" display="HEX">
 <name>MD_MODE_MASK</name>
 <brief>Verhalten von Maschinendatenänderungen</brief>
 <description>Verhalten von Maschinendatenänderungen
@@ -3656,7 +3661,7 @@ Bit 0 (LSB): bei Lin-/Rotachsprojektierung keine Initialwerte für achstypabhängi
 Durch das Vorhandensein von jeweils einem sinnvollen Defaultwert für eine Linear- oder Rundachse ist es für axiale Maschinendaten möglich dem Anwender in Falle eine Inbetriebnahme die Arbeit zu erleichtern. Mit dem Umschaltvorgang (Lin -&gt; Rot, bzw. Rot -&gt; Lin) werden die jeweilig projektierten Defaultwerte beim nächsten Warmstart der Steuerung als Aktualwerte aktiv.
 </description>
 </parameter>
-<parameter number="11210" type="BYTE" dim="0" display="HEX">
+<parameter number="11210" type="UBYTE" dim="0" display="HEX">
 <name>UPLOAD_MD_CHANGES_ONLY</name>
 <brief>Maschinendaten-Sicherung nur von geänderten Maschinendaten</brief>
 <description>Für die Erstellung von Standardarchiven (ARC) und beim Kopieren von 'NC-Aktive-Daten' kann eingestellt werden ob alle Daten oder nur die von der Standardeinstellung abweichenden Daten ausgegeben werden.
@@ -3693,25 +3698,6 @@ Bit7 Synchronaktions-GUD (nur für INI-Files)
 
 Wirksamkeit: Die Veränderung des Datums wird beim Start des Uploads für den nächsten Bereich wirksam.
 Die Einstellungen wirken nur, falls gilt MD11212 $MN_UPLOAD_CHANGES_ONLY=FALSE.
-Anwahl differentieller MD-Upload:
-Bit0(LSB)	Wirksamkeit des differentiellen Upload bei TEA-Files (Maschinendaten-Files)
-		0: alle Daten werden ausgegeben
-		1: nur gegenüber dem einkompilierten Wert geänderte MD's werden ausgegeben
-Bit1		Wirksamkeit des differentiellen Upload bei INI-Files
-		0: alle Daten werden ausgegeben
-		1: nur gegenüber dem einkompilierten Wert geänderte MD's werden ausgegeben
-Bit2		Änderung eines Feldelementes
-		0: komplette Array werden ausgeben
-		1: nur geänderte Feldelemente eines Arrays werden ausgeben
-Bit3		R-Parameter (nur für INI-Files)
-		0: alle R-Parameter werden ausgeben
-		1: nur R-Parameter ungleich '0' werden ausgeben
-Bit4		Frames (nur für INI-Files)
-		0: alle Frames werden ausgeben
-		1: nur Frames, die keine Nullframes sind, werden ausgeben.
-Bit5		Werkzeugdaten (Schneidenparameter) (nur für INI-Files)
-		0: alle Werkzeugdaten werden ausgeben
-		1: nur Werkzeugdaten ungleich '0' werden ausgeben.
 </description>
 </parameter>
 <parameter number="11212" type="BOOLEAN" dim="0">
@@ -3743,7 +3729,7 @@ MD wählbar:
 2: Die Bearbeitung läuft trotz eventueller Fehler weiter. Am Ende der Bearbeitung wird ein Alarm mit der Anzahl der Fehler ausgegeben
 </description>
 </parameter>
-<parameter number="11230" type="BYTE" dim="0" display="HEX">
+<parameter number="11230" type="UBYTE" dim="0" display="HEX">
 <name>MD_FILE_STYLE</name>
 <brief>Struktur der Maschinendaten-Sicherungsdateien</brief>
 <description>Aussehen eines Maschinendatenfiles beim 'upload'
@@ -3809,7 +3795,7 @@ Wert 2:
 <description>Bearbeitungsmode von Ini-Files im Werkstückdirectory:
 
 Wert = 0:
-	Beim ersten NC-Start nach Werkstückanwahl wird ein im Werkstückdirectory abgelegtes INI-File _N_werkstück_INI ausgeführt.
+	Beim ersten NC-Start nach Werkstückanwahl wird ein im Werkstückdirectory abgelegtes und mit dem Namen des Werkstücks versehenes INI-File ausgeführt.
 Wert = 1:
 	Beim ersten NC-Start nach Werkstückanwahl werden INI-Files mit dem Namen des angewählten Teileprogramms und den Extensions
 
@@ -3834,7 +3820,7 @@ Wert 0: Es wird kein Modell erzeugt.
 Wert 1: Nach jeder Veränderung (samt Aktivierung) der 3d-Schutzbereiche wird ein Maschinenmodell im Anwenderverzeichnis /_N_VRML_DIR mit Namen _N_VRMLMODEL_WRL erzeugt.
 </description>
 </parameter>
-<parameter number="11294" type="DWORD" dim="0" display="HEX">
+<parameter number="11294" type="UDWORD" dim="0" display="HEX">
 <name>SIEM_TRACEFILES_CONFIG</name>
 <brief>Konfiguration der Tracefiles SIEM*</brief>
 <description>Konfiguration der Tracefiles SIEM*
@@ -3848,26 +3834,6 @@ Wert 1: Nach jeder Veränderung (samt Aktivierung) der 3d-Schutzbereiche wird ein
 	Beim Upload   sollen Zusatzinformationen über die gesendeten  PDUs in _N_SIEMDOMAINSEQ_MPF eingetragen werden
   Bit5:
 	Beim Upload   sollen Zusatzinformationen über die empfangenen PDUs in _N_SIEMDOMAINSEQ_MPF eingetragen werden
-</description>
-</parameter>
-<parameter number="11295" type="BYTE" dim="1">
-<name>PROTOC_FILE_MEM</name>
-<brief>Speichertyp von Protokoll-Files</brief>
-<description>Speichertyp in dem der Inhalt von Protokoll-Files abgelegt wird.
-0: SRAM (steht bei den aktuellen Steuerungsvarianten nicht mehr zur Verfügung, deshalb ist das MD invisible!)
-1: DRAM Bereich TMP
-
-Die einzelnen Werte betreffen die User der Protokollierfunktion, welche folgenden Funktionen zugeordnet sind:
-0: Reserviert für Systemfunktionen: Mitzeichnen, Simulation, Synchronaktionen-Analyse
-1: Reserviert für Systemfunktionen: Ermittlung der Programm-Laufzeiten, Multi-Step-Editor
-2: Reserviert für OEM-Applikationen
-3: Reserviert für OEM-Applikationen
-4: Reserviert für OEM-Applikationen
-5: Reserviert für Systemfunktionen: Trace
-6: Reserviert für Systemfunktionen: Trace
-7: Reserviert für Systemfunktionen: Trace
-8: Reserviert für Systemfunktionen: Trace
-9: Reserviert für Systemfunktionen: Fahrtenschreiber
 </description>
 </parameter>
 <parameter number="11297" type="BYTE" dim="1">
@@ -3939,8 +3905,6 @@ Wert &gt; 0:
 	sofortiges Fahren in Gegenrichtung, wenn das Handrad um mindestens die angegebene Anzahl Impulse in Gegenrichtung gedreht wird.
 
 Ob dieses Maschinendatum auch für das Handradfahren bei DRF wirksam ist, ist von Bit10 des MD20624 $MC_HANDWH_CHAN_STOP_COND abhängig.
-  0:	kein sofortiges Fahren in Gegenrichtung
-&gt;0:	sofortiges Fahren in Gegenrichtung, wenn das Handrad um mindestens die angegebene Anzahl Impulse in Gegenrichtung gedreht wird
 </description>
 </parameter>
 <parameter number="11320" type="DOUBLE" dim="1">
@@ -3956,10 +3920,6 @@ Korrespondiert mit:
                     MD31090 $MA_JOG_INCR_WEIGHT
                     (Bewertung eines Inkrements einer  Maschinenachse bei
                     INC/Hand)
-Mit diesem MD werden die angeschlossenen Handräder an die Steuerung angepasst.
-Es ist die Anzahl der vom Handrad erzeugten Impulse je Handradrasterstellung einzugeben. Die Handrad-Pulsbewertung ist einzeln für jedes vorhandene Handrad  (1 bis 2) festzulegen.
-Mit dieser Anpassung wirkt jede Handrad-Rasterstellung wie eine Betätigung der Verfahrtaste beim inkrementellen Verfahren.
-Mit Eingabe eines negativen Wertes wird eine Richtungsumkehr der Handrad-Drehrichtung bewirkt.
 </description>
 </parameter>
 <parameter number="11322" type="DOUBLE" dim="1">
@@ -4071,13 +4031,9 @@ Wie Wert = 2, es wird jedoch nicht auf die letztmögliche Rasterposition vor eine
 Wert = 7:
 Wie Wert = 3, es wird jedoch nicht auf die letztmögliche Rasterposition vor einer Begrenzung angehalten, sondern die Begrenzung wird angefahren.
 
-0:	Die Vorgaben vom Handrad sind Geschwindigkeitsvorgaben. Das Abbremsen bei Handradstillstand erfolgt auf kürzestem Weg.
-1:	Die Vorgaben vom Handrad sind Wegvorgaben. Es gehen keine Impulse verloren. Infolge einer Begrenzung auf die maximal zulässige Geschwindigkeit kann es zu einem Nachlaufen der Achsen kommen.
-2:	Wirkung wie bei Wert=0, jedoch mit längerem Abbremsweg bei Handradstillstand.
-3:	Wirkung wie bei Wert=1, jedoch mit längerem Abbremsweg bei Handradstillstand.
 </description>
 </parameter>
-<parameter number="11350" type="BYTE" dim="1">
+<parameter number="11350" type="DWORD" dim="1">
 <name>HANDWHEEL_SEGMENT</name>
 <brief>Handradsegment</brief>
 <description>Maschinendatum gibt an, an welchem
@@ -4134,7 +4090,7 @@ SEGMENT_ETHERNET:
 
 </description>
 </parameter>
-<parameter number="11380" type="DWORD" dim="0" display="HEX">
+<parameter number="11380" type="UDWORD" dim="0" display="HEX">
 <name>MONITOR_ADDRESS</name>
 <brief>Test-MD zum Ändern von NCK-Code oder Daten für Safety Integrated</brief>
 <description>Adresse einer NCU-Speicherzelle, deren Inhalt in den MD11382 $MN_MONITOR_DISPLAY_INT und MD11384 $MN_MONITOR_DISPLAY_REAL angezeigt wird.
@@ -4147,7 +4103,7 @@ Durch einen Warmstart wird die Adresse auf ihren Startwert zurückgesetzt.
 Sie zeigt dann auf eine beliebig beschreibbare und lesbare Speicherzelle, die von keiner anderen Systemfunktion benutzt wird.
 </description>
 </parameter>
-<parameter number="11382" type="DWORD" dim="0" display="HEX">
+<parameter number="11382" type="UDWORD" dim="0" display="HEX">
 <name>MONITOR_DISPLAY_INT</name>
 <brief>INTEGER-Anzeige der adressierten Zelle</brief>
 <description>INTEGER-Anzeige der adressierten Zelle SW3.2
@@ -4166,7 +4122,7 @@ Dieses MD stellt den Inhalt der NCU-Speicherzelle dar, die im MD11380 $MN_MONITO
 Dieses MD ist ein Anzeige-MD, dessen Inhalt bei jedem Anzeige-Refresh neu gelesen wird. Ein Schreiben auf dieses MD wird ignoriert (ohne Alarm).
 </description>
 </parameter>
-<parameter number="11386" type="DWORD" dim="0" display="HEX">
+<parameter number="11386" type="UDWORD" dim="0" display="HEX">
 <name>MONITOR_INPUT_INT</name>
 <brief>INTEGER-Eingabe für adressierte Zelle</brief>
 <description>INTEGER-Eingabe für adressierte Zelle, SW3.2
@@ -4208,7 +4164,7 @@ Vorsicht!!!
 	Werden Daten auf unbekannte Adressen geschrieben, kann man auch das NCK-Systemprogramm zerstören! Das kann unvorhersehbare Folgen haben (Gefährdung von Maschine und Personen!). Wenn die Maschine und Anwesende eine solche Aktion unbeschadet überstehen, kann das Systemprogramm in der Regel durch Power off/on wiederhergestellt werden.
 </description>
 </parameter>
-<parameter number="11398" type="BYTE" dim="0" display="HEX">
+<parameter number="11398" type="UBYTE" dim="0" display="HEX">
 <name>AXIS_VAR_SERVER_SENSITIVE</name>
 <brief>Verhalten des Axis-Var-Servers</brief>
 <description>Der Axis-Variablen-Server liefert die Daten für die BTSS-Bausteine SMA/SEMA, SGA/SEGA und SSP.
@@ -4220,7 +4176,7 @@ Für Debug-Zwecke kann mit Hilfe dieses Maschinendatums der Axis-Var-Server sensi
 1: Fehler-Meldung
 </description>
 </parameter>
-<parameter number="11400" type="DWORD" dim="0" display="HEX">
+<parameter number="11400" type="UDWORD" dim="0" display="HEX">
 <name>TRACE_SELECT</name>
 <brief>Aktivierung interner Trace-Funktionen</brief>
 <description>Bitleiste zur Aktivierung interner Trace-Funktionen für NCK-Zeitmessungen, Analogausgabe von Variablen etc.
@@ -4232,7 +4188,7 @@ Für Debug-Zwecke kann mit Hilfe dieses Maschinendatums der Axis-Var-Server sensi
 <description>Aktivierung der TCI-Schnittstelle für den NRKpro steuern. Dadurch werden die TCI- und Kerntask-Trace-Baugruppen aktiviert .
 </description>
 </parameter>
-<parameter number="11410" type="DWORD" dim="0" display="HEX">
+<parameter number="11410" type="UDWORD" dim="0" display="HEX">
 <name>SUPPRESS_ALARM_MASK</name>
 <brief>Maske zur Unterstützung spezieller Alarmausgaben</brief>
 <description>Maske zur Unterdrückung spezieller Alarmausgaben
@@ -4319,7 +4275,7 @@ Bit31:
 	Alarm 16774 "Kanal %1 Achse %2 Synchronisation abgebrochen"
 </description>
 </parameter>
-<parameter number="11411" type="DWORD" dim="0" display="HEX">
+<parameter number="11411" type="UDWORD" dim="0" display="HEX">
 <name>ENABLE_ALARM_MASK</name>
 <brief>Aktivierung von Warnungen</brief>
 <description>Maske zum Erzeugen von Alarmen, die normalerweise unterdrückt werden.
@@ -4373,7 +4329,7 @@ Wenn dieses MD nicht gesetzt ist, werden die NCSTART Alarmmeldungen nicht mit "A
 Dieses MD soll die Kompatibilität mit dem Systemverhalten herstellen.
 </description>
 </parameter>
-<parameter number="11415" type="DWORD" dim="0" display="HEX">
+<parameter number="11415" type="UDWORD" dim="0" display="HEX">
 <name>SUPPRESS_ALARM_MASK_2</name>
 <brief>Maskierung von Alarmausgaben</brief>
 <description>Maske zur Unterdrückung spezieller Alarmausgaben
@@ -4426,9 +4382,14 @@ Bit	Hex.	Bedeutung
 21: 0x200000	26295 "Schutzbereich %1 wurde nur grob approximiert."
 22: 0x400000	 6030 "Hinweisalarm:Kanal-/Achs-Aktivierung oder Speicheroption (MD19240, 19250) fordert mehr Speicher an, als verfügbar ist"
 23: 0x800000  6035 "Hinweisalarm: bei Kaltstart wird erkannt, dass weniger freier Speicher verfügbar ist, als definiert mit MD18050, 18060"
+24: 0x1000000 380040 "PROFIBUS/PROFINET: Bus %3, Projektierfehler %1, Parameter %2"
+              PROFINET-device-spezifische Konsistenzkontrollen bzgl. Ti/To werden abgeschaltet.
+              Damit ist der Inbetriebnehmer bzw. Anwender selbst verantwortlich, dass Achsen und dezentrale IOs am PROFINET synchron zu einander arbeiten, z.B. miteinander interpolieren können.
+25: 0x2000000 16736/22282 "Hinweisalarme Kanal %1 Satz %2: Prog. Gewindesatz zur Einhaltung der Dynamikgrenzwerte zu kurz %3, benötigt %4
+              Alarme bzgl. zu kurzer Überschleifsätze und damit verbundener Überziehung der Dynamikgrezwerte zwischen zwei Gewindesätzen werden abgeschaltet.
 </description>
 </parameter>
-<parameter number="11416" type="DWORD" dim="0" display="HEX">
+<parameter number="11416" type="UDWORD" dim="0" display="HEX">
 <name>LINK_DYNMSG_ALARM_MASK</name>
 <brief>Maske zur Aktivierung spezieller Alarmausgaben bei NCU-Link</brief>
 <description>Diese Maske dient Zyklenentwicklern zur Diagnose.
@@ -4443,7 +4404,7 @@ Der Alarm 14764 (NCU-Link kann nicht alle nicht-zyklischen Link-Nachrichten vom 
 <description>Mit dem Befehl WRITE können aus dem Teileprogramm Sätze in einer Datei im passiven Filesystem abgelegt werden. Die Länge der Protokolldatei ist begrenzt. Der WRITE-Befehl liefert bei Überschreitung dieser Maximallänge einen Fehler (Fehlercode 10).
 </description>
 </parameter>
-<parameter number="11422" type="DWORD" dim="0" display="HEX">
+<parameter number="11422" type="UDWORD" dim="0" display="HEX">
 <name>PROTOCOL_FILE_MODE</name>
 <brief>Einstellung des Verhaltens des WRITE-Befehls</brief>
 <description>Einstellung des Verhaltens des WRITE-Befehls beim Schreiben in das passive Filesystem
@@ -4461,7 +4422,7 @@ Bit 1: reserviert
 
 </description>
 </parameter>
-<parameter number="11450" type="DWORD" dim="0" display="HEX">
+<parameter number="11450" type="UDWORD" dim="0" display="HEX">
 <name>SEARCH_RUN_MODE</name>
 <brief>Suchlauf Parametrierung</brief>
 <description>Mit den folgenden Bits kann das Verhalten nach Satzsuchlauf während der Aktionssätze beeinflusst werden:
@@ -4510,7 +4471,7 @@ Bit 7 = 1:
 	Die beim Einschalten einer Tangentialachskopplung, während oder nach einem SSL, ausgeführten Justierbewegungen der Tangentialachsen werden immer mit Eilganggeschwindigkeit verfahren (G0). In diesem Fall wird der Vorschubwert durch das SD 42121: $SC_AX_ADJUST_FEED ignoriert.
 </description>
 </parameter>
-<parameter number="11460" type="DWORD" dim="0" display="HEX">
+<parameter number="11460" type="UDWORD" dim="0" display="HEX">
 <name>OSCILL_MODE_MASK</name>
 <brief>Mode-Maske für asynchrones Pendeln</brief>
 <description>Bit 0
@@ -4522,7 +4483,7 @@ Wert 0
 	Die Pendelbewegung wird erst nach Erreichen der Anfahrposition gestartet.
 </description>
 </parameter>
-<parameter number="11470" type="DWORD" dim="0" display="HEX">
+<parameter number="11470" type="UDWORD" dim="0" display="HEX">
 <name>REPOS_MODE_MASK</name>
 <brief>Repositioniereigenschaften</brief>
 <description>Über diese Bitmaske kann das Verhalten der Steuerung beim Repositionieren eingestellt werden.
@@ -4611,7 +4572,7 @@ Hinweis:
 Ist das Maschinendatum 0, so ist diese Diagnosefunktion deaktiviert.
 </description>
 </parameter>
-<parameter number="11550" type="DWORD" dim="0" display="HEX">
+<parameter number="11550" type="UDWORD" dim="0" display="HEX">
 <name>STOP_MODE_MASK</name>
 <brief>Legt das Stopp-Verhalten fest.</brief>
 <description>Das MD beschreibt das Stopp-Verhalten des NCKs in bestimmten Situationen:
@@ -4622,30 +4583,27 @@ Bit 0 == 0 :=
 	kein Stopp, wenn die G-Codes G331/G332 aktiv sind und zusätzlich eine Bahnbewegung oder G4 programmiert wurde.
 
 Bit 0 == 1 :=
-	Verhalten wie bis SW-Stand 6.4, d.h. Stopp während G331/G332 ist möglich.
+	Stopp während G331/G332 ist bei Unterbrechung des Bahnsteuerbetriebs möglich (G60 oder G4 zwischen G331/G332-Sätzen unterbrechen den Bahnsteuerbetrieb).
 
 Bit 1.....15
 	nicht belegt
 </description>
 </parameter>
-<parameter number="11600" type="DWORD" dim="0" display="HEX">
+<parameter number="11600" type="UDWORD" dim="0" display="DECIMAL">
 <name>BAG_MASK</name>
 <brief>Definiert das BAG-Verhalten</brief>
-<description>Das MD beschreibt die Wirkung der VDI-Signale auf alle Kanäle einer BAG in Bezug auf ASUPs/Interruptroutinen.
-BitNr.   Hexadez.   Bedeutung bei gesetztem Bit
-         Wert
+<description>Das MD beschreibt die Wirkung der VDI-Signale auf alle Kanäle einer BAG sowie das Verhalten der interne Betriebsartenumschaltung in Bezug auf ASUPs/Interruptroutinen.
 
-Bit0:    0x0        Normale Reaktion auf BAG-VDI-Signale (BAG-RESET, BAG-STOP, Einzelsatztype A und B, Betriebsartenanwahl) in allen Kanälen der BAG (wie SW 3). Zusätzlich werden alle Kanäle einer BAG in eine Programmbetriebsart umgeschalten, wenn ein Interrupt gestartet wird.
-                    Das bedeutet, wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, wechselt dieser Kanal intern automatisch die Betriebsart nach AUTO und alle anderen Kanäle der BAG werden ebenfalls nach AUTO geschaltet. Analog dazu finden am Ende des Interrupts ein automatischer Rückmodeswitch in allen Kanälen der BAG nach JOG statt.
+Wert = 0: Wenn in einem Kanal der BAG ein Interrupt gestartet wird, reagieren alle Kanäle der BAG ganz normal auf BAG-VDI-Signale (wie z.B. BAG-RESET und BAG-STOP). Wird der Interrupt aus JOG heraus gestartet, wechseln alle Kanäle der BAG intern in die Betriebsart AUTO. Am Ende des Interrupts findet ein automatischer Rückmodeswitch nach JOG statt.
 
-Bit0:    0x1        Wenn in einem Kanal der BAG ein Interrupt gestartet wird, reagiert dieser Kanal nicht mehr auf BAG-VDI-Signale (BAG-RESET, BAG-STOP, Einzelsatztype A und B, Betriebsartenanwahl), solange der Interrupt aktiv ist. Wenn beispielsweise BAG-STOP ausgelöst wird, werden alle Kanäle der BAG angehalten, der Interrupt läuft aber weiter. Ein Kanal-STOP  wirkt nach wie vor.
-                    Zusätzlich gilt, dass wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, nur dieser Kanal intern automatisch die Betriebsart nach AUTO wechselt, alle anderen Kanäle der BAG bleiben in der Betriebsart JOG. Der automatische Rückmodeswitch am Ende des Interrupts bezieht sich entsprechend auch nur auf den Kanal, in dem der Interrupt lief.
+Wert = 1: Wenn in einem Kanal der BAG ein Interrupt gestartet wird, reagiert dieser Kanal nicht mehr auf BAG-VDI-Signale (wie z.B. BAG-RESET und BAG-STOP). Wenn beispielsweise BAG-STOP ausgelöst wird, werden alle Kanäle der BAG angehalten, der Interrupt läuft aber weiter. Ein Kanal-STOP wirkt nach wie vor. Zusätzlich gilt, dass wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, nur dieser Kanal intern automatisch die Betriebsart nach AUTO wechselt, alle anderen Kanäle der BAG bleiben in der Betriebsart JOG. Der automatische Rückmodeswitch am Ende des Interrupts bezieht sich entsprechend auch nur auf den Kanal, in dem der Interrupt lief.
 
-Bit1:    0x1        Wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, wechselt dieser Kanal intern automatisch die Betriebsart nach AUTO. Alle anderen Kanäle der BAG bleiben in der Betriebsart JOG. Der automatische Rückmodeswitch am Ende des Interrupts bezieht sich entsprechend auch nur auf den Kanal, in dem der Interrupt lief.
-                    Das Verhalten ist ähnlich zu Bit0, BAG-VDI-Signale (BAG-RESET, BAG-STOP, Einzelsatztype A und B, Betriebsartenanwahl) wirken aber auf den Interrupt. Das heißt, wenn Bit0 gesetzt ist, muss Bit1 nicht zwingend gesetzt werden (außer für die Funktionalität "Joggen in Asup", siehe MD11602 $MN_ASUP_START_MASK, Bit3).
+Wert = 2: Wenn in einem Kanal der BAG ein Interrupt gestartet wird, reagieren alle Kanäle der BAG ganz normal auf BAG-VDI-Signale (wie z.B. BAG-RESET und BAG-STOP). Wenn in einem Kanal der BAG ein Interrupt aus JOG heraus gestartet wird, wechselt nur dieser Kanal intern automatisch die Betriebsart nach AUTO, alle anderen Kanäle der BAG bleiben in der Betriebsart JOG. Der automatische Rückmodeswitch am Ende des Interrupts bezieht sich entsprechend auch nur auf den Kanal, in dem der Interrupt lief. Dieses Verhalten wird erst ab V4.7 SP4 HF1 unterstützt. In früheren Versionen war diese Einstellung nicht definiert. Zusätzlich ist bei dieser Einstellung ist die Funktionalität "Joggen in ASUP" (siehe MD11602 $MN_ASUP_START_MASK, Bit3) erlaubt.
+
+Wert = 3: Wie Wert=1. Zusätzlich ist aber die Funktionalität "Joggen in ASUP" (siehe MD11602 $MN_ASUP_START_MASK, Bit3) erlaubt.
 </description>
 </parameter>
-<parameter number="11602" type="DWORD" dim="0" display="HEX">
+<parameter number="11602" type="UDWORD" dim="0" display="HEX">
 <name>ASUP_START_MASK</name>
 <brief>Stoppgründe für ASUP ignorieren</brief>
 <description>Das Maschinendatum legt fest, welche Stoppgründe bei einem ASUP-Start ignoriert werden. Das ASUP wird gestartet bzw. es werden folgende Stoppgründe ignoriert:
@@ -4688,7 +4646,7 @@ Korrespondiert mit:
 	MD11602 $MN_ASUP_START_MASK
 </description>
 </parameter>
-<parameter number="11610" type="DWORD" dim="0" display="HEX">
+<parameter number="11610" type="UDWORD" dim="0" display="HEX">
 <name>ASUP_EDITABLE</name>
 <brief>Aktivierung eines anwenderspezifischen ASUP Programms</brief>
 <description>Das Maschinendatum steuert, ob statt der vom System bereitgestellten Routinen für die Bearbeitung von RET und REPOS die anwenderspezifische Routine: _N_ASUP_SPF im Verzeichnis _N_CUS_DIR / _N_CMA_DIR verwendet werden soll. Der AnwenderASUP wird zu erst im _N_CUS_DIR gesucht
@@ -4768,7 +4726,7 @@ Anwendung: diese Einstellung verhindert bei der Programmbearbeitung durch die Fu
 
 </description>
 </parameter>
-<parameter number="11640" type="DWORD" dim="0" display="HEX">
+<parameter number="11640" type="UDWORD" dim="0" display="HEX">
 <name>ENABLE_CHAN_AX_GAP</name>
 <brief>Kanalachslücken in AXCONF_MACHAX_USED werden erlaubt</brief>
 <description>Bit0 = 1
@@ -4812,7 +4770,7 @@ In dem Satz mit der D-Funktionsersetzung darf kein modaler Unterprogramm-Aufruf 
 Im Konfliktfall wird Alarm 14016 abgesetzt.
 </description>
 </parameter>
-<parameter number="11750" type="DWORD" dim="0" display="HEX">
+<parameter number="11750" type="UDWORD" dim="0" display="HEX">
 <name>NCK_LEAD_FUNCTION_MASK</name>
 <brief>Funktionen zur Leitwertkopplung</brief>
 <description>Mit diesem MD werden spezielle Funktionen der Leitwertkopplung eingestellt.
@@ -4830,7 +4788,7 @@ Bit 5 - 31:
 	reserviert
 </description>
 </parameter>
-<parameter number="11752" type="DWORD" dim="0" display="HEX">
+<parameter number="11752" type="UDWORD" dim="0" display="HEX">
 <name>NCK_TRAIL_FUNCTION_MASK</name>
 <brief>Funktionen zum Mitschleppen</brief>
 <description>Mit diesem MD werden spezielle Funktionen zum Mitschleppen eingestellt.
@@ -4848,7 +4806,7 @@ Bit 5 - 31:
 	reserviert
 </description>
 </parameter>
-<parameter number="11756" type="DWORD" dim="0" display="HEX">
+<parameter number="11756" type="UDWORD" dim="0" display="HEX">
 <name>NCK_EG_FUNCTION_MASK</name>
 <brief>Funktionen zum Elektronischen Getriebe</brief>
 <description>Mit diesem MD werden spezielle Funktionen zum Elektronischen Getriebe (EG) eingestellt.
@@ -5008,7 +4966,7 @@ Korrespondierende Maschinendaten:
 	Der Override wird auf den programmierten Vorschub oder auf die Bahnvorschubbegrenzung bezogen, je nachdem, welcher resultierende Wert niedriger ist. Damit erhält man auch im Falle einer starken Vorschubreduzierung (infolge der zulässigen Achsdynamik) immer eine sichtbare Auswirkung des Override-Wertes (im Bereich 0 bis 100%).
 </description>
 </parameter>
-<parameter number="12090" type="DWORD" dim="0" display="HEX">
+<parameter number="12090" type="UDWORD" dim="0" display="HEX">
 <name>OVR_FUNCTION_MASK</name>
 <brief>Auswahl von Override-Spezifikationen</brief>
 <description>Mit den Bits kann die Funktionalität von Overrideschaltern beeinflusst werden.
@@ -5123,7 +5081,7 @@ Der durch MD32000 $MA_MAX_AX_VELO vorgegebene Wert gilt als Obergrenze. Bei eine
 Wenn die Maschinenkonstruktion nun eine zentrale Schmierung vorsieht, d.h. der Schmierimpuls einer beliebigen Achse an allen Achsen wirkt, dann muss auch die zugehörige Wegüberwachung aller Achsen nach Schmierimpuls-Ausgabe neu gestartet werden, diese Start- Synchronisation der Überwachungen erfolgt durch MD12300 $MN_CENTRAL_LUBRICATION=TRUE.
 </description>
 </parameter>
-<parameter number="12510" type="DWORD" dim="0">
+<parameter number="12510" type="UDWORD" dim="0" display="DECIMAL">
 <name>NCU_LINKNO</name>
 <brief>NCU-Nummer in einem NCU-Verband</brief>
 <description>Nummer oder Namen zur Identifikation einer NCU innerhalb eines NCU-Verbands.
@@ -5599,7 +5557,7 @@ Korrespondiert mit:
 Zusätzlich zu dem Kanalbezeichner einer Achse kann der hier anwenderdefinierbare Achs-Container-Bezeichner als Achs-Container-Name für z.B. eine Achs-Container-Drehung verwendet werden (AXCTSWE(CT1))
 </description>
 </parameter>
-<parameter number="12760" type="DWORD" dim="0" display="HEX">
+<parameter number="12760" type="UDWORD" dim="0" display="HEX">
 <name>AXCT_FUNCTION_MASK</name>
 <brief>Funktionen zum Achscontainer</brief>
 <description>Mit diesem MD werden spezielle Funktionen zum Achscontainer eingestellt.
@@ -5637,6 +5595,34 @@ Es wird nur ausgewertet, wenn für die ausgewählte MSTT das MD12950 $MN_PLC_MCP_C
 <description>Das Datum definiert die logischen Ausgangsadressen der Maschinensteuertafeln am PROFINET.
 Es wird nur ausgewertet, wenn für die ausgewählte MSTT das MD12950 $MN_PLC_MCP_CONNECT[i] = 0 ist.
 
+</description>
+</parameter>
+<parameter number="12954" type="DWORD" dim="1">
+<name>PLC_ALM_CONNECT</name>
+<brief>Konfiguration der Ansteuerung der Einspeisung</brief>
+<description>Das Datum legt fest, wie die Ansteuerung der Einspeisung (ALM, SLM) bei Systemen mit SW-PLC2xx erfolgen soll.
+Wert = 0 keine Einspeisung angeschlossen oder Ansteuerung über Klemmenverdrahtung
+Wert = 1 Ansteuerung über einen Datenbaustein der SW-PLC2xx
+Index 0 = direkt an SINUMERIK 828D angeschlossene Einspeisung
+Index 1 = an einer Achserweiterungsbaugruppe (NX) angeschlossene Einspeisung
+</description>
+</parameter>
+<parameter number="12955" type="DWORD" dim="1" readonly="true">
+<name>PLC_ALM_ADDRESS_IN</name>
+<brief>Logische Eingangsadresse der Einspeisung</brief>
+<description>Logische Eingangsadresse der Einspeisung (ALM, SLM) bei Ansteuerung über einen Datenbaustein der SW-PLC2xx
+Das MD wird nur ausgewertet, wenn für die ausgewählte Einspeisung das MD12954 $MN_PLC_ALM_CONNECT[i] = 1 ist.
+Index 0 = direkt an SINUMERIK 828D angeschlossene Einspeisung
+Index 1 = an einer Achserweiterungsbaugruppe (NX) angeschlossene Einspeisung
+</description>
+</parameter>
+<parameter number="12956" type="DWORD" dim="1" readonly="true">
+<name>PLC_ALM_ADDRESS_OUT</name>
+<brief>Logische Ausgangsadresse der Einspeisung</brief>
+<description>Logische Ausgangsadresse der Einspeisung (ALM, SLM) bei Ansteuerung über einen Datenbaustein der SW-PLC2xx
+Das MD wird nur ausgewertet, wenn für die ausgewählte Einspeisung das MD12954 $MN_PLC_ALM_CONNECT[i] = 1 ist.
+Index 0 = direkt an SINUMERIK 828D angeschlossene Einspeisung
+Index 1 = an einer Achserweiterungsbaugruppe (NX) angeschlossene Einspeisung
 </description>
 </parameter>
 <parameter number="12970" type="DWORD" dim="0">
@@ -5757,7 +5743,7 @@ Alarm 26015 mit Hinweis auf dieses Maschinendatum wird ausgegeben falls die Tele
 Die SIEMENS-Telegrammtypen 1xx müssen im SINUMERIK-Kontext im 611U-Schnittstellen-Modus betrieben werden.
 </description>
 </parameter>
-<parameter number="13070" type="DWORD" dim="1" display="HEX">
+<parameter number="13070" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_FUNCTION_MASK</name>
 <brief>PROFIdrive-Erweiterungs-Funktionen</brief>
 <description>Nur bei PROFIdrive:
@@ -5784,7 +5770,7 @@ Bit 13:	Simulation Antriebs-Parken (STA2.7 = STW2.7)
 Bit 14:	Auswahl der nichtzyklischen Kommunikation 0 = DPT  1 = DPV1
 Bit 15:	Abschaltung des Konsistenzchecks der PROFIdrive-Telegramm-Projektierung
 
-Die Projektierung der ab SW 6.3 neuen Bits 5 - 10 ermöglicht eine Anpassung bestimmter im PROFIdrive-Profil nicht genormter Steuer- bzw. Statusbits. Bei Standard-Voreinstellung ergibt sich bei Fremdantrieben eventuell eine andere Bedeutung und Wirkung der Bits.
+Die Projektierung der Bits 5 - 10 ermöglicht eine Anpassung bestimmter im PROFIdrive-Profil nicht genormter Steuer- bzw. Statusbits. Bei Standard-Voreinstellung ergibt sich bei Fremdantrieben eventuell eine andere Bedeutung und Wirkung der Bits.
 </description>
 </parameter>
 <parameter number="13080" type="BYTE" dim="1">
@@ -5805,7 +5791,7 @@ Hinweis:
 	Bei Fremdantrieben (zumindest bei Linearantrieben) muss der Wert dagegen händisch eingegeben werden, wenn eine automatische Erkennung nicht möglich ist.
 </description>
 </parameter>
-<parameter number="13100" type="DWORD" dim="1" display="HEX">
+<parameter number="13100" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_DIAGNOSIS</name>
 <brief>Diagnose Antriebskopplung</brief>
 <description>reserviert
@@ -5845,7 +5831,7 @@ Logische E/A-Adresse die aufgezeichnet werden soll.
 MD13112 $MN_PROFIBUS_TRACE_FILE_SIZE &gt; 0: Trace wird beim Erreichen der Filegröße automatisch ausgeschaltet
 </description>
 </parameter>
-<parameter number="13114" type="DWORD" dim="1" display="HEX">
+<parameter number="13114" type="UDWORD" dim="1" display="HEX">
 <name>PROFIBUS_TRACE_START_EVENT</name>
 <brief>PROFIBUS/PROFINET-Trace Triggerbedingung</brief>
 <description>Nur bei PROFIBUS/PROFINET:
@@ -5901,7 +5887,7 @@ Default: Das Default-Verhalten der Anzeige der genannten
 
 </description>
 </parameter>
-<parameter number="13150" type="DWORD" dim="0" display="HEX">
+<parameter number="13150" type="UDWORD" dim="0" display="HEX">
 <name>SINAMICS_ALARM_MASK</name>
 <brief>Stör- und Warnpufferausgabe für Sinamics aktivieren</brief>
 <description>Nur bei PROFIBUS/PROFINET, speziell SINAMICS:
@@ -5953,8 +5939,6 @@ Wert 1:
 	ausgelenkter Zustand          0 V
 
 Die programmierten Flanken des Tasters sind von der elektr. "Polarität" unabhängig sondern rein mechanisch zu verstehen! Die Programmierung einer positiven Flanke bedeutet immer der Übergang vom nicht ausgelenkten in den ausgelenkten Zustand. Die Programmierung einer negativen Flanke bedeutet immer der Übergang vom ausgelenkten in den nicht ausgelenkten Zustand.
-0:	nichtausgelenkter Zustand	 0 V	ausgelenkter Zustand	24 V
-1:	nichtausgelenkter Zustand	24 V	ausgelenkter Zustand	 0 V
 </description>
 </parameter>
 <parameter number="13210" type="BYTE" dim="0">
@@ -6002,8 +5986,7 @@ Mit MEAS_CENTRAL_SOURCE = 3 gilt:
 <description>Bei Tastern mit z.B. Funkübertragung kann die Tasterauslenkung erst verzögert in der NC erkannt werden.
 Mit diesem MD wird die Verzögerungszeit der Übertragungsstrecke zwischen Taster-Auslenkung und Erkennung dieser Auslenkung in der Steuerung eingestellt.
 Der Messwert wird steuerungsintern um die Strecke korrigiert, die der Fahrbewegung während dieser Zeit vor der Messung entspricht (Modellierung).
-Sinnvoll ist nur die Einstellung von Werten bis zu max. 15 Lagereglertakten.
-Bei darüber hinaus gehenden Einstellwerten könnte die Modellierung ohnehin nicht mehr mit der erwarteten Genauigkeit arbeiten, deshalb wird in diesem Fall der eingegebene Wert softwareintern (ohne weitere Rückmeldung) auf 15 Lagereglertakte begrenzt.
+Da die Modellierung bei höheren Lagereglertakten nicht mehr mit der erwarteten Genauigkeit arbeitet, wird die Verzögerungszeit unabhängig vom eingegebenen Wert auf 31 Lagereglertakte begrenzt.
 </description>
 </parameter>
 <parameter number="13230" type="BYTE" dim="0">
@@ -6054,39 +6037,36 @@ Wert 4:   1MHz
 <parameter number="14510" type="DWORD" dim="1">
 <name>USER_DATA_INT</name>
 <brief>Anwenderdatum (INT)</brief>
-<description>Anwenderdatum, wird in der NCK-PLC-Nahtstelle abgelegt, und kann vom PLC-Anwender bereits im Hochlauf der PLC aus dem DB20 gelesen werden.
-Anwender-Maschinendaten, Auswertung in PLC (Anzeige als ganze Zahl, dezimal)
+<description>Anwenderdatum, kann im PLC-Anwenderprogramm aus dem &lt;USER_DATA_BLOCK/&gt; (Anwenderdatenbaustein) gelesen werden.
 </description>
 </parameter>
-<parameter number="14512" type="DWORD" dim="1" display="HEX">
+<parameter number="14512" type="UDWORD" dim="1" display="HEX">
 <name>USER_DATA_HEX</name>
 <brief>Anwenderdatum (HEX)</brief>
-<description>Anwenderdatum, wird in der NCK-PLC-Nahtstelle abgelegt, und kann vom PLC-Anwender bereits im Hochlauf der PLC aus dem DB20 gelesen werden.
-Anwender-Maschinendaten, Auswertung in PLC  (Anzeige im HEX-Format)
+<description>Anwenderdatum, kann im PLC-Anwenderprogramm aus dem &lt;USER_DATA_BLOCK/&gt; (Anwenderdatenbaustein) gelesen werden.
 </description>
 </parameter>
 <parameter number="14514" type="DOUBLE" dim="1">
 <name>USER_DATA_FLOAT</name>
 <brief>Anwenderdatum (FLOAT)</brief>
-<description>Anwenderdatum, wird in der NCK-PLC-Nahtstelle abgelegt, und kann vom PLC-Anwender bereits im Hochlauf der PLC aus dem DB20 gelesen werden.
-Anwender-Maschinendatum, Auswertung in PLC (Gleitkomma-Format, in PLC auf 32-bit-IEEE-Format beschränkt)
+<description>Anwenderdatum, kann im PLC-Anwenderprogramm aus dem &lt;USER_DATA_BLOCK/&gt; (Anwenderdatenbaustein) gelesen werden.
 </description>
 </parameter>
-<parameter number="14516" type="BYTE" dim="1" display="HEX">
+<parameter number="14516" type="UBYTE" dim="1" display="HEX">
 <name>USER_DATA_PLC_ALARM</name>
 <brief>Anwenderdatum (HEX)</brief>
 <description>Projektierung der Alarmreaktionen der Anwender PLC-Alarme
 Bit 0   NC Start gesperrt
 Bit 1   Einlesesperre
 Bit 2   Vorschubsperre für alle Achsen
-Bit 3   NOT AUS
+Bit 3   NOT-HALT
 Bit 4   PLC in Stopp
 Bit 5   Alarmprotokoll
 Bit 6   Definition für Alarm oder Meldung (1: Alarm, 0: Meldung
 Bit 7   Löschen bei POWER ON
 </description>
 </parameter>
-<parameter number="14518" type="BYTE" dim="1" display="HEX">
+<parameter number="14518" type="UBYTE" dim="1" display="HEX">
 <name>USER_DATA_PLC_ALARM_ASSIGN</name>
 <brief>Anwenderdatum (HEX)</brief>
 <description>Kanalzuordnung der projektierten, kanalspezifischen Alarmreaktionen der Anwender-PLC-Alarme aus MD14516 $MN_USER_DATA_PLC_ALARM
@@ -6123,17 +6103,52 @@ Enthält MD15710 $MN_TCA_CYCLE_NAME einen Leerstring, ist die Ersetzung deaktivie
 
 </description>
 </parameter>
-<parameter number="15800" type="STRING" dim="0">
-<name>R_PARAM_NCK_NAME</name>
-<brief>Bezeichner der globalen R-Parameter</brief>
-<description>Legt den Bezeichner für die globalen R-Parameter fest.
-Eine Änderung des Bezeichners wird nur wirksam, wenn zum Power On Zeitpunkt die Anzahl der globalen R Parameter ( MD18156 $MN_MM_NUM_R_PARAM_NCK  ) gleich 0 ist.
-</description>
-</parameter>
 <parameter number="16800" type="STRING" dim="0">
 <name>ROOT_KIN_ELEM_NAME</name>
 <brief>Name des Root-Kettenlements</brief>
 <description>Spezifiziert den Namen des Kettenelements, das bei einer Maschinenbeschreibung mittels kinematischer Ketten als einziges vom Nullpunkt des Weltkoordinatensystems ausgeht (Root-Kettenelement).
+</description>
+</parameter>
+<parameter number="16900" type="UDWORD" dim="0" display="HEX">
+<name>COLLISION_EXT_FUNCTION_MASK</name>
+<brief>Parametrierung der externen Kollisionsprüfung</brief>
+<description>Bitmaske zur Parametrierung der externen Kollisionsprüfung
+</description>
+</parameter>
+<parameter number="16901" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_PREVIEW_TIME</name>
+<brief>Vorschauzeit für externe Kollisionsprüfung</brief>
+<description>Die Zeit gilt im laufenden Betrieb, sofern genug Daten für eine Vorhersage zur Verfügung stehen. Beim Start einer Bewegung startet die Bewegungsvorschau bei der aktuellen Position und liefert Vorhersagen in möglichst großen Schritten, solange bis die konfigurierte Vorschauzeit erreicht ist.
+</description>
+</parameter>
+<parameter number="16902" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_PREVIEW_STEP</name>
+<brief>Vorschau-Zeitschritt für externe Kollisionsprüfung</brief>
+<description>Beim Start einer Bewegung startet die Bewegungsvorschau bei der aktuellen Position und liefert Vorhersagen in der konfigurierten Schrittweite, solange bis die Vorschauzeit COLLISION_EXT_PREVIEW_TIME erreicht ist.
+</description>
+</parameter>
+<parameter number="16903" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_TIMEOUT</name>
+<brief>Timeout für externe Kollisionsprüfung</brief>
+<description>Timeout für die Kommunikation mit einem externen System zur Kollisionsvermeidung.
+</description>
+</parameter>
+<parameter number="16904" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_STOP_TIME</name>
+<brief>Maximale Bremszeit für externe Kollisionsvermeidung</brief>
+<description>Wenn die externe Kollisionsvermeidung einen Stopp auslöst muss die Maschine in der eingestellten Zeit zum Stehen kommen (analog zum Verhalten bei STOP D).
+</description>
+</parameter>
+<parameter number="16905" type="UDWORD" dim="0" display="DECIMAL">
+<name>COLLISION_EXT_NUM_PACKETS</name>
+<brief>Anzahl Vorschau-Pakete pro Ipotakt</brief>
+<description>Pro Ipotakt werden ein Paket mit aktuellen Positionen und die konfigurierte Anzahl an Vorschaupaketen erzeugt.
+</description>
+</parameter>
+<parameter number="16906" type="UDWORD" dim="0" display="HEX">
+<name>COLLISION_EXT_CFG_MASK</name>
+<brief>Parametrierung der externen Kollisionsprüfung</brief>
+<description>Bitmaske zur Parametrierung der externen Kollisionsprüfung
 </description>
 </parameter>
 <parameter number="17000" type="STRING" dim="1">
@@ -6148,14 +6163,13 @@ Jede Extension muss aus genau drei Großbuchstaben bestehen.
 <parameter number="17200" type="DOUBLE" dim="1">
 <name>GMMC_INFO_NO_UNIT</name>
 <brief>Globale HMI Info (ohne physikalische Einheit)</brief>
-<description>Die globalen Anzeigemaschinendaten
+<description>Systeminterne Funktion
+Abbildung der globalen Anzeigemaschinendaten auf NCK-Maschinendaten
+- $MNS_DISP_RES_MM            :: $MN_GMMC_INFO_NO_UNIT[0]
+- $MNS_DISP_RES_INCH          :: $MN_GMMC_INFO_NO_UNIT[1]
+- $MNS_DISP_RES_SPINDLE       :: $MN_GMMC_INFO_NO_UNIT[2]
+- $MNS_ENABLE_COORDINATE_ACS  :: $MN_GMMC_INFO_NO_UNIT[3]
 
-- $MM_DISPLAY_RESOLTION
-- $MM_DISPLAY_RESOLTION_INCH
-- $MM_SPIND_DISPLAY_RESOLUTION
-- $MM_MA_COORDINATE_SYSTEM
-
-werden von HMI in den MD17200 $MN_GMMC_INFO_NO_UNIT[0] bis MD17200 $MN_GMMC_INFO_NO_UNIT[3] abgelegt. Damit kann von NCK aus auf diese Anzeigemaschinendaten zugegriffen werden.
 </description>
 </parameter>
 <parameter number="17201" type="BYTE" dim="1">
@@ -6201,7 +6215,7 @@ MD20310 $MC_TOOL_MANAGEMENT_MASK
 <description>Funktion "Mehrere Werkzeuge auf einem Magazinplatz" (Multitool). Maximale Anzahl der Plätze bzw. Werkzeuge pro Multitool.
 </description>
 </parameter>
-<parameter number="17510" type="DWORD" dim="0" display="HEX">
+<parameter number="17510" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_UNLOAD_MASK</name>
 <brief>Verhalten der Werkzeugdaten beim Entladen</brief>
 <description>Beim Entladen eines WZs können gewisse Daten des WZs einstellbar mit festen Werten belegt werden.
@@ -6217,7 +6231,7 @@ Bit-Nr.	Bitwert	HEX	Bedeutung
 	1	0x8	WZ-Parameter $TC_TP11 wird auf den Wert Null gesetzt. D.h. die Zuordnung zur WZ-Untergruppe wird aufgelöst.
 </description>
 </parameter>
-<parameter number="17515" type="DWORD" dim="0" display="HEX">
+<parameter number="17515" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_RESETMON_MASK</name>
 <brief>Verhalten der Werkzeugdaten bei RESETMON</brief>
 <description>Mit dem RESETMON-Befehl wird im 5. Parameter angegeben, welcher Werkzeug-Status zurückgesetzt werden soll. Wird der 5. Parameter weggelassen, wird er durch den Wert aus diesem MD ersetzt. Beim PI-Dienst "_N_TRESMON" wird immer mit diesem Wert gearbeitet.
@@ -6279,7 +6293,7 @@ Hier nicht definierte Bits werden beim Schreiben des Maschinendatums ignoriert.
 
 </description>
 </parameter>
-<parameter number="17520" type="DWORD" dim="0" display="HEX">
+<parameter number="17520" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_DEFAULT_DATA_MASK</name>
 <brief>Neues Werkzeug anlegen: Datenvorbelegung</brief>
 <description>Bei Neudefinition eines Werkzeugs (Bits 0, 1, 2), oder der Neudefinition der Magazinplätze (Bit 3) können gewisse Daten des einstellbar mit festen Defaultwerten belegt werden. Bit 4 kann den Magazinplatzzustand 'Überlappung  erlaubt' ('H2000') an den Wert des Magazinplatzzustands 'gesperrt' ('H1') koppeln.  Damit können einfache Anwendungen davor bewahrt werden, sich mit Daten zu beschäftigen, die nicht zwingend mit individuellen Werten belegt werden müssen.
@@ -6312,7 +6326,7 @@ Bedeutung: Nur mit TMMG + aktiver Nebenplatzbetrachtung. Mit dem Setzen/Rücksetz
 
 </description>
 </parameter>
-<parameter number="17530" type="DWORD" dim="0" display="HEX">
+<parameter number="17530" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_DATA_CHANGE_COUNTER</name>
 <brief>Werkzeug-Datenänderung für HMI kennzeichnen</brief>
 <description>HMI-Anzeigeunterstützung. Mit dem Datum ist es möglich, einzelne Daten explizit in den BTSS-Variablen (Baustein C/S) toolCounter, toolCounterC, toolCounterM zu berücksichtigen bzw. nicht zu berücksichtigen.
@@ -6344,7 +6358,7 @@ Die Angaben"Wertänderungen des WZ-Status" und "Wertänderungen der WZ-Reststückza
 
 </description>
 </parameter>
-<parameter number="17540" type="DWORD" dim="0" display="HEX">
+<parameter number="17540" type="UDWORD" dim="0" display="HEX">
 <name>TOOLTYPES_ALLOWED</name>
 <brief>Erlaubte Werkzeugtypen</brief>
 <description>Festlegung der in NCK erlaubten WZ-Typen (siehe $TC_DP1) bei der WZ-Korrekturanwahl. D.h. es können zwar WZe beliebiger WZ-Typen nach NCK geladen werden; aber nur die hier festgelegten WZ-Typen dürfen im Korrektur bestimmenden WZ definiert sein. Ein Bitwert = 1 bedeutet, dass der genannte WZ-Typbereich für die Korrekturanwahl erlaubt ist. Ein Bitwert = 0 bedeutet, dass der genannte WZ-Typbereich bei einer versuchten Korrekturanwahl einer Schneide diesen Typs mit einem korrekturfähigen Alarm abgelehnt wird. Der spezielle Wert = 0, 9999 für den WZ-Typ bedeutet "nicht definiert". WZ-Korrekturen mit diesem Wert für den WZ-Typ können generell nicht angewählt werden.
@@ -6410,7 +6424,7 @@ r1=4    ; stelle fest, dass r1 schon enthalten ist
         ; (nur ein Eintrag) -&gt; kein erneutes Abspeichern
 
 Die Einstellung des MDs ist besonders dann von Vorteil, wenn wenige verschiedene Parameter häufig
-(z.Bsp. in einer Schleife) beschrieben werden und dabei der Alarm 15110 auftritt.
+(z.B. in einer Schleife) beschrieben werden und dabei der Alarm 15110 auftritt.
 </description>
 </parameter>
 <parameter number="17610" type="DWORD" dim="1">
@@ -6453,7 +6467,7 @@ Index Bedeutung
 2     Suchtiefe im Puffer für Datenänderungen des Hauptlaufs (speziell Synchronaktionen)
 </description>
 </parameter>
-<parameter number="17900" type="DWORD" dim="0" display="HEX">
+<parameter number="17900" type="UDWORD" dim="0" display="HEX">
 <name>VDI_FUNCTION_MASK</name>
 <brief>Einstellung zu VDI-Signalen</brief>
 <description>Einstellungen für VDI-Signale:
@@ -6499,8 +6513,39 @@ Dieses Datum ist nicht schreibbar.
 </parameter>
 <parameter number="18040" type="STRING" dim="1" readonly="true">
 <name>VERSION_INFO</name>
-<brief>Version</brief>
-<description>Versionskennungen der Systemsoftware
+<brief>Versions- und Produktinformationen</brief>
+<description>Versions- und Modell-Informationen der Systemsoftwarekomponente NCK
+[0]:'SW-Komponentenname[SI Version]'                         - Wert: "Numeric Control NCK" (kann ab "trol NCK" mit 'SIxxx' überschrieben sein. 'SI' steht für Safety Integrated, 'xxx' für die SI Version)
+[1]:'Version (und Datum der NCK Installation auf dem Zielsystem)'
+[2]:'Datum und Uhrzeit der NCK-Programmerzeugung'
+[3]:'Name des Modells und Submodells'                        - Werte: 808d-me42, ... 828d-me42, ... 840DSL731,... 840D732, ...
+[4]:'HW-Typ'                                                 - Werte für NCK in NCU: IDC, SOC2, ... Simulations NCK: PC (Windows), PC (Linux), ... HOST-Entwicklungs NCK: HOST development
+[5]:'Produktart'                                             - Werte: machine tool, simulation, simulation development
+[6]:'Sub-Skalierung 1'                                       - Werte: Dateiname. Verschiedene Varianten eines Modells können vom Modell abweichende Daten(-eigenschaften) haben.
+[7]:'Sub-Skalierung 2'                                       - Werte: Dateiname. Verschiedene Varianten eines Modells können vom Modell abweichende Daten(-eigenschaften) haben.
+[8]:'Sub-Skalierung 3'                                       - Werte: Dateiname. Verschiedene Varianten eines Modells können vom Modell abweichende Daten(-eigenschaften) haben.
+Für Indices 6,7,8 gilt: Voraussetzung für einen Werteintrag ist, dass die Datei beim Start von NCK existiert.
+Beispiel für 840dsl auf NCU HW:
+[0]:"Numeric Control NCK" (ohne NC based Safety Integrated)
+[0]:"Numeric ControSI112" (mit NC based Safety Integrated)
+[1]:"112.00.00 "
+[2]:"22/02/16 09:28:03"
+[3]:"840DSL731"
+[4]:"SOC2"
+[5]:"machine tool"
+[6]:""
+[7]:""
+[8]:""
+Beispiel für '840d virtuelle Inbetriebnahme' (ein Simulationsprodukt)  auf Windows Rechner:
+[0]:"Numeric Control NCK"  (ohne Safety Integrated)
+[1]:"112.00.00"
+[2]:"31/01/16 08:58:43"
+[3]:"840D732"
+[4]:"PC (Windows)"
+[5]:"simulation"
+[6]:"840evoVC_addon"
+[7]:""
+[8]:""
 </description>
 </parameter>
 <parameter number="18042" type="STRING" dim="1" readonly="false">
@@ -6514,19 +6559,26 @@ Dieses Datum ist nicht schreibbar.
 <brief>Modus, in dem die Funktion EES arbeitet.</brief>
 <description>Modus, in dem die Funktion "Execution from External Storage" arbeitet:
 Bit0(LSB) = 1
-    lokales EES aktiv (LOCAL_DRIVE der NCU als EES-Laufwerk verfügbar)
+    CNC Anwenderspeicher erweitert (lokales EES aktiv)
 
 Bit1 = 1
-    globales EES aktiv (alle verfügbaren Laufwerke (USB, incl. Lokales EES, sofern vorhanden)
+    Abarbeiten vom externen Speicher (globales EES aktiv)
 
 Bit2 = 1
     Es ist ein globaler Teileprogrammspeicher auf einem externen Speicher eingerichtet.
-    Im Rahmen des Suchpfads werden Programme zunächst im NCK in den Verzeichnissen MPF/SPF/WKS gesucht und anschließend in den entsprechenden Verzeichnissen auf einem externen Speicher.
 
 Siehe auch:
-  OD19334 $ON_SYSTEM_FUNCTION_MASK Bit 9
-  OD19730 $MC_HMI_FUNCTION_MASK[0] Bit 5
-  MD10123 $MN_EES_LOCAL_ENABLE
+  OD19730 $ON_HMI_FUNCTION_MASK[0] Bit 5 "CNC Anwenderspeicher erweitert"
+  OD19334 $ON_SYSTEM_FUNCTION_MASK Bit 9 "Abarbeiten vom externen Speicher"
+  OD19334 $ON_SYSTEM_FUNCTION_MASK Bit 12 "zusätzlicher HMI-Anwenderspeicher auf CF-Card der NCU"
+</description>
+</parameter>
+<parameter number="18046" type="UBYTE" dim="0" display="HEX" readonly="false">
+<name>DSF_MODE_INFO</name>
+<brief>DSF Informationen</brief>
+<description>DSF Informationen:
+Bit0(LSB) = 1
+    DSF verfügbar
 </description>
 </parameter>
 <parameter number="18050" type="DWORD" dim="0" readonly="true">
@@ -6689,7 +6741,7 @@ Der zulässige Wert des Index m des Systemparameters $TC_MPTH[n,m] ist von 0 bis 
 (Das Maximum des Index n kann durch das MD18078 $MN_MM_MAX_NUM_OF_HIERARCHIES vorgegeben werden.)
 </description>
 </parameter>
-<parameter number="18080" type="DWORD" dim="0" display="HEX">
+<parameter number="18080" type="UDWORD" dim="0" display="HEX">
 <name>MM_TOOL_MANAGEMENT_MASK</name>
 <brief>Stufenweise Speicher-Reservierung für die Werkzeugverwaltung (SRAM)</brief>
 <description>Aktivierung des WZV-Speichers mit "0" bedeutet:
@@ -6716,9 +6768,6 @@ MD18080 $MN_MM_TOOL_MANAGEMENT_MASK = 1 bedeutet WZV ohne WZ-Überwachungsfunktio
 
 
 
-Wert = 0: 	kein Speicher wird reserviert, keine Werkzeugüberwachung möglich
-Wert = 0x2: 	Überwachungsdaten/Speicher wird bereitgestellt
-	(nur möglich, wenn Option "Werkzeugüberwachung" vorhanden ist)
 </description>
 </parameter>
 <parameter number="18082" type="DWORD" dim="0">
@@ -6808,13 +6857,26 @@ MD18084 $MN_MM_NUM_MAGAZINE
 <name>MM_TYPE_CC_MAGAZINE_PARAM</name>
 <brief>Typ der OEM-Magazindaten (SRAM)</brief>
 <description>Hiermit können den Parametern individuell Typen zugewiesen werden. Der Arrayindex n kann die Werte 0 bis Wert des MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM annehmen.
-Die möglichen Werte des MD = 1, 2, 3, 4, 5 und 6 stehen für die NC-Sprachtypen BOOL, CHAR, INT, REAL, STRING und AXIS. Der Typen FRAME kann hier nicht definiert werden. Der Typ STRING kann max. 31 Zeichen lang sein. Beispiel:
+Typ der durch MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM projektierten magazinspezifischen Anwenderdaten.
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (ist nicht erlaubt, wird nicht von der BTSS unterstützt.)
+AXIS                           6
+FRAME                          nicht definiert
+
+Beispiel:
 MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM=1
-MD18091 $MN_MM_TYPE_CC_MAGAZINE_PARAM=5
-Dann kann für den Parameter $TC_MAPC1 = "AnwenderMagazin" programmiert werden.
+MD18091 $MN_MM_TYPE_CC_MAGAZINE_PARAM=2
+Dann kann für den Parameter $TC_MAPC1 = "A" programmiert werden.
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
 
-korrespondierend mit:
+Korrespondiert mit:
 MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM
 MD18084 $MN_MM_NUM_MAGAZINE
 
@@ -6837,21 +6899,29 @@ MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 <parameter number="18093" type="DWORD" dim="1">
 <name>MM_TYPE_CC_MAGLOC_PARAM</name>
 <brief>Typ der OEM-Magazinplatzdaten (SRAM)</brief>
-<description>Hiermit können den Parametern individuell Typen zugewiesen werden. Der Arrayindex n kann die Werte 0 bis Wert des MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM annehmen.
-Die möglichen Werte des MD = 1, 2, 3, 4 und 6 stehen für die NC-Sprachtypen
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL und
-6   AXIS
-Der Typ STRING ist hier explizit nicht möglich. Der Wert 5 wird wie 2 behandelt. Der Typ FRAME kann hier nicht definiert werden.
+<description>Hiermit können den Parametern individuell Typen zugewiesen werden. Der Arrayindex n kann die Werte 0 bis Wert des MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM annehmen.
+Typ der durch MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM projektierten magazinplatzspezifischen Anwenderdaten.
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+-(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
+AXIS                           6
+FRAME                          nicht definiert
+
 Beispiel:
-MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM=1
-MD18091 $MN_MM_TYPE_CC_MAGAZINE_PARAM=2
+MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM=1
+MD18093 $MN_MM_TYPE_CC_MAGLOC_PARAM=2
+Dann kann für den Parameter $TC_MPPC1 = "A" programmiert werden.
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
 
-Korrespondierend mit:
-MD18092 $MN_MM_NUM_CC_MAGLOG_PARAM
+Korrespondiert mit:
+MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM
+MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 </description>
 </parameter>
 <parameter number="18094" type="DWORD" dim="0">
@@ -6872,14 +6942,19 @@ MD18082 $MN_MM_NUM_TOOL
 <name>MM_TYPE_CC_TDA_PARAM</name>
 <brief>Typ der OEM-Werkzeugdaten (SRAM)</brief>
 <description>Hiermit können den Parametern individuell Typen zugewiesen werden. Der Arrayindex n kann die Werte 0 bis Wert des MD18094 $MN_MM_NUM_CC_TDA_PARAM annehmen.
-Die möglichen Werte des MD = 1, 2, 3, 4, 5 und 6 stehen für die NC-Sprachtypen
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL,
-5   STRING und
-6   AXIS.
-Der Typen FRAME kann hier nicht definiert werden. Der Typ STRING kann max. 31 Zeichen lang sein.
+Typ der durch MD18094 $MN_MM_NUM_CC_TDA_PARAM projektierten werkzeugspezifischen Anwenderdaten.
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (erlaubt Bezeichner bis maximal 31 Zeichen.)
+AXIS                           6
+FRAME                          nicht definiert
+
 Beispiel:
 MD18094 $MN_MM_NUM_CC_TDA_PARAM=1
 MD18095 $MN_MM_TYPE_CC_TDA_PARAM=5
@@ -6909,17 +6984,20 @@ MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 <parameter number="18097" type="DWORD" dim="1">
 <name>MM_TYPE_CC_TOA_PARAM</name>
 <brief>Typ der OEM-Daten je Schneide (SRAM)</brief>
-<description>Es darf nur mit der Standardvorbesetzung gearbeitet werden.
-Hiermit können den Parametern individuell Typen zugewiesen werden.
+<description>Hiermit können den Parametern individuell Typen zugewiesen werden.
 Der Arrayindex n kann die Werte 0 bis Wert des MD18096 $MN_MM_NUM_CC_TOA_PARAM annehmen.
-Die möglichen Werte des MD = 1, 2, 3, 4 und 6 stehen für die NC-Sprachtypen
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL und
-6   AXIS.
-Der Typ STRING kann hier explizit nicht verwendet werden, Wert 5 wird wie 2 behandelt.
-Der Typ FRAME kann hier nicht definiert werden
+Typ der durch MD18096 $MN_MM_NUM_CC_TOA_PARAM projektierten schneidenspezifischen Anwenderdaten.
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+-(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
+AXIS                           6
+FRAME                          nicht definiert
 
 Beispiel:
 MD18096 $MN_MM_NUM_CC_TOA_PARAM=1
@@ -6928,7 +7006,7 @@ MD18097 $MN_MM_TYPE_CC_TOA_PARAM=2
 Dann kann für den Parameter $TC_DPC1 = "A" programmiert werden.
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
 
-Korrespondierend mit:
+Korrespondiert mit:
 MD18096 $MN_MM_NUM_CC_TOA_PARAM
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 
@@ -6953,14 +7031,18 @@ MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 <name>MM_TYPE_CC_MON_PARAM</name>
 <brief>Typ der OEM-Monitordaten (SRAM)</brief>
 <description>Hiermit können den Parametern individuell Typen zugewiesen werden. Der Arrayindex n kann die Werte 0 bis Wert des MD18098 $MN_MM_NUM_CC_MON_PARAM annehmen.
-Die möglichen Werte des MD = 1, 2, 3, 4 und 6 stehen für die NC-Sprachtypen
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL und
-6   AXIS.
-Der Typ FRAME kann hier nicht definiert werden.
-(Der Typ STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt).
+Typ der durch MD18098 $MN_MM_NUM_CC_MON_PARAM projektierten überwachungsspezifischen Anwenderdaten.
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+-(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
+AXIS                           6
+FRAME                          nicht definiert
 Beispiel:
 MD18098 $MN_MM_NUM_CC_MON_PARAM=1
 MD18099 $MN_MM_TYPE_CC_MON_PARAM=2
@@ -6968,7 +7050,7 @@ MD18099 $MN_MM_TYPE_CC_MON_PARAM=2
 Dann kann für den Parameter $TC_MOPC1 = "A" programmiert werden.
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
 
-Korrespondierend mit:
+Korrespondiert mit:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 MD18098 $MN_MM_NUM_CC_MON_PARAM
 </description>
@@ -7025,7 +7107,8 @@ D.h., intern werden ebensoviele Adapter vorgesehen, wie über das MD18086 $MN_MM_
 Keine Adapterdaten-Definitionen möglich. Es stehen die schneidenspezifischen Parameter $TC_DP21, $TC_DP22, $TC_DP23 zur Verfügung; sofern außerhalb der aktiven WZMG mit Adaptern gearbeitet wird.
 
 &gt; 0:
-Anzahl der Adapterdatensätze. Damit können Adapter unabhängig von Magazinplätzen definiert werden. Ein zusätzlicher Schritt nach der Definition der Daten ordnet die Adapter den Magazinplätzen zu. Somit kann ein Adapter z.Bsp. mehreren Magazinplätzen zugeordnet werden.
+Anzahl der Adapterdatensätze. Damit können Adapter unabhängig von Magazinplätzen definiert werden. Ein zusätzlicher Schritt nach der Definition der Daten ordnet die Adapter den Magazinplätzen zu. Somit kann ein Adapter z.B. mehreren Magazinplätzen zugeordnet werden.
+Hinweis: Die Einstellung &gt;0 wird von HMI Operate derzeit nicht unterstützt.
 
 Siehe die Maschinendaten
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
@@ -7098,7 +7181,7 @@ MD18108 $MN_MM_NUM_SUMCORR,
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA.
 </description>
 </parameter>
-<parameter number="18112" type="DWORD" dim="0" display="HEX">
+<parameter number="18112" type="UDWORD" dim="0" display="HEX">
 <name>MM_KIND_OF_SUMCORR</name>
 <brief>Eigenschaften der Summenkorrekturen im TO-Bereich (SRAM)</brief>
 <description>Eigenschaften der Summenkorrekturen in NCK.
@@ -7338,21 +7421,23 @@ Literatur:
 <name>MM_TYPE_CC_MULTITOOL_PARAM</name>
 <brief>Typ der OEM-Multitooldaten</brief>
 <description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
-Typ der durch MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM projektierten multitoolspezifischen Siemens-Anwenderdaten $TC_MTPCn.
+Typ der durch MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM projektierten multitoolspezifischen Anwenderdaten $TC_MTPCn.
 Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
 Typ                            Wert des Maschinendatums
-(siehe Typen
-der NC-Sprache)
-----------------------------------------------------------------
-BOOL                            1
-CHAR                            2
-INT                             3
-REAL                            4
-STRING                          5 (erlaubt Bezeichner bis maximal 31 Zeichen)
-AXIS                            6
-FRAME                           nicht definiert
-Siehe auch: MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM und MD18083 $MN_MM_NUM_MULTITOOL, MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
-Verwendet wird gepufferter Arbeitsspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (ist nicht erlaubt, wird nicht von der BTSS unterstützt.)
+AXIS                           6
+FRAME                          nicht definiert
+Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM
+MD18083 $MN_MM_NUM_MULTITOOL
 </description>
 </parameter>
 <parameter number="18194" type="DWORD" dim="0">
@@ -7365,21 +7450,23 @@ Verwendet wird gepufferter Arbeitsspeicher. Eine Wertänderung führt zu einer Rek
 <name>MM_TYPE_CC_MTLOC_PARAM</name>
 <brief>Typ der OEM-Multitoolplatzdaten</brief>
 <description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
-Typ der durch MD18194 $MN_MM_NUM_CC_MTLOC_PARAM projektierten multitoolplatzspezifischen Siemens-Anwenderdaten $TC_MTPPCn.
+Typ der durch MD18194 $MN_MM_NUM_CC_MTLOC_PARAM projektierten multitoolplatzspezifischen Anwenderdaten $TC_MTPPCn.
 Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
 Typ                            Wert des Maschinendatums
-(siehe Typen
-der NC-Sprache)
-----------------------------------------------------------------
-BOOL                            1
-CHAR                            2
-INT                             3
-REAL                            4
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
 -(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
-AXIS                            6
-FRAME                           nicht definiert
-Siehe auch: MD18194 $MD_MM_NUM_CC_MTLOC_PARAM und MD18083 $MD_MM_NUM_MULTITOOL, MD18085 $MD_MM_NUM_MULTITOOL_LOCATIONS
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18194 $MN_MM_NUM_CC_MTLOC_PARAM
+MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
 </description>
 </parameter>
 <parameter number="18196" type="DWORD" dim="0">
@@ -7395,18 +7482,20 @@ Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Re
 Typ der durch MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM projektierten multitoolspezifischen Siemens-Anwenderdaten $TC_MTPCSn.
 Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
 Typ                            Wert des Maschinendatums
-(siehe Typen
-der NC-Sprache)
-----------------------------------------------------------------
-BOOL                            1
-CHAR                            2
-INT                             3
-REAL                            4
-STRING                          5 (erlaubt Bezeichner bis maximal 31 Zeichen)
-AXIS                            6
-FRAME                           nicht definiert
-Siehe auch: MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM und MD18083 $MN_MM_NUM_MULTITOOL, MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (ist nicht erlaubt, wird nicht von der BTSS unterstützt.)
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM
+MD18083 $MN_MM_NUM_MULTITOOL
 </description>
 </parameter>
 <parameter number="18198" type="DWORD" dim="0">
@@ -7422,18 +7511,20 @@ Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Re
 Typ der durch MD18198 $MN_MM_NUM_CCS_MTLOC_PARAM projektierten multitoolplatzspezifischen Siemens-Anwenderdaten $TC_MTPPCSn.
 Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
 Typ                            Wert des Maschinendatums
-(siehe Typen
-der NC-Sprache)
-----------------------------------------------------------------
-BOOL                            1
-CHAR                            2
-INT                             3
-REAL                            4
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
 -(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
-AXIS                            6
-FRAME                           nicht definiert
-Siehe auch: MD18198 $MN_MM_NUM_CCS_MTLOC_PARAM und MD18083 $MN_MM_NUM_MULTITOOL, MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18198 $MN_MM_NUM_CCS_MTLOC_PARAM
+MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
 </description>
 </parameter>
 <parameter number="18200" type="DWORD" dim="0">
@@ -7451,24 +7542,24 @@ Verwendet wird gepufferter Anwenderspeicher
 <parameter number="18201" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_MAGAZINE_PARAM</name>
 <brief>Typ der Siemens-OEM-Magazindaten (SRAM)</brief>
-<description>Nur, wenn MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, Bit 0=1 ('H1') und Bit2=1 ('H4') für WZMG gesetzt ist (und Option gesetzt ist):
-
-Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
+<description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
 Typ der durch MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM projektierten magazinspezifischen Siemens-Anwenderdaten.
 Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
 Typ                            Wert des Maschinendatums
-(siehe Typen
-der NC-Sprache)
-----------------------------------------------------------------
-BOOL                            1
-CHAR                            2
-INT                             3
-REAL                            4
-STRING                          5 (erlaubt Bezeichner bis maximal 31 Zeichen)
-AXIS                            6
-FRAME                           nicht definiert
-Siehe auch: MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM, MD18084 $MN_MM_NUM_MAGAZINE
+(siehe Typen der NC-Sprache)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (ist nicht erlaubt, wird nicht von der BTSS unterstützt.)
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM
+MD18084 $MN_MM_NUM_MAGAZINE
 </description>
 </parameter>
 <parameter number="18202" type="DWORD" dim="0">
@@ -7484,22 +7575,24 @@ Verwendet wird gepufferter Arbeitsspeicher. Eine Wertänderung führt zu einer Rek
 <parameter number="18203" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_MAGLOC_PARAM</name>
 <brief>Typ der Siemens-OEM-Magazinplatzdaten (SRAM)</brief>
-<description>Nur, wenn MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, Bit 0=1 ('H1') und Bit2=1 ('H4') für WZMG gesetzt ist (und Option gesetzt ist):
-Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
+<description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
 Typ der durch MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM projektierten magazinplatzspezifischen Siemens-Anwenderdaten.
 Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
-Typ                       Wert des Maschinendatums
+Typ                            Wert des Maschinendatums
 (siehe Typen der NC-Sprache)
-----------------------------------------------------------------
-BOOL                       1
-CHAR                       2
-INT                        3
-REAL                       4
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
 -(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
-AXIS                       6
-FRAME                      nicht definiert
-Siehe auch: MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM, MM_NUM_MAGLOC
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM
+MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 </description>
 </parameter>
 <parameter number="18204" type="DWORD" dim="0">
@@ -7515,22 +7608,24 @@ Verwendet wird gepufferter Anwenderspeicher
 <parameter number="18205" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_TDA_PARAM</name>
 <brief>Typ der Siemens-OEM-Werkzeugdaten (SRAM)</brief>
-<description>Nur, wenn MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, Bit2=1 ('H4') gesetzt ist:
-Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
+<description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
 Typ der durch MD18204 $MN_MM_NUM_CCS_TDA_PARAM projektierten werkzeugspezifischen Siemens-Anwenderdaten.
-Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
 Typ                            Wert des Maschinendatums
 (siehe Typen der NC-Sprache)
-----------------------------------------------------------------
+------------------------------------------------------------------------------------
 BOOL                           1
 CHAR                           2
 INT                            3
 REAL                           4
-STRING                         5 (erlaubt Bezeichner bis maximal 31 Zeichen)
+STRING                         5 (ist nicht erlaubt, wird nicht von der BTSS unterstützt.)
 AXIS                           6
 FRAME                          nicht definiert
-Siehe auch: MD18204 $MN_MM_NUM_CCS_TDA_PARAM, MD18082 $MN_MM_NUM_TOOL
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18204 $MN_MM_NUM_CCS_TDA_PARAM
+MD18082 $MN_MM_NUM_TOOL
 </description>
 </parameter>
 <parameter number="18206" type="DWORD" dim="0">
@@ -7546,22 +7641,24 @@ Verwendet wird gepufferter Anwenderspeicher
 <parameter number="18207" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_TOA_PARAM</name>
 <brief>Typ der Siemens-OEM-Daten je Schneide (SRAM)</brief>
-<description>Nur, wenn MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, Bit2=1 ('H4') gesetzt ist:
-Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
+<description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
 Typ der durch MD18206 $MN_MM_NUM_CCS_TOA_PARAM projektierten schneidenspezifischen Siemens-Anwenderdaten.
-Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind
-Typ                                  Wert des Maschinendatums
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
 (siehe Typen der NC-Sprache)
-----------------------------------------------------------------
-BOOL                                  1
-CHAR                                  2
-INT                                   3
-REAL                                  4
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
 -(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
-AXIS                                  6
-FRAME                                 nicht definiert
-Siehe auch: MD18206 $MN_MM_NUM_CCS_TOA_PARAM, MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18206 $MN_MM_NUM_CCS_TOA_PARAM
+MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 </description>
 </parameter>
 <parameter number="18208" type="DWORD" dim="0">
@@ -7578,23 +7675,24 @@ Verwendet wird gepufferter Anwenderspeicher
 <parameter number="18209" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_MON_PARAM</name>
 <brief>Typ der Siemens-OEM-Monitordaten (SRAM)</brief>
-<description>Nur, wenn MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, Bit0=1 oder Bit1=1 und Bit2=1 ('H4') gesetzt ist:
-Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
+<description>Anwender- bzw. OEM-Daten in der Werkzeugverwaltung.
 Typ der durch MD18208 $MN_MM_NUM_CCS_MON_PARAM projektierten überwachungsspezifischen Siemens-Anwenderdaten.
-Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind
-Typ                               Wert des Maschinendatums
+Jeder Parameter kann mit einem eigenen Typ versehen werden. Zulässige Typen sind:
+Typ                            Wert des Maschinendatums
 (siehe Typen der NC-Sprache)
-----------------------------------------------------------------
-BOOL                              1
-CHAR                              2
-INT                               3
-REAL                              4
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
 -(STRING ist hier explizit nicht möglich; der Wert 5 wird wie Wert 2 behandelt)
-AXIS                              6
-FRAME                             nicht definiert
-
-Siehe auch: MD18208 $MN_MM_NUM_CCS_MON_PARAM, MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
+AXIS                           6
+FRAME                          nicht definiert
 Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Rekonfiguration des gepufferten Speichers.
+
+Korrespondiert mit:
+MD18208 $MN_MM_NUM_CCS_MON_PARAM
+MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 </description>
 </parameter>
 <parameter number="18210" type="DWORD" dim="0" readonly="true">
@@ -7660,17 +7758,14 @@ Siehe dazu die Bedeutung von MD18060 $MN_INFO_FREE_MEM_STATIC
 <parameter number="18231" type="DWORD" dim="1" readonly="true">
 <name>MM_USER_MEM_BUFFERED_TYPEOF</name>
 <brief>Technologie für die Datenpufferung</brief>
-<description>Art der verwendeten Technologie zur Datenpufferung
+<description>Art der verwendeten Technologie zur Pufferung der in NCK persistenten Daten
 
-Wert = 0 nur SRAM Speicher
-Wert = 1 SRAM und Flash-/Diskspeicher
+Wert = 0 die verwendete Hardware gewährleistet alleine die Pufferung der in NCK persistenten Daten, bzw. keine gepufferten Daten möglich (falls die HW die Pufferung nicht gewährleistet).
+Wert = 1 die Software und geeignete Hardware (z.B. CF-Disk) gewährleisten die Datenpufferung der in NCK persistenten Daten.
 Falls der Wert = 1 ist, dann siehe auch MD18232 $MN_MM_ACTFILESYS_LOG_FILE_MEM
 Index 0 = reserviert
 Index 1 = Festlegung für die gepufferten Daten des Aktiven Filesystems (incl. Maschinendaten).
-Index 2 = Festlegung für die gepufferten Daten des Passiven Filesystems (Teileprogramme, Zyklen, ....).
-          dieser Wert muss mit dem Wert von MD11292 $MN_DRAM_FILESYST_CONFIG konsistent sein
-          Wert 0 bedeutet, dass MD11292 $MN_DRAM_FILESYST_CONFIG die Bits 'H22' nicht gesetzt haben haben darf.
-          Wert 1 bedeutet, dass MD11292 $MN_DRAM_FILESYST_CONFIG die Bits 'H22' gesetzt haben muss.
+Index 2 = Festlegung für die gepufferten Daten des Passiven Filesystems (Diagnosedateien, GUD-Definitionsdateien, Teileprogramme, Zyklen, ....).
 </description>
 </parameter>
 <parameter number="18232" type="DWORD" dim="1">
@@ -7697,7 +7792,6 @@ Siehe auch MD17610 $MN_DEPTH_OF_LOGFILE_OPT_PF, womit das Verhalten optimiert we
 <name>IS_CONTINOUS_DATA_SAVE_ON</name>
 <brief>System: Automatische Sicherung persistenter Daten</brief>
 <description>Das Datum ist nur von Bedeutung, falls MD18231 $MN_MM_USER_MEM_BUFFERED_TYPEOF = 1 ist
-Der vorbelegte Wert sollte nur verändert werden, wenn die Anlage in einem Umfeld betrieben wird,
 Wert = 0 : Kontinuierliche Sicherung persistenter Daten auf Platte/Flash/etc. ist abgeschaltet.
            Damit kann das Zeitverhalten der Software auf Systemen der Reihe SolutionLine verbessert werden.
 Wert = 1 : Kontinuierliche automatische Sicherung persistenter Daten auf Platte/Flash/etc. ist aktiv.
@@ -7712,7 +7806,7 @@ in dem kein spontanes Abschalten der Anlage / spontaner Spannungsausfall (PowerF
 Andernfalls können persistente Daten verloren gehen.
 </description>
 </parameter>
-<parameter number="18234" type="DWORD" dim="0" display="HEX">
+<parameter number="18234" type="UDWORD" dim="0" display="HEX">
 <name>MM_MEMORY_CONFIG_MASK</name>
 <brief>Einstellung der Sicherung persistenter Daten des akt. Filesystems</brief>
 <description>Bit 0 ist definiert für MD18231 $MN_USER_MEM_BUFFERED_TYPEOF[1]=1. Wenn die durch MD18232 $MN_MM_ACTFILESYS_LOG_FILE_MEM festgelegte Puffergrösse im entsprechenden Puffer viele Daten enthält, dann werden diese durch die NCK Software folgendermaßen persistent gemacht:
@@ -7909,8 +8003,6 @@ Korrespondiert mit:
 <brief>Anzahl der System-Files</brief>
 <description>Index 0: Anzahl der temporären System-Dateien im passiven Filesystem (siehe auch MD18355 $MN_MM_T_FILE_MEM_SIZE);
          z.B.: Systemtraces
-Index 1: Anzahl der temporären Siemens-Zyklen im passiven Filesystem (siehe auch MD18354 $MN_MM_S_FILE_MEM_SIZE).
-         Das Datum kann zwar beschrieben werden, wird aber im Hochlauf mit dem von den Siemens-Zyklen angeforderten Wert überschrieben.
 </description>
 </parameter>
 <parameter number="18342" type="DWORD" dim="1">
@@ -7988,12 +8080,10 @@ In diesem Speicherbereich des passiven Filesystems liegen die Dateien des Steuer
 Die einstellbaren Werte hängen von der Hard- und Software-Konfiguration ab.
 Die einstellbare Größe des Speichers wird außer dem oberen Grenzwert
 für den Index = 0 durch die Größe des verfügbaren gepufferten Speichers (siehe MD18230 $MN_MM_USER_MEM_BUFFERED) begrenzt,
-für den Index = 1 durch die Größe des verfügbaren ungepufferten Speichers (siehe MD18210 $MN_MM_USER_MEM_DYNAMIC) begrenzt,
 für den Index = 2 durch die Größe des intern verfügbaren gepufferten (SRAM) Speichers begrenzt.
 
 Index 0 = Größe des gepufferten Zyklenprogrammspeichers
-Index 1 = Größe des ungepufferten Siemens-Zyklenprogrammspeichers; das Datum kann zwar beschrieben werden, wird aber im Hochlauf mit dem von den Siemens-Zyklen angeforderten Wert überschrieben.
-Index 2 = Größe des gepufferten Speichers für Systemdateien im SRAM. Z.Bsp. Ablageort der NRK Fault-Datei.
+Index 2 = Größe des gepufferten Speichers für Systemdateien im SRAM. z.B.. Ablageort der NRK Fault-Datei.
 </description>
 </parameter>
 <parameter number="18355" type="DWORD" dim="0">
@@ -8180,7 +8270,7 @@ Die einzelnen Werte betreffen die User der Protokollierfunktion, welche folgende
 9: Reserviert für Systemfunktionen: Fahrtenschreiber
 </description>
 </parameter>
-<parameter number="18390" type="DWORD" dim="0" display="HEX">
+<parameter number="18390" type="UDWORD" dim="0" display="HEX">
 <name>MM_COM_COMPRESS_METHOD</name>
 <brief>Unterstützte Komprimierverfahren.</brief>
 <description>Einstellung welche Komprimierverfahren unterstützt werden.
@@ -8333,6 +8423,13 @@ Verwendet wird dynamischer Speicher.
 <name>MM_PLCINT_TASK_STACK_SIZE</name>
 <brief>Stackgröße der servosynch. PLC-Task (DRAM)</brief>
 <description>Größe des Stacks der servosynchronen PLC-Task in kB.
+Verwendet wird dynamischer Speicher.
+</description>
+</parameter>
+<parameter number="18550" type="DWORD" dim="0">
+<name>MM_PREPJOB_TASK_STACK_SIZE</name>
+<brief>Stackgröße der asynchronen, parallelen PrepJob-Task (DRAM)</brief>
+<description>Größe des Stacks der asynchronen, parallelen PrepJob-Task in kB.
 Verwendet wird dynamischer Speicher.
 </description>
 </parameter>
@@ -8553,7 +8650,7 @@ Bei einem Ipo-Takt Verhältnis 4:1 sollte auf der schnellen NCU der Wert statt 3 
 <description>Maximale Anzahl der Alarmaktionen, die beibehalten werden. Hierbei handelt es sich um die Länge der Aktionsliste bei Alarmen.
 </description>
 </parameter>
-<parameter number="18780" type="DWORD" dim="0" display="HEX">
+<parameter number="18780" type="UDWORD" dim="0" display="HEX">
 <name>MM_NCU_LINK_MASK</name>
 <brief>Aktivierung der NCU-Link Kommunikation</brief>
 <description>Aktivierung NCU-Link-Kommunikation
@@ -8596,13 +8693,13 @@ Jede dieser Verbindungen kann 240 Byte Rohdaten übertragen.
 Nicht zyklische Nachrichten fallen bei Alarmen, Container-Switches und Linkvariablen an.
 </description>
 </parameter>
-<parameter number="18782" type="DWORD" dim="0">
+<parameter number="18782" type="UDWORD" dim="0" display="DECIMAL">
 <name>MM_LINK_NUM_OF_MODULES</name>
 <brief>Anzahl der NCU_Link Module</brief>
 <description>LINK_NUM_OF_MODULES gibt an, wieviele Link-Module an der Link-Kommunikation teilnehmen.
 </description>
 </parameter>
-<parameter number="18788" type="DWORD" dim="1" display="HEX">
+<parameter number="18788" type="UDWORD" dim="1" display="HEX">
 <name>MM_CC_STATION_CHAN_MASK</name>
 <brief>Kanalbitmaske zum Anlegen von CC-Stationen</brief>
 <description>Maschinendaten zum kanalspezifischen Anlegen spezieller zusätzlicher Software-Stationen für Compile-Zyklen.
@@ -8639,7 +8736,7 @@ Korrespondiert mit:
 	MD18792 $MN_MM_TRACE_LINK_DATA_FUNCTION
 </description>
 </parameter>
-<parameter number="18792" type="DWORD" dim="0" display="HEX">
+<parameter number="18792" type="UDWORD" dim="0" display="HEX">
 <name>MM_TRACE_LINK_DATA_FUNCTION</name>
 <brief>Spezifiziert die Inhalte des NCU-Link-Trace-Files</brief>
 <description>Der NCU-Link versendet und empfängt in jedem Interpolationstakt 32 Puffer mit 240 Byte Länge.
@@ -8672,7 +8769,7 @@ BIT3 = 1
 
 </description>
 </parameter>
-<parameter number="18794" type="DWORD" dim="0" display="HEX">
+<parameter number="18794" type="UDWORD" dim="0" display="HEX">
 <name>MM_TRACE_VDI_SIGNAL</name>
 <brief>Tracespezifikation der Vdi-Signale</brief>
 <description>Der NCK versendet und empfängt PLC-Vdi-Signale. Die Trace-Funktion speichert die Signale, die sich geändert haben, in jedem Ipo-Takt in einem  FIFO (FirstIn-FirstOut) Speicher, der die Länge MM_MAX_TRACE_POINTS hat, ab.
@@ -8684,7 +8781,7 @@ Bit 1.. 6 beschreiben, welche axiale Vdi Input-Signale im Trace erfasst werden
 (siehe .. TRACE_DATA_FUNCTION)
 </description>
 </parameter>
-<parameter number="18800" type="DWORD" dim="0" display="HEX">
+<parameter number="18800" type="UDWORD" dim="0" display="HEX">
 <name>MM_EXTERN_LANGUAGE</name>
 <brief>Aktivierung externer NC-Sprachen</brief>
 <description>Zur Abarbeitung von Teileprogrammen anderer Steuerungshersteller muss die entsprechende NC-Sprache aktiviert werden. Es ist nur eine externe NC-Sprache auswählbar. Der jeweils bereitgestellte Befehlsumfang ist den aktuellen Dokumentationen zu entnehmen.
@@ -8763,8 +8860,8 @@ Gilt nur, wenn MAXNUM_3D_PROT_AREAS größer ist als Null und Bit 0 in PROT_AREA_T
 </parameter>
 <parameter number="18895" type="DWORD" dim="0">
 <name>MM_MAXNUM_3D_FACETS</name>
-<brief>Max. Anzahl der Schutzbereichsfacetten</brief>
-<description>Maximale Anzahl der Facets, die für alle Schutzbereiche zugelassen sind.
+<brief>Max. Anzahl der Schutzbereichsfacetten/Primitiven</brief>
+<description>Maximale Anzahl der Primitiven und Facetten, die für alle Schutzbereiche zugelassen sind.
 Gilt nur wenn MAXNUM_3D_PROT_AREAS größer ist als Null.
 </description>
 </parameter>
@@ -8781,7 +8878,7 @@ Falls die so ermittelte Speicherplatzgröße nicht ausreicht, kann diese über dies
 <brief>Max. Anzahl Interfacebits zur Voraktivierung von Schutzbereichen</brief>
 <description>Gibt an, wieviele Eingangsbits auf dem VDI-Interface zur Voraktivierung von 3D-Schutzbereichen zur Verfügung stehen.
 Es beeinflusst die Größe des für jeden NC-Satz benötigten Speicherplatzes.
-Hat dieses Maschindatum den Wert  n, wird pro Satz ein Speicherplatz von ungefähr n * (n + 1) / 16 Byte benötigt.
+Hat dieses Maschinendatum den Wert  n, wird pro Satz ein Speicherplatz von ungefähr n * (n + 1) / 16 Byte benötigt.
 Dieses Maschinendatum wird nur dann ausgewertet und führt nur dann zur Reservierung von Speicherplatz, wenn das MD18890 $MN_MM_MAXNUM_3D_PROT_AREAS ungleich 0 ist.
 </description>
 </parameter>
@@ -8791,7 +8888,7 @@ Dieses Maschinendatum wird nur dann ausgewertet und führt nur dann zur Reservier
 <description>Maximale Anzahl der 3D-Kollsionspaare.
 Dieses Maschinendatum wird nur ausgewertet, wenn das MD18890 $MN_MAX_NUM_3D_PROT_AREAS ungleich Null ist.
 Ist dieses Maschinendatum Null und das MD18890 $MN_MAX_NUM_3D_PROT_AREAS ist ungleich Null, wird automatisch Speicherplatz für die maximal mögliche Anzahl verschiedener Kollisionspaare reserviert ($MN_MAX_NUM_3D_PROT_AREAS * ($MN_MAX_NUM_3D_PROT_AREAS - 1) / 2).
-Ist der Inhalt dieses Maschindatums größer als der genannte Maximalwert, wird es intern ohne Fehlermeldung auf diesen Maximalwert begrenzt.
+Ist der Inhalt dieses Maschinendatums größer als der genannte Maximalwert, wird es intern ohne Fehlermeldung auf diesen Maximalwert begrenzt.
 </description>
 </parameter>
 <parameter number="18899" type="DWORD" dim="0">
@@ -8804,7 +8901,7 @@ Das Maschinendatum ist bitcodiert.
 Bit 0  (0x1)      Falls keine anderen Daten verfügbar sind, Werkzeugschutzbereich aus den Werkzeugdaten (Werkzeuglänge und Radius) erzeugen.
 </description>
 </parameter>
-<parameter number="18900" type="DWORD" dim="0" display="HEX">
+<parameter number="18900" type="UDWORD" dim="0" display="HEX">
 <name>FPU_ERROR_MODE</name>
 <brief>Systemreaktion bei FPU-Rechenfehler</brief>
 <description>System-Reaktion auf FPU-Rechenfehler
@@ -8816,14 +8913,14 @@ Bit 0   = 1:
 	Die Adresse, an der der Rechenfehler auftrat, kann in der Alarmausgabe exakt lokalisiert werden.
 </description>
 </parameter>
-<parameter number="18910" type="DWORD" dim="0" display="HEX">
+<parameter number="18910" type="UDWORD" dim="0" display="HEX">
 <name>FPU_CTRLWORD_INIT</name>
 <brief>Grundinitialisierung des FPU-Control-Words</brief>
 <description>Grundinitialisierung des FPU-Control-Words ermöglicht die Änderung der FPU-Arbeitsweise (z.B. Rundungsmodus)
 Bedeutung der Bits: siehe Manual der verwendeten FPU
 </description>
 </parameter>
-<parameter number="18920" type="DWORD" dim="0" display="HEX">
+<parameter number="18920" type="UDWORD" dim="0" display="HEX">
 <name>FPU_EXEPTION_MASK</name>
 <brief>Exeption-Maske für FPU-Rechenfehler</brief>
 <description>Exception-Maske für FPU-Rechenfehler ermöglicht die Auswahl der FPU-Fehler, bei denen eine Exception ausgelöst wird.
@@ -8904,7 +9001,7 @@ Für BRISK-Verhalten trägt man hier sehr große Werte ein.
 
 </description>
 </parameter>
-<parameter number="18965" type="DWORD" dim="0" display="HEX">
+<parameter number="18965" type="UDWORD" dim="0" display="HEX">
 <name>SIM_ENVIRONMENT</name>
 <brief>Festlegung der Simulations-Umgebung</brief>
 <description>Bitmaske zur Festlegung der Simulations-Umgebung:

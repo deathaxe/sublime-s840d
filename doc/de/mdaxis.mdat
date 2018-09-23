@@ -73,8 +73,6 @@ Eingabewert "2": (Verknüpfung der Freigabe- und Fahrrichtungs-Signale):
 <brief>Anzahl der Geber</brief>
 <description>In das MD ist die Anzahl der Geber der Achse bzw. Spindel für die Lageistwerterfassung einzutragen (die Unterscheidung direktes/indirektes Messsystem, d.h. der Anbauort dieser Geber wird dann z.B. per MD31040 $MA_ENC_IS_DIRECT spezifiziert).
 Für Simulationsachsen/-Spindeln muss MD30200 $MA_NUM_ENCS &gt; 0 zum Referenzieren vorgegeben werden.
-0: ohne Messsystem (bei Spindel möglich)
-1: Spindel/Achsel mit Messsystem (im Motor oder direkt)
 </description>
 </parameter>
 <parameter number="30210" type="BYTE" dim="1">
@@ -129,7 +127,6 @@ Wird ein Eingang ausgewählt, an dem kein Geber angeschlossen ist, so wird der Al
 3:	Geber für Semi-Servo - nur bei vorhandener Onboard-Hardware
 4:	Absolutgeber allg. (z.B. mit EnDat-Schnittstelle)
 5:	reserviert
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 
 Korrespondiert mit:
 	PROFIdrive-Parameter P979 (vgl. dort)
@@ -207,6 +204,12 @@ Dieses MD hat nur Bedeutung bei Absolutgeber:
 
 Nicht plausible Antriebs-Parameter (z.B. Absolutspur höher vervielfacht als Inkrementalspur) werden verworfen und durch den eingetragenen Wert im vorliegenden MD ersetzt.
 Nicht plausible Eingabewerte im vorliegenden MD (z.B. Wert=0) werden auf Standardwert zurückgesetzt. Zusätzlich wird Alarm 26025 oder 26002 zur Information des Anwenders ausgelöst.
+
+Bei MD31700 $MA_ENC_EDS_ACTIVE = 1 ist dieses Maschinendatum ohne Funktion und wird durch MD31730 $MA_ABS_INC_RATIO_EDS ersetzt.
+
+Korrespondiert mit:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31730 $MA_ABS_INC_RATIO_EDS
 </description>
 </parameter>
 <parameter number="30270" type="BYTE" dim="1">
@@ -229,6 +232,9 @@ Anzahl lastseitiger Umdrehungen = ENC_ABS_TURNS_MODULO * Getriebeübersetzung
 Achtung:
 	Bei Verletzung der unter a. bzw. b. genannten Bedingungen besteht die Gefahr, dass ohne Vorwarnung die Absolutgeber-Position beim nächsten Power-On bzw. Geber-Aktivierung nach Parken falsch sein kann, wenn die Verfahrbereichserweiterung nicht arbeitet. Deshalb bleibt standardmäßig die Verfahrbereichserweiterung aktiv.
 
+Bei MD31700 $MA_ENC_EDS_ACTIVE = 1 ist keine Verfahrbereichserweiterung möglich. Alarm 26017 mit Hinweis auf dieses Maschinendatum fordert deshalb bei rotatorischem Absolutgeber dazu auf, die Verfahrbereichserweiterung hier abzuschalten.
+Falls die Verfahrbereichserweiterung zwingend benötigt wird (weil die unter b. genannten Randbedingungen für eine Deaktivierung nicht erfüllt sind), darf MD31700 $MA_ENC_EDS_ACTIVE nicht aktiviert werden.
+
 Korrespondiert mit:
 	MD30240 $MA_ENC_TYPE
 	MD30300 $MA_IS_ROT_AX
@@ -236,6 +242,7 @@ Korrespondiert mit:
 	MD30250 $MA_ACT_POS_ABS
 	MD34220 $MA_ENC_ABS_TURNS_MODULO
 	MD34090 $MA_REFP_MOVE_DIST_CORR
+	MD31700 $MA_ENC_EDS_ACTIVE
 </description>
 </parameter>
 <parameter number="30300" type="BOOLEAN" dim="0">
@@ -338,7 +345,7 @@ Wenn FALSE: Bei RESET wird eine neutrale Achse wieder dem NC-Programm zugeordnet
 Wenn TRUE:  Bei RESET bleibt eine neutrale Achse im Zustand neutrale Achse, und eine dem NC-Programm zugeordnete Achse wird neutrale Achse
 </description>
 </parameter>
-<parameter number="30455" type="DWORD" dim="0" display="HEX">
+<parameter number="30455" type="UDWORD" dim="0" display="HEX">
 <name>MISC_FUNCTION_MASK</name>
 <brief>Achsfunktionen</brief>
 <description>Bit 0 = 0:
@@ -415,7 +422,7 @@ Bit 14 = 1:
                 Es wird die Strategie "langer Weg" zur Vermeidung der Softwareendschalterüberschreitung verwendet, wenn beim kartesischen PTP-Fahren eine Rundachse mit der Strategie "kürzester Weg" über den Softwareendschalter fahren würde.
 </description>
 </parameter>
-<parameter number="30460" type="DWORD" dim="0" display="HEX">
+<parameter number="30460" type="UDWORD" dim="0" display="HEX">
 <name>BASE_FUNCTION_MASK</name>
 <brief>Achsfunktionen</brief>
 <description>Mit dem MD können achsspezifische Funktionen eingestellt werden.
@@ -468,16 +475,22 @@ Bit 9 = 1:
 	Die Funktion PRESETON ist gesperrt. PRESETONS ist freigegeben.
 </description>
 </parameter>
-<parameter number="30465" type="DWORD" dim="0" display="HEX">
+<parameter number="30465" type="UDWORD" dim="0" display="HEX">
 <name>AXIS_LANG_SUB_MASK</name>
 <brief>Substituierung von NC-Sprachbefehlen</brief>
-<description>Mit MD30465 $MA_AXIS_LANG_SUB_MASK wird für die Leitspindel(n) einer Kopplung (Synchronspindelkopplung, ELG, tangentiales Nachführen, Mitschleppen, Leitwertkopplung, Master/Slave) festgelegt, welche Sprachkonstrukte/Funktionen durch das mit MD15700 $MN_LANG_SUB_NAME / MD15702 $MN_LANG_SUB_PATH eingestellte Anwenderprogramm (Default: /_N_CMA_DIR/_N_LANG_SUB_SPF) substituiert werden sollen.
+<description>Mit MD30465 $MA_AXIS_LANG_SUB_MASK wird für die Leitspindel(n) einer Kopplung (Synchronspindelkopplung, ELG, Mitschleppen, Leitwertkopplung, Master/Slave) festgelegt, welche Sprachkonstrukte/Funktionen durch das mit MD15700 $MN_LANG_SUB_NAME / MD15702 $MN_LANG_SUB_PATH eingestellte Anwenderprogramm (Default: /_N_CMA_DIR/_N_LANG_SUB_SPF) substituiert werden sollen.
 Die Substituierung wird nur ausgeführt, wenn für die jeweilige Spindel eine Kopplung aktiv ist und im Falle Getriebestufenwechsel auch tatsächlich ein Getriebestufenwechsel ansteht.
+Bit 0 und Bit 1 sind relevant für die Achskopplungsarten Synchronspindelkopplung, ELG, Mitschleppen und Leitwertkopplung.
+Bit 2 und Bit 3 sind relevant für die Master-Slave-Kopplung
 
 Bit 0 = 1:
-	Getriebestufenwechsel automatisch (M40) und direkt (M41-M45)
+	Achskopplung: Getriebestufenwechsel automatisch (M40) und direkt (M41-M45)
 Bit 1 = 1:
-	Spindelpositionieren mit SPOS/SPOSA/M19
+	Achskopplung: Spindelpositionieren mit SPOS/SPOSA/M19
+Bit 2 = 1:
+	Master-Slave-Kopplung: Getriebestufenwechsel automatisch (M40) und direkt (M41-M45)
+Bit 3 = 1:
+	Master-Slave-Kopplung: Spindelpositionieren mit SPOS/SPOSA/M19
 </description>
 </parameter>
 <parameter number="30500" type="BYTE" dim="0">
@@ -649,7 +662,12 @@ Der Index[n] des Maschinendatums hat folgende Codierung:
 In das MD sind die Geberstriche pro Geberumdrehung einzutragen.
 Der Index[n] des Maschinendatums hat folgende Codierung:
 [Encodernr.]: 0 oder 1
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
+
+Bei MD31700 $MA_ENC_EDS_ACTIVE = 1 ist dieses Maschinendatum ohne Funktion und wird durch MD31710 $MA_ENC_RESOL_EDS ersetzt.
+
+Korrespondiert mit:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31710 $MA_ENC_RESOL_EDS
 </description>
 </parameter>
 <parameter number="31025" type="DWORD" dim="1">
@@ -658,6 +676,12 @@ Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 <description>Nur bei PROFIdrive:
 Dieses MD beschreibt die Messsystem-Vervielfachung am PROFIBUS/PROFINET.
 Der Standardwert 2048 bedeutet: Eine Änderung um einen einzigen Geberstrich wird im Bit11 des PROFIdrive-Istwerts XIST1 sichtbar, der Geberistwert ist also um 2hoch11=2048 vervielfacht.
+
+Bei MD31700 $MA_ENC_EDS_ACTIVE = 1 ist dieses Maschinendatum ohne Funktion und wird durch MD31720 $MA_ENC_PULSE_MULT_EDS ersetzt.
+
+Korrespondiert mit:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31720 $MA_ENC_PULSE_MULT_EDS
 </description>
 </parameter>
 <parameter number="31030" type="DOUBLE" dim="0">
@@ -766,7 +790,6 @@ Korrespondiert mit:
 <description>In das MD ist der Nenner des Messgetriebes einzutragen.
 Der Index[n] des Maschinendatums hat folgende Codierung:
 [Encodernr.]: 0 oder 1
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 </description>
 </parameter>
 <parameter number="31080" type="DWORD" dim="1">
@@ -775,7 +798,6 @@ Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 <description>In das MD ist der Zähler des Messgetriebes einzutragen.
 Der Index[n] des Maschinendatums hat folgende Codierung:
 [Encodernr.]: 0 oder 1
-Der Index[n] des Maschinendatums hat folgende Codierung: [Encodernr.]: 0
 </description>
 </parameter>
 <parameter number="31090" type="DOUBLE" dim="1">
@@ -895,7 +917,74 @@ Dieses MD wird nur bei einer Semi-Servo-Lösung wirksam.
 <parameter number="31600" type="BOOLEAN" dim="0">
 <name>TRACE_VDI_AX</name>
 <brief>Trace-Spezifikation für axiale Vdi-Signale</brief>
-<description>Das Maschinendaten legt fest, ob die axialen Vdi-Signale für diese Achse in dem NCSC Trace erfasst werden. (gemäß MD18794 $MN_MM_TRACE_VDI_SIGNAL)
+<description>Das Maschinendatum legt fest, ob die axialen Vdi-Signale für diese Achse in dem NCSC Trace erfasst werden. (gemäß MD18794 $MN_MM_TRACE_VDI_SIGNAL)
+</description>
+</parameter>
+<parameter number="31700" type="BOOLEAN" dim="1">
+<name>ENC_EDS_ACTIVE</name>
+<brief>EDS-Nutzung aktivieren</brief>
+<description>Nur bei SINAMICS:
+MD = 0: Geberdatensatzumschaltung EDS wird nicht genutzt, POWERON-MDs $MA_ENC_RESOL usw. sind wirksam
+MD = 1: Geberdatensatzumschaltung EDS wird genutzt, NEWCONF-MDs $MA_ENC_RESOL_EDS usw. sind wirksam
+
+Der Index[n] des Maschinendatums hat folgende Codierung:
+[Encodernr.]: 0 oder 1
+
+Korrespondiert mit:
+	MD31020 $MA_ENC_RESOL
+	MD31710 $MA_ENC_RESOL_EDS
+	MD31025 $MA_ENC_PULSE_MULT
+	MD31720 $MA_ENC_PULSE_MULT_EDS
+	MD30260 $MA_ABS_INC_RATIO
+	MD31730 $MA_ABS_INC_RATIO_EDS
+</description>
+</parameter>
+<parameter number="31710" type="DWORD" dim="1">
+<name>ENC_RESOL_EDS</name>
+<brief>Geberstriche pro Umdrehung bei EDS-Nutzung</brief>
+<description>Nur bei SINAMICS:
+Das Maschinendatum ist nur wirksam bei MD31700 $MA_ENC_EDS_ACTIVE = 1 und ersetzt MD31020 $MA_ENC_RESOL
+
+Nur bei rotatorischem Messsystem:
+In das MD sind die Geberstriche pro Geberumdrehung bei EDS-Nutzung einzutragen.
+Der Index[n] des Maschinendatums hat folgende Codierung:
+[Encodernr.]: 0 oder 1
+
+Korrespondiert mit:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31020 $MA_ENC_RESOL
+</description>
+</parameter>
+<parameter number="31720" type="DWORD" dim="1">
+<name>ENC_PULSE_MULT_EDS</name>
+<brief>Geber-Vervielfachung (Hochauflösung) bei EDS-Nutzung</brief>
+<description>Nur bei SINAMICS:
+Das Maschinendatum ist nur wirksam bei MD31700 $MA_ENC_EDS_ACTIVE = 1 und ersetzt MD31025 $MA_ENC_PULSE_MULT
+
+Dieses MD beschreibt die Messsystem-Vervielfachung bei EDS-Nutzung am PROFIBUS/PROFINET.
+Der Standardwert 2048 bedeutet: Eine Änderung um einen einzigen Geberstrich wird im Bit11 des PROFIdrive-Istwerts XIST1 sichtbar, der Geberistwert ist also um 2hoch11=2048 vervielfacht.
+
+Korrespondiert mit:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD31025 $MA_ENC_PULSE_MULT
+</description>
+</parameter>
+<parameter number="31730" type="DWORD" dim="1">
+<name>ABS_INC_RATIO_EDS</name>
+<brief>Absolutgeber: Verhältnis Absolut- zu Inkrementalauflösung bei EDS-Nutzung</brief>
+<description>Nur bei SINAMICS:
+Das Maschinendatum ist nur wirksam bei MD31700 $MA_ENC_EDS_ACTIVE = 1 und ersetzt MD30260 $MA_ABS_INC_RATIO
+
+Verhältnis der Absolutspur-Auflösung zur Inkrementalspur-Auflösung bei EDS-Nutzung.
+Dieses MD hat nur Bedeutung bei Absolutgeber:
+
+-	PROFIBUS-Antriebe:
+	Verhältnis der Absolut-Information XIST2 zur Inkremental-Information XIST1.
+
+
+Korrespondiert mit:
+	MD31700 $MA_ENC_EDS_ACTIVE
+	MD30260 $MA_ABS_INC_RATIO
 </description>
 </parameter>
 <parameter number="32000" type="DOUBLE" dim="0">
@@ -1010,7 +1099,7 @@ Die maximal zulässige Geschwindigkeit ist die maximale Geschwindigkeit im MD3200
 Die Umrechnung nach Linear- oder Rundachsgeschwindigkeit erfolgt entsprechend MD30300 $MA_IS_ROT_AX.
 </description>
 </parameter>
-<parameter number="32074" type="DWORD" dim="0" display="HEX">
+<parameter number="32074" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_OR_CORRPOS_NOTALLOWED</name>
 <brief>Frame oder HL-Korrektur sind unzulässig</brief>
 <description>Über dieses Maschinendatum wird die Wirksamkeit der Frames und Werkzeuglängenkorrekturen für Teilungsachsen, PLC-Achsen und aus Synchronaktionen gestartete Kommandoachsen festgelegt.
@@ -1092,7 +1181,7 @@ Bit 11 = 1:
  0:	keine Begrenzung
 </description>
 </parameter>
-<parameter number="32084" type="DWORD" dim="0" display="HEX">
+<parameter number="32084" type="UDWORD" dim="0" display="HEX">
 <name>HANDWH_STOP_COND</name>
 <brief>Verhalten Handradverfahren</brief>
 <description>Festlegung des Verhaltens des Handradfahrens auf achsspezifische VDI-Nahtstellensignale bzw. beim CP-SW-Limit-Stop bzw. beim Stopp durch eine OEM Anwendung:
@@ -1250,7 +1339,7 @@ Ein Wert des MD kleiner 0.001 deaktiviert den Integralteil des PI-Reglers. Der R
 Bei Verwendung des I-Anteils können Positionsüberschwinger auftreten, d.h. diese Funktionalität ist nur für Sonderfälle geeignet.
 </description>
 </parameter>
-<parameter number="32230" type="BYTE" dim="0" display="HEX">
+<parameter number="32230" type="UBYTE" dim="0" display="HEX">
 <name>POSCTRL_CONFIG</name>
 <brief>Konfiguration Lageregler-Struktur</brief>
 <description>Konfiguration Lageregler-Struktur:
@@ -1314,7 +1403,7 @@ Nicht relevant bei Fehlerzuständen, die zum Schnellstopp führen.
 Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
 
 Korrespondiert mit:
-                    MD32210 $MA_MAX_ACCEL_OVL_FACTOR
+                    MD32310 $MA_MAX_ACCEL_OVL_FACTOR
                     MD32434 $MA_G00_ACCEL_FACTOR
                     MD32433 $MA_SOFT_ACCEL_FACTOR
                     MD20610 $MC_ADD_MOVE_ACCEL_RESERVE
@@ -1347,7 +1436,7 @@ Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
 
 </description>
 </parameter>
-<parameter number="32320" type="DWORD" dim="0" display="HEX">
+<parameter number="32320" type="UDWORD" dim="0" display="HEX">
 <name>DYN_LIMIT_RESET_MASK</name>
 <brief>Resetverhalten von Dynamikbegrenzungen</brief>
 <description>Mit dem MD32320 $MA_DYN_LIMIT_RESET_MASK  wird das Reset-Verhalten von Dynamik begrenzenden Funktionen achsspezifisch und gruppenweise eingestellt.
@@ -1426,7 +1515,7 @@ MD32414 $MA_AX_JERK_DAMP
 <brief>Zeitkonstante für den axialen Ruckfilter</brief>
 <description>Zeitkonstante des axialen Ruckfilters, welche einen weicheren Achssollwertverlauf bewirkt. Der Ruckfilter ist nur dann wirksam, wenn die Zeitkonstante größer ist als ein Lageregeltakt.
 
-Unwirksam bei Fehlerzuständen, die einen Wechsel in den Nachführbetrieb bewirken (z.B. NOT-AUS)
+Unwirksam bei Fehlerzuständen, die einen Wechsel in den Nachführbetrieb bewirken (z.B. NOT-HALT)
 
 Sonderfälle:
 	Maschinenachsen, die miteinander interpolieren sollen, müssen identische effektive Ruckfilterung besitzen (z.B. gleiche Zeitkonstante beim Gewindebohren ohne Ausgleichsfutter).
@@ -1471,7 +1560,7 @@ MD32430 $MA_JOG_AND_POS_MAX_JERK (Axialer Ruck)
 </parameter>
 <parameter number="32429" type="DOUBLE" dim="1">
 <name>MAX_JERK_STOP</name>
-<brief>Reserviert: maximaler axialer Not-Ruck</brief>
+<brief>Reserviert: maximaler axialer NOT-RUCK</brief>
 <description>Reserviert für maximalen Achsruck in Notsituationen. Der Wert 0 wirkt wie MAX_AX_JERK.
 
 Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
@@ -1627,12 +1716,18 @@ Korrespondiert mit:
 	MD32450 $MA_BACKLASH[n]
 </description>
 </parameter>
-<parameter number="32454" type="BYTE" dim="1">
+<parameter number="32454" type="UBYTE" dim="1" display="HEX">
 <name>BACKLASH_MODE</name>
 <brief>Losekompensationsmodus</brief>
-<description>0:	Der Losekompensationswert wird bei Power-On nicht restauriert.
+<description>Bit 0 = 0:
+	Der Losekompensationswert wird bei Power-On nicht restauriert.
+Bit 0 = 1:
+	Der Losekompensationswert wird bei Power-On restauriert.
 
-1:	Der Losekompensationswert wird bei Power-On restauriert.
+Bit 1 = 0:
+	Die Losekompensation reagiert auf andere Kompensationsbewegungen (Temperaturkompensation, Durchhang- und Winkligkeitsfehlerkompensation).
+Bit 1 = 1:
+	Die Losekompensation reagiert nicht auf andere Kompensationsbewegungen (Temperaturkompensation, Durchhang- und Winkligkeitsfehlerkompensation).
 </description>
 </parameter>
 <parameter number="32455" type="DOUBLE" dim="1">
@@ -2269,7 +2364,7 @@ Korrespondiert mit:
 </parameter>
 <parameter number="32630" type="BYTE" dim="0">
 <name>FFW_ACTIVATION_MODE</name>
-<brief>Vorsteuerung aktivieren von Programm</brief>
+<brief>Vorsteuerung aktivieren vom Programm</brief>
 <description>Mit MD32630 $FFW_ACTIVATION_MODE kann festgelegt werden, ob die Vorsteuerung für diese Achse/Spindel vom Teileprogramm ein- und ausschaltbar ist.
 
 0 =	Die Vorsteuerung kann nicht durch die Hochsprachenelemente FFWON bzw. FFWOF ein- bzw. ausgeschaltet werden.
@@ -2366,14 +2461,14 @@ Das MD wird bei Linearantrieben MD13080 $MN_DRIVE_TYPE_DP=3) anstelle von MD3265
 <brief>Geber-/Spindelfehler-Kompensation</brief>
 <description>1: Die SSFK (Spindelsteigungsfehlerkompensation) wird für das Messsystem aktiviert.
  Hiermit können Spindelsteigungsfehler und Messsystemfehler kompensiert werden.
- Die Funktion wird intern erst freigegeben, wenn das jeweilige Messsystem referiert ist (NC/PLC-Nahtstellensignal &lt;ReferiertSynchronisiert1bzw2/&gt; (Referiert/Synchronisiert 1 bzw. 2) = 1).
+ Die Funktion wird intern erst freigegeben, wenn das jeweilige Messsystem referenziert ist (NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt; (Referenziert/Synchronisiert 1 bzw. 2) = 1).
 Schreibschutzfunktion (Kompensationswerte) aktiv.
 0: Die SSFK ist für die Achse/Messsystem nicht aktiv.
 
 Korrespondiert mit:
  MD38000 $MA_MM_ENC_COMP_MAX_POINTS Anzahl der Stützpunkte bei SSFK
- NC/PLC-Nahtstellensignal &lt;Referiert-Synchronisiert1/&gt; (Referiert/Synchronisiert 1)
- NC/PLC-Nahtstellensignal &lt;Referiert-Synchronisiert2/&gt; (Referiert/Synchronisiert 2)
+ NC/PLC-Nahtstellensignal &lt;Referenziert-Synchronisiert1/&gt; (Referenziert/Synchronisiert 1)
+ NC/PLC-Nahtstellensignal &lt;Referenziert-Synchronisiert2/&gt; (Referenziert/Synchronisiert 2)
 </description>
 </parameter>
 <parameter number="32710" type="BOOLEAN" dim="0">
@@ -2386,7 +2481,7 @@ Mit der Durchhangkompensation können achsübergreifend Maschinengeometriefehler (
 Die Funktion wird erst wirksam, wenn folgende Voraussetzungen erfüllt sind:
 - die Option "Interpolatorische Kompensation" ist gesetzt
 - die zugehörigen Kompensationstabellen in den NC-Anwenderspeicher geladen und freigegeben wurden (SD41300 $SN_CEC_TABLE_ENABLE[t] = 1)
-- das jeweilige Lagemesssystem referiert ist (NC/PLC-Nahtstellensignal: &lt;ReferiertSynchronisiert1bzw2/&gt; =1(Referiert/Synchronisiert 1 bzw. 2)).
+- das jeweilige Lagemesssystem referenziert ist (NC/PLC-Nahtstellensignal: &lt;ReferenziertSynchronisiert1bzw2/&gt; =1(Referenziert/Synchronisiert 1 bzw. 2)).
 
 0:	Die Durchhangkompensation ist für die Kompensationsachse nicht freigegeben.
 
@@ -2395,8 +2490,10 @@ Korrespondiert mit:
 	Anzahl der Stützpunkte bei Durchhangkompensation
 	SD41300 $SN_CEC_TABLE_ENABLE[t]
 	Auswertung der Durchhangkompensationstabelle t freigeben
-	NC/PLC-Nahtstellensignal &lt;ReferiertSynchronisiert1bzw2/&gt;
-	(Referiert/Synchronisiert 1 bzw. 2)
+	SD41310 $SN_CEC_TABLE_WEIGHT[t]
+	Gewichtungsfaktor der Durchhangkompensationstabelle t
+	NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt;
+	(Referenziert/Synchronisiert 1 bzw. 2)
 </description>
 </parameter>
 <parameter number="32711" type="BOOLEAN" dim="0">
@@ -2425,8 +2522,8 @@ Korrespondiert mit:
 	Freigabe der Durchhangkompensation
 	SD41300 $SN_CEC_TABLE_ENABLE[t]
 	Auswertung der Durchhangkompensationstabelle t freigeben
-	NC/PLC-Nahtstellensignal &lt;ReferiertSynchronisiert1bzw2/&gt;
-	(Referiert/Synchronisiert 1 bzw. 2)
+	NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt;
+	(Referenziert/Synchronisiert 1 bzw. 2)
 
 
 </description>
@@ -2450,13 +2547,13 @@ Korrespondiert mit:
 	Maximale Achsgeschwindigkeit
 	SD41300 $SN_CEC_TABLE_ENABLE[t]
 	Auswertung der Durchhangkompensationstabelle t freigeben
-	NC/PLC-Nahtstellensignal &lt;ReferiertSynchronisiert1bzw2/&gt;
-	(Referiert/Synchronisiert 1 bzw. 2)
+	NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt;
+	(Referenziert/Synchronisiert 1 bzw. 2)
 
 
 </description>
 </parameter>
-<parameter number="32750" type="BYTE" dim="0" display="HEX">
+<parameter number="32750" type="UBYTE" dim="0" display="HEX">
 <name>TEMP_COMP_TYPE</name>
 <brief>Temperaturkompensationstyp</brief>
 <description>Mit dem MD32750 $MA_TEMP_COMP_TYPE wird der für die Maschinenachse wirkende Temperaturkompensationstyp aktiviert.
@@ -2767,7 +2864,7 @@ Beim Überschleifen von Ecken mit G645 wird, wie bei G642 auch, die Toleranz MD33
 <brief>Achse mit Referenzpunktnocken</brief>
 <description>1:	Für die Achse gibt es mindestens einen Referenzpunktnocken.
 0:	Die Achse hat keinen Referenzpunktnocken. (z.B. Rundachse)
-Der Referierzyklus beginnt sofort mit Phase 2. (siehe Dokumentation)
+Der Referenzierzyklus beginnt sofort mit Phase 2. (siehe Dokumentation)
 
 Maschinenachsen, die über ihren gesamten Verfahrbereich nur eine Nullmarke haben oder Rundachsen, die nur eine Nullmarke pro Umdrehung haben, benötigen keinen zusätzlichen die Nullmarke auswählenden Referenznocken (MD34000 $MA_REFP_CAM_IS_ACTIVE = 0 wählen).
 Die so gekennzeichnete Maschinenachse beschleunigt, wenn die Verfahrtaste plus/minus gedrückt wurde, auf die im MD34040 $MA_REFP_VELO_SEARCH_MARKER (Referenzpunkt-Abschaltgeschwindigkeit) vorgegebene Geschwindigkeit und synchronisiert mit der nächsten Nullmarke.
@@ -2786,8 +2883,6 @@ Steht die Maschinenachse auf dem Referenznocken, beschleunigt sie auf die im MD3
 
 Bei Längenmesssystemen mit abstandscodierten Referenzmarken:
 Hat die Maschinenachse einen Referenznocken (Längenmesssysteme mit abstands-codierten Referenzmarken brauchen nicht zwangsweise einen Referenznocken) und steht die Maschinenachse auf dem Referenznocken, beschleunigt sie, unabhängig von der gedrückten Verfahrtaste plus/minus, auf die im MD34040 $MA_REFP_VELO_SEARCH_MARKER (Referenzpunktabschaltgeschwindigkeit) vorgegebene Geschwindigkeit entgegen der im MD34010 $MA_REFP_CAM_DIR_IS_MINUS vorgegebenen Richtung.
-Hinweis für Absolutgeber:
-Die Richtung der Verfahrtaste ist auch für Justage der Absolutgeber von Bedeutung: Richtung für feste Position anfahren und Aktualisierung der Werte in MD34090 $MA_REFP_MOVE_DIST_CORR und MD34210 $MA_ENC_REFP_STATE.
 </description>
 </parameter>
 <parameter number="34020" type="DOUBLE" dim="0">
@@ -2978,36 +3073,36 @@ In der Kombination mit MD30242 $MA_ENC_IS_INDEPENDENT = 2 wird der passive Geber
 </parameter>
 <parameter number="34110" type="DWORD" dim="0">
 <name>REFP_CYCLE_NR</name>
-<brief>Achsreihenfolge beim kanalspezifischen Referieren</brief>
-<description>MD34110 $MA_REFP_CYCLE_NR = 0 -----&gt; achsspezifisches Referieren
-	Das achsspezifische Referieren wird für jede Maschinenachse getrennt mit dem NC/PLC-Nahtstellensignal &lt;Verfahrtasten_plus-minus/&gt; (Verfahrtasten plus/minus) gestartet.
-	Es können bis zu 8 Achsen (840D) gleichzeitig referieren.
-	Sollen die Maschinenachsen in einer bestimmten Reihenfolge referiert werden, gibt es folgende Möglichkeiten:
+<brief>Achsreihenfolge beim kanalspezifischen Referenzieren</brief>
+<description>MD34110 $MA_REFP_CYCLE_NR = 0 -----&gt; achsspezifisches Referenzieren
+	Das achsspezifische Referenzieren wird für jede Maschinenachse getrennt mit dem NC/PLC-Nahtstellensignal &lt;Verfahrtasten_plus-minus/&gt; (Verfahrtasten plus/minus) gestartet.
+	Es können bis zu 8 Achsen (840D) gleichzeitig referenzieren.
+	Sollen die Maschinenachsen in einer bestimmten Reihenfolge referenziert werden, gibt es folgende Möglichkeiten:
 - Der Bediener muss beim Starten die Reihenfolge selbst einhalten.
 - Die PLC muss die Reihenfolge beim Starten kontrollieren oder selbst festlegen.
-- Die Funktion kanalspezifisches Referieren wird verwendet.
+- Die Funktion kanalspezifisches Referenzieren wird verwendet.
 
-MD34110 $MA_REFP_CYCLE_NR = 1 -----&gt; kanalspezifisches Referieren
-	Das kanalspezifische Referieren wird mit dem NC/PLC-Nahtstellensignal &lt;Referieren_aktivieren/&gt; (Referieren aktivieren) gestartet. Die Steuerung quittiert den erfolgreichen Start mit dem NC/PLC-Nahtstellensignal &lt;Referieren_aktiv/&gt; (Referieren aktiv). Mit dem kanalspezifischen Referieren kann jede Maschinenachse, die dem Kanal zugeordnet ist, referiert werden (steuerungsintern werden dazu die Verfahrtasten plus/minus simuliert). Mit dem achspezifischen MD34110 $MA_REFP_CYCLE_NR kann festgelegt werden, in welcher Reihenfolge die Maschinenachsen referiert werden:
+MD34110 $MA_REFP_CYCLE_NR = 1 -----&gt; kanalspezifisches Referenzieren
+	Das kanalspezifische Referenzieren wird mit dem NC/PLC-Nahtstellensignal &lt;Referenzieren_aktivieren/&gt; (Referenzieren aktivieren) gestartet. Die Steuerung quittiert den erfolgreichen Start mit dem NC/PLC-Nahtstellensignal &lt;Referenzieren_aktiv/&gt; (Referenzieren aktiv). Mit dem kanalspezifischen Referenzieren kann jede Maschinenachse, die dem Kanal zugeordnet ist, referenziert werden (steuerungsintern werden dazu die Verfahrtasten plus/minus simuliert). Mit dem achspezifischen MD34110 $MA_REFP_CYCLE_NR kann festgelegt werden, in welcher Reihenfolge die Maschinenachsen referenziert werden:
 	-1 bedeutet:
-	Die Maschinenachse wird durch kanalspez. Referieren nicht gestartet, und NC-Start ist ohne Referieren dieser Achse möglich.
+	Die Maschinenachse wird durch kanalspez. Referenzieren nicht gestartet, und NC-Start ist ohne Referenzieren dieser Achse möglich.
 	 0 bedeutet:
-	Die Maschinenachse wird durch kanalspez. Referieren nicht gestartet, und NC-Start ist ohne Referieren dieser Achse nicht möglich.
+	Die Maschinenachse wird durch kanalspez. Referenzieren nicht gestartet, und NC-Start ist ohne Referenzieren dieser Achse nicht möglich.
 	 1 bedeutet:
-	Die Maschinenachse wird durch kanalspez. Referieren gestartet.
+	Die Maschinenachse wird durch kanalspez. Referenzieren gestartet.
 	 2 bedeutet:
-	Die Maschinenachse wird durch kanalspez. Referieren gestartet, wenn alle Maschinenachsen, die im MD34110 $MA_REFP_CYCLE_NR mit 1 gekennzeichnet sind, referiert sind.
+	Die Maschinenachse wird durch kanalspez. Referenzieren gestartet, wenn alle Maschinenachsen, die im MD34110 $MA_REFP_CYCLE_NR mit 1 gekennzeichnet sind, referenziert sind.
 	 3 bedeutet:
-	Die Maschinenachse wird durch kanalspez. Referierengestartet, wenn alle Maschinenachsen, die im MD34110 $MA_REFP_CYCLE_NR mit 2 gekennzeichnet sind.
+	Die Maschinenachse wird durch kanalspez. Referenzierengestartet, wenn alle Maschinenachsen, die im MD34110 $MA_REFP_CYCLE_NR mit 2 gekennzeichnet sind.
 	 4 bis 8:
 	Entsprechend für die weiteren Maschinenachsen.
 
 Die Wirkung eines Eintrags von -1 für alle Achsen eines Kanals lässt sich durch das Setzen des kanalspezifischen MD20700 $MC_REF_NC_START_LOCK (NC-Startsperre ohne Referenzpunkt) auf Null erreichen).
 Nicht relevant bei:
-	achsspezifischem Referieren
+	achsspezifischem Referenzieren
 Korrespondiert mit:
-	NC/PLC-Nahtstellensignal &lt;Referieren_aktivieren/&gt; (Referieren aktivieren)
-	NC/PLC-Nahtstellensignal &lt;Referieren_aktiv/&gt; (Referieren aktiv)
+	NC/PLC-Nahtstellensignal &lt;Referenzieren_aktivieren/&gt; (Referenzieren aktivieren)
+	NC/PLC-Nahtstellensignal &lt;Referenzieren_aktiv/&gt; (Referenzieren aktiv)
 </description>
 </parameter>
 <parameter number="34200" type="BYTE" dim="1">
@@ -3031,42 +3126,6 @@ Korrespondiert mit:
 	Referenzieren bei Längenmesssystemen mit abstandscodierten Referenzmarken:
 	Längenmesssystem mit abstandscodierten Referenzmarken über 4 Nullmarken (Erhöhte Sicherheit).
 
-Für das Referenzieren können die angebauten Lagemesssysteme mit MD34200 $MA_ENC_REFP_MODE wie folgt eingeteilt werden:
-- MD34200 $MA_ENC_REFP_MODE = 0
-	wenn Absolutgeber vorhanden: Übernahme von MD34100 $MA_REFP_SET_POS
-	sonstige Geber: kein Referenzpunktfahren möglich
-- MD34200 $MA_ENC_REFP_MODE = 1
-	Referenzieren von inkrementellen Messsystemen:
-	inkrementelles rotatorisches Messsystem
-	inkrementelles lineares Messsystem (Längenmesssystem)
-	Nullimpuls auf der Geberspur (nicht bei Absolutgebern)
-- MD34200 $MA_ENC_REFP_MODE = 2 :
-	BERO mit 1-Flankenerkennung. Auch mit Absolutwertgeber möglich. Nach dem Referenzieren wird der Absolutgeber zusätzlich als "justiert" gekennzeichnet.
-- MD34200 $MA_ENC_REFP_MODE = 3
-	Referenzieren bei Längenmesssystemen mit abstandscodierten Referenzmarken:
-	Längenmesssystem mit abstandscodierten Referenzmarken (Fa. Heidenhain)
-- MD34200 $MA_ENC_REFP_MODE = 4 :
-	Die positive und negative Flanke des Referenzpunkt-BERO werden hintereinander überfahren und die jeweiligen Istwerte registriert.
-	Der daraus ermittelte Mittelwert ist der Synchronisationspunkt.
-	Durch die Zweiflanken-Auswertung kann eine mögliche Drift bzw. temperaturabhängige Ausdehnung des BERO kompensiert werden.
-- MD34200 $MA_ENC_REFP_MODE = 5:
-	Bei dem Überfahren des Bero wird mit Erkennen der Flanke die Nullmarkensuche gestartet und auf die nächste erkannte Nullmarke referenziert.
-- MD34200 $MA_ENC_REFP_MODE = 6
-	Messsystemabgleich auf einen bereits referenzierten Geber
-	(nicht NCU570)
-- MD34200 $MA_ENC_REFP_MODE = 7
-	BERO mit projektierter Anfahrgeschwindigkeit bei Achs- und Spindelapplikationen (ab SW3.6) (MD34040 $MA_REFP_VELO_SEARCH_MARKER[n]
-	(Referenzpunkt Abschaltgeschwindigkeit [Enc.-Nr.].
-- MD34200 $MA_ENC_REFP_MODE = 8
-	Referenzieren bei Längenmesssystemen mit abstandscodierten Referenzmarken:
-	Längenmesssystem mit abstandscodierten Referenzmarken über 4 Nullmarken (Erhöhte Sicherheit).
-
-Beim Überfahren des BERO im Modus 5 wird mit dem Erkennen der negativen BERO Flanke die Nullmarkensuche gestartet und mit der zeitlich nächsten Nullmarke synchronisiert.
-
-Der Modus 6 kann bei Messsystemkonfigurationen mit inkrementellen Geber als direktes und absoluten Geber als indirektes Messsystem eingesetzt werden. Dabei ist das absolute Messsystem zum Zeitpunkt des Referierens vom inkrementellen Geber bereits referiert.
-Die Absolutposition wird nach dem Verfahren der Strecke MD34080 $MA_REFP_MOVE_DIST&gt; der gemessenen Lose vom inkrementellen Geber übernommen. Dieser ist anschließend referiert.
-Vorsicht:
-	Dieser Modus ist nur mit SIMODRIVE611D-Antrieben verfügbar!
 </description>
 </parameter>
 <parameter number="34210" type="BYTE" dim="1">
@@ -3185,7 +3244,7 @@ Korrespondiert mit:
 	(Referenzpunktabstand/Zielpunkt bei abstandscodiertem System.)
 </description>
 </parameter>
-<parameter number="34400" type="BYTE" dim="1" display="HEX">
+<parameter number="34400" type="UBYTE" dim="1" display="HEX">
 <name>ENC_SSI_STATUS</name>
 <brief>Synchronisationsdaten für SSI-Absolutwertgeber</brief>
 <description>Synchronisationsdaten für SSI-Absolutwertgeber:
@@ -3239,8 +3298,8 @@ Wert:        0       rechtsbündig
 <name>WAIT_ENC_VALID</name>
 <brief>Parametrierung für Teileprogrammbefehl WAITENC</brief>
 <description>Parametrierung für Teileprogrammbefehl WAITENC:
-0: Achse wird beim Warten auf synchronisierte/referierte bzw. restaurierte Position per Teileprogrammbefehl WAITENC nicht berücksichtigt.
-1: Es wird im Teileprogrammbefehl WAITENC gewartet, bis für diese Achse eine synchronisierte/referierte bzw. restaurierte Position zur Verfügung steht.
+0: Achse wird beim Warten auf synchronisierte/referenzierte bzw. restaurierte Position per Teileprogrammbefehl WAITENC nicht berücksichtigt.
+1: Es wird im Teileprogrammbefehl WAITENC gewartet, bis für diese Achse eine synchronisierte/referenzierte bzw. restaurierte Position zur Verfügung steht.
 
 </description>
 </parameter>
@@ -3269,7 +3328,7 @@ Sollen andere Spindelnummern vergeben werden, ist die Funktion "Spindelumsetzer"
 Bei mehrkanaligen Systemen können in allen Kanälen gleiche Nummern vergeben werden, außer bei Spindeln, die in mehreren Kanälen angemeldet sind (Tauschachsen/-spindeln MD30550 $MA_AXCONF_ASSIGN_MASTER_CHAN).
 </description>
 </parameter>
-<parameter number="35010" type="DWORD" dim="0" display="HEX">
+<parameter number="35010" type="UDWORD" dim="0" display="HEX">
 <name>GEAR_STEP_CHANGE_ENABLE</name>
 <brief>Getriebestufenwechsel parametrieren</brief>
 <description>Bedeutung der Bitstellen:
@@ -3345,7 +3404,7 @@ Korrespondiert mit:
 	MD20700 $MC_REFP_NC_START_LOCK (NC-Startsperre ohne Referenzpunk)
 </description>
 </parameter>
-<parameter number="35030" type="BYTE" dim="0" display="HEX">
+<parameter number="35030" type="UBYTE" dim="0" display="HEX">
 <name>SPIND_DEFAULT_ACT_MASK</name>
 <brief>Wirkungszeitpunkt der Spindel-Grundstellung</brief>
 <description>Mit SPIND_DEFAULT_ACT_MASK wird der Wirkungszeitpunkt für die in MD35020 $MA_SPIND_DEFAULT_MODE eingestellte Betriebsart festgelegt. Die Grundstellung der Spindel kann zu folgenden Zeitpunkten mit den folgenden Werten eingestellt werden:
@@ -3363,7 +3422,7 @@ Korrespondiert mit:
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET (Spindel über Reset aktiv)
 </description>
 </parameter>
-<parameter number="35032" type="DWORD" dim="0" display="HEX">
+<parameter number="35032" type="UDWORD" dim="0" display="HEX">
 <name>SPIND_FUNC_RESET_MODE</name>
 <brief>Reset-Verhalten einzelner Spindelfunktionen</brief>
 <description>Mit diesem Datum kann die Funktion "SUG in jeder Betriebsart" an-/abgewählt werden.
@@ -3371,7 +3430,7 @@ SPIND_FUNC_RESET_MODE, Bit 0 = 0 : "SUG in jeder Betriebsart" ist abgewählt
 SPIND_FUNC_RESET_MODE, Bit 0 = 1 : "SUG in jeder Betriebsart" ist angewählt
 </description>
 </parameter>
-<parameter number="35035" type="DWORD" dim="0" display="HEX">
+<parameter number="35035" type="UDWORD" dim="0" display="HEX">
 <name>SPIND_FUNCTION_MASK</name>
 <brief>Spindelfunktionen</brief>
 <description>Mit dem MD können spindelspezifische Funktionen eingestellt werden.
@@ -3426,6 +3485,10 @@ Bit 21: reserviert
 Bit 22 = 0: Ab NCK-Version 78.00.00: Das NC/PLC-Nst.-Signal &lt;M3M4_invertieren/&gt; (M3/M4 invertieren) wirkt auch auf die Funktion interpolatorisches Gewindebohren G331/G332
 Bit 22 = 1: Kompatibles Verhalten zu SW-Ständen vor NCK-Version 78.00.00: Das NC/PLC-Nst.-Signal &lt;M3M4_invertieren/&gt; (M3/M4 invertieren) wirkt nicht auf die Funktion interpolatorisches Gewindebohren G331/G332.
 
+Bit 23:"Berechnung der Beschleunigungsreduktion bei Geschwindigkeitsführung DRIVE"
+ = 0: Zur Berechnung der Beschleunigungsreduktion wird als Maximaldrehzahl das aktuell wirksame Drehzahllimit der Spindel herangezogen (Kompatibilitätsmodus).
+ = 1: Zur Berechnung der Beschleunigungsreduktion werden für die Maximaldrehzahl nur die Maschinendaten MD35100 $MA_SPIND_VELO_LIMIT, MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT sowie bei Lageregelung MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT herangezogen."
+
 MD korrespondiert mit:
 	MD20850 $MC_SPOS_TO_VDI
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET
@@ -3458,14 +3521,14 @@ MD35040 $MA_SPIND_ACTIVE_AFTER_RESET= 2:
 - Spindel stoppt jedoch bei Kanal- oder Bag-Reset.
 - Für den Spindelbetrieb bleibt das programmierte ACC und VELOLIM erhalten.
 
-Das NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweg löschen/Spindel-Reset) wirkt unabhängig vom MD35040 $MA_SPIND_ACTIVE_AFTER_RESET immer.
+Das NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweglöschen/Spindel-Reset) wirkt unabhängig vom MD35040 $MA_SPIND_ACTIVE_AFTER_RESET immer.
 
 Nicht relevant bei:
 - anderen Spindelbetriebsarten als Steuerbetrieb.
 
 Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Reset/&gt; (Reset)
-	NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweg löschen/Spindel-Reset)
+	NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweglöschen/Spindel-Reset)
 </description>
 </parameter>
 <parameter number="35090" type="DWORD" dim="0" display="DECIMAL">
@@ -3730,15 +3793,15 @@ Korrespondiert mit:
 <name>ACCEL_REDUCTION_SPEED_POINT</name>
 <brief>Drehzahl für reduzierte Beschleunigung</brief>
 <description>Das Maschinendatum legt für Spindeln/Positionier-/Bahnachsen die Einsatzdrehzahl/-geschwindigkeit fest, ab der die Beschleunigungsreduzierung beginnen soll. Der Bezug ist die festgelegte Maximaldrehzahl/-geschwindigkeit. Der Einsatzpunkt ist prozentual von den Maximalwerten abhängig.
+Bei Spindeln wird die Maximaldrehzahl als kleinster Wert aus den Maschinendaten MD35100 $MA_SPIND_VELO_LIMIT, MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT sowie bei Lageregelung MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT ermittelt.
 Bsp.: MD35220 $MA_ACCEL_REDUCTION_SPEED_POINT = 0,7, die Maximaldrehzahl beträgt 3000 Umdr/min. Mit v_ein= 2100 Umdr/min beginnt die Beschleunigungs-reduktion, d.h. im Drehzahlbereich von 0...2099,99 Umdr/min wird das maximale Beschleunigungsvermögen ausgenutzt. Ab 2100 Umdr/min bis zur Maximaldrehzahl wird mit einer reduzierten Beschleunigung gearbeitet.
 
 Korrespondiert mit:
-	MD32000 $MA_MAX_AX_VELO
-	(Maximale Achsgeschwindigkeit)
-	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT
-	(Maximaldrehzahl der Getriebestufe)
-	MD35230 $MA_ACCEL_REDUCTION_FACTOR
-	(Reduzierte Beschleunigung)
+	MD32000 $MA_MAX_AX_VELO (Maximale Achsgeschwindigkeit)
+	MD35100 $MA_SPIND_VELO_LIMIT (Maximaldrehzahl der Spindel)
+	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT (Maximaldrehzahl der Getriebestufe)
+	MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT (Maximaldrehzahl der Getriebestufe bei Lageregelung)
+	MD35230 $MA_ACCEL_REDUCTION_FACTOR (Reduzierte Beschleunigung)
 </description>
 </parameter>
 <parameter number="35230" type="DOUBLE" dim="0">
@@ -3782,6 +3845,7 @@ Dieses Datum hat auch Auswirkung auf die Bahnbewegung bei SOFT, BRISK, TRAFO
 0:	konstant
 1:	hyperbolisch
 2:	linear
+Bei Spindeln wird der Endpunkt der Beschleunigungskurve abhängig vom MD35035 $MA_SPIND_FUNCTION_MASK Bit23 entweder von der aus MD35100 $MA_SPIND_VELO_LIMIT, MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT und MD35135 $MA_GEAR_STEP_PC_MAX_VELO_LIMIT ermittelten Maximaldrehzahl oder dem jeweils aktuell wirksamen Drehzahllimit gewählt.
 </description>
 </parameter>
 <parameter number="35300" type="DOUBLE" dim="1">
@@ -3809,7 +3873,6 @@ Nach dem Erreichen des Positionierendes (Genauhalt fein) wird um die eingestellt
 Die Verzögerungszeit wird aktiviert bei:
 - Getriebestufenwechsel auf definierter Spindelposition. Nach dem Erreichen der im MD35012 $MA_GEAR_STEP_CHANGE_POSITION projektierten Position wird um die hier angegebene Zeit gewartet. Nach dem Ablauf dieser Zeit wird für ein aktives direktes Messsystem die Lageregelung abgeschaltet und die NC/PLC-Nahtstellensignale &lt;Getriebe_umschalten/&gt; (Getriebe umschalten) und &lt;SollgetriebestufeA-C/&gt; (Sollgetriebestufe A-C) ausgegeben.
 - Satzsuchlauf bei der Ausgabe eines aufgesammelten Positioniersatzes (SPOS, SPOSA, M19).
-Nach dem Erreichen des Positionierendes (Genauhalt fein) wird die Verzögerungszeit bei Satzsuchlauf aktiviert bei der Ausgabe eines aufgesammelten Positioniersatzes (SPOS).
 </description>
 </parameter>
 <parameter number="35350" type="BYTE" dim="0">
@@ -3921,8 +3984,6 @@ Byte = 2:
 	Zusätzlich zu 1. werden auch fahrende Bahnachsen vor Bearbeitungsbeginn angehalten. Z.B. Bahnsteuerbetrieb (G64) und dem Wechsel vom Eilgang (G0) in einen Bearbeitungssatz (G1, G2,..). Die Bahn wird am letzten G0-Satz gestoppt und fährt erst los, wenn sich die Spindel im Drehzahlsollbereich befindet. Wird die Spindeldrehzahl zwischen zwei Bearbeitungssätzen neu programmiert und befindet sich die Drehzahl der Spindel beim Übergang vom ersten in den zweiten Bearbeitungssatz noch nicht im Sollbereich, so werden fahrende Bahnachsen ebenfalls abgebremst.
 Einschränkung:
 Wird die Spindel 'kurz' vor Ende des letzten G0-Satzes durch die PLC (FC18) oder eine Synchronaktion neu programmiert, so bremst die Bahn unter Wahrung der Dynamikbegrenzungen ab. Da die Spindelprogrammierung asynchron erfolgt, kann ggf. in den Bearbeitungssatz hinein gefahren werden. Hat die Spindel den Drehzahlsollbereich erreicht, dann wird die Bearbeitung von dieser Position aus begonnen.
-Wird die Spindel 'kurz' vor Ende des letzten G0-Satzes eine Synchronaktion neu programmiert, so bremst die Bahn unter Wahrung der Dynamikbegrenzungen ab. Da die Spindelprogrammierung asynchron erfolgt, kann ggf. in den Bearbeitungssatz hinein gefahren werden. Hat die Spindel den Drehzahlsollbereich erreicht, dann wird die Bearbeitung von dieser Position aus begonnen.
-Wird die Spindel 'kurz' vor Ende des letzten G0-Satzes durch die PLC (FC18) neu programmiert, so bremst die Bahn unter Wahrung der Dynamikbegrenzungen ab. Da die Spindelprogrammierung asynchron erfolgt, kann ggf. in den Bearbeitungssatz hinein gefahren werden. Hat die Spindel den Drehzahlsollbereich erreicht, dann wird die Bearbeitung von dieser Position aus begonnen.
 
 Byte = 3:
 	ab SW5.3 nicht mehr verfügbar.
@@ -3965,7 +4026,7 @@ Für 0 und 1:
 
 Randbedingungen:
 Das Umschaltverhalten ist davon abhängig, ob sich der KV-Faktor zwischen altem und neuem Parametersatz ändert.
-Eine Parametersatzumschaltung, bei der die Lastgetriebefaktoren zwischen aktivem und neuem Parametersatz unterschiedlich sind, führt zum Zurücksetzen des Referiertsignales, wenn die Achse ein indirektes Messsystem besitzt.
+Eine Parametersatzumschaltung, bei der die Lastgetriebefaktoren zwischen aktivem und neuem Parametersatz unterschiedlich sind, führt zum Zurücksetzen des Referenziertsignales, wenn die Achse ein indirektes Messsystem besitzt.
 Der Parametersatz beinhaltet folgende axiale Maschinendaten:
 	MD36200 $MA_AX_VELO_LIMIT
 	MD32200 $MA_POSCTRL_GAIN
@@ -4014,7 +4075,6 @@ Sonderfälle:
 
 Korrespondiert mit:
 	MD36020 $MA_POSITIONING_TIME (Verzögerungszeit Genauhalt fein)
-Siehe MD36000 $MA_STOP_LIMIT_COARSE (Genauhalt grob)
 </description>
 </parameter>
 <parameter number="36012" type="DOUBLE" dim="1">
@@ -4102,7 +4162,7 @@ Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Klemmungstoleranz_ueberschritten/&gt; (Klemmungstoleranz überschritten)
 </description>
 </parameter>
-<parameter number="36052" type="BYTE" dim="0" display="HEX">
+<parameter number="36052" type="UBYTE" dim="0" display="HEX">
 <name>STOP_ON_CLAMPING</name>
 <brief>Sonderfunktionen bei geklemmter Achse</brief>
 <description>Das MD legt fest, wie eine geklemmte Achse berücksichtigt wird.
@@ -4123,14 +4183,16 @@ Bit 2 =0:
 	Soll im Bahnsteuerbetrieb eine Achse geklemmt werden, so muss im Teileprogramm dafür gesorgt werden, dass die Bahnachsen angehalten werden, damit Zeit für das Setzen der Klemmung verfügbar ist.
 
 Bit 2 =1:
-	Soll im Bahnsteuerbetrieb eine Achse geklemmt werden, so hält LookAhead die Bahnbewegung vor dem nächsten Nicht-G0-Satz an, falls die Achse bis dahin noch nicht geklemmt ist, d.h. die PLC die Vorschubkorrektur noch auf den Wert Null gesetzt hat.
+	Soll im Bahnsteuerbetrieb eine Achse geklemmt werden, so hält LookAhead die Bahnbewegung vor dem bzw. im nächsten Nicht-G0-Satz an, falls die Achse bis dahin noch nicht geklemmt ist, d.h. die PLC die Vorschubkorrektur noch auf den Wert Null gesetzt hat.
 </description>
 </parameter>
 <parameter number="36060" type="DOUBLE" dim="0">
 <name>STANDSTILL_VELO_TOL</name>
 <brief>Schwellgeschwindigkeit/Drehzahl "Achse/Spindel steht"</brief>
 <description>Mit diesem Maschinendatum wird der Stillstandsbereich für die Achsgeschwindigkeit bzw. für die Spindeldrehzahl festgelegt. Ist die aktuelle Istgeschwindigkeit der Achse bzw. die Istdrehzahl der Spindel kleiner als der eingetragene Wert, so wird NC/PLC-Nahtstellensignal &lt;AchseSpindel_steht/&gt; (Achse/Spindel steht) gesetzt.
-Damit die Achse/Spindel geführt stillgesetzt wird, sollte die Impulsfreigabe erst bei stehender Achse/Spindel weggenommen werden. Ansonsten würde die Achse austrudeln.
+Damit die Achse/Spindel geführt stillgesetzt wird, sollte die Impulsfreigabe erst bei stehender Achse/Spindel weggenommen werden, um zu vermeiden, dass sie austrudelt.
+Um eine robuste Stillstandsinformation im NC/PLC-Nahtstellensignal &lt;AchseSpindel_steht/&gt; (Achse/Spindel steht) zu erhalten, werden Schwankungen der Achsgeschwindigkeit bzw. Spindeldrehzahl gegenüber dem Mittelwert in der Software um das Verhältnis von MD10071 $MN_IPO_CYCLE_TIME zu MD10061 $MN_POSCTRL_CYCLE_TIME verstärkt bewertet.
+Für eine robuste Schwellwerteinstellung ist die maximale im Stillstand beobachtete Schwankung der Achsgeschwindigkeit bzw. Spindeldrehzahl mit diesem Verhältnis zu multiplizieren.
 Korrespondiert mit:
  NC/PLC-Nahtstellensignal &lt;AchseSpindel_steht/&gt; (Achse/Spindel steht)
 </description>
@@ -4143,7 +4205,7 @@ Korrespondiert mit:
 Das MD ist nach Referenzpunktfahren wirksam, wenn das NC/PLC-Nahtstellensignall &lt;Softwareendschalter_2_Minus/&gt; (2. Softwareendschalter Minus) nicht gesetzt ist.
 
 Nicht relevant:
-	wenn Achse nicht referiert ist.
+	wenn Achse nicht referenziert ist.
 
 Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Softwareendschalter_2_Minus/&gt; (2. Softwareendschalter Minus)
@@ -4157,7 +4219,7 @@ Korrespondiert mit:
 Das MD ist nach Referenzpunktfahren wirksam, wenn NC/PLC-Nahtstellensignal &lt;Softwareendschalter_2_Plus/&gt; (2. Softwareendschalter Plus) nicht gesetzt ist.
 
 Nicht relevant:
-	wenn Achse nicht referiert ist.
+	wenn Achse nicht referenziert ist.
 
 Korrespondiert mit:
  NC/PLC-Nahtstellensignal &lt;Softwareendschalter_2_Plus/&gt; (2. Softwareendschalter Plus)
@@ -4175,7 +4237,7 @@ z. B.
 &lt;Softwareendschalter_2_Minus/&gt; = 1 (2. Softwareendschalter minus) für 1. Achse aktiv
 
 Nicht relevant:
-	wenn Achse nicht referiert ist.
+	wenn Achse nicht referenziert ist.
 
 Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Softwareendschalter_2_Minus/&gt; (2. Softwareendschalter Minus)
@@ -4191,7 +4253,7 @@ z. B.:
 &lt;Softwareendschalter_2_Plus/&gt; = 1  (2. Softwareendschalter plus) für 1. Achse aktiv
 
 Nicht relevant:
-	wenn Achse nicht referiert ist.
+	wenn Achse nicht referenziert ist.
 
 Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Softwareendschalter_2_Plus/&gt; (2. Softwareendschalter Plus)
@@ -4220,6 +4282,8 @@ Der Index des Maschinendatums hat folgende Codierung: [Regelungs-Parametersatz-N
 Der maximale Drehzahlsollwert richtet sich nach evtl. vorhandenen Sollwertbegrenzungen im Drehzahl- und Stromregler.
 Bei Überschreiten der Grenze wird ein Alarm ausgelöst und die Achse stillgesetzt.
 Die Begrenzung ist so zu wählen, dass die Maximalgeschwindigkeit (Eilgang) erreicht werden kann und zusätzlich eine entsprechende Regelreserve vorhanden ist.
+
+Hinweis: Wird ein Wert entsprechend dem oberen Limit (200%) eingegeben, so wird dieser Wert vom System automatisch auf 199,9999% korrigiert. Diese Korrektur ist technisch bedingt.
 </description>
 </parameter>
 <parameter number="36220" type="DOUBLE" dim="1">
@@ -4362,7 +4426,7 @@ Korrespondiert mit:
 <parameter number="36610" type="DOUBLE" dim="0">
 <name>AX_EMERGENCY_STOP_TIME</name>
 <brief>Maximale Zeitdauer der Bremsrampe bei Fehlern</brief>
-<description>Dieses MD definiert die Zeitdauer der Bremsrampe von Achsen oder Spindeln bei Fehlern (z. B. Not-Halt), um von Maximalgeschwindigkeit/-Drehzahl in den Stillstand abzubremsen. Aus niedrigeren Geschwindigkeiten/Drehzahlen wird der Stillstand mit derselben Steigung/Brems-Beschleunigung dementsprechend früher erreicht.
+<description>Dieses MD definiert die Zeitdauer der Bremsrampe von Achsen oder Spindeln bei Fehlern (z. B. NOT-HALT), um von Maximalgeschwindigkeit/-Drehzahl in den Stillstand abzubremsen. Aus niedrigeren Geschwindigkeiten/Drehzahlen wird der Stillstand mit derselben Steigung/Brems-Beschleunigung dementsprechend früher erreicht.
 Achsen, deren Mechanik dies verträgt, sollen im Allgemeinen schlagartig mit Drehzahlsollwert 0 gestoppt werden. In diesen Fällen sind Werte in Größenordnung weniger ms sinnvoll (Voreinstellung).
 Spindeln dagegen müssen oft große bewegte Massen oder begrenzte Mechanik-Verhältnisse (z. B. Getriebe-Belastbarkeit) berücksichtigen. Hierfür wird eine längere Bremsrampe durch MD-Veränderung erforderlich.
 
@@ -4399,7 +4463,7 @@ Korrespondiert mit:
 Bei SINAMICS-Antrieben: Antriebsparameter P1082 (Maximaldrehzahl/-Geschwindigkeit)
 </description>
 </parameter>
-<parameter number="36690" type="DWORD" dim="0" display="HEX">
+<parameter number="36690" type="UDWORD" dim="0" display="HEX">
 <name>AXIS_DIAGNOSIS</name>
 <brief>Internes Datum für Testzwecke</brief>
 <description>Internes Datum für Testzwecke
@@ -4481,7 +4545,7 @@ Hinweis: Die Werte 3 und 4 sind reserviert
 Hinweis: Der Wertebereich von MD36730 $MA_DRIVE_SIGNAL_TRACKING kann aufgrund von Minderfunktionen von Steuerungssystemen eingeschränkt sein
 </description>
 </parameter>
-<parameter number="36750" type="BYTE" dim="0" display="HEX">
+<parameter number="36750" type="UBYTE" dim="0" display="HEX">
 <name>AA_OFF_MODE</name>
 <brief>Wirkung der Wertzuweisung für axiale Überlag. bei Synchronakt.</brief>
 <description>Mode-Einstellung für die axiale Überlagerung $AA_OFF
@@ -4502,7 +4566,7 @@ Bit 3: $AA_OFF Bewegung bleibt bei NC-Stopp aktiv
 1:	Bewegung bleibt bei NC-Stopp aktiv
 </description>
 </parameter>
-<parameter number="37000" type="BYTE" dim="0" display="HEX">
+<parameter number="37000" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_MODE</name>
 <brief>Modus Fahren auf Festanschlag</brief>
 <description>Aktivierung von Teilfunktionen von "Fahren auf Festanschlag".
@@ -4516,7 +4580,7 @@ Bit 1: Freigabe des Sicheren Bremsentests (NC-geführt)
 Hinweis: Der Anwender muss sicherstellen, dass Fahren auf Festanschlag und Sicherer Bremsentest nicht gleichzeitig vorgegeben werden.
 </description>
 </parameter>
-<parameter number="37002" type="BYTE" dim="0" display="HEX">
+<parameter number="37002" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_CONTROL</name>
 <brief>Ablaufkontrolle für Fahren auf Festanschlag</brief>
 <description>Ablaufkontrolle für Fahren auf Festanschlag.
@@ -4547,11 +4611,6 @@ Bei "Fahren auf Festanschlag" mit einem analogen Antrieb (611-A) und festem Klem
 Korrespondiert mit:
 	MD37070 $MA_FIXED_STOP_ANA_TORQUE
 	SD 43510: FIXED_STOP_TORQUE
-In dieses Maschinendatum wird das Klemmoment in % vom maximalen Motormoment eingetragen (entspricht bei VSA % vom max. Stromsollwert).
-Das Klemmoment ist wirksam, sobald der Festanschlag erreicht bzw. das NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht_quittieren/&gt; (Festanschlag erreicht quittieren) gesetzt wurde.
-Der eingegebene Wert dient als Voreinstellung und ist nur wirksam, solange
-- mit dem Befehl FXST[x] kein Klemmoment programmiert wurde.
-- das Klemmoment über das SD 43510: FIXED_STOP_TORQUE nicht verändert wurde (nach Erreichen des Festanschlags).
 </description>
 </parameter>
 <parameter number="37012" type="DOUBLE" dim="0">
@@ -4622,14 +4681,6 @@ Korrespondierend mit:
 	MD37030 $MA_FIXED_STOP_THRESHOLD
 	(Schwelle für Festanschlagserkennung)
 	NC/PLC-Nahtstellensignal &lt;SensorFestanschlag/&gt; (Sensor Festanschlag)
-Mit dem Maschinendatum wird festgelegt, wie das Kriterium "Festanschlag erreicht" ermittelt wird.
-Wert	=0:	Das Kriterium "Festanschlag erreicht" wird intern aufgrund der achsspezifischen
-		Konturabweichung (Schwelle vorgegeben durch MD: FIXED_STOP_THRESHOLD) ermittelt.
-	=1:	Das Kriterium "Festanschlag erreicht" wird über einen externen Sensor ermittelt und
-		 der NC über das NC/PLC-Nahtstellensignal &lt;SensorFestanschlag/&gt; (Sensor Festanschlag) mitgeteilt.
-	=2:	Das Kriterium  "Festanschlag erreicht" wird angenommen, wenn entweder die
-		Konturüberwachung (gem. Wert = 0) oder
-		das Signal des externen Sensors (gem. Wert = 1) angesprochen hat.
 </description>
 </parameter>
 <parameter number="37050" type="BYTE" dim="0">
@@ -4656,17 +4707,9 @@ Wert 16 hinzuaddieren
 Unabhängig von der Einstellung der Alarmmaske können Fehler beim Anfahren des Festanschlags aus der Statusvariablen $AA_FXS gelesen werden.
 
 Standard: 1 = Alarme 20091, 20094 und 25042 werden ausgelöst
-Mit dem Maschinendatum wird festgelegt, ob die Alarme
-20091 "Festanschlag nicht erreicht" und
-20094 "Festanschlag abgebrochen" gemeldet werden.
-Wert	= 0:	unterdrücken Alarm 20091 "Festanschlag nicht erreicht"
-	= 2:	unterdrücken Alarme	20091 "Festanschlag nicht erreicht"  und
-			20094 "Festanschlag abgebrochen"
-	= 3:	unterdrücken Alarm 20094 "Festanschlag abgebrochen"
-Alle anderen zulässigen Werte ? 7 unterdrücken keine Alarme.
 </description>
 </parameter>
-<parameter number="37052" type="BYTE" dim="0" display="HEX">
+<parameter number="37052" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_ALARM_REACTION</name>
 <brief>Reaktion bei Festanschlagsalarmen</brief>
 <description>Verhalten des VDI-Signals "BAG betriebsbereit" bei Festanschlagsalarmen:
@@ -4684,7 +4727,7 @@ Alle anderen Bits habe keine Bedeutung.
 Standard: 0 = Alle Alarme schalten die Antriebe stromlos
 </description>
 </parameter>
-<parameter number="37060" type="BYTE" dim="0" display="HEX">
+<parameter number="37060" type="UBYTE" dim="0" display="HEX">
 <name>FIXED_STOP_ACKN_MASK</name>
 <brief>Beachtung von PLC-Quittierungen für Fahren auf Festanschlag</brief>
 <description>Mit dem Maschinendatum wird festgelegt, ob während der Funktion "Fahren auf Festanschlag" auf Quittierungen der PLC gewartet wird oder nicht.
@@ -4729,7 +4772,7 @@ Diese Momentengrenze ist notwendig, damit
 
 </description>
 </parameter>
-<parameter number="37080" type="BYTE" dim="0" display="HEX">
+<parameter number="37080" type="UBYTE" dim="0" display="HEX">
 <name>FOC_ACTIVATION_MODE</name>
 <brief>Grundstellung der modalen Momenten-/Kraftbegrenzung.</brief>
 <description>Mit diesem MD wird die Grundstellung der modalen Momenten-/Kraftbegrenzung nach Reset und PowerOn eingestellt:
@@ -4743,6 +4786,18 @@ Bit 1: Verhalten nach Reset
 = 1 : FOCON (modal)
 
 Standardeinstellung: FOCOF nach Reset und PowerOn
+</description>
+</parameter>
+<parameter number="37090" type="UDWORD" dim="0" display="HEX">
+<name>COLLISION_EXT_AXIS_MASK</name>
+<brief>Einstellungen der externen Kollisionsvermeidung.</brief>
+<description>Einstellungen der externen Kollisionsvermeidung:
+
+Bit 0: Bremsverhalten
+= 0 : Bremssignale werden ignoriert
+= 1 : Bremssignale wirken
+
+Bit 1: reserviert
 </description>
 </parameter>
 <parameter number="37100" type="BYTE" dim="0">
@@ -4776,7 +4831,7 @@ Sonderfälle:
 Korrespondiert mit:
 	MD37110 $MA_GANTRY_POS_TOL_WARNING (Gantry-Warngrenze)
 	MD37120 $MA_GANTRY_POS_TOL_ERROR (Gantry-Abschaltgrenze)
-	MD37130 $MA_GANTRY_POS_TOL_REF (Gantry-Abschaltgrenze beim Referieren)
+	MD37130 $MA_GANTRY_POS_TOL_REF (Gantry-Abschaltgrenze beim Referenzieren)
 </description>
 </parameter>
 <parameter number="37110" type="DOUBLE" dim="0">
@@ -4810,7 +4865,7 @@ Korrespondiert mit:
 	MD37100 $MA_GANTRY_AXIS_TYPE Gantry-Achsdefinition
 	MD37120 $MA_GANTRY_POS_TOL_ERROR Gantry-Abschaltgrenze
 	MD37130 $MA_GANTRY_POS_TOL_REF
-	Gantry-Abschaltgrenze beim Referieren
+	Gantry-Abschaltgrenze beim Referenzieren
 	NC/PLC-Nahtstellensignal &lt;Gantry-Warngrenze_ueberschritten/&gt; (Gantry-Warngrenze überschritten)
 	NC/PLC-Nahtstellensignal &lt;Gantry-Synchronisationslauf_starten/&gt; (Gantry-Synchronisationslauf starten)
 </description>
@@ -4831,14 +4886,14 @@ Korrespondiert mit:
 	MD37100 $MA_GANTRY_AXIS_TYPE Gantry-Achsdefinition
 	MD37110 $MA_GANTRY_POS_TOL_WARNING Gantry-Warngrenze
 	MD37130 $MA_GANTRY_POS_TOL_REF
-	Gantry-Abschaltgrenze beim Referieren
+	Gantry-Abschaltgrenze beim Referenzieren
 	NC/PLC-Nahtstellensignal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry-Verbund ist synchronisiert)
 	NC/PLC-Nahtstellensignal &lt;Gantry-Abschaltgrenze_ueberschritten/&gt; (Gantry-Abschaltgrenze überschritten)
 </description>
 </parameter>
 <parameter number="37130" type="DOUBLE" dim="0">
 <name>GANTRY_POS_TOL_REF</name>
-<brief>Gantry-Abschaltgrenze beim Referieren</brief>
+<brief>Gantry-Abschaltgrenze beim Referenzieren</brief>
 <description>Bei Gantry-Achsen wird die Differenz der Lageistwerte von Führungs- und Gleichlaufachse stets überwacht. Mit dem MD37130 $MA_GANTRY_POS_TOL_REF ist die maximal zulässige Lageistwertabweichung der Gleichlaufachse zur Führungsachse festzulegen, die überwacht wird, wenn der Gantry-Achsverbund noch nicht synchronisiert (NC/PLC-Nahtstellensignal &lt;Gantry-Verbund_ist_synchronisiert/&gt; = "0" (Gantry-Verbund ist synchronisiert)) ist.
 
 Bei Überschreitung des Grenzwertes wird der Alarm 10653 "Fehlergrenze überschritten" gemeldet. Die Gantry-Achsen werden sofort steuerungsintern stillgesetzt, um Schäden an der Maschine zu vermeiden.
@@ -4875,7 +4930,7 @@ Damit wird die Zwangskopplung des Gantry-Verbunds aufgehoben! Somit können alle 
 
 Achtung:
 	Falls die Gantry-Achsen weiterhin mechanisch verbunden sind, kann in diesem Betriebszustand beim Verfahren der Führungs- oder Gleichlaufachse die Maschine beschädigt werden!
-Die Gantry-Achsen können nicht einzeln referiert werden.
+Die Gantry-Achsen können nicht einzeln referenziert werden.
 
 Korrespondiert mit:
 	MD37100 $MA_GANTRY_AXIS_TYPE Gantry-Achsdefinition
@@ -4887,7 +4942,7 @@ Korrespondiert mit:
 
 </description>
 </parameter>
-<parameter number="37150" type="DWORD" dim="0" display="HEX">
+<parameter number="37150" type="UDWORD" dim="0" display="HEX">
 <name>GANTRY_FUNCTION_MASK</name>
 <brief>Gantry Funktionen</brief>
 <description>Mit diesem MD werden spezielle Gantry-Funktionen eingestellt.
@@ -4901,7 +4956,7 @@ Bit 0 = 0:
 Bit 0 = 1:
 	Erweiterte Überwachung der Istwertdifferenz ist aktiv.
 	Ein im Nachfahren od. BREAK_UP entstandener Versatz zwischen Master- und Folgeachse wird bei der Überwachung der Istwertdifferenz berücksichtigt.
-	Voraussetzung: Der Gantry-Verbund muss nach Steuerungshochlauf einmal referiert bzw. synchronisiert werden.
+	Voraussetzung: Der Gantry-Verbund muss nach Steuerungshochlauf einmal referenziert bzw. synchronisiert werden.
 	Alarmausgabe 10657 falls Alarm 10563 vor Power Off.
 
 Bit 1 = 0:
@@ -4916,7 +4971,7 @@ Bit 2 = 1
 	Alarm 10655 "Synchronisation läuft" wird nicht ausgegeben
 </description>
 </parameter>
-<parameter number="37160" type="DWORD" dim="0" display="HEX">
+<parameter number="37160" type="UDWORD" dim="0" display="HEX">
 <name>LEAD_FUNCTION_MASK</name>
 <brief>Funktionen zur Leitwertkopplung</brief>
 <description>Mit diesem MD werden spezielle Funktionen der Leitwertkopplung eingestellt.
@@ -5082,7 +5137,7 @@ Korrespondiert mit:
 	MD37268 $MA_MS_TORQUE_WEIGHT_SLAVE
 </description>
 </parameter>
-<parameter number="37253" type="DWORD" dim="0" display="HEX">
+<parameter number="37253" type="UDWORD" dim="0" display="HEX">
 <name>MS_FUNCTION_MASK</name>
 <brief>Master-Slave Einstellungen</brief>
 <description>Parametrierung Master-Slave Kopplung
@@ -5258,6 +5313,250 @@ Der Toleranzwert wird in Prozent von MD32000 $MA_MAX_AX_VELO eingegeben.
 <description>Verfahrrichtung einer Slaveachse im gekoppelten Zustand invertieren.
 0:	Gleichsinnig zur Masterachse
 1:	Gegensinnig zur Masterachse
+</description>
+</parameter>
+<parameter number="37300" type="UDWORD" dim="0">
+<name>NOCO_ENABLE</name>
+<brief>Aktivierung der Nickkompensationswerte</brief>
+<description>Aktivierung der Aufschaltwerte der Nickkompensation
+
+Bit 0 = 0:
+	MD37318 $MA_NOCO_COMPLIANCE_1 wirkt nicht
+Bit 0 = 1:
+	MD37318 $MA_NOCO_COMPLIANCE_1 wirkt
+
+Bit 1 = 0:
+	MD37328 $MA_NOCO_COMPLIANCE_2 wirkt nicht
+Bit 1 = 1:
+	MD37328 $MA_NOCO_COMPLIANCE_2 wirkt
+
+Bit 2 = 0:
+	MD37338 $MA_NOCO_COMPLIANCE_3 wirkt nicht
+Bit 2 = 1:
+	MD37338 $MA_NOCO_COMPLIANCE_3 wirkt
+
+Korrespondiert mit:
+	MD37318 $MA_NOCO_COMPLIANCE_1
+	MD37328 $MA_NOCO_COMPLIANCE_2
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37302" type="DOUBLE" dim="0">
+<name>NOCO_FILTER_TIME</name>
+<brief>Zeitkonstante zur Glättung der Nickkompensationswerte</brief>
+<description>Die Zeitkonstante wird verwendet zur Glättung der Aufschaltwerte der Nickkompensation. Die Glättung ist unwirksam, wenn die Zeitkonstante kleiner ist als 0.1 Lageregeltakte.
+
+Korrespondiert mit:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37318 $MA_NOCO_COMPLIANCE_1
+	MD37328 $MA_NOCO_COMPLIANCE_2
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37310" type="DWORD" dim="0">
+<name>NOCO_INPUT_AX_1</name>
+<brief>Maschinenachse, die eine Nickbewegung verursacht</brief>
+<description>Nummer der Maschinenachse, die in dieser Achse eine Nickbewegung verursacht, um die Nickkompensation zu aktivieren. In Kombination mit MD37318 $MA_NOCO_COMPLIANCE_1 wirkt die Nickkompensation.
+
+Korrespondiert mit:
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37312" type="DWORD" dim="0">
+<name>NOCO_ADAPT_AX_1</name>
+<brief>Maschinenachse, deren Position die Nickbewegung beeinflusst</brief>
+<description>Nummer der Maschinenachse, deren Position die Nickbewegung in dieser Achse beeinflusst.
+In Kombination mit MD 37316 $MA_NOCO_ADAPT_POS_1 und MD37318 $MA_NOCO_COMPLIANCE_1 erfolgt die positionsabhängige Adaption der Nickkompensation.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn eine Maschinenachsnummer und im MD37314 $MA_NOCO_ADAPT_NUM_1 ein Wert größer 1 parametriert ist.
+
+Korrespondiert mit:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37314 $MA_NOCO_ADAPT_NUM_1
+	MD37316 $MA_NOCO_ADAPT_POS_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37314" type="DWORD" dim="0">
+<name>NOCO_ADAPT_NUM_1</name>
+<brief>Anzahl der Positionen der Adaptionskennlinie der Nickkompensation</brief>
+<description>Anzahl der Achspositionen, die für die positionsabhängige Adaption der Nickkompensation verwendet werden.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn die Anzahl der Positionen größer 1 und in MD37312 $MA_NOCO_ADAPT_AX_1 eine Maschinenachsnummer parametriert ist.
+
+Korrespondiert mit:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37316 $MA_NOCO_ADAPT_POS_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37316" type="DOUBLE" dim="1">
+<name>NOCO_ADAPT_POS_1</name>
+<brief>Positionen der Adaptionskennlinie der Nickkompensation</brief>
+<description>Positionen der Maschinenachse aus MD37312 $MA_NOCO_ADAPT_AX_1, an denen die Nachgiebigkeitsfaktoren in MD37318 $MA_NOCO_COMPLIANCE_1 wirken.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn die Anzahl der Positionen in MD37314 $MA_NOCO_ADAPT_NUM_1 größer 1 und in MD37312 $MA_NOCO_ADAPT_AX_1 eine Maschinenachsnummer parametriert ist.
+
+Korrespondiert mit:
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37314 $MA_NOCO_ADAPT_NUM_1
+	MD37318 $MA_NOCO_COMPLIANCE_1
+</description>
+</parameter>
+<parameter number="37318" type="DOUBLE" dim="1">
+<name>NOCO_COMPLIANCE_1</name>
+<brief>Nachgiebigkeitsfaktor zur Nickkompensation</brief>
+<description>Faktor zur Kompensation der Nickbewegung, die durch MD37310 $MA_NOCO_INPUT_AX_1 verursacht wird.
+Nachgiebigkeitsfaktor = Nachgeben in der Position (m) / Beschleunigung (m/s2)
+Ist keine positionsabhängige Adaption aktiv, so wirkt ausschließlich der Wert in MD37318 $MA_NOCO_COMPLIANCE_1[0].
+Bei aktiver positionsabhängiger Adaption wirken so viele Werte aus MD37318 $MA_NOCO_COMPLIANCE_1 wie in MD37314 $MA_NOCO_ADAPT_NUM_1 parametriert sind.
+
+Korrespondiert mit:
+	MD37300 $MA_NOCO_ENABLE
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37310 $MA_NOCO_INPUT_AX_1
+	MD37312 $MA_NOCO_ADAPT_AX_1
+	MD37314 $MA_NOCO_ADAPT_NUM_1
+	MD37316 $MA_NOCO_ADAPT_POS_1
+</description>
+</parameter>
+<parameter number="37320" type="DWORD" dim="0">
+<name>NOCO_INPUT_AX_2</name>
+<brief>Maschinenachse, die eine Nickbewegung verursacht</brief>
+<description>Nummer der Maschinenachse, die in dieser Achse eine Nickbewegung verursacht, um die Nickkompensation zu aktivieren. In Kombination mit MD37328 $MA_NOCO_COMPLIANCE_2 wirkt die Nickkompensation.
+
+Korrespondiert mit:
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37322" type="DWORD" dim="0">
+<name>NOCO_ADAPT_AX_2</name>
+<brief>Maschinenachse, deren Position die Nickbewegung beeinflusst</brief>
+<description>Nummer der Maschinenachse, deren Position die Nickbewegung in dieser Achse beeinflusst.
+In Kombination mit MD 37326 $MA_NOCO_ADAPT_POS_2 und MD37328 $MA_NOCO_COMPLIANCE_2 erfolgt die positionsabhängige Adaption der Nickkompensation.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn eine Maschinenachsnummer und im MD37324 $MA_NOCO_ADAPT_NUM_2 ein Wert größer 1 parametriert ist.
+
+Korrespondiert mit:
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37324 $MA_NOCO_ADAPT_NUM_2
+	MD37326 $MA_NOCO_ADAPT_POS_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37324" type="DWORD" dim="0">
+<name>NOCO_ADAPT_NUM_2</name>
+<brief>Anzahl der Positionen der Adaptionskennlinie der Nickkompensation</brief>
+<description>Anzahl der Achspositionen, die für die positionsabhängige Adaption der Nickkompensation verwendet werden.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn die Anzahl der Positionen größer 1 und in MD37322 $MA_NOCO_ADAPT_AX_2 eine Maschinenachsnummer parametriert ist.
+
+Korrespondiert mit:
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37326 $MA_NOCO_ADAPT_POS_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37326" type="DOUBLE" dim="1">
+<name>NOCO_ADAPT_POS_2</name>
+<brief>Positionen der Adaptionskennlinie der Nickkompensation</brief>
+<description>Positionen der Maschinenachse aus MD37322 $MA_NOCO_ADAPT_AX_2, an denen die Nachgiebigkeitsfaktoren in MD37328 $MA_NOCO_COMPLIANCE_2 wirken.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn die Anzahl der Positionen in MD37324 $MA_NOCO_ADAPT_NUM_2 größer 1 und in MD37322 $MA_NOCO_ADAPT_AX_2 eine Maschinenachsnummer parametriert ist.
+
+Korrespondiert mit:
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37324 $MA_NOCO_ADAPT_NUM_2
+	MD37328 $MA_NOCO_COMPLIANCE_2
+</description>
+</parameter>
+<parameter number="37328" type="DOUBLE" dim="1">
+<name>NOCO_COMPLIANCE_2</name>
+<brief>Nachgiebigkeitsfaktor zur Nickkompensation</brief>
+<description>Faktor zur Kompensation der Nickbewegung, die durch MD37320 $MA_NOCO_INPUT_AX_2 verursacht wird.
+Nachgiebigkeitsfaktor = Nachgeben in der Position (m) / Beschleunigung (m/s2)
+Ist keine positionsabhängige Adaption aktiv, so wirkt ausschließlich der Wert in MD37328 $MA_NOCO_COMPLIANCE_2[0].
+Bei aktiver positionsabhängiger Adaption wirken so viele Werte aus MD37328 $MA_NOCO_COMPLIANCE_2 wie in MD37324 $MA_NOCO_ADAPT_NUM_2 parametriert sind.
+
+Korrespondiert mit:
+	MD37300 $MA_NOCO_ENABLE
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37320 $MA_NOCO_INPUT_AX_2
+	MD37322 $MA_NOCO_ADAPT_AX_2
+	MD37324 $MA_NOCO_ADAPT_NUM_2
+	MD37326 $MA_NOCO_ADAPT_POS_2
+</description>
+</parameter>
+<parameter number="37330" type="DWORD" dim="0">
+<name>NOCO_INPUT_AX_3</name>
+<brief>Maschinenachse, die eine Nickbewegung verursacht</brief>
+<description>Nummer der Maschinenachse, die in dieser Achse eine Nickbewegung verursacht, um die Nickkompensation zu aktivieren. In Kombination mit MD37338 $MA_NOCO_COMPLIANCE_3 wirkt die Nickkompensation.
+
+Korrespondiert mit:
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37332" type="DWORD" dim="0">
+<name>NOCO_ADAPT_AX_3</name>
+<brief>Maschinenachse, deren Position die Nickbewegung beeinflusst</brief>
+<description>Nummer der Maschinenachse, deren Position die Nickbewegung in dieser Achse beeinflusst.
+In Kombination mit MD 37336 $MA_NOCO_ADAPT_POS_3 und MD37338 $MA_NOCO_COMPLIANCE_3 erfolgt die positionsabhängige Adaption der Nickkompensation.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn eine Maschinenachsnummer und im MD37334 $MA_NOCO_ADAPT_NUM_3 ein Wert größer 1 parametriert ist.
+
+Korrespondiert mit:
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37334 $MA_NOCO_ADAPT_NUM_3
+	MD37336 $MA_NOCO_ADAPT_POS_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37334" type="DWORD" dim="0">
+<name>NOCO_ADAPT_NUM_3</name>
+<brief>Anzahl der Positionen der Adaptionskennlinie der Nickkompensation</brief>
+<description>Anzahl der Achspositionen, die für die positionsabhängige Adaption der Nickkompensation verwendet werden.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn die Anzahl der Positionen größer 1 und in MD37332 $MA_NOCO_ADAPT_AX_3 eine Maschinenachsnummer parametriert ist.
+
+Korrespondiert mit:
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37336 $MA_NOCO_ADAPT_POS_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37336" type="DOUBLE" dim="1">
+<name>NOCO_ADAPT_POS_3</name>
+<brief>Positionen der Adaptionskennlinie der Nickkompensation</brief>
+<description>Positionen der Maschinenachse aus MD37332 $MA_NOCO_ADAPT_AX_3, an denen die Nachgiebigkeitsfaktoren in MD37338 $MA_NOCO_COMPLIANCE_3 wirken.
+Eine positionsabhängige Adaption ist nur dann aktiv, wenn die Anzahl der Positionen in MD37334 $MA_NOCO_ADAPT_NUM_3 größer 1 und in MD37332 $MA_NOCO_ADAPT_AX_3 eine Maschinenachsnummer parametriert ist.
+
+Korrespondiert mit:
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37334 $MA_NOCO_ADAPT_NUM_3
+	MD37338 $MA_NOCO_COMPLIANCE_3
+</description>
+</parameter>
+<parameter number="37338" type="DOUBLE" dim="1">
+<name>NOCO_COMPLIANCE_3</name>
+<brief>Nachgiebigkeitsfaktor der Nickkompensation</brief>
+<description>Faktor zur Kompensation der Nickbewegung, die durch MD37330 $MA_NOCO_INPUT_AX_3 verursacht wird.
+Nachgiebigkeitsfaktor = Nachgeben in der Position (m) / Beschleunigung (m/s2)
+Ist keine positionsabhängige Adaption aktiv, so wirkt ausschließlich der Wert in MD37338 $MA_NOCO_COMPLIANCE_3[0].
+Bei aktiver positionsabhängiger Adaption wirken so viele Werte aus MD37338 $MA_NOCO_COMPLIANCE_3 wie in MD37334 $MA_NOCO_ADAPT_NUM_3 parametriert sind.
+
+Korrespondiert mit:
+	MD37300 $MA_NOCO_ENABLE
+	MD37302 $MA_NOCO_FILTER_TIME
+	MD37330 $MA_NOCO_INPUT_AX_3
+	MD37332 $MA_NOCO_ADAPT_AX_3
+	MD37334 $MA_NOCO_ADAPT_NUM_3
+	MD37336 $MA_NOCO_ADAPT_POS_3
 </description>
 </parameter>
 <parameter number="37400" type="DOUBLE" dim="0">

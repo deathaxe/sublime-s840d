@@ -21,7 +21,7 @@
 <parameter number="55212" type="BYTE" dim="0" display="HEX">
 <name>FUNCTION_MASK_TECH_SET</name>
 <brief>Function mask Cross-technology</brief>
-<description>Function mask Cross-technology
+<description>Function mask for all technologies
 Bit 0: Tool preselection active
 Bit 1: Calculate thread depth from thread pitch
 Bit 2: Refer to Table for thread diameter and depth
@@ -33,23 +33,23 @@ Bit 3: Delete programs generated from contour cycles (CYCLE63, CYCLE64, CYCLE952
 <parameter number="55214" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_MILL_SET</name>
 <brief>Function mask Milling</brief>
-<description>Function mask Milling
+<description>Function mask for milling
 Bit 0: Default setting - milling cycles with synchronous operation
 Bit 2: Depth calculation in milling cycles without parameter SC
-Bit 3: First circle trochoidal milling islands
 </description>
 </parameter>
 <parameter number="55216" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_DRILL_SET</name>
 <brief>Function mask Drilling</brief>
-<description>Screen form for drilling
+<description>Function mask for drilling
+Bit 0:    Tapping CYCLE84: Reverse direction of spindle rotation during cycle
 Bit 1:     Boring CYCLE86: Take into consideration rotation of the tool plane when positioning the spindle
 Bit 2:     Boring CYCLE86: When positioning the spindle, take into account swiveled table kinematics (toolholder)
 Bit 3:     Tapping CYCLE84: Monitoring machine data 31050 and 31060 of the spindle
 Bit 4:     Tapping CYCLE840: Monitoring machine data 31050 and 31060 of the spindle
 Bit 6:     Boring CYCLE86: Adapt spindle position to the orientation of the tool
              Tool orientation can be realized using TOOLCARR or TRAORI before the cycle is called.
-             If bit6=1, then bits 1 and 2 are no longer effective.
+             If bit6=1, bits 1 and 2 are no longer effective.
 Bit 7:    Boring CYCLE86: Adapt the direction of the retraction path in the plane to active mirroring
 	0: Retraction in the plane is realized as programmed
 	1: When mirroring is active, when retracting in the plane, the direction is adapted in the cycle to the active mirroring.
@@ -58,7 +58,7 @@ Bit 7:    Boring CYCLE86: Adapt the direction of the retraction path in the plan
 <parameter number="55218" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_TURN_SET</name>
 <brief>Function mask Turning</brief>
-<description>Function mask Turning
+<description>Function mask for turning
 Bit 0: New thread table for thread cutting
 Bit 1:	Reserved (CYCLE93)
 Bit 2:	Reserved (CYCLE93)
@@ -67,19 +67,25 @@ Bit 4: Retraction from inside machining (CYCLE951)
           0: Compatibility as before
              If the necessity for rounding the corner is detected in the cycle, the tool is retracted from the inside machining, otherwise it is not.
           1: It is generally retracted from the inside machining in the cutting axis.
+Bit 5: Disable new smoothing behavior in thread cutting cycles
+          0: The new smoothing behavior is active in the threading cycles between thread blocks (G33, G34, G35 ...).
+             This improves the dynamic response adaptation in thread blocks that serve for run-in, run-out or as a transition element of the thread
+             by using a larger proportion of the block length for the dynamic response adaptation.
+             The prerequisite for this function is the setting data setting SD 42010 $SC_THREAD_RAMP_DISP[2]=-1.
+          1: The new smoothing behavior is not active between thread blocks (compatibility).
 </description>
 </parameter>
 <parameter number="55220" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_MILL_TOL_SET</name>
-<brief>Function mask High Speed Settings CYCLE832</brief>
-<description>Function mask, High Speed Settings CYCLE832
+<brief>Function mask for high-speed settings CYCLE832</brief>
+<description>Function mask for high-speed settings CYCLE832
 Bit 0: Display input fields, technology
 =0: Hide input fields, technology
 =1: Display input fields technology
 Bit 1: Enter orientation tolerance (OTOL) as factor of tolerance (CTOL) or directly enter
 Bit 1 is only relevant for machines with orientation transformation that has been setup
 =0: Orientation tolerance (OTOL) is calculated as factor of the entered tolerance
-=1: Directly enter orientation tolerance (OTOL) into the input screen form
+=1: Directly enter orientation tolerance (OTOL) into the input screen
 The factor to calculate the orientation tolerance is saved in the following setting data
 $SCS_MILL_TOL_FACTOR_ROUGH for the machining type, roughing G group 59 DYNROUGH
 $SCS_MILL_TOL_FACTOR_SEMIFIN for the machining type, semi-finishing G group 59 DYNSEMIFIN
@@ -92,61 +98,61 @@ Bit 2: A mould-making function can be selected in the High Speed Settings mask
 Bit 3: High Speed Settings mask without Advanced Surface option
 =0: The High Speed Settings mask is only offered with the Advanced Surface option
 =1: The High Speed Settings mask is also offered without the Advanced Surface option
+Bit 4: Display smoothing selection
+=0: Do not display smoothing selection (corresponds to smoothing = yes)
+=1: Display smoothing selection
 
 </description>
 </parameter>
 <parameter number="55221" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_SWIVEL_SET</name>
-<brief>Function mask Swivel CYCLE800</brief>
+<brief>Function mask for swivel CYCLE800</brief>
 <description>Function mask for swivel CYCLE800
-The settings of the function mask (bits 0 to 4) for swivel act on all swivel data sets
+The settings of the function mask (bits 0 to 4) for swivel act on all swivel data records
 Bit 0: Show "No swivel" input field
 =0: Hide "No swivel" input field
 =1: Show "No swivel" input field
 Bit 1: Retract "fixed point 1/2" instead of "Z", "Z XY"
 =0: Selection text retract "Z" or retract "Z XY"
 =1: Selection text retract "fixed point 1" or retract "fixed point 2"
-Bit 2: Permit selection of "deselection" of the swivel data set
-=0: Do not permit selection of "deselection" of the swivel data set (hide)
-=1: Permit selection of "deselection" of the swivel data set
+Bit 2: Permit selection of "deselection" of the swivel data record
+=0: Do not permit selection of "deselection" of the swivel data record (hide)
+=1: Permit selection of "deselection" of the swivel data record
 Bit 3: Show active swivel plane under swivel in JOG
 =0: Hide active swivel plane under swivel in JOG
 =1: Show active swivel plane under swivel in JOG
-Bit 4: Evaluate input values for swivelling in the pole position of the machine kinematics
-Starting from the pole position of the machine kinematics, the input values when swivelling
-are evaluated so that continuous swivelling around the pole axis is possible
-Pole axis is the 2nd rotary axis of the swivel data set that rotates around the tool axis
+Bit 4: Evaluate input values for swiveling in the pole position of the machine kinematics
+=0: Evaluation of the input values with swiveling in pole  position
+=1: No evaluation of the input values with swiveling in pole position (compatibility)
+Starting from the initial position of the machine kinematics, the input values when swiveling are evaluated so that continuous swiveling around the pole axis is possible
+Pole axis is the rotary axis of the swivel data record that rotates around the tool axis
 Example: rotary axis C rotates around Z for G17./
 Additional settings of the pole axis:
-- Angular range (traversing range) of &gt;360 degrees in the swivel data set
-- It is not permissible for the rotary axis to be declared as the modulo axis. $MA_ROT_IS_MODULO[AX]=0
-Pole position means that the 1st rotary axis of the swivel data set is located in the initial setting
-=0: Evaluation of the input values when swivelling in the pole position
-=1: No evaluation of the input values when swivelling in the pole position (compatibility)
+  Angular range (traversing range) of &gt;360 degrees in the swivel data record
 Bit 5 Align tool (turning technology) using frame calculation (TCOFRY) or absolute (TCOABS)
 The tool orientation of the orientable tool carrier is calculated
 either using a frame calculation (TCOFRY for G18) or in absolute terms with TCOABS
 For B axis kinematics of a turning machine, the tool spindle in the initial setting of the kinematics
 can be set up parallel to either Z or to X. See also "Swivel data" under Commissioning.
-For new systems being commissioned, it is recommended to set bit 5=1:
-=0: Align tool using frame calculation (TCOFRY for G18)
+For new systems being commissioned, it is recommended you set bit 5=1:
+=0: Align tool using frame calculation (TCOFRY for G18, compatibility)
 =1: Align tool absolutely (TCOABS)
 Bit 6: Do not offer "direct" swivel mode under swivel in JOG
 =0: "Direct" swivel mode is offered under swivel in JOG
 =1: "Direct" swivel mode is not offered under swivel in JOG
 Bit 7: Swivel plane: Direction selection in initial setting of the kinematics
-Behaviour with swivel plane in initial setting of the kinematics if the NCK calculates two solutions:
-=0 With selected direction + or -, both calculated solutions of the rotary axes are approached.
+Behavior with swivel plane in initial setting of the kinematics if the NCK calculates two solutions:
+=0 With selected direction + or -, both calculated solutions of the rotary axes are approached. (Compatibility)
 =1 With selected direction + or -, only one of the calculated solutions of the rotary axes is approached.
 Compatibility for PowerLine up to SW 7.x and for SolutionLine up to SW 1.x
-Bit 8: Work offset of the rotary axes of the swivel data set traversed as an offset
-=0 Work offset of the rotary axes of the swivel data set is only taken into account in the WCS (compatibility)
-=1 Work offset of the rotary axes of the swivel data set traversed as an offset
+Bit 8: Work offset of the rotary axes of the swivel data record traversed as an offset
+=0 Work offset of the rotary axes of the swivel data record is only taken into account in the WCS (compatibility)
+=1 Work offset of the rotary axes of the swivel data record traversed as an offset
 Setting is in conjunction with MD21186 $MC_TOCARR_ROT_OFFSET_FROM_FR
 Bit 9: Swivel data set TC permanently assigned to the tool
-=0 Display number of the swivel data set TC
-=1 Do not display number of the swivel data set TC
-Assignment of the swivel data set to the tool is performed in SGUD _TC_GNO
+=0 Display number of the swivel data record TC
+=1 Do not display number of the swivel data record TC
+Assignment of the swivel data record to the tool is performed in SGUD _TC_GNO
 if technology cylindrical grinding is set in MD52200 $MCS_TECHNOLOGY =3
 Example:
 _TC_GNO can be written by the machine manufacturer in the tool change program L6
@@ -158,13 +164,22 @@ Bit 11: Positioning of both solutions of an AB kinematics
 =1 Positioning of both solutions calculated by the NCK
 Bit11 should be set =1 with kinematics, on which - in the basic position - none of the two rotary axes rotates around
 the tool axes (AB kinematics with tool axes in Z direction)
-Bit 12: Swivel plane, tool alignment: reset behaviour taking the rotary axis positions into account
+Bit 12: Swivel plane, tool alignment: reset behavior taking the rotary axis positions into account
 =0 Compatibility. Reset state refers to the end positions of the rotary axes in the swivel data record
 =1 Reset state refers to the current positions of the rotary axes in the swivel data record
 If bit12=0, a linear axis identifier is written in the parameters $TC_CARR21/22.
-The tool carrier is thus initialised with the end positions of the rotary axes ($TC_CARR13/14) on reset (TCOABS).
+The tool carrier is thus initialized with the end positions of the rotary axes ($TC_CARR13/14) on reset (TCOABS).
 If Bit12=1, the names of the rotary axes of the swivel data record are written in the parameters $TC_CARR21/22.
-The tool carrier is thus initialised with the actual values of the rotary axes on reset (TCOABS).
+The tool carrier is thus initialized with the actual values of the rotary axes on reset (TCOABS).
+Bit 13: Activation of the extended evaluation of the rotations with axis-by-axis swiveling in the pole position.
+=0 No evaluation of the rotations with swiveling in the pole position (compatibility) The settings of bits 4, 7 and 11 apply
+=1 Extended evaluation of the rotations with swiveling in the pole position
+With kinematics with 2 rotary axes, one of the rotary axes can be the pole axis. A rotary axis is then in the pole position, if it rotates around the tool axis. In contrast to bit4, the input values are still evaluated if bit13 is set if the 1st rotary axis is not in the initial position.
+Example: Table kinematics with 1st rotary axis A (rotates around X) and 2nd rotary axis B (rotates around Y) G17
+   After axis-by-axis swiveling around Y and then around X=90°, the 2nd rotary axis is in pole position.
+Setting for swivel data record: Rotary axis reference must be set to the rotary axis that is not the pole axis (in the example: rotary axis 1).
+When the bit is set, the input rotations are evaluated so that continuous swiveling around the pole axis/tool axis is possible. The following applies: the "+" solution of CYCLE800 has no additional rotation, whereas the "-" solution has an additional 180° rotation in the Actframe in the tool axis.
+If bit13 is set, the settings of bits 4, 7 and 11 have no effect.
 
 
 </description>
@@ -197,7 +212,7 @@ The tool carrier is thus initialised with the actual values of the rotary axes o
 <name>EASY_SAFETY_CLEARANCE</name>
 <brief>Simple input: Safety clearance</brief>
 <description>Simple input: safety clearance
-The input field for the safety clearance is not available in the simple input screen forms.
+The input field for the safety clearance is not available in the simple input screens.
 Instead, the value of this setting date is always used.
 
 </description>
@@ -206,7 +221,7 @@ Instead, the value of this setting date is always used.
 <name>EASY_DWELL_TIME</name>
 <brief>Simple input: dwell time</brief>
 <description>Simple input: dwell time in seconds
-The input fields for dwell times are not available in the simple input screen forms.
+The input fields for dwell times are not available in the simple input screens.
 Instead, the value of this setting data is always used.
 </description>
 </parameter>
@@ -214,7 +229,7 @@ Instead, the value of this setting data is always used.
 <name>EASY_DRILL_DEEP_FD1</name>
 <brief>Simple input: percentage 1st feedrate deep-hole drilling</brief>
 <description>Simple input: percentage 1st feedrate deep-hole drilling
-The input field for this percentage is not available in the simple input screen forms.
+The input field for this percentage is not available in the simple input screens.
 Instead, the value of this setting data is always used.
 
 </description>
@@ -223,7 +238,7 @@ Instead, the value of this setting data is always used.
 <name>EASY_DRILL_DEEP_DF</name>
 <brief>Simple input: percentage infeed deep-hole drilling</brief>
 <description>Simple input: percentage infeed deep-hole drilling
-The input field for this percentage is not available in the simple input screen forms.
+The input field for this percentage is not available in the simple input screens.
 Instead, the value of this setting data is always used.
 
 </description>
@@ -232,7 +247,7 @@ Instead, the value of this setting data is always used.
 <name>EASY_DRILL_DEEP_V1</name>
 <brief>Simple input: min. depth infeed deep-hole drilling</brief>
 <description>Simple input: min. depth infeed deep-hole drilling
-The input field for the minimum depth infeed is not available in the simple input screen forms.
+The input field for the minimum depth infeed is not available in the simple input screens.
 Instead, the value of this setting data is always used.
 
 </description>
@@ -241,7 +256,7 @@ Instead, the value of this setting data is always used.
 <name>EASY_DRILL_DEEP_V2</name>
 <brief>Simple input: absolute retraction value deep-hole drilling</brief>
 <description>Simple input: absolute retraction value deep-hole drilling
-The input field for the absolute retraction value is not available in the simple input screen forms.
+The input field for the absolute retraction value is not available in the simple input screens.
 Instead, the value of this setting data is always used
 
 </description>
@@ -250,7 +265,7 @@ Instead, the value of this setting data is always used
 <name>EASY_THREAD_RETURN_DIST</name>
 <brief>Simple input: return distance thread tapping</brief>
 <description>Simple input: return distance thread tapping
-The input field for the return distance is not available in the simple input screen forms.
+The input field for the return distance is not available in the simple input screens.
 Instead, the value of this setting data is always used.
 
 </description>
@@ -804,14 +819,16 @@ of the calibration ball lies within the tolerance value in $SCS_MEA_KIN_DM_TOL.
 <name>MEA_KIN_MODE</name>
 <brief>Free component of the linear vector</brief>
 <description>Free component of the linear vector
-  0 = calculate all components of the linear vector
-  1 = take over free component for X from $SCS_MEA_KIN_VALUE
-  2 = take over free component for Y from $SCS_MEA_KIN_VALUE
-  3 = take over free component for Z from $SCS_MEA_KIN_VALUE
-  4 = retain free component for X from active transformation
-  5 = retain free component for Y from active transformation
-  6 = retain free component for Z from active transformation
-  10 = close vector chain (only with Toocarrier)
+Units digit
+   0 = calculate all components of the linear vector
+   1 = take over free component for X from $SCS_MEA_KIN_VALUE
+   2 = take over free component for Y from $SCS_MEA_KIN_VALUE
+   3 = take over free component for Z from $SCS_MEA_KIN_VALUE
+   4 = retain free component for X from active transformation
+   5 = retain free component for Y from active transformation
+   6 = retain free component for Z from active transformation
+Tens digit
+  1x = close vector chain, only with tool carrier (55645[0] for the head chain, 55645[1] for the table chain)
 
 </description>
 </parameter>
@@ -829,16 +846,17 @@ See SD55645
 <name>MEA_KIN_MIN_ANG_TRIANGLE</name>
 <brief>Minimum interior angle of the measurement triangle</brief>
 <description>Perform complete kinematics measurement
-Minimum interior angle of the measuring triangle
+Valid for 3 measuring points only. Minimum interior angle of the measuring triangle.
 Value range 2 to 60 degrees
 
 </description>
 </parameter>
 <parameter number="55648" type="DOUBLE" dim="0">
 <name>MEA_KIN_MIN_ANG_POS</name>
-<brief>Minimum angle when positioning a rotary axis</brief>
+<brief>Minimum angle range when positioning a rotary axis</brief>
 <description>Perform complete kinematics measurement
-Minimum angle when positioning a rotary axis between the individual measurements
+Minimum measuring range of a rotary axis. If the measuring range of a rotary axis is less than 90°, then inaccuracies caused by measuring inaccuracies in the micrometer range of the probe can be expected.
+Value range 10 to 180 degrees
 
 </description>
 </parameter>
@@ -858,7 +876,7 @@ Minimum angle when positioning a rotary axis between the individual measurements
 </parameter>
 <parameter number="55740" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK</name>
-<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<brief>Function mask for measuring cycles, workpiece and tool measuring</brief>
 <description>Function mask for measuring cycles
 
 Bit 0: Collision monitoring using workpiece probe for intermediate positioning
@@ -924,7 +942,7 @@ Bit 6: Workpiece measurement, probe activation-deactivation while the spindle is
 Bit 7: Kinematic measurement, scaling based on the input values of the rotary axis vectors
           	0: Scaling based on the calculated rotary axis vectors (V1xyz, V2xyz)
           	1: Scaling based on the rotary axis vectors saved in the swivel data set (V1xyz, V2xyz)
-	The swivel data set is displayed under commissioning, "Swivel data".
+	The swivel data set is displayed under start-up, "Swivel cycle data".
 
  Bit 8: Kinematic measurement: measuring with active swivel (TCARR) or active TRAORI
            0: Measurement without active swivel (TCARR) or without active TRAORI
@@ -1059,6 +1077,24 @@ Bit 29: File format selection for standard protocol measurement in JOG
 1: revolutions
 </description>
 </parameter>
+<parameter number="55818" type="DWORD" dim="0" display="HEX">
+<name>ISO_M_FUNCTION_MASK</name>
+<brief>Function mask for ISO milling mode</brief>
+<description>Function mask for ISO milling mode
+</description>
+</parameter>
+<parameter number="55819" type="DWORD" dim="0" display="HEX">
+<name>ISO_T_FUNCTION_MASK</name>
+<brief>Function mask for ISO turning mode</brief>
+<description>Function mask for ISO turning mode
+Bit 0: Execution of residual corner cut
+          0: Complete residual corner cut is executed (compatibility)
+          1: Without complete residual corner cut
+Bit 1: Stock removal roughing (G71/G72) without tool nose radius compensation
+          0: Roughing with active tool nose radius compensation (with G41/G42, compatibility)
+          1: Roughing without tool nose radius compensation (with G40)
+</description>
+</parameter>
 <parameter number="55820" type="DOUBLE" dim="0" display="DECIMAL">
 <name>FRICT_OPT_RADIUS</name>
 <brief>Circle radius for optimizing friction compensation</brief>
@@ -1120,8 +1156,8 @@ Circle radius for optimizing friction compensation
 </parameter>
 <parameter number="55835" type="STRING" dim="1" display="ASCII">
 <name>AST_MMCA</name>
-<brief>Substitute for $P_MMCA when calling MMC with acknowledgment mode "N"</brief>
-<description>Substitute for $P_MMCA when calling MMC with acknowledgment mode "N"
+<brief>Substitute for $P_MMCA when calling AST with acknowledgment mode "N"</brief>
+<description>Substitute for $P_MMCA when calling AST with acknowledgment mode "N"
 
 </description>
 </parameter>

@@ -85,6 +85,7 @@ If the value of the data is greater than 0, MD51032 $MNS_STAT_DISPLAY_BASE is ig
 02: Representation as binary value
 10: Representation as decimal value
 16: Representation as hexadecimal value
+The machine data activates not only the STAT display channel-specifically on the main screen, but also the display during "TEACH IN".
 
 </description>
 </parameter>
@@ -97,6 +98,7 @@ If the value of the data is greater than 0, MD51033 $MNS_TU_DISPLAY_BASE is igno
 02: Representation as binary value
 10: Representation as decimal value
 16: Representation as hexadecimal value
+The machine data activates not only the TU display channel-specifically on the main screen, but also the display during "TEACH IN".
 </description>
 </parameter>
 <parameter number="52200" type="BYTE" dim="0" display="DECIMAL">
@@ -182,6 +184,7 @@ Bit 11: Rotary axis rotates around 2nd geometry axis (only for position pattern)
 Bit 12: Rotary axis rotates around 3rd geometry axis (only for position pattern)
 Bit 13: Position of the axis for blank selection from active WO (for rotary axes)
             This enables a rotary axis set up with simulation/simultaneous recording to be automatically shown in the correct position.
+Bit 14: Enable spindle in axis mode for teach-in
 
 Note:
 For bits 0 - 2 and 10 - 12, only the 1st set bit is active in each case.
@@ -194,20 +197,20 @@ If one of the bits 10 - 12 is set, these bits take precedence over bits 0 - 2.
 </parameter>
 <parameter number="52210" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_DISP</name>
-<brief>Function mask Display</brief>
+<brief>Function mask for display</brief>
 <description>Function mask for display
 Bit 0: Dimension system for programs always in the basic system
 Bit 1: Face view when turning in the school coordinate system
 Bit 2: Hide softkey "T,S,M" in the jog area
 Bit 3: Generate automatic end-of-program in MDI (using the "Delete blocks" softkey)
 Bit 4: Display follow-on tool in the T,F,S window
-Bit 5: Hide "Actual Machine (MCS) values" softkey
+Bit 5: Hide "Act. values Machine" softkey
 Bit 6: Hide tool radius/diameter in the T,F,S window
 Bit 7: Hide tool lengths in the T,F,S window
 Bit 8: Hide tool icon in the T,F,S window
 Bit 9: Display "Simple input" selection
 Bit 10: Do not offer channel in the job lists
-Bit 11: For Work (WCS), activate the display of the logical spindles
+Bit 11: For Work activate the display of the logical spindles
 Bit 12: Hide mould making view for G code
 Bit 13: Hide channel axes which are currently located in another channel
 	0: Display channel axes which are currently located in another channel in grey
@@ -218,9 +221,9 @@ Bit 15: Display overlay of the tool ($AA_TOFF) under the machine
 </parameter>
 <parameter number="52211" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_DISP_ZOA</name>
-<brief>Function screen for displaying overview of work offsets</brief>
+<brief>Function mask for displaying overview of work offsets</brief>
 <description>Function mask for displaying overview of work offsets
-Bit 0: Display Machine (MCS) position
+Bit 0: Show Machine position
 Bit 1: Reserved
 Bit 2: Display DRF offset
 Bit 3: Display $AA_OFF position offset
@@ -240,7 +243,7 @@ Bit 16: Display $P_ISO4FRAME
 Bit 17: Display $P_CYCFRAME
 Bit 18: Display sum of work offsets
 Bit 19: Display offset of active tool
-Bit 20: Display Work (WCS) position
+Bit 20: Display Work position
 Bit 21: Display BCS position
 Bit 22: Display $P_GFRAME
 Bit 23: Display TOFF
@@ -249,15 +252,15 @@ Bit 24: Display overlay $AA_TOFF
 </parameter>
 <parameter number="52212" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_TECH</name>
-<brief>Function mask Cross-technology</brief>
+<brief>Function mask across technologies</brief>
 <description>Function mask for all technologies
 Bit 0:	Enable swivel plane/align tool with tool carrier
 	0: Swivel plane/align tool with tool carrier not enabled
 	1: Swivel plane/align tool with tool carrier enabled
-Bit 1:	Optimized travel along software limit switches (ShopMill/ShopTurn)
-	0: No optimized travel along software limit switches
-	1: Optimized travel along software limit switches
-	With optimized travel along the software limit switches, in the swivelled state (with table kinematics) any traversing motions which would go
+Bit 1:	No optimized travel along software limit switches (ShopMill/ShopTurn)
+	0: Optimized travel along software limit switches
+	1: No optimized travel along software limit switches
+	With optimized travel along the software limit switches, in the swiveled state (with table kinematics) any traversing motions which would go
 	 beyond the software limit switches are truncated. This avoids the alarm 10720 "Axis software limit switches".
 Bit 2:	Special approach logic for step drill (ShopTurn)
 	0: Special approach logic for step drill disabled
@@ -297,25 +300,31 @@ Bit 11:	Disable position check for drilling and milling tools (ShopTurn)
 	0: Cutting edge position check is active for drilling and milling tools
 	1: No cutting edge position check for drilling and milling tools
 	The cutting edge position check can be disabled for drilling and milling tools if this is necessary on account of the machine design.
-Bit 12:	Alarm with positive Z offset (ShopTurn)
-	0: No alarm with positive Z offset
-	1: Alarm with positive Z offset
-	With a positive Z offset (TRANS), the alarm 62201 "Z offset not active on retraction planes!" is output.
-	The positive Z offset can be dangerous if it shifts the machining position out of the
-	retraction area, as this can result in collisions during approach or retraction
-Bit 13:	Approach tool change point Y in the machine coordinate system (ShopTurn)
-	0 = The tool change point in the work coordinate system is only approached to 0 in the Y direction if MD52241 $MCS_TOOL_CHANGE_POS_Y = 0.
-	1 = Tool change point in the machine coordinate system is always approached in the Y direction (see MD52241 $MCS_TOOL_CHANGE_POS_Y).
+Bit 12:	Reserved
+Bit 13:	Approach tool change point Y in the MCS (ShopTurn)
+	0 : The tool change point in the Work is only approached to 0 in the Y direction if MD52241 $MCS_TOOL_CHANGE_POS_Y = 0.
+	1: Tool change point in the MCS is always approached in the Y direction (see MD52241 $MCS_TOOL_CHANGE_POS_Y).
 Bit 14: With approach logic only check tool position with cutting edge (ShopTurn)
 	0: The approach logic always checks the tool position.
 	1: The approach logic only checks the tool position if a cutting edge is active.
+Bit 15: Do not set $MC_TOOL_CARRIER_RESET_VALUE after block search
+	0: The current tool carrier is written in the machine data $MC_TOOL_CARRIER_RESET_VALUE in the block search cycle PROG_EVENT.SPF
+	1: The current tool carrier is not written in the machine data $MC_TOOL_CARRIER_RESET_VALUE in the block search cycle PROG_EVENT.SPF
+Bit 16: Do not automatically execute swivel plane after block search
+	0: The section for standard cycles: swivel plane is executed in the block search cycle PROG_EVENT.SPF
+	1: The section for standard cycles: swivel plane is not executed in the block search cycle PROG_EVENT.SPF
+Bit 17: Do not automatically execute align turning tool after block search
+	0: The section for align turning tool is executed in the block search cycle PROG_EVENT.SPF
+	1: The section for align turning tool is not executed in the block search cycle PROG_EVENT.SPF
+
+
 
 </description>
 </parameter>
 <parameter number="52214" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_MILL</name>
-<brief>Function mask Milling</brief>
-<description>Function screen for milling
+<brief>Function mask for milling</brief>
+<description>Function mask for milling
 Bit 0:	Enable cylinder surface transformation (ShopMill)
 	0: Softkey not enabled for cylinder surface transformation
 	1: Cylinder surface transformation enabled
@@ -331,13 +340,13 @@ Bit 2:	Special handling of side mill/saw for polyhedron
 	This can create an internal polyhedron on a shaft.
 Bit 3:	Enable inside/rear machining (ShopTurn)
 	0: Inside/rear machining not enabled
-	1: Enable inside/rear machining in ShopTurn screen forms (applies in ShopTurn screen forms which define the machining planes)
+	1: Enable inside/rear machining in ShopTurn screenforms (applies in ShopTurn screenforms which define the machining planes)
 Bit 4:	Enable spindle clamping (C axis) (ShopTurn)
-	0: The parameter "Clamp/release spindle" is not shown in drilling or milling screen forms. ShopTurn clamps the spindle automatically if this is advantageous for
+	0: The parameter "Clamp/release spindle" is not shown in drilling or milling screenforms. ShopTurn clamps the spindle automatically if this is advantageous for
 	machining.
-	1: The parameter "Clamp/release spindle" is shown in drilling and milling screen forms. The operator decides on the machining for which the spindle is clamped.
+	1: The parameter "Clamp/release spindle" is shown in drilling and milling screenforms. The operator decides on the machining for which the spindle is clamped.
 	If you have implemented the function "Clamp/release spindle" by using the machine manufacturer cycle CUST_TECHCYC.SPF, you can activate the parameter "Clamp/release spindle"
-	in drilling and milling screen forms with this machine data.
+	in drilling and milling screenforms with this machine data.
 Bit 5:	Enable spindle control of tool spindle via user interface
 	0: Enable spindle control via the NC/PLC interface
 	1: Enable spindle control via user interface
@@ -353,8 +362,8 @@ Bit 7:	Offer fixed table for blank clamping (on drilling machines)
 </parameter>
 <parameter number="52216" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_DRILL</name>
-<brief>Function mask Drilling</brief>
-<description>Function screen form, drilling
+<brief>Function mask for drilling</brief>
+<description>Function mask for drilling
 Bit 0:	CYCLE84 Show input fields, Technology
 	0: Hide input fields
 	1: Show input fields
@@ -373,8 +382,8 @@ Bit 3:  	Constant cutting speed in relation to the diameter of the centering (Sh
 </parameter>
 <parameter number="52218" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_TURN</name>
-<brief>Function mask Turning</brief>
-<description>Function screen form, turning
+<brief>Function mask for turning</brief>
+<description>Function mask for turning
 Bit 0:	Enable zoom under manual for tool measurement
 	0: No zoom under manual for tool measurement
 	1: Enable zoom under manual for tool measurement
@@ -401,7 +410,7 @@ Bit 7:	Retraction during stock removal along the contour with G1
 	0: Retraction during stock removal along the contour with rapid traverse (G0)
 	1: Retraction during stock removal along the contour with feedrate (G1)
 Bit 8:	Enter spindle chuck data in the program
-	0: The spindle chuck data are taken from the corresponding input screen form in the parameter area.
+	0: The spindle chuck data are taken from the corresponding input screen in the parameter area.
 	1: Enter spindle chuck data in the program
 Bit 9:	Additional entry of tailstock data in the program
 	0: The tailstock data are taken from the spindle chuck data in the parameter area.
@@ -414,11 +423,11 @@ Bit 11:	Reserved
 Bit 12:	Deactivate thread synchronization
 	0: Thread synchronization is possible
 	1: Deactivate the thread synchronization function
-	The operator screen form to set the synchronization point is not displayed, and in the thread cycles
+	The operator screenform to set the synchronization point is not displayed, and in the thread cycles
 	the thread first cut is not calculated with the synchronization point.
 Bit 13:	Stock removal along the contour with CYCLE95 (828D programGUIDE without Advanced Technology)
-	0: The screen form for CYCLE952 is opened with the softkey contour turning/stock removal.
-	1:  The screen form for CYCLE95 is opened with the softkey contour turning/stock removal.
+	0: The screenform for CYCLE952 is opened with the softkey contour turning/stock removal.
+	1:  The screenform for CYCLE95 is opened with the softkey contour turning/stock removal.
 	Secondary conditions:
 	- 828D
 	- programGUIDE
@@ -575,8 +584,8 @@ Elements:
 </parameter>
 <parameter number="52270" type="DWORD" dim="0" display="HEX">
 <name>TM_FUNCTION_MASK</name>
-<brief>Function mask Tool management</brief>
-<description>Function screen form for tool management
+<brief>Function mask for tool management</brief>
+<description>Function mask for tool management
 Bit 0:	Create tool on magazine location not allowed. Tools can only be created outside the magazine.
 Bit 1:	Load/unload disabled if machine is not in reset. Tools can only be loaded/unloaded if the appropriate channel is in reset state.
 Bit 2:	Load/unload disabled on emergency stop. Tools can only be loaded/unloaded if emergency stop is not active.
@@ -683,7 +692,7 @@ The parallel axes cycle (CYCLE69) can also support a rotary axis during position
 <parameter number="52485" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_MILL_PARAXES</name>
 <brief>Function mask for parallel axes cycle - CYCLE69</brief>
-<description>Function mask Parallel axes CYCLE69
+<description>Function mask for parallel axes CYCLE69
 Bit 0: always traverse parallel axes individually (e.g. when clamping the parallel axes with M command)
 Bit 1:
 Bit 2: workpiece reference value (compensation value) still effective after reset
@@ -692,7 +701,7 @@ Bit 2: workpiece reference value (compensation value) still effective after rese
 </parameter>
 <parameter number="52740" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK</name>
-<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<brief>Function mask for measuring cycles, workpiece and tool measuring</brief>
 <description>Function mask for measuring cycles
 
 Bit 0: 	Workpiece measurement, probe input
@@ -719,7 +728,7 @@ Bit 16: 	Tool measurement, probe input
 Bit 17: Tool measurement turning, recoding of the cutting edge positions
            0: No recoding
            1: Internal recoding, cutting edge positions mirrored on the X axis
-              Tool revolver rotated through 180°, Z axis not mirrored
+              Tool turret rotated through 180°, Z axis not mirrored
 
 </description>
 </parameter>
@@ -798,6 +807,18 @@ Bit 17: Tool measurement turning, recoding of the cutting edge positions
 <description>Select the type of deep hole drilling
 0: deep hole drilling with chipbreaking
 1: deep hole drilling with stock removal
+</description>
+</parameter>
+<parameter number="52818" type="DWORD" dim="0" display="HEX">
+<name>ISO_M_FUNCTION_MASK</name>
+<brief>Function mask for ISO milling mode</brief>
+<description>Function mask for ISO milling mode
+</description>
+</parameter>
+<parameter number="52819" type="DWORD" dim="0" display="HEX">
+<name>ISO_T_FUNCTION_MASK</name>
+<brief>Function mask for ISO turning mode</brief>
+<description>Function mask for ISO turning mode
 </description>
 </parameter>
 <parameter number="52840" type="DWORD" dim="0" display="HEX">

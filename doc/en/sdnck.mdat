@@ -14,8 +14,6 @@ JOG continuous
 Related to ....
 	NC/PLC interface signal &lt;Geometrieachse1-3aktiveMaschinenfunktion-VarINC/&gt; (Geometry axis 1-3 active machine function: INC variable) or NC/PLC interface signal &lt;aktiveMaschinenfunktion-VarINC/&gt; (Active machine function: INC variable)
 	MD31090 $MA_JOG_INCR_WEIGHT (weighting of an increment for INC/handwheel)
-This setting data defines the number of increments when variable increment (INCvar) is selected. This increment size is traversed by the axis in JOG mode each time the traverse key is pressed or the handwheel is turned one detent position and variable increment is selected (PLC interface signal "Active machine function: INC variable" for machine or geometry axes is set to 1).
-Note: The increment size is active for both incremental and handwheel traversing.
 </description>
 </parameter>
 <parameter number="41050" type="BOOLEAN" dim="0">
@@ -32,7 +30,7 @@ Incremental jogging (JOG INC)
 Reference point approach (JOG REF)
 </description>
 </parameter>
-<parameter number="41100" type="BYTE" dim="0" display="HEX">
+<parameter number="41100" type="UBYTE" dim="0" display="HEX">
 <name>JOG_REV_IS_ACTIVE</name>
 <brief>JOG mode: revolutional feedrate / linear feedrate</brief>
 <description>Bit 0 = 0:
@@ -95,15 +93,6 @@ Related to ....
 	Axial MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
 	Axial MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (ratio of JOG velocity to handwheel velocity (DRF))
 	SD41130 $SN_JOG_ROT_AX_SET_VELO (JOG speed with rotary axes)
-Value &gt; 0:
-The velocity value entered applies to all linear axes in JOG mode when traversed by the "Plus and minus traversing keys".
-The axis velocity is active:
-	-	for continuous jogging
-	-	for incremental jogging (INC1, ... INCvar)
-The value enered must not exceed the maximum possible axis velocity (MD32000 $MA_MAX_AX_VELO).
-
-Value = 0:
-It acts as a feedrate in JOG mode of the relevant axis-specific MD32020 $MA_JOG_VELO "Jog axis velocity". Thus, a separate JOG veloocity can be entered for each axis.
 </description>
 </parameter>
 <parameter number="41120" type="DOUBLE" dim="0">
@@ -149,7 +138,6 @@ Related to ....
 	MD32020 $MA_JOG_VELO (JOG axis velocity)
 	MD32000 $MA_MAX_AX_VELO (maximum axis velocity)
 	MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (ratio JOG velocity to handwheel velocity (DRF)
-As SD41110 $SN_JOG_SET_VELO - but for all rotary axes instead of linear axes
 </description>
 </parameter>
 <parameter number="41200" type="DOUBLE" dim="0">
@@ -171,17 +159,6 @@ Application example(s). The operator can thus define a JOG speed for the spindle
 Related to ....
 	Axial MD32020 $MA_JOG_VELO (JOG axis velocity)
 	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT (maximum speeds of the gear stages)
-Value &gt; 0:
-The speed value entered applies to all spindles in JOG mode when traversed manually by the "Plus and minus traversing keys".
-The speed is active:
-	-	for continuous jogging
-	-	for incremental jogging (INC1, ... INCvar)
-The value enered must not exceed the maximum possible speed (MD32000 $MA_MAX_AX_VELO).
-
-Value = 0:
-If 0 is entered in the setting data,
-MD32020 $MA_JOG_VELO (JOG axis velocity) acts as the JOG velocity. This enables a separate JOG velocity to be set for each axis (axis-specific MD).
-When traversing a spindle with JOG, the maximum speeds of the active gear stage (MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT) are taken into account.
 </description>
 </parameter>
 <parameter number="41300" type="BOOLEAN" dim="1">
@@ -192,20 +169,21 @@ When traversing a spindle with JOG, the maximum speeds of the active gear stage 
 	The compensation table is now included in the calculation of the compensation value for the compensation axis.
 	The compensation axis $AN_CEC_OUTPUT_AXIS can be taken from the table configuration.
 
-	The effective total compensation value in the compensation axis can be adapted to the current machining by the targeted activation of tables (from NC part programm or PLC user program).
+	The effective total compensation value in the compensation axis can be adapted to the current machining by the targeted activation of tables (from NC part program or PLC user program).
 
 	The function does not become active until the following conditions have been fulfilled:
 - The option "Interpolatory compensation" is set
-- The associated compensation tables in the NC user memory have been loaded and enabled (SD41300 $SN_CEC_TABLE_ENABLEt] = 1)
-- The current position measuring system is referenced (NC/PLC interface signal &lt;ReferiertSynchronisiert1bzw2/&gt; (Referenced/synchronized 1 or 2) = 1).
+- The associated compensation tables in the NC user memory have been loaded and enabled (SD41300 $SN_CEC_TABLE_ENABLE[t] = 1)
+- The current position measuring system is referenced (NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt; (Referenced/synchronized 1 or 2) = 1).
 
 0:	The evaluation of the sag compensation table [t] is not enabled.
 
 Related to ....
 	MD18342 $MN_MM_CEC_MAX_POINTS[t]    Number of  interpolation points with sag compensation
 	SD41300 $SN_CEC_TABLE_ENABLE[t]     Evaluation of the sag compensation table t is enabled
-	NC/PLC interface signal &lt;Referiert-Synchronisiert1/&gt; (Referenced/synchronized 1)
-	NC/PLC interface signal &lt;Referiert-Synchronisiert2/&gt; (Referenced/synchronized 2)
+	SD41310 $SN_CEC_TABLE_WEIGHT[t]            Weighting factor of the sag compensation table
+	NC/PLC interface signal &lt;Referenziert-Synchronisiert1/&gt; (Referenced/synchronized 1)
+	NC/PLC interface signal &lt;Referenziert-Synchronisiert2/&gt; (Referenced/synchronized 2)
 </description>
 </parameter>
 <parameter number="41310" type="DOUBLE" dim="1">

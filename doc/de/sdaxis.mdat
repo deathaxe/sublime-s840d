@@ -132,7 +132,7 @@ Die min. Spindeldrehzahl kann nur unterschritten werden durch:
 - NC/PLC-Nahtstellensignal &lt;VorschubHalt-SpindelHalt/&gt; (Spindel Halt)
 - NC/PLC-Nahtstellensignal &lt;Reglerfreigabe/&gt; (Reglerfreigabe)
 - NC/PLC-Nahtstellensignal &lt;Kanalzustand-Reset/&gt; (Kanalzustand: Reset)
-- NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweg löschen/Spindel-Reset)
+- NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweglöschen/Spindel-Reset)
 - NC/PLC-Nahtstellensignal &lt;Pendeldrehzahl/&gt; (Pendeldrehzahl)
 - S-Wert löschen
 
@@ -141,16 +141,6 @@ SD irrelevant bei ......
 Korrespondiert mit:
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-In diesem SD wird eine min. Spindeldrehzahlbegrenzung eingegeben, die die Spindel nicht unterschreiten darf. Die NCK begrenzt eine zu kleine Spindelsolldrehzahl auf diesen Wert.
-Die min. Spindeldrehzahl kann nur unterschritten werden durch:
--	Spindelkorrektur 0%
--	M5
--	S0
-- NC/PLC-Nahtstellensignal &lt;VorschubHalt-SpindelHalt/&gt; (Spindel Halt)
-- NC/PLC-Nahtstellensignal &lt;Reglerfreigabe/&gt; (Reglerfreigabe)
-- NC/PLC-Nahtstellensignal &lt;Kanalzustand-Reset/&gt; (Kanalzustand: Reset)
-- NC/PLC-Nahtstellensignal &lt;Restweg-loeschen_Spindel-Reset/&gt; (Restweg löschen/Spindel-Reset)
-- NC/PLC-Nahtstellensignal &lt;Pendeldrehzahl/&gt; (Pendeldrehzahl)
 </description>
 </parameter>
 <parameter number="43220" type="DOUBLE" dim="0">
@@ -189,7 +179,6 @@ korrespondierend mit ....
      SD43230 $SA_SPIND_MAX_VELO_LIMS (progr. Spindeldrehzahlbegrenzung bei G96/961)
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-Bei konstanter Schnittgeschwindigkeit (G96 und G97) wirkt zusätzlich zu den ständig wirksamen Begrenzungen eine zusätzliche Begrenzung, die im SPIND_MAX_VELO_LIMS eingegeben wird. Außerden kann das in SPIND_MAX_VELO_LIMS im Teileprogramm mit LIMS=.... beschrieben werden.
 </description>
 </parameter>
 <parameter number="43235" type="DOUBLE" dim="0">
@@ -307,9 +296,6 @@ korrespondierend mit ....
      SD43400 $SA_WORKAREA_PLUS_ENABLE
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-Mit der Arbeitsfeldbegrenzung kann der Arbeitsbereich im MKS in der positiven Richtung der entsprechenden Achse eingeschränkt werden.
-Das Settingdatum kann über die Bedientafel im Bedienbereich "Parameter" verändert werden.
-Die positive Arbeitsfeldbegrenzung kann im Programm mit G26 verändert werden.
 </description>
 </parameter>
 <parameter number="43430" type="DOUBLE" dim="0">
@@ -326,9 +312,6 @@ korrespondierend mit ....
      SD43410 $SA_WORKAREA_MINUS_ENABLE
      MD10709 $MN_PROG_SD_POWERON_INIT_TAB
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
-Mit der Arbeitsfeldbegrenzung kann der Arbeitsbereich im MKS in der negativen Richtung der entsprechenden Achse eingeschränkt werden.
-Das Settingdatum kann über die Bedientafel im Bedienbereich "Parameter" verändert werden.
-Die negative Arbeitsfeldbegrenzung kann im Programm mit G25 verändert werden.
 </description>
 </parameter>
 <parameter number="43500" type="BYTE" dim="0">
@@ -342,10 +325,6 @@ SD=1 "Fahren auf Festanschlag" anwählen
 Das Settingdatum kann mit SW-Stand 2.x nur durch das Teileprogramm mit dem Befehl FXS[x]=1/0 überschrieben werden.
 
 Der Status des Settingdatums wird über die Bedientafel im Bedienbereich "Parameter" angezeigt.
-Mit dem Settingdatum kann die Funktion "Fahren auf Festanschlag" kontrolliert werden.
-Wert	=0:	"Fahren auf Festanschlag" abwählen
-	=1:	"Fahren auf Festanschlag" anwählen
-Das Settingdatum wird durch das Teileprogramm mit dem Befehl FXS[x]=1/0 überschrieben.
 </description>
 </parameter>
 <parameter number="43510" type="DOUBLE" dim="0">
@@ -365,15 +344,6 @@ Der Befehl FXST[x] bewirkt eine satzsynchrone Änderung dieses Settingdatums. Wei
 
 korrespondierend mit ....
 	MD37010 $MA_FIXED_STOP_TORQUE_DEF (Voreinstellung für Klemmoment)
-In dieses Settingdatum wird das Klemmoment in % vom maximalen Motormoment eingetragen (entspricht bei VSA % vom max. Stromsollwert).
-Beachten Sie, dass ein Klemmoment größer 100% nur kurzzeitig anstehen darf, damit der Motor nicht beschädigt wird.
-Bei Anwahl der Funktion "Fahren auf Festanschlag" durch Programmierung FXS[.] ist die Voreinstellung des MD37010 $MA_FIXED_STOP_TORQUE_DEF bis zur Programmierung mit FXST[.] wirksam.
-Der Befehl FXST[x] bewirkt eine satzsynchrone Änderung dieses Settingdatums. Weiterhin kann das Settingdatum vom Bediener verändert werden.
-Das SD wirkt schon während des Anfahrens des Anschlags.
-Der Festanschlag gilt als erreicht, wenn bei MD37060 $MA_FIXED_STOP_ACKN_MASK,
-	Bit 1 = 0: (keine Quittierung notwendig) das NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht/&gt; (Festanschlag erreicht) von der NC gesetzt wird.
-	Bit 1 = 1: (Quittierung notwendig) das NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht/&gt; (Festanschlag erreicht) von der NC gesetzt wird
-		 und mit dem NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht_quittieren/&gt; (Festanschlag erreicht quittieren) quittiert wird.
 </description>
 </parameter>
 <parameter number="43520" type="DOUBLE" dim="0">
@@ -533,7 +503,7 @@ korrespondierent mit ....
      MD10710 $MN_PROG_SD_RESET_SAVE_TAB
 </description>
 </parameter>
-<parameter number="43770" type="DWORD" dim="0" display="HEX">
+<parameter number="43770" type="UDWORD" dim="0" display="HEX">
 <name>OSCILL_CTRL_MASK</name>
 <brief>Pendelablauf-Steuermaske</brief>
 <description>Bitmaske:

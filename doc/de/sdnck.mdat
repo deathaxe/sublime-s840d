@@ -14,8 +14,6 @@ JOG-kontinuierlich
 korrespondierend mit ....
 	NC/PLC-Nahtstellensignal &lt;Geometrieachse1-3aktiveMaschinenfunktion-VarINC/&gt; (Geometrieachse 1-3 aktive Maschinenfunktion: Var. INC) bzw. NC/PLC-Nahtstellensignal &lt;aktiveMaschinenfunktion-VarINC/&gt; (aktive Maschinenfunktion: Var. INC)
 	MD31090 $MA_JOG_INCR_WEIGHT (Bewertung eines Inkrementes für INC/Handrad)
-Mit dem Settingdatum wird die Anzahl der  Inkremente bei Anwahl des variablen Inkrements  (INCvar) festgelegt. Diese Inkrementgröße wird jeweils bei Betätigung der Verfahrtaste bzw. bei Verdrehung des Handrades je Rasterstellung von der Achse im JOG-Betrieb verfahren, wenn das variable Inkrement angewählt ist (NC/PLC-Nahtstellensignal "aktive Maschinenfunktion: INC variabel" bei Maschinen- oder Geometrieachse ist 1-Signal).
-Hinweis: Zu beachten ist, dass die Inkrementgröße beim inkrementellen Verfahren und beim Handradverfahren wirkt.
 </description>
 </parameter>
 <parameter number="41050" type="BOOLEAN" dim="0">
@@ -32,7 +30,7 @@ Inkrementellem Verfahren (JOG-INC)
 Referenzpunktfahren (JOG-REF)
 </description>
 </parameter>
-<parameter number="41100" type="BYTE" dim="0" display="HEX">
+<parameter number="41100" type="UBYTE" dim="0" display="HEX">
 <name>JOG_REV_IS_ACTIVE</name>
 <brief>JOG: Umdrehungs.- / Linearvorschub</brief>
 <description>Bit 0 = 0:
@@ -95,15 +93,6 @@ korrespondierend mit ....
 	axiales MD32000 $MA_MAX_AX_VELO (Maximale Achsgeschwindigkeit)
 	axiales MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (Verhältnis JOG-Geschwindigkeit zu Handradgeschwindigkeit (DRF))
 	SD41130 $SN_JOG_ROT_AX_SET_VELO (JOG-Geschwindigkeit bei Rundachsen)
-Wert &gt; 0:
-Die eingegebene Geschwindigkeit gilt für alle Linearachsen im JOG-Betrieb, wenn diese über die "Verfahrtasten Plus bzw. Minus" manuell verfahren werden.
-Die Achsgeschwindigkeit wirkt:
-	-	beim kontinuierlichen Verfahren
-	-	beim inkrementellen Verfahren (INC1, ... INCvar)
-Der eingegebene Wert darf die maximal zulässige Achsgeschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
-
-Wert = 0:
-Es wirkt als Vorschub im JOG-Betrieb das jeweilige achsspezifische MD32020 $MA_JOG_VELO "Konventionelle Achsgeschwindigkeit". Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit festgelegt werden.
 </description>
 </parameter>
 <parameter number="41120" type="DOUBLE" dim="0">
@@ -149,7 +138,6 @@ korrespondierend mit ....
 	MD32020 $MA_JOG_VELO (Konventionelle Geschwindigkeit)
 	MD32000 $MA_MAX_AX_VELO (Maximale Achsgeschwindigkeit)
 	MD32090 $MA_HANDWH_VELO_OVERLAY_FACTOR (Verhältnis JOG-Geschwindigkeit zu Handradgeschwindigkeit (DRF)
-wie SD41110 $SN_JOG_SET_VELO - jedoch für alle Rundachsen statt Linearachsen
 </description>
 </parameter>
 <parameter number="41200" type="DOUBLE" dim="0">
@@ -171,17 +159,6 @@ Achsen Anwendungsbeispiel(e). Der Bediener kann hiermit anwendungsspezifisch ein
 korrespondierend mit ....
 	axiales MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit)
 	MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT (Maximaldrehzahl der Getriebestufen)
-Wert &gt; 0:
-Die eingegebene Geschwindigkeit gilt bei Spindeln im JOG-Betrieb, wenn diese über die "Verfahrtasten Plus bzw. Minus" manuell verfahren werden.
-Die Geschwindigkeit wirkt:
-	-	bei kontinuierlichen Verfahren
-	-	bei inkrementellen Verfahren (INC1, ..., INCvar)
-Der eingegebene Wert darf die maximal zulässige Geschwindigkeit (MD32000 $MA_MAX_AX_VELO) nicht überschreiten.
-
-Wert = 0:
-Falls in dem Settingdatum 0 eingetragen ist, wirkt als JOG-Geschwindigkeit das
-MD32020 $MA_JOG_VELO (Konventionelle Achsgeschwindigkeit). Hiermit kann für jede Achse eine eigene JOG-Geschwindigkeit (achsspezifisches MD) festgelegt werden.
-Bei Verfahren der Spindel mit JOG werden die Maximaldrehzahlen der aktiven Getriebestufe (MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT) berücksichtigt.
 </description>
 </parameter>
 <parameter number="41300" type="BOOLEAN" dim="1">
@@ -197,15 +174,16 @@ Bei Verfahren der Spindel mit JOG werden die Maximaldrehzahlen der aktiven Getri
 	Die Funktion wird erst wirksam, wenn folgende Voraussetzungen erfüllt sind:
 - die Option "Interpolatorische Kompensation" ist gesetzt
 - die zugehörigen Kompensationstabellen in den NC-Anwenderspeicher geladen und freigegeben wurden (SD41300 $SN_CEC_TABLE_ENABLE[t] = 1)
-- das jeweilige Lagemesssystem referiert ist (NC/PLC-Nahtstellensignal &lt;ReferiertSynchronisiert1bzw2/&gt; (Referiert/Synchronisiert 1 bzw. 2) = 1).
+- das jeweilige Lagemesssystem referenziert ist (NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt; (Referenziert/Synchronisiert 1 bzw. 2) = 1).
 
 0:	Die Auswertung der Durchhangkompensations-Tabelle [t] ist nicht freigegeben.
 
 korrespondierend mit ....
 	MD18342 $MN_MM_CEC_MAX_POINTS[t]           Anzahl der Stützpunkte bei Durchhangkompensation
 	SD41300 $SN_CEC_TABLE_ENABLE[t]            Auswertung der Durchhangkompensationstabelle t freigeben
-	NC/PLC-Nahtstellensignal &lt;Referiert-Synchronisiert1/&gt; (Referiert/Synchronisiert 1)
-	NC/PLC-Nahtstellensignal &lt;Referiert-Synchronisiert2/&gt; (Referiert/Synchronisiert 2)
+	SD41310 $SN_CEC_TABLE_WEIGHT[t]            Gewichtungsfaktor der Durchhangkompensationstabelle
+	NC/PLC-Nahtstellensignal &lt;Referenziert-Synchronisiert1/&gt; (Referenziert/Synchronisiert 1)
+	NC/PLC-Nahtstellensignal &lt;Referenziert-Synchronisiert2/&gt; (Referenziert/Synchronisiert 2)
 </description>
 </parameter>
 <parameter number="41310" type="DOUBLE" dim="1">

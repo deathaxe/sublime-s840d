@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <info>
-<parameter number="36901" type="DWORD" dim="0" display="HEX">
+<parameter number="36901" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_FUNCTION_ENABLE</name>
 <brief>Freigabe sicherer Funktionen</brief>
 <description>Mit diesem Datum können für eine Achse/Spindel die Funktionen des sicheren Betriebes freigegeben werden.
@@ -45,7 +45,7 @@ Korrespondiert mit: Globaler Option
 Der Wert in diesem MD muss gleich sein wie im MD30300 $MA_IS_ROT_AX. Bei einer Abweichung wird ein Parametrierfehler angezeigt.
 </description>
 </parameter>
-<parameter number="36903" type="DWORD" dim="0" display="HEX">
+<parameter number="36903" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_CAM_ENABLE</name>
 <brief>Funktionsfreigabe sichere Nockenspur</brief>
 <description>Mit diesem Datum können für eine Achse/Spindel 30 sichere Nocken für die Funktion "Sichere Nockenspur" freigegeben werden.
@@ -86,7 +86,7 @@ Korrespondiert mit:
 	MD36901: $MA_SAFE_FUNCTION_ENABLE
 </description>
 </parameter>
-<parameter number="36904" type="DWORD" dim="0" display="HEX">
+<parameter number="36904" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_ADD_FUNCTION_MASK</name>
 <brief>Freigabe zusätzlicher Funktionen für Safety Integrated</brief>
 <description>Bit 0: NCK-seitig wird bei Stop B und C nicht durch Vorgabe von "Drehzahlsollwert 0" gebremst. Das Abbremsen findet antriebsseitig auf Basis der AUS3-Rampe statt.
@@ -120,10 +120,10 @@ Der Eintrag verweist auf das Datenfeld MD10393 $MN_SAFE_DRIVE_LOGIC_ADDRESS
 Es muss der gleiche Antrieb zugeordnet werden, der auch über MD30110 $MA_CTRLOUT_MODULE_NR und MD13050 $MN_DRIVE_LOGIC_ADDRESS ausgewählt wurde.
 </description>
 </parameter>
-<parameter number="36907" type="DWORD" dim="0" display="HEX" readonly="true">
+<parameter number="36907" type="UDWORD" dim="0" display="HEX" readonly="true">
 <name>SAFE_DRIVE_PS_ADDRESS</name>
 <brief>PROFIsafe Adresse des Antriebs</brief>
-<description>Dieses NCK-MD enthält die PROFIsafe-Adresse des dieser Achse zugeordneten Antriebs. Dieses MD wird im Hochlauf vom Antrieb ausgelesen. Diese Adresse muss über alle Achsen eindeutig sein.
+<description>Dieses NCK-MD enthält die PROFIsafe-Adresse des dieser Achse zugeordneten Antriebs. Dieses MD wird im Hochlauf aus Antriebsparameter r9810 ausgelesen. Diese Adresse muss über alle Achsen eindeutig sein.
 Dieses MD ist nicht schreibbar, die PROFIsafe Adresse muss im Antrieb parametriert werden.
 Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[2] ein.
 </description>
@@ -206,7 +206,8 @@ bei 1:
 <brief>Teilungsperiode Linearmaßstab</brief>
 <description>Angabe der Gitterteilung des verwendeten Linearmaßstabes.
 
-Nicht relevant bei einem rotatorischen Geber
+Nicht relevant bei einem rotatorischen Geber.
+Ändert sich der Wert, wird der Alarm 27036 ausgelöst.
 </description>
 </parameter>
 <parameter number="36918" type="DWORD" dim="0">
@@ -215,6 +216,7 @@ Nicht relevant bei einem rotatorischen Geber
 <description>Angabe der Striche pro Umdrehung bei einem rotatorischen Geber.
 
 Nicht relevant bei einem linearen Geber
+Ändert sich der Wert, wird der Alarm 27036 ausgelöst.
 </description>
 </parameter>
 <parameter number="36919" type="BYTE" dim="0" readonly="true">
@@ -303,19 +305,19 @@ Der aktuelle Wert wird über sicherheitsgerichtete Eingangssignale (SGE) angewähl
 Dieser Typ wird im Hochlauf aus Antriebsparameter r9527 ausgelesen. Ist kein gültiger Wert eingetragen, so wird Alarm 27038 ausgegeben. Enthält der Antriebsparameter einen gültigen Wert, so wird dieser mit dem letzten in diesem MD gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27035 augegeben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
 </description>
 </parameter>
-<parameter number="36928" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="36928" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_ENC_IDENT</name>
 <brief>Geberidentifikation</brief>
-<description>Identifikation der für Safety Integrated benutzten Geberauswertung dieser Achse. Diese Identifikation wird im Hochlauf von der Geberauswertung ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
+<description>Identifikation der für Safety Integrated benutzten Geberauswertung dieser Achse. Diese Identifikation wird im Hochlauf von der Geberauswertung (Antriebsparameter r9881) ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
 
 Korrespondiert mit:
 	r9881: SI Motion Sensor Module Node Identifier Zweiter Kanal
 </description>
 </parameter>
-<parameter number="36929" type="DWORD" dim="0" display="HEX" readonly="true">
+<parameter number="36929" type="UDWORD" dim="0" display="HEX" readonly="true">
 <name>SAFE_ENC_CONF</name>
 <brief>Konfiguration des redundanten Istwertes</brief>
-<description>Konfiguration des redundanten Istwertes bei DRIVE-CLiQ Geber:
+<description>Konfiguration des redundanten Istwertes bei DRIVE-CLiQ Gebern:
 Bit 0: Vorwärts-/ Rückwärtszähler
      = 0: Rückwärtszähler
      = 1: Vorwärtszähler
@@ -328,7 +330,7 @@ Bit 2: redundante Groblage MSB/LSB-bündig
 Bit 4: Binärer Vergleich nicht möglich
      = 0: Binärer Vergleich möglich
      = 1: Binärer Vergleich nicht möglich
-Diese Information wird im Hochlauf aus Antriebsparameter r0474 ausgelesen und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27035 ausgegeben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
+Diese Information wird im Hochlauf für DRIVE-CLiQ-Geber aus Antriebsparameter r0474 ausgelesen (für SMI/SMC/SME-Geber gelten die Standardwerte) und mit dem letzten hier gespeicherten Wert verglichen. Danach wird dieses MD überschrieben. Bei Ungleichheit wird Alarm 27035 ausgegeben. Der Wert dieses MDs fließt in die Berechnung von MD36998 $MA_SAFE_ACT_CHECKSUM[1] ein.
 Ist im Antriebsparameter r0474 ein unbekanntes Bit gesetzt, so wird Alarm 27038 ausgegeben. Die Alarmausgabe an dieser Stelle kann über das MD10096 $MN_SAFE_DIAGNOSIS_MASK, Bit 3 = 1 ausgeblendet werden.
 </description>
 </parameter>
@@ -454,14 +456,14 @@ Ist die Funktion "Sichere Nockenspur" freigegeben (MD36903 $MA_SAFE_CAM_ENABLE),
 n = 0 ... 29 steht für Plusnocken-Position von SN1+, SN2+, ..., SN30+.
 
 Korrespondiert mit:
-	MD36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
+	MD36901: $MA_SAFE_FUNCTION_ENABLE
+	MD36903: $MA_SAFE_CAM_ENABLE
 	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
 	MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD36988: $MA_SAFE_CAM_PLUS_OUTPUT[n]
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
+	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
 
 </description>
 </parameter>
@@ -480,14 +482,14 @@ Ist die Funktion "Sichere Nockenspur" freigegeben (MD36903 $MA_SAFE_CAM_ENABLE),
 n = 0 ... 29 steht für Minusnocken-Position von SN1 -, SN2 -, ..., SN30 -.
 
 Korrespondiert mit:
-	MD36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
+	MD36901: $MA_SAFE_FUNCTION_ENABLE
+	MD36903: $MA_SAFE_CAM_ENABLE
 	MD36936: $MA_SAFE_CAM_POS_PLUS[n]
 	MD36938: $MA_SAFE_CAM_TRACK_ASSIGN[n]
+	MD36989: $MA_SAFE_CAM_MINUS_OUTPUT[n]
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
+	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
 
 </description>
 </parameter>
@@ -509,13 +511,12 @@ MD36938 $MA_SAFE_CAM_TRACK_ASSIGN[5] = 100: Der Nocken 6 (Index 5) wird der Nock
 Ist die Position im Bereich dieses Nockens, wird im SGA "Nockenbereich" der 1.Nockenspur die 0 eingetragen..
 
 Korrespondiert mit:
+	MD36903: $MA_SAFE_CAM_ENABLE
 	MD36936: $MA_SAFE_CAM_POS_PLUS[n]
 	MD36937: $MA_SAFE_CAM_POS_MINUS[n]
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
-	MD37901: $MA_SAFE_CAM_RANGE_OUTPUT_1[n]
-	MD37902: $MA_SAFE_CAM_RANGE_OUTPUT_2[n]
-	MD37903: $MA_SAFE_CAM_RANGE_OUTPUT_3[n]
-	MD37904: $MA_SAFE_CAM_RANGE_OUTPUT_4[n]
+	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
+	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
 
 </description>
 </parameter>
@@ -527,7 +528,7 @@ Korrespondiert mit:
 Dieses Datum gibt die Toleranz als lastseitigen Weg und für alle Nocken an, innerhalb dessen die Überwachungskanäle unterschiedliche Signalzustände des gleichen Nockens haben können, ohne dass der Alarm 27001 ausgelöst wird.
 
 Empfehlung:
-Gleicher Wert wie in MD36942 $MA_SAFE_POS_TOL eingeben oder geringfügig größer.
+Gleichen Wert wie in MD36942 $MA_SAFE_POS_TOL eingeben oder geringfügig größer.
 </description>
 </parameter>
 <parameter number="36942" type="DOUBLE" dim="0">
@@ -854,10 +855,10 @@ Weicht die Achsposition um mehr als diese Toleranz von der Position bei Anwahl d
 Freigabe der entsprechenden Testfunktion über MD37000 $MA_FIXED_STOP_MODE, Bit 1.
 </description>
 </parameter>
-<parameter number="36968" type="DWORD" dim="0" display="HEX">
+<parameter number="36968" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_BRAKETEST_CONTROL</name>
 <brief>Erweiterte Einstellungen für den Bremsentest</brief>
-<description>Erweiterte Einstellungen für den NC-geführten Bremsentest.
+<description>Erweiterte Einstellungen für den NC-geführten und SINAMICS Bremsentest.
 
 Bit 0: Auswahl des Mittelwertes für die Momentenbegrenzung
 = 0:	Als Mittelwert der Momentenbegrenzung wird der Antriebsparameter p1532 verwendet
@@ -865,6 +866,9 @@ Bit 0: Auswahl des Mittelwertes für die Momentenbegrenzung
 Bit 1: Kriterium für das Erreichen der Momentengrenze in PLC
 = 0:	Der Momentengrenzwert muss während des programmierten Verfahrwegs erreicht werden
 = 1:	Der Momentengrenzwert muss während der programmierten Zeit (PLC) erreicht werden
+Bit 2: Auswahl des Positionierverhaltens am Ende des SINAMICS Bremsentests
+= 0:	Positionieren auf die aktuelle Achsposition
+= 1:	Positionieren auf die letzte programmierte Achsposition
 </description>
 </parameter>
 <parameter number="36969" type="DOUBLE" dim="0" readonly="true">
@@ -875,7 +879,7 @@ Alle relativ angegebenen Drehmomente beziehen sich auf diese Bezugsgröße.
 Bei diesem MD handelt es sich um ein Abbild des Antriebsparameters p2003
 </description>
 </parameter>
-<parameter number="36970" type="DWORD" dim="0" display="HEX">
+<parameter number="36970" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SVSS_DISABLE_INPUT</name>
 <brief>Eingangszuordnung SBH/SG-Abwahl</brief>
 <description>Mit diesem Datum wird der NCK-Eingang zur An-/Abwahl der Funktionen SBH und SG definiert.
@@ -905,7 +909,7 @@ Sonderfälle:
 - Mehrere Eingangssignale können auf die gleiche Systemvariable parametriert werden.
 </description>
 </parameter>
-<parameter number="36971" type="DWORD" dim="0" display="HEX">
+<parameter number="36971" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SS_DISABLE_INPUT</name>
 <brief>Eingangszuordnung SBH-Abwahl</brief>
 <description>Zuordnung des NCK-Eingangs für die Abwahl der Funktion sicherer Betriebshalt.
@@ -922,7 +926,7 @@ Sonderfälle:
 - Wenn SG und SBH abgewählt wurden (siehe MD36970 $MA_SAFE_SVSS_DISABLE_INPUT), dann ist dieser Eingang ohne Bedeutung.
 </description>
 </parameter>
-<parameter number="36972" type="DWORD" dim="1" display="HEX">
+<parameter number="36972" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_VELO_SELECT_INPUT</name>
 <brief>Eingangszuordnung SG-Auswahl</brief>
 <description>Mit diesem Datum werden die beiden Eingänge zur Auswahl von SG1, SG2, SG3 oder SG4 definiert.
@@ -940,7 +944,7 @@ Bit 1            Bit 0              ausgewählte SG
 1                  1                    SG4
 </description>
 </parameter>
-<parameter number="36973" type="DWORD" dim="0" display="HEX">
+<parameter number="36973" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_POS_SELECT_INPUT</name>
 <brief>Eingangszuordnung SE-Auswahl</brief>
 <description>Mit diesem Datum wird der Eingang für die Auswahl der sicheren Endlage 1 oder 2 definiert.
@@ -952,7 +956,7 @@ Signal  bedeutet
 = 1	SE2 ist aktiv
 </description>
 </parameter>
-<parameter number="36974" type="DWORD" dim="1" display="HEX">
+<parameter number="36974" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_GEAR_SELECT_INPUT</name>
 <brief>Eingangszuordnung Übersetzungsanwahl</brief>
 <description>Eingangszuordnung für die Auswahl der Übersetzung (Getriebestufe).
@@ -969,7 +973,7 @@ Bit 2               Bit 1              Bit 0            aktive Getriebestufe
 1                     1                    1                   Stufe 8
 </description>
 </parameter>
-<parameter number="36977" type="DWORD" dim="1" display="HEX">
+<parameter number="36977" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_EXT_STOP_INPUT</name>
 <brief>Eingangszuordnung externe Bremsanforderung</brief>
 <description>Mit diesem Datum werden die NCK-Eingänge zur An-/Abwahl der externen Bremsanforderungen definiert.
@@ -987,7 +991,7 @@ Sonderfälle:
 - Das Signal "Abwahl externer Stop A" kann nicht invertiert parametriert werden. Im Fehlerfall wird ein Parametrierfehler gemeldet.
 </description>
 </parameter>
-<parameter number="36978" type="DWORD" dim="1" display="HEX">
+<parameter number="36978" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_OVR_INPUT</name>
 <brief>Eingangszuordnung SG-Override</brief>
 <description>Zuordnung der NCK-Eingänge für die Korrektur des Grenzwertes der sicheren Geschwindigkeit 2 und 4.
@@ -1017,7 +1021,7 @@ Korrespondiert mit:
 	MD36932: $MA_SAFE_VELO_OVR_FACTOR[n]
 </description>
 </parameter>
-<parameter number="36980" type="DWORD" dim="0" display="HEX">
+<parameter number="36980" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SVSS_STATUS_OUTPUT</name>
 <brief>Ausgangszuordnung SBH/SG aktiv</brief>
 <description>Zuordnung des Ausgangs für die Meldung des Zustands der Funktion sichere Geschwindigkeit und sicherer Betriebshalt.
@@ -1050,7 +1054,7 @@ Sonderfälle:
   Ist das MD-Bit 31 gesetzt, so wird das betreffende Signal zunächst invertiert. Die (ggf.invertierten) Ausgangssignale werden dann UND-verknüpft, das Ergebnis wird in die Systemvariable eingetragen.
 </description>
 </parameter>
-<parameter number="36981" type="DWORD" dim="0" display="HEX">
+<parameter number="36981" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SS_STATUS_OUTPUT</name>
 <brief>Ausgangszuordnung SBH aktiv</brief>
 <description>Mit diesem Datum wird der Ausgang oder die Systemvariable für die Meldung "SBH aktiv" bestimmt.
@@ -1062,7 +1066,7 @@ Signal  bedeutet
 = 1	SBH ist aktiv
 </description>
 </parameter>
-<parameter number="36982" type="DWORD" dim="1" display="HEX">
+<parameter number="36982" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_VELO_STATUS_OUTPUT</name>
 <brief>Ausgangszuordnung aktive SG-Auswahl</brief>
 <description>Mit diesem Datum werden die Ausgänge oder die Systemvariablen für die Meldungen "SG aktiv Bit 0" und "SG aktiv Bit 1" bestimmt.
@@ -1071,7 +1075,6 @@ Aufbau: siehe MD36980 $MA_SAFE_SVSS_STATUS_OUTPUT
 
 n = 1, 0              steht für SG aktiv Bit 1, 0
 
-SG aktiv
 Bit 1  Bit 0  bedeutet:
 = 0    = 0    SG1 aktiv, wenn SBH/SG aktiv und SBH nicht aktiv ist
               SBH aktiv, wenn SBH/SG aktiv und SBH aktiv ist
@@ -1080,7 +1083,7 @@ Bit 1  Bit 0  bedeutet:
 = 1    = 1    SG4 aktiv
 </description>
 </parameter>
-<parameter number="36985" type="DWORD" dim="0" display="HEX">
+<parameter number="36985" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_VELO_X_STATUS_OUTPUT</name>
 <brief>Ausgangszuordnung n &lt; n_x</brief>
 <description>Mit diesem Datum wird der Ausgang oder die Systemvariable für die Meldung "n &lt; nx" bestimmt.
@@ -1096,7 +1099,7 @@ Korrespondiert mit:
 	MD36946: $MA_SAFE_VELO_X
 </description>
 </parameter>
-<parameter number="36987" type="DWORD" dim="0" display="HEX">
+<parameter number="36987" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_REFP_STATUS_OUTPUT</name>
 <brief>Ausgangszuordnung Achse sicher referenziert</brief>
 <description>Mit diesem Datum wird der Ausgang für die Meldung "Achse sicher referenziert" angegeben.
@@ -1108,7 +1111,7 @@ Signal      bedeutet
 = 1	Achse ist sicher referenziert
 </description>
 </parameter>
-<parameter number="36988" type="DWORD" dim="1" display="HEX">
+<parameter number="36988" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_PLUS_OUTPUT</name>
 <brief>Ausgangszuordnung SN1 + bis SN4 +</brief>
 <description>Mit diesem Datum werden die Ausgänge für die Nockensignale SN1 + bis SN4 + angegeben.
@@ -1125,7 +1128,7 @@ Sonderfälle:
 - Wenn ein Nocken negiert und mit einem weiteren Nocken auf einen Ausgang gelegt wird, dann wird UND-verknüpft und es entsteht ein einziges Nockensignal zur Bereichserkennung.
 </description>
 </parameter>
-<parameter number="36989" type="DWORD" dim="1" display="HEX">
+<parameter number="36989" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_MINUS_OUTPUT</name>
 <brief>Ausgangszuordnung SN1 - bis SN4 -</brief>
 <description>Mit diesem Datum werden die Ausgänge für die Minusnocken SN1 - bis SN4 - definiert.
@@ -1142,7 +1145,7 @@ Sonderfälle:
 - Wenn ein Nocken negiert und mit einem weiteren Nocken auf einen Ausgang gelegt wird, dann wird UND-verknüpft und es entsteht ein einziges Nockensignal zur Bereichserkennung.
 </description>
 </parameter>
-<parameter number="36990" type="DWORD" dim="1" display="HEX">
+<parameter number="36990" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_ACT_STOP_OUTPUT</name>
 <brief>Ausgangszuordnung des aktiven Stop</brief>
 <description>Zuordnung der Ausgangssignale für die Anzeige des momentan aktiven Stops.
@@ -1171,7 +1174,7 @@ Datum und Uhrzeit der letzten Konfigurationsänderung sicherheitsrelevanter NCK-A
 Aufgezeichnet werden Änderungen der Maschinendaten, die in die achsspezifischen Checksummen MD36998 $MA_SAFE_ACT_CHECKSUM[] eingerechnet werden.
 </description>
 </parameter>
-<parameter number="36994" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="36994" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_PREV_CONFIG</name>
 <brief>Daten vorherige Safety-Achs-Konfiguration</brief>
 <description>Zwischenspeicher zur Ablage vorheriger Safety-Konfigurationsdaten
@@ -1199,7 +1202,7 @@ Sonderfälle:
 - Wenn das MD manuell geändert wird, dann wird dies beim nächsten Einschalten und Prüfen auf Plausibilität erkannt. Nach dem Referenzieren ist wieder eine Anwenderzustimmung erforderlich.
 </description>
 </parameter>
-<parameter number="36997" type="DWORD" dim="0" display="HEX">
+<parameter number="36997" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_ACKN</name>
 <brief>Anwenderzustimmung</brief>
 <description>In diesem Datum wird der Status der Anwenderzustimmung angezeigt.
@@ -1212,7 +1215,7 @@ Sonderfälle:
 - Wenn das MD manuell geändert wird, dann wird dies beim nächsten Einschalten und Prüfen auf Plausibilität erkannt. Nach dem Referenzieren ist wieder eine Anwenderzustimmung erforderlich.
 </description>
 </parameter>
-<parameter number="36998" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="36998" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_ACT_CHECKSUM</name>
 <brief>Ist-Prüfsumme</brief>
 <description>Hier wird die nach PowerOn oder bei RESET berechnete Ist-Prüfsumme über die aktuellen Werte der sicherheitsrelevanten Maschinendaten eingetragen.
@@ -1222,7 +1225,7 @@ Index 1: HW-Komponentenkennungen
 Index 2: Antriebszuordnung
 </description>
 </parameter>
-<parameter number="36999" type="DWORD" dim="1" display="HEX">
+<parameter number="36999" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_DES_CHECKSUM</name>
 <brief>Soll-Prüfsumme</brief>
 <description>In diesem Datum steht die bei der letzten Maschinenabnahme gespeicherte Soll-Prüfsumme über die aktuellen Werte der sicherheitsrelevanten Maschinendaten.
@@ -1232,7 +1235,7 @@ Index 1: HW-Komponentenkennungen
 Index 2: Antriebszuordnung
 </description>
 </parameter>
-<parameter number="37900" type="DWORD" dim="1" display="HEX">
+<parameter number="37900" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_TRACK_OUTPUT</name>
 <brief>Ausgangszuordnung Nockenspur 1 bis 4</brief>
 <description>Mit diesem Datum werden die Ausgänge für Nockenspur 1 bis 4 angegeben.
@@ -1250,7 +1253,7 @@ Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigege
 
 </description>
 </parameter>
-<parameter number="37901" type="DWORD" dim="1" display="HEX">
+<parameter number="37901" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_1</name>
 <brief>Ausgangszuordnung Nockenbereich für Nockenspur 1</brief>
 <description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 1 angegeben.
@@ -1281,7 +1284,7 @@ Korrespondiert mit:
 
 </description>
 </parameter>
-<parameter number="37902" type="DWORD" dim="1" display="HEX">
+<parameter number="37902" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_2</name>
 <brief>Ausgangszuordnung Nockenbereich für Nockenspur 2</brief>
 <description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 2 angegeben.
@@ -1312,7 +1315,7 @@ Korrespondiert mit:
 
 </description>
 </parameter>
-<parameter number="37903" type="DWORD" dim="1" display="HEX">
+<parameter number="37903" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_3</name>
 <brief>Ausgangszuordnung Nockenbereich für Nockenspur 3</brief>
 <description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 3 angegeben.
@@ -1343,7 +1346,7 @@ Korrespondiert mit:
 
 </description>
 </parameter>
-<parameter number="37904" type="DWORD" dim="1" display="HEX">
+<parameter number="37904" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_OUTPUT_4</name>
 <brief>Ausgangszuordnung Nockenbereich für Nockenspur 4</brief>
 <description>Mit diesem Datum werden die Ausgänge für den Nockenbereich der Nockenspur 4 angegeben.
@@ -1374,7 +1377,7 @@ Korrespondiert mit:
 
 </description>
 </parameter>
-<parameter number="37906" type="DWORD" dim="1" display="HEX">
+<parameter number="37906" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_1</name>
 <brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 1</brief>
 <description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 1 angegeben.
@@ -1399,7 +1402,7 @@ Ist die Nockenbereichsnummer n auf Nockenspur 1 nicht parametriert, so kann das 
 
 </description>
 </parameter>
-<parameter number="37907" type="DWORD" dim="1" display="HEX">
+<parameter number="37907" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_2</name>
 <brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 2</brief>
 <description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 2 angegeben.
@@ -1424,7 +1427,7 @@ Ist die Nockenbereichsnummer n auf Nockenspur 2 nicht parametriert, so kann das 
 
 </description>
 </parameter>
-<parameter number="37908" type="DWORD" dim="1" display="HEX">
+<parameter number="37908" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_3</name>
 <brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 3</brief>
 <description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 3 angegeben.
@@ -1449,7 +1452,7 @@ Ist die Nockenbereichsnummer n auf Nockenspur 3 nicht parametriert, so kann das 
 
 </description>
 </parameter>
-<parameter number="37909" type="DWORD" dim="1" display="HEX">
+<parameter number="37909" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_CAM_RANGE_BIN_OUTPUT_4</name>
 <brief>Ausgangszuordnung Nockenbereichsbit für Nockenspur 4</brief>
 <description>Mit diesem Datum werden die Ausgänge für die Nockenbereichsbits der Nockenspur 4 angegeben.
@@ -1494,7 +1497,7 @@ Korrespondiert mit:
 	p9567, p9569
 </description>
 </parameter>
-<parameter number="37950" type="DWORD" dim="0" display="HEX">
+<parameter number="37950" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_INFO_ENABLE</name>
 <brief>SIC/SCC- und PROFIsafe-Freigabe</brief>
 <description>MD zur Freigabe der Auswertung des SIC/SCC-Telegramms zwischen Steuerung und Antrieb und zur Freigabe der Übertragung des PROFIsafe-Telegramms zwischen F-PLC und Antrieb.

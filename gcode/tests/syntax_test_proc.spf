@@ -146,10 +146,11 @@ N90 PROC name invalid (VAR BOOL - DATA) ; comment
 ;                                     ^ punctuation.section.parameters.end
 
 N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function
+;   ^^^^ meta.function
 ;       ^^^^^^^^^^^^^^ meta.function.name
 ;                     ^^^^^^^^^^^^^^^^^ meta.function.parameters
-;                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.attributes
+;                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.attributes
+;                                                                  ^ comment.line punctuation.definition.comment.begin - meta.function
 ; <- comment.blockno
 ;   ^ keyword.control.proc
 ;        ^^^^ entity.name.function
@@ -161,3 +162,49 @@ N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;                                 ^ variable.parameter.procedure
 ;                                     ^ punctuation.section.parameters.end
 ;                                             ^^^^^^ invalid.illegal
+PROC CYCLE
+;VERSION: 1.0.0.0 ;DATE: 2018-09-10
+;         ^^^^^^^ constant.language.version
+;          ^ punctuation.separator.sequence
+;            ^ punctuation.separator.sequence
+;              ^ punctuation.separator.sequence
+;                        ^^^^^^^^^^ constant.language.date
+;                            ^ punctuation.separator.sequence
+;                               ^ punctuation.separator.sequence
+PROC CYCLE ; comment
+;VERSION: 01.50.88.77 ;DATE: 2018-09-10 comment
+;         ^^^^^^^^^^^ constant.language.version
+;           ^ punctuation.separator.sequence
+;              ^ punctuation.separator.sequence
+;                 ^ punctuation.separator.sequence
+;                            ^^^^^^^^^^ constant.language.date
+;                                ^ punctuation.separator.sequence
+;                                   ^ punctuation.separator.sequence
+PROC CYCLE
+;BRIEF  : short description
+;VERSION: 01.50.88.77 ;DATE: 2018-09-10 comment
+;         ^^^^^^^^^^^ constant.language.version
+;           ^ punctuation.separator.sequence
+;              ^ punctuation.separator.sequence
+;                 ^ punctuation.separator.sequence
+;                            ^^^^^^^^^^ constant.language.date
+;                                ^ punctuation.separator.sequence
+;                                   ^ punctuation.separator.sequence
+PROC CYCLE
+;VERSION: 01.50.88.77 ;DATE: 2018-09-10
+;VERSION: 01.50.88.77 ;DATE: 2018-09-10
+;         ^^^^^^^^^^^ - constant.language.version
+;                            ^^^^^^^^^^ - constant.language.date
+PROC CYCLE
+;VERSION: 01.50.88.77 ;DATE: 2a18-09-10
+;         ^^^^^^^^^^^ constant.language.version
+;                            ^^^^^^^^^^ - constant.language.date
+
+PROC CYCLE
+;VERSION: a1.50.88.77 ;DATE: 2018-09-10
+;         ^^^^^^^^^^^ - constant.language.version
+;                            ^^^^^^^^^^ constant.language.date
+PROC CYCLE ; com
+; VERSION: 01.50.88.77 ;DATE: 2018-09-10
+;          ^^^^^^^^^^^ - constant.language.version
+;                             ^^^^^^^^^^ - constant.language.date

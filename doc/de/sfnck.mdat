@@ -115,7 +115,7 @@ Darüberhinaus wird der Alarm 27001 mit Fehlercode 0 unterdrückt. Dieser Alarm tr
 Für die Erstellung eines Abnahme-Protokolls muss dieses Maschinendatum auf 0 gesetzt werden, damit die Auslösung aller Alarme dokumentiert werden kann.
 </description>
 </parameter>
-<parameter number="10095" type="DWORD" dim="0" display="HEX">
+<parameter number="10095" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_MODE_MASK</name>
 <brief>'Safety Integrated'-Betriebsmodi</brief>
 <description>Bit 1 = 0: die Funktion "Modulare PROFIsafe-Peripherieanschaltung" ist nicht aktiv.
@@ -135,7 +135,7 @@ Korrespondiert mit:
 	MD20108: $MC_PROG_EVENT_MASK, Bit 5
 </description>
 </parameter>
-<parameter number="10096" type="DWORD" dim="0" display="HEX">
+<parameter number="10096" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_DIAGNOSIS_MASK</name>
 <brief>'Safety Integrated' Diagnose-Funktionen</brief>
 <description>Bit 0 = 0:
@@ -199,7 +199,7 @@ Der Wert ergibt sich aus Interpolatortakt und MD10098 $MN_PROFISAFE_IPO_TIME_RAT
 Im Falle einer Fehlparametrierung (Kommunikations-Taktzeit überschreitet den Maximalwert von 25.0 ms) wird der maximal einstellbare Wert angezeigt.
 </description>
 </parameter>
-<parameter number="10385" type="DWORD" dim="1" display="HEX">
+<parameter number="10385" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_MASTER_ADDRESS</name>
 <brief>PROFIsafe-Adresse Master-Baugruppe</brief>
 <description>Festlegung der PROFIsafe-Adresse des F-Masters NCK/PLC. Dient der eindeutigen Zuordnung zwischen F-Master und F-Slave. Dieser Parameter muss entsprechend dem in S7-ES für die F-Slaves eingestellten Parameter "F_Quell_Adresse" eingetragen werden. Nur mit F-Slaves, die diese Adresse eingetragen haben, wird versucht eine Kommunikation aufzubauen.
@@ -209,7 +209,7 @@ Format: 0s 00 aaaa
 aaaa: hexadezimale PROFIsafe-Adresse des F-Masters
 </description>
 </parameter>
-<parameter number="10386" type="DWORD" dim="1" display="HEX">
+<parameter number="10386" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_ADDRESS</name>
 <brief>PROFIsafe-Adresse Eingangs-Baugruppe</brief>
 <description>PROFIsafe-Ziel-Adresse einer Eingangs-Baugruppe
@@ -223,7 +223,7 @@ x: Sub-Slot-Adresse
 aaaa: hexadezimale PROFIsafe-Adresse des F-Moduls
 </description>
 </parameter>
-<parameter number="10387" type="DWORD" dim="1" display="HEX">
+<parameter number="10387" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_OUT_ADDRESS</name>
 <brief>PROFIsafe-Adresse Ausgangs-Baugruppe</brief>
 <description>PROFIsafe-Ziel-Adresse einer Ausgangs-Baugruppe
@@ -272,7 +272,7 @@ Die in MD13301 $MN_PROFISAFE_OUT_FILTER[0] ausgewählten Ausgangsklemmen der per 
 Eine Adresse wird einem Antrieb zugeordnet.
 </description>
 </parameter>
-<parameter number="13300" type="DWORD" dim="1" display="HEX">
+<parameter number="13300" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_FILTER</name>
 <brief>F-Nutzdaten-Filter IN</brief>
 <description>Filter zwischen F-Nutzdaten und $A_INSE-Variablen
@@ -306,7 +306,7 @@ Parametrierung:
 	beispielhaft anliegender Wert an F-Nutzdaten-Schnittstelle der PROFIsafe-Baugruppe
 </description>
 </parameter>
-<parameter number="13301" type="DWORD" dim="1" display="HEX">
+<parameter number="13301" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_OUT_FILTER</name>
 <brief>F-Nutzdaten-Filter OUT</brief>
 <description>Filter zwischen $A_OUTSE-Variablen und F-Nutzdaten
@@ -338,7 +338,7 @@ n = 16        11         6         1
 	F-Nutzdaten der PROFIsafe-Baugruppe
 </description>
 </parameter>
-<parameter number="13302" type="DWORD" dim="1" display="HEX">
+<parameter number="13302" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_ENABLE_MASK</name>
 <brief>Freigabemaske der Verbindungen zu PROFIsafe-Eingangs-Baugruppen.</brief>
 <description>Über die Freigabemaske werden die Maschinendatensätze der Verbindungen zu PROFIsafe-Eingangs-Baugruppen freigegeben.
@@ -362,7 +362,7 @@ Korrespondiert mit:
 	MD13304: $MN_PROFISAFE_IN_SUBS_ENAB_MASK
 </description>
 </parameter>
-<parameter number="13303" type="DWORD" dim="1" display="HEX">
+<parameter number="13303" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_OUT_ENABLE_MASK</name>
 <brief>Freigabemaske der Verbindungen zu PROFIsafe-Ausgangs-Baugruppen.</brief>
 <description>Über die Freigabemaske werden die Maschinendatensätze der Verbindungen zu PROFIsafe-Ausgangs-Baugruppen freigegeben.
@@ -384,7 +384,7 @@ Korrespondiert mit:
 	MD10095: $MN_SAFE_MODE_MASK, Bit 1
 </description>
 </parameter>
-<parameter number="13304" type="DWORD" dim="1" display="HEX">
+<parameter number="13304" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_SUBS_ENAB_MASK</name>
 <brief>Aktivierung der Ersatzwertausgabe für PROFIsafe-Eingangs-Baugruppen</brief>
 <description>Über die Freigabemaske wird die Ersatzwertausgabe für Verbindungen zu PROFIsafe-Eingangs-Baugruppen freigegeben.
@@ -402,7 +402,7 @@ Korrespondiert mit:
 	MD13305: $MN_PROFISAFE_IN_SUBS
 </description>
 </parameter>
-<parameter number="13305" type="DWORD" dim="1" display="HEX">
+<parameter number="13305" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_SUBS</name>
 <brief>Ersatzwerte für passive Verbindungen zu PROFIsafe-Eingangs-Baugruppen</brief>
 <description>Für passive Verbindungen zu PROFIsafe-Eingangs-Baugruppen werden die im Maschinendatum parametrierten Ersatzwerte an die über MD10388 $MN_PROFISAFE_IN_ASSIGN[n] parametrierten SPL-Eingänge ($A_INSE) übertragen.
@@ -442,7 +442,7 @@ Wurde ein Name vergeben, wird dieser im Alarmtext anstelle der PROFIsafe-Adresse
 <description>Nach Hochlauf der Steuerung wird nach Ablauf der Zeit der Alarm 27097 zur Anzeige gebracht, wenn der SPL-Start nicht erfolgt.
 </description>
 </parameter>
-<parameter number="13312" type="DWORD" dim="1" display="HEX">
+<parameter number="13312" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_SPL_USER_DATA</name>
 <brief>Anwenderdatum</brief>
 <description>Anwenderdatum, dient zur Ablage anwenderspezifischer Informationen.
@@ -452,13 +452,13 @@ Die Daten müssen mit den entsprechenden PLC-Daten (&lt;SafeUserData/&gt;) überei
 </parameter>
 <parameter number="13316" type="STRING" dim="1" readonly="true">
 <name>SAFE_GLOB_CFG_CHANGE_DATE</name>
-<brief>Datum/Uhrzeit der letzten Änderung SI-NCK-MD</brief>
+<brief>Datum/Uhrzeit letzte Änderung SI-NCK-MD</brief>
 <description>Anzeigedatum:
 Datum und Uhrzeit der letzten Konfigurationsänderung sicherheitsrelevanter NCK-Maschinendaten.
 Aufgezeichnet werden Änderungen der Maschinendaten, die in die Checksummen MD13318 $MN_SAFE_GLOB_ACT_CHECKSUM eingerechnet werden.
 </description>
 </parameter>
-<parameter number="13317" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="13317" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_GLOB_PREV_CONFIG</name>
 <brief>Daten der vorherigen Safety-Konfiguration</brief>
 <description>Zwischenspeicher zur Ablage vorheriger Safety-Konfigurationsdaten
@@ -475,7 +475,7 @@ Index  9: vorheriger Wert Soll-Prüfsumme MD13319 $MN_SAFE_GLOB_DES_CHECKSUM[3]
 Index 10: letzter Wert Soll-Prüfsumme MD13319 $MN_SAFE_GLOB_DES_CHECKSUM[3] vor Laden von Standarddaten
 </description>
 </parameter>
-<parameter number="13318" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="13318" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_GLOB_ACT_CHECKSUM</name>
 <brief>Ist-Prüfsumme NCK</brief>
 <description>Anzeigedatum:
@@ -487,7 +487,7 @@ Index 2: Freigabe Peripherie-Anbindung (PROFIsafe und F_SEND/F_RECV)
 Index 3: PROFIsafe-Parameter aus S7-Projektierung
 </description>
 </parameter>
-<parameter number="13319" type="DWORD" dim="1" display="HEX">
+<parameter number="13319" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_GLOB_DES_CHECKSUM</name>
 <brief>Soll-Prüfsumme</brief>
 <description>In diesem Datum steht die bei der letzten Maschinenabnahme gespeicherte Soll-Prüfsumme über die aktuellen Werte der sicherheitsrelevanten Maschinendaten.
@@ -515,7 +515,7 @@ Der Wert ergibt sich aus dem Interpolatortakt und MD13320 $MN_SAFE_SRDP_IPO_TIME
 Im Falle einer Fehlparametrierung (Kommunikationstakt überschreitet den Maximalwert von 250.0 ms) wird der maximal einstellbare Wert angezeigt.
 </description>
 </parameter>
-<parameter number="13330" type="DWORD" dim="0" display="HEX">
+<parameter number="13330" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SDP_ENABLE_MASK</name>
 <brief>Freigabemaske F_SENDDP-Kommunikationsbeziehungen</brief>
 <description>Freigabemaske für die einzelnen F_SENDDP-Kommunikationsbeziehungen und ihrer SPL-Anbindungen
@@ -578,7 +578,7 @@ $MN_SAFE_SDP_ASSIGN[0] = 001 004 oder alternativ 004 001:
 Die SPL-Signale $A_OUTSE[1] bis $A_OUTSE[4] werden in die über MD13337 $MN_SAFE_SDP_FILTER[0] ausgewählten F_SENDDP-Nutzdaten übertragen.
 </description>
 </parameter>
-<parameter number="13337" type="DWORD" dim="1" display="HEX">
+<parameter number="13337" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_SDP_FILTER</name>
 <brief>F-Nutzdatenfilter zwischen $A_OUTSE und F_SENDDP</brief>
 <description>Die über MD13336 $MN_SAFE_SDP_ASSIGN ausgewählten SPL-Signale werden in der Reihenfolge der auf 1 gesetzten FILTER-Bits in die F_SENDDP-Nutzdatensignale übertragen. Das niederwertigste SPL-Signal an die Bit-Stelle der F_SENDDP-Nutzdaten des niederwertigsten auf 1 gesetzten Filter-Bits usw. für alle ausgewählten SPL-Signale.
@@ -598,7 +598,7 @@ Bedeutung der Werte:
 - 3 = es erfolgt keine Systemreaktion
 </description>
 </parameter>
-<parameter number="13340" type="DWORD" dim="0" display="HEX">
+<parameter number="13340" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_RDP_ENABLE_MASK</name>
 <brief>Freigabemaske F_RECVDP-Kommunikationsbeziehungen</brief>
 <description>Freigabemaske für die einzelnen F_RECVDP-Kommunikationsbeziehungen und ihrer SPL-Anbindungen
@@ -652,7 +652,7 @@ SIMATIC Baustein Parameter: TIMEOUT
 </parameter>
 <parameter number="13346" type="DWORD" dim="1">
 <name>SAFE_RDP_ASSIGN</name>
-<brief>Eingangszuordnung.F_RECVDP-Nutzdaten zu $A_INSE</brief>
+<brief>Eingangszuordnung F_RECVDP-Nutzdaten zu $A_INSE</brief>
 <description>Die Auswahl der zu versorgenden SPL-Signale $A_INSE aus den F_RECVDP-Nutzdaten kann nur bereichsweise vorgenommen werden.
 
 Die Angabe des SPL-Bereichs erfolgt dezimal im Format aaa bbb
@@ -664,7 +664,7 @@ $MN_SAFE_RDP_ASSIGN[0] = 001 004 oder alternativ 004 001:
 Die über MD13347 $MN_SAFE_RDP_FILTER[0] ausgewählten F_RECVDP-Nutzdaten werden in die SPL-Signale $A_INSE[1] bis $A_INSE[4] übertragen.
 </description>
 </parameter>
-<parameter number="13347" type="DWORD" dim="1" display="HEX">
+<parameter number="13347" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_RDP_FILTER</name>
 <brief>F-Nutzdatenfilter zwischen F_RECVDP und $A_INSE</brief>
 <description>Die F_RECVDP-Nutzdatensignale, deren entsprechendes Filter-Bit auf 1 gesetzt ist, werden in die über MD13346 $MN_SAFE_RDP_ASSIGN ausgewählten SPL-Signale übertragen. Das niederwertigste F_RECVDP-Nutzdatensignal in das niederwertigste ausgewählte SPL-Signal, usw. für alle ausgewählten F_RECVDP-Nutzdatensignale.
@@ -684,20 +684,20 @@ Bedeutung der Werte:
 - 3 = es erfolgt keine Systemreaktion
 </description>
 </parameter>
-<parameter number="13349" type="DWORD" dim="1" display="HEX">
+<parameter number="13349" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_RDP_SUBS</name>
 <brief>Ersatzwerte für Fehlerfall</brief>
 <description>Im Falle eines Kommunikationsfehlers werden die hier definierten Ersatzwerte in den dieser F_RECVDP-SPL-Verbindung zugewiesenen Systemvariablen $A_INSE aktiviert.
 Dieser Wert ist gültig, solange kein anderer Wert aus der SPL über die Systemvariable $A_FRDP_SUBS vorgegeben wird.
 </description>
 </parameter>
-<parameter number="13370" type="BYTE" dim="0" display="HEX">
+<parameter number="13370" type="UBYTE" dim="0" display="HEX">
 <name>SAFE_MODE</name>
 <brief>Safety Betriebsart</brief>
 <description>MD zur Unterscheidung der Safety-Betriebsart:
 0 = Safety-Betriebsart "SINUMERIK Safety Integrated (SPL)"
 1 = Safety-Betriebsart "SINUMERIK Safety Integrated (Drive Based)"
-2 = Safety-Betriebsart "SINUMERIK Safety Integrated plus (F-PLC) (ohne Drive Based)" - nicht unterstützt
+2 = Reserviert
 3 = Safety-Betriebsart "SINUMERIK Safety Integrated plus (F-PLC)"
 </description>
 </parameter>

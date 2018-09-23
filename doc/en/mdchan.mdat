@@ -17,8 +17,6 @@ MD20050 $MC_AXCONF_GEOAX_ASSIGN_TAB[ 1 ] = 0  ; 2nd geometry axis not defined
 MD20050 $MC_AXCONF_GEOAX_ASSIGN_TAB[ 2 ] = 2  ; 3rd geometry axis = 2nd channel axis
 
 The assignment made here is valid if no transformation is active. With active transformation n, the transformation-specific assignment table MD24... $MC_TRAFO_GEOAX_ASSIGN_TAB_...  becomes active.
-This MD assigns a channel axis to a geometry axis.
-All 3 geometry axes (X, Y, Z) must be assigned. The value 0 has to be entered if a geometry axis is not to be assigned. This geometry axis is then not available, and cannot be programmed. For example, the 2nd geometry axis Y -&gt; entry: value 0 is omitted for "turning" technology (see default setting for turning).
 </description>
 </parameter>
 <parameter number="20060" type="STRING" dim="1">
@@ -28,7 +26,7 @@ All 3 geometry axes (X, Y, Z) must be assigned. The value 0 has to be entered if
 
 Special cases:
 - The geometry axis name entered must not conflict with the designations and assignments of the machine and channel axis names or other identifiers.
- Names for Euler angle (MD10620 $MN_EULER_ANGLE_NAME_TAB),
+ Names for Euler angles (MD10620 $MN_EULER_ANGLE_NAME_TAB),
  Names for direction vectors (MD10640 $MN_DIR_VECTOR_NAME_TAB),
  Names for intermediate circle point coordinates for CIP (MD10660 $MN_INTERMEDIATE_POINT_NAME_TAB) and the
  Names for interpolation parameters (MD10650 $MN_IPO_PARAM_NAME_TAB) coincide.
@@ -42,10 +40,10 @@ Special cases:
 	- S Spindle speed (S function)                 - T Tool (T function)
 
 - The name must not include any keywords (e.g. DEF, SPOS etc.) or pre-defined identifiers (e.g. ASPLINE, SOFT).
-- The use of an axis identifier consisting of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z) followed by an optional numerical extension (1-99) gives slightly better block cycle times than a general identifier.
+- The use of an axis identifier consisting of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z) followed by an optional numerical extension (1-99) gives slightly better block change times than a general identifier.
 - Identical names may be given to geometry axes assigned to different channels.
 
-Corresponds with:
+Related to:
 	MD10000 $MN_AXCONF_MACHAX_NAME_TAB
 	(machine axis name [axis no.])
 	MD20080 $MC_AXCONF_CHANAX_NAME_TAB
@@ -94,12 +92,6 @@ Related to:
 	MD11640 $MN_ENABLE_CHAN_AX_GAP
 Reference:
 	Description of Functions B3.
-This MD assigns a machine axis to a channel axis.
-SINUMERIK 802D has 5 channel axes.
-Channel axis identifiers must be entered in MD 20080: $AXCONF_CHANAX_NAME_TAB
-for the axes activated in the channel. These axes are programmable.
-
-A machine axis that has not been assigned to a channel axis is inactive, this means that this axis is neither controlled nor shown on the screen.
 </description>
 </parameter>
 <parameter number="20080" type="STRING" dim="1">
@@ -107,11 +99,11 @@ A machine axis that has not been assigned to a channel axis is inactive, this me
 <brief>Channel axis name in channel</brief>
 <description>The name of the channel axis/special axis is entered in this MD. Normally the first three channel axes are assigned by the three assigned geometry axes
  (see also MD20050 $MC_AXCONF_GEOAX_ASSIGN_TAB)
-The remaining channel axes are also called special axes. The channel axis/special axis at the screen in the Work (workpiece coordinate system) is always displayed with the name entered in this MD.
+The remaining channel axes are also called special axes. The channel axis/special axis on the screen in the WCS (workpiece coordinate system) is always displayed with the name entered in this MD.
 
 Special cases:
 - The specified channel axis name/special axis name must not conflict with the designation and assignment of the machine and geometry axis names or other identifiers.
- Names for Euler angle (MD10620 $MN_EULER_ANGLE_NAME_TAB),
+ Names for Euler angles (MD10620 $MN_EULER_ANGLE_NAME_TAB),
  Names for direction vectors (MD10640 $MN_DIR_VECTOR_NAME_TAB),
  Names for intermediate circle point coordinates for CIP(MD10660 $MN_INTERMEDIATE_POINT_NAME_TAB)
  and the names for interpolation parameters (MD10650 $MN_IPO_PARAM_NAME_TAB) overlap.
@@ -124,14 +116,10 @@ Special cases:
 	- S Spindle speed (S function)                 - T Tool (T function)
 
 - The name must not include any keywords (e.g. DEF, SPOS etc.) or pre-defined identifiers (e.g. ASPLINE, SOFT).
-- The use of an axis identifier consisting of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z) followed by an optional numerical extension (1-99) gives slightly better block cycle times than a general identifier.
+- The use of an axis identifier consisting of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z) followed by an optional numerical extension (1-99) gives slightly better block change times than a general identifier.
 - No special names need be entered in this MD for channel axes to which geometry axes are assigned (normally the first three channel axes).
 
 Axis identifiers that are not allowed are rejected with an alarm during runup.
-The name of the channel axis is entered in this MD.
-A channel axis is displayed in the Work (workpiece coordinate system) with this name. This name is also written into the program.
-Generally, the first two or three channel axes are used as geometry axes (see also MD 20050: AXCONF_GEOAX_ASSIGN_TAB). The remaining channel axes are designated as special axes.
-SINUMERIK 802D has 5 channel axes.
 </description>
 </parameter>
 <parameter number="20082" type="STRING" dim="1">
@@ -175,7 +163,7 @@ Related to:
 <name>SPIND_RIGID_TAPPING_M_NR</name>
 <brief>M function for switching into controlled axis mode</brief>
 <description>This machine data defines the M auxiliary function number with which the spindle is switched into axis mode.
-The M number defined in the machine data replaces M70 in Siemens language mode.
+The M number defined in the machine data replaces M70 in Siemens mode.
 
 Note:
 	On the VDI interface, M70 is always output with the corresponding address extension to indicate the switch to axis mode.
@@ -241,7 +229,7 @@ See also:
 	MD22560 $MC_TOOL_CHANGE_M_CODE
 </description>
 </parameter>
-<parameter number="20098" type="DWORD" dim="1" display="HEX">
+<parameter number="20098" type="UDWORD" dim="1" display="HEX">
 <name>DISPLAY_AXIS</name>
 <brief>Display axis on HMI</brief>
 <description>Identifies whether the axis will be displayed by the HMI as a machine, geometry, or auxiliary axis.
@@ -283,7 +271,7 @@ or MD24120 $MC_TRAFO_AX_GEOAX_ASSIGN_TAB_1[n] (from SW 4) and
 MD20060 $MC_AXCONF_GEOAX_NAME_TAB[n] must be specified.
 
 If space characters are entered or if an axis identifier is specified for an axis which is not defined as a geometry axis, this leads to the following alarms:
-- during runup, to alarm 4032 "Channel %1 wrong identifier for transverse axis in %2", if the "Diameter programming" function (DIAMON) or constant cutting velocity G96/G961/G962 is the switch-on setting.
+- during runup, to alarm 4032 "Channel %1 wrong identifier for transverse axis in %2", if the "Diameter programming" function (DIAMON) or constant cutting speed G96/G961/G962 is the switch-on setting.
 - when the "Diameter programming (DIAMON)" function is activated, to alarm 16510 "Channel %1 block %2 No transverse axis available for diameter programming", if no axis has been permitted via DIAMCHANA[AX] for channel-specific diameter programming.
 - when G96/G961/G962 has been programmed, to alarm 10870 "Channel %1 block %2 No transverse axis defined as reference axis for G96/G961/G962", if no geometry axis has been defined as the reference axis for G96/G961/G962 by the instruction SCC[ax].
 
@@ -294,7 +282,7 @@ Related to:
 	MD30460 $MA_BASE_FUNCTION_MASK
 </description>
 </parameter>
-<parameter number="20105" type="DWORD" dim="0" display="HEX">
+<parameter number="20105" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_REFP_LOCK</name>
 <brief>Start Prog-Events despite non-referenced axes.</brief>
 <description>The behavior of event-driven program calls (prog-events) regarding non-referenced axes can be set.
@@ -322,7 +310,7 @@ The machine data MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK and MD20115 $MC_IGNORE_REF
 If MD20700 $MC_REFP_NC_START_LOCK is equal to 0, the setting in MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK is ignored, and non-referenced axes are always ignored.
 </description>
 </parameter>
-<parameter number="20106" type="DWORD" dim="0" display="HEX">
+<parameter number="20106" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_SINGLEBLOCK</name>
 <brief>Prog-Events ignore single block</brief>
 <description>Event-driven program calls (Prog-Events) can be set regarding their single-block response.
@@ -348,7 +336,7 @@ Corresponds to:
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 </description>
 </parameter>
-<parameter number="20107" type="DWORD" dim="0" display="HEX">
+<parameter number="20107" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_INHIBIT</name>
 <brief>Prog-Events ignore read-in disable</brief>
 <description>Event-driven programm calls (Prog-Events) can be set regarding their read-in disable response.
@@ -374,10 +362,11 @@ Corresponds to:
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 </description>
 </parameter>
-<parameter number="20108" type="DWORD" dim="0" display="HEX">
+<parameter number="20108" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_MASK</name>
 <brief>Setting of event-driven programm calls</brief>
-<description>Parameterization of the events causing the user program set with MD11620 $MN_PROG_EVENT_NAME (default: _N_PROG_EVENT_SPF) or the safety program _N_SAFE_SPF to be called implicitly:
+<description>Parameterization of the events with which the user program set with MD11620 $MN_PROG_EVENT_NAME (default: _N_PROG_EVENT_SPF) is implicitly called.
+Parameterization of the events causing the safety program _N_SAFE_SPF to be called implicitly:
 Bit 0 = 1 : Start of part program
 Bit 1 = 1 : End of part program
 Bit 2 = 1 : Operator panel reset
@@ -392,17 +381,20 @@ The user program is called via the following search path:
 The safety program has to be available in the following location:
 	1. /_N_CST_DIR/_N_SAFE_SPF
 
-Furthermore, MD11450 $MN_SEARCH_RUN_MODE bit 1 also causes the user program set with MD11620 $MN_PROG_EVENT_NAME to be started up automatically after the action blocks, regardless of the settings in the machine data.
+Furthermore, MD11450 $MN_SEARCH_RUN_MODE bit 1 also causes the user program set with MD11620 $MN_PROG_EVENT_NAME to be started up automatically after the action blocks, regardless of the settings in this machine data.
 
-Corresponds to:
+Related to:
 	MD20105 $MC_PROG_EVENT_IGN_REFP_LOCK
 	MD20106 $MC_PROG_EVENT_IGN_SINGLEBLOCK
 	MD20107 $MC_PROG_EVENT_IGN_INHIBIT
 	MD20192 $MC_PROG_EVENT_IGN_PROG_STATE
 	MD20193 $MC_PROG_EVENT_IGN_STOP
+
+Note:
+The Siemens cycle package includes the cycle  /_N_CST_DIR/_N_PROG_EVENT_SPF, that should be used by default to process the event-driven program calls. It contains subroutine calls for the particular manufacturer and end user applications (For details see the documentation "Standard cycle PROG-EVENT.SPF").
 </description>
 </parameter>
-<parameter number="20109" type="DWORD" dim="0" display="HEX">
+<parameter number="20109" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_MASK_PROPERTIES</name>
 <brief>Properties of Prog-Events</brief>
 <description>Parameterization of additional properties of the event-controlled program calls (in short, Prog-Event), that is, the MD20108 $MC_PROG_EVENT_MASK is further parameterized.
@@ -410,7 +402,7 @@ Bit 0 = 1 :
 	An ASUB started from channel status RESET does not result in a Prog-Event.
 </description>
 </parameter>
-<parameter number="20110" type="DWORD" dim="0" display="HEX">
+<parameter number="20110" type="UDWORD" dim="0" display="HEX">
 <name>RESET_MODE_MASK</name>
 <brief>Definition of basic control settings after reset/PP end</brief>
 <description>Definition of the initial setting of the control after ramp-up and at reset/end-of-part-program with regard to the G codes (in particular the active plane and the settable work offset), tool length offset and transformation by setting the following bits:
@@ -631,12 +623,12 @@ MD20123 $MC_USEKT_RESET_VALUE
 
 </description>
 </parameter>
-<parameter number="20112" type="DWORD" dim="0" display="HEX">
+<parameter number="20112" type="UDWORD" dim="0" display="HEX">
 <name>START_MODE_MASK</name>
 <brief>Definition of basic setting of control after part program start</brief>
-<description>Definition of the initial setting of the control at the start of the part program with respect to G codes (in particular, active plane and active settable work offset), tool length offset, transformation, and axis couplings by setting the following bits:
+<description>The initial setting of the control at the start of the part program with respect to G codes (in particular, current plane and settable work offset), tool length offset, transformation, and axis couplings is defined by setting the following bits:
 
-Bit 0: Not assigned: MD20112 $MC_START_MODE_MASK is evaluated every time a part program starts
+Bit 0: Start mode
 Bit 1: Suppress aux. funct. output on tool selection
 Bit 2: Not assigned, but reserved (see corresponding bit in RESET_MODE_MASK)
 Bit 3: Not assigned, but reserved (see corresponding bit in RESET_MODE_MASK)
@@ -659,6 +651,12 @@ Bit 19: Reserved     "Adjustable software limit switch ineffective"
 Bit 20: Reserved     "$P_USEKT reset response"
 
 Meaning of individual bits:
+
+Bit 0 = 0:
+	The bits 8 (TRAIL), 10 (COUP), bit 13 (LEAD) and bit 15 (EG) are evaluated on part program start and event-driven program calls of the Progevent ASUB
+
+Bit 0 = 1:
+	The bits 8 (TRAIL), 10 (COUP), bit 13 (LEAD) and bit 15 EG) are evaluated only on part program start
 
 Bit 1 = 0:
 	Auxiliary function output (D, T, M, DL) to PLC on tool selection according to the following MDs: MD20120 $MC_TOOL_RESET_VALUE, MD20130 $MC_CUTTING_EDGE_RESET_VALUE, MD20121 $MC_TOOL_PRESEL_RESET_VALUE, and MD22550 $MC_TOOL_CHANGE_MODE.
@@ -693,7 +691,7 @@ Bit 6 = 1:
 	If tool or magazine management is active, MD20120 $MC_TOOL_RESET_NAME is used instead of MD20122 $MC_TOOL_RESET_VALUE.
 
 Bit 7 = 0:
-	The current setting for active transformation is retained.
+	The current setting for the active transformation is retained.
 Bit 7 = 1:
 	Initial setting for active transformation after reset/end of part program according to MD20140 $MC_TRAFO_RESET_VALUE
 
@@ -715,7 +713,7 @@ Bit 10 = 1:
 Bit 11 :   Reserved (revolutional feedrate)
 
 Bit 12 = 0:
-	A changed geometry axis assignment remains active when the part program starts up.
+	A changed geometry axis assignment remains active when the part program starts.
 Bit 12 = 1:
 	If machine data MD20118 $MC_GEOAX_CHANGE_RESET is set, a changed geometry axis assignment is deleted when the part program starts.
 
@@ -739,7 +737,7 @@ Bit 16 = 1:
 Bit 17 = 0:
 	The current setting of the master toolholder (SETMTH) is retained (relevant only if tool or magazine management is active)
 Bit 17 = 1:
-	Only if MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER&gt; 0: Inital setting for the master toolholder according to MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER.
+	Only if MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER&gt; 0: Initial setting for the master toolholder according to MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER.
 	Otherwise, the setting for the master spindle applies.
 
 Bit 18 = 0:
@@ -760,7 +758,7 @@ MD20118 $MC_GEOAX_CHANGE_RESET
 
 </description>
 </parameter>
-<parameter number="20114" type="DWORD" dim="0" display="HEX">
+<parameter number="20114" type="UDWORD" dim="0" display="HEX">
 <name>MODESWITCH_MASK</name>
 <brief>Interruption MDI by mode change</brief>
 <description>After program interruption in MDI mode (e.g. in order to carry out a measurement on the workpiece and to correct the tool wear values or after tool breakage) the tool can be manually withdrawn from the contour by changing into JOG mode.
@@ -776,7 +774,7 @@ Bit 1 (LSB) = 1:
 	If the NCK stops at a part program block in the program execution in which repositioning is not possible, no alarm is generated if an attempt is made to switch to manual mode.
 </description>
 </parameter>
-<parameter number="20115" type="DWORD" dim="0" display="HEX">
+<parameter number="20115" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_REFP_LOCK_ASUP</name>
 <brief>Process interrupt program despite non-referenced axes</brief>
 <description>Despite non-referenced axes, the assigned ASUB with the set bit is processed for the interrupt.
@@ -810,7 +808,7 @@ MD20191 $MC_IGN_PROG_STATE_ASUP
 MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
-<parameter number="20116" type="DWORD" dim="0" display="HEX">
+<parameter number="20116" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_INHIBIT_ASUP</name>
 <brief>Execute interrupt program despite read-in disable</brief>
 <description>The assigned ASUB with the set bit is executed in spite of read-in disable being set.
@@ -837,7 +835,7 @@ MD20191 $MC_IGN_PROG_STATE_ASUP
 MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
-<parameter number="20117" type="DWORD" dim="0" display="HEX">
+<parameter number="20117" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_SINGLEBLOCK_ASUP</name>
 <brief>Execute interrupt program completely despite single block</brief>
 <description>In spite of the set single-block processing mode, the assigned ASUB with the set bit is executed for the interrupt.
@@ -960,7 +958,7 @@ References:
 	Description of Functions: Coordinate Systems (K2)
 </description>
 </parameter>
-<parameter number="20125" type="DWORD" dim="0" display="HEX">
+<parameter number="20125" type="UDWORD" dim="0" display="HEX">
 <name>CUTMOD_ERR</name>
 <brief>Error handling for function CUTMOD</brief>
 <description>When function CUTMOD becomes active (through explicit call or tool selection), various error conditions may occur. For any of these error conditions it is possible to use this machine data to set whether the error shall trigger an alarm and, if so, whether such an alarm shall only be displayed (warning) or whether the interpretation of the part program shall be canceled.
@@ -1054,12 +1052,6 @@ MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
 
 
-Definition of the transformation data block which is selected during runup and on reset or part program end as a function of MD20110 $MC_RESET_MODE_MASK, and as a function of MD20112 $MC_START_MODE_MASK on part program start.
-Number of the transformation data block (1...n) corresponding to MD24100 $MC_TRAFO_TYPE_1 to TRAFO_TYPE_n
-
-Irrelevant to: MD20110 $MC_RESET_MODE_MASK:
-MD20110 $MC_RESET_MODE_MASK, bit 0 = 0
-MD20112 $MC_START_MODE_MASK
 </description>
 </parameter>
 <parameter number="20142" type="STRING" dim="0">
@@ -1071,7 +1063,7 @@ Not relevant:
 MD20110 $MC_RESET_MODE_MASK, bit 0 = 0
 </description>
 </parameter>
-<parameter number="20144" type="BYTE" dim="0" display="HEX">
+<parameter number="20144" type="UBYTE" dim="0" display="HEX">
 <name>TRAFO_MODE_MASK</name>
 <brief>Function selection of kinematic transformation</brief>
 <description>The specific functionality of the kinematic transformation is selected by setting the following bits:
@@ -1123,7 +1115,7 @@ Designation		Group		Standard value for 840D
 GCODE_RESET_VALUES[0]	    1		2 (G1)
 GCODE_RESET_VALUES[1]	    2		0 (inactive)
 GCODE_RESET_VALUES[2]	    3		0 (inactive)
-GCODE_RESET_VALUES[3]	    4		2 (STARTFIFO)
+GCODE_RESET_VALUES[3]	    4		1 (STARTFIFO)
 GCODE_RESET_VALUES[4]	    5		0 (inactive)
 GCODE_RESET_VALUES[5]	    6		1 (G17)
 GCODE_RESET_VALUES[6]	    7		1 (G40)
@@ -1134,7 +1126,7 @@ GCODE_RESET_VALUES[10]	   11		0 (inactive)
 GCODE_RESET_VALUES[11]	   12		1 (G601)
 GCODE_RESET_VALUES[12]	   13		2 (G71)
 GCODE_RESET_VALUES[13]	   14		1 (G90)
-GCODE_RESET_VALUES[14]	   15		2 (G94)
+GCODE_RESET_VALUES[14]	   15		1 (G94)
 GCODE_RESET_VALUES[15]	   16		1 (CFC)
 GCODE_RESET_VALUES[16]	   17		1 (NORM)
 GCODE_RESET_VALUES[17]	   18		1 (G450)
@@ -1194,11 +1186,12 @@ GCODE_RESET_VALUES[69]	   70		1 (not defined)
 <description>Specification of non-modifiable SIEMENS G code modes
 The following applies for Sinumerik 828D:
 MD	Index	Value
-		Turning	Milling CGrinding SGrinding
-	[5]	0	1        -         -
+		Turning	Milling
+	[5]	0	1
+	[7]	1	1
+	[12]	0	0
+	[15]	0
 	[7]	-	-        1         1
-	[12]	0	0        0         0
-	[15]	0	-        0         -
 For Sinumerik 808D, the following applies:
 MD	IndexValue	t
 		Turning	Milling
@@ -1241,11 +1234,11 @@ MD20112 $MC_START_MODE_MASK
 <brief>Initial setting of G groups in ISO mode</brief>
 <description>When an external NC programming language is used, the G codes which become active on runup and reset or at part program end are defined as a function of MD20110 $MC_RESET_MODE_MASK and at part program start as a function of MD20112 $MC_START_MODE_MASK.
 The following external programming languages are possible:
-	ISO2 dialect Milling
-	ISO3 dialect Turning
+	ISO mode Milling
+	ISO mode Turning
 The G group division that is to be used is stated in the current SINUMERIK documentation.
 The following groups within MD20154 $MC_EXTERN_GCODE_RESET_VALUES can be written:
-ISO2 dialect M:
+ISO mode M:
 	G group 2:  G17/G18/G19
 	G group 3:  G90/G91
 	G group 5:  G94/G95
@@ -1253,7 +1246,7 @@ ISO2 dialect M:
 	G group 13: G96/G97
 	G group 14: G54-G59
 
-ISO3 dialect T:
+ISO mode T:
 	G group 2:  G96/G97
 	G group 3:  G90/G91
 	G group 5:  G94/G95
@@ -1267,7 +1260,7 @@ ISO3 dialect T:
 <description>This MD is evaluated only if bit0 is set in MD20110 $MC_RESET_MODE_MASK (see there).
 For each entry in MD20154 $MC_EXTERN_GCODE_RESET_VALUES (that is for each G group), this MD is used to determine whether, on reset/part program end, the setting in MD20154 $MC_EXTERN_GCODE_RESET_VALUES is used again (MD = 0) or the current setting is retained (MD = 1).
 
-Example for ISO dialect M:
+Example for ISO mode M:
 Here, the basic setting for the 14th G group (settable work offset) is read from MD20154 $MC_EXTERN_GCODE_RESET_VALUES at each reset / part program end:
 
 MD20154 $MC_EXTERN_GCODE_RESET_VALUES[13]=1 ; the reset value for the 14th G group
@@ -1312,7 +1305,8 @@ References:
 <parameter number="20171" type="DOUBLE" dim="0">
 <name>SURF_BLOCK_PATH_LIMIT</name>
 <brief>Maximum traverse length of an NC block for the COMPSURF function</brief>
-<description>The machine data defines the maximum traverse length of a block that is still compressed. Longer blocks interrupt the smoothing and are traversed normally.
+<description>The machine data defines the maximum traverse length of a block that is still regarded as compressible. Longer blocks interrupt the smoothing and are traversed normally.
+If the value 0 is entered, then the maximum traverse length in the control is determined by the specified tolerance.
 </description>
 </parameter>
 <parameter number="20172" type="DOUBLE" dim="0">
@@ -1336,17 +1330,29 @@ References:
 <description>The value specifies the maximum permitted deviation for compression for the path feed. The larger the value, the more short blocks can be compressed into one long block.
 </description>
 </parameter>
-<parameter number="28174" type="DOUBLE" dim="0">
+<parameter number="20174" type="DOUBLE" dim="0">
 <name>MAX_SURF_TOL</name>
 <brief>Maximum contour tolerance of the COMPSURF function</brief>
 <description>Maximum permitted contour tolerance of the function COMPSURF if a special option is not set.
 Without this option, the associated option alarm is triggered if a larger tolerance is programmed with, for example, CTOL.
 </description>
 </parameter>
-<parameter number="28175" type="DOUBLE" dim="0">
+<parameter number="20175" type="DOUBLE" dim="0">
 <name>MIN_SURF_TOL</name>
 <brief>Minimum tolerance of the COMPSURF function</brief>
 <description>Minimum effective contour tolerance of the function COMPSURF. Lower values programmed with, for example, CTOL are ignored and limited to this value.
+</description>
+</parameter>
+<parameter number="20176" type="DOUBLE" dim="1">
+<name>SURF_SYSTEM_PARAM</name>
+<brief>System parameter for COMPSURF</brief>
+<description>System parameter for COMPSURF
+</description>
+</parameter>
+<parameter number="20177" type="DWORD" dim="0">
+<name>SURF_ORI_PRESMOOTH</name>
+<brief>Orientation presmoothing for COMPSURF</brief>
+<description>Presmoothing of the orientation if "CTOL" and "OTOL" are very different, so that the orientation tolerance can be better utilized.
 </description>
 </parameter>
 <parameter number="20180" type="DOUBLE" dim="1">
@@ -1391,7 +1397,7 @@ If its content is less than 0 or greater than or equal to the maximum number of 
 <description>Indicates for each channel the input limit for the rotary fine offset values of an orientable tool holder.
 </description>
 </parameter>
-<parameter number="20191" type="DWORD" dim="0" display="HEX">
+<parameter number="20191" type="UDWORD" dim="0" display="HEX">
 <name>IGN_PROG_STATE_ASUP</name>
 <brief>Do not display interrupt program execution on OPI</brief>
 <description>The execution of the ASUB assigned to the interrupt is NOT displayed by the OPI variables "progStatus" and "chanStatus".
@@ -1418,7 +1424,7 @@ MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
 MD20194 $MC_IGNORE_NONCSTART_ASUP
 </description>
 </parameter>
-<parameter number="20192" type="DWORD" dim="0" display="HEX">
+<parameter number="20192" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_PROG_STATE</name>
 <brief>Do not display the Prog-Event on OPI</brief>
 <description>Event-driven program calls (Prog-Events) can be set regarding their response on the OPI.
@@ -1445,7 +1451,7 @@ Corresponds to:
 	MD20193 $MC_PROG_EVENT_IGN_STOP
 </description>
 </parameter>
-<parameter number="20193" type="DWORD" dim="0" display="HEX">
+<parameter number="20193" type="UDWORD" dim="0" display="HEX">
 <name>PROG_EVENT_IGN_STOP</name>
 <brief>Prog-Events ignore the stop key</brief>
 <description>Event-controlled program calls (Prog-Events) can be influenced with regard to their behavior after pressing of the stop key.
@@ -1468,7 +1474,7 @@ Corresponds to:
 	MD20192 $MC_PROG_EVENT_IGN_PROG_STATE
 </description>
 </parameter>
-<parameter number="20194" type="DWORD" dim="0" display="HEX">
+<parameter number="20194" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_NONCSTART_ASUP</name>
 <brief>Permit ASUB in spite of "Interlock NC-START" if user alarms present.</brief>
 <description>A user alarm from the number range 65500-65999 sets the signal "NC start interlock". By default, an ASUB is not executed on account of interrupts.
@@ -1496,16 +1502,17 @@ MD20117 $MC_IGNORE_SINGLEBLOCK_ASUP
 MD20191 $MC_IGN_PROG_STATE_ASUP
 </description>
 </parameter>
-<parameter number="20196" type="DWORD" dim="0" display="HEX">
+<parameter number="20196" type="UDWORD" dim="0" display="HEX">
 <name>TOCARR_ROTAX_MODE</name>
 <brief>ToolCarrier: rotary axis setting with axis positions not defined</brief>
 <description>The MD is bit-coded. Bit 0 applies to orientable tool holders with one axis, bit 1 for those with 2 axes.
-When the axis positions of an orientable tool holder are determined from a specified frame, it might happen that the required orientation is achieved at any position of a rotary axis.
+When the axis positions of an orientable tool holder are determined from a specified frame, it may happen that the required orientation is achieved at any position of a rotary axis.
  This MD specifies how the rotary axis position is defined in these cases:
  If the relevant bit is 0, the position of the rotary axis will be 0; a possibly necessary rotation is performed through the specified frame.
  If the relevant bit is 1, the rotation is performed by means of the rotary axis of the orientable tool holder. The resulting frame will no longer include a rotation.
 Example:
-A tool in its basic position points into the Z direction, and an axis of the orientable tool holder rotates the workpiece around Z (C_Axis). If the tool shall be oriented in parallel with the Z axis of a rotating frame, and if the frame only rotates around the Z axis, the tool orientation will not be changed, if the C axis is rotated. The condition saying that the tool is to point in the direction of the Z axis defined by the frame is therefore fulfilled for any position of the Z axis.
+A tool in its basic position points into the Z direction, and an axis of the orientable tool holder rotates the workpiece around Z (C_Axis). If the tool is to be oriented parallel to the Z axis of a rotating frame, and if the frame only rotates around the Z axis, the tool orientation will not be changed if the C axis is rotated. The condition stating that the tool is to point in the direction of the Z axis defined by the frame is therefore fulfilled for any position of the Z axis.
+Bit 2: If this bit is set, the value 1 is output in the system variable $P_TCSOL as the number of solutions in a singular position for which there is one unique solution because of the alignment with the vertical coordinate axes perpendicular to the orientation. If this bit is not set, two solutions are output (the angles around the orientation axis differ by 180 degrees). This variant is required for compatibility with older software versions.
 </description>
 </parameter>
 <parameter number="20200" type="BYTE" dim="0">
@@ -1514,7 +1521,7 @@ A tool in its basic position points into the Z direction, and an axis of the ori
 <description>Indicates the maximum number of blocks without traversing information in the compensation plane (dummy blocks) that can be programmed between two blocks with traversing information when chamfer/rounding are active.
 </description>
 </parameter>
-<parameter number="20201" type="DWORD" dim="0" display="HEX">
+<parameter number="20201" type="UDWORD" dim="0" display="HEX">
 <name>CHFRND_MODE_MASK</name>
 <brief>Chamfer/rounding behavior</brief>
 <description>Determination of the chamfer/rounding behavior
@@ -1526,10 +1533,10 @@ Bit 1: free
 	Meaning of the individual bits:
 Bit 0 = 0
 	Chamfer/rounding is derived from the following block (default value).
-	The technology of the chamfer/rounding is determined by the following block. Blocks without movement (M commands) or movement only in the applicate between two movement blocks in the plane are executed before the modal rounding.
+	The technology of the chamfer/rounding is determined by the following block. Blocks without movement (M commands) or movement only in the applicate between two motion blocks in the plane are executed before the modal rounding.
 Bit 0 = 1:
 	Chamfer/rounding is derived from the preceding block.
-	The technology of the chamfer/rounding is determined by the preceding block. Blocks without movement (M commands) or movement only in the applicate between two movement blocks in the plane are executed after the modal rounding.
+	The technology of the chamfer/rounding is determined by the preceding block. Blocks without movement (M commands) or movement only in the applicate between two motion blocks in the plane are executed after the modal rounding.
 </description>
 </parameter>
 <parameter number="20202" type="BYTE" dim="0">
@@ -1575,7 +1582,7 @@ DISC = 0      ...Overshoot disabled, transition circle active
 DISC = 100  ...Overshoot large enough to theoretically produce a
                response similar to intersection (G451).
 
-Programmed values of DISC which are higher than those stored in CUTCOM_MAX_DISC are limited to this maximum value without output of a message. A severely non-linear alteration in the path speed can thus be avoided.
+Programmed values of DISC which are higher than those stored in CUTCOM_MAX_DISC are limited to this maximum value without output of a message. A severely non-linear alteration in the path velocity can thus be avoided.
 
 Special cases:
 	It is not generally meaningful to enter values higher than 50 in DISC.
@@ -1720,7 +1727,7 @@ The following options are available:
 1:	The limit positions are checked in a preparative manner on active transformation
 </description>
 </parameter>
-<parameter number="20310" type="DWORD" dim="0" display="HEX">
+<parameter number="20310" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_MANAGEMENT_MASK</name>
 <brief>Activation of tool management functions</brief>
 <description>MD = 0: Tool management inactive
@@ -1729,7 +1736,7 @@ Bit 0 to bit4
 Bit 0=1: Tool management active
 Tool management functions are enabled for the current channel.
 Bit 1=1: Tool monitoring function active
-The functions for monitoring the tools (tool life and guantity) are enabled.
+The functions for monitoring the tools (tool life and quantity) are enabled.
 Bit 2=1: OEM functions active
 The memory for user data can be used (see also MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM
 to MD18098 $MN_MM_NUM_CC_MON_PARAM)
@@ -1737,19 +1744,20 @@ Bit 3=1: Consider adjacent location active
 Bit 0 to bit 3 must be set as in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK.
 Bit 4=1: The PLC has the option of requesting a T preparation again with changed parameters.
 The acknowledgment states  "2", "7" und "103" are enabled with this bit. The tool selection is then recalculated in the NCK.
+Note: Bit4=1 (PLC can reject tool) and Bit23=1 (interpreter selects tool) are mutually exclusive.
 
 Bit 5 to bit 8
 Bit 5 and bit 7 refer to the main spindle
 Bit 6 und bit 8 refer to secondary spindles
 Bit 5 = 1: The command is regarded as output when the internal transport acknowledgment + the transport acknowledgment are present, that is, when the command has been accepted by the basic PLC program.
 (Bit 19=1 also allows the block change to be prevented (main run) until the required acknowledgments have been received.)
-Bit 7 = 1: The output of the command is not regarded as being completed until the end acknowledgment has been received from the PLC. That is, the command has beren acknowledged by the PLC user program with status "1".
+Bit 7 = 1: The output of the command is not regarded as being completed until the end acknowledgment has been received from the PLC. That is, the command has been acknowledged by the PLC user program with status "1".
 (Bit 19=1 also allows the block change to be prevented (main run) until the required acknowledgments have been received.)
 Bit 5 and bit 7 (alternatively bit 6 and bit 8) are mutually exclusive.
 Only the following combinations are permissible:
 Bit 5: ...0...1...0
 Bit 7: ...0...0...1
-With the default setting, that is bits 5 to 8 = 0, synchronisation takes place in the block in which a cutting edge is selected for the first time.
+With the default setting, that is bits 5 to 8 = 0, synchronization takes place in the block in which a cutting edge is selected for the first time.
 Setting these bits delays the block processing.
 
 Bit 9 to bit 11
@@ -1780,7 +1788,7 @@ T="Tool1"; tool is already in the tool holder
 T="Tool2" ; 2nd tool preparation - the rules of bit 11 apply to the output.
 Bit 12=0: The preparation command is not executed if the tool is already in the spindle.
 Bit 13=1: On reset, the commands are retrieved from the diagnostics buffer and stored in the passive file system (TCTRAxx.MPF under part program) This file is required by the Hotline.
-The tool sequences are only recorded in the the diagnostics buffers of systems that have adequate memory (NCU572, NCU573)).
+The tool sequences are only recorded in the diagnostics buffers of systems that have adequate memory (NCU572, NCU573)).
 Bit 14=1: Reset mode
 Tool and offset selection correspond to the settings in MD20110 $MC_RESET_MODE_MASK and MD20112 $MC_START_MODE_MASK.
 Bit 14=0: No reset mode
@@ -1795,7 +1803,7 @@ Bit 18=1: Activation of monitoring of "Last tool in the tool group"
 Bit 18 Lengthens the search for a suitable tool, above all, when there are a large number of disabled replacement tools.
 Bit 18=0: No monitoring of "Last tool in the tool group"
 Bit 19=1: The synchronizations determined by bits 5...8 refer to the main run block. This means that the block change is delayed until the required acknowledgments have been received.
-Bit 19, in conjunction with set bits 5, 6, 7, 8, delays block processng.
+Bit 19, in conjunction with set bits 5, 6, 7, 8, delays block processing.
 Bit 19=0: The synchronizations determined by bits 5...8 refer to the tool command output. This means that the block change is not delayed.
 
 Bit 20 to bit 24
@@ -1809,6 +1817,7 @@ Bit 23=0: Default setting
 The tool management selects the tool optimally and safely in the main run. This means that the interpreter may have to wait until the end of the tool selection for the offset selection.
 Bit 23=1: For simple applications
 The interpreter selects the tool itself. This means synchronization with the main run is not required for the offset selection. (However, an uncorrectable alarm may be issued if a tool becomes unserviceable after selection but before loading.)
+Note: Bit4=1 (PLC can reject tool) and Bit23=1 (interpreter selects tool) are mutually exclusive.
 Bit 24=0: Default setting
 If the PLC commands 8 and 9 (asynchronous transfer) want to move a tool to a location reserved for another tool, then this is rejected with an alarm.
 Bit 24=1: If the PLC commands 8 and 9 want to move a tool to a location reserved for another tool with "Reserved for tool from buffer" (bit value= "H4"), then this is possible. This location reservation is removed before execution of the motion ("Reserved for new tool to be loaded" (bit value= "H8") remains effective).
@@ -1821,12 +1830,9 @@ MD20110 $MC_RESET_MODE_MASK
 MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER
 MD22560 $MC_TOOL_CHANGE_M_CODE
 
-Value = 0: 	No tool monitoring
-Wert = 0x2: 	Tool monitoring activated
-	(only possible if option "Tool monitoring" is present)
 </description>
 </parameter>
-<parameter number="20320" type="DWORD" dim="0" display="HEX">
+<parameter number="20320" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_TIME_MONITOR_MASK</name>
 <brief>Time monitoring for tool in tool holder</brief>
 <description>Activation of the tool time monitoring for the tool holders and spindles 1..x.
@@ -1844,7 +1850,7 @@ TOOL_GRIND_AUTO_TMON = 1 : Automatic monitoring switched on
 TOOL_GRIND_AUTO_TMON = 0 : Automatic monitoring switched off
 </description>
 </parameter>
-<parameter number="20360" type="DWORD" dim="0" display="HEX">
+<parameter number="20360" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_PARAMETER_DEF_MASK</name>
 <brief>Definition of tool parameters</brief>
 <description>Definition of the effects of tool parameters.
@@ -1868,7 +1874,7 @@ Bit 6:
 Bit 7:
 	Display all actual values of the transverse axis as diameter values, irrespective of the G code of group 29 (DIAMON / DIAMOF)
 Bit 8:
-	Always display the distance-to-go as a radius in the work coordinate system (Work)
+	Always display the distance-to-go as a radius in the Work (WCS)
 Bit 9:
 	During DRF handwheel travel of a transverse axis, only half the distance of the specified increment is traveled (on condition that MD11346 $MN_HANDWH_TRUE_DISTANCE = 1).
 Bit10:
@@ -1880,9 +1886,9 @@ Bit12:
 Bit13:
 	During JOG of circles, the circle center coordinate is always a radius value, see D42690 $SC_JOG_CIRCLE_CENTRE.
 Bit14:
-    Absolute values of the transverse axis with cycle masks in the radius
+    Absolute values of the transverse axis with cycle screenforms in the radius
 Bit15:
-    Incremental values of the transverse axis with cycle masks as diameter
+    Incremental values of the transverse axis with cycle screenforms as diameter
 Bit16:
 	For GWPS (GWPSON/TMON), the tool parameters, tool length, wear and base dimension, are interpreted as diameter values
 Bit17:
@@ -1901,6 +1907,9 @@ Bit20:
 Bit21:
 	If this bit is zero, any existing rotation in the part proportion of the tool carrier is taken into account for CUTMOD with tool carrier when modifying the cutting edge position. Frames are ignored.
      If this bit is 1, in the place of the part proportion of the tool carrier, the active total frame is taken into account with CUTMOD with tool carrier with modification of the cutting edge position. The total frame can also contain a part proportion of the tool carrier.
+Bit22:
+	If this bit is zero, with an active kinematic transformation, a wear component of the tool that cannot be transformed (see SD42935 $SC_WEAR_TRANSFORM) is taken into account statically with the position of the transformation that was valid at the time of the tool selection.
+	If this bit is 1, with an active kinematic transformation, a wear component of the tool that cannot be transformed (see SD42935 $SC_WEAR_TRANSFORM) is taken into account in real-time with the relevant current position of the transformation.
 </description>
 </parameter>
 <parameter number="20370" type="DWORD" dim="1">
@@ -1925,7 +1934,7 @@ Examples:
 <parameter number="20380" type="BYTE" dim="0">
 <name>TOOL_CORR_MODE_G43G44</name>
 <brief>Treatment of tool length compensation with G43 / G44</brief>
-<description>This machine data determines in ISO dialect M (G43 / G44) the way in which length compensations programmed with H are processed.
+<description>This machine data determines in ISO mode M (G43 / G44) the way in which length compensations programmed with H are processed.
 0:	Mode A
 	Tool length H always acts on the third geometry axis (usually Z)
 1:	Mode B
@@ -1951,7 +1960,7 @@ Examples:
 <parameter number="20384" type="BOOLEAN" dim="0">
 <name>TOOL_CORR_MULTIPLE_AXES</name>
 <brief>Tool length compensation in several axes simultaneously</brief>
-<description>This machine data determines for tool length compensation in ISO dialect M (ISO2) (G43 / G44), whether the compensation shall be allowed in mode C (selection of the axis on which the compensation is acting by specifying the corresponding axis letter) to act on several axes simultaneously.
+<description>This machine data determines for tool length compensation in ISO mode M (ISO2) (G43 / G44), whether the compensation shall be allowed in mode C (selection of the axis on which the compensation is acting by specifying the corresponding axis letter) to act on several axes simultaneously.
 
 If this machine data is 1, this type of programming is allowed; otherwise it is rejected with an alarm.
 </description>
@@ -2020,9 +2029,9 @@ When changing between default LookAhead and extended LookAhead or vice versa, th
 </parameter>
 <parameter number="20450" type="DOUBLE" dim="0">
 <name>LOOKAH_RELIEVE_BLOCK_CYCLE</name>
-<brief>Relief factor for block cycle time</brief>
-<description>Block cycle problems occur for the following reason:
-The traversing length of the NC blocks to be processed is so short that the Look Ahead function must reduce the machine velocity to provide enough time for block preparation. In this situation, constant deceleration and acceleration of the path motion can occur.
+<brief>Relief factor for the block change time</brief>
+<description>Block change problems occur for the following reason:
+The traversing length of the NC blocks to be processed is so short that the Look Ahead function has to reduce the machine velocity to provide enough time for block preparation. In this situation, constant decelerations and accelerations of the path motion can occur.
 This machine data defines the extent to which such velocity fluctuations are to be smoothed.
 
 Special cases:
@@ -2030,7 +2039,7 @@ Special cases:
 	The value 0.0 means that the function is deactivated.
 </description>
 </parameter>
-<parameter number="20455" type="BYTE" dim="0" display="HEX">
+<parameter number="20455" type="UBYTE" dim="0" display="HEX">
 <name>LOOKAH_FUNCTION_MASK</name>
 <brief>Look Ahead special functions</brief>
 <description>Look Ahead special functions:
@@ -2043,11 +2052,12 @@ Bit 1 = 1:
 <parameter number="20460" type="DOUBLE" dim="0">
 <name>LOOKAH_SMOOTH_FACTOR</name>
 <brief>Smoothing factor for Look Ahead</brief>
-<description>A smoothing factor can be defined to give a more stable path velocity control.
-It defines the maximum permitted productivity loss.
-Acceleration procedures which contribute less than this factor to a shorter program run time are then not executed.
+<description>Notice: This function is obsolete and is no longer supported!
+A smoothing factor could be defined to give a more stable path velocity control.
+It defined the maximum permitted productivity loss.
+Acceleration procedures which contribute less than this factor to a shorter program run time have not been executed.
 
-In this case, only those acceleration procedures whose frequency lies above the frequency parameterized in MD32440 $MA_LOOKAH_FREQUENCY are taken into account.
+In this case, only those acceleration procedures whose frequency lies above the frequency parameterized in MD32440 $MA_LOOKAH_FREQUENCY have been taken into account.
 The entry of 0.0 deactivates the function.
 </description>
 </parameter>
@@ -2074,7 +2084,7 @@ Corresponds with:
 	FIFOCTRL
 </description>
 </parameter>
-<parameter number="20464" type="DWORD" dim="0" display="HEX">
+<parameter number="20464" type="UDWORD" dim="0" display="HEX">
 <name>PATH_MODE_MASK</name>
 <brief>Path behavior</brief>
 <description>This machine data is used to influence the path action
@@ -2088,10 +2098,11 @@ Bit0:
 <parameter number="20465" type="DOUBLE" dim="1">
 <name>ADAPT_PATH_DYNAMIC</name>
 <brief>Adaptation of path dynamic response</brief>
-<description>This adaptation factor can be used to reduce the dynamics of changes in tool path velocity.
-ADAPT_PATH_DYNAMIC[0] is effective with Brisk, reducing the permissible acceleration
-ADAPT_PATH_DYNAMIC[1] is effective with Soft, reducing the permissible jerk
-Considering only acceleration processes using a frequency above the frequency parameterized in MD32440 $MA_LOOKAH_FREQUENCY.
+<description>Notice: This function is obsolete and is no longer supported!
+This adaptation factor could be used to reduce the dynamics of changes in the path velocity.
+ADAPT_PATH_DYNAMIC[0] was effective with Brisk and reduced the permissible acceleration
+ADAPT_PATH_DYNAMIC[1] was effective with Soft and reduced the permissible jerk
+Only acceleration processes using a frequency above the frequency parameterized in MD32440 $MA_LOOKAH_FREQUENCY were considered.
 To disable this function, enter 1.0.
 </description>
 </parameter>
@@ -2121,6 +2132,7 @@ Related to:
 <description>The path lengths of the part blocks are set with this MD as they are formed with orientation smoothing with ORISON.
 For this data to be active, the division of blocks with ORISON must be enabled with MD20478 $MC_ORISON_MODE
 (Value 100).
+If a length is set for this MD that is significantly shorter than the default length of 0.5 mm, problems may occur with the performance and effectiveness of the orientation smoothing with large tolerances. If this length is reduced, the block buffer for the orientation smoothing (MD28590 $MC_MM_ORISON_BLOCKS) usually also has to be increased, so that the orientation smoothing can still act over an adequately long path length.
 </description>
 </parameter>
 <parameter number="20478" type="DWORD" dim="0">
@@ -2330,7 +2342,7 @@ Entry for all dynamic G code groups.
 Entry for each dynamic G code group.
 </description>
 </parameter>
-<parameter number="20488" type="BYTE" dim="0" display="HEX">
+<parameter number="20488" type="UBYTE" dim="0" display="HEX">
 <name>SPLINE_MODE</name>
 <brief>Setting for spline interpolation</brief>
 <description>This MD is used to determine the settings for spline interpolation. The allocation of the spline segments to the NC blocks can thus be influenced. With spline interpolation, the spline blocks are combined, if possible, in such a way, that there are no blocks that are too short and could lead to a reduction in the possible path velocity.
@@ -2388,11 +2400,11 @@ The following applies:
 2:	Behavior active as with G602 (positioning window, coarse).
 3:	Behavior active as with G603 (setpoint reached).
 
-4:	As 0,
-	in addition, the override of the subsequent non-G00 block is taken into account in the G00 block via LookAhead in the case of a change from G00 to non-G00.
+4:	As 0, no stop at block transition.
+	At block change from G0 to non-G0 in the G0 block in continuous-path mode, LookAhead takes account of the current value of the feedrate override of the following non-G0 block. Depending on the axis dynamics and the path length of the current block, the block change takes place with the exact or best possibly adapted velocity of the following block.
 
-5:	As 0,
-	in addition, the override of the subsequent block is taken into account via LookAhead in the case of a change from G00 to non-G00 and non-G00 to G00.
+5:	As 0, no stop at block transition.
+	At block change from G0 to non-G0 and non-G0 to G0 in continuous path mode, LookAhead takes account of the current value of the feedrate override (G0 to non-G0) or rapid traverse override (non-G0 to G0) of the following block. Depending on the axis dynamics and the path length of the current block, the block change takes place with the exact or best possibly adapted velocity of the following block.
 </description>
 </parameter>
 <parameter number="20560" type="DOUBLE" dim="0">
@@ -2457,13 +2469,16 @@ With this factor being zero no smoothing is performed.
 There is an entry for all dynamic G code groups.
 </description>
 </parameter>
-<parameter number="20606" type="BOOLEAN" dim="1">
+<parameter number="20606" type="DWORD" dim="1">
 <name>PREPDYN_SMOOTHING_ON</name>
 <brief>Activation of curve smoothing</brief>
 <description>Switch on of curve and torsion smoothing.
 Smoothing of the curve or torsion causes a homogenous path velocity.
 Smoothing is only performed, when the relevant factor is MD 20605 $MC_PREPDYN_SMOOTHING_FACTOR &gt; 0.
-
+Meaning:
+0:	Curve smoothing off.
+1:	Curve smoothing on.
+2:	Curve smoothing also on for axis couplings.
 There is an entry for all dynamic G code groups.
 
 </description>
@@ -2547,7 +2562,7 @@ Related to:
 = 0: No limitation
 </description>
 </parameter>
-<parameter number="20624" type="DWORD" dim="0" display="HEX">
+<parameter number="20624" type="UDWORD" dim="0" display="HEX">
 <name>HANDWH_CHAN_STOP_COND</name>
 <brief>Definition of response of handwheel travel, channel-specific</brief>
 <description>Definition of the response for handwheel travel to channel-specific VDI interface signals (bit 0 to bit 7) or CP-SW limit stop or stop by an OEM application (bit 7):
@@ -2634,11 +2649,19 @@ Bit 16 = 1:
 <description>This machine data defines the interpolation behavior of G0:
 
 0:	Non-linear interpolation (RTLIOF): Each path axis interpolates as an individual axis (positioning axis), independently of the other axes, at the rapid traverse velocity of the axis (MD32000 $MA_MAX_AX_VELO).
+     However, this is possible only in simple cases:
+             - No transformation active (TRAORI, TRANSMIT etc.).
+             - G60 active (stop at end of block).
+             - No compressor active (COMPOF).
+             - No  tool radius compensation active (G40).
+             - No contour handwheel selected.
+             - No nibbling active.
+     If one of these conditions is not fulfilled, linear interpolation takes place with the value 1 (RTLION).
 
 1:	Linear interpolation (RTLION): The path axes are interpolated jointly.
 </description>
 </parameter>
-<parameter number="20734" type="DWORD" dim="0" display="HEX">
+<parameter number="20734" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_FUNCTION_MASK</name>
 <brief>Function mask for external language</brief>
 <description>This machine data is used to influence functions in ISO mode.
@@ -2661,9 +2684,9 @@ Bit2: 0:
 	If G95 is active, in spindle revolutions
 
 Bit3: 0:
-	Errors in ISO scanner lead to an alarm
+	Errors in ISO mode lead to an alarm
       1:
-	Errors in ISO scanner are not output, the block is transferred to the Siemens translator.
+	Errors in ISO mode are not output, the block is translated in Siemens mode.
 
 Bit4: 0:
 	G00 is traversed with the current exact stop - continuous-path mode G code
@@ -2716,20 +2739,25 @@ Bit13: 0:
 	G10 is executed with internal STOPRE
 
 Bit14: 0:
-	ISO_mode T: No alarm if a cutting edge has been programmed in the T command.
+	ISO mode T: No alarm if a cutting edge has been programmed in the T command.
          1:
-                ISO mode T: Alarm 14185 if a cutting edge has not been programmed in the T command.
+     ISO mode T: Alarm 14185 if a cutting edge has not been programmed in the T command.
 
 Bit 15: 0:
-	ISO_mode M: G51 Scale, the axial scale factors I, J, K work with 'pocket calculator notation' as programmed.
+	ISO mode M: G51 Scale, the axial scale factors I, J, K work with 'pocket calculator notation' as programmed.
         1:
-     ISO_mode M: G51 Scale, the axial scale factors I, J, K with 'pocket calculator notation', are multiplied by the value in MD22910 $MC_WEIGHTING_FACTOR_FOR_SCALE.
+     ISO mode M: G51 Scale, the axial scale factors I, J, K with 'pocket calculator notation', are multiplied by the value in MD22910 $MC_WEIGHTING_FACTOR_FOR_SCALE.
+
+Bit 16: 0:
+	In circular-path programming with radius R, there is no replacement of missing geometry axes of the selected plane. This corresponds to the behavior in Siemens mode
+        1:
+     In circular-path programming with radius R, missing geometry axes of the selected plane are supplemented by incremental distance 0
 </description>
 </parameter>
 <parameter number="20750" type="BOOLEAN" dim="0">
 <name>ALLOW_G0_IN_G96</name>
 <brief>G0 logic with G96, G961</brief>
-<description>This machine data defines the speed regulation characteristic of the spindle in G0 blocks with constant cutting rate (G96, G961) selected .
+<description>This machine data defines the speed regulation characteristic of the spindle in G0 blocks with constant cutting speed (G96, G961) selected .
 
 1:	In a G0 block, the spindle speed is kept constant at the last value of the previous block that was unequal G0.
 	Prior to a subsequent block that does not contain G0, the spindle speed is increased to a value that belongs to the transverse axis position of the subsequent block.
@@ -2766,7 +2794,7 @@ Bit 1 = 1:
 <name>SPOS_TO_VDI</name>
 <brief>Output of M19 to PLC on SPOS/SPOSA</brief>
 <description>Bit 0 = 0:
-	When bit 19 is also set to '0' in MD35035 $MA_SPIND_FUNCTION_MASK, auxiliary function M19 is not generated with SPOS and SPOSA. This also eliminates the acknowledgement time for the auxiliary function, which can cause faults wiith very short blocks.
+	When bit 19 is also set to '0' in MD35035 $MA_SPIND_FUNCTION_MASK, auxiliary function M19 is not generated with SPOS and SPOSA. This also eliminates the acknowledgment time for the auxiliary function, which can cause faults wiith very short blocks.
 
 Bit 0 = 1:
 	When SPOS and SPOSA are programmed in the part program, auxiliary function M19 is generated and output to the PLC. The address extension corresponds to the spindle number.
@@ -2805,7 +2833,7 @@ The following settings can be selected:
 <brief>Circle end point monitoring constant</brief>
 <description>This machine data is used to specify the permissible absolute circle error [mm].
 When a circle is programmed, both conditions (that the distances from the programmed center point to the start and end points (circle radius) must be the same and that the center point of the circle must be located on the perpendicular bisector of the straight line connecting the start and end points (perpendicular bisector of the circular plane)) apply.
-The fact that the circular parameters can be freely programmed means that these conditions are not usually met exactly in the case of circular-path programming with I, J, and K (the circle is "overdefined").
+The fact that the circular parameters can be freely programmed means that these conditions are not usually met exactly in the case of circle programming with I, J, and K (the circle is "overdefined").
 The maximum permissible difference between the two radii that is accepted without an alarm, as well as the distance between the programmied center point of the circle and the perpendicular bisector described above, is defined by the larger value in the following data:
 - MD21000 $MC_CIRCLE_ERROR_CONST
 - Start radius multiplied by MD21010 $MC_CIRCLE_ERROR_FACTOR
@@ -2824,7 +2852,7 @@ In the context of the predefined tolerances, conflicting circle data is compensa
 Defines the factor for large circles by which the starting radius and end radius may deviate from each other
 (see also MD21000 $MC_CIRCLE_ERROR_CONST (circle end point monitoring constant).
 When a circle is programmed, both conditions (that the distances from the programmed center point to the start and end points (circle radius) must be the same and that the center point of the circle must be located on the perpendicular bisector of the straight line connecting the start and end points (perpendicular bisector of the circular plane)) apply.
-The fact that the circular parameters can be freely programmed means that these conditions are not usually met exactly in the case of circular-path programming with I, J, and K (the circle is "overdefined").
+The fact that the circular parameters can be freely programmed means that these conditions are not usually met exactly in the case of circle programming with I, J, and K (the circle is "overdefined").
 The maximum permissible difference between the two radii that is accepted without an alarm, as well as the distance between the programmied center point of the circle and the perpendicular bisector described above, is defined by the larger value in the following data:
 - MD21000 $MC_CIRCLE_ERROR_CONST
 - Start radius multiplied by MD21010 $MC_CIRCLE_ERROR_FACTOR
@@ -3023,11 +3051,17 @@ Meaning of the thousands digit: Response of path-relative orientation on activat
 	The path-relative orientation is not retained in activation / deactivation blocks associated with tool offset. In these blocks, the tool orientation usually remains constant. However, tool orientation can be programmed in these blocks and then traversed there, although any orientation has to be programmed with vectors (the programming of rotary axis positions is not permitted).
 </description>
 </parameter>
-<parameter number="21096" type="DWORD" dim="0" display="HEX">
+<parameter number="21096" type="UDWORD" dim="0" display="HEX">
 <name>OFF_ORI_MODE</name>
 <brief>Effect of the override of the tool orientation</brief>
-<description>With this machine data, the effect of the override of the tool orientation is set with the system variables
-$AC_OFF_O, $AC_OFF_R, $AC_OFF_LEAD, $AC_OFF_TILT and $AC_OFF_THETA.
+<description>With this machine data, the effect of the override of the tool orientation is set with the system variables (bit 0-15)
+$AC_OFF_O[i], $AC_OFF_R[i], $AC_OFF_LEAD, $AC_OFF_TILT, $AC_OFF_THETA, $AC_OFF_O_ANGLE and $AC_OFF_R_ANGLE
+and the program variables (bit 16-31)
+$P_OFF_O[i], $P_OFF_R[i], $P_OFF_LEAD, $P_OFF_TILT, $P_OFF_THETA, $P_OFF_O_ANGLE and $P_OFF_R_ANGLE.
+
+ ---------------------------------------------------------
+ Bit 0-15: Effect of the overrides in the interpolator
+ ---------------------------------------------------------
 
 Bit 0: Behavior of the system variables on RESET
 0: Offset is deselected on RESET
@@ -3057,27 +3091,47 @@ Bit 6: Effect of the value assignment to the system variable $AC_OFF_THETA
 0: Absolute value
 1: Incremental value (integrator)
 
-Bit 7: Suppression of the alarm 20301
+Bit 7: Effect of the value assignment on the system variable $AC_OFF_O_ANGLE
+0: Absolute value
+1: Incremental value (integrator)
+
+Bit 8: Effect of the value assignment on the system variable $AC_OFF_R_ANGLE
+0: Absolute value
+1: Incremental value (integrator)
+
+Bit 9: Suppression of the alarm 20301
 0: Alarm is output
 1: Alarm is suppressed
 
-Bit 8: Effect of the value assignment to the components of the system variable $P_OFF_O[i]
+ ---------------------------------------------------------
+ Bit 16-31: Effect of the overrides in the NC program
+ ---------------------------------------------------------
+
+Bit 16: Effect of the value assignment to the components of the system variable $P_OFF_O[i]
 0: Absolute value
 1: Incremental value (integrator)
 
-Bit 9: Effect of the value assignment to the components of the system variable $P_OFF_R[i]
+Bit 17: Effect of the value assignment to the components of the system variable $P_OFF_R[i]
 0: Absolute value
 1: Incremental value (integrator)
 
-Bit 10: Effect of the value assignment to the system variable $P_OFF_LEAD
+Bit 18: Effect of the value assignment on the system variable $P_OFF_LEAD
 0: Absolute value
 1: Incremental value (integrator)
 
-Bit 11: Effect of the value assignment to the system variable $P_OFF_TILT
+Bit 19: Effect of the value assignment on the system variable $P_OFF_TILT
 0: Absolute value
 1: Incremental value (integrator)
 
-Bit 12: Effect of the value assignment to the system variable $P_OFF_THETA
+Bit 20: Effect of the value assignment on the system variable $P_OFF_THETA
+0: Absolute value
+1: Incremental value (integrator)
+
+Bit 21: Effect of the value assignment on the system variable $P_OFF_O_ANGLE
+0: Absolute value
+1: Incremental value (integrator)
+
+Bit 22: Effect of the value assignment on the system variable $P_OFF_R_ANGLE
 0: Absolute value
 1: Incremental value (integrator)
 </description>
@@ -3121,7 +3175,7 @@ FALSE:	Referred to G codes ORIWKS and ORIMKS
 TRUE :	Referred to G codes ORIAXES, ORIVECT, ORIPLANE, ORICONxx and ORICURVE of the 51st G code group
 </description>
 </parameter>
-<parameter number="21106" type="DWORD" dim="0" display="HEX">
+<parameter number="21106" type="UDWORD" dim="0" display="HEX">
 <name>CART_JOG_SYSTEM</name>
 <brief>Coordinate systems for Cartesian JOG</brief>
 <description>This machine data has two meanings. First, it is used to activate the "Cartesian manual traverse" function. Second, it is used to determine the reference systems between which a switchover can be performed.
@@ -3391,7 +3445,7 @@ Meaning of the hundreds digit:
 <description>Rotary axes offset for the orientable tool holder is automatically accepted from the work offset activated on activation of the orientable tool holder for the rotary axes.
 </description>
 </parameter>
-<parameter number="21190" type="DWORD" dim="0" display="HEX">
+<parameter number="21190" type="UDWORD" dim="0" display="HEX">
 <name>TOFF_MODE</name>
 <brief>Mode of correction in tool direction</brief>
 <description>This machine data specifies the online correction mode in tool direction via $AA_TOFF[ ].
@@ -3424,11 +3478,11 @@ Bit 6: Effect of the setting data $SC_TOFF_LIMIT_MINUS
 0:	The lower limit $SC_TOFF_LIMIT_MINUS has no effect. -$SC_TOFF_LIMIT is taken as the lower limit.
 1:	The lower limit $SC_TOFF_LIMIT_MINUS is effective.
 
-Bit 7: Blockwise suppression of $AA_TOFF with SUPA
-0:	$AA_TOFF is not suppressed blockwise with SUPA.
-1:	$AA_TOFF is suppressed blockwise with SUPA.
+Bit 7: Blockwise suppression of TOFF with SUPA
+0:	TOFF is not suppressed block-by-block with SUPA.
+1:	TOFF is suppressed block-by-block with SUPA.
 
-Bit 8: Response of the $AA_TOFF handwheel travel at $AA_TOFF_LIMIT / $AA_TOFF_LIMIT_MINUS.
+Bit 8: Response of the TOFF handwheel travel at TOFF_LIMIT / TOFF_LIMIT_MINUS
 0:   Interruption, that means collection of the distances preset via the handwheel
 1:   Abortion of the traversing movement, that means no collection
 
@@ -3485,7 +3539,7 @@ References:
 0:	Mirroring of the contour is NOT taken into account when determining the retraction direction.
 </description>
 </parameter>
-<parameter number="21203" type="DWORD" dim="0" display="HEX">
+<parameter number="21203" type="UDWORD" dim="0" display="HEX">
 <name>LIFTFAST_MODE_MASK</name>
 <brief>Settings for fast retraction</brief>
 <description>Bit0: Behavior of LFWP with active frame
@@ -3493,7 +3547,7 @@ References:
 =1 If the retraction direction is defined with LFWP, the active frame is effective. In this case MD21202 $MC_LIFTFAST_WITH_MIRROR has no effect.
 </description>
 </parameter>
-<parameter number="21204" type="DWORD" dim="0" display="HEX">
+<parameter number="21204" type="UDWORD" dim="0" display="HEX">
 <name>LIFTFAST_STOP_COND</name>
 <brief>Stop behavior with fast retraction</brief>
 <description>Specifies the stop behavior of the liftfast motion under different stop conditions
@@ -3507,16 +3561,16 @@ Bit1: Feed disable in channel NC/PLC interface signal &lt;Vorschubsperre/&gt; (F
 =1 No stop of the retraction motion in case of a feed stop in the channel
 </description>
 </parameter>
-<parameter number="21210" type="DWORD" dim="0" display="HEX">
+<parameter number="21210" type="UDWORD" dim="0" display="HEX">
 <name>SETINT_ASSIGN_FASTIN</name>
-<brief>HW assignment of ext. NCK input byte for NC progr. interrupts</brief>
+<brief>HW assignment of ext. NC input byte for NC progr. interrupts</brief>
 <description>Assignment of input bytes for processing user interrupts in NC programs (SETINT)
 
 Bit 0 ... 7: Number of the input byte (see below)
 
-Bit 16 ... 23: Selection mask for the signals that are NOT evaluated in the channel
+Bit 16 ... 23: Selection screen for the signals that are NOT evaluated in the channel
 
-Bit 24 to 31: Selection mask for the signals that are evaluated in the channel in INVERTED form
+Bit 24 to 31: Selection screen for the signals that are evaluated in the channel in INVERTED form
 Bit x = 0: Interrupt triggered by rising edge
 Bit x = 1: Interrupt triggered by falling edge.
 
@@ -3526,10 +3580,10 @@ Bytes 2 - 5: External digital inputs (fast NCK I/Os or default via NC/PLC interf
 Bytes 128 - 129: Comparator byte (result from fast analogue inputs or default via NC/PLC interface)
 </description>
 </parameter>
-<parameter number="21220" type="DWORD" dim="0" display="HEX">
+<parameter number="21220" type="UDWORD" dim="0" display="HEX">
 <name>MULTFEED_ASSIGN_FASTIN</name>
-<brief>Assignment of the NCK I/Os for 'several feedrates in the block'</brief>
-<description>In MD21220 $MC_MULTFEED_ASSIGN_FASTIN (assignment of the input bytes of the NCK I/Os for "Multiple feeds in one block"), at most two digital input bytes or comparator input bytes of the NCK I/Os can be assigned to the input byte for the "Multiple feeds in one block" function.
+<brief>Assignment of the NC I/Os for 'several feedrates in the block'</brief>
+<description>In MD21220 $MC_MULTFEED_ASSIGN_FASTIN (assignment of the input bytes of the NC I/Os for "Multiple feeds in one block"), at most two digital input bytes or comparator input bytes of the NC I/Os can be assigned to the input byte for the "Multiple feeds in one block" function.
 Furthermore, the assigned input signals can be inverted with the machine data.
 
 The MD is coded as follows:
@@ -3553,7 +3607,7 @@ The number for a comparator input byte should be specified as follows:
 129:             for comparator 2 (corresponds to 81Hex)
 </description>
 </parameter>
-<parameter number="21230" type="BYTE" dim="0" display="HEX">
+<parameter number="21230" type="UBYTE" dim="0" display="HEX">
 <name>MULTFEED_STORE_MASK</name>
 <brief>Memory response for 'several feedrates in the block'</brief>
 <description>The priority of the signals for feeds F2 - F7 of the "Multiple feeds in one block" function decreases as the bit number increases in the input byte. The highest priority signal determines the current feed.
@@ -3623,7 +3677,7 @@ Related to:
 - The FS and LS must have the same dynamic control response
 
 0:	Actual-value coupling activated.
-	With an actual-value coupling, the command variable for the following spindle is calculated from the position actual value of the leading spindle. With this type of coupling, the following drive must be significantly more dynamic than the leading drive, but never vice versa.
+	With an actual-value coupling, the command variable for the following spindle is calculated from the actual position value of the leading spindle. With this type of coupling, the following drive must be significantly more dynamic than the leading drive, but never vice versa.
 
 	The actual-value coupling can be used, for example, in the following cases:
 - The LS must be assigned to a different NC channel than the FS.
@@ -3680,7 +3734,7 @@ Related to:
 	(threshold value for fine synchronization)
 </description>
 </parameter>
-<parameter number="21330" type="DWORD" dim="0" display="HEX">
+<parameter number="21330" type="UDWORD" dim="0" display="HEX">
 <name>COUPLE_RESET_MODE_1</name>
 <brief>Coupling cancelation behavior</brief>
 <description>This machine data defines the behavior of the synchronous mode for the pair of synchronous spindles configured with machine data COUPLE_AXIS_1[n].
@@ -3921,12 +3975,10 @@ Special cases:
 <parameter number="22030" type="DWORD" dim="1">
 <name>AUXFU_ASSIGN_VALUE</name>
 <brief>Auxiliary function value</brief>
-<description>If the value in this MD is less than 0, all auxiliary functions of this type and this
-address extension are assigned to this group.
-See MD22010 $MC_AUXFU_ASSIGN_TYPE[n] (auxiliary function type)
+<description>See MD22010 $MC_AUXFU_ASSIGN_TYPE[n] (auxiliary function type)
 </description>
 </parameter>
-<parameter number="22035" type="DWORD" dim="1" display="HEX">
+<parameter number="22035" type="UDWORD" dim="1" display="HEX">
 <name>AUXFU_ASSIGN_SPEC</name>
 <brief>Output specification</brief>
 <description>Specification of the output behavior of the user-defined auxiliary functions.
@@ -3941,8 +3993,8 @@ Bit 6 = 1	Output during the motion
 Bit 7 = 1	Output at block end
 Bit 8 = 1	No output after block search types 1, 2, 4
 Bit 9 = 1	Collection during block search type 5 (SERUPRO)
-Bit 10 = 1 No output during block search type 5 (SERUPRO)
-Bit 11 = 1	Cross-channel auxiliary function (SERUPRO)
+Bit 10 = 1	No output during block search type 5 (SERUPRO)
+Bit 11 = 1	Cross-channel auxiliary function during block search type 5 (SERUPRO)
 Bit 12 = 1	Output via synchronized action
 Bit 13 = 1 Implicit auxiliary function
 Bit 14 = 1 Active M01
@@ -3993,7 +4045,7 @@ This setting can be changed only for indices 5 to 17 and 21!
 This setting cannot be changed!
 </description>
 </parameter>
-<parameter number="22080" type="DWORD" dim="1" display="HEX">
+<parameter number="22080" type="UDWORD" dim="1" display="HEX">
 <name>AUXFU_PREDEF_SPEC</name>
 <brief>Output specification</brief>
 <description>Specification of the output behavior of the predefined auxiliary functions.
@@ -4009,7 +4061,7 @@ Bit 7 = 1	Output at block end
 Bit 8 = 1	No output after block search types 1, 2, 4
 Bit 9 = 1   Collection during block search type 5 (SERUPRO)
 Bit 10 = 1	No output during block search type 5 (SERUPRO)
-Bit 11 = 1	Cross-channel auxiliary function (SERUPRO)
+Bit 11 = 1	Cross-channel auxiliary function during block search type 5 (SERUPRO)
 Bit 12 = 1	Output via synchronized action
 Bit 13 = 1 Implicit auxiliary function
 Bit 14 = 1 Active M01
@@ -4032,11 +4084,11 @@ See MD22010 $MC_AUXFU_PREDEF_TYPE[n] (auxiliary function type)
 <name>AUXFU_QUICK_BLOCKCHANGE</name>
 <brief>Block change delay with quick auxiliary functions.</brief>
 <description>Block change is not delayed with quick auxiliary functions.
-0:	With the quick auxiliary function output the block change is delayed until acknowledgement by the PLC (OB40).
+0:	With the quick auxiliary function output the block change is delayed until acknowledgment by the PLC (OB40).
 1:	With the quick auxiliary function output to the PLC the block change is not delayed.
 
 MD irrelevant for:
-	Auxiliary functions with normal acknowledgement
+	Auxiliary functions with normal acknowledgment
 
 References:
 	/FBSY/, Synchronized Actions
@@ -4063,12 +4115,12 @@ References:
 
 Notice:
 	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
-	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
+	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ] has a higher priority.
 </description>
 </parameter>
 <parameter number="22210" type="BYTE" dim="0">
 <name>AUXFU_S_SYNC_TYPE</name>
-<brief>Output time of S functions (see MD22200 for values)</brief>
+<brief>Output time of S functions</brief>
 <description>Synchronization of the S auxiliary functions with regard to a simultaneously programmed axis motion.
 0 = Output before motion
 1 = Output during motion
@@ -4077,14 +4129,13 @@ Notice:
 4 = Output in accordance with the predefined output specification
 
 Notice:
-	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
-	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
+	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
 
 </description>
 </parameter>
 <parameter number="22220" type="BYTE" dim="0">
 <name>AUXFU_T_SYNC_TYPE</name>
-<brief>Output time for T functions (see MD22200 for values)</brief>
+<brief>Output time for T functions</brief>
 <description>Synchronization of the T auxiliary functions with regard to a simultaneously programmed axis motion.
 0 = Output before motion
 1 = Output during motion
@@ -4093,14 +4144,13 @@ Notice:
 4 = Output in accordance with the predefined output specification
 
 Notice:
-	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
-	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
+	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
 
 </description>
 </parameter>
 <parameter number="22230" type="BYTE" dim="0">
 <name>AUXFU_H_SYNC_TYPE</name>
-<brief>Output time for H functions (see MD22200 for values)</brief>
+<brief>Output time for H functions</brief>
 <description>Synchronization of the H auxiliary functions with regard to a simultaneously programmed axis motion.
 0 = Output before motion
 1 = Output during motion
@@ -4115,7 +4165,7 @@ Notice:
 </parameter>
 <parameter number="22240" type="BYTE" dim="0">
 <name>AUXFU_F_SYNC_TYPE</name>
-<brief>Output time for F functions (see MD22200 for values)</brief>
+<brief>Output time for F functions</brief>
 <description>Synchronization of the F auxiliary functions with regard to a simultaneously programmed axis motion.
 0 = Output before motion
 1 = Output during motion
@@ -4124,14 +4174,13 @@ Notice:
 4 = Output in accordance with the predefined output specification
 
 Notice:
-	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
-	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
+	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
 
 </description>
 </parameter>
 <parameter number="22250" type="BYTE" dim="0">
 <name>AUXFU_D_SYNC_TYPE</name>
-<brief>Output time for D functions (see MD22200 for values)</brief>
+<brief>Output time for D functions</brief>
 <description>Synchronization of the D auxiliary functions with regard to a simultaneously programmed axis motion.
 0 = Output before motion
 1 = Output during motion
@@ -4140,8 +4189,7 @@ Notice:
 4 = Output in accordance with the predefined output specification
 
 Notice:
-	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
-	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
+	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
 
 </description>
 </parameter>
@@ -4156,8 +4204,7 @@ Notice:
 4 = Output in accordance with the predefined output specification
 
 Notice:
-	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
-	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
+	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
 
 </description>
 </parameter>
@@ -4248,12 +4295,13 @@ If all eight values are zero (default), the geo axis entered in MD20050 $MC_AXCO
 <parameter number="22430" type="BYTE" dim="0">
 <name>FGROUP_PATH_MODE</name>
 <brief>Response of the path velocity in singular situations</brief>
-<description>If the path of the FGROUP axes is small with respect to the non-FGROUP axes, the latter must become very fast in order to follow the path. If the path is precisely 0, then they travel against it with the programmed feedrate. Using the machine data, this abrupt transition can be made softer.
-Value 0: This abrupt transition is not processed. Compatible setting to the behavior of software release 6
-Value 1: From a threshold of the path relationship of MD22440 $MC_FGROUP_PATH_RATIO the paths of non-FGROUP axes are increasingly taken into account. However, this is only applicable in polynomial blocks with significantly changing the path components. Compatible setting to the behavior before software release NCK.P7_91
-Value 2: as for 1, however, without the restrictions. Recommended setting for mold building applications
+<description>If the path of the FGROUP axes is short in comparison to that of the non-FGROUP axes, the latter must become very fast in order to follow the path. If the path is precisely 0, then they travel instead at the programmed feedrate. The machine data can be used to soften this abrupt transition.
+Value 0: This abrupt transition is not processed. Setting compatible  with the behavior before the software release 6
+Value 1: From a threshold of the path relationship of MD22440 $MC_FGROUP_PATH_RATIO, the paths of the non-FGROUP axes are increasingly taken into account. However, this is only applicable in polynomial blocks with significantly changing path components. Setting compatible with the behavior before software release NCK.P7_91
+Value 2: As for 1, however, without the restrictions.
+Value 3: As for 2, but with improved behavior if there are no geometry axes in the FGROUP. Recommended setting for mold building applications and special machines.
 .
-Corresponds with:
+Related to:
 	MD22420 $MC_FGROUP_DEFAULT_AXES, MD22440 $MC_FGROUP_PATH_RATIO
 </description>
 </parameter>
@@ -4288,7 +4336,7 @@ Notice:
 	It is not guaranteed that a PLC user program has at all times a block-synchronous relation between the active NC block and the G codes present. (Example: Path mode with very short blocks).
 </description>
 </parameter>
-<parameter number="22515" type="DWORD" dim="0" display="HEX">
+<parameter number="22515" type="UDWORD" dim="0" display="HEX">
 <name>GCODE_GROUPS_TO_PLC_MODE</name>
 <brief>Behavior of G group transfer to PLC</brief>
 <description>For setting the behavior, i.e. how the G groups are to be interpreted in the PLC with regard to data.
@@ -4363,7 +4411,7 @@ Related to:
 	MD22550 $MC_TOOL_CHANGE_MODE
 </description>
 </parameter>
-<parameter number="22562" type="DWORD" dim="0" display="HEX">
+<parameter number="22562" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_CHANGE_ERROR_MODE</name>
 <brief>Response to tool change errors</brief>
 <description>Behavior if faults/problems occur during programmed tool change.
@@ -4439,7 +4487,7 @@ Bit 7=1: only if the tool basic functionality is active
 and (MD18102 $MN_MM_TYPE_OF_CUTTING_EDGE=0):
 When Tx is programmed, an unknown Tx is intially ignored, and the alarm relating to the preparation command (Tx) is also ignored until the D selection is interpreted in the program sequence. Only then is alarm 17191, which has been triggered by the preparation command, output. This means that the operator can take corrective actions with the D selection in this block. When the program is continued, the incorrect NC block is re-interpreted, and the preparation command is automatically executed again internally.
 (This is of interest for Cutting-Edge-Default=0 or =-2 and D0 programming, otherwise the D of Cutting-Edge-Default is deselected on tool change.).)
-This variant is justified for programming "Tool number=Location" (revolver as toolholder) without tool management. The revolver can now be positioned on a location for which a tool has not (yet) been defined.
+This variant is justified for programming "Tool number=Location" (turret as toolholder) without tool management. The turret can now be positioned on a location for which a tool has not (yet) been defined.
 This bit has no meaning if bit 0=1 is set.
 
 Bit 8=0: A tool that is located at a blocked magazine location is not taken into account when selecting a tool. (default setting)
@@ -4485,7 +4533,7 @@ Note:
 	With active revolutional feedrate (e.g. G95), the programmed F value is not
 	multiplied by the factor MD22601 $MC_SERUPRO_SPEED_FACTOR but only by the
 	programmed spindle speed. Here again, this increases the effective
-	path speed by the MD22601 $MC_SERUPRO_SPEED_FACTOR.
+	path velocity by the MD22601 $MC_SERUPRO_SPEED_FACTOR.
 
 Related to:
 	SD42100 $SC_DRY_RUN_FEED, MD22601 $MC_SERUPRO_SPEED_FACTOR
@@ -4509,7 +4557,7 @@ Related to:
 	SD42100 $SC_DRY_RUN_FEED, MD22600 $MC_SERUPRO_SPEED_MODE
 </description>
 </parameter>
-<parameter number="22620" type="DWORD" dim="0" display="HEX">
+<parameter number="22620" type="UDWORD" dim="0" display="HEX">
 <name>START_MODE_MASK_PRT</name>
 <brief>Initial setting on special starts</brief>
 <description>This machine data is activated via MD22621 $MC_ENABLE_START_MODE_MASK_PRT.
@@ -4520,7 +4568,7 @@ If MD22620 $MC_START_MODE_MASK_PRT is activated for "search via program test" (a
 This enables a behavior deviating from PLC start to be set at the start of the search. The meaning of the bit-by-bit assignment of MD22620 $MC_START_MODE_MASK_PRT is the same as that in MD20112 $MC_START_MODE_MASK.
 </description>
 </parameter>
-<parameter number="22621" type="DWORD" dim="0" display="HEX">
+<parameter number="22621" type="UDWORD" dim="0" display="HEX">
 <name>ENABLE_START_MODE_MASK_PRT</name>
 <brief>Enables MD22620 $MC_START_MODE_MASK_PRT</brief>
 <description>MD22620 $MC_START_MODE_MASK_PRT is activated via MD22621 $MC_ENABLE_START_MODE_MASK_PRT.
@@ -4533,7 +4581,7 @@ Bit0 =  1:
 This method can be used to set a start behavior differing from PLC start when the search is started.
 </description>
 </parameter>
-<parameter number="22622" type="DWORD" dim="0" display="HEX">
+<parameter number="22622" type="UDWORD" dim="0" display="HEX">
 <name>DISABLE_PLC_START</name>
 <brief>Enable part program start via PLC</brief>
 <description>Allow part program start via PLC.
@@ -4549,7 +4597,7 @@ BIT0 = 1
 	A part program can be started in this channel only by means of the part program command "START" from another channel. Starting via the PLC is interlocked.
 </description>
 </parameter>
-<parameter number="22680" type="DWORD" dim="0" display="HEX">
+<parameter number="22680" type="UDWORD" dim="0" display="HEX">
 <name>AUTO_IPTR_LOCK</name>
 <brief>Disable interrupt pointer</brief>
 <description>With MD22680 $MC_AUTO_IPTR_LOCK program areas are defined in which the individually indicated coupling types are active. If a program cancelation is executed in a program range that is defined as such, it will not be the currently executed part program block that is stored in the interrupt pointer (OPI module InterruptionSearch),but the last block prior to activation of the coupling.
@@ -4622,14 +4670,14 @@ It enables access to an array element.
 E.g. use as an axis index when accessing axis data.
 </description>
 </parameter>
-<parameter number="22714" type="DWORD" dim="0" display="HEX">
+<parameter number="22714" type="UDWORD" dim="0" display="HEX">
 <name>MM_TRACE_DATA_FUNCTION</name>
 <brief>Activating diagnostics</brief>
 <description>The machine data is only intended for diagnostic purposes.
 Activating diagnostics
 
 An internal ring buffer records important events.
-After a trigger event, with the 'Cancel alarm' key set as default,
+After a trigger event, the 'Cancel alarm' key is set as default,
 the ring buffer is briefly frozen, read, and converted into an ASCII file
 in the part program directory. The file name for the 1st channel
 is ncsctr01.mpf and for the 7th channel it is ncsctr07.mpf.
@@ -4647,13 +4695,13 @@ Bit no.   Significance when bit is set
 4      Recording of command sequence static data
 5      Recording of tool management static data
 6      Recording of the NCK version file. Static data
-7      Recording of the statuses of the current block
-       Various statuses of the axes and the SPARPI.  Static data
-8      Recording of various statuses of the channel.  Static data
-9      Error statuses in the NCK memory management are scanned during trace generation.
+7      Recording of the states of the current block
+       Various states of the axes and the SPARPI.  Static data
+8      Recording of various states of the channel. Static data
+9      Error states in the NCK memory management are scanned during trace generation.
        An error renames the trace file. Static data
 
-       Possible names and their meaning:
+       Possible names and their meanings:
        NCFIER.MPF   Error in the file system
        NCSLER.MPF   Error during string creation
        NCFIER.MPF   Error on New/Delete
@@ -4667,18 +4715,21 @@ Bit no.   Significance when bit is set
        these trace points, other events are ignored!
        That is why this bit should remain at 0 in these cases.
 14     Reserved.
-15     Recording of station commands.    Dynamic data.
+15     Recording of station commands. Dynamic data.
        Note: Most important output of the NCK module NCSC!
 16    Recording of gantry commands
 17    Recording of changes in the drive's status
 18    Recording of the processing of the Event-Queue and generation of command sequences
-19    Recording of event destructor call
+19    Recording of time of event destructor calls
 20    Recording of the dynamic limitations per block (only active when bit 0 is set).
 21    Recording of the Look Ahead data (only active when bit 0 is set).
 22    Recording of all Functions Config data.
        Both a static part as well as a block-related part with the dynamic block data are output at the time of trace generation.
 22     Config data output (static)
-23     Recording if computing time is given away in the preprocessing (only active when bit 0 is set).
+23     Recording if computing time is given away during preprocessing (only active when bit 0 is set).
+24     Recording of multi-threading sequences (Multicore).
+25     Recording of the external communication.
+26     Recording of geometry data: positions, vLim, vLimSafety, OVR, clamping, etc.
 </description>
 </parameter>
 <parameter number="22800" type="BYTE" dim="0">
@@ -4760,7 +4811,7 @@ Prerequisite:
 	G58 and G59 are possible.
 </description>
 </parameter>
-<parameter number="24002" type="DWORD" dim="0" display="HEX">
+<parameter number="24002" type="UDWORD" dim="0" display="HEX">
 <name>CHBFRAME_RESET_MASK</name>
 <brief>Active channel-specific base frames after reset</brief>
 <description>Bit mask for the reset setting of the channel-specific base frames which are included in the channel.
@@ -4772,7 +4823,7 @@ If MD20110 $MC_RESET_MODE_MASK bit0 = 1 and BIT14 = 0
 	the entire base frame is deselected on reset.
 </description>
 </parameter>
-<parameter number="24004" type="DWORD" dim="0" display="HEX">
+<parameter number="24004" type="UDWORD" dim="0" display="HEX">
 <name>CHBFRAME_POWERON_MASK</name>
 <brief>Reset channel-specific base frames after power on</brief>
 <description>This machine data defines whether channel-specific base frames are reset in the data management on Power On.
@@ -4790,7 +4841,7 @@ Related to:
 	MD10615 $MN_NCBFRAME_POWERON_MASK
 </description>
 </parameter>
-<parameter number="24006" type="DWORD" dim="0" display="HEX">
+<parameter number="24006" type="UDWORD" dim="0" display="HEX">
 <name>CHSFRAME_RESET_MASK</name>
 <brief>Active system frames after reset</brief>
 <description>Bit mask used for the reset setting of the channel-specific system frames included in the channel.
@@ -4812,7 +4863,7 @@ Related to:
 	MD28082 $MC_MM_SYSTEM_FRAME_MASK
 </description>
 </parameter>
-<parameter number="24007" type="DWORD" dim="0" display="HEX">
+<parameter number="24007" type="UDWORD" dim="0" display="HEX">
 <name>CHSFRAME_RESET_CLEAR_MASK</name>
 <brief>Deletion of system frames after reset</brief>
 <description>Bit mask used to delete channel-specific system frames from the data management on reset.
@@ -4831,7 +4882,7 @@ Bit 10:	System frame $P_ISO4FR (ISO G51 Scale) is deleted on reset.
 Bit 11:    System frame $P_RELFR is deleted on reset.
 </description>
 </parameter>
-<parameter number="24008" type="DWORD" dim="0" display="HEX">
+<parameter number="24008" type="UDWORD" dim="0" display="HEX">
 <name>CHSFRAME_POWERON_MASK</name>
 <brief>Reset channel system frames after power on</brief>
 <description>This machine data defines whether channel-specific system frames are reset in the data management on Power On. That is offsets and rotations are set to 0, scalings to 1. Mirroring is disabled.
@@ -4862,7 +4913,7 @@ Related to:
 1: Programmable frame remains active at reset.
 </description>
 </parameter>
-<parameter number="24020" type="DWORD" dim="0" display="HEX">
+<parameter number="24020" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_SUPPRESS_MODE</name>
 <brief>Positions for frame suppression</brief>
 <description>Bit mask for configuring the positions for frame suppressions (SUPA, G153, G53).
@@ -4879,7 +4930,7 @@ Bit 1: Position variables without frame suppression
 1:	SZS results from the Work transformed with the $P_CYCFRAME.
 </description>
 </parameter>
-<parameter number="24040" type="DWORD" dim="0" display="HEX">
+<parameter number="24040" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_ADAPT_MODE</name>
 <brief>Adaptation of active frames</brief>
 <description>Bit mask for adapting the active frames or axis configuration
@@ -4892,7 +4943,7 @@ Bit 2:
 	Scalings of all geometry axes in the active frames are set to value 1.
 </description>
 </parameter>
-<parameter number="24050" type="DWORD" dim="0" display="HEX">
+<parameter number="24050" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_SAA_MODE</name>
 <brief>Saving and activating of data management frames</brief>
 <description>Bit mask for saving and activating data management frames.
@@ -4904,7 +4955,7 @@ Bit 1:
 	Data handling frames are not written implicitly by system functions such as TOROT, PAROT, ext. work offset, transformations.
 </description>
 </parameter>
-<parameter number="24080" type="DWORD" dim="0" display="HEX">
+<parameter number="24080" type="UDWORD" dim="0" display="HEX">
 <name>USER_FRAME_POWERON_MASK</name>
 <brief>Parameterize properties for settable frame</brief>
 <description>Setting the following bits activates certain properties of the settable frame:
@@ -4983,21 +5034,12 @@ Releated to:
 
 References:
 	/FB/, F2, "5-Axis Transformation"
-
-Axis assignment at input point of 1st transformation
-Example for TRANSMIT:
-With TRANSMIT, the index i takes the values  0, 1, 2.
-MD24110 $MC_TRAFO_AXES_IN_1[0]= 	Channel axis number of the axis perpendicular to the rotary axis
-MD24110 $MC_TRAFO_AXES_IN_1[1]=	Channel axis number of the rotary axis
-MD24110 $MC_TRAFO_AXES_IN_1[2]=	Channel axis number of the axis parallel to the rotary axis
-xample for TRACYL: see TRACYL chapter
 </description>
 </parameter>
 <parameter number="24120" type="BYTE" dim="1">
 <name>TRAFO_GEOAX_ASSIGN_TAB_1</name>
 <brief>Assignment of the geometry axes to channel axes for transformation 1</brief>
 <description>This MD states the channel axes on which the axes of the cartesian coordinate system are mapped for active transformation 1.
-With TRANSMIT, the index takes the values 0, 1, 2. These refer to the first, second and third geometry axes.
 
 Not relevant:
 	No transformation
@@ -5360,7 +5402,7 @@ Related to:
 <brief>End angle tolerance with interpolation through pole for 5-axis transf.</brief>
 <description>This MD designates an end angle tolerance for the fifth axis of the first 5-axis transformation with the following properties:
 
-With the interpolation through the pole point, only the fifth axis moves, the fourth axis retains its starting position. If a motion is programmed that does not run exactly through the pole point but is to run near the pole within the area given by MD: TRAFO5_NON_POLE_LIMIT_n then there is a deviation from the defined path as the interpolation runs exactly through the pole point. This results in a deviation in the position of the end point of the fourth axis (the polar axis) from the programmed value.
+With the interpolation through the pole point, only the fifth axis moves, the fourth axis retains its starting position. If a motion is programmed that does not run exactly through the pole point but will run near the pole within the area given by MD: TRAFO5_NON_POLE_LIMIT_n, there is a deviation from the defined path as the interpolation runs exactly through the pole point. This results in a deviation in the position of the end point of the fourth axis (the polar axis) from the programmed value.
 
 This MD defines the angle by which the polar axis may deviate from the programmed value with 5-axis transformation when switching from the programmed interpolation to the interpolation through the pole point.
 Alarm 14112 is output if there is a greater deviation and the interpolation is not executed.
@@ -5370,7 +5412,7 @@ MD irrelevant:
 	Also irrelevant with programming in the machine coordinate system ORIMKS.
 
 Related to:
-	MD2.... $MC_TRAFO5_NON_POLE_LIMIT_n
+	MD2.... $MC_TRAFO5_NON_POLE_LIMIT_...
 </description>
 </parameter>
 <parameter number="24542" type="DOUBLE" dim="0">
@@ -5466,10 +5508,10 @@ Related to:
 <name>TRAFO5_NUTATOR_AX_ANGLE_1</name>
 <brief>Nutating head angle in 5-axis transformation</brief>
 <description>Angle between the second rotary axis and the axis corresponding to it in the rectangular coordinate system
-MD irrelevant for: Transformation type other than "universal milling head".
+MD irrelevant for a transformation type other than "universal milling head".
 
 Related to:
-	MD2.... $MC_TRAFO_TYPE_n...
+	MD2.... $MC_TRAFO_TYPE_...
 </description>
 </parameter>
 <parameter number="24566" type="BOOLEAN" dim="0">
@@ -5556,7 +5598,8 @@ Only active with active 5-axis transformation 1.
 <parameter number="24590" type="BOOLEAN" dim="0">
 <name>TRAFO5_ROT_OFFSET_FROM_FR_1</name>
 <brief>Offset of transformation rotary axes from WO.</brief>
-<description>The programmable offset for orientation axes is automatically accepted from the work offset active for the orientation axes on switch-on of an orientation transformation.
+<description>The positions (angles) of the rotary axes are defined by the offset for the orientation axes of the 5/6-axis transformation, whereby the tool orientation is in the basic position. This offset has 2 components. The first one is the value of MD24510 $MC_TRAFO5_ROT_AX_OFFSET_1 for the 1st orientation transformation. For the other orientation transformations, these are the values of MD24610/25210/25310 $MC_TRAFO5_ROT_AX_OFFSET_2/3/4/. The 2nd component is defined when the transformation is activated. Either directly as an optional parameter with the language command TRAORI(), or it can be taken from an active work offset  of the rotary axes that are active when the transformation is activated. This is only taken into the offset of the orientation axes if this MD has the value TRUE, and if the work offsets are retained when the transformation is activated, this means that MD10602: $MN_FRAME_GEOAX_CHANGE_MODE &gt; 0.
+Note: In the normal case, the automatic acceptance of active work offsets into the offset is only useful for the polar axis with table kinematics. This means, for example, with AC kinematics for the C-axis. If the offset is changed in another orientation axis, especially in the non-polar axis, this changes the kinematic behavior of the transformation, and may lead to the compensatory motions of the linear axes no longer being correct.
 </description>
 </parameter>
 <parameter number="24594" type="DOUBLE" dim="1">
@@ -5804,9 +5847,10 @@ Related to:
 </parameter>
 <parameter number="24685" type="BYTE" dim="1">
 <name>TRAFO5_ORIAX_ASSIGN_TAB_2</name>
-<brief>Orientation axis / channel axis assignment transformation 1</brief>
+<brief>Orientation axis / channel axis assignment transformation 2</brief>
 <description>Assignment table of the orientation axes for 5-axis transformation 2
 Only active with active 5-axis transformation 2.
+Otherwise the meaning is the same as TRAFO5_ORIAX_ASSIGN_TAB_1.
 </description>
 </parameter>
 <parameter number="24690" type="BOOLEAN" dim="0">
@@ -5932,7 +5976,7 @@ MD24850 $MC_TRACYL_ROT_AX_OFFSET_2
 	SZS frames include transformed axial rotary axis offsets.
 </description>
 </parameter>
-<parameter number="24806" type="BYTE" dim="0" display="HEX">
+<parameter number="24806" type="UBYTE" dim="0" display="HEX">
 <name>TRACYL_BASE_TOOL_COMP_1</name>
 <brief>Compensation of the BASE_TOOL in the TRACYL frame 1</brief>
 <description>Components of the base tool can be compensated by using this bit-coded machine data
@@ -5997,7 +6041,7 @@ Related to:
 	SZS frames include transformed axial rotary axis offsets.
 </description>
 </parameter>
-<parameter number="24856" type="BYTE" dim="0" display="HEX">
+<parameter number="24856" type="UBYTE" dim="0" display="HEX">
 <name>TRACYL_BASE_TOOL_COMP_2</name>
 <brief>Compensation of the BASE_TOOL in the TRACYL frame 2</brief>
 <description>Components of the base tool can be compensated by using this bit-coded machine data
@@ -6061,7 +6105,7 @@ Related to:
 	SZS frames include transformed rotations around the rotary axis.
 </description>
 </parameter>
-<parameter number="24906" type="BYTE" dim="0" display="HEX">
+<parameter number="24906" type="UBYTE" dim="0" display="HEX">
 <name>TRANSMIT_BASE_TOOL_COMP_1</name>
 <brief>Compensation of the BASE_TOOL in the TRANSMIT frame 1</brief>
 <description>Components of the base tool can be compensated by using this bit-coded machine data
@@ -6126,7 +6170,7 @@ Related to:
 	SZS frames include transformed rotations around the rotary axis.
 </description>
 </parameter>
-<parameter number="24956" type="BYTE" dim="0" display="HEX">
+<parameter number="24956" type="UBYTE" dim="0" display="HEX">
 <name>TRANSMIT_BASE_TOOL_COMP_2</name>
 <brief>Compensation of the BASE_TOOL in the TRANSMIT frame 2</brief>
 <description>Components of the base tool can be compensated by using this bit-coded machine data
@@ -6662,7 +6706,8 @@ Other than that it has the same meaning as TRAFO5_TOOL_VECTOR_1.1.
 <name>TRAFO5_ORIAX_ASSIGN_TAB_3</name>
 <brief>Orientation axis / channel axis assignment transformation 3</brief>
 <description>Assignment table of the orientation axes for 5-axis transformation 3
-Other than that it has the same meaning as TRAFO5_ORIAX_ASSIGN_TAB_1.
+Only active with active 5-axis transformation 3.
+Otherwise the meaning is the same as TRAFO5_ORIAX_ASSIGN_TAB_1.
 </description>
 </parameter>
 <parameter number="25290" type="BOOLEAN" dim="0">
@@ -6834,7 +6879,8 @@ Other than that it has the same meaning as TRAFO5_TOOL_VECTOR_1.1.
 <name>TRAFO5_ORIAX_ASSIGN_TAB_4</name>
 <brief>Orientation axis / channel axis assignment transformation 4</brief>
 <description>Assignment table of the orientation axes for 5-axis transformation 4
-Other than that it has the same meaning as TRAFO5_ORIAX_ASSIGN_TAB_1.
+Only active with active 5-axis transformation 4.
+Otherwise the meaning is the same as TRAFO5_ORIAX_ASSIGN_TAB_1.
 </description>
 </parameter>
 <parameter number="25390" type="BOOLEAN" dim="0">
@@ -6891,7 +6937,7 @@ See TRACON_CHAIN_1 for documentation.
 See TRACON_CHAIN_1 for documentation.
 </description>
 </parameter>
-<parameter number="26000" type="DWORD" dim="0" display="HEX">
+<parameter number="26000" type="UDWORD" dim="0" display="HEX">
 <name>PUNCHNIB_ASSIGN_FASTIN</name>
 <brief>Hardware assignment for input byte for stroke control</brief>
 <description>Assignment of the high-speed input byte for "punching and nibbling"
@@ -6903,10 +6949,10 @@ Bit 24-30:  Free
 This data defines which input byte is to be used for the signal "travel active".
 
 = 1:
-	On-board inputs (4 high-speed NCK outputs) are used.
+	On-board inputs (4 high-speed NC inputs) are used.
 
 2, 3, 4, 5
-	The external digital NCK inputs are used
+	The external digital NC inputs are used
 
 128-129:
 	Comparator byte (results from high-speed analog inputs or VDI specification)
@@ -6915,12 +6961,12 @@ Related to:
 	MD26006 $MC_NIBBLE_PUNCH_INMASK[n]
 
 References:
-	/FB/, A4, Digital and Analog NCK I/Os
+	/FB/, A4, Digital and Analog NC I/Os
 
 The signal is high active as default from software 3.2. That is there is wire break monitoring. If the signal is low active then, e.g., the MD must be set to the value MD ="H 0001 0001" for the outboard inputs.
 </description>
 </parameter>
-<parameter number="26002" type="DWORD" dim="0" display="HEX">
+<parameter number="26002" type="UDWORD" dim="0" display="HEX">
 <name>PUNCHNIB_ASSIGN_FASTOUT</name>
 <brief>Hardware assignment for output byte for stroke control</brief>
 <description>This data defines which output byte is to be used for the stroke control.
@@ -6935,16 +6981,16 @@ Possible inputs:
 	840D on-board outputs (4 high-speed + 4 bits via VDI specification)
 
 2, 3, 4, 5
-	External digital outputs (high-speed NCK O/I or VDI specification)
+	External digital outputs (high-speed NC O/I or VDI specification)
 
 Related to:
 	MD26004 $MC_NIBBLE_PUNCH_OUTMASK[n]
 
 References:
-	/FB/, A4, Digital and Analog NCK I/Os
+	/FB/, A4, Digital and Analog NC I/Os
 </description>
 </parameter>
-<parameter number="26004" type="BYTE" dim="1" display="HEX">
+<parameter number="26004" type="UBYTE" dim="1" display="HEX">
 <name>NIBBLE_PUNCH_OUTMASK</name>
 <brief>Mask for fast output bits</brief>
 <description>Mask for high-speed output bits for punching and nibbling.
@@ -6960,7 +7006,7 @@ Related to:
 	MD26002 $MC_PUNCHNIB_ASSIGN_FASTOUT
 </description>
 </parameter>
-<parameter number="26006" type="BYTE" dim="1" display="HEX">
+<parameter number="26006" type="UBYTE" dim="1" display="HEX">
 <name>NIBBLE_PUNCH_INMASK</name>
 <brief>Mask for fast input bits</brief>
 <description>This data can define up to 8 byte masks for the output of the high-speed bits.
@@ -7009,7 +7055,7 @@ Related to:
 	MD26012 $MC_PUNCHNIB_ACTIVATION
 </description>
 </parameter>
-<parameter number="26010" type="DWORD" dim="0" display="HEX">
+<parameter number="26010" type="UDWORD" dim="0" display="HEX">
 <name>PUNCHNIB_AXIS_MASK</name>
 <brief>Definition of punching and nibbling axes</brief>
 <description>Defines the axes involved in punching and nibbling. That is all the axes defined here must be at rest during punching and nibbling.
@@ -7096,7 +7142,7 @@ Example:
 1:	Alarm, when the punching signal is irregular between strokes
 </description>
 </parameter>
-<parameter number="27100" type="DWORD" dim="0" display="HEX">
+<parameter number="27100" type="UDWORD" dim="0" display="HEX">
 <name>ABSBLOCK_FUNCTION_MASK</name>
 <brief>Parameterize basic blocks with absolute values</brief>
 <description>Parameterization of the "basic blocks with absolute values" function
@@ -7190,17 +7236,9 @@ MD = 3:	Nibbling
 MD = 4:	...
 
 (Enter additional technologies as and when required.)
-Selection of technologies for display and operational purposes (HMI)
-0:	Milling
-1:	Turning
-2:	Grinding
-	21:	External cylindrical grinding
-	22:	Surface grinding
-3:	Nibbling
-This provides images and softkeys in the HMI which are relevant to the selected technologyI.
 </description>
 </parameter>
-<parameter number="27850" type="DWORD" dim="0" display="HEX">
+<parameter number="27850" type="UDWORD" dim="0" display="HEX">
 <name>PROG_NET_TIMER_MODE</name>
 <brief>Impact of the program runtime net counter</brief>
 <description>The program run time is measured using system variables and can be read out. It provides a means of outputting the current progress of the processing of a part program. This MD can be used to make the following settings on a channel-specific basis:
@@ -7219,7 +7257,7 @@ Bits 2 to 31
 	Reserved
 </description>
 </parameter>
-<parameter number="27860" type="DWORD" dim="0" display="HEX">
+<parameter number="27860" type="UDWORD" dim="0" display="HEX">
 <name>PROCESSTIMER_MODE</name>
 <brief>Activation and impact of program runtime measurement</brief>
 <description>Timers are provided as system variables under the function program runtime. While the NCK-specific timers are always activated (for time measurements since the last control power on), the channel-specific timers have to be started via this machine data.
@@ -7272,7 +7310,7 @@ Bits 10 to 31
 	Reserved
 </description>
 </parameter>
-<parameter number="27880" type="DWORD" dim="0" display="HEX">
+<parameter number="27880" type="UDWORD" dim="0" display="HEX">
 <name>PART_COUNTER</name>
 <brief>Activation of workpiece counter</brief>
 <description>The part counters can be configured with this machine data.
@@ -7436,7 +7474,7 @@ FRAME               400 bytes
 <brief>Memory space for local user variables (DRAM)</brief>
 <description>This MD defines the amount of memory space available for LUD variables.
 The maximum number of available LUDs is given by one of the limit values of MD28020 $MC_MM_NUM_LUD_NAMES_TOTAL or MD28040 $MC_MM_LUD_VALUES_MEM.
-The memory defined here is subdivided into (MD28040 $MC_MM_LUD_VALUES_MEM * 1024) / MD18242 $MN_MM_MAX_SIZE_OF_LUD_VALUE blocks, and allocated to part programs which request memory. Each part program that contains at least one definition of an LUD variable or call parameters uses at least one such block.
+The memory defined here is subdivided into (MD28040 $MC_MM_LUD_VALUES_MEM * 1024) / MD18242 $MN_MM_MAX_SIZE_OF_LUD_VALUE groups, and allocated to part programs which request memory. Each part program that contains at least one definition of an LUD variable or call parameters uses at least one such group.
 It should be remembered that several part programs requiring memory can be open simultaneously in the NCK. The number depends on the type of programming, the program length, and the size of the internal NCK block memory upwards of (MD28060 $MC_MM_IPO_BUFFER_SIZE, MD28070 $MC_MM_NUM_BLOCKS_IN_PREP).
 
 Related to:
@@ -7519,7 +7557,7 @@ The value corresponds to the number of field elements for the predefined field $
 Buffered memory is reserved for this.
 </description>
 </parameter>
-<parameter number="28082" type="DWORD" dim="0" display="HEX">
+<parameter number="28082" type="UDWORD" dim="0" display="HEX">
 <name>MM_SYSTEM_FRAME_MASK</name>
 <brief>System frames (SRAM)</brief>
 <description>Bit mask for configuring channel-specific system frames included in the channel.
@@ -7538,7 +7576,7 @@ Bit 10:	System frame $P_ISO4FR for ISO G51 Scale
 Bit 11:     System frame $P_RELFR for relative coordinate systems
 </description>
 </parameter>
-<parameter number="28083" type="DWORD" dim="0" display="HEX">
+<parameter number="28083" type="UDWORD" dim="0" display="HEX">
 <name>MM_SYSTEM_DATAFRAME_MASK</name>
 <brief>System frames (SRAM)</brief>
 <description>Bit mask for configuring channel-specific system frames in the data storage (SRAM).
@@ -7587,7 +7625,7 @@ In the case of software version 2, approximately 1.2KB of dynamic memory is requ
 <brief>Heap memory in kbytes for compile-cycle applications (DRAM)</brief>
 <description>Size of the heap memory in kbytes which can be used by the compile cycle user.
 Dynamic memory is reserved.
-The memory is allocated in subdivisions of 128 byte blocks.
+The memory is allocated in subdivisions of 128 byte groups.
 The start address and the size of the reserved memory is made available via a binding, the management lies in the hands of the CC user.
 </description>
 </parameter>
@@ -7848,24 +7886,66 @@ Reserved for SIEMENS applications.
 <description>The function "Tool radius compensation for contour tools" is enabled with this tool.
 </description>
 </parameter>
+<parameter number="28291" type="BOOLEAN" dim="0">
+<name>MM_SMOOTH_SURFACE_NORMALS</name>
+<brief>Enable interpolation of the surface normals via polynomials.</brief>
+<description>This machine data enables the handling of surface normals with polynomials. It is needed, among other things, for smoothing the surface normals with the COMPSURF function.
+</description>
+</parameter>
 <parameter number="28300" type="BOOLEAN" dim="1">
 <name>MM_PROTOC_USER_ACTIVE</name>
 <brief>Activation of logging for a user</brief>
 <description>Activation of recording for a user.
-The users 0 and 1, and 5 - 9 are reserved for system functions.
-The users 2, 3 and 4 can be used by OEM.
+Users 0 and 1, and 5 to 9 are reserved for system functions.
+Users 2, 3 and 4 can be used by OEM.
+
+The individual values concern the users of the log function, the values are assigned to the following functions:
+0: Reserved for system functions: simultaneous recording, simulation, synchronized action analysis
+1: Reserved for system functions: determining program runtimes, multistep editor
+2: Reserved for OEM applications
+3: Reserved for OEM applications
+4: Reserved for OEM applications
+5: Reserved for system functions: Trace
+6: Reserved for system functions: Trace
+7: Reserved for system functions: Trace
+8: Reserved for system functions: Trace
+9: Reserved for system functions: Action log
 </description>
 </parameter>
 <parameter number="28301" type="DWORD" dim="1">
 <name>MM_PROTOC_NUM_ETP_OEM_TYP</name>
 <brief>Number of OEM event types ETP.</brief>
 <description>Number of OEM event types in OPI module ETP.
+
+The individual values concern the users of the log function, which are assigned to the following functions:
+0: Reserved for system functions: simultaneous recording, simulation, synchronized action analysis
+1: Reserved for system functions: determining program runtimes, multistep editor
+2: Reserved for OEM applications
+3: Reserved for OEM applications
+4: Reserved for OEM applications
+5: Reserved for system functions: Trace
+6: Reserved for system functions: Trace
+7: Reserved for system functions: Trace
+8: Reserved for system functions: Trace
+9: Reserved for system functions: Action log
 </description>
 </parameter>
 <parameter number="28302" type="DWORD" dim="1">
 <name>MM_PROTOC_NUM_ETP_STD_TYP</name>
 <brief>Number of standard event types ETP</brief>
 <description>Number of standard event types required in the ETP OPI block.
+
+The individual values concern the users of the log function, which are assigned to the following functions:
+0: Reserved for system functions: simultaneous recording, simulation, synchronized action analysis
+1: Reserved for system functions: determining program runtimes, multistep editor
+2: Reserved for OEM applications
+3: Reserved for OEM applications
+4: Reserved for OEM applications
+5: Reserved for system functions: Trace
+6: Reserved for system functions: Trace
+7: Reserved for system functions: Trace
+8: Reserved for system functions: Trace
+9: Reserved for system functions: Action log
 </description>
 </parameter>
 <parameter number="28400" type="DWORD" dim="0">
@@ -7932,9 +8012,11 @@ Note:
 <name>MM_MAX_AXISPOLY_PER_BLOCK</name>
 <brief>Maximal number of axial polynomials per block</brief>
 <description>Maximum number of axis polynomials which can be contained in a block.
-In the standard case, each block only contains one polynomial per axis, i.e. this data can immediately be set to one.
-Currently, more polynomials are only needed for the new ADIS function with G643.
-In this case, this data must have a minimum value of three.
+In the standard case, each block contains only one polynomial per axis, i.e. this data can be set to 1 immediately.
+More polynomials are required in the following cases:
+This data must have a value of at least 3 for smoothing with G642 to G645.
+A value of 5 is recommended if COMPCAD (Advanced Surface) is used.
+A value of 15 is recommended if COMPSURF is used.
 </description>
 </parameter>
 <parameter number="28530" type="DWORD" dim="0">
@@ -7957,11 +8039,12 @@ The following values are recommended:
 5:	for G643 and G644, if geometry and rotary axes are traversed
 5:	for COMPCAD
 5:	for dyn. transformation
+8:	for COMPSURF
 
-A value that is too low this may lead to additional velocity limitations if a sufficient number of blocks cannot be made available for interpolation.
-MD28530 $MC_MM_PATH_VELO_SEGMENTS additionally increases the memory requirement of dyn. Look Ahead. Values higher than 5 are only practical in exceptional cases.
+A value that is too low may lead to additional velocity limitations if a sufficient number of blocks cannot be made available for interpolation.
+MD28530 $MC_MM_PATH_VELO_SEGMENTS additionally increases the memory requirement of dyn. Look Ahead. Values higher than 8 are only practical in exceptional cases.
 
-3 ... 5   :
+3 ... 8 :
 	Recommended setting.
 </description>
 </parameter>
@@ -7978,7 +8061,7 @@ The MD should only be set for those channels in which free-form surfaces are als
 0   : default LookAhead is active.
 &gt; 0 : extended LookAhead is active if switched on by MD20443 $MC_LOOKAH_FFORM.
 
-The guide value for free-form surface applications is: 18..20
+The set value for free-form surface applications is: 18.
 
 </description>
 </parameter>
@@ -8002,12 +8085,13 @@ If, for example, a feed profile is to be activated in which there is deceleratio
 <brief>Number of memory elements for arc length function representation</brief>
 <description>Number of memory elements available for the arc length function for parameterizing polynomials.
 If this machine data is equal to zero, a fixed interval division is used to represent the arc length function. In this case, the calculated function is only tangent-continuous. This can lead to discontinuities in the axis accelerations.
-If the function G643 or G644 is used for smoothing and/or COMPCAD, this MD should be assigned a value of at least 10. In this case, the calculated function also has a constant curvature which results in a smoother progression of the path velocity, as well as the axis velocities and accelerations.
-Values substantially larger than 10 are only practical in exceptional cases.
-Not only the value of MD28540 $MC_MM_ARCLENGTH_SEGMENTS but also that of MD20262 $MC_SPLINE_FEED_PRECISION are crucial for the accuracy.
+If the function G643 or G644 is used for smoothing and/or COMPCAD or COMPSURF, this MD should be assigned a value of at least 10. In this case, the function also has a constant curvature which results in a smoother progression of the path velocity, as well as the axis velocities and accelerations.
+A value of 10 is sufficient when using COMPSURF and 3-axis applications.
+Up to 20 may be useful for COMPSURF and 5-axis applications.
+Not only the value of MD28540 $MC_MM_ARCLENGTH_SEGMENTS but also that of MD20262 $MC_SPLINE_FEED_PRECISION are crucial for accuracy.
 </description>
 </parameter>
-<parameter number="28560" type="DWORD" dim="0" display="HEX">
+<parameter number="28560" type="UDWORD" dim="0" display="HEX">
 <name>MM_SEARCH_RUN_RESTORE_MODE</name>
 <brief>Data restore after simulation</brief>
 <description>Bit mask to restore data after cancelation of a simulated program execution. The following applies:
@@ -8041,7 +8125,7 @@ If this MD is &lt; 4 and if G code ORISON is programmed, alarm 10982 will be dis
 <parameter number="28600" type="DWORD" dim="0" display="DECIMAL">
 <name>MM_NUM_WORKAREA_CS_GROUPS</name>
 <brief>Number of coordinate system-specific operating range limits</brief>
-<description>Number of data blocks in the channel that are created for coordinate system-specific operating range limits.
+<description>Number of data sets in the channel that are created for coordinate system-specific operating range limits.
 It indicates the maximum value of the 1st index of system variable $P_WORKAREA_CS...[WALimNo, Ax]. It furthermore defines the number of the programmable G functions "WALCS1, WALCS2, ... WALCS10" as well as the maximum value of the system variable $AC_WORKAREA_CS_GROUP".
 = 0:	Function "Monitoring of coordinate system-specific operating range limits" cannot be activated.
 </description>
@@ -8051,6 +8135,12 @@ It indicates the maximum value of the 1st index of system variable $P_WORKAREA_C
 <brief>Number of blocks for velocity preparation</brief>
 <description>This MD is used to define the number of blocks that are considered when defining the path velocity (velocity preparation). If the value of this MD is zero, only the relevant axis motions are considered in this block in order to define the maximum path velocity of a block. If the geometry in adjacent blocks is also considered when defining the path velocity, the path velocity will be more homogenous.
 
+</description>
+</parameter>
+<parameter number="28620" type="DWORD" dim="0">
+<name>MM_NUM_FEATURE_BLOCKS</name>
+<brief>No. blocks for look-ahead characteristic recognition e.g. slot recognition.</brief>
+<description>Indicates the minimum number of blocks that are considered simultaneously for characteristic recognition.
 </description>
 </parameter>
 </info>

@@ -12,12 +12,12 @@ Special cases:
 - The input machine axis name must not conflict with the names and assignments of the geometry axes (MD20060 $MC_AXCONF_GEOAX_NAME_TAB, MD20050 $MC_AXCONF_GEOAX_ASSIGN_TAB) and channel axes (MD20080 $MC_AXCONF_CHANAX_NAME_TAB, MD20070 $MC_AXCONF_MACHAX_USED).
 
 The input machine axis name must not conflict with
-Names for Euler angle (MD10620 $MN_EULER_ANGLE_NAME_TAB)
-Names for path-relevant orientation (MD10624 $MN_ORIPATH_LIFT_VECTOR_TAB)
+Names for Euler angles (MD10620 $MN_EULER_ANGLE_NAME_TAB)
+Names for path-relevant orientations (MD10624 $MN_ORIPATH_LIFT_VECTOR_TAB)
 Names for normal vectors (MD10630 $MN_NORMAL_VECTOR_NAME_TAB)
 Names for direction vectors (MD10640 $MN_DIR_VECTOR_NAME_TAB)
 Names for rotation vectors (MD10642 $MN_ROT_VECTOR_NAME_TAB)
-Names for intermediate vector component (MD10644 $MN_INTER_VECTOR_NAME_TAB)
+Names for intermediate vector components (MD10644 $MN_INTER_VECTOR_NAME_TAB)
 Names for intermediate circle point coordinates for CIP (MD10660 $MN_INTERMEDIATE_POINT_NAME_TAB)
 Names for interpolation parameters (MD10650 $MN_IPO_PARAM_NAME_TAB).
 
@@ -32,20 +32,13 @@ S Spindle speed      (S function)          T Tool (T function)
 
 The name must not include any keywords (e.g. DEF, SPOS etc.) or pre-defined identifiers (e.g. ASPLINE, SOFT).
 
-The use of an axis identifier consisting of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), followed by an optional numerical extension (1-99) gives slightly better block cycle times than a general identifier.
+The use of an axis identifier consisting of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), followed by an optional numerical extension (1-99) gives slightly better block change times than a general identifier.
 
 If no identifier is assigned to a machine axis, the predefined name ("AXn") applies to the nth machine axis).
 
-Corresponds with....
+Related to....
 	MD20060 $MC_AXCONF_GEOAX_NAME_TAB (geometry axis name in the channel [GEOAxisno.]
 	MD20080 $MC_AXCONF_CHANAX_NAME_TAB (channel axis name in the channel [Channelaxisno.]
-The name of the machine axis is entered in this MD.
--	An axis identifier consisting of a valid address letter (A, B, C, Q, U, V, W, X, Y, Z),
-followed by an optional numerical extension (1-99) should preferably be used.
--	The machine axis identifier selected must not be the same as any name of a geometry axis (X, Y, Z) or other channel axis (MD20080 $MC_AXCONF_CHANAX_NAME_TAB if a transformation (e.g.: TRANSMIT) is going to be used.
-Note: Transformations are not available in software version P1 with SINUMERIK 802D.
--	A "freely" entered machine axis identifier (axis name) must not be a name, address, keyword or predefied identifier that is already being used in the control or is reserved for any functionality (e.g.: SPOS, DIAMON, ...)
-Note: The complete functionality of the SINUMERIK control system with 802D has not been documented. A free axis name can therefore only be used conditionally.
 </description>
 </parameter>
 <parameter number="10002" type="STRING" dim="1">
@@ -243,7 +236,7 @@ Display of the interpolator cycle time
 Numerical values less than 1 downscale the IPO cycle. This value is adjusted so that only runtimes that are a multiple of the position controller time are possible for the communication task. A call period of about 10 ms is practical for the communication task.
 </description>
 </parameter>
-<parameter number="10073" type="DWORD" dim="0" display="HEX">
+<parameter number="10073" type="UDWORD" dim="0" display="HEX">
 <name>COM_IPO_STRATEGY</name>
 <brief>Strategy for activation of communication.</brief>
 <description>The call frequency of the communication task can be controlled by MD10072 $MN_COM_IPO_TIME_RATIO.
@@ -314,12 +307,12 @@ This machine data specifies the maximum monitoring time after which the PLC must
 </parameter>
 <parameter number="10110" type="DOUBLE" dim="0">
 <name>PLC_CYCLE_TIME_AVERAGE</name>
-<brief>Average PLC acknowledgement time</brief>
+<brief>Average PLC acknowledgment time</brief>
 <description>Time information for the CNC about the OB1 cycle time. During this cycle time, it is guaranteed that the auxiliary functions will be acknowledged.
 By means of the MD, the status transitions:
 "channel operates/ channel in RESET/ channel failure --&gt; channel interrupted" can be delayed for the PLC in case of a RESET. With the output "channel interrupted", the NCK waits at least the time indicated in the MD + 1 IPO cycle.
 
-With the time indication, the path feedrate during path control operation in case of an auxiliary function output during motion is controlled in a way to ensure that the minimum travel time corresponds to the time information. This ensures a uniform velocity behavior which is not disturbed by waiting for the PLC acknowledgement. The internal incrementation is performed in the interpolation cycle.
+With the time indication, the path feedrate during path control operation in case of an auxiliary function output during motion is controlled in a way to ensure that the minimum travel time corresponds to the time information. This ensures a uniform velocity behavior which is not disturbed by waiting for the PLC acknowledgment. The internal incrementation is performed in the interpolation cycle.
 For the auxiliary function output in the continuous-path mode, the MD is also relevant for the FM357 and 802/802s systems. With SW 5.1 and higher, the other systems are parameterized directly via the PLC.
 </description>
 </parameter>
@@ -388,7 +381,7 @@ Condition: The function "Execution from External Storage" is active.
 <name>TIME_LIMIT_NETTO_COM_TASK</name>
 <brief>Runtime limitation of communication to HMI</brief>
 <description>Net runtime limit of the communication sub-task
-Preprocessing and the communications task share the time that is not used up by the cyclical tasks. Of this remaining time, communication uses the set time at the expense of preprocessing time; in other words, the net block cycle time is increased by the set value. This machine data serves the purpose of optimizing the block cycle time with the function "Reloading part programs block-by-block".
+Preprocessing and the communications task share the time that is not used up by the cyclical tasks. Of this remaining time, communication uses the set time at the expense of preprocessing time; in other words, the net block change time is increased by the set value. This machine data serves the purpose of optimizing the block change time with the function "Reloading part programs group-by-group".
 </description>
 </parameter>
 <parameter number="10131" type="BYTE" dim="0">
@@ -408,8 +401,8 @@ The pre-processing and display update compete for NC computing time. The MD defi
 <description>Monitoring time in seconds until the HMI acknowledges a command from the part program.
 
 The following times are monitored:
-- In the case of an HMI command without acknowledgement: time from triggering the transfer of the command string until successful transmission to the HMI
-- In the case of an HMI command with synchronous and asynchronous acknowledgement: time from triggering the transfer of the command strings until receipt of the acceptance acknowledgement from the HMI
+- In the case of an HMI command without acknowledgment: time from triggering the transfer of the command string until successful transmission to the HMI
+- In the case of an HMI command with synchronous and asynchronous acknowledgment: time from triggering the transfer of the command strings until receipt of the acceptance acknowledgment from the HMI
 - For EXTCALL command and execution from external drives: time between the transmission triggering of the command string and the successful sending to the HMI.
 </description>
 </parameter>
@@ -442,7 +435,7 @@ References:       /FB/, S7,  "Memory Configuration"
 </parameter>
 <parameter number="10136" type="DWORD" dim="0">
 <name>DISPLAY_MODE_POSITION</name>
-<brief>Display mode for actual position in the work</brief>
+<brief>Display mode for actual position in the Work</brief>
 <description>Defines how the position and the distance to go are displayed in the Work.
 0:	Display as in software version 5 and earlier
 1:	At end of block, the actual value display is in principle the same as the programmed end point, irrespective of where the machine actually is (e.g. as a result of the tool radius compensation). The distance to go is the same as the actual distance to be traversed. This means that the displayed actual postion has to be the same as the displayed end position minus the distance to go, irrespective of the actual machine position. If the block end points are changed by chamfers, radii, contour definitions, splines or SAR in comparison to the NC programm, then these changes are reflected in the display as if thay had been programmed. This does not apply to changes resulting from tool radius compensation or smoothing.
@@ -458,7 +451,7 @@ The preprocessing and the communications tasks (drive communication and domain s
 <parameter number="10150" type="DWORD" dim="0">
 <name>PREP_DRIVE_TASK_CYCLE_RATIO</name>
 <brief>Factor for communication with drive</brief>
-<description>This machine data specifies the division ratio used for activation of the drive communication task in the non-cyclic time level. This allows the time share of preparation in the non-cyclic time level to be increased, which reduces block cycle times. Communication with the digital drives is slowed down in particular during program execution.
+<description>This machine data specifies the division ratio used for activation of the drive communication task in the non-cyclic time level. This allows the time share of preparation in the non-cyclic time level to be increased, which reduces block change times. This slows down communication with the digital drives, especially during program execution.
 </description>
 </parameter>
 <parameter number="10156" type="DWORD" dim="0">
@@ -511,7 +504,7 @@ Value 1: The following information is collected for each channel in each cycle o
 <parameter number="10160" type="DWORD" dim="0">
 <name>PREP_COM_TASK_CYCLE_RATIO</name>
 <brief>Factor for communication with HMI</brief>
-<description>This machine data specifies the division ratio used for activating the communication task in the non-cyclic time level. This allows the time share of preparation in the non-cyclic time level to be increased, which reduces block cycle times. External communication (file transfer) is slowed down in particular during program execution (block reload).
+<description>This machine data specifies the division ratio used for activating the communication task in the non-cyclic time level. This allows the time share of preparation in the non-cyclic time level to be increased, which reduces block change times. This slows down external communication (file transfer), especially during program execution (group-by-group reload).
 </description>
 </parameter>
 <parameter number="10161" type="DWORD" dim="1">
@@ -525,7 +518,7 @@ Value 1: The following information is collected for each channel in each cycle o
 
  Values 4-8 define the credit assignment for optimized download.
 
-4th	value: number of PDUs that are assigned as credit at the begin of acknowledgement under opt. domain service (here, the file header and therefore the file on NCK are still unknown)
+4th	value: number of PDUs that are assigned as credit at the begin of acknowledgment under opt. domain service (here, the file header and therefore the file on NCK are still unknown)
 5th	value: number of PDUs that will be requested by default under opt. domain service, if there is no explicit memory limit for the file
 6th	value: min. number of PDUs that are requested with the data request message (so that data request messages are not displayed again and again)
 7th	value: max. number of PDUs that are requested with the data request message (max. value is 255, as the log cannot handle more than that!)
@@ -645,7 +638,7 @@ The accuracy of the input of angular positions is limited to the calculation acc
 In order to keep the executed rounding easily understandable it is useful to use powers of 10 for the calculation accuracy.
 </description>
 </parameter>
-<parameter number="10220" type="DWORD" dim="0" display="HEX">
+<parameter number="10220" type="UDWORD" dim="0" display="HEX">
 <name>SCALING_USER_DEF_MASK</name>
 <brief>Activation of scaling factors</brief>
 <description>Bit mask for selecting the base values for the data (e.g. machine and setting data) that have a physical unit, they are interpreted in the default units shown below according to the basic system (metric/inch). If other input/output units are to be selected for individual physical units then these are activated with the scale factors associated with this machine data (entered in MD10230 $MN_SCALING_FACTORS_USER_DEF[n]).
@@ -673,7 +666,7 @@ Bit no.                            1 = METRIC          0 = INCH
 10 Revolutional feedrate             1 mm/rev          1 mm/rev
 11 Compensation value linear pos.    1 mm              1 mm
 12 Compensation value angular pos.   1 degree          1 degree
-13 Cutting rate                      1 m/min           1 feet/min
+13 Cutting speed                      1 m/min           1 feet/min
 Example:
 SCALING_USER_DEF_MASK =?H3?; (Bit nos. 0 and 1 as hex values)
 The scale factor defined in the associated MD10230 $MN_SCALING_FACTORS_USER_DEF[n] is activated for linear and angular positions.
@@ -719,7 +712,7 @@ Related to:
 <brief>Basic system metric</brief>
 <description>The MD defines the basic system used by the control for scaling length-dependent physical variables for data input/output.
 All corresponding data are stored internally in the basic units of 1 mm, 1 degree and 1 sec.
-In the case of access from the interpreter ( part program and download ), from the operator panel ( variable service ) or through external communication, scaling takes place in the following units:
+In the case of access from the interpreter (part program and download), from the operator panel (variable service) or through external communication, scaling takes place in the following units:
 MD10240 $MN_SCALING_SYSTEM_IS_METRIC = 1: scaled in:
 mm, mm/min, m/s2 , m/s3, mm/rev.
 MD10240 $MN_SCALING_SYSTEM_IS_METRIC = 0: scaled in:
@@ -762,7 +755,7 @@ Proceed as follows:
 If the machine data are altered, alarm 4070 "Scaling machine data altered" is output.
 
 Application example(s):
-This conversion factor is used if a changeover is made from metric to inch or a customized measuring system. Then all the input machine data, among other things, are converted by this factor. The converted values are then given at the next read out and on the operator panel.
+This conversion factor is used if after setup a changeover is made from the metric system to inches or a customized measuring system. Then all the input machine data, among other things, are converted by this factor. The converted values are then given at the next read out and on the operator panel.
 
 Related to:
 	MD10240 $MN_SCALING_SYSTEM_IS_METRIC
@@ -822,32 +815,32 @@ SD41506 $SN_SW_CAM_MINUS_POS_TAB_4
 SD41507 $SN_SW_CAM_PLUS_POS_TAB_4
 </description>
 </parameter>
-<parameter number="10280" type="DWORD" dim="0" display="HEX">
+<parameter number="10280" type="UDWORD" dim="0" display="HEX">
 <name>PROG_FUNCTION_MASK</name>
-<brief>Bit screen form to parameterize various part program commands</brief>
-<description>Bit screen form to parameterize various part program commands
+<brief>Bit mask to parameterize various part program commands</brief>
+<description>Bit mask to parameterize various part program commands
 
 Bit	Hexadec.	Meaning with bit set
 	Value
 
-0:	0x1		Comparison commands "&gt;" and "&lt;" are processed as for SW 6.3 and earlier:
-			Sub-program data of the type REAL are mapped internally in the IEEE 64 bit format. This mode maps decimal numbers inaccurately if this format's 52-bit wide mantissa is inadequate to map the number in binary notation. To solve this problem, all comparison commands ( ==, &lt;&gt;, &gt;=, &lt;=, &gt; and &lt; ) are checked for relative equality of 1E-12.
+0:	0x1		Comparison commands "&gt;" and "&lt;" are processed as with SINUMERIK 840D:
+			Part program data of the type REAL are mapped internally in the IEEE 64 bit format. This mode maps decimal numbers inaccurately if this format's 52-bit wide mantissa is inadequate to map the number in binary notation. To solve this problem, all comparison commands ( ==, &lt;&gt;, &gt;=, &lt;=, &gt; and &lt; ) are checked for relative equality of 1E-12.
 
-			This procedure is deactivated for greater than (&gt;) and less than ( &lt; ) comparisons by setting bit 0. (Compatibility setting for software releases earlier than SW 6.4)
+			This procedure is deactivated for greater than (&gt;) and less than ( &lt; ) comparisons by setting bit 0. (Compatibility setting for SINUMERIK 840D)
 
 1:	0x2		Programming the channel names from machine data MD20000 $MC_CHAN_NAME
-			By setting bit 1, the channel name stored in machine data MD20000 $MC_CHAN_NAME can be programmed in the part program. The channel name can thus also be programmed instead of a numerical value for the channel number in programming coordination commands such as (START(), INIT(), WAIT() etc.
+			By setting bit 1, the channel name stored in machine data MD20000 $MC_CHAN_NAME can be programmed in the part program. The channel name can thus also be programmed instead of a numerical value for the channel number in programming coordination commands such as (START(), INIT(), WAIT() etc.)
 
-2:	0x4		reserved
+2:	0x4		Reserved
 
 3:	0x8		Convert illegal ASCII characters into blanks
-			By setting bit3, the previous behavior when interpreting a part program block is activated. This means that all invalid ASCII characters in a part program block are internally handled as blank.
+			By setting bit3, the previous behavior is activated when interpreting a part program block. This means that all invalid ASCII characters in a part program block are handled internally as blank.
 
-4:	0x10		The wait time G4 F&lt;wait time&gt; is rounded off as a multiple integer of an Ipo cycle.
-			This means that a G4 F0.001 only takes one cycle, for an Ipo cycle of 1 msec.
+4:	0x10		The wait time G4 F&lt;wait time&gt; is rounded off as a multiple integer of an IPO cycle.
+			This means that a G4 F0.001 only takes one cycle, for an IPO cycle of 1 msec.
 </description>
 </parameter>
-<parameter number="10284" type="DWORD" dim="0" display="HEX">
+<parameter number="10284" type="UDWORD" dim="0" display="HEX">
 <name>DISPLAY_FUNCTION_MASK</name>
 <brief>Behavior of various display variables</brief>
 <description>Bit mask for parameterizing various display variables:
@@ -955,40 +948,40 @@ Related to:
 </parameter>
 <parameter number="10300" type="BYTE" dim="0">
 <name>FASTIO_ANA_NUM_INPUTS</name>
-<brief>Number of active analog NCK inputs</brief>
-<description>This machine data defines the number of usable analog NCK inputs on the control.
+<brief>Number of active analog NC inputs</brief>
+<description>This machine data defines the number of usable analog NC inputs on the control.
 
-Only these analog NCK inputs can be addressed by the NC part program or assigned by NC functions.
+Only these analog NC inputs can be addressed by the NC part program or assigned by NC functions.
 
-If more analog NCK inputs are defined with the machine data than are available in the hardware of the control, the binary analog actual value is set to zero in the control for the inputs that do not exist in the hardware. The NCK value can be altered by the PLC.
+If more analog NC inputs are defined with the machine data than are available in the hardware of the control, the binary analog actual value is set to zero in the control for the inputs that do not exist in the hardware. The NCK value can be altered by the PLC.
 
 Note:
-	CPU computing time on the interpolation level is required for processing the digital and analog NCK I/Os. The number of active NCK I/Os should therefore be limited to the demands of the machine so that the interpolation cycle time is not unnecessarily loaded.
+	CPU computing time on the interpolation level is required for processing the digital and analog NC I/Os. The number of active NC I/Os should therefore be limited to the demands of the machine so that the interpolation cycle time is not unnecessarily loaded.
 </description>
 </parameter>
 <parameter number="10310" type="BYTE" dim="0">
 <name>FASTIO_ANA_NUM_OUTPUTS</name>
-<brief>Number of active analog NCK outputs</brief>
-<description>This machine data defines the number of usable analog NCK outputs on the control.
+<brief>Number of active analog NC outputs</brief>
+<description>This machine data defines the number of usable analog NC outputs on the control.
 
-Only these analog NCK outputs can be addressed by the NC part program or assigned by NC functions.
+Only these analog NC outputs can be addressed by the NC part program or assigned by NC functions.
 
-If more analog NCK outputs are defined with the machine data than are available in the hardware of the control, no alarm is triggered. The analog values specified by the part program can be read by the PLC.
+If more analog NC outputs are defined with the machine data than are available in the hardware of the control, no alarm is triggered. The analog values specified by the part program can be read by the PLC.
 
 Note:
-	CPU computing time on the interpolation level is required for processing the digital and analog NCK I/Os. The number of active NCK I/Os should therefore be limited to the demands of the machine so that the interpolation cycle time is not unnecessarily loaded.
+	CPU computing time on the interpolation level is required for processing the digital and analog NC I/Os. The number of active NC I/Os should therefore be limited to the demands of the machine so that the interpolation cycle time is not unnecessarily loaded.
 </description>
 </parameter>
 <parameter number="10320" type="DWORD" dim="1">
 <name>FASTIO_ANA_INPUT_WEIGHT</name>
-<brief>Weighting factor for analog NCK inputs</brief>
-<description>A weighting factor can be defined with this MD for each analog NCK input [n] to enable adaptation to the various analog-to-digital converters (depending on the I/O module).
+<brief>Weighting factor for analog NC inputs</brief>
+<description>A weighting factor can be defined with this MD for each analog NC input [n] to enable adaptation to the various analog-to-digital converters (depending on the I/O module).
 
 The value to be entered in this machine data is the value that is to be read in the part program with the command x = $A_INA[n] if the associated analog input [n] is set to the maximum value or the value +32767 is defined for this input via the PLC interface.
 
 The value read from the analog-to-digital converter or the PLC interface is multiplied by the factor (FASTIO_ANA_INPUT_WEIGHT / 32767) before it can be read in the part program with the system variable $A_INA[n].
 
-Use of the weighting factor for "Analog NCK inputs without hardware": with a weighting factor of 32767, the values defined by the part program and the PLC are numerically identical (1:1 communication between part program and PLC). This is advantageous when the analog NCK inputs/outputs are used purely as PLC inputs/outputs without analog hardware.
+Use of the weighting factor for "Analog NC inputs without hardware": with a weighting factor of 32767, the values defined by the part program and the PLC are numerically identical (1:1 communication between part program and PLC). This is advantageous when the analog NC inputs/outputs are used purely as PLC inputs/outputs without analog hardware.
 
 Note:
 	The comparator threshold values SD41600 $SN_COMPAR_THRESHOLD_1 and SD41601 $SN_COMPAR_THRESHOLD_2 are also normalized to MD10320 $MN_FASTIO_ANA_INPUT_WEIGHT corresponding to their assignment to an analog input.
@@ -996,69 +989,69 @@ Note:
 	The CC access to analog values is not affected by FASTIO_ANA_INPUT_WEIGHT.
 
 Related to:
-	NC/PLC interface signal &lt;Setzwert_von_PLC_der_analogenNCK-Eingaenge/&gt; (PLC setting value for analog NCK inputs)
+	NC/PLC interface signal &lt;Setzwert_von_PLC_der_analogenNC-Eingaenge/&gt; (PLC setting value for analog NC inputs)
 </description>
 </parameter>
 <parameter number="10330" type="DWORD" dim="1">
 <name>FASTIO_ANA_OUTPUT_WEIGHT</name>
-<brief>Weighting factor for analog NCK outputs</brief>
-<description>A weighting factor can be defined with this MD for each analog NCK output [n] to enable adaptation to the various digital-to-analog converters (depending on the I/O module used).
+<brief>Weighting factor for analog NC outputs</brief>
+<description>A weighting factor can be defined with this MD for each analog NC output [n] to enable adaptation to the various digital-to-analog converters (depending on the I/O module used).
 
 [hw] = Index (0 to 7) for addressing the external analog outputs
 
 The value x to be entered in this machine data is the value that is to effect the maximum set value of the associated analog output [n] when programming $A_OUTA[n] = x in the part program or is to generate the value +32767 in the PLC interface for this output.
 
-Use of the weighting factor for "Analog NCK outputs without hardware": With a weighting factor of 32767, the values defined by the part program and the PLC are numerically identical (1:1 communication between part program and PLC). This is advantageous when the analog NCK outputs are used purely as PLC outputs without analog hardware.
+Use of the weighting factor for "Analog NC outputs without hardware": With a weighting factor of 32767, the values defined by the part program and the PLC are numerically identical (1:1 communication between part program and PLC). This is advantageous when the analog NC outputs are used purely as PLC outputs without analog hardware.
 
 Related to:
-	NC/PLC interface signal &lt;Setzwert_von_PLC_der_analogenNCK-Ausgaenge/&gt; (PLC setting value for analog NCK outputs)
-	NC/PLC interface signal &lt;Sollwert_der_analogenNCK-Ausgaenge/&gt; (Setpoint for analog NCK outputs)
+	NC/PLC interface signal &lt;Setzwert_von_PLC_der_analogenNC-Ausgaenge/&gt; (PLC setting value for analog NC outputs)
+	NC/PLC interface signal &lt;Sollwert_der_analogenNC-Ausgaenge/&gt; (Setpoint for analog NC outputs)
 </description>
 </parameter>
 <parameter number="10350" type="BYTE" dim="0">
 <name>FASTIO_DIG_NUM_INPUTS</name>
-<brief>Number of active digital NCK input bytes</brief>
-<description>The number of bytes of the digital NCK inputs that can be used on the control are defined in this machine data.
+<brief>Number of active digital NC input bytes</brief>
+<description>The number of bytes of the digital NC inputs that can be used on the control are defined in this machine data.
 
-These digital NCK inputs can be read directly by the part program. Moreover, the signal state at the HW inputs can also be changed by the PLC.
+These digital NC inputs can be read directly by the part program. Moreover, the signal state at the HW inputs can also be changed by the PLC.
 
-If more digital NCK inputs are defined in the machine data than are available in the control hardware, a signal status of 0 is set in the control for the inputs that do not exist in the hardware. The NCK value can be altered by the PLC.
+If more digital NC inputs are defined in the machine data than are available in the control hardware, a signal status of 0 is set in the control for the inputs that do not exist in the hardware. The NCK value can be altered by the PLC.
 
 Related to:
-	NC/PLC interface signal &lt;Sperre_der_digitalenNCK-Eingaenge1-8/&gt; (Disable the digital NCK inputs 1-8);
+	NC/PLC interface signal &lt;Sperre_der_digitalenNC-Eingaenge1-8/&gt; (Disable the digital NC inputs 1-8);
  NC/PLC interface signal &lt;Sperre_der_externen_digitalenEingaenge9-40/&gt; (Disable the external digital inputs 9-40)
-	NC/PLC interface signal &lt;Setzen_der_digitalenNCK-Eingaenge_von_PLC1-9/&gt;(PLC setting for digital NCK inputs 1-9)
+	NC/PLC interface signal &lt;Setzen_der_digitalenNC-Eingaenge_von_PLC1-9/&gt;(PLC setting for digital NC inputs 1-9)
  NC/PLC interface signal &lt;Werte_vonPLCfuer_die_externen_digitalen_Eingaenge9-40/&gt; (PLC values for external digital inputs 9-40)
-	NC/PLC interface signal &lt;Istwert_der_digitalenNCK-Eingaenge/&gt; (Actual value for digital NCK inputs)
+	NC/PLC interface signal &lt;Istwert_der_digitalenNC-Eingaenge/&gt; (Actual value for digital NC inputs)
 </description>
 </parameter>
 <parameter number="10360" type="BYTE" dim="0">
 <name>FASTIO_DIG_NUM_OUTPUTS</name>
-<brief>Number of active digital NCK output bytes</brief>
-<description>The number of bytes for digital NCK outputs that can be used on the control are defined in this machine data.
+<brief>Number of active digital NC output bytes</brief>
+<description>The number of bytes for digital NC outputs that can be used on the control are defined in this machine data.
 
-These digital NCK outputs can be set directly by the part program. The PLC is able to
-- set the digital outputs to "0"  in a defined way with NC/PLC interface signal &lt;Sperre_der_digitalenNCK-Ausgaenge/&gt; (Disable the digital NCK outputs).
-- alter the NCK value with NC/PLC interface signal &lt;Ueberschreibmaske_der_digitalenNCK-Ausgaenge/&gt; (Overwrite mask for digital NCK outputs).
-- specify a PLC value with NC/PLC interface signal &lt;Vorgabemaske_der_digitalenNCK-Ausgaenge/&gt; (Setting mask for digital NCK outputs).
+These digital NC outputs can be set directly by the part program. The PLC is able to
+- set the digital outputs to "0"  in a defined way with NC/PLC interface signal &lt;Sperre_der_digitalenNC-Ausgaenge/&gt; (Disable the digital NC outputs).
+- alter the NCK value with NC/PLC interface signal &lt;Ueberschreibmaske_der_digitalenNC-Ausgaenge/&gt; (Overwrite mask for digital NC outputs).
+- specify a PLC value with NC/PLC interface signal &lt;Vorgabemaske_der_digitalenNC-Ausgaenge/&gt; (Setting mask for digital NC outputs).
 
-If more digital NCK outputs are defined in the machine data than are available in the control hardware, no alarm is triggered. The signal states specified by the part program can be read by the PLC.
+If more digital NC outputs are defined in the machine data than are available in the control hardware, no alarm is triggered. The signal states specified by the part program can be read by the PLC.
 
 Special cases:
-Digital NCK outputs 5 to 8 can be processed only by the PLC (no hardware outputs).
+Digital NC outputs 5 to 8 can be processed only by the PLC (no hardware outputs).
 
 Related to:
-	NC/PLC interface signal &lt;Sperre_der_digitalenNCK-Ausgaenge/&gt; (Disable the digital NCK outputs)
-	NC/PLC interface signal &lt;Ueberschreibmaske_der_digitalenNCK-Ausgaenge/&gt; (Overwrite mask for digital NCK outputs)
-	NC/PLC interface signal &lt;Setzwert_von_PLC_der_digitalenNCK-Ausgaenge/&gt; (PLC setting value for digital NCK outputs)
-	NC/PLC interface signal &lt;Vorgabemaske_der_digitalenNCK-Ausgaenge/&gt; (Setting mask for digital NCK outputs)
-	NC/PLC interface signal &lt;Sollwert_der_digitalenNCK-Ausgaenge/&gt; (Setpoint for digital NCK outputs)
+	NC/PLC interface signal &lt;Sperre_der_digitalenNC-Ausgaenge/&gt; (Disable the digital NC outputs)
+	NC/PLC interface signal &lt;Ueberschreibmaske_der_digitalenNC-Ausgaenge/&gt; (Overwrite mask for digital NC outputs)
+	NC/PLC interface signal &lt;Setzwert_von_PLC_der_digitalenNC-Ausgaenge/&gt; (PLC setting value for digital NC outputs)
+	NC/PLC interface signal &lt;Vorgabemaske_der_digitalenNC-Ausgaenge/&gt; (Setting mask for digital NC outputs)
+	NC/PLC interface signal &lt;Sollwert_der_digitalenNC-Ausgaenge/&gt; (Setpoint for digital NC outputs)
 </description>
 </parameter>
-<parameter number="10361" type="DWORD" dim="1" display="HEX">
+<parameter number="10361" type="UDWORD" dim="1" display="HEX">
 <name>FASTIO_DIG_SHORT_CIRCUIT</name>
 <brief>Short circuit of digital inputs and outputs</brief>
-<description>Defined short circuits between digital output and input signals of the high-speed NCK I/Os are realized by linking the signals read in from the high-speed NCK I/Os or the PLC interface to defined output signals.
+<description>Defined short circuits between digital output and input signals of the high-speed NC I/Os are realized by linking the signals read in from the high-speed NC I/Os or the PLC interface to defined output signals.
 
 The output signals always remain unchanged by the link, the inputs that have to be taken into account internally arise from the read inputs and the link. If a plurality of output bits are specified for one input bit in overwrite mode, the last defined assignment in the list determines the result.
 
@@ -1096,12 +1089,12 @@ Related to:
 	MD10350 $MN_FASTIO_DIG_NUM_INPUTS,
 	MD10360 $MN_FASTIO_DIG_NUM_OUTPUTS.
 
-References:         /FB/, A4, "Digital and Analog NCK I/Os"
+References:         /FB/, A4, "Digital and Analog NC I/Os"
 </description>
 </parameter>
-<parameter number="10362" type="DWORD" dim="1" display="HEX">
+<parameter number="10362" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_ANA_FASTIN</name>
-<brief>Hardware assignment of the fast analog NCK inputs</brief>
+<brief>Hardware assignment of the fast analog NC inputs</brief>
 <description>For PROFIBUS/PROFINET:
    1st + 2nd byte indicate the logical start address of the I/O slot on the PROFIBUS/PROFINET:
 Value 0000 means NO active slot
@@ -1122,9 +1115,9 @@ Related to:
 	MD10364 $MN_HW_ASSIGN_ANA_FASTOUT
 </description>
 </parameter>
-<parameter number="10364" type="DWORD" dim="1" display="HEX">
+<parameter number="10364" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_ANA_FASTOUT</name>
-<brief>Hardware assignment of external analog NCK outputs</brief>
+<brief>Hardware assignment of external analog NC outputs</brief>
 <description>For PROFIBUS/PROFINET:
    1st + 2nd byte indicate the logical start address of the I/O slot on the PROFIBUS/PROFINET:
 Value 0000 means NO active slot
@@ -1143,9 +1136,9 @@ Related to:
 	MD10362 $MN_HW_ASSIGN_ANA_FASTIN
 </description>
 </parameter>
-<parameter number="10366" type="DWORD" dim="1" display="HEX">
+<parameter number="10366" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_DIG_FASTIN</name>
-<brief>Hardware assignment of external digital NCK inputs</brief>
+<brief>Hardware assignment of external digital NC inputs</brief>
 <description>For PROFIBUS/PROFINET:
    1st + 2nd bytes indicate the logical basis address of the I/O slot on the PROFIBUS/PROFINET:
 Value 0000 means NO active slot
@@ -1185,9 +1178,9 @@ Corresponds with:
 	MD10364 $MN_HW_ASSIGN_ANA_FASTOUT
 </description>
 </parameter>
-<parameter number="10368" type="DWORD" dim="1" display="HEX">
+<parameter number="10368" type="UDWORD" dim="1" display="HEX">
 <name>HW_ASSIGN_DIG_FASTOUT</name>
-<brief>Hardware assignment of external digital NCK outputs</brief>
+<brief>Hardware assignment of external digital NC outputs</brief>
 <description>For PROFIBUS/PROFINET:
    1st + 2nd byte indicate the logical start address of the I/O slot on the PROFIBUS/PROFINET:
 Value 0000 means NO active slot
@@ -1315,7 +1308,7 @@ As a rule, the PLC I/Os must always be controlled in the big-Endian format (valu
 <description>The compile cycle user can freely define data within a data block on the PLC user interface. As the user, he determines the size of the interface from PLC to NCK. This machine data describes the length of the area on the VDI interface in bytes which defines the NCK output interface. The sum of this and MD10400 $MN_CC_VDI_IN_DATA must not exceed 400.
 </description>
 </parameter>
-<parameter number="10420" type="DWORD" dim="0" display="HEX">
+<parameter number="10420" type="UDWORD" dim="0" display="HEX">
 <name>CC_ASSIGN_FASTOUT_MASK</name>
 <brief>Reservation of external outputs for compile cycles</brief>
 <description>Reservation of high-speed hardware outputs for CC applications
@@ -1323,13 +1316,13 @@ Bit 0(LSB)-14:  Mask of the digital output bytes reserved for the CC application
 
 Bits 16-30:         Mask of the analog outputs reserved for the CC application
 
-The hardware outputs reserved here are included in the multiple assignment monitoring routine when the system is powered up. It is recommended to register all the hardware outputs used by CC applications here.
+The hardware outputs reserved here are included in the multiple assignment monitoring routine when the system is powered up. We recommend that you register all the hardware outputs used by CC applications here.
 
 Bit 15: Suppresses power-up alarm 4275 (multiple assignment of digital output)
 Bit 31: Suppresses power-up alarm 4275 (multiple assignment of analog output)
 </description>
 </parameter>
-<parameter number="10430" type="DWORD" dim="0" display="HEX">
+<parameter number="10430" type="UDWORD" dim="0" display="HEX">
 <name>CC_HW_DEBUG_MASK</name>
 <brief>Hardware debug mask for compile cycles</brief>
 <description>Setting of special responses to peripheral HW interfaces for NCK debug
@@ -1425,12 +1418,12 @@ Related to:
 	SD41523 $SN_SW_CAM_PLUS_TIME_TAB_2[n] (lead or delay time on plus cams 9 - 16)
 </description>
 </parameter>
-<parameter number="10470" type="DWORD" dim="0" display="HEX">
+<parameter number="10470" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_1</name>
-<brief>Hardware assignment for output of cams 1-8 to NCK I/Os</brief>
-<description>The cam signal status can be output to the NCK I/Os as well as to the PLC.
+<brief>Hardware assignment for output of cams 1-8 to NC I/Os</brief>
+<description>The cam signal status can be output to the NC I/Os as well as to the PLC.
 
-The hardware assignment of the minus and plus cam signals to the digital output bytes used for the NCK I/Os is made in this machine data for cam pairs 1 - 8.
+The hardware assignment of the minus and plus cam signals to the digital output bytes used for the NC I/Os is made in this machine data for cam pairs 1 - 8.
 
 The assigned output signals can also be inverted with this machine data.
 
@@ -1458,12 +1451,12 @@ The following must be specified as the byte address for the digital outputs:
 2 - 5:           for external bytes
 </description>
 </parameter>
-<parameter number="10471" type="DWORD" dim="0" display="HEX">
+<parameter number="10471" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_2</name>
-<brief>Hardware assignment for the output of cams 9-16 to NCK I/Os</brief>
-<description>The cam signal status can be output to the NCK I/Os as well as to the PLC.
+<brief>Hardware assignment for output of cams 9-16 to NC I/Os</brief>
+<description>The cam signal status can be output to the NC I/Os as well as to the PLC.
 
-The hardware assignment of the minus and plus cam signals to the digital output bytes used for the NCK I/Os can be made in this machine data for cam pairs 9 - 16.
+The hardware assignment of the minus and plus cam signals to the digital output bytes used for the NC I/Os can be made in this machine data for cam pairs 9 - 16.
 
 The assigned output signals can also be inverted with this machine data.
 
@@ -1491,12 +1484,12 @@ The following must be specified as the byte address for the digital outputs:
 2 - 5:    for external bytes
 </description>
 </parameter>
-<parameter number="10472" type="DWORD" dim="0" display="HEX">
+<parameter number="10472" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_3</name>
-<brief>Hardware assignment for output of cams 17-24 to NCK I/Os</brief>
-<description>The cam signal status can be output to the NCK I/Os as well as to the PLC.
+<brief>Hardware assignment for output of cams 17-24 to NC I/Os</brief>
+<description>The cam signal status can be output to the NC I/Os as well as to the PLC.
 
-The hardware assignment of the minus and plus cam signals to the digital output bytes of the NCK I/Os used can be made in this machine data for cam pairs 17 - 24.
+The hardware assignment of the minus and plus cam signals to the digital output bytes of the NC I/Os used can be made in this machine data for cam pairs 17 - 24.
 
 The assigned output signals can also be inverted with this machine data.
 
@@ -1524,12 +1517,12 @@ The following must be specified as the byte address for the digital outputs:
 2 - 5:  for external bytes
 </description>
 </parameter>
-<parameter number="10473" type="DWORD" dim="0" display="HEX">
+<parameter number="10473" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_ASSIGN_FASTOUT_4</name>
-<brief>Hardware assignment for output of cams 25-32 to NCK I/Os</brief>
-<description>The cam signal status can be output to the NCK I/Os as well as to the PLC
+<brief>Hardware assignment for output of cams 25-32 to NC I/Os</brief>
+<description>The cam signal status can be output to the NC I/Os as well as to the PLC
 
-The hardware assignment of the minus and plus cam signals to the digital output bytes of the NCK I/Os used can be made in this machine data for cam pairs 25 - 32.
+The hardware assignment of the minus and plus cam signals to the digital output bytes of the NC I/Os used can be made in this machine data for cam pairs 25 - 32.
 
 The assigned output signals can also be inverted with this machine data.
 
@@ -1558,10 +1551,10 @@ The following must be specified as the byte address for the digital outputs:
 2 - 5:  for external bytes
 </description>
 </parameter>
-<parameter number="10480" type="DWORD" dim="0" display="HEX">
+<parameter number="10480" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_TIMER_FASTOUT_MASK</name>
 <brief>Mask for output of cam signals via timer interr. to NCU</brief>
-<description>A timer-controlled output to the 4 on-board outputs of the NCK I/Os can be selected in this machine data for 4 cam pairs.
+<description>A timer-controlled output to the 4 on-board outputs of the NC I/Os can be selected in this machine data for 4 cam pairs.
 
 In this case, the minus and plus signals of a cam pair are "EXCLUSIVE OR'd" for output as one signal.
 
@@ -1591,7 +1584,7 @@ Note:
 If there is more than one signal change in the IPO cycle for the cam pairs specified in the MD, then the cam pair with the lowest number determines the instant of output. The other signals change at the same time.
 </description>
 </parameter>
-<parameter number="10485" type="DWORD" dim="0" display="HEX">
+<parameter number="10485" type="UDWORD" dim="0" display="HEX">
 <name>SW_CAM_MODE</name>
 <brief>Behavior of SW cams</brief>
 <description>Meaning of the individual bits:
@@ -1638,7 +1631,7 @@ Bit 4 = 0:
 <parameter number="10490" type="DOUBLE" dim="0">
 <name>SW_CAM_COMP_NCK_JITTER</name>
 <brief>Cam jitter compensation</brief>
-<description>The compensation value reduces system-related time inaccuracies during output of highly precise cam signals. The default time encumbers the cyclic time level of the control, and should therefore be selected as short as possible. It is recommended to return a cam signal to a measuring input of the control and to increase the compensation value until the scatter of the measured positions cannot be reduced any further.
+<description>The compensation value reduces system-related time inaccuracies during output of highly precise cam signals. The default time encumbers the cyclic time level of the control, and should therefore be selected as short as possible. We recommend that you return a cam signal to a measuring input of the control and increase the compensation value until the scatter of the measured positions cannot be reduced any further.
 Currently only active when MD10485 $MN_SW_CAM_MODE Bit0 = 0.
 </description>
 </parameter>
@@ -1657,7 +1650,7 @@ Currently only active when MD10485 $MN_SW_CAM_MODE Bit0 = 0.
     Note: in PROFINET, it is not possible to combine several slots in one area.
 </description>
 </parameter>
-<parameter number="10502" type="DWORD" dim="1" display="HEX">
+<parameter number="10502" type="UDWORD" dim="1" display="HEX">
 <name>DPIO_RANGE_ATTRIBUTE_IN</name>
 <brief>Attributes of the PROFIBUS/PROFINET I/Os</brief>
 <description>Attributes of the PROFIBUS/PROFINET I/Os
@@ -1672,9 +1665,13 @@ Currently only active when MD10485 $MN_SW_CAM_MODE Bit0 = 0.
          0: Read possible through system variable and CC binding (increased performance requirements)
          1: Read only possible for CC binding (low performance requirements)
 
-  Bit 3: Slot sign-of-life alarm
+  Bit 3: Slot sign-of-life alarms
          0: Slot sign-of-life alarms are output
          1: Slot sign-of-life alarms are suppressed
+
+  Bit 4...7: (Reserved for expansions)
+
+  Bit 8...31: Reserved for the assignment to compile cycle functions (see documentation of the CC function)
 </description>
 </parameter>
 <parameter number="10510" type="DWORD" dim="1">
@@ -1693,7 +1690,7 @@ Note: the logical slot address must lie outside the PLC process image.
     Note: in PROFINET it is not possible to combine several slots to form one area.
 </description>
 </parameter>
-<parameter number="10512" type="DWORD" dim="1" display="HEX">
+<parameter number="10512" type="UDWORD" dim="1" display="HEX">
 <name>DPIO_RANGE_ATTRIBUTE_OUT</name>
 <brief>Attributes of the PROFIBUS/PROFINET I/Os</brief>
 <description>Attributes of the PROFIBUS/PROFINET I/Os
@@ -1707,9 +1704,13 @@ Note: the logical slot address must lie outside the PLC process image.
 
   Bit 2: (reserved)
 
-  Bit 3: Slot sign-of-life alarm
+  Bit 3: Slot sign-of-life alarms
          0: Slot sign-of-life alarms are output
          1: Slot sign-of-life alarms are suppressed
+
+  Bit 4...7: (Reserved for expansions)
+
+  Bit 8...31: Reserved for the assignment to compile cycle functions (see documentation of the CC function)
 </description>
 </parameter>
 <parameter number="10520" type="DWORD" dim="1">
@@ -1787,7 +1788,7 @@ Related to:
 	MD10541 $MN_COMPAR_TYPE_2
 </description>
 </parameter>
-<parameter number="10540" type="DWORD" dim="0" display="HEX">
+<parameter number="10540" type="UDWORD" dim="0" display="HEX">
 <name>COMPAR_TYPE_1</name>
 <brief>Parameterization for comparator byte 1</brief>
 <description>This MD can be used to make the following settings for the individual output bits (0 to 7) of comparator byte 1:
@@ -1801,12 +1802,12 @@ Related to:
 
 - Bits 16 to 23:     Assignment of a HW output byte for outputting
           the comparator states (statement of the byte address)
-          Byte = 0:  No output via digital NCK outputs
-          Byte = 1:  Output via digital onboard NCK outputs (1 to 4)
-          Byte = 2:  Output via external digital NCK outputs 9 to 16
-          Byte = 3:  Output via external digital NCK outputs 17 to 24
-          Byte = 4:  Output via external digital NCK outputs 25 to 32
-          Byte = 5:  Output via external digital NCK outputs 33 to 40
+          Byte = 0:  No output via digital NC outputs
+          Byte = 1:  Output via digital onboard NC outputs (1 to 4)
+          Byte = 2:  Output via external digital NC outputs 9 to 16
+          Byte = 3:  Output via external digital NC outputs 17 to 24
+          Byte = 4:  Output via external digital NC outputs 25 to 32
+          Byte = 5:  Output via external digital NC outputs 33 to 40
 
 - Bits 24 to 31:     Inversion mask for the output of the comparator states (bits 0 to 7)
           Bit = 0:   Output bit is not inverted
@@ -1820,7 +1821,7 @@ Related to:
 	MD10360 $MN_FASTIO_DIG_NUM_OUTPUTS
 </description>
 </parameter>
-<parameter number="10541" type="DWORD" dim="0" display="HEX">
+<parameter number="10541" type="UDWORD" dim="0" display="HEX">
 <name>COMPAR_TYPE_2</name>
 <brief>Parameterization of comparator byte 2</brief>
 <description>This MD can be used to make the following settings for the individual output bits (0 to 7) of comparator byte 2:
@@ -1834,12 +1835,12 @@ Related to:
 
 - Bits 16 to 23: Assignment of a HW output byte for outputting the comparator states (statement of the byte address)
 
-- Byte = 0:  no output via digital NCK outputs
-    Byte = 1:  output via digital onboard NCK outputs (1 to 4)
-    Byte = 2:  output via external digital NCK outputs 9 to 16
-    Byte = 3:  output via external digital NCK outputs 17 to 24
-    Byte = 4:  output via external digital NCK outputs 25 to 32
-    Byte = 5:  output via external digital NCK outputs 33 to 40
+- Byte = 0:  no output via digital NC outputs
+    Byte = 1:  output via digital onboard NC outputs (1 to 4)
+    Byte = 2:  output via external digital NC outputs 9 to 16
+    Byte = 3:  output via external digital NC outputs 17 to 24
+    Byte = 4:  output via external digital NC outputs 25 to 32
+    Byte = 5:  output via external digital NC outputs 33 to 40
 
 - Bits 24 to 31:     Inversion mask for the output of the comparator states (bits 0 to 7)
     Bit = 0:         Output bit is not inverted
@@ -1946,7 +1947,7 @@ reference axis.
 The axes are mirrored in the case of values not equal to 0 if they are not already mirrored. Mirroring is disabled if the value is 0.
 </description>
 </parameter>
-<parameter number="10613" type="DWORD" dim="0" display="HEX">
+<parameter number="10613" type="UDWORD" dim="0" display="HEX">
 <name>NCBFRAME_RESET_MASK</name>
 <brief>Active NCU global base frames after reset</brief>
 <description>Bit mask for the reset setting of the NCU global base frames which are included in the channel.
@@ -1958,7 +1959,7 @@ When MD20110 $MC_RESET_MODE_MASK bit0 = 1 and bit14 = 0
 	The entire base frame is deselected on reset.
 </description>
 </parameter>
-<parameter number="10615" type="DWORD" dim="0" display="HEX">
+<parameter number="10615" type="UDWORD" dim="0" display="HEX">
 <name>NCBFRAME_POWERON_MASK</name>
 <brief>Reset global base frames after power on</brief>
 <description>This machine data defines whether global base frames are reset in the data management on Power On.
@@ -1975,7 +1976,7 @@ Related to:
 	MD24004 $MC_CHBFRAME_POWERON_MASK
 </description>
 </parameter>
-<parameter number="10616" type="DWORD" dim="0" display="HEX">
+<parameter number="10616" type="UDWORD" dim="0" display="HEX">
 <name>MAPPED_FRAME_MASK</name>
 <brief>Enable frame mapping</brief>
 <description>Bit mask for channel-specific data management frames, the axial frames of which can be mapped onto other axial frames.
@@ -1998,7 +1999,7 @@ Bit13:	$P_UIFR	Settable frames
 Bit14:	$P_GFR		Grinding frames
 </description>
 </parameter>
-<parameter number="10617" type="DWORD" dim="0" display="HEX">
+<parameter number="10617" type="UDWORD" dim="0" display="HEX">
 <name>FRAME_SAVE_MASK</name>
 <brief>Behavior of frames in SAVE subroutines</brief>
 <description>This machine data is used to define which frames are restored with SAVE attribute at return from a subprogram.
@@ -2028,7 +2029,7 @@ Value = 1:
 At subprogram return, the grinding frame is reactivated when the subprogram is called.
 </description>
 </parameter>
-<parameter number="10618" type="BYTE" dim="0" display="HEX">
+<parameter number="10618" type="UBYTE" dim="0" display="HEX">
 <name>PROTAREA_GEOAX_CHANGE_MODE</name>
 <brief>Protection range on change of geometry axes</brief>
 <description>This machine data is used to define whether any active protection zones will remain active after a transformation change or geo axis replacement, or whether they will be deactivated.
@@ -2074,6 +2075,17 @@ Bit 1 = 1
 
 - Nor are keywords (e.g. DEF, SPOS etc.) or predefined identifiers (e.g. ASPLINE, SOFT) allowed.
 - An angle identifier consists of a valid address letter (A, B, C, I, J, K, Q, U, V, W, X, Y, Z), followed by an optional numerical extension (1-99).
+</description>
+</parameter>
+<parameter number="10621" type="DOUBLE" dim="0">
+<name>COLLISION_PREP_CALC_TIME</name>
+<brief>Maximum computation time of the preparative collision check.</brief>
+<description>The maximum computing time of the preparatory collision check is set with this machine data.
+&gt;0: After the set time, the preparatory collision check of the current block is interrupted. That makes computing time available to the external communication.
+  0: The preparatory collision check is not interrupted. That does not make any computing time available to the external communication during the collision check.
+      A communication failure may occur between HMI and NCK in extreme cases.
+
+A value of 0.5 s is recommended.
 </description>
 </parameter>
 <parameter number="10622" type="DOUBLE" dim="0">
@@ -2268,13 +2280,7 @@ the factor set with this data, and the tolerance set for the geometry axes in MD
 The minimum sampling time cannot be shorter than the time set in MD10680 $MN_MIN_CONTOUR_SAMPLING_TIME.
 </description>
 </parameter>
-<parameter number="10690" type="DOUBLE" dim="0">
-<name>DRAW_POS_TRIGGER_TIME</name>
-<brief>Trigger time for IPO event 'DRAW_POS'</brief>
-<description>This can be used to set a time within which an IPO event for position output will always be generated. If a value smaller than the current interpolation cycle is entered here, the trigger will only be activated according to the maximum chord length in the case of complex geometries and in the last interpolation cycle in the case of non-complex geometries.
-</description>
-</parameter>
-<parameter number="10700" type="BYTE" dim="0" display="HEX">
+<parameter number="10700" type="UBYTE" dim="0" display="HEX">
 <name>PREPROCESSING_LEVEL</name>
 <brief>Program preprocessing level</brief>
 <description>Bit 0= 0:
@@ -2308,7 +2314,7 @@ References:
 	/PG/, "Programming Guide Fundamentals" (EXTERNAL declaration)
 </description>
 </parameter>
-<parameter number="10702" type="DWORD" dim="0" display="HEX">
+<parameter number="10702" type="UDWORD" dim="0" display="HEX">
 <name>IGNORE_SINGLEBLOCK_MASK</name>
 <brief>Prevents stopping at specific blocks in single block mode</brief>
 <description>This machine data prevents stopping at certain blocks with
@@ -2447,7 +2453,7 @@ Notice!
 	However, the function does not become active until a "later" block in the program execution, and this is with the next (implicit) StopRe block.
 </description>
 </parameter>
-<parameter number="10707" type="DWORD" dim="0" display="HEX">
+<parameter number="10707" type="UDWORD" dim="0" display="HEX">
 <name>PROG_TEST_MASK</name>
 <brief>Program test mode</brief>
 <description>Bit-coded mask for program test
@@ -2464,7 +2470,7 @@ Program test in simulation is always activated via the NCKMode PI.
 Program test block search is always activated via the Find-Pi.
 </description>
 </parameter>
-<parameter number="10708" type="DWORD" dim="0" display="HEX">
+<parameter number="10708" type="UDWORD" dim="0" display="HEX">
 <name>SERUPRO_MASK</name>
 <brief>Block search modes</brief>
 <description>Bit-coded mask for block search via program test (abbr. SERUPRO).
@@ -2639,7 +2645,7 @@ The following three types of NC codes can reconfigured:
 <brief>M function with preprocessing stop</brief>
 <description>The M functions defined by MD10713 $MN_M_NO_FCT_STOPRE perform an implicit preprocessing stop.
 That is, the interpretation of the next part program line will be stopped until the block with the M function defined in that way has been processed completely
-(PLC acknowledgement, motion, etc.).
+(PLC acknowledgment, motion, etc.).
 </description>
 </parameter>
 <parameter number="10714" type="DWORD" dim="0">
@@ -2741,7 +2747,7 @@ $C_DL_PROG : TRUE if address DL was programmed
 $C_DL      : Value of address DL
 </description>
 </parameter>
-<parameter number="10719" type="DWORD" dim="0" display="HEX">
+<parameter number="10719" type="UDWORD" dim="0" display="HEX">
 <name>T_NO_FCT_CYCLE_MODE</name>
 <brief>Setting of T function substitution</brief>
 <description>This machine data parameterizes the execution of the replacement subprogram for the tool and tool offset selection.
@@ -2793,7 +2799,7 @@ NOTICE! Depending on the machine data MD10721 $MN_OPERATING_MODE_EXTENDED, the m
 1 = Selection of the JOG mode if the PLC signal "Retract data available" (&lt;Retract_Daten_verfuegbar/&gt;) is set in at least one channel of the operating mode group
 </description>
 </parameter>
-<parameter number="10722" type="DWORD" dim="0" display="HEX">
+<parameter number="10722" type="UDWORD" dim="0" display="HEX">
 <name>AXCHANGE_MASK</name>
 <brief>Parameterization for axis replacement behavior</brief>
 <description>The axis replacement behavior can be changed with this
@@ -2822,7 +2828,7 @@ Bit3 = 0 means that an axis replacement can be requested by the PLC for each axi
 </parameter>
 <parameter number="10724" type="STRING" dim="1" readonly="true">
 <name>NC_SYS_CODE_CONF_NAME_TAB</name>
-<brief>List of internal NC codes</brief>
+<brief>List of reconfigured NC codes</brief>
 <description>Identifier list of internal NC codes
 Reserved for internal applications
 </description>
@@ -2833,7 +2839,7 @@ Reserved for internal applications
 <description>This data determines whether the signals of the VDI interface, which set the JOG mode (progressive INC10000, ... INC1), work as switches (level triggered) or as push buttons (edge triggered). In the latter case, a setting is made in the NCK to retain the function of the key last pressed.
 </description>
 </parameter>
-<parameter number="10735" type="DWORD" dim="0" display="HEX">
+<parameter number="10735" type="UDWORD" dim="0" display="HEX">
 <name>JOG_MODE_MASK</name>
 <brief>Settings for JOG mode</brief>
 <description>Bit 0:
@@ -2909,7 +2915,7 @@ Value range:
 
 </description>
 </parameter>
-<parameter number="10760" type="DWORD" dim="0" display="HEX">
+<parameter number="10760" type="UDWORD" dim="0" display="HEX">
 <name>G53_TOOLCORR</name>
 <brief>Method of operation of G53, G153 and SUPA</brief>
 <description>With this MD you define whether tool length offset and tool radius offset are also to be suppressed with language commands G53, G153 and SUPA
@@ -2994,7 +3000,7 @@ Restrictions: refer to MD10715 $MN_M_NO_FCT_CYCLE
 	MD26008 $MC_NIBBLE_PUNCH_CODE
 </description>
 </parameter>
-<parameter number="10808" type="DWORD" dim="0" display="HEX">
+<parameter number="10808" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_INTERRUPT_BITS_M96</name>
 <brief>Activate interrupt program (ASUB)</brief>
 <description>Setting the various bits can influence the processing of the interrupt routine activated by M96 P...
@@ -3016,7 +3022,7 @@ Bit 3 = 1,
 	Do not start interrupt program until the end of a machining cycle.
 </description>
 </parameter>
-<parameter number="10810" type="BYTE" dim="1" display="HEX">
+<parameter number="10810" type="UBYTE" dim="1" display="HEX">
 <name>EXTERN_MEAS_G31_P_SIGNAL</name>
 <brief>Config. of measuring inputs  for G31 P..</brief>
 <description>This machine data defines the assignment of measurement inputs 1 and 2 to the P numbers programmed with G31 P1 ( - P4). The machine data is bit-coded. Only bits 0 and 1 are evaluated. For example, if bit 0 = 1 in MD10810 $MN_EXTERN_MEAS_G31_P_SIGNAL[1], the 1st measurement input is activated with G31 P2. If MD10810 $MN_EXTERN_MEAS_G31_P_SIGNAL[3]=2, the 2nd measurement input is activated with G31 P4.
@@ -3116,7 +3122,7 @@ Alarm 14016 is issued in case of a conflict.
 <description>Path of output device for ISOPRINT
 </description>
 </parameter>
-<parameter number="10831" type="DWORD" dim="0" display="HEX">
+<parameter number="10831" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_PRINT_MODE</name>
 <brief>Parameterize output device for ISOPRINT</brief>
 <description>Parameterize output device for ISOPRINT
@@ -3217,7 +3223,7 @@ From the programmed T word, the number of leading digits specified in MD10889 $M
 The following digits address the tool number.
 </description>
 </parameter>
-<parameter number="10890" type="DWORD" dim="0" display="HEX">
+<parameter number="10890" type="UDWORD" dim="0" display="HEX">
 <name>EXTERN_TOOLPROG_MODE</name>
 <brief>Tool change programming for external language</brief>
 <description>Configuration for programming the tool change in an external programming language:
@@ -3319,7 +3325,7 @@ Up to 60 indexing positions (0 to 59) can be entered in the table.
 Table length = 0 means that the table is not evaluated. If the length is not equal to 0, the table must be assigned to an axis with MD30500 $MA_INDEX_AX_ASSIGN_POS_TAB.
 If the indexing axis is defined as a rotary axis (MD30300 $MA_IS_ROT_AX = "1") with modulo 360° (MD30310 $MA_ROT_IS_MODULO = "1"), the machine data defines the last indexing position after which, with a further traversing movement in the positive direction, the indexing positions begin again at 1.
 
-Not relevant for tool magazines (revolvers, chain magazines)
+Not relevant for tool magazines (turrets, chain magazines)
 
 Special cases:
 	Alarm 17090 "Value violates upper limit" if a value over 60 is entered in MD10920 $MN_INDEX_AX_LENGTH_POS_TAB_2.
@@ -3360,7 +3366,7 @@ Related to:
 	MD30310 $MA_ROT_IS_MODULO (modulo conversion for rotary axis)
 </description>
 </parameter>
-<parameter number="10940" type="DWORD" dim="0" display="HEX">
+<parameter number="10940" type="UDWORD" dim="0" display="HEX">
 <name>INDEX_AX_MODE</name>
 <brief>Settings for indexing position</brief>
 <description>Affects the display of indexing positions (AA_ACT_INDEX_AX_POS_NO and aaActIndexAxPosNo).
@@ -3382,27 +3388,26 @@ This number includes only the user-defined auxiliary functions, not the predefin
 
 Related to:
 	MD22010 $MC_AUXFU_ASSIGN_TYPE[n].
-Only the number auxiliary functions assigned to groups are entered in this MD. This number includes only the customer-defined auxiliary functions, not the predefined auxiliary functions.
 </description>
 </parameter>
-<parameter number="11110" type="DWORD" dim="1" display="HEX">
+<parameter number="11110" type="UDWORD" dim="1" display="HEX">
 <name>AUXFU_GROUP_SPEC</name>
 <brief>Auxiliary function group specification</brief>
 <description>Defines the output options for the auxiliary functions belonging to a group.
 However, the output option of an auxiliary function configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ] or MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
 
-Bit 0=1	"Normal" acknowledgement after an OB1 cycle
-Bit 1=1	"Quick" acknowledgement with OB40
+Bit 0=1	"Normal" acknowledgment after an OB1 cycle
+Bit 1=1	"Quick" acknowledgment with OB40
 Bit 2=1	No predefined auxiliary function
 Bit 3=1	No output to PLC
-Bit 4=1	Spindle response after acknowledgement by the PLC
+Bit 4=1	Spindle response after acknowledgment by the PLC
 Bit 5=1	Output prior to motion
 Bit 6=1	Output during motion
 Bit 7=1	Output at end of block
 Bit 8=1	No output after block search types 1, 2, 4
 Bit 9=1	Collection during block search type 5 (SERUPRO)
 Bit 10 = 1 No output during block search type 5 (SERUPRO)
-Bit 11 = 1	Cross-channel auxiliary function (SERUPRO)
+Bit 11 = 1	Cross-channel auxiliary function during block search type 5 (SERUPRO)
 Bit 12 = 1	Output via synchronized action
 Bit 13 = 1 Implicit auxiliary function
 Bit 14 = 1 Active M01
@@ -3412,13 +3417,13 @@ Bit 17 = 1 Nibbling on
 Bit 18 = 1 Nibbling
 
 The MD must be defined for each existing auxiliary function group.
-The index [n] corresponds to the auxiliary function group: 0...63
+The index [n] corresponds to the auxiliary function group index: 0...63
 
 The assignment of individual auxiliary functions to specific groups is defined in channel-specific machine data ( AUXFU_PREDEF_TYPE, AUXFU_PREDEF_EXTENTION, AUXFU_PREDEF_VALUE, AUXFU_PREDEF_GROUP, AUXFU_ASSIGN_TYPE, AUXFU_ASSIGN_EXTENTION, AUXFU_ASSIGN_VALUE, AUXFU_ASSIGN_GROUP ).
 M0, M1, M2, M17 and M30 are assigned to group 1 by default.
 The specification of this group ( 0x81: output duration 1 OB1 pass, output at end of block ) must not be changed.
 All spindle-specific auxiliary functions ( M3, M4, M5, M19, M70 ) are assigned to group 2 by default.
-If several auxiliary functions with different output types ( before / during / at end of motion ) are programmed in one motion block, then the output of the individual auxiliary functions occurs in accordance with their output types.
+If several auxiliary functions with different output types ( before / during / at end of motion ) are programmed in one motion block, then the output of the individual auxiliary functions corresponds to their output types.
 All auxiliary functions are output simultaneously in a block without motion.
 
 Default setting:
@@ -3437,7 +3442,7 @@ MD = 0: User data of the main program level are only active on this level.
 MD = 1: User data of the main program level are also visible in the subprogram levels.
 </description>
 </parameter>
-<parameter number="11140" type="DWORD" dim="1" display="HEX">
+<parameter number="11140" type="UDWORD" dim="1" display="HEX">
 <name>GUD_AREA_SAVE_TAB</name>
 <brief>Additional saving for GUD modules</brief>
 <description>This data indicates in which area the contents of the GUD module are also saved.
@@ -3597,7 +3602,7 @@ Value
  The machine data can only be written with values 0, 1 and 2, and with the corresponding password also active.
 </description>
 </parameter>
-<parameter number="11190" type="DWORD" dim="0" display="HEX">
+<parameter number="11190" type="UDWORD" dim="0" display="HEX">
 <name>IBN_LOAD_FASTOPT</name>
 <brief>Optimization of the series start-up</brief>
 <description>Optimization of the series start-up
@@ -3605,7 +3610,7 @@ Bit-coded activation data. That means the series start-up can be activated in va
 Bit-coded activation data:
 Bit 0 = 0x1: The link communication is not activated until after a buffered power on runup.
 Bit 1 = 0x2: The PLC communication is not activated until series commissioning has been completed.
-Bit 2 = 0x4: Enabling parameterization of the commissioning PI (_N_IBN_SS-PI) for runup acceleration.
+Bit 2 = 0x4: Enabling parameterization of the setup PI (_N_IBN_SS-PI) for runup acceleration.
 
 Bit 0 only relevant for systems with link modules
 
@@ -3614,7 +3619,7 @@ Corresponds with:
  MD12551 $MN_TIMEOUT_LINK_COMMUNICATION
 </description>
 </parameter>
-<parameter number="11200" type="BYTE" dim="0" display="HEX">
+<parameter number="11200" type="UBYTE" dim="0" display="HEX">
 <name>INIT_MD</name>
 <brief>Standard machine data loaded at next Power On</brief>
 <description>A power on must be triggered after setting MD11200 $MN_INIT_MD. The function is executed and the MD reset to "0" at power on.
@@ -3648,15 +3653,15 @@ Memory configuring MDs are:
 	MD 38000 - 38999 (axis-specific MD)
 </description>
 </parameter>
-<parameter number="11202" type="BYTE" dim="0" display="HEX">
+<parameter number="11202" type="UBYTE" dim="0" display="HEX">
 <name>MD_MODE_MASK</name>
 <brief>Behavior of machine data changes</brief>
 <description>Behavior of machine data changes
 Bit 0 (LSB): When configuring linear/rotary axes, do not load initial values for axis type-dependent MDs
-Due to the existence of one plausible default value each for a linear axis or rotary axis, axial machine data can facilitate commissioning for the user. With the switchover process (Lin -&gt; Rot, or Rot -&gt; Lin), the respectively configured default values become active as actual values at the next warm restart of the controller.
+Due to the existence of one plausible default value each for a linear axis or rotary axis, axial machine data can facilitate setup for the user. With the switchover process (Lin -&gt; Rot, or Rot -&gt; Lin), the respectively configured default values become active as actual values at the next warm restart of the controller.
 </description>
 </parameter>
-<parameter number="11210" type="BYTE" dim="0" display="HEX">
+<parameter number="11210" type="UBYTE" dim="0" display="HEX">
 <name>UPLOAD_MD_CHANGES_ONLY</name>
 <brief>Machine data backup of changed machine data only</brief>
 <description>Either all data or only those data which differ from the default setting can be set to be output when creating standard archives (ARC) and copying 'NC active data'.
@@ -3693,25 +3698,6 @@ Bit7 Synchronized actions GUD (for INI files only)
 
 Active: The change in the data becomes active on the start of the upload for the next range.
 The settings are only active, if MD11212 $MN_UPLOAD_CHANGES_ONLY=FALSE.
-Selection of differential MD upload:
-Bit0(LSB)	Effectiveness of of the differential upload of TEA files (machine data files)
-		0: All data are output
-		1: Only those MDs changed in comparison to their compiled values are output
-Bit1		Effectiveness of the differential upload of INI files
-		0: All data are output
-		1: Only those MDs changed in comparison to their compiled values are output
-Bit2		Change to an array element
-		0: Complete arrays are output
-		1: Only the changed elements of an array are output
-Bit3		R variables (only for INI files)
-		0: All R variables are output
-		1: Only R variables not equal to '0' are output
-Bit4		Frames (only for INI files)
-		0: All frames are output
-		1: Only those frames that are not zero frames are output.
-Bit5		Tool data (cutting-edge parameters) (only for INI files)
-		0: All tool data are output
-		1: Only those tool data not equal to '0' are output.
 </description>
 </parameter>
 <parameter number="11212" type="BOOLEAN" dim="0">
@@ -3743,7 +3729,7 @@ settings:
 2: Execution continues despite possible errors. An alarm with the number of errors is output at the end of execution.
 </description>
 </parameter>
-<parameter number="11230" type="BYTE" dim="0" display="HEX">
+<parameter number="11230" type="UBYTE" dim="0" display="HEX">
 <name>MD_FILE_STYLE</name>
 <brief>Structure of machine data backup files</brief>
 <description>Appearance of a machine data file at 'upload'
@@ -3809,7 +3795,7 @@ Value 2:
 <description>Processing mode of INI files in the workpiece directory:
 
 Value = 0:
-	An INI file,  _N_werkstück_INI, stored in the workpiece directory is executed on the first NC start after workpiece selection.
+	An INI file with the name of the workpiece and stored in the workpiece directory is executed on the first NC start after workpiece selection.
 Value = 1:
 	INI files with the names of the selected part program and extensions are executed on the first NC start after workpiece selection
 
@@ -3834,40 +3820,20 @@ Value 0: No model is created.
 Value 1: After each change (including activation) of the 3D protection zones, a machine model is created in user directory /_N_VRML_DIR with the name _N_VRMLMODEL_WRL.
 </description>
 </parameter>
-<parameter number="11294" type="DWORD" dim="0" display="HEX">
+<parameter number="11294" type="UDWORD" dim="0" display="HEX">
 <name>SIEM_TRACEFILES_CONFIG</name>
 <brief>Configuration of the SIEM* trace file</brief>
-<description>Configuration of the tracefiles SIEM*
+<description>Configuration of the SIEM* trace files
   Bit0:
-	Additional information about the PDUs sent is to be entered in _N_SIEMDOMAINSEQ_MPF for download
+	Additional information about the PDUs sent will be entered in _N_SIEMDOMAINSEQ_MPF during download
   Bit1:
-	Additional information about the PDUs received is to be entered in _N_SIEMDOMAINSEQ_MPF for download
+	Additional information about the PDUs received will be entered in _N_SIEMDOMAINSEQ_MPF during download
   Bit2:
-	Trace of warm start and connection cancelation in_N_SIEMDOMAINSEQ_MPF
+	Trace of warm start and connection cancelation in _N_SIEMDOMAINSEQ_MPF
   Bit4:
-	Additional information about the PDUs sent is to be entered in _N_SIEMDOMAINSEQ_MPF for upload
+	Additional information about the PDUs sent will be entered in _N_SIEMDOMAINSEQ_MPF during upload
   Bit5:
-	Additional information about the PDUs received is to be entered in _N_SIEMDOMAINSEQ_MPF for upload
-</description>
-</parameter>
-<parameter number="11295" type="BYTE" dim="1">
-<name>PROTOC_FILE_MEM</name>
-<brief>Memory type for log files</brief>
-<description>Type of memory in which the contents of log files are stored.
-0: SRAM (is no longer available for the current control versions, therefore the MD is invisible!)
-1: DRAM area TMP
-
-The individual values apply to the users of the logging function, which are assigned the following functions:
-0: Reserved for system functions: simultaneous recording, simulation, synchronized action analysis
-1: Reserved for system functions: determining program runtimes, multi-step editor
-2: Reserved for OEM applications
-3: Reserved for OEM applications
-4: Reserved for OEM applications
-5: Reserved for system functions: trace
-6: Reserved for system functions: trace
-7: Reserved for system functions: trace
-8: Reserved for system functions: trace
-9: Reserved for system functions: action log
+	Additional information about the PDUs received will be entered in _N_SIEMDOMAINSEQ_MPF during upload
 </description>
 </parameter>
 <parameter number="11297" type="BYTE" dim="1">
@@ -3939,8 +3905,6 @@ Value &gt; 0:
 	Immediate travel in the opposite direction if the handwheel is turned at least the stated number of pulses in the opposite direction.
 
 Whether this machine data is also active for handwheel travel with DRF depends on bit10 of MD20624 $MC_HANDWH_CHAN_STOP_COND.
-  0:	No immediate travel in the opposite direction
-&gt;0:	Immediate travel in the opposite direction if the handwheel is turned at least the stated number of pulses in the opposite direction.
 </description>
 </parameter>
 <parameter number="11320" type="DOUBLE" dim="1">
@@ -3956,10 +3920,6 @@ Related to:
                     MD31090 $MA_JOG_INCR_WEIGHT
                     (weighting of an increment of a machine axis for
                     INC/manual).
-This MD adapts the connected handwheels to the control.
-The number of pulses generated by the handwheel for each handwheel detent position has to be entered. The handwheel pulse weighting must be defined separately for each connected handwheel (1 to 2).
-With this adaptation, each handwheel detent position has the same effect as one press of the traversing key in incremental traversal.
-Entering a negative value reverses the direction of rotation of the handwheel.
 </description>
 </parameter>
 <parameter number="11322" type="DOUBLE" dim="1">
@@ -4071,13 +4031,9 @@ Same as value = 2, but travel does not stop at the last possible grid position i
 Value = 7:
 Same as value = 3, but travel does not stop at the last possible grid position in front of a limit, but at the limit.
 
-0:	The default settings of the handwheel are velocity inputs. The braking path is as short as possible when the handwheel is stopped.
-1:	The default settings of the handwheel are path inputs. No pulses are lost. Residual axis motion may occur as a result of the limitation to a maximal permissible velocity.
-2:	Effect is the same as for value=0, but the braking path is longer when the handwheel is stopped.
-3:	Effect is the same as for value=1, but the braking path is longer when the handwheel is stopped.
 </description>
 </parameter>
-<parameter number="11350" type="BYTE" dim="1">
+<parameter number="11350" type="DWORD" dim="1">
 <name>HANDWHEEL_SEGMENT</name>
 <brief>Handwheel segment</brief>
 <description>Machine data defines which
@@ -4134,7 +4090,7 @@ SEGMENT_ETHERNET:
 
 </description>
 </parameter>
-<parameter number="11380" type="DWORD" dim="0" display="HEX">
+<parameter number="11380" type="UDWORD" dim="0" display="HEX">
 <name>MONITOR_ADDRESS</name>
 <brief>Test MD for changing the NCK code or data for Safety Integrated</brief>
 <description>Address of an NCU memory location whose content is displayed in the MD11382 $MN_MONITOR_DISPLAY_INT and 11384 $MN_MONITOR_DISPLAY_REAL.
@@ -4147,7 +4103,7 @@ A restart resets the address to its starting value.
 It then points to any writable and readable memory location that is not used by any other system function.
 </description>
 </parameter>
-<parameter number="11382" type="DWORD" dim="0" display="HEX">
+<parameter number="11382" type="UDWORD" dim="0" display="HEX">
 <name>MONITOR_DISPLAY_INT</name>
 <brief>INTEGER display of the addressed location</brief>
 <description>INTEGER display of the addressed location SW3.2
@@ -4166,7 +4122,7 @@ This MD displays the content of the NCU memory location that is defined in MDMD1
 This MD is a display MD whose content is read anew on every display refresh. Writing to this MD is ignored (without alarm).
 </description>
 </parameter>
-<parameter number="11386" type="DWORD" dim="0" display="HEX">
+<parameter number="11386" type="UDWORD" dim="0" display="HEX">
 <name>MONITOR_INPUT_INT</name>
 <brief>INTEGER input for the addressed location</brief>
 <description>INTEGER input for addressed location, SW3.2
@@ -4208,7 +4164,7 @@ Caution!!!
 	Writing data to unknown addresses can even destroy the NCK system program! That may have unforeseen consequences (danger to machine and people!). If the machine and those present survive such an action undamaged, the system program can usually be restored by power off/on.
 </description>
 </parameter>
-<parameter number="11398" type="BYTE" dim="0" display="HEX">
+<parameter number="11398" type="UBYTE" dim="0" display="HEX">
 <name>AXIS_VAR_SERVER_SENSITIVE</name>
 <brief>Axis-Var server response</brief>
 <description>The axis-variable server supplies the data for the OPI blocks SMA/SEMA, SGA/SEGA and SSP.
@@ -4220,7 +4176,7 @@ For debugging purposes, this machine data can be used to set the axis-var-server
 1: error message
 </description>
 </parameter>
-<parameter number="11400" type="DWORD" dim="0" display="HEX">
+<parameter number="11400" type="UDWORD" dim="0" display="HEX">
 <name>TRACE_SELECT</name>
 <brief>Activation of internal trace functions</brief>
 <description>Bit string for activating internal trace functions for NCK time measurements, analog output of variables etc.
@@ -4232,7 +4188,7 @@ For debugging purposes, this machine data can be used to set the axis-var-server
 <description>Control the activation of the TCI interface for the NRKpro. It will activate the tci and kernel task traces modules.
 </description>
 </parameter>
-<parameter number="11410" type="DWORD" dim="0" display="HEX">
+<parameter number="11410" type="UDWORD" dim="0" display="HEX">
 <name>SUPPRESS_ALARM_MASK</name>
 <brief>Mask for support of special alarm outputs</brief>
 <description>Mask for suppressing special alarm outputs
@@ -4319,7 +4275,7 @@ Bit31:
 	Alarm 16774 "Channel %1 axis %2 synchronization canceled"
 </description>
 </parameter>
-<parameter number="11411" type="DWORD" dim="0" display="HEX">
+<parameter number="11411" type="UDWORD" dim="0" display="HEX">
 <name>ENABLE_ALARM_MASK</name>
 <brief>Activation of warnings</brief>
 <description>Mask for generating alarms that are normally suppressed.
@@ -4373,7 +4329,7 @@ If this MD is not set, then NCSTART alarms are not cleared by Cancel.
 The purpose of this MD is to provide compatibility with system behavior.
 </description>
 </parameter>
-<parameter number="11415" type="DWORD" dim="0" display="HEX">
+<parameter number="11415" type="UDWORD" dim="0" display="HEX">
 <name>SUPPRESS_ALARM_MASK_2</name>
 <brief>Masking of alarm outputs</brief>
 <description>Mask for suppressing special alarm outputs
@@ -4424,11 +4380,16 @@ Bit	Hex. 	Meaning
              10700 "Channel %1 block %2 NCK protection area %3 in automatic or MDI violated"
              10701 "Channel %1 block %2 channel-specific protection area %3 in automatic or MDI violated"
 21: 0x200000	26295 "Protection area %1 was only roughly approximated."
-22: 0x400000	 6030 "Information alarm:Channel/axis activation or storage option (MD19240, 19250) requires more memory than is available"
-23: 0x800000  6035 "Information alarm:Less free memory detected during cold start than is defined in MD18050, 18060"
+22: 0x400000	 6030 "Information alarm: Channel/axis activation or storage option (MD19240, 19250) requires more memory than is available"
+23: 0x800000  6035 "Information alarm: Less free memory detected during cold start than is defined in MD18050, 18060"
+24: 0x1000000 380040 "PROFIBUS/PROFINET: Bus %3, configuration error %1, parameter %2"
+              PROFINET-device-specific consistency checks for Ti/To are disabled.
+              The setup engineer or user is thus responsible for ensuring that axes and distributed I/Os work synchronously with one another on the PROFINET, e.g. they can interpolate with one another.
+25: 0x2000000 16736/22282 "Informational alarms channel %1 Block %2: Prog. thread block is too short %3 to maintain dynamic limit values, %4 is required
+              Alarms relating to short smoothing blocks and the associated exceeding of the dynamic limit values between thread blocks are disabled.
 </description>
 </parameter>
-<parameter number="11416" type="DWORD" dim="0" display="HEX">
+<parameter number="11416" type="UDWORD" dim="0" display="HEX">
 <name>LINK_DYNMSG_ALARM_MASK</name>
 <brief>Mask for activating special alarm outputs with NCU-Link</brief>
 <description>This mask is used by developers for diagnostics.
@@ -4443,7 +4404,7 @@ Alarm 14764 (NCU-Link cannot immediately transfer all non-cyclic link messages o
 <description>Blocks from the part program can be stored in a file in the passive file system with the WRITE command. The length of the log file is limited. If this maximum length is exceeded, the WRITE command returns an error (error code 10).
 </description>
 </parameter>
-<parameter number="11422" type="DWORD" dim="0" display="HEX">
+<parameter number="11422" type="UDWORD" dim="0" display="HEX">
 <name>PROTOCOL_FILE_MODE</name>
 <brief>Setting the behavior of the WRITE command</brief>
 <description>Setting the behavior of the WRITE command for writing to the passive file system
@@ -4461,7 +4422,7 @@ Bit 1: Reserved
 
 </description>
 </parameter>
-<parameter number="11450" type="DWORD" dim="0" display="HEX">
+<parameter number="11450" type="UDWORD" dim="0" display="HEX">
 <name>SEARCH_RUN_MODE</name>
 <brief>Parameterization for search run</brief>
 <description>The behavior during the action blocks after block search can be affected by the following bits:
@@ -4510,7 +4471,7 @@ Bit 7 = 1:
 	The adjustment movements necessary on activation of a tangential axis coupling, during or after an SSL, are always performed with rapid traverse feedrate (G0). In this case, the feedrate value in SD 42121: $SC_AX_ADJUST_FEED is ignored.
 </description>
 </parameter>
-<parameter number="11460" type="DWORD" dim="0" display="HEX">
+<parameter number="11460" type="UDWORD" dim="0" display="HEX">
 <name>OSCILL_MODE_MASK</name>
 <brief>Mode mask for asynchronous oscillation</brief>
 <description>Bit 0
@@ -4522,7 +4483,7 @@ Value 0
 	The oscillation movement is not started until the approach position is reached.
 </description>
 </parameter>
-<parameter number="11470" type="DWORD" dim="0" display="HEX">
+<parameter number="11470" type="UDWORD" dim="0" display="HEX">
 <name>REPOS_MODE_MASK</name>
 <brief>Repositioning properties</brief>
 <description>This bit mask can be used to set the behavior of the control during repositioning.
@@ -4530,7 +4491,7 @@ Value 0
 Bit no.      Meaning when bit set
 -----------------------------------------------------------------------------
 0 (LSB)
-	The dwell time is continued in the residual block from where it was interrupted. (If the bit is not set, the dwell time is repeated completely).
+	The dwell time is continued in the residual block of the repositioning from where it was interrupted. (If the bit is not set, the dwell time is repeated completely).
 1	Reserved
 2	When the bit is set, the repositioning of individual axes can be prevented or delayed via the VDI interface.
 3	When the bit is set, positioning axes are repositioned in the approach block during search run via program test.
@@ -4611,7 +4572,7 @@ This MD11510 $MN_IPO_MAX_LOAD sets the IPO computing time (in % of the IPO cycle
 This diagnostics function is disabled if the machine data is 0.
 </description>
 </parameter>
-<parameter number="11550" type="DWORD" dim="0" display="HEX">
+<parameter number="11550" type="UDWORD" dim="0" display="HEX">
 <name>STOP_MODE_MASK</name>
 <brief>Defines the stop behavior.</brief>
 <description>This MD describes the stop behavior of the NCK under certain conditions:
@@ -4622,30 +4583,27 @@ Bit 0 == 0 :=
 	No stop if G codes G331/G332 are active and a path motion or G4 has also been programmed.
 
 Bit 0 == 1 :=
-	Same behavior as until SW version 6.4, i.e. a stop is possible during G331/G332.
+	A stop is possible during G331/G332 with interruption of the continuous-path mode (G60 or G4 between G331/G332 blocks interrupt the continuous-path mode).
 
 Bits 1.....15
 	Not assigned
 </description>
 </parameter>
-<parameter number="11600" type="DWORD" dim="0" display="HEX">
+<parameter number="11600" type="UDWORD" dim="0" display="DECIMAL">
 <name>BAG_MASK</name>
 <brief>Defines the mode group behavior</brief>
-<description>This MD describes the effect of the VDI signals on all channels of a mode group (BAG) in respect of ASUBs and interrupt routines.
-Bit no.  Hexadec.   Meaning when bit set
-         value
+<description>The MD describes the effect of the VDI signals on all channels of a mode group (BAG) and the behavior of the internal mode changeover in relation to ASUBs and interrupt routines.
 
-Bit0:    0x0        Normal response to mode group VDI signals (BAG-RESET, BAG-STOP, single block types A and B, mode selection) in all channels of the mode group (as SW 3). In addition, all channels of a mode group are switched to a program operating mode when an interrupt is started.
-                    This means that if an interrupt is started from JOG in a channel of the mode group, this channel automatically changes the mode to AUTO internally, and all other channels of the mode group are also switched to AUTO. Similarly, when the interrupt ends, the mode group automatically switches back to JOG in all channels.
+Value = 0: When an interrupt is started in a channel of the mode group, all channels of the mode group respond normally to mode group VDI signals (such as BAG-RESET und BAG-STOP). If the interrupt is started from JOG, all channels of the mode group change internally into AUTO mode. Similarly, the mode group automatically switches back to JOG when the interrupt ends.
 
-Bit0:    0x1        If an interrupt is started in a channel of the mode group, this channel no longer responds to mode group VDI signals (BAG-RESET, BAG-STOP, single block types A and B, mode selection), as long as the interrupt remains active. If, for example, BAG-STOP is triggered, all channels of the mode group are stopped, but the interrupt continues to run. A channel STOP remains active as before.
-                    Furthermore, if an interrupt is started from JOG in a channel of the mode group, only this channel automatically changes the mode to AUTO internally, all other channels of the mode group remain in JOG mode. The automatic switch back of the mode at the end of the interrupt only relates correspondingly to the channel in which the interrupt ran.
+Value = 1: If an interrupt is started in a channel of the mode group, this channel no longer responds to mode group VDI signals (such as BAG-RESET and BAG-STOP). If, for example, BAG-STOP is triggered, all channels of the mode group are stopped, but the interrupt continues to run. A channel STOP remains active as before. Furthermore, if an interrupt is started from JOG in a channel of the mode group, only this channel automatically changes the mode to AUTO internally, all other channels of the mode group remain in JOG mode. The automatic switch back of the mode at the end of the interrupt only relates correspondingly to the channel in which the interrupt ran.
 
-Bit1:    0x1        If an interrupt is started from JOG in a channel of the mode group, this channel automatically changes the mode to AUTO internally. All other channels of the mode group remain in JOG mode. The automatic switch back of the mode at the end of the interrupt only relates correspondingly to the channel in which the interrupt ran.
-                    The behavior is similar to Bit0, mode group VDI signals (BAG-RESET, BAG-STOP, single block types A and B, mode selection) but affect the interrupt. This means that when Bit0 is set, Bit1 does not have to be set (except for the functionality "JOG in ASUB", see MD11602 $MN_ASUP_START_MASK, Bit3).
+Value = 2: If an interrupt is started in a channel of the mode group, all channels of the mode group respond normally to mode group VDI signals (such as BAG-RESET and BAG-STOP). If an interrupt is started from JOG in a channel of the mode group, only this channel automatically changes the mode to AUTO internally. All other channels of the mode group remain in JOG mode. The automatic switch back of the mode at the end of the interrupt naturally only relates to the channel in which the interrupt ran. This behavior is  not supported until V4.7 SP4 HF1. This setting was not defined in earlier versions. Furthermore, the functionality "JOG in ASUB" is permitted with this setting (see MD11602 $MN_ASUP_START_MASK, bit3).
+
+Value = 3: As value = 1. But the functionality "JOG in ASUB" is also permitted (see MD11602 $MN_ASUP_START_MASK, bit3).
 </description>
 </parameter>
-<parameter number="11602" type="DWORD" dim="0" display="HEX">
+<parameter number="11602" type="UDWORD" dim="0" display="HEX">
 <name>ASUP_START_MASK</name>
 <brief>Ignore stop conditions for ASUB</brief>
 <description>This machine data defines which stop reasons are to be ignored on an ASUB start. The ASUB is started or the following stop reasons are ignored:
@@ -4688,7 +4646,7 @@ Related to:
 	MD11602 $MN_ASUP_START_MASK
 </description>
 </parameter>
-<parameter number="11610" type="DWORD" dim="0" display="HEX">
+<parameter number="11610" type="UDWORD" dim="0" display="HEX">
 <name>ASUP_EDITABLE</name>
 <brief>Activation of a user-specific ASUB program</brief>
 <description>This MD determines whether user-specific routine: _N_ASUP_SPF stored in directory _N_CUS_DIR/ _N_CMA_DIR is to be used to process RET and REPOS. The user ASUB is searched for first in _N_CUS_DIR.
@@ -4768,7 +4726,7 @@ Use: this setting prevents unnecessary accesses to the external storage during p
 
 </description>
 </parameter>
-<parameter number="11640" type="DWORD" dim="0" display="HEX">
+<parameter number="11640" type="UDWORD" dim="0" display="HEX">
 <name>ENABLE_CHAN_AX_GAP</name>
 <brief>Allow channel axis gaps in AXCONF_MACHAX_USED</brief>
 <description>Bit0 = 1
@@ -4812,7 +4770,7 @@ A modal subprogram call must not be programmed in the block with the D function 
 In the event of a conflict alarm 14016 is output.
 </description>
 </parameter>
-<parameter number="11750" type="DWORD" dim="0" display="HEX">
+<parameter number="11750" type="UDWORD" dim="0" display="HEX">
 <name>NCK_LEAD_FUNCTION_MASK</name>
 <brief>Functions for master value coupling</brief>
 <description>Special functions of the master value coupling are set with this MD.
@@ -4830,7 +4788,7 @@ Bit 4 == 1:
 	reserved
 </description>
 </parameter>
-<parameter number="11752" type="DWORD" dim="0" display="HEX">
+<parameter number="11752" type="UDWORD" dim="0" display="HEX">
 <name>NCK_TRAIL_FUNCTION_MASK</name>
 <brief>Functions for coupled motion</brief>
 <description>Special functions for coupled motions are set with this MD.
@@ -4848,7 +4806,7 @@ Bit 5-31:
 	reserved
 </description>
 </parameter>
-<parameter number="11756" type="DWORD" dim="0" display="HEX">
+<parameter number="11756" type="UDWORD" dim="0" display="HEX">
 <name>NCK_EG_FUNCTION_MASK</name>
 <brief>Functions for Electronic Gear</brief>
 <description>This MD is used to set special functions of Electronic Gear (EG).
@@ -5008,7 +4966,7 @@ Related machine data:
 	The override is relative to the programmed feed or to the path feed limit, depending on which resulting value is lower. In this way, even for a great feed reduction (due to the permissible axis dynamics), the effect of the override value (in the range 0 to 100%) is always visible.
 </description>
 </parameter>
-<parameter number="12090" type="DWORD" dim="0" display="HEX">
+<parameter number="12090" type="UDWORD" dim="0" display="HEX">
 <name>OVR_FUNCTION_MASK</name>
 <brief>Selection of override specifications</brief>
 <description>The functionality of the override switches can be affected by the bits.
@@ -5123,7 +5081,7 @@ The value defined by MD32000 $MA_MAX_AX_VELO is taken as the upper limit. If the
 If the machine construction requires a central lubrication, i.e. the lubrication pulse of any axis is acting on all axes, the corresponding path monitoring of all axes must be restarted after lubrication pulse output. This start synchronization of the monitoring is executed via MD12300 $MN_CENTRAL_LUBRICATION=TRUE.
 </description>
 </parameter>
-<parameter number="12510" type="DWORD" dim="0">
+<parameter number="12510" type="UDWORD" dim="0" display="DECIMAL">
 <name>NCU_LINKNO</name>
 <brief>NCU number in an NCU cluster</brief>
 <description>Number or name for identifying an NCU within an NCU grouping.
@@ -5599,7 +5557,7 @@ Related to:
 In addition to the channel identifier of an axis, the axis container identifier, which can be defined by the user here, can also be used as an axis container name for e.g. a rotation of an axis container (AXCTSWE(CT1)).
 </description>
 </parameter>
-<parameter number="12760" type="DWORD" dim="0" display="HEX">
+<parameter number="12760" type="UDWORD" dim="0" display="HEX">
 <name>AXCT_FUNCTION_MASK</name>
 <brief>Functions for the axis container</brief>
 <description>This MD is used to set the specific functions for the axis container.
@@ -5637,6 +5595,34 @@ It is only evaluated if MD12950 $MN_PLC_MCP_CONNECT[i] = 0  for the selected MCP
 <description>The data defines the logical output addresses of the machine control panels on the PROFINET.
 It is only evaluated if MD12950 $MN_PLC_MCP_CONNECT[i] = 0 for the selected MCPs.
 
+</description>
+</parameter>
+<parameter number="12954" type="DWORD" dim="1">
+<name>PLC_ALM_CONNECT</name>
+<brief>Configuration of the control of the infeed</brief>
+<description>The data specifies how the infeed (ALM, SLM) will be controlled in systems with software PLC2xx.
+Value = 0 No infeed connected or control via terminal wiring
+Value = 1 Control via a data block of the PLC2xx software
+Index 0 = Infeed connected directly to SINUMERIK 828D
+Index 1 = Infeed connected to an axis expansion module (NX)
+</description>
+</parameter>
+<parameter number="12955" type="DWORD" dim="1" readonly="true">
+<name>PLC_ALM_ADDRESS_IN</name>
+<brief>Logical input address of the infeed</brief>
+<description>Logical input address of the infeed (ALM, SLM) with control via a data block of the PLC2xx software.
+The MD is only evaluated if MD12954 $MN_PLC_ALM_CONNECT[i] = 1 for the selected infeed.
+Index 0 = Infeed connected directly to SINUMERIK 828D
+Index 1 = Infeed connected to an axis expansion module (NX)
+</description>
+</parameter>
+<parameter number="12956" type="DWORD" dim="1" readonly="true">
+<name>PLC_ALM_ADDRESS_OUT</name>
+<brief>Logical output address of the infeed</brief>
+<description>Logical output address of the infeed (ALM, SLM) with control via a data block of the PLC2xx software.
+The MD is only evaluated if MD12954 $MN_PLC_ALM_CONNECT[i] = 1 for the selected infeed.
+Index 0 = Infeed connected directly to SINUMERIK 828D
+Index 1 = Infeed connected to an axis expansion module (NX)
 </description>
 </parameter>
 <parameter number="12970" type="DWORD" dim="0">
@@ -5757,7 +5743,7 @@ Alarm 26015 is issued with reference to this machine data if the telegram config
 The SIEMENS telegram types 1xx must be operated in the SINUMERIK context in 611U interface mode.
 </description>
 </parameter>
-<parameter number="13070" type="DWORD" dim="1" display="HEX">
+<parameter number="13070" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_FUNCTION_MASK</name>
 <brief>PROFIdrive expansion functions</brief>
 <description>For PROFIdrive only:
@@ -5768,7 +5754,7 @@ Meaning of set bits:
 Bit 0:	Deactivation of axial drive alarm display
  		Note: the effect of this bit may be hidden, depending on the
 		value in MD13140 $MN_PROFIBUS_ALARM_ACCESS.
-Bit 1:	reserved, free (previous deactivation of 611U description file intermediate storage in the NCK)
+Bit 1:	Reserved, free (previous deactivation of 611U description file intermediate storage in the NCK)
 Bit 2:	Deactivation of axial encoder driver parameter accesses
 Bit 3:	Deactivation of axial output driver parameter accesses
 Bit 4:	Reserved, free (previous activation of DSC bits)
@@ -5784,7 +5770,7 @@ Bit 13:	Drive parking simulation (STA2.7 = STW2.7)
 Bit 14:	Selection of non-cyclical communication  0 = DPT  1 = DPV1
 Bit 15:	Deactivation of the consistency check of the PROFIdrive message frame configuration
 
-Configuration of bits 5 - 10,  which is new for SW 6.3 and higher, allows adaptation of certain control or status bits that are not standardized in the PROFIdrive profile. The bits may have a different significance and effect in the default setting of third-party drives.
+Configuration of bits 5 - 10 allows adaptation of certain control or status bits that are not standardized in the PROFIdrive profile. The bits may have a different significance and effect in the default setting of third-party drives.
 </description>
 </parameter>
 <parameter number="13080" type="BYTE" dim="1">
@@ -5805,7 +5791,7 @@ Note:
 	With non-Siemens drives (at least with linear drives), the value must be entered manually if automatic drive recognition is not possible.
 </description>
 </parameter>
-<parameter number="13100" type="DWORD" dim="1" display="HEX">
+<parameter number="13100" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_DIAGNOSIS</name>
 <brief>Diagnostics drive link</brief>
 <description>reserved
@@ -5845,7 +5831,7 @@ Logical I/O address that is to be recorded.
 MD13112 $MN_PROFIBUS_TRACE_FILE_SIZE &gt; 0: Trace is automatically disabled when the file size is reached.
 </description>
 </parameter>
-<parameter number="13114" type="DWORD" dim="1" display="HEX">
+<parameter number="13114" type="UDWORD" dim="1" display="HEX">
 <name>PROFIBUS_TRACE_START_EVENT</name>
 <brief>Trigger conditions for PROFIBUS/PROFINET trace</brief>
 <description>For PROFIBUS/PROFINET only:
@@ -5901,7 +5887,7 @@ Default: the display default behavior of the mentioned drive
 
 </description>
 </parameter>
-<parameter number="13150" type="DWORD" dim="0" display="HEX">
+<parameter number="13150" type="UDWORD" dim="0" display="HEX">
 <name>SINAMICS_ALARM_MASK</name>
 <brief>Activate fault and warning buffer output for Sinamics</brief>
 <description>For PROFIBUS/PROFINET only, especially SINAMICS:
@@ -5953,8 +5939,6 @@ Value 1:
 	Deflected state            0 V
 
 The programmed edges of the sensor are independent of the electrical polarity, and are to be regarded as purely mechanical. The programming of a positive edge always means the transition from the non-deflected into the deflected state. The programming of a negative edge always means the transition from the deflected into the non-deflected state.
-0:	Non-deflected state	 0 V	Deflected state	24 V
-1:	Non-deflected state	24 V	Deflected state	 0 V
 </description>
 </parameter>
 <parameter number="13210" type="BYTE" dim="0">
@@ -5999,11 +5983,10 @@ For MEAS_CENTRAL_SOURCE = 3, the following applies:
 <parameter number="13220" type="DOUBLE" dim="1">
 <name>MEAS_PROBE_DELAY_TIME</name>
 <brief>Delay time between probe deflection and recognition</brief>
-<description>For probes with e.g. radio transmission, the probe deflection can be detected in the NC only with delay.
+<description>For probes with, for example, radio transmission, the probe deflection can be detected in the NC only with delay.
 With this MD, the transmission link delay between the probe deflection and its detection is set in the control.
 The measured value is corrected internally by the control by the distance that corresponds to the traversing motion during this time before measuring (modeling).
-It is practicable to set values only up to a maximum of 15 position controller cycles.
-Anyhow, the modeling could not work with the expected accuracy with values greater than that. In this case, the input value is therefore limited internally by the software to 15 position controller cycles (without any further feedback).
+As the modeling does not work with the expected accuracy at higher position control cycles, the delay time is limited independently of the input value to 31 position control cycles).
 </description>
 </parameter>
 <parameter number="13230" type="BYTE" dim="0">
@@ -6054,25 +6037,22 @@ Value 4:   1 MHz
 <parameter number="14510" type="DWORD" dim="1">
 <name>USER_DATA_INT</name>
 <brief>User data (INT)</brief>
-<description>User data is stored in the NCK-PLC interface, and can be read by the PLC user from the DB20 during the runup.
-User machine data, evaluation in PLC (display as integer, decimal)
+<description>User data can be read from the &lt;USER_DATA_BLOCK/&gt;  (user data block) in the PLC user program.
 </description>
 </parameter>
-<parameter number="14512" type="DWORD" dim="1" display="HEX">
+<parameter number="14512" type="UDWORD" dim="1" display="HEX">
 <name>USER_DATA_HEX</name>
 <brief>User data (HEX)</brief>
-<description>User data is stored in the NCK-PLC interface and can be read by the PLC user from the DB20 during the PLC runup.
-User machine data, evaluation in PLC (display in HEX format)
+<description>User data can be read from the &lt;USER_DATA_BLOCK/&gt;  (user data block) in the PLC user program.
 </description>
 </parameter>
 <parameter number="14514" type="DOUBLE" dim="1">
 <name>USER_DATA_FLOAT</name>
 <brief>User data (FLOAT)</brief>
-<description>User data is stored in the NCK-PLC interface, and can be read by the PLC user from the DB20 during the runup.
-User machine data, evaluation in PLC (floating point format, restricted in PLC to 32-bit IEEE format)
+<description>User data can be read from the &lt;USER_DATA_BLOCK/&gt;  (user data block) in the PLC user program.
 </description>
 </parameter>
-<parameter number="14516" type="BYTE" dim="1" display="HEX">
+<parameter number="14516" type="UBYTE" dim="1" display="HEX">
 <name>USER_DATA_PLC_ALARM</name>
 <brief>User data (HEX)</brief>
 <description>Configuration of alarm responses to user PLC alarms
@@ -6086,7 +6066,7 @@ Bit 6   Definition for alarm or message (1: Alarm, 0: Message
 Bit 7   Delete at POWER ON
 </description>
 </parameter>
-<parameter number="14518" type="BYTE" dim="1" display="HEX">
+<parameter number="14518" type="UBYTE" dim="1" display="HEX">
 <name>USER_DATA_PLC_ALARM_ASSIGN</name>
 <brief>User data (HEX)</brief>
 <description>Channel assignment of configured, channel-specific alarm response to the user PLC alarms in MD14516 $MN_USER_DATA_PLC_ALARM
@@ -6123,17 +6103,52 @@ If MD15710 $MN_TCA_CYCLE_NAME contains an empty string, the replacement is deact
 
 </description>
 </parameter>
-<parameter number="15800" type="STRING" dim="0">
-<name>R_PARAM_NCK_NAME</name>
-<brief>Identifiers of the global R variables</brief>
-<description>Defines the identifier for the global NCK R-parameters.
-A change of the identifier is only active if, upon Power On, the number of global R variables ( MD18156 $MN_MM_NUM_R_PARAM_NCK  ) is equal to 0.
-</description>
-</parameter>
 <parameter number="16800" type="STRING" dim="0">
 <name>ROOT_KIN_ELEM_NAME</name>
 <brief>Name of the root chain element</brief>
 <description>Specifies the name of the chain element, which, for a machine description using kinematic chains, is the only one that extends from the zero point of the global coordinate system (root chain element).
+</description>
+</parameter>
+<parameter number="16900" type="UDWORD" dim="0" display="HEX">
+<name>COLLISION_EXT_FUNCTION_MASK</name>
+<brief>Parameterization of external collision check</brief>
+<description>Bit mask for parameterization of external collision check
+</description>
+</parameter>
+<parameter number="16901" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_PREVIEW_TIME</name>
+<brief>Preview time for external collision check</brief>
+<description>The time applies during operation provided that enough data is available for a prediction. When a movement is started, the movement preview starts at the current position, and returns predictions in the largest possible increments until the preview time is reached.
+</description>
+</parameter>
+<parameter number="16902" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_PREVIEW_STEP</name>
+<brief>Preview time step for external collision check</brief>
+<description>When a  movement is started, the movement preview starts at the current position, and returns predictions in the configured increment until the preview time COLLISION_EXT_PREVIEW_TIME is reached.
+</description>
+</parameter>
+<parameter number="16903" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_TIMEOUT</name>
+<brief>Timeout for external collision check</brief>
+<description>Timeout for communication with an external system to avoid collisions.
+</description>
+</parameter>
+<parameter number="16904" type="DOUBLE" dim="0">
+<name>COLLISION_EXT_STOP_TIME</name>
+<brief>Maximum braking time for external collision avoidance</brief>
+<description>If the external collision avoidance triggers a stop, the machine must come to a standstill within the set time (identical to response to STOP D).
+</description>
+</parameter>
+<parameter number="16905" type="UDWORD" dim="0" display="DECIMAL">
+<name>COLLISION_EXT_NUM_PACKETS</name>
+<brief>Number of preview packages per Ipo cycle</brief>
+<description>For each Ipo cycle, a package with current positions and the configured number of preview packages is created.
+</description>
+</parameter>
+<parameter number="16906" type="UDWORD" dim="0" display="HEX">
+<name>COLLISION_EXT_CFG_MASK</name>
+<brief>Parameterization of external collision check</brief>
+<description>Bit mask for parameterization of external collision check
 </description>
 </parameter>
 <parameter number="17000" type="STRING" dim="1">
@@ -6148,14 +6163,13 @@ Each extension must comprise precisely three uppercase letters.
 <parameter number="17200" type="DOUBLE" dim="1">
 <name>GMMC_INFO_NO_UNIT</name>
 <brief>Global HMI information (without physical unit)</brief>
-<description>The HMI stores the global display machine data
+<description>Internal function
+Mapping of the global display machine data to NCK machine data
+- $MNS_DISP_RES_MM            :: $MN_GMMC_INFO_NO_UNIT[0]
+- $MNS_DISP_RES_INCH          :: $MN_GMMC_INFO_NO_UNIT[1]
+- $MNS_DISP_RES_SPINDLE       :: $MN_GMMC_INFO_NO_UNIT[2]
+- $MNS_ENABLE_COORDINATE_ACS  :: $MN_GMMC_INFO_NO_UNIT[3]
 
-- $MM_DISPLAY_RESOLTION
-- $MM_DISPLAY_RESOLTION_INCH
-- $MM_SPIND_DISPLAY_RESOLUTION
-- $MM_MA_COORDINATE_SYSTEM
-
-in the NCK machine data from MD17200 $MN_GMMC_INFO_NO_UNIT[0] to MD17200 $MN_GMMC_INFO_NO_UNIT[3]. This enables these display machine data to be accessed from the NCK.
 </description>
 </parameter>
 <parameter number="17201" type="BYTE" dim="1">
@@ -6201,7 +6215,7 @@ MD20310 $MC_TOOL_MANAGEMENT_MASK
 <description>"Multiple tools in one magazine location" function (multitool). Maximum number of locations / tools per multitool.
 </description>
 </parameter>
-<parameter number="17510" type="DWORD" dim="0" display="HEX">
+<parameter number="17510" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_UNLOAD_MASK</name>
 <brief>Behavior of tool data when unloading</brief>
 <description>When unloading a tool, certain tool data can be set to store fixed values.
@@ -6217,7 +6231,7 @@ Bit no.	Bit value	HEX	Meaning
 	1	0x8	Tool parameter $TC_TP11 is set to zero. That is, the assignment to the tool subgroup is resolved.
 </description>
 </parameter>
-<parameter number="17515" type="DWORD" dim="0" display="HEX">
+<parameter number="17515" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_RESETMON_MASK</name>
 <brief>Tool data behavior with RESETMON</brief>
 <description>The 5th parameter of the RESETMON command defines which tool status is to be reset. If the 5th parameter is omitted, it is replaced by the value in this MD. With the PI service "_N_TRESMON", work is always done with this value.
@@ -6279,7 +6293,7 @@ Bits not defined here are ignored when writing the machine data.
 
 </description>
 </parameter>
-<parameter number="17520" type="DWORD" dim="0" display="HEX">
+<parameter number="17520" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_DEFAULT_DATA_MASK</name>
 <brief>Create new tool: default settings</brief>
 <description>When defining a tool for the first time (bits 0, 1, 2) or the magazine locations (bit 3) for the first time, certain data of the tool can be set to fixed default values. Bit 4 can couple the magazine location status 'Overlapping allowed' ('H2000') to the value of the magazine location status 'disabled' ('H1'). This can prevent simple applications from dealing with data which do not necessarily have to be assigned individual values.
@@ -6312,7 +6326,7 @@ Meaning: Only with TMMG + active consider adjacent location: With SET/RESET of t
 
 </description>
 </parameter>
-<parameter number="17530" type="DWORD" dim="0" display="HEX">
+<parameter number="17530" type="UDWORD" dim="0" display="HEX">
 <name>TOOL_DATA_CHANGE_COUNTER</name>
 <brief>Mark tool data change for HMI</brief>
 <description>HMI display support. This data enables individual data to be explicitly taken into account or not taken into account in the OPI variables (block C/S) toolCounter, toolCounterC, toolCounterM.
@@ -6344,7 +6358,7 @@ The statements  "Changes to the values of the tool status" and "Changes to the v
 
 </description>
 </parameter>
-<parameter number="17540" type="DWORD" dim="0" display="HEX">
+<parameter number="17540" type="UDWORD" dim="0" display="HEX">
 <name>TOOLTYPES_ALLOWED</name>
 <brief>Permitted tool types</brief>
 <description>Definition of the tool types permitted in NCK (see $TC_DP1) with the tool offset selection. That is, tools of any type may be loaded in the NCK; but only the tools types defined here may be defined in the offset defining tool. A bit value = 1 means that the named tool type range is permitted for the offset selection. A bit value = 0 means that the named tool type range is rejected with an offset-capable alarm in the case of an attempted offset selection of a cutting edge of this type. The special value = 0, 9999 for the tool type means "undefined". Tool offsets with this tool type value generally cannot be selected.
@@ -6453,7 +6467,7 @@ Index Meaning
 2     Search depth in buffer for data changes of main processing (especially synchronized actions)
 </description>
 </parameter>
-<parameter number="17900" type="DWORD" dim="0" display="HEX">
+<parameter number="17900" type="UDWORD" dim="0" display="HEX">
 <name>VDI_FUNCTION_MASK</name>
 <brief>Setting to VDI signals</brief>
 <description>Settings for VDI signals:
@@ -6499,8 +6513,39 @@ This data cannot be written.
 </parameter>
 <parameter number="18040" type="STRING" dim="1" readonly="true">
 <name>VERSION_INFO</name>
-<brief>Version</brief>
-<description>Version identifiers of the system software
+<brief>Version and product information</brief>
+<description>Version and model information for the system software component NCK
+[0]:'Software component name[SI version]'                         - value: "Numeric Control NCK" (can be overwritten as from "trol NCK" with 'SIxxx'. 'SI' stands for Safety Integrated, 'xxx' for the SI version)
+[1]:'Version (and date of the NCK installation on the target system)'
+[2]:'Date and time of the NCK program generation'
+[3]:'Name of the model and submodel'                        - values: 808d-me42, ... 828d-me42, ... 840DSL731,... 840D732, ...
+[4]:'Hardware type'                                                 - values for NCK in NCU: IDC, SOC2, ... simulations NCK: PC (Windows), PC (Linux), ... HOST development NCK: HOST development
+[5]:'Product type'                                             - values: machine tool, simulation, simulation development
+[6]:'Subscaling 1'                                       - values: file name. different variants of a model can have data (properties) deviating from those of the model.
+[7]:'Subscaling 2'                                       - values: file name. different variants of a model can have data (properties) deviating from those of the model.
+[8]:'Subscaling 3'                                       - values: file name. different variants of a model can have data (properties) deviating from those of the model.
+Applies to indices 6,7,8: Prerequisite for a value input is that the file exists when the NCK starts.
+Example for 840dsl on NCU hardware:
+[0]:"Numeric Control NCK" (without NC-based Safety Integrated)
+[0]:"Numeric ControSI112" (with NC-based Safety Integrated)
+[1]:"112.00.00 "
+[2]:"22/02/16 09:28:03"
+[3]:"840DSL731"
+[4]:"SOC2"
+[5]:"machine tool"
+[6]:""
+[7]:""
+[8]:""
+Example for '840d virtual commissioning' (a simulation product) on a Windows computer:
+[0]:"Numeric Control NCK"  (without Safety Integrated)
+[1]:"112.00.00"
+[2]:"31/01/16 08:58:43"
+[3]:"840D732"
+[4]:"PC (Windows)"
+[5]:"simulation"
+[6]:"840evoVC_addon"
+[7]:""
+[8]:""
 </description>
 </parameter>
 <parameter number="18042" type="STRING" dim="1" readonly="false">
@@ -6514,19 +6559,26 @@ This data cannot be written.
 <brief>Mode in which the EES function works.</brief>
 <description>Mode in which the function "Execution from External Storage" works.
 Bit0(LSB) = 1
-    Local EES active (LOCAL_DRIVE of the NCU is available EES drive)
+    CNC user memory expanded (local EES active)
 
 Bit1 = 1
-    Global EES is active (all available drives (USB, incl. local EES, if existing)
+    Execution from external memory (global EES is active)
 
 Bit2 = 1
     A global part program memory has been set up on an external memory.
-    Within the scope of the search path, the search for programs starts in the directories MPF/SPF/Work (WCS) in the NCK, and then in the corresponding directories in an external memory.
 
 See also:
-  OD19334 $ON_SYSTEM_FUNCTION_MASK Bit 9
-  OD19730 $MC_HMI_FUNCTION_MASK[0] Bit 5
-  MD10123 $MN_EES_LOCAL_ENABLE
+  OD19730 $ON_HMI_FUNCTION_MASK[0] bit 5 "CNC user memory expanded"
+  OD19334 $ON_SYSTEM_FUNCTION_MASK bit 9 "Execute from external memory"
+  OD19334 $ON_SYSTEM_FUNCTION_MASK bit 12 "Additional HMI user memory on CF card of the NCU"
+</description>
+</parameter>
+<parameter number="18046" type="UBYTE" dim="0" display="HEX" readonly="false">
+<name>DSF_MODE_INFO</name>
+<brief>DSF information</brief>
+<description>DSF information:
+Bit0(LSB) = 1
+    DSF available
 </description>
 </parameter>
 <parameter number="18050" type="DWORD" dim="0" readonly="true">
@@ -6689,7 +6741,7 @@ The permissible range of the index m of system parameter $TC_MPTH[n,m] is from 0
 (The maximum of index n is given by MD18078 $MN_MM_MAX_NUM_OF_HIERARCHIES.)
 </description>
 </parameter>
-<parameter number="18080" type="DWORD" dim="0" display="HEX">
+<parameter number="18080" type="UDWORD" dim="0" display="HEX">
 <name>MM_TOOL_MANAGEMENT_MASK</name>
 <brief>Step-by-step memory reservation for tool management (SRAM)</brief>
 <description>Activating the TM memory with "0" means:
@@ -6703,7 +6755,7 @@ Bit 5=1: Wear monitoring active
 Bit 6=1: Wear grouping available
 Bit 7=1: Reserve memory for adapters for magazine locations
 Bit 8=1: Memory for application and/or setup offsets
-Bit 9=1: Tools associated with a revolver no longer leave their revolver location on tool change (display).
+Bit 9=1: Tools associated with a turret no longer leave their turret location on tool change (display).
 Bit 10=1:The multitool function is available
               (other MDs can be used to modify the configuration).
 Bit 10=0:The multitool function is not available
@@ -6716,9 +6768,6 @@ MD18080 $MN_MM_TOOL_MANAGEMENT_MASK = 1 means tool management without tool monit
 
 
 
-Value = 0: 	No memory reserved, tool monitoring not possible
-Value = 0x2: 	Monitoring data / memory is provided
-	(only possible if the "tool monitoring" option is available)
 </description>
 </parameter>
 <parameter number="18082" type="DWORD" dim="0">
@@ -6808,11 +6857,24 @@ MD18084 $MN_MM_NUM_MAGAZINE
 <name>MM_TYPE_CC_MAGAZINE_PARAM</name>
 <brief>Type of OEM magazine data (SRAM)</brief>
 <description>Individual types can be assigned to the parameters in this way. Array index n can take values from 0 to that of MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM.
-The possible values of the MD = 1, 2, 3, 4, 5 and 6 stand for the NC language types: BOOL, CHAR, INT, REAL, STRING and AXIS. The type FRAME cannot be defined here. The type STRING can have a max. length of 31 characters. Example:
+Type of magazine-specific user data configured by MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM.
+Each parameter can be assigned its own type. Permissible types are:
+Type                            Value of machine data
+(See types of the NC language)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (is not allowed, is not supported by the MCP.)
+AXIS                           6
+FRAME                          Not defined
+
+Example:
 MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM=1
-MD18091 $MN_MM_TYPE_CC_MAGAZINE_PARAM=5
-Parameter $TC_MAPC1 = "UserMagazine" can then be programmed.
-Buffered work memory is used. A value change may but need not necessarily lead to a reconfiguration of the buffered memory.
+MD18091 $MN_MM_TYPE_CC_MAGAZINE_PARAM=2
+Parameter $TC_MAPC1 = "A" can then be programmed.
+Buffered user memory is used. A value change leads to a reconfiguration of the buffered memory.
 
 Related to:
 MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM
@@ -6837,21 +6899,29 @@ MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 <parameter number="18093" type="DWORD" dim="1">
 <name>MM_TYPE_CC_MAGLOC_PARAM</name>
 <brief>Type of OEM magazine location data (SRAM)</brief>
-<description>Individual types can be assigned to the parameters in this way. The array index n can accept values from 0 to the value of MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM.
-The possible values of the MD = 1, 2, 3, 4 and 6 represent the NC language types
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL and
-6   AXIS
-The type STRING is explicitly not possible here. The value 5 is treated like 2. The type FRAME cannot be defined here.
+<description>Individual types can be assigned to the parameters in this way. Array index n can take values from 0 to that of MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM.
+Type of magazine location-specific user data configured by MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM.
+Each parameter can be assigned its own type. Permissible types are:
+Type                            Value of machine data
+(See types of the NC language)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+-(STRING is explicitly not possible here, the value 5 is treated as the value 2)
+AXIS                           6
+FRAME                          Not defined
+
 Example:
-MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM=1
-MD18091 $MN_MM_TYPE_CC_MAGAZINE_PARAM=2
-Buffered user memory is used. A value change leads to reconfiguration of the buffered memory.
+MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM=1
+MD18093 $MN_MM_TYPE_CC_MAGLOC_PARAM=2
+Parameter $TC_MPPC1 = "A" can then be programmed.
+Buffered user memory is used. A value change leads to a reconfiguration of the buffered memory.
 
 Related to:
-MD18092 $MN_MM_NUM_CC_MAGLOG_PARAM
+MD18092 $MN_MM_NUM_CC_MAGLOC_PARAM
+MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 </description>
 </parameter>
 <parameter number="18094" type="DWORD" dim="0">
@@ -6871,20 +6941,25 @@ MD18082 $MN_MM_NUM_TOOL
 <parameter number="18095" type="DWORD" dim="1">
 <name>MM_TYPE_CC_TDA_PARAM</name>
 <brief>Type of OEM tool data (SRAM)</brief>
-<description>Individual types can be assigned to the parameters in this way. The array index n can accept values from 0 to the value of MD18094 $MN_MM_NUM_CC_TDA_PARAM.
-The possible values of the MD = 1, 2, 3, 4, 5 and 6 represent the NC language types
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL,
-5   STRING and
-6   AXIS.
-The type FRAME cannot be defined here. The type STRING can be up to 31 characters long.
+<description>Individual types can be assigned to the parameters in this way. Array index n can take values from 0 to that of MD18094 $MN_MM_NUM_CC_TDA_PARAM.
+Type of tool-specific user data configured by MD18094 $MN_MM_NUM_CC_TDA_PARAM.
+Each parameter can be assigned its own type. Permissible types are:
+Type                            Value of machine data
+(See types of the NC language)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+STRING                         5 (Identifier allowed up to a maximum of 31 characters.)
+AXIS                           6
+FRAME                          Not defined
+
 Example:
 MD18094 $MN_MM_NUM_CC_TDA_PARAM=1
 MD18095 $MN_MM_TYPE_CC_TDA_PARAM=5
-"UserTool" can then be programmed for parameter $TC_TPC1.
-Buffered user memory is used. A value change leads to reconfiguration of the buffered memory.
+Parameter $TC_TPC1 = "UserTool" can then be programmed.
+Buffered user memory is used. A value change leads to a reconfiguration of the buffered memory.
 
 Related to:
 MD18094 $MN_MM_NUM_CC_TDA_PARAM
@@ -6909,24 +6984,27 @@ MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 <parameter number="18097" type="DWORD" dim="1">
 <name>MM_TYPE_CC_TOA_PARAM</name>
 <brief>Type of OEM data per cutting edge (SRAM)</brief>
-<description>Work may only be done with the default setting.
-Individual types can be assigned to the parameters in this way.
-The array index n can accept values from 0 to the value of MD18096 $MN_MM_NUM_CC_TOA_PARAM.
-The possible values of the MD = 1, 2, 3, 4 and 6 represent the NC language types
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL and
-6   AXIS.
-The type STRING is explicitly not possible here. The value 5 is treated like value 2).
-The type FRAME cannot be defined here.
+<description>Individual types can be assigned to the parameters in this way.
+Array index n can take values from 0 to that of MD18096 $MN_MM_NUM_CC_TOA_PARAM.
+Type of cutting edge-specific user data configured by MD18096 $MN_MM_NUM_CC_TOA_PARAM.
+Each parameter can be assigned its own type. Permissible types are:
+Type                            Value of machine data
+(See types of the NC language)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+-(STRING is explicitly not possible here, the value 5 is treated as the value 2)
+AXIS                           6
+FRAME                          Not defined
 
 Example:
 MD18096 $MN_MM_NUM_CC_TOA_PARAM=1
 MD18097 $MN_MM_TYPE_CC_TOA_PARAM=2
 
-"A" can then be programmed for parameter $TC_DPC1.
-Buffered user memory is used. A value change leads to reconfiguration of the buffered memory.
+Parameter $TC_DPC1 = "A" can then be programmed.
+Buffered user memory is used. A value change leads to a reconfiguration of the buffered memory.
 
 Related to:
 MD18096 $MN_MM_NUM_CC_TOA_PARAM
@@ -6952,21 +7030,25 @@ MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 <parameter number="18099" type="DWORD" dim="1">
 <name>MM_TYPE_CC_MON_PARAM</name>
 <brief>Type of OEM monitor data (SRAM)</brief>
-<description>Individual types can be assigned to the parameters in this way. The array index n can accept values from 0 to the value of MD18098 $MN_MM_NUM_CC_MON_PARAM.
-Possible values of the MD = 1, 2, 3, 4 and 6 represent the NC language types
-1   BOOL,
-2   CHAR,
-3   INT,
-4   REAL and
-6   AXIS.
-The FRAME type cannot be defined here.
-(The type STRING is explicitly not possible here. The value 5 is treated like value 2.)
+<description>Individual types can be assigned to the parameters in this way. Array index n can take values from 0 to that of MD18098 $MN_MM_NUM_CC_MON_PARAM.
+Type of monitoring-specific user data configured by MD18098 $MN_MM_NUM_CC_MON_PARAM.
+Each parameter can be assigned its own type. Permissible types are:
+Type                            Value of machine data
+(See types of the NC language)
+------------------------------------------------------------------------------------
+BOOL                           1
+CHAR                           2
+INT                            3
+REAL                           4
+-(STRING is explicitly not possible here, the value 5 is treated as the value 2)
+AXIS                           6
+FRAME                          Not defined
 Example:
 MD18098 $MN_MM_NUM_CC_MON_PARAM=1
 MD18099 $MN_MM_TYPE_CC_MON_PARAM=2
 
-"A" can then be programmed for the parameter $TC_MOPC1.
-Buffered user memory is used. A value change leads to reconfiguration of the buffered memory.
+Parameter $TC_MOPC1 = "A" can then be programmed.
+Buffered user memory is used. A value change leads to a reconfiguration of the buffered memory.
 
 Related to:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
@@ -7015,7 +7097,7 @@ The function can only be used if there are magazine locations in the NCK.
 The tool management function must be active.
 Bit 7 (=0x80) also has be set in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK for the setting to become active.
 
-Adapter data blocks and the cutting edge-specific basic/adapter dimensions are mutually exclusive. This means that if adapter data are defined, then the parameters $TC_DP21, $TC_DP22, $TC_DP23 and their values are generally not available in the NCK.
+Adapter data blocks and the cutting edge-specific basic/adapter dimensions are mutually exclusive. This means that if adapter data are defined, then the parameters $TC_DP21, $TC_DP22, $TC_DP23 and their values are available in the NCK.
 
 -1:
 An adapter is automatically assigned to each magazine location.
@@ -7026,6 +7108,7 @@ No adapter data definitions possible. The cutting edge-specific parameters $TC_D
 
 &gt; 0:
 Number of adapter data blocks. This enables adapters to be defined irrespective of magazine locations. An additional step after defining the data assigns the adapters to the magazine locations. This enables one adapter, for example, to be assigned to several magazine locations.
+Note: The setting &gt;0 is currently not supported by HMI Operate.
 
 See the machine data:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
@@ -7041,7 +7124,7 @@ MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 <brief>Maximum value of D number</brief>
 <description>Maximum value of the D number.
 This does not affect the maximum number of D numbers per cutting edge.
-The monitoring of the D number assignment associated with this value is only active when the D numbers are redefined. This means that existing data blocks are not subsequently checked if the MD is changed.
+The monitoring of the D number assignment associated with this value is only active when the D numbers are redefined. This means that existing data sets are not subsequently checked if the MD is changed.
 The following settings are advantageus:
 MD18105 $MN_MM_MAX_CUTTING_EDGE_NO is equal to
 MD18106 $MN_MM_MAX_CUTTING_EDGE_PER_TOOL.
@@ -7098,7 +7181,7 @@ MD18108 $MN_MM_NUM_SUMCORR,
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA.
 </description>
 </parameter>
-<parameter number="18112" type="DWORD" dim="0" display="HEX">
+<parameter number="18112" type="UDWORD" dim="0" display="HEX">
 <name>MM_KIND_OF_SUMCORR</name>
 <brief>Properties of resulting offsets in TO area (SRAM)</brief>
 <description>Properties of the resulting offsets in NCK.
@@ -7114,8 +7197,8 @@ Bit 2 =1 Existing resulting offsets are set to zero when the tool status is set 
 Bit 3=0 If work is done with the function "TOOLMAN" +"adapter", the "resulting offsets fine"/setup offsets are transformed.
 Bit 3=1 No transformation of the "resulting offsets fine"/setup offsets
 
-Bit 4=0 No set-up offset data blocks
-Bit 4=1 Set-up offset data blocks are additionally created. Whereby the resulting offset is composed of the sum of the set-up offset + "resulting offset fine"
+Bit 4=0 No set-up offset data sets
+Bit 4=1 Set-up offset data sets are additionally created. Whereby the resulting offset is composed of the sum of the set-up offset + "resulting offset fine"
 
 Changing the status of bits 0, 1, 2, 3 does not change the memory structure.
 Changing the status of bit 4 triggers restructuring of the buffered memory after the next PowerOn.
@@ -7338,21 +7421,23 @@ References:
 <name>MM_TYPE_CC_MULTITOOL_PARAM</name>
 <brief>Type of OEM multitool data</brief>
 <description>User or OEM data in tool management.
-Type of multitool-location-specific Siemens user data $TC_MTPCn configured with MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM.
-Each parameter can be assigned its own type. The permissible types are
+Type of multitool-specific user data $TC_MTPCn configured with MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM.
+Each parameter can be assigned its own type. The permissible types are:
 Type                              Value of the machine data
-(See types of
-the NC language)
-----------------------------------------------------------------
+(See types of the NC language)
+---------------------------------------------------------------------------------
 BOOL                                1
 CHAR                                2
 INT                                 3
 REAL                                4
-STRING                              5 (permits identifiers up to 31 characters in length)
+STRING                              5 (is not allowed, is not supported by the MCP.)
 AXIS                                6
 FRAME                               not defined
-See also: MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM and MD18083 $MN_MM_NUM_MULTITOOL, MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
-Buffered working memory is used. A value change leads to reconfiguration of the buffered memory.
+Buffered user memory is used. A value change leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18192 $MN_MM_NUM_CC_MULTITOOL_PARAM
+MD18083 $MN_MM_NUM_MULTITOOL
 </description>
 </parameter>
 <parameter number="18194" type="DWORD" dim="0">
@@ -7365,21 +7450,23 @@ Buffered working memory is used. A value change leads to reconfiguration of the 
 <name>MM_TYPE_CC_MTLOC_PARAM</name>
 <brief>Type of OEM multitool location data</brief>
 <description>User or OEM data in tool management.
-Type of multitool-location-specific Siemens user data $TC_MTPPCn configured with MD18194 $MN_MM_NUM_CC_MTLOC_PARAM.
-Each parameter can be assigned its own type. The permissible types are
+Type of multitool-location-specific user data $TC_MTPPCn configured with MD18194 $MN_MM_NUM_CC_MTLOC_PARAM.
+Each parameter can be assigned its own type. The permissible types are:
 Type                              Value of the machine data
-(See types of
-the NC language)
-----------------------------------------------------------------
+(See types of the NC language)
+----------------------------------------------------------------------------------
 BOOL                                1
 CHAR                                2
 INT                                 3
 REAL                                4
-STRING is explicitly not possible here; the value 5 is treated as the value 2)
+-(STRING is explicitly not possible here; the value 5 is treated as the value 2)
 AXIS                                6
 FRAME                               not defined
-See also: MD18194 $MD_MM_NUM_CC_MTLOC_PARAM and MD18083 $MD_MM_NUM_MULTITOOL, MD18085 $MD_MM_NUM_MULTITOOL_LOCATIONS
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18194 $MN_MM_NUM_CC_MTLOC_PARAM
+MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
 </description>
 </parameter>
 <parameter number="18196" type="DWORD" dim="0">
@@ -7392,21 +7479,23 @@ Buffered user memory is used. A change in value leads to reconfiguration of the 
 <name>MM_TYPE_CCS_MULTITOOL_PARAM</name>
 <brief>Type of Siemens OEM multitool data</brief>
 <description>Siemens OEM data in tool management.
-Type of multitool-location-specific Siemens user data $TC_MTPCSn configured with MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM.
-Each parameter can be assigned its own type. The permissible types are
+Type of multitool-specific Siemens user data $TC_MTPCSn configured with MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM.
+Each parameter can be assigned its own type. The permissible types are:
 Type                              Value of the machine data
-(See types of
-the NC language)
-----------------------------------------------------------------
+(See types of the NC language)
+----------------------------------------------------------------------------------
 BOOL                                1
 CHAR                                2
 INT                                 3
 REAL                                4
-STRING                              5 (permits identifiers up to 31 characters in length)
+STRING                              5 (is not allowed, is not supported by the MCP.)
 AXIS                                6
 FRAME                               not defined
-See also: MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM and MD18083 $MN_MM_NUM_MULTITOOL, MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18196 $MN_MM_NUM_CCS_MULTITOOL_PARAM
+MD18083 $MN_MM_NUM_MULTITOOL
 </description>
 </parameter>
 <parameter number="18198" type="DWORD" dim="0">
@@ -7420,20 +7509,22 @@ Buffered user memory is used. A change in value leads to reconfiguration of the 
 <brief>Type of Siemens OEM multitool location data</brief>
 <description>User or OEM data in tool management.
 Type of multitool-location-specific Siemens user data $TC_MTPPCSn configured with MD18198 $MN_MM_NUM_CCS_MTLOC_PARAM.
-Each parameter can be assigned its own type. The permissible types are
+Each parameter can be assigned its own type. The permissible types are:
 Type                              Value of the machine data
-(See types of
-the NC language)
-----------------------------------------------------------------
+(See types of the NC language)
+--------------------------------------------------------------------------------
 BOOL                                1
 CHAR                                2
 INT                                 3
 REAL                                4
-STRING is explicitly not possible here; the value 5 is treated as the value 2)
+-(STRING is explicitly not possible here; the value 5 is treated as the value 2)
 AXIS                                6
 FRAME                               not defined
-See also: MD18198 $MN_MM_NUM_CCS_MTLOC_PARAM and MD18083 $MN_MM_NUM_MULTITOOL, MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18198 $MN_MM_NUM_CCS_MTLOC_PARAM
+MD18085 $MN_MM_NUM_MULTITOOL_LOCATIONS
 </description>
 </parameter>
 <parameter number="18200" type="DWORD" dim="0">
@@ -7451,24 +7542,24 @@ Buffered user memory is used
 <parameter number="18201" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_MAGAZINE_PARAM</name>
 <brief>Type of Siemens OEM magazine data (SRAM)</brief>
-<description>Only when MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, bit 0=1 ('H1') and bit 2=1 ('H4'), is set for TMMG (and option is set):
-
-User or OEM data in the tool management.
-Type of magazine-specific Siemens user data configured by MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM.
+<description>User or OEM data in tool management.
+Type of magazine-specific Siemens user data configured with MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM.
 Each parameter can be assigned its own type. The permissible types are:
 Type                              Value of the machine data
-(See types
-of the NC language)
-----------------------------------------------------------------
-BOOL                                  1
-CHAR                                  2
-INT                                   3
-REAL                                  4
-STRING                                5 (permits identifier up to 31 characters long)
-AXIS                                  6
-FRAME                                 not defined
-See also: MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM, MD18084 $MN_MM_NUM_MAGAZINE
+(See types of the NC language)
+-----------------------------------------------------------------------------------
+BOOL                                1
+CHAR                                2
+INT                                 3
+REAL                                4
+STRING                              5 (is not allowed, is not supported by the MCP.)
+AXIS                                6
+FRAME                               not defined
 Buffered user memory is used. A value change leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18200 $MN_MM_NUM_CCS_MAGAZINE_PARAM
+MD18084 $MN_MM_NUM_MAGAZINE
 </description>
 </parameter>
 <parameter number="18202" type="DWORD" dim="0">
@@ -7484,22 +7575,24 @@ Buffered working memory is used. A change in value leads to reconfiguration of t
 <parameter number="18203" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_MAGLOC_PARAM</name>
 <brief>Type of Siemens OEM magazine location data (SRAM)</brief>
-<description>Only when MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, bit 0=1 ('H1') and bit 2=1 ('H4'), is set for TMMG (and option is set)
-User or OEM data in the tool management.
-Type of magazine-specific Siemens user data configured by MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM.
+<description>User or OEM data in tool management.
+Type of magazine-location-specific Siemens user data configured with MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM.
 Each parameter can be assigned its own type. The permissible types are:
-Type                          Value of the machine data
+Type                              Value of the machine data
 (See types of the NC language)
-----------------------------------------------------------------
-BOOL                            1
-CHAR                            2
-INT                             3
-REAL                            4
--       (STRING is explicitly impossible here; value 5 is treated like value 2)
-AXIS                            6
-FRAME                           not defined
-See also: MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM, MM_NUM_MAGLOC
+---------------------------------------------------------------------------------
+BOOL                                1
+CHAR                                2
+INT                                 3
+REAL                                4
+-(STRING is explicitly not possible here; the value 5 is treated as the value 2)
+AXIS                                6
+FRAME                               not defined
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18202 $MN_MM_NUM_CCS_MAGLOC_PARAM
+MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
 </description>
 </parameter>
 <parameter number="18204" type="DWORD" dim="0">
@@ -7515,22 +7608,24 @@ Buffered user memory is used
 <parameter number="18205" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_TDA_PARAM</name>
 <brief>Type of Siemens OEM tool data (SRAM)</brief>
-<description>Only when MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, bit 2=1 ('H4'), is set:
-User or OEM data in the tool management.
-Type of tool-specific Siemens user data configured by MD18204 $MN_MM_NUM_CCS_TDA_PARAM.
-Each parameter can be assigned its own type. The permissible types are
+<description>User or OEM data in tool management.
+Type of tool-specific Siemens user data configured with MD18204 $MN_MM_NUM_CCS_TDA_PARAM.
+Each parameter can be assigned its own type. The permissible types are:
 Type                              Value of the machine data
 (See types of the NC language)
-----------------------------------------------------------------
+---------------------------------------------------------------------------------
 BOOL                                1
 CHAR                                2
 INT                                 3
 REAL                                4
-STRING                              5 (permits identifiers up to 31 characters long)
+STRING                              5 (is not allowed, is not supported by the MCP.)
 AXIS                                6
 FRAME                               not defined
-See also: MD18204 $MN_MM_NUM_CCS_TDA_PARAM, MD18082 $MN_MM_NUM_TOOL
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18204 $MN_MM_NUM_CCS_TDA_PARAM
+MD18082 $MN_MM_NUM_TOOL
 </description>
 </parameter>
 <parameter number="18206" type="DWORD" dim="0">
@@ -7546,22 +7641,24 @@ Buffered user memory is used
 <parameter number="18207" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_TOA_PARAM</name>
 <brief>Type of Siemens OEM data per cutting edge (SRAM)</brief>
-<description>Only when MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, bit 2=1 ('H4'), is set:
-User or OEM data in the tool management.
-Type of cutting-edge-specific Siemens user data configured by MD18206 $MN_MM_NUM_CCS_TOA_PARAM.
-Each parameter can be assigned its own type. The permissible types are
-Type                                   Value of the machine data
+<description>User or OEM data in tool management.
+Type of cutting-edge-specific Siemens user data configured with MD18206 $MN_MM_NUM_CCS_TOA_PARAM.
+Each parameter can be assigned its own type. The permissible types are:
+Type                              Value of the machine data
 (See types of the NC language)
-----------------------------------------------------------------
-BOOL                                    1
-CHAR                                    2
-INT                                     3
-REAL                                    4
--       (STRING is explicitly impossible here; value 5 is treated like value 2)
-AXIS                                    6
-FRAME                                   not defined
-See also: MD18206 $MN_MM_NUM_CCS_TOA_PARAM, MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
+------------------------------------------------------------------------------------
+BOOL                                1
+CHAR                                2
+INT                                 3
+REAL                                4
+-(STRING is explicitly not possible here; the value 5 is treated as the value 2)
+AXIS                                6
+FRAME                               not defined
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18206 $MN_MM_NUM_CCS_TOA_PARAM
+MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 </description>
 </parameter>
 <parameter number="18208" type="DWORD" dim="0">
@@ -7578,23 +7675,24 @@ Buffered user memory is used
 <parameter number="18209" type="DWORD" dim="1">
 <name>MM_TYPE_CCS_MON_PARAM</name>
 <brief>Type of Siemens OEM monitor data (SRAM)</brief>
-<description>Only when MD18080 $MN_MM_TOOL_MANAGEMENT_MASK, bit 0 = 1 or bit 1 = 1 and bit 2=1 ('H4'), is set:
-User or OEM data in the tool management.
-Type of monitoring-specific Siemens user data configured by MD18208 $MN_MM_NUM_CCS_MON_PARAM.
-Each parameter can be assigned its own type. The permissible types are
-Type                               Value of the machine data
+<description>User or OEM data in tool management.
+Type of monitoring-specific Siemens user data configured with MD18208 $MN_MM_NUM_CCS_MON_PARAM.
+Each parameter can be assigned its own type. The permissible types are:
+Type                              Value of the machine data
 (See types of the NC language)
-----------------------------------------------------------------
+-------------------------------------------------------------------------------
 BOOL                                1
 CHAR                                2
 INT                                 3
 REAL                                4
--       (STRING is explicitly impossible here; value 5 is treated like value 2)
+-(STRING is explicitly not possible here; the value 5 is treated as the value 2)
 AXIS                                6
 FRAME                               not defined
-
-See also: MD18208 $MN_MM_NUM_CCS_MON_PARAM, MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 Buffered user memory is used. A change in value leads to reconfiguration of the buffered memory.
+
+Related to:
+MD18208 $MN_MM_NUM_CCS_MON_PARAM
+MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
 </description>
 </parameter>
 <parameter number="18210" type="DWORD" dim="0" readonly="true">
@@ -7660,17 +7758,14 @@ See also the meaning of MD18060 $MN_INFO_FREE_MEM_STATIC
 <parameter number="18231" type="DWORD" dim="1" readonly="true">
 <name>MM_USER_MEM_BUFFERED_TYPEOF</name>
 <brief>Technology for data buffering</brief>
-<description>Type of technology used for data buffering
+<description>Type of technology used for buffering persistent data in the NCK
 
-Value = 0 SRAM memory only
-Value = 1 SRAM and flash/disk memory
+Value = 0 the hardware used ensures, by itself, buffering of persistent data in the NCK, but data cannot be buffered if the hardware does not allow for buffering.
+Value = 1 the software and suitable hardware (e.g. CF disk) ensure buffering of the persistent data in the NCK.
 If the value = 1 then see also MD18232 $MN_MM_ACTFILESYS_LOG_FILE_MEM
 Index 0 = Reserved
 Index 1 = Definition for the buffered data of the active file system (incl. machine data).
-Index 2 = Definition for the buffered data of the passive file system (part programs, cycles etc.)
-          This value must be consistent with the value of MD11292 $MN_DRAM_FILESYST_CONFIG.
-          A value of 0 means that MD11292 $MN_DRAM_FILESYST_CONFIG must not have the 'H22' bits set.
-          A value of 1 means that MD11292 $MN_DRAM_FILESYST_CONFIG must have the 'H22' bits set.
+Index 2 = Definition for the buffered data of the passive file system (diagnostic files, GUD definition files, part programs, cycles etc.).
 </description>
 </parameter>
 <parameter number="18232" type="DWORD" dim="1">
@@ -7697,7 +7792,6 @@ See also MD17610 $MN_DEPTH_OF_LOGFILE_OPT_PF, which can be used to optimize the 
 <name>IS_CONTINOUS_DATA_SAVE_ON</name>
 <brief>System: Automatic saving of persistent data</brief>
 <description>The machine data is relevant only if MD18231 $MN_MM_USER_MEM_BUFFERED_TYPEOF = 1.
-The default value should be changed only if the system is operated in an environment,
 Value = 0 : Continuous saving of persistent data on disk/flash/etc. is deactivated.
            The dynamic response of the software on systems of the SolutionLine range can thus be improved.
 Value = 1 : Continuous automatic saving of persistent data on disk/flash/etc. is active.
@@ -7712,7 +7806,7 @@ where no spontaneous shutdown of the system / spontaneous power failure occurs.
 Otherwise, persistent data can be lost.
 </description>
 </parameter>
-<parameter number="18234" type="DWORD" dim="0" display="HEX">
+<parameter number="18234" type="UDWORD" dim="0" display="HEX">
 <name>MM_MEMORY_CONFIG_MASK</name>
 <brief>Setting of backup of persistant data of the current file system</brief>
 <description>Bit 0 is defined for MD18231 $MN_USER_MEM_BUFFERED_TYPEOF[1]=1. If the buffer size defined by MD18232 $MN_MM_ACTFILESYS_LOG_FILE_MEM contains many data in the respective buffer, they are made persistent by the NCK software as follows:
@@ -7909,8 +8003,6 @@ Related to:
 <brief>Number of system files</brief>
 <description>Index 0: Number of temporary system files in the passive file system (see also MD18355 $MN_MM_T_FILE_MEM_SIZE);
          e.g.: system traces
-Index 1: Number of temporary Siemens cycles in the passive file system (see also MD18354 $MN_MM_S_FILE_MEM_SIZE):
-         The data can be written, but will be overwritten during the runup by the value requested by the Siemens cycles.
 </description>
 </parameter>
 <parameter number="18342" type="DWORD" dim="1">
@@ -7987,12 +8079,10 @@ The control manufacturer's files are in this memory area of the passive file sys
 
 The settable values depend on the hardware and software configurations.
 The settable size of the memory, apart from the upper limit value
- for index = 0 is limited by the size of the available nonvolatile memory (see siehe MD18230$MN_MM_USER_MEM_BUFFERED),
-for index = 1, is limited by the size of the available non-volatile memory (see MD18210 $MN_MM_USER_MEM_DYNAMIC),
+for index = 0 is limited by the size of the available nonvolatile memory (see siehe MD18230$MN_MM_USER_MEM_BUFFERED),
 for Index = 2, is limited by the wize of the internally available buffered (SRAM) memory.
 
 Index 0 = Size of the nonvolatile cycle program memory
-Index 1 = Size of the volatile Siemens cycle program memory; the data may be written, but will overwritten during the runup by the value requested by the Siemens cycles.
 Index 2 = Size of the non-volatile memory for system files in the SRAM. E.g. storage location of the NRK fault file.
 </description>
 </parameter>
@@ -8180,7 +8270,7 @@ The individual values involve the users of the logging function, which are assig
 9: Reserved for system functions, action log
 </description>
 </parameter>
-<parameter number="18390" type="DWORD" dim="0" display="HEX">
+<parameter number="18390" type="UDWORD" dim="0" display="HEX">
 <name>MM_COM_COMPRESS_METHOD</name>
 <brief>Supported compression methods.</brief>
 <description>Setting for the compression methods to be supported.
@@ -8333,6 +8423,13 @@ The dynamic memory is used.
 <name>MM_PLCINT_TASK_STACK_SIZE</name>
 <brief>Stack size of the servosynch. PLC task (DRAM)</brief>
 <description>Size of the stack of the servosynchronous PLC task in KB.
+Dynamic memory is used.
+</description>
+</parameter>
+<parameter number="18550" type="DWORD" dim="0">
+<name>MM_PREPJOB_TASK_STACK_SIZE</name>
+<brief>Stack size of the asynchronous, parallel PrepJob task (DRAM)</brief>
+<description>Size of the stack of the asynchronous, parallel PrepJob task in kB.
 Dynamic memory is used.
 </description>
 </parameter>
@@ -8553,7 +8650,7 @@ In an IPO cycle ratio of 4:1, the value on the fast NCU should be set to 9 inste
 <description>Maximum number of alarm actions that are retained.  This is the length of the alarm action list.
 </description>
 </parameter>
-<parameter number="18780" type="DWORD" dim="0" display="HEX">
+<parameter number="18780" type="UDWORD" dim="0" display="HEX">
 <name>MM_NCU_LINK_MASK</name>
 <brief>Activation of NCU-link communication</brief>
 <description>Activating NCU link communication
@@ -8596,13 +8693,13 @@ Each of these connections can transfer 240 bytes of raw data.
 Non-cyclic messages occur with alarms, container switches and link variablen.
 </description>
 </parameter>
-<parameter number="18782" type="DWORD" dim="0">
+<parameter number="18782" type="UDWORD" dim="0" display="DECIMAL">
 <name>MM_LINK_NUM_OF_MODULES</name>
 <brief>Number of NCU-link modules</brief>
 <description>LINK_NUM_OF_MODULES defines how many link modules can participate in the link communication.
 </description>
 </parameter>
-<parameter number="18788" type="DWORD" dim="1" display="HEX">
+<parameter number="18788" type="UDWORD" dim="1" display="HEX">
 <name>MM_CC_STATION_CHAN_MASK</name>
 <brief>Channel bit mask for allocating CC stations</brief>
 <description>Machine data for channel-specific creation of special additional software stations for compile cycles.
@@ -8639,7 +8736,7 @@ Related to:
 	MD18792 $MN_MM_TRACE_LINK_DATA_FUNCTION
 </description>
 </parameter>
-<parameter number="18792" type="DWORD" dim="0" display="HEX">
+<parameter number="18792" type="UDWORD" dim="0" display="HEX">
 <name>MM_TRACE_LINK_DATA_FUNCTION</name>
 <brief>Specifies the contents of the NCU-link-trace files</brief>
 <description>The NCK link sends and receives 32 buffers with a length of 240 bytes in each interpolation cycle.
@@ -8672,7 +8769,7 @@ BIT3 = 1
 
 </description>
 </parameter>
-<parameter number="18794" type="DWORD" dim="0" display="HEX">
+<parameter number="18794" type="UDWORD" dim="0" display="HEX">
 <name>MM_TRACE_VDI_SIGNAL</name>
 <brief>Trace specification of VDI signals</brief>
 <description>The NCK sends and receives PLC VDI signals. The Trace function stores the signals which have changed in each interpolation cycle in an FIFO memory (first in-first out) having a size of MM_MAX_TRACE_POINTS.
@@ -8684,7 +8781,7 @@ Bits 1.. 6 describe which axial VDI input signals are recorded in the trace
 (see .. TRACE_DATA_FUNCTION).
 </description>
 </parameter>
-<parameter number="18800" type="DWORD" dim="0" display="HEX">
+<parameter number="18800" type="UDWORD" dim="0" display="HEX">
 <name>MM_EXTERN_LANGUAGE</name>
 <brief>Activation of external NC languages</brief>
 <description>The corresponding NC language must be activated to execute part programs of other control manufacturers. Only one external NC language can be selected. The range of instructions which is made available in each case is to be taken from the current documentation.
@@ -8712,7 +8809,7 @@ Details are to be found in the service documentation.
 <name>MM_NUM_KIN_TRAFOS</name>
 <brief>Maximum number of transformations that can be defined by kinematic chains.</brief>
 <description>This machine data defines the maximum number of transformations in the NCK that can be defined by kinematic chains.
-It also defines the number of data blocks ($NT_...[1] to $NT_...[$MN_MM_NUM_KIN_TRAFOS] available for parameterizing these transformations. The data record with index 0 is locked.)
+It also defines the number of data sets ($NT_...[1] to $NT_...[$MN_MM_NUM_KIN_TRAFOS] available for parameterizing these transformations. The data record with index 0 is locked.)
 The kinematic transformations conventionally parameterized in machine data can exist irrespective of this.
 </description>
 </parameter>
@@ -8758,14 +8855,14 @@ This machine data is only evaluated if the machine data MD18880 $MN_MM_MAXNUM_KI
 <brief>Max. number of protection zone facets ro variable protection zones</brief>
 <description>Maximum number of facets permitted for all internally created protection zones.
 Only applies if MAXNUM_3D_PROT_AREAS is greater than zero and bit 0 in PROT_AREA_TOOL_MASK is set.
- Typical values would then be 1000 for milling machines with a modeled tool, and 5000 for lathes with various tool types in a revolver.
+ Typical values would then be 1000 for milling machines with a modeled tool, and 5000 for lathes with various tool types in a turret.
 </description>
 </parameter>
 <parameter number="18895" type="DWORD" dim="0">
 <name>MM_MAXNUM_3D_FACETS</name>
-<brief>Max. number of protection area facets</brief>
-<description>Maximum number of facets allowed for all protection areas.
-Only applies when the MAXNUM_3D_PROT_AREAS is greater than zero.
+<brief>Max. number of protection area facets/primitives</brief>
+<description>Maximum number of primitives and facets allowed for all protection areas.
+Only applies if MAXNUM_3D_PROT_AREAS is greater than zero.
 </description>
 </parameter>
 <parameter number="18896" type="DWORD" dim="0">
@@ -8804,7 +8901,7 @@ This machine data is bit-coded.
 Bit 0  (0x1)      If no other data are available, create the tool protection area from the tool data (tool length and radius).
 </description>
 </parameter>
-<parameter number="18900" type="DWORD" dim="0" display="HEX">
+<parameter number="18900" type="UDWORD" dim="0" display="HEX">
 <name>FPU_ERROR_MODE</name>
 <brief>System reaction to FPU calculation error</brief>
 <description>System response to floating point unit arithmetic errors
@@ -8816,14 +8913,14 @@ Bit 0   = 1:
 	The address at which the arithmetic error occurred can be exactly localized in the alarm output
 </description>
 </parameter>
-<parameter number="18910" type="DWORD" dim="0" display="HEX">
+<parameter number="18910" type="UDWORD" dim="0" display="HEX">
 <name>FPU_CTRLWORD_INIT</name>
 <brief>Basic initialization of FPU control word</brief>
 <description>The basic initialization of the FPU control word enables the FPU mode of operation (e.g. rounding mode) to be changed.
 Significance of the bit: see manual of the FPU used.
 </description>
 </parameter>
-<parameter number="18920" type="DWORD" dim="0" display="HEX">
+<parameter number="18920" type="UDWORD" dim="0" display="HEX">
 <name>FPU_EXEPTION_MASK</name>
 <brief>Exception mask for FPU calculation errors</brief>
 <description>The exception mask for FPU calculation errors enables selection of the FPU error for which an exception was issued.
@@ -8904,10 +9001,10 @@ For BRISK behavior, enter very high values here.
 
 </description>
 </parameter>
-<parameter number="18965" type="DWORD" dim="0" display="HEX">
+<parameter number="18965" type="UDWORD" dim="0" display="HEX">
 <name>SIM_ENVIRONMENT</name>
 <brief>Defining the simulation environment</brief>
-<description>Bit screen form to define the simulation environment:
+<description>Bit mask to define the simulation environment:
 
 Bit no.   Hexadec. Significance when the bit is set.
          Value

@@ -14,8 +14,8 @@ Anmerkung:
 <name>THREAD_RAMP_DISP</name>
 <brief>Beschleunigungsverhalten der Achse beim Gewindeschneiden</brief>
 <description>Das SD wirkt beim Gewindeschneiden mit G33 (G34, G35).
-Es besitzt zwei Elemente, die das Verhalten beim Hochlauf der Gewindeachse  (1. Element)  und beim Bremsen/Überschleifen (2. Element) festlegen.
-Die Werte besitzen für den Gewindeein- und auslauf gleiche Eigenschaften:
+Es besitzt drei Elemente, die das Verhalten beim Hochlauf der Gewindeachse (1. Element), beim Bremsen/Überschleifen "G33(G34, G35) auf G00/G01" (2. Element) und beim Überschleifen zwischen 2 Gewindesätzen (3. Element) festlegen.
+Die beiden ersten Werte besitzen für den Gewindeein- und auslauf gleiche Eigenschaften:
 
 &lt; 0:
 	Start/Bremsen der Gewindeachse erfolgt mit projektierter Beschleunigung. Der Ruck wirkt entsprechend der aktuellen Programmierung von BRISK/SOFT. Das Verhalten ist kompatibel zum bisherigen MD 20650__THREAD_START_IS_HARD = FALSE.
@@ -24,10 +24,26 @@ Die Werte besitzen für den Gewindeein- und auslauf gleiche Eigenschaften:
 	Start/Bremsen der Vorschubachse beim Gewindeschneiden erfolgt sprungförmig. Das Verhalten ist kompatibel zum bisherigen MD 20650__THREAD_START_IS_HARD = TRUE.
 
 &gt; 0:
-	Es wird der maximale Gewindehochlauf- bzw. Bremsweg vorgegeben. Der vorgegebene Weg kann ggf. zu einer Beschleunigungsüberlastung der Achse führen. Das SD wird bei der Programmierung von DITR (Displacement Thread Ramp) aus dem Satz beschrieben.
+	Es wird der maximale Gewindehochlauf- bzw. Bremsweg vorgegeben. Der vorgegebene Weg kann ggf. zu einer Beschleunigungsüberlastung der Achse führen. Das SD wird bei der Programmierung von DITR (Displacement Thread Ramp) aus dem Satz beschrieben. Ein zu langer Weg hat keinen Einfluss.
 
 Anmerkung:
 Über das MD10710 $MN_PROG_SD_RESET_SAVE_TAB kann eingestellt werden, dass der vom Teileprogramm geschriebene Wert bei RESET in das aktive Filesystem übernommen wird (d.h. der Wert bleibt über RESET hinweg erhalten.
+
+Der 3. Wert erlaubt das Überschleifen an einer Ecke zwischen 2 Gewindesätzen, um den Übergang weicher zu gestalten. Es wird nicht durch Überschleifen verrundet, wenn die Dynamik der Maschine, z.B. wegen MD32310 $MA_MAX_ACCEL_OVL_FACTOR, einen harten Übergang erlaubt:
+-1:
+     Der Übergang wird geometrisch so weich wie möglich gestaltet.
+0:
+     Die Ecke wird hart ausgefahren, die Achsen folgen nach Vorgabe der Regelkreise.
+ &gt; 0:
+     Reserviert für eine Erweiterung der Funktion.
+
+
+Der 3. Wert gibt die geometrische Toleranz an, die an einer Ecke zwischen 2 Gewindesätzen ausgenutzt werden darf, um den Übergang weicher zu gestalten:
+ &lt; oder = 0:
+     Die Ecke wird hart ausgefahren, die Achsen folgen nach Vorgabe der Regelkreise.
+ &gt; 0:
+     Der Übergang wird unter Ausnutzung dieser Toleranz geometrisch so weich wie möglich gestaltet.
+
 </description>
 </parameter>
 <parameter number="42100" type="DOUBLE" dim="0">
@@ -181,24 +197,17 @@ Anwendung: Debug-Mode zum Austesten von Teileprogrammen.
 </parameter>
 <parameter number="42300" type="DOUBLE" dim="1">
 <name>COUPLE_RATIO_1</name>
-<brief>Übersetzung für Synchronspindelbetrieb, Zähler, Nenner</brief>
-<description>Mit diesen Settingdaten werden die Übersetzungsparameter für die mit den kanalspez. MD21300 $MC_COUPLE_AXIS_1[n] fest projektierte Kopplung bestimmt.
+<brief>Übersetzung für Synchronspindelbetrieb</brief>
+<description>Mit diesem Settingdatum wird das Übersetzungsverhältnis für die mit den kanalspez. MD21300 $MC_COUPLE_AXIS_1[n] fest projektierte Kopplung bestimmt.
 
-Der lineare Zusammenhang zwischen Leit- und Folgespindel wird durch das Übersetzungsverhältnis k_Ü festgelegt. Dieses wird mit Hilfe von zwei Übersetzungsparametern als Zähler [n=0] und Nenner [n=1] vorgegeben. Damit ist eine sehr genaue Vorgabe für das Übersetzungsverhältnis möglich.
+Der lineare Zusammenhang zwischen Leit- und Folgespindel wird durch das Übersetzungsverhältnis festgelegt. Das Übersetzungsverhältnis wird durch die Angabe von Zähler und Nenner bestimmt.
 
-k_Ü = Übersetzungsparameter Zähler / Übersetzungsparameter Nenner
+Übersetzungsverhältnis = Zähler / Nenner = SD42300 $SC_COUPLE_RATIO[0] / SD42300 $SC_COUPLE_RATIO[1]
 
-	= SD42300 $SC_COUPLE_RATIO[0] / SD42300 $SC_COUPLE_RATIO[1]
+ Mit der Sprachanweisung COUPDEF können die Übersetzungsparameter im NC-Teileprogramm verändert werden, sofern dies nicht mit dem kanalspez. MD21340 $MC_COUPLE_IS_WRITE_PROT_1 nicht verriegelt ist.
+ Die parametrierten Werte der SD42300 $SC_COUPLE_RATIO_1 werden jedoch nicht verändert!
 
-Mit der Sprachanweisung COUPDEF können die Übersetzungsparameter im NC-Teileprogramm verändert werden, sofern dies nicht mit dem kanalspez. MD21340 $MC_COUPLE_IS_WRITE_PROT_1 nicht verriegelt ist.
-Die parametrierten Werte der SD42300 $SC_COUPLE_RATIO_1 werden jedoch nicht verändert!
-Die Berechnung von k_Ü wird mit POWER ON angestoßen.
-
-SD irrelevant bei ......
-anwenderdefinierte Kopplung
-
-korrespondierend mit ....
-	Das SD42300 $SC_COUPLE_RATIO_1 wirkt derzeit wie ein Maschinendatum (z.B. nach POWER ON aktiv). Daher erfolgt die Anzeige bzw. Eingabe entsprechend wie bei den kanalspezifischen Maschinendaten.
+Die Berechnung des Übersetzungsverhältnisses wird mit Power-On angestoßen.
 </description>
 </parameter>
 <parameter number="42400" type="DOUBLE" dim="0">
@@ -329,7 +338,7 @@ Korrespondiert mit:
 	MD28072 $MC_MM_MAXNUM_SURF_GROUPS
 </description>
 </parameter>
-<parameter number="42474" type="DWORD" dim="1">
+<parameter number="42474" type="DWORD" dim="1" readonly="true">
 <name>SURF_SMOOTHING_LEVEL</name>
 <brief>Optimierungslevel der Funktion COMPSURF.</brief>
 <description>Das Settingdatum legt die Glättungsstufe der Funktion COMPSURF fest. Je höher der Wert, umso glatter werden Oberflächen auf Kosten der Genauigkeit.
@@ -357,6 +366,13 @@ Dieses Datum ist nur wirksam, falls eine Orientierungstransformation aktiv ist.
 <description>Mit diesem Settingdatum wird die maximale Toleranz beim Kompressor für die Drehung der Werkzeugorientierung festgelegt. Mit dem Datum wird die maximale erlaubte Winkelabweichung der Drehung des Werkzeugs bestimmt.
 Dieses Datum ist nur wirksam, falls eine Orientierungstransformation aktiv ist.
 Eine Drehung der Werkzeugorientierung ist nur bei 6-Achs Maschinen möglich.
+</description>
+</parameter>
+<parameter number="42478" type="DOUBLE" dim="0">
+<name>SURF_PERF_ADJUST</name>
+<brief>Anpassung der Rechenzeitauslastung bei COMPSURF.</brief>
+<description>Stellt einen Kompromiss zwischen Rechenauslastung und Genauigkeit dar. Je höher der Wert umso kleiner die Rechenauslastung, je kleiner der Wert desto höher die Genauigkeit.
+Eine schärfere Oberfläche kann insbesondere durch die COMPSURF mit "Glätten aus" (MIN_SURF_RADIUS = 0) erzielt werden.
 </description>
 </parameter>
 <parameter number="42480" type="BOOLEAN" dim="0">
@@ -420,9 +436,9 @@ Hinweis:
 	FALL A: Ergeben sich bei einer (nahezu) geschlossenen Kontur, die aus zwei aufeinanderfolgenden Kreissätzen oder einem Kreis- und einem Linearsatz besteht, bei Korrektur an der Innenseite zwei Schnittpunkte, so wird entsprechend dem Standardverfahren der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzanfang liegt.
 	Ein Kontur wird dann als (nahezu) geschlossen betrachtet, wenn der Abstand zwischen dem Startpunkt des ersten Satzes und dem Endpunkt des zweiten Satzes kleiner ist als 10% des wirksamen Korrekturradius aber nicht größer als 1000 Weginkremente (entspr. 1mm bei 3 Nachkommastellen).
 	FALL B: Schneidet bei der Korrektur an der Innenseite und einem Satzübergang zwischen einer Geraden und einem Kreis mit einem Öffnungswinkel vom mehr als etwa 315 Grad die Offsetkurve der Geraden die Offsetkurve des Kreises in zwei Punkten, so wird entsprechend dem Standardverfahren der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzanfang liegt.
-TRUE:
-	FALL A: In der gleichen Situation wie oben beschrieben wird der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzende liegt.
-	FALL B: In der gleichen Situation wie oben beschrieben wird der Schnittpunkt gewählt, der auf der ersten Teilkontur näher am Satzende liegt. Dies jedoch nur dann, wenn der Betrag der dadurch verursachten Konturverletzung kleiner ist als die wirksame Konturtoleranz. Zur wirksamen Konturtoleranz siehe die Beschreibung "Kontur/Orientierungstoleranz" in FB1. Die aktuell wirksame Toleranz kann mit $AC_CTOL gelesen werden. Ist die derart programmierte Toleranz Null, wirkt eine fest eingestellte Toleranz von 0.002mm.
+     In dieser Situation werden die beiden beteiligten Kurven fast vollständig ausgelassen.
+TRUE: Bei zwei aufeinanderfolgenden Kurven (wie oben beschrieben), deren Offsetkurven sich zweimal schneiden, wird der Schnittpunkt gewählt, der näher am Ende der ersten Kurve liegt. Dabei wird am Satzanfang der ersten Kurve und am Satzende der zweiten Kurve eine geringfügige Konturverletzung in Kauf genommen, um die beiden Kurven vollständig bearbeiten zu können.
+Dies jedoch nur dann, wenn der Betrag der dadurch verursachten Konturverletzung kleiner ist als die wirksame Konturtoleranz. Zur wirksamen Konturtoleranz siehe die Beschreibung "Kontur/Orientierungstoleranz" in FB1. Die aktuell wirksame Toleranz kann mit $AC_CTOL gelesen werden. Ist die derart programmierte Toleranz Null, wirkt eine fest eingestellte Toleranz von 0.002mm.
 	Maßgebend ist der Toleranzwert, der bei Aktivierung der Werkzeugradiuskorrektur mit G41 bzw. G42 gültig ist.
 </description>
 </parameter>
@@ -682,7 +698,7 @@ Der Inhalt des jeweiligen SD ist die physikalische, tatsächlich vorhandene Spind
 
 Sonderfälle, Fehler, ......
 Hinweise:
-- Der Index Null (SPIND_ASSIGN_TAB[0]) dient ausschließlich der Anzeige der im Kanal angewählten Masterspindel und darf nicht überschrieben werden.
+- Der Index Null (SPIND_ASSIGN_TAB[0]) dient ausschließlich der Anzeige der im Kanal angewählten Masterspindel (= logische Spindelnummer) und darf nicht überschrieben werden.
 - Änderungen des Spindelumsetzers wirken sofort. Es ist deshalb nicht empfehlenswert, den Spindelumsetzer von HMI oder PLC während eines laufenden Teileprogramms für die im Teileprogramm verwendeten Spindeln zu verändern.
 - Nach "SRAM-Löschen" sind logische und physikalische Spindeln identisch.
 </description>
@@ -745,7 +761,7 @@ FALSE:
 Das Vorzeichen des Verschleißes der Werkzeuglängenkomponenten und des Werkzeugradius wird nicht invertiert.
 </description>
 </parameter>
-<parameter number="42935" type="DWORD" dim="0">
+<parameter number="42935" type="UDWORD" dim="0" display="HEX">
 <name>WEAR_TRANSFORM</name>
 <brief>Transformationen für Werkzeugkomponenten</brief>
 <description>Dieses Settingdatum ist Bit-codiert.
@@ -941,6 +957,16 @@ FALSE:
 	Bei der Aktivierung eines orientierbaren Werkzeugträgers werden die Feinverschiebungswerte nicht berücksichtigt.
 </description>
 </parameter>
+<parameter number="42977" type="BOOLEAN" dim="0">
+<name>SLOT_FORM_RECOGN</name>
+<brief>Schlitzerkennung ein/aus</brief>
+<description>TRUE:
+	Bei aktiver Werkzeugradiuskorrektur werden schmale Schlitze erkannt und durchfahren.
+
+FALSE:
+	Bei aktiver Werkzeugradiuskorrektur werden schmale Schlitze ausgelassen.
+</description>
+</parameter>
 <parameter number="42980" type="DWORD" dim="0">
 <name>TOFRAME_MODE</name>
 <brief>Framdefinition bei TOFRAME, TOROT und PAROT</brief>
@@ -968,7 +994,7 @@ Die neue Y-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der 
 Alle anderen Einstellungen des SD42980 $SC_TOFRAME_MODE (0,1,2,...1000,1001..) sollten bei Neuinbetriebnahmen nicht verwendet werden.
 
 Aus Kompatibilitätsgründen sind diese Einstellungen weiterhin gültig:
-0: Die Orientierung des Koordinatensystems wird durch den Wert des Maschindatums 21110 $MC_X_AXIS_IN_OLD_X_Z_PLANE bestimmt.
+0: Die Orientierung des Koordinatensystems wird durch den Wert des Maschinendatums 21110 $MC_X_AXIS_IN_OLD_X_Z_PLANE bestimmt.
 1: Die neue X-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der X-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer Y-Achse minimal.
 2: Die neue Y-Richtung wird so gewählt, dass sie im alten Koordinatensystem in der Y-Z-Ebene liegt. Bei dieser Einstellung wird die Winkeldifferenz zwischen alter und neuer X-Achse minimal.
 3: Es wird der Mittelwert der beiden Einstellungen, die sich nach 1 bzw. 2 ergeben gewählt.

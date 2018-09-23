@@ -60,10 +60,16 @@
 <description>Display resolution constant cutting speed ft/min
 </description>
 </parameter>
+<parameter number="51018" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_SCALE</name>
+<brief>Display resolution scaling</brief>
+<description>Display resolution scaling
+</description>
+</parameter>
 <parameter number="51019" type="BYTE" dim="0" display="DECIMAL">
-<name>DISP_RES_ROT_AX</name>
-<brief>Display resolution of rotary axis</brief>
-<description> Display resolution of rotary axis
+<name>DISP_RES_ROT_WO</name>
+<brief>Display resolution of rotation in work offsets</brief>
+<description> Display resolution of rotation in work offsets
 If the value of the data is 0, MD51020 $MNS_DISP_RES_ANGLE is used.
 
 </description>
@@ -119,16 +125,16 @@ Bit 5:	Block search with test run
 </parameter>
 <parameter number="51027" type="BYTE" dim="0" display="DECIMAL">
 <name>ONLY_MKS_DIST_TO_GO</name>
-<brief>Distance-to-go display in Work window</brief>
-<description>Distance-to-go display in Work window
+<brief>Distance-to-go display in the Work window</brief>
+<description>Distance-to-go display in the Work window
 </description>
 </parameter>
 <parameter number="51028" type="BYTE" dim="0" display="HEX">
 <name>BLOCK_SEARCH_MODE_MASK</name>
 <brief>Bit mask for available block search modes</brief>
 <description>Bit mask for available search modes
-Bit 0:	Block search with calculation but no approach
-Bit 1:	Block search with calculation and approach
+Bit 0:	Block search with calculation without approach
+Bit 1:	Block search with calculation with approach
 Bit 3:	Skip EXTCALL programs
 Bit 4:	Block search without calculation
 Bit 5:	Block search with test run
@@ -163,6 +169,7 @@ The display bar in the machine image is shown in red in the range between the va
 02: binary value display
 10: decimal value display
 16: hexadecimal value display
+This machine data must not be used any more. The STAT display is only activated during "TEACH IN" with MD52032.
 
 </description>
 </parameter>
@@ -174,6 +181,7 @@ The display bar in the machine image is shown in red in the range between the va
 02: binary value display
 10: decimal value display
 16: hexadecimal value display
+This machine data must not be used any more. The TU display is only activated during "TEACH IN" with MD52033.
 </description>
 </parameter>
 <parameter number="51034" type="DWORD" dim="0" display="HEX">
@@ -204,7 +212,7 @@ Bits 16-31 are reserved for the OEM.
 <brief>Enable REL coordinate system</brief>
 <description>Display REL coordinate system
 0 = No relative coordinate system selectable
-1 = REL coordinate system can be selected as an alternative to the work/SZS coordinate system
+1 = REL coordinate system can be selected as an alternative to the Work (WCS)/SZS coordinate system
 </description>
 </parameter>
 <parameter number="51037" type="BYTE" dim="0" display="DECIMAL">
@@ -429,19 +437,25 @@ Bit 3: No automatic start of block search when the program is selected / execute
 <parameter number="51071" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_ACTIVATE_CTRL_E</name>
 <brief>Protection level of Ctrl-Energy</brief>
-<description>Protection level for activating, disabling and enabling energy saving profiles.
+<description>Protection level for activating, disabling and enabling energy-saving profiles.
 </description>
 </parameter>
 <parameter number="51072" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_EDIT_CTRL_E</name>
 <brief>Protection level of Ctrl-Energy for changing profiles</brief>
-<description>Protection level of Ctrl-Energy: Definition of energy saving profiles
+<description>Protection level of Ctrl-Energy: Definition of energy-saving profiles
 </description>
 </parameter>
 <parameter number="51073" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_SET_SOFTKEY_ACCESS</name>
 <brief>Protection level of "Adapt softkeys"</brief>
 <description>Protection level for the softkey "Adapt softkeys", which is used to change the access levels of other softkeys.
+</description>
+</parameter>
+<parameter number="51074" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_WPC_COUNTER</name>
+<brief>Write protection level of workpiece counter</brief>
+<description>Write protection level of workpiece counter in the Times/Counters mask in the machine area
 </description>
 </parameter>
 <parameter number="51160" type="BYTE" dim="0" display="DECIMAL">
@@ -650,7 +664,7 @@ Direct jump from tool list to measuring screen
 </parameter>
 <parameter number="51226" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_SIM</name>
-<brief>Function mask Simulation</brief>
+<brief>Function mask for simulation</brief>
 <description>Function mask for simulation
 Bit 0: No automatic start when simulation is selected
 Bit 1: Deactivate simulation
@@ -663,8 +677,8 @@ Bit 10: Hide zero point symbol
 </parameter>
 <parameter number="51228" type="DWORD" dim="0" display="HEX">
 <name>FUNCTION_MASK_TECH</name>
-<brief>Function mask Cross-technology</brief>
-<description>Function mask, all technologies
+<brief>Function mask for all technologies</brief>
+<description>Function mask for all technologies
 Bit 0: G code programming without multi-channel data
 	If bit 0 = 1, no multi-channel data will be offered for job lists which only contain G code programs.
 Bit 1: Enable print function of Editor
@@ -698,8 +712,8 @@ Bit 2: With external program selection (e.g. via PLC), set start disable (progra
 </parameter>
 <parameter number="51235" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_RESET_SERV_PLANNER</name>
-<brief>Protection level for acknowledgement of maintenance tasks</brief>
-<description>Protection level for acknowledgement of maintenance tasks
+<brief>Protection level for acknowledgment of maintenance tasks</brief>
+<description>Protection level for acknowledgment of maintenance tasks
 </description>
 </parameter>
 <parameter number="51300" type="BYTE" dim="0" display="DECIMAL">
@@ -712,7 +726,7 @@ Bit 2: With external program selection (e.g. via PLC), set start disable (progra
 <parameter number="51600" type="BYTE" dim="0">
 <name>MEA_CAL_WP_NUM</name>
 <brief>Number of calibration data fields for workpiece probes</brief>
-<description>The workpiece probe calibration data refer to the workpiece coordinate system (Work) !
+<description>The workpiece probe calibration data refer to the workpiece coordinate system (Work)!
 In the data fields, the workpiece probe calibration data of the technologies Milling and
 Turning are stored!
 </description>
@@ -749,7 +763,7 @@ must be entered in this parameter. When the tolerance is exceeded, alarm 61442 "
 </parameter>
 <parameter number="51740" type="DWORD" dim="0" display="HEX">
 <name>MEA_FUNCTION_MASK</name>
-<brief>Function screen form for measuring cycles, workpiece and tool measuring</brief>
+<brief>Function mask for measuring cycles, workpiece and tool measuring</brief>
 <description>Function mask for measuring cycles
 
 Bit 0:	Workpiece measurement, calibration status monitoring

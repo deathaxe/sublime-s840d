@@ -60,10 +60,16 @@
 <description>Anzeigefeinheit konstante Schnittgeschwindigkeit ft/min
 </description>
 </parameter>
+<parameter number="51018" type="BYTE" dim="0" display="DECIMAL">
+<name>DISP_RES_SCALE</name>
+<brief>Anzeigefeinheit Skalierung</brief>
+<description>Anzeigefeinheit Skalierung
+</description>
+</parameter>
 <parameter number="51019" type="BYTE" dim="0" display="DECIMAL">
-<name>DISP_RES_ROT_AX</name>
-<brief>Anzeigefeinheit Rundachse</brief>
-<description> Anzeigefeinheit Rundachse
+<name>DISP_RES_ROT_WO</name>
+<brief>Anzeigefeinheit Rotation in Nullpunktverschiebungen</brief>
+<description>Anzeigefeinheit Rotation in Nullpunktverschiebungen
 Ist der Wert des Datums 0, wird das MD51020 $MNS_DISP_RES_ANGLE verwendet.
 
 </description>
@@ -163,6 +169,7 @@ Die Balkenanzeige im Maschinenbild, wird im Bereich zwischen den Werten von  SPI
 02: Darstellung als binärer Wert
 10: Darstellung als dezimaler Wert
 16: Darstellung als hexadezimaler Wert
+Dieses Maschinendatum ist nicht mehr zu verwenden. Die Aktivierung der Anzeige STAT bei "TEACH IN" erfolgt nur noch mit MD52032
 
 </description>
 </parameter>
@@ -174,6 +181,7 @@ Die Balkenanzeige im Maschinenbild, wird im Bereich zwischen den Werten von  SPI
 02: Darstellung als binärer Wert
 10: Darstellung als dezimaler Wert
 16: Darstellung als hexadezimaler Wert
+Dieses Maschinendatum ist nicht mehr zu verwenden. Die Aktivierung der Anzeige TU bei "TEACH IN" erfolgt nur noch mit MD52033
 </description>
 </parameter>
 <parameter number="51034" type="DWORD" dim="0" display="HEX">
@@ -442,6 +450,12 @@ Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satz
 <name>ACCESS_SET_SOFTKEY_ACCESS</name>
 <brief>Schutzstufe Softkeys anpassen</brief>
 <description>Schutzstufe für den Softkey "Softkeys anpassen", mit dem die Zugriffsstufen von anderen Softkeys geändert werden können.
+</description>
+</parameter>
+<parameter number="51074" type="BYTE" dim="0" display="DECIMAL">
+<name>ACCESS_WRITE_WPC_COUNTER</name>
+<brief>Schutzstufe Werkstückzähler schreiben</brief>
+<description>Schutzstufe Werkstückzähler schreiben in Maske Zeiten/Zähler im Bereich Maschine
 </description>
 </parameter>
 <parameter number="51160" type="BYTE" dim="0" display="DECIMAL">

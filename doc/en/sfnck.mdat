@@ -110,12 +110,12 @@ In addition to the functionality with MD value = 1, the alarms from SPL processi
 	27001, 27004, 27020, 27021, 27022, 27023, 27024, 27091,
 	27101, 27102, 27103, 27104, 27105, 27106, 27107
 13 = The alarms are prioritized beyond the functionality with MD value = 3 (as with MD value 12).
-1xx (100 digit set) = Axis-specific checksum alarms of the NCK (27032, 27035, and 27060) are displayed in SPL commissioning mode (MD11500 $MN_PREVENT_SYNACT_LOCK[0,1] = 0) by alarm 27135 for all axes.
+1xx (100 digit set) = Axis-specific checksum alarms of the NCK (27032, 27035, and 27060) are displayed in SPL setup mode (MD11500 $MN_PREVENT_SYNACT_LOCK[0,1] = 0) by alarm 27135 for all axes.
 
 This machine data must be set to 0 to create an acceptance log, so that the triggering of all alarms can be logged.
 </description>
 </parameter>
-<parameter number="10095" type="DWORD" dim="0" display="HEX">
+<parameter number="10095" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_MODE_MASK</name>
 <brief>'Safety Integrated' operating modes</brief>
 <description>Bit 1 = 0: The "Modular PROFIsafe I/O connection" function is not active.
@@ -135,7 +135,7 @@ Related to:
 	MD20108: $MC_PROG_EVENT_MASK, Bit 5
 </description>
 </parameter>
-<parameter number="10096" type="DWORD" dim="0" display="HEX">
+<parameter number="10096" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_DIAGNOSIS_MASK</name>
 <brief>'Safety Integrated' diagnostics functions</brief>
 <description>Bit 0 = 0:
@@ -199,7 +199,7 @@ If the selected communication cycle is exceeded in cyclic operation, this is als
 In the case of a parameterization error (communication cycle exceeds the maximum value of 25.0 ms), the maximum value that can be set is displayed.
 </description>
 </parameter>
-<parameter number="10385" type="DWORD" dim="1" display="HEX">
+<parameter number="10385" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_MASTER_ADDRESS</name>
 <brief>PROFIsafe address master module</brief>
 <description>Definition of the PROFIsafe address of the F master NCK/PLC. Used for unique assignment between F master and F slave. This parameter must be entered in accordance with the parameter "F_source_address" set in S7-ES for the F slaves. An attempt to establish communication is only made with F slaves for which this address has been entered.
@@ -209,7 +209,7 @@ Format: 0s 00 aaaa
 aaaa: Hexadecimal PROFIsafe address of the F master
 </description>
 </parameter>
-<parameter number="10386" type="DWORD" dim="1" display="HEX">
+<parameter number="10386" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_ADDRESS</name>
 <brief>PROFIsafe address input module</brief>
 <description>PROFIsafe destination address of an input module
@@ -223,7 +223,7 @@ x: Sub-slot address
 aaaa: Hexadecimal PROFIsafe address of the F module
 </description>
 </parameter>
-<parameter number="10387" type="DWORD" dim="1" display="HEX">
+<parameter number="10387" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_OUT_ADDRESS</name>
 <brief>PROFIsafe-address output module</brief>
 <description>PROFIsafe destination address of an output module
@@ -272,7 +272,7 @@ The states of the system variables $A_OUTSE[61...64] are assigned to the output 
 One address is assigned to one drive.
 </description>
 </parameter>
-<parameter number="13300" type="DWORD" dim="1" display="HEX">
+<parameter number="13300" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_FILTER</name>
 <brief>Useful F data filter IN</brief>
 <description>Filter between F user data and $A_INSE variables
@@ -306,7 +306,7 @@ Parameterization:
 	Example value present at F user data interface of the PROFIsafe module
 </description>
 </parameter>
-<parameter number="13301" type="DWORD" dim="1" display="HEX">
+<parameter number="13301" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_OUT_FILTER</name>
 <brief>Useful F data filter OUT</brief>
 <description>Filter between $A_OUTSE variables and F user data
@@ -338,7 +338,7 @@ n = 16        11         6         1
 	F user data of the PROFIsafe module
 </description>
 </parameter>
-<parameter number="13302" type="DWORD" dim="1" display="HEX">
+<parameter number="13302" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_ENABLE_MASK</name>
 <brief>Enable mask for connections to PROFIsafe input modules.</brief>
 <description>The enable mask is used to enable the machine data blocks for the connections to PROFIsafe input modules.
@@ -362,7 +362,7 @@ Related to:
 	MD13304: $MN_PROFISAFE_IN_SUBS_ENAB_MASK
 </description>
 </parameter>
-<parameter number="13303" type="DWORD" dim="1" display="HEX">
+<parameter number="13303" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_OUT_ENABLE_MASK</name>
 <brief>Enable mask for connections to PROFIsafe output modules.</brief>
 <description>The enable mask is used to enable the machine data blocks for the connections to PROFIsafe output modules.
@@ -384,7 +384,7 @@ Related to:
 	MD10095: $MN_SAFE_MODE_MASK, Bit 1
 </description>
 </parameter>
-<parameter number="13304" type="DWORD" dim="1" display="HEX">
+<parameter number="13304" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_SUBS_ENAB_MASK</name>
 <brief>Activation of substitute value output for PROFIsafe input modules</brief>
 <description>The enable mask is used to enable subsitute value output for connections to PROFIsafe input modules.
@@ -402,7 +402,7 @@ Related to:
 	MD13305: $MN_PROFISAFE_IN_SUBS
 </description>
 </parameter>
-<parameter number="13305" type="DWORD" dim="1" display="HEX">
+<parameter number="13305" type="UDWORD" dim="1" display="HEX">
 <name>PROFISAFE_IN_SUBS</name>
 <brief>Substitute values for passive connections to PROFIsafe input modules</brief>
 <description>For passive connections to PROFIsafe input modules, the substitute values parameterized in the machine data are transferred to the SPL inputs ($A_INSE) parameterized in MD10388  $MN_PROFISAFE_IN_ASSIGN[n].
@@ -442,7 +442,7 @@ If a name has been assigned, this will be displayed in the alarm text instead of
 <description>After powerup of the control, alarm 27097 is displayed after the time if the SPL start is not carried out.
 </description>
 </parameter>
-<parameter number="13312" type="DWORD" dim="1" display="HEX">
+<parameter number="13312" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_SPL_USER_DATA</name>
 <brief>User data</brief>
 <description>User data for storing user-specific information.
@@ -458,7 +458,7 @@ Date and time of the last configuration change to safety-related NCK machine dat
 Changes to the machine data included in the calculation of the checksums MD13318 $MN_SAFE_GLOB_ACT_CHECKSUM are recorded.
 </description>
 </parameter>
-<parameter number="13317" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="13317" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_GLOB_PREV_CONFIG</name>
 <brief>Data of previous safety configuration</brief>
 <description>Intermediate buffer for storing previous safety configuration data
@@ -475,7 +475,7 @@ Index 9: Previous value of set checksum MD13319 $MN_SAFE_GLOB_DES_CHECKSUM[3]
 Index 10: Last value of set checksum MD13319 $MN_SAFE_GLOB_DES_CHECKSUM[3] before standard data were loaded
 </description>
 </parameter>
-<parameter number="13318" type="DWORD" dim="1" display="HEX" readonly="true">
+<parameter number="13318" type="UDWORD" dim="1" display="HEX" readonly="true">
 <name>SAFE_GLOB_ACT_CHECKSUM</name>
 <brief>Actual checksum NCK</brief>
 <description>Display data:
@@ -487,7 +487,7 @@ Index 2: Enable for I/O link (PROFIsafe and F_SEND/F_RECV)
 Index 3: PROFIsafe parameter from the S7 configuration
 </description>
 </parameter>
-<parameter number="13319" type="DWORD" dim="1" display="HEX">
+<parameter number="13319" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_GLOB_DES_CHECKSUM</name>
 <brief>Desired (expected) checksum</brief>
 <description>In this data, the set checksum stored at the time of the last machine acceptance overwrites the current values of the safety relevant machine data.
@@ -515,7 +515,7 @@ If the set communication cycle in cyclic operation is exceeded, this is also dis
 In the case of a parameterization error (communication cycle exceeds the maximum value of 250.0 ms), the maximum value that can be set is displayed.
 </description>
 </parameter>
-<parameter number="13330" type="DWORD" dim="0" display="HEX">
+<parameter number="13330" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_SDP_ENABLE_MASK</name>
 <brief>Enable screen F_SENDDP communication relationships </brief>
 <description>Enable screen for the individual F_SENDDP communication links and their SPL connections
@@ -578,7 +578,7 @@ $MN_SAFE_SDP_ASSIGN[0] = 001 004 or alternatively 004 001
  The SPL signals $A_OUTSE[1] to $A_OUTSE[4] are transferred to the F_SENDDP user data selected in MD13337 $MN_SAFE_SDP_FILTER[0].
 </description>
 </parameter>
-<parameter number="13337" type="DWORD" dim="1" display="HEX">
+<parameter number="13337" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_SDP_FILTER</name>
 <brief>F user data filter between $A_OUTSE and F_SENDDP</brief>
 <description>The SPL signals selected via MD13336 $MN_SAFE_SDP_ASSIGN are transmitted to the F_SENDDP user data signals in the order of the FILTER bits set to 1. The lowest-value SPL signal to the bit position of the F_SENDDP user data of the lowest-value filter bit set to 1, etc. for all SPL signals selected.
@@ -598,7 +598,7 @@ Meaning of the values:
 - 3 = no system reaction
 </description>
 </parameter>
-<parameter number="13340" type="DWORD" dim="0" display="HEX">
+<parameter number="13340" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_RDP_ENABLE_MASK</name>
 <brief>Enable screen F_RECVDP communication relationships</brief>
 <description>Enable screen for the individual F_RECVDP communication links and their SPL connections
@@ -652,7 +652,7 @@ SIMATIC module parameter: TIMEOUT
 </parameter>
 <parameter number="13346" type="DWORD" dim="1">
 <name>SAFE_RDP_ASSIGN</name>
-<brief>Input assignment. F_RECVDP user data to $A_INSE</brief>
+<brief>Input assignment F_RECVDP user data to $A_INSE</brief>
 <description>The SPL signals $A_INSE to be supplied from the F_RECVDP useful data can only be selected area by area.
 
 The SPL area is specified in decimals in aaa bbb format
@@ -664,7 +664,7 @@ $MN_SAFE_RDP_ASSIGN[0] = 001 004 or alternatively 004 001
 The F_RECVDP user data selected in MD13347 $MN_SAFE_RDP_FILTER[0] are transferred to the SPL signals $A_INSE[1] to $A_INSE[4].
 </description>
 </parameter>
-<parameter number="13347" type="DWORD" dim="1" display="HEX">
+<parameter number="13347" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_RDP_FILTER</name>
 <brief>F user data filter between F_RECVDP and $A_INSE</brief>
 <description>The F_RECVDP user data signals the filter bits of which are set to 1 are transmitted to the SPL signals via MD13346 $MN_SAFE_RDP_ASSIGN. The lowest-value F_RECVDP user data signal to the lowest-value selected SPL signal etc. for all F_RECVDP user data selected.
@@ -684,20 +684,20 @@ Meaning of the values:
 - 3 = no system reaction
 </description>
 </parameter>
-<parameter number="13349" type="DWORD" dim="1" display="HEX">
+<parameter number="13349" type="UDWORD" dim="1" display="HEX">
 <name>SAFE_RDP_SUBS</name>
 <brief>Replacement values in case of error </brief>
 <description>In the case of a communication error, the replacement values defined here are activated in the system variables $A_INSE assigned to this F_RECVDP-SPL connection.
 This value is valid as long as no other value is specified from the SPL via system variable $A_FRDP_SUBS.
 </description>
 </parameter>
-<parameter number="13370" type="BYTE" dim="0" display="HEX">
+<parameter number="13370" type="UBYTE" dim="0" display="HEX">
 <name>SAFE_MODE</name>
 <brief>Safety operating mode</brief>
 <description>MD to make a distinction between the safety operating modes:
 0 = Safety operating mode "SINUMERIK Safety Integrated (SPL)"
 1 = Safety operating mode "SINUMERIK Safety Integrated (Drive Based)"
-2 = Safety operating mode "SINUMERIK Safety Integrated plus (F-PLC) (without Drive Based)" - not supported
+2 = Reserved
 3 = Safety operating mode "SINUMERIK Safety Integrated plus (F-PLC)"
 </description>
 </parameter>

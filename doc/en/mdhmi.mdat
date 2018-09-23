@@ -127,6 +127,32 @@ The rest of the available 6 GB are left for manufacturer data.
 1 = Skin 1 (new)
 </description>
 </parameter>
+<parameter number="9113" type="DWORD" dim="0" display="HEX">
+<name>EASY_XML_DIAGNOSE</name>
+<brief>EasyXML diagnostics mode</brief>
+<description>Diagnostics and correction support for easyXML scripts
+0 = No diagnostics active
+1 = Syntax check active
+</description>
+</parameter>
+<parameter number="9114" type="BYTE" dim="0" display="DECIMAL">
+<name>SIDESCREEN</name>
+<brief>SINUMERIK Operate Sidescreen</brief>
+<description>Activation of SINUMERIK Operate Sidescreen
+0 = Sidescreen deactivated
+1 = Sidescreen activated
+2 = SINUMERIK Operate Display Manager activated
+</description>
+</parameter>
+<parameter number="9115" type="BYTE" dim="0" display="DECIMAL">
+<name>SAVE_CREDENTIALS</name>
+<brief>Back up access authorizations for network drives</brief>
+<description>Back up access authorizations for network drives when archiving
+0 = Dialog hidden
+1 = No dialog, access authorizations are not backed up
+2 = No dialog, access authorizations are always backed up
+</description>
+</parameter>
 <parameter number="9900" type="BOOLEAN" dim="0" display="DECIMAL">
 <name>MD_TEXT_SWITCH</name>
 <brief>Plaintexts instead of MD identifier</brief>

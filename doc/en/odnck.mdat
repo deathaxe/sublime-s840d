@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <info>
-<parameter number="19010" type="BYTE" dim="1" display="HEX" readonly="true">
+<parameter number="19010" type="UBYTE" dim="1" display="HEX" readonly="true">
 <name>SYSTEM_INFO</name>
 <brief>System information</brief>
 <description>System information
@@ -15,9 +15,10 @@ Class ID:
  5 (0x5) 828D
  6 (0x6) 840D sl SW 4.4 and higher
  7(0x7) 808D
+ 8   (0x8) 840evo
 15 (0xF) Simulation
 
- Subsystem ID:
+Subsystem ID:
 =============
 The following applies to 808D:
  1   (0x01) PPU14*.* M
@@ -26,29 +27,35 @@ The following applies to 808D:
  4   (0x04) PPU16*.* M
  5   (0x05) PPU16*.* T
  6   (0x06) Reserved
+ 7   (0x07) PPU15*.* M
+ 8   (0x08) PPU15*.* T
 
 The following applies to 828D:
- 1 (0x01) PPU26*.* T
- 2 (0x02) PPU26*.* M
+ 1 (0x01) SW26*.* T
+ 2 (0x02) SW26*.* M
  3 (0x03) Reserved
- 4 (0x04) PPU28*.* T
- 5 (0x05) PPU28*.* M
+ 4 (0x04) SW28*.* T
+ 5 (0x05) SW28*.* M
  6 (0x06) Reserved
- 7 (0x07) PPU24*.* T
- 8 (0x08) PPU24*.* M
+ 7 (0x07) SW24*.* T
+ 8 (0x08) SW24*.* M
  9 (0x09) Reserved
-10  (0x0A) PPU28*.* T Adv.
-11  (0x0B) PPU28*.* M Adv.
- 81/1 (0x51) PPU24*.* GC
- 81/2 (0x51) PPU24*.* GS
- 83/1 (0x53) PPU26*.* GC
- 83/2 (0x53) PPU26*.* GS
- 85/1 (0x55) PPU28*.* GC
- 85/2 (0x55) PPU28*.* GS
+10  (0x0A) SW28*.* T Adv.
+11  (0x0B) SW28*.* M Adv.
+ 81/1 (0x51) SW24*.* GC
+ 81/2 (0x51) SW24*.* GS
+ 83/1 (0x53) SW26*.* GC
+ 83/2 (0x53) SW26*.* GS
+ 85/1 (0x55) SW28*.* GC Adv.
+ 85/2 (0x55) SW28*.* GS Adv.
 
 The following applies to 840Dsl:
   4 (0xA4) 31-3
   5 (0xA5) 31-3e
+
+The following applies to 840evo:
+  4   (0xB4) 31-3
+  5   (0xB5) 31-3e
 
 Export ID:
 =============
@@ -102,10 +109,10 @@ not executed.
 <name>NUM_SPL_IO</name>
 <brief>SI, identifier for the number of ext. SPL_I/O</brief>
 <description> The number of external SPL I/Os can be selected with the value in the option data:
- = 0 : The SPL has no I/O.
- = 1 : The SPL has a maximum of 4/4 I/Os.
- = 2 : The SPL has a maximum of64/64 I/Os.
- = 3 : The SPL has a maximum of 192/192 I/Os
+ = 0 : The SPL has no external I/Os.
+ = 1 : The SPL has a maximum of 4/4 external I/Os.
+ = 2 : The SPL has a maximum of 64/64 external I/Os.
+ = 3 : The SPL has a maximum of 192/192 external I/Os
 </description>
 </parameter>
 <parameter number="19142" type="BYTE" dim="0">
@@ -180,7 +187,7 @@ on the PLC. (Incrementation: 64KB)
 14 = 896KB
 </description>
 </parameter>
-<parameter number="19296" type="BYTE" dim="0" display="HEX">
+<parameter number="19296" type="UBYTE" dim="0" display="HEX">
 <name>PERFORMANCE_INDEX</name>
 <brief>Performance option</brief>
 <description>Option data for enabling the performance option
@@ -192,7 +199,7 @@ on the PLC. (Incrementation: 64KB)
  0x8 (4th stage)     : &lt;2ms
 </description>
 </parameter>
-<parameter number="19300" type="BYTE" dim="0" display="HEX">
+<parameter number="19300" type="UDWORD" dim="0" display="HEX">
 <name>COMP_MASK</name>
 <brief>Compensation options</brief>
 <description>Reserved       TEMP  Temperature compensation axial
@@ -202,16 +209,18 @@ Reserved       QEC   Quadrant error compensation with neural network
 Reserved     EGA   Electronic counterweight
 Bit 5            BiEEC Bidirectional leadscrew error compensation
 Bit 6            FRICT Friction compensation (integrated)
+Bit 7            NOCO Nodding compensation ADVANCED
+Bit 8            NOCO Nodding compensation ECO
 </description>
 </parameter>
-<parameter number="19308" type="DWORD" dim="0" display="HEX">
+<parameter number="19308" type="UDWORD" dim="0" display="HEX">
 <name>SINAMICS_FUNCTION_MASK</name>
 <brief>Drive options</brief>
 <description>Option data for enabling SINAMICS drive functions:
 Bit 0 (LSB):  Enable "'Advanced Position Control' (APC)" (drive parameter r108 bit 7)
 </description>
 </parameter>
-<parameter number="19310" type="DWORD" dim="0" display="HEX">
+<parameter number="19310" type="UDWORD" dim="0" display="HEX">
 <name>AXIS_FUNCTION_MASK</name>
 <brief>Axial options</brief>
 <description>Option data for enabling axial functions:
@@ -227,15 +236,15 @@ alarm 8040 is output if the corresponding bit of the option data
 is not set.
 </description>
 </parameter>
-<parameter number="19320" type="DWORD" dim="0" display="HEX">
+<parameter number="19320" type="UDWORD" dim="0" display="HEX">
 <name>TECHNO_FUNCTION_MASK</name>
 <brief>Technological options</brief>
 <description>Option data for enabling technology-related functions
 -----:(LSB): Reserved "Caliper function" ( MD21220 $MC_MULTFEED_ASSIGN_FASTIN) not an option since 10/2000
 Bit 1:       Enable "Adaptive Control (evaluation of internal drive variables)"
 Bit 2:       Enable "SINUMERIK HMI OA copy license WinCC flexible CE" (OP)
-Bit 3:       Enable "Oscillation functions"   ( MD43780 $SA_OSCILL_IS_ACTIVE)
-Bit 4:       Enable "Tool management" ( MD20310 $MC_TOOL_MANAGEMENT_MASK )
+Bit 3:       Enable "Oscillation functions"  ( MD43780 $SA_OSCILL_IS_ACTIVE)
+-----:       Reserved "Tool management" ( MD20310 $MC_TOOL_MANAGEMENT_MASK )
 Bit 5:       Enable "Nibbling/punching" ( MD26012 $MC_PUNCHNIB_ACTIVATION )
 Bit 6:       Enable "Contour tunnel monitoring" ( MD21050 $MC_CONTOUR_TUNNEL_TOL )
 -----:       Reserved "F word interpolation" ( FLIN/FCUB/FPO ) not an option since 10/2000
@@ -255,16 +264,16 @@ Bit 18:      Enable "Extended stop and retract" (MD37500 $MA_ESR_REACTION)
 Bit 21:      Enable "Fast retraction from the contour (LIFTFAST)"
 Bit 22:      Free
 Bit 23:      Enable "Work plan programming with ShopMill/ShopTurn"
-Bit 24:      Enable "Drive-autonomous generator operation" (MD37500 $MA_ESR_REACTION)
+Bit 24:      Enable "Drive-autonomous generator operation" with SIMODRIVE (MD37500 $MA_ESR_REACTION)
 ------:      Reserved "Tool monitoring without active tool management" ( MD18080 $MC_TOOL_MANAGEMENT_MASK )
 ------:      Reserved "Multiple clamping (ShopMill)"
-------:      Reserved "NCU-link with various IPO and position-control cycles (see description of FAST_IPO_LINK and MD18780 $MN_MM_NCU_LINK_MASK)
+------:      Reserved "NCU link with various IPO and position-control cycles (see description of FAST_IPO_LINK and MD18780 $MN_MM_NCU_LINK_MASK)
 Bit 28:      Enable "Display volume model (ShopTurn)"
-Bit 29:      Enable "Online override in tool direction" ($AA_TOFF[])
+Bit 29:      Enable "Online override in tool direction" ($AA_TOFF[], handwheel override in automatic in tool direction)
 Bit 30:      Enable "Milling machining package (package/only place holder for collective option)"
 </description>
 </parameter>
-<parameter number="19321" type="DWORD" dim="0" display="HEX">
+<parameter number="19321" type="UDWORD" dim="0" display="HEX">
 <name>TECHNO_FUNCTION_MASK_1</name>
 <brief>Technological options</brief>
 <description>Option data for enabling functions relating to technologies.
@@ -286,13 +295,13 @@ Bit 13:              Freigabe "Siemens Cycles Advanced Technology"
 Bit 14:              Enable "Balance cutting"
 Bit 15:              Enable "SINUMERIK Grinding Advanced"
 Bit 16:              Free
-Bit 17:              Enable "Reserved"
+Bit 17:              Enable "Top Surface"
 Bit 18:              Enable "Orientation offset static/dynamic"
-Bit 19:              Reserved ""
+Bit 19:              Free
 Bit 31:		Reserved ""
 </description>
 </parameter>
-<parameter number="19330" type="DWORD" dim="0" display="HEX">
+<parameter number="19330" type="UDWORD" dim="0" display="HEX">
 <name>IPO_FUNCTION_MASK</name>
 <brief>Interpolation</brief>
 <description>Option data for enabling interpolation-related functions
@@ -309,7 +318,7 @@ Bit 8:       Enable "Compressor 3-axis machining (COMPON/COMPCAD/COMPCURV) (solu
 Bit 31:      Reserved ""
 </description>
 </parameter>
-<parameter number="19334" type="DWORD" dim="0" display="HEX">
+<parameter number="19334" type="UDWORD" dim="0" display="HEX">
 <name>SYSTEM_FUNCTION_MASK</name>
 <brief>System options</brief>
 <description>-----:(LSB): Reserved "FlashFileSystem (FFS)" is not an option but standard.
@@ -329,11 +338,11 @@ Bit 13:      Enable "AST add-on package"
 ...
 Bit 28:	Reserved
 Bit 29:	Reserved
-Bit 30:	Reserved
+Bit 30:	Reserved "Special function SBM"
 Bit 31:	Reserved
 </description>
 </parameter>
-<parameter number="19340" type="BYTE" dim="0" display="HEX">
+<parameter number="19340" type="UBYTE" dim="0" display="HEX">
 <name>PROG_MASK</name>
 <brief>Program options</brief>
 <description>Option data for enabling functions relating to program execution
@@ -343,13 +352,13 @@ Bit 1:	Enable "Technology cycles" and "Synchronized actions stage 2"
 Bit 2:	Enable "Cross-mode actions (ASUB and SYNACT)"
 </description>
 </parameter>
-<parameter number="19400" type="BYTE" dim="0" display="HEX">
+<parameter number="19400" type="UBYTE" dim="0" display="HEX">
 <name>FFW_MODE_MASK</name>
 <brief>Feedforward control</brief>
 <description>Reserved
 </description>
 </parameter>
-<parameter number="19410" type="DWORD" dim="0" display="HEX">
+<parameter number="19410" type="UDWORD" dim="0" display="HEX">
 <name>TRAFO_TYPE_MASK</name>
 <brief>Transformation options</brief>
 <description>Enables the transformations
@@ -365,8 +374,8 @@ Bit 0 (LBS): TRAFO5       (5-axis transformation) permitted
 Bit 1      : TRANSMIT/TRACYL  (Transmit/cylinder surface curves transformation) permitted
 Bit 2      : Reserved
 Bit 3      : TRAANG           (Inclined axis transformation) permitted
-Bit 4      : TRAOEM           (OEM transformations) permitted
-Bit 5      : TRACON           (Concatenated transformations) permitted
+Bit 4      : Reserved           Was (OEM transformations) permitted
+Bit 5      : Reserved           Was (Concatenated transformations) permitted
 Bit 6      : TRAFO7           (7-axis transformation) permitted
 Bit 7      : TRANSMIT/TRACYL  (Transmit/transformation of cylinder peripheral curves, without real Y axis) permitted
 Bit 8      : TRAANG           (Inclined axis, fixed angles) permitted
@@ -380,7 +389,7 @@ As at 10/11/94: Centerless grinding transformation is not an option
 <description>Basic option to operate an F-PLC.
 </description>
 </parameter>
-<parameter number="19510" type="DWORD" dim="0" display="HEX">
+<parameter number="19510" type="UDWORD" dim="0" display="HEX">
 <name>SAFE_FUNCTION_MASK</name>
 <brief>Safety Integrated functions</brief>
 <description>Option data for enabling Safety Integrated functions
@@ -388,7 +397,7 @@ Bit 0 = 0: Maximum of 3 FSEND and 3 FRECV connections available
 Bit 0 = 1: More than 3 FSEND and 3 FRECV connections available
 </description>
 </parameter>
-<parameter number="19610" type="DWORD" dim="1" display="HEX">
+<parameter number="19610" type="UDWORD" dim="1" display="HEX">
 <name>TECHNO_EXTENSION_MASK</name>
 <brief>Technological extensions</brief>
 <description>Option data for activating technology functions that have been
@@ -484,7 +493,7 @@ $ON_TECHNO_EXTENTION_MASK[1]
  is disabled.
 </description>
 </parameter>
-<parameter number="19720" type="DWORD" dim="0" display="HEX">
+<parameter number="19720" type="UDWORD" dim="0" display="HEX">
 <name>PLC_FUNCTION_MASK</name>
 <brief>SoftPLC functions</brief>
 <description>Option data for enabling SoftPLC functions:
@@ -492,7 +501,7 @@ Bit 0 (LSB):  Enable "DB addressing for PROFINET MCP"
 Bit 4      : Enable "32000 ladder steps"
 </description>
 </parameter>
-<parameter number="19730" type="DWORD" dim="1" display="HEX">
+<parameter number="19730" type="UDWORD" dim="1" display="HEX">
 <name>HMI_FUNCTION_MASK</name>
 <brief>Operating options</brief>
 <description>Option data for enabling HMI functions:
@@ -514,9 +523,9 @@ Bit 13:      Enable "Measure kinematics"                                        
 Bit 14:      Enable "Trace (real-time simulation of curr. machining) MigA; for ShopMill" OD19730 $ON_HMI_FUNCTION_MASK[0].14
 Bit 15:      Enable "Trace (real-time simulation of curr. machining) MigA; for ShopTurn" OD19730 $ON_HMI_FUNCTION_MASK[0].15
 Bit 16:      Enable "3D simulation 1 (finished part)"                                             OD19730 $ON_HMI_FUNCTION_MASK[0].16
-Bit 17:      Enable "3D simulation 2 (finished part and working area)                             OD19730 $ON_HMI_FUNCTION_MASK[0].17
+Bit 17:      Free                                                                         OD19730 $ON_HMI_FUNCTION_MASK[0].17
 Bit 18:      Enable "Manual machine plus"                                          OD19730 $ON_HMI_FUNCTION_MASK[0].18
-Bit 19:      Enable "SINUMERIK HMI sl copy license OA programming"                             OD19730 $ON_HMI_FUNCTION_MASK[0].19
+------:      Reserved "was AP60 Run MyHMI /3GL -&gt; 19732 $ON_HMI_MASK"                             OD19730 $ON_HMI_FUNCTION_MASK[0].19
 ------:      Reserved AP61 "SINUMERIK HMI sl copy license OA project"                          OD19730 $ON_HMI_FUNCTION_MASK[0].20
 ------:      Reserved AP62 "SINUMERIK HMI sl copy license OA upgrade programming"            OD19730 $ON_HMI_FUNCTION_MASK[0].21
 ------:      Reserved AP63 "SINUMERIK HMI sl copy license OA upgrade configuration"             OD19730 $ON_HMI_FUNCTION_MASK[0].22
@@ -557,10 +566,10 @@ Bit 23:      Enable "Integrated spindle monitor (S-Monitor)"                    
 Bit 24:      Enable "DXF reader"                                                               OD19730 $ON_HMI_FUNCTION_MASK[1].24
 Bit 25:      Unused (was "SINUMERIK 828 Ladder Editor")                                              OD19730 $ON_HMI_FUNCTION_MASK[1].25
 Bit 26:      Enable "SINUMERIK extended touch"                                                OD19730 $ON_HMI_FUNCTION_MASK[1].26
-Bit 27:      Enable "Run MyRobot /Handling Positiondisplay"                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
+Bit 27:      Enable "Run MyRobot /Handling"                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
 </description>
 </parameter>
-<parameter number="19732" type="BYTE" dim="0" display="HEX" readonly="true">
+<parameter number="19732" type="UBYTE" dim="0" display="HEX" readonly="true">
 <name>HMI_MASK</name>
 <brief>Operating options</brief>
 <description>Option data for enabling HMI functions:
@@ -568,34 +577,37 @@ Bit 0 (LSB):  SINUMERIK Operate /NCU.
 Bit 1:        SINUMERIK Operate /PCU
 Bit 2:        SINUMERIK Operate /PC
 Bit 3:        SINUMERIK basic PCU software /IPC
+Bit 4:        SINUMERIK Operate /universal client
+Bit 5:        Run MyHMI /3GL
+Bit 6:        SINUMERIK Operate Display Manager
 </description>
 </parameter>
-<parameter number="19740" type="DWORD" dim="1" display="HEX">
+<parameter number="19740" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_MASK</name>
 <brief>Drive basic license bits</brief>
 <description>Option data
 </description>
 </parameter>
-<parameter number="19742" type="BYTE" dim="1">
+<parameter number="19742" type="UBYTE" dim="1" display="DECIMAL">
 <name>DRIVE_CNT</name>
 <brief>Drive count licenses</brief>
 <description>Option data
 </description>
 </parameter>
-<parameter number="19750" type="DWORD" dim="1" display="HEX">
+<parameter number="19750" type="UDWORD" dim="1" display="HEX">
 <name>DRIVE_EXTENSION_MASK</name>
 <brief>Drive OA license bits</brief>
 <description>Option data
 </description>
 </parameter>
-<parameter number="19830" type="DWORD" dim="0" display="HEX">
+<parameter number="19830" type="UDWORD" dim="0" display="HEX">
 <name>COLLISION_MASK</name>
 <brief>Functional scope of collision avoidance</brief>
 <description>Functional scope of collision avoidance
 
-Bit 0 (LSB): collision avoidance (machine, tool)
-Bit 1:        Reserved
-Bit 2:        Reserved
+Bit 0 (LSB): collision avoidance
+Bit 1:        Basic collision avoidance
+Bit 2:        Advanced collision avoidance
 
 </description>
 </parameter>

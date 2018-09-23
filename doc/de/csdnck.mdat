@@ -299,13 +299,15 @@ Bedeutung je Parameterelement
 </parameter>
 <parameter number="54633" type="DOUBLE" dim="1">
 <name>MEA_TP_TYPE</name>
-<brief>Werkzeugmesstastertyp Würfel / Scheibe</brief>
+<brief>Werkzeugmesstastertyp Würfel / Scheibe / Tastkopf</brief>
 <description>Werkzeugmesstastertyp
 
-0:     Würfel
+  0: Kompatibilität (Messzyklen: Würfel, Drehoberfläche zeigt Tastkopf, Fräsoberfläche zeigt Scheibe)
 101: Scheibe in XY, Arbeitsebene G17
 201: Scheibe in ZX, Arbeitsebene G18
 301: Scheibe in YZ, Arbeitsebene G19
+  2: Tastkopf
+  3: Würfel
 </description>
 </parameter>
 <parameter number="54634" type="DOUBLE" dim="1">
@@ -416,13 +418,15 @@ Bedeutung je Parameterelement
 </parameter>
 <parameter number="54648" type="DOUBLE" dim="1">
 <name>MEA_TPW_TYPE</name>
-<brief>Werkzeugmesstastertyp Würfel / Scheibe</brief>
+<brief>Werkzeugmesstastertyp Würfel / Scheibe / Tastkopf</brief>
 <description>Werkzeugmesstastertyp
 
-0:     Würfel
+  0: Kompatibilität (Messzyklen: Würfel, Drehoberfläche zeigt Tastkopf, Fräsoberfläche zeigt Scheibe)
 101: Scheibe in XY, Arbeitsebene G17
 201: Scheibe in ZX, Arbeitsebene G18
 301: Scheibe in YZ, Arbeitsebene G19
+  2: Tastkopf
+  3: Würfel
 
 </description>
 </parameter>
@@ -780,8 +784,9 @@ Bit 19: Werkzeugmessen Technologie Fräsen, Reduzierung der Spindeldrehzahl beim 
 <parameter number="54750" type="DWORD" dim="0" display="HEX">
 <name>MEA_ALARM_MASK</name>
 <brief>Expertenmodus für Zyklenalarme</brief>
-<description>Bit 0  - 15 reserviert für Werkstückmessen
-Bit 16 -31 reserviert für Werkzeugmessen
+<description>Bit 2: Bei Sondertransformationen (z.B. Robotertransformationen) kann es sinnvoll sein, die auf die Softwareendlagen bezogene Reduzierung der Verfahrweite des Messsatzes und die entsprechenden Alarme, zu deaktivieren.
+Bit 3-15 reserviert für Werkstückmessen
+Bit 16-31 reserviert für Werkzeugmessen
 </description>
 </parameter>
 <parameter number="54760" type="DWORD" dim="0" display="HEX">
@@ -813,7 +818,7 @@ Bit24 Auswahl Kalibrieren mit /ohne Lageabweichung
 Bit25 Auswahl Nullkorrektur bei Messen der Winkligkeit der Spindel freigeben
 Bit26 Auswahl Werkzeugkorrektur nicht freigeben
 Bit27 Auswahl Toleranz der Linearvektoren bei Kinematik komplett vermessen nicht freigeben
-
+Bit28 Auswahl Wz.Länge anpassen, freigeben
 
 	wenn Auswahl NV-Korrektur bit 6..10 nicht ausgewählt, dann "nur Messen" anbieten.
 	wenn Auswahl NV-Korrektur bit6..10 ausgewählt, in Eingabemaske immer Korrektur in aktive NV mit anbieten
@@ -839,6 +844,7 @@ Bit10 Auswahl Messfunktion "Zähne einzeln prüfen"
 Bit11 Auswahl Spindelumschlag beim Kalibrieren in der Ebene
 Bit12 Auswahl Anzahl der Messungen (_NMSP)
 Bit13 Auswahl Erfahrungswerte  (_EVNUM)
+Bit14 Auswahl Versatzkorrektur mit Richtungsauswahl
 
 	1) Eingabe Messvorschub gilt für Automatik und JOG
 
@@ -872,6 +878,7 @@ Bit8 Auswahl NPV-Korrektur in globale Basisframe, freigeben
 Bit9 Auswahl NPV-Korrektur in einstellbare Frame, freigeben
 Bit16 Auswahl Werkstückmessen mit Spindelumschlag
 Bit17 Auswahl Werkstückmesstaster in Schaltrichtung ausrichten
+Bit28 Auswahl Wz.Länge anpassen, freigeben
 </description>
 </parameter>
 <parameter number="54782" type="DWORD" dim="0" display="HEX">
