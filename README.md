@@ -36,7 +36,7 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
     - ISO commands (e.g.: TRANS, ROT, ...)
     - functions (e.g.: COUPDEF(...))
   * tooltip support
-    - *.mdat *.svar files from CreateMyConfig
+    - \*.mdat \*.svar files from CreateMyConfig
 
 ### EasyScreen / RunMyScreens
 
