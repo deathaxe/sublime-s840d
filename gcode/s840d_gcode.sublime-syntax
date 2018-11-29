@@ -145,7 +145,7 @@ contexts:
       pop: true
 
   comment-doc-version:
-    - match: (;)VERSION:\s+(\d{1,2}(\.)\d{1,2}(\.)\d{1,2}(\.)\d{1,2}\b)?
+    - match: (;)VERSION:\s*(\d{1,2}(\.)\d{1,2}(\.)\d{1,2}(\.)\d{1,2}\b)?
       captures:
         1: punctuation.definition.comment.begin.s840d_gcode
         2: constant.language.version.s840d_gcode
@@ -156,7 +156,7 @@ contexts:
     - include: comment-doc-end
 
   comment-doc-date:
-    - match: ;DATE:\s+(\d{4}(-)\d{2}(-)\d{2}\b)
+    - match: ;DATE:\s*(\d{4}(-)\d{2}(-)\d{2}\b)
       captures:
         1: constant.language.date.s840d_gcode
         2: punctuation.separator.sequence.s840d_gcode
