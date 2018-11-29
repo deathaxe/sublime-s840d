@@ -42,15 +42,18 @@ class S840dProtectCommand(base.TextCommand):
                 "Please save the cycle to disk first.")
         # save view to disk to sync timestamp
         self.view.run_command("save")
-        # minimize and encode content
-        region = sublime.Region(0, self.view.size())
-        source = self.view.substr(region)
-        source = minify.minify_code(source)
-        # strip ARC headers and comments except VERSION
-        source = re.sub(r'\s*(?:%_N_|;\s*(?!VERSION|DATE)).*$', '',
-                        source, flags=re.MULTILINE)
-        source = source.replace('\n\n', '\n')
-        source = source.encode()
+
+        # get file content
+        source = self.view.substr(sublime.Region(0, self.view.size()))
+        # strip ARC headers
+        source = re.sub(r'^\s*(?:%_N_|;\$PATH=).*$', '', source, flags=re.MULTILINE)
+        # create temporary output panel and use it to run the minify command.
+        panel = self.view.window().create_output_panel('s840d_protector', unlisted=True)
+        panel.run_command("insert", {"characters": source})
+        panel.run_command("s840d_minify")
+        source = panel.substr(sublime.Region(0, panel.size())).encode()
+        self.view.window().destroy_output_panel('s840d_protector')
+
         # save to temporary file and run protector
         try:
             file, temp_name = tempfile.mkstemp(suffix='.spf')
@@ -58,8 +61,8 @@ class S840dProtectCommand(base.TextCommand):
             os.close(file)
             self._protector(temp_name)
             # move protected file next to source file
-            shutil.move(os.path.splitext(temp_name)[0] + '.cpf',
-                        os.path.splitext(file_name)[0] + '.cpf')
+            shutil.move(os.path.splitext(temp_name)[0] + '.CPF',
+                        os.path.splitext(file_name)[0] + '.CPF')
         except:
             print('S840D: Program not encrypted!')
         finally:
