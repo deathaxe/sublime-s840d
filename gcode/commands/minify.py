@@ -4,19 +4,6 @@ import sublime
 from . import base
 
 
-def minify_code(text):
-    # remove leading line spaces and block numbers
-    text = re.sub(r'(?im)^(?:\s*N\d+)?\s*', '', text)
-    # remove whitespaces after double colon if not preceded by quots
-    text = re.sub(r'(?im)(^[^""]*?\:+?)[\t ]*', r'\1', text)
-    # remove whitespaces around operators or seperators
-    text = re.sub(r'[\t ]*([-+*/=><,\[\(\]\)]+)[\t ]*', r'\1', text)
-    # remove empty or blank lines
-    text = re.sub(r'(\s*\n){2,}', '\n', text)
-    # ensure newline at eof
-    return text + '\n'
-
-
 def replace_comment(view, edit, region, protected):
     """Ensure not to delete a comment if it contains protected.
 
@@ -49,6 +36,22 @@ def remove_comments(view, edit):
         view.erase(edit, region)
 
 
+def remove_all(view, edit, pattern):
+    """Remove every matching text without touching strings."""
+    for region in reversed(view.find_all(pattern)):
+        if not view.match_selector(region.begin(), "string"):
+            view.erase(edit, region)
+
+
+def replace_all(view, edit, pattern, fmt):
+    """Replace every matching text without touching strings."""
+    extractions = []
+    regions = view.find_all(pattern, fmt=fmt, extractions=extractions)
+    for region, text in zip(reversed(regions), reversed(extractions)):
+        if not view.match_selector(region.begin(), "string"):
+            view.replace(edit, region, text)
+
+
 class S840dMinifyCommand(base.TextCommand):
     """Shrink code code as small as possible.
 
@@ -66,10 +69,13 @@ class S840dMinifyCommand(base.TextCommand):
         row, vp_y = self.backup_viewport()
 
         remove_comments(self.view, edit)
-
-        # get a copy of the file content
-        region = sublime.Region(0, self.view.size())
-        # replace view's content
-        self.view.replace(edit, region, minify_code(self.view.substr(region)))
+        # remove block numbers and indention
+        remove_all(self.view, edit, r'^(?:\s*[Nn]\d+)?\s*')
+        # remove whitespace around operators
+        replace_all(self.view, edit, r'[\t ]*([-+*/=><,\:\[\(\]\)]+)[\t ]*', r'\1')
+        # remove empty lines
+        replace_all(self.view, edit, r'([\t ]*\n){2,}', '\n')
+        # remove multiple whitespace
+        remove_all(self.view, edit, r'[\t ]+(?=[\t ])')
         # restore cursor and viewport position
         self.restore_viewport(row, vp_y)
