@@ -162,7 +162,10 @@ contexts:
         2: punctuation.separator.sequence.s840d_gcode
         3: punctuation.separator.sequence.s840d_gcode
       set: comment-doc-end
-    - match: $\n?|;
+    - match: ;
+      set: comment-doc-end
+    - match: $\n?
+      scope: meta.eol.s840d_gcode
       set: comment-doc-end
 
   comment-doc-end:
@@ -263,6 +266,7 @@ contexts:
   stmt-proc-attributes:
     - meta_content_scope: meta.function.attributes.s840d_gcode
     - match: \n
+      scope: meta.eol.s840d_gcode
       set: [comment-doc]
     - match: (?=;)
       set: [comment-doc, comment-line]
@@ -682,6 +686,7 @@ contexts:
       set:
         - meta_scope: meta.section.ctab.s840d_gcode meta.function-call.s840d_gcode
         - match: \n|(?=;)
+          scope: meta.eol.s840d_gcode
           set: stmt-ctab-body
         - match: (?=\()
           push: function-call-arguments
@@ -704,6 +709,7 @@ contexts:
       set:
         - meta_scope: meta.section.for.s840d_gcode meta.control.for.s840d_gcode
         - match: \n|(?=;)
+          scope: meta.eol.s840d_gcode
           set: stmt-for-body
         - match: (?i:TO)\b
           scope: keyword.control.to.s840d_gcode
@@ -768,6 +774,7 @@ contexts:
       set:
         - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
         - match: \n|(?=;)
+          scope: meta.eol.s840d_gcode
           set: stmt-if-body
         - match: (?=(?i:GOTO[FB]?\b))
           set: stmt-goto
@@ -947,6 +954,7 @@ contexts:
       set:
         - meta_scope: meta.section.loop.s840d_gcode
         - match: \n|(?=;)
+          scope: meta.eol.s840d_gcode
           set: stmt-loop-body
         - include: illegal
 
@@ -984,6 +992,7 @@ contexts:
       set:
         - meta_scope: meta.section.repeat.s840d_gcode
         - match: \n|(?=;)
+          scope: meta.eol.s840d_gcode
           set: stmt-repeat-body
         - include: illegal
 
@@ -1096,6 +1105,7 @@ contexts:
       set:
         - meta_scope: meta.section.while.s840d_gcode
         - match: \n|(?=;)
+          scope: meta.eol.s840d_gcode
           set: stmt-while-body
         - include: expressions
         - include: illegal
@@ -1153,6 +1163,7 @@ contexts:
       set:
         - meta_scope: comment.line.s840d_gcode
         - match: \n
+          scope: meta.eol.s840d_gcode
           pop: true
 
   comment-disabled:
@@ -1161,6 +1172,7 @@ contexts:
       push:
         - meta_scope: comment.line.disabled.s840d_gcode
         - match: \n
+          scope: meta.eol.s840d_gcode
           pop: true
 
   placeholder:

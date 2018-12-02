@@ -7,20 +7,28 @@ from . import base
 def minify_code(text):
     # remove leading line spaces and block numbers
     text = re.sub(r'(?im)^(?:\s*N\d+)?\s*', '', text)
+    # remove whitespaces after double colon if not preceded by quots
+    text = re.sub(r'(?im)(^[^""]*?\:+?)[\t ]*', r'\1', text)
     # remove whitespaces around operators or seperators
     text = re.sub(r'[\t ]*([-+*/=><,\[\(\]\)]+)[\t ]*', r'\1', text)
-    # remove whitespaces after double colon if not preceded by quots
-    text = re.sub(r'(^[^""]*?\:+?)[\t ]*', r'\1', text)
     # remove empty or blank lines
     text = re.sub(r'(\s*\n){2,}', '\n', text)
-    return text
+    # ensure newline at eof
+    return text + '\n'
 
 
-def replace_comment(view, edit, region, excludes):
-    for v in excludes:
-        if region.contains(v):
-            view.replace(edit, region, view.substr(v))
-            excludes.remove(v)
+def replace_comment(view, edit, region, protected):
+    """Ensure not to delete a comment if it contains protected.
+
+    Cycle through all regions and check whether they contain a protected
+    region. If so, replace region by the content of the contained protected one
+    and return True to indicate that. Return False if no protected region is
+    contained in the region.
+    """
+    for p in protected:
+        if region.contains(p):
+            view.replace(edit, region, view.substr(p))
+            protected.remove(p)
             return True
     return False
 
@@ -31,15 +39,13 @@ def remove_comments(view, edit):
     Remove comments by scope as ; can be part of a string which makes it
     hard and error prone to handle via regexp only.
     """
-    versions = view.find_all("^;VERSION:.*?\n")
+    versions = view.find_all(r"^;VERSION:.*?\n")
     paths = view.find_all(r";\$PATH=.*?\n")
-    for region in reversed(view.find_by_selector("comment.line")):
+    for region in reversed(view.find_by_selector("comment.line - meta.eol")):
         if replace_comment(view, edit, region, versions):
             continue
         if replace_comment(view, edit, region, paths):
             continue
-        # don't remove the newline character which comments end with
-        region.b -= 1
         view.erase(edit, region)
 
 
@@ -63,8 +69,7 @@ class S840dMinifyCommand(base.TextCommand):
 
         # get a copy of the file content
         region = sublime.Region(0, self.view.size())
-        text = self.view.substr(region)
         # replace view's content
-        self.view.replace(edit, region, minify_code(text))
+        self.view.replace(edit, region, minify_code(self.view.substr(region)))
         # restore cursor and viewport position
         self.restore_viewport(row, vp_y)
