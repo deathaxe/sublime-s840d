@@ -498,11 +498,28 @@ contexts:
           scope: punctuation.section.parameters.begin.s840d_hmi
           set:
             - meta_scope: meta.class.menu.parameters.name.s840d_hmi
-            - match: \)|$
-              scope: punctuation.section.parameters.end.s840d_hmi
-              set: class-menu-body
+            - match: ','
+              scope: punctuation.separator.parameters.s840d_hmi
+              set: class-menu-attr-langfiles
             - include: class-name
         - include: class-menu-body
+
+  class-menu-attr-langfiles:
+    - meta_content_scope: meta.class.menu.parameters.langfiles.s840d_hmi
+    - match: /
+      scope: invalid.illegal.separator.s840d_hmi
+      set:
+        - meta_content_scope: meta.class.menu.parameters.s840d_hmi
+        - include: class-menu-attr-end
+    - include: attr-seperator
+    - include: string
+    - include: class-menu-attr-end
+
+  class-menu-attr-end:
+    - match: \)|$
+      scope: punctuation.section.parameters.end.s840d_hmi
+      set: class-menu-body
+    - include: illegal
 
   class-menu-body:
     - meta_content_scope: meta.class.menu.body.s840d_hmi
