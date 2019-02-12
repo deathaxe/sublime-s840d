@@ -181,6 +181,32 @@ contexts:
     - include: stmt-extern
 
 ###############################################################################
+# GROUP DEFINITION
+# TESTS: syntax_test_groups.spf
+###############################################################################
+
+  stmt-group:
+    - match: (?i:GROUP_(BEGIN|END))\b
+      scope: meta.namespace.s840d_gcode entity.name.namespace.s840d_gcode
+      set:
+        - match: (?=\()
+          set: stmt-group-parameters
+
+  stmt-group-parameters:
+    - match: \(
+      scope: punctuation.section.parameters.begin.s840d_gcode
+      set:
+        - meta_scope: meta.namespace.parameters.s840d_gcode
+        - match: \)
+          scope: punctuation.section.parameters.end.s840d_gcode
+          set: line-end-or-illegal
+        - include: seperator-comma
+        - include: numbers
+        - include: strings
+        - include: line-end-or-illegal
+    - include: line-end-or-illegal
+
+###############################################################################
 # EXTERN PROCEDURE DEFINITION
 # TESTS: syntax_test_extern.spf
 ###############################################################################
@@ -388,6 +414,7 @@ contexts:
     - include: stmt-if
     - include: stmt-goto
     - include: stmt-gotos
+    - include: stmt-group
     - include: stmt-for
     - include: stmt-loop
     - include: stmt-while
