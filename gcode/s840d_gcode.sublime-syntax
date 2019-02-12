@@ -71,12 +71,7 @@ contexts:
       push:
         - include: line-end
         - include: definitions
-        # match incomplete keyword DEF or DEFINE
-        # to avoid to set main-sublevel too early
-        - match: (?i:DE?F?I?N?E?)\b
-          scope: keyword.control.define.s840d_gcode
-        - match: (?=\S)
-          set: main-sublevel
+        - include: statements
 
   main-sublevel:
     - include: iso-blockno
