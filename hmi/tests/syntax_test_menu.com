@@ -15,4 +15,15 @@
 ;                               ^^^^^^^^^^^^^^^^ meta.class.menu.parameters.langfiles string.quoted.double
 ;                                               ^ meta.class.menu.parameters.langfiles invalid.illegal.separator
 ;                                                ^ meta.class.menu.parameters punctuation.section.parameters.end - meta.class.menu.parameters.langfiles
-;
+//END
+;<- meta.class.menu.end keyword.class.end
+;^^^^ meta.class.menu.end keyword.class.end
+
+//S(MNU_NAME)
+;^^ meta.class.menu keyword.class.begin
+;  ^ meta.class.menu.parameters.name punctuation.section.parameters.begin
+;   ^^^^^^^^ meta.class.menu.parameters.name entity.name.class
+;           ^ meta.class.menu.parameters punctuation.section.parameters.end - meta.class.menu.parameters.langfiles
+//END
+;<- meta.class.menu.end keyword.class.end
+;^^^^ meta.class.menu.end keyword.class.end
