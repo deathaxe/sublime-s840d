@@ -135,10 +135,21 @@ N20 REDEF VAR INIRE ""
 ;         ^^^ variable.other
 ;             ^^^^^ storage.modifier.init
 ;                   ^^ string.quoted.double
+
 N20 REDEF VAR INIRE REP(0) INIRE
-;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
+;             ^^^^^^^^^^^^^^^^^^^ meta.definition.init
 ;   ^^^^^ keyword.declaration.redef
 ;         ^^^ variable.other
 ;             ^^^^^ storage.modifier.init
 ;                   ^^^ support.function
 ;                          ^^^^^ invalid.illegal.keyword.storage.s840d_gcode
+
+N20 REDEF $SN_CEC_TABLE_ENABLE APR 7 APW 1
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
+;   ^^^^^ keyword.declaration.redef
+;         ^^^^^^^^^^^^^^^^^^^^ support.variable
+;                              ^^^ storage.modifier.access
+;                                  ^ constant.numeric.integer
+;                                    ^^^ storage.modifier.access
+;                                        ^ constant.numeric.integer

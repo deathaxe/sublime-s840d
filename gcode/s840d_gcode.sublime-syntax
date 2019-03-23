@@ -409,30 +409,30 @@ contexts:
 
 ###############################################################################
 # VARIABLE REDEFINITION
-# TESTS: syntax_test_redef.spf
+# TESTS: syntax_test_def.spf
 ###############################################################################
 
   stmt-redef:
     - match: (?i:REDEF)\b
       scope: keyword.declaration.redef.s840d_gcode
-      set: [stmt-redef-value, stmt-redef-modifier, stmt-redef-operand]
+      set: [stmt-redef-meta, stmt-redef-content]
 
-  stmt-redef-operand:
-    - match: '{{ident}}'
-      scope: variable.other.s840d_gcode
-      pop: true
-    - include: scope-end
-
-  stmt-redef-modifier:
+  stmt-redef-content:
+    - match: (?i:INI(?:CF|RE|PO)|PRLOC)\b
+      scope: storage.modifier.init.s840d_gcode
+      set:
+        - meta_scope: meta.definition.init.s840d_gcode
+        - include: expressions-line
     - include: storage-modifier-access
-    - include: storage-modifier-init
     - include: storage-modifier-sync
     - include: storage-modifier-limits
-    - include: scope-end
+    - include: variables
+    - include: line-end-or-illegal
 
-  stmt-redef-value:
+  stmt-redef-meta:
     - meta_scope: meta.redefinition.s840d_gcode
-    - include: expressions-line
+    - match: ''
+      pop: true
 
 ###############################################################################
 # STATEMENTS
