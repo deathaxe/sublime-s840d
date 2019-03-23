@@ -303,17 +303,16 @@ contexts:
   stmt-define:
     - match: (?i:DEFINE)\b
       scope: keyword.control.define.s840d_gcode
-      set:
-        - meta_scope: meta.definition.macro.s840d_gcode
-        - match: '{{macro}}'
-          scope: entity.name.macro.s840d_gcode
-          set: stmt-define-as
-        - match: (?=\S)
-          set: stmt-define-as
-        - include: line-end-or-illegal
+      set: [stmt-define-as, stmt-define-name]
+
+  stmt-define-name:
+    - match: '{{macro}}'
+      scope: entity.name.macro.s840d_gcode
+      pop: true
+    - include: scope-end
 
   stmt-define-as:
-    - meta_content_scope: meta.definition.macro.s840d_gcode
+    - meta_scope: meta.definition.macro.s840d_gcode
     - match: (?i:AS)\b
       scope: keyword.control.as.s840d_gcode
       set: stmt-define-action
@@ -324,13 +323,27 @@ contexts:
     - match: \n
       scope: meta.definition.macro.action.s840d_gcode meta.eol.s840d_gcode
       pop: true
-    # make sure all statements are scoped with meta.definition.macro.action
-    - match: (?=\S)
-      push: statements
-      with_prototype:
-        # make sure to pop off before line end from all statements
-        - match: $
-          pop: true
+    - match: ''
+      embed: stmt-define-action-body
+      escape: $
+
+  stmt-define-action-body:
+    - match: (?i:DEF|DEFINE|EXTERN|PROC|REDEF|AS)\b.*
+      scope: keyword.definition.s840d_gcode
+    - match: (?i:BLOCK|CASE|CTAB(?:DEF|END)|DEFAULT|ELSE|(?:END)?(?:IF|FOR|LOOP|WHILE)|ISOCALL|GOTO[BCFS]?|[MP]?CALL|OF|REPEATB?|RET|TO|UNTIL)\b
+      scope: keyword.control.s840d_gcode
+    - match: '{{proc_attr}}'
+      scope: storage.modifier.function.s840d_gcode
+    - include: seperator-comma
+    - include: storage-modifier-scope
+    - include: storage-modifier-access
+    - include: storage-modifier-init
+    - include: storage-modifier-limits
+    - include: storage-modifier-sync
+    - include: storage-modifier-unit
+    - include: storage-types
+    - include: stmt-procedure-call
+    - include: stmt-iso-body
 
 ###############################################################################
 # VARIABLE DEFINITION

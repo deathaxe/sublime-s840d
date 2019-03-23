@@ -72,7 +72,7 @@ N10 DEFINE name AS WHILE TRUE ; comment
 ;   ^^^^^^ keyword.control.define
 ;          ^^^^ entity.name.macro
 ;               ^^ keyword.control.as
-;                  ^^^^^ keyword.control.while
+;                  ^^^^^ keyword.control
 ;                             ^ comment.line
 N10 DEFINE 1inv AS _1v ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
@@ -91,3 +91,25 @@ N10 DEFINE name invalid AS 1av ; comment
 ;                       ^^ keyword.control.as
 ;                          ^^^ invalid.illegal
 ;                              ^ comment.line
+N10 DEFINE _DEC2 AS MOD 100 DIV 10
+;   ^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                  ^^^^^^^^^^^^^^^ meta.definition.macro.action
+;                   ^^^ keyword.operator.arithmetic
+;                       ^^^ constant.numeric
+;                           ^^^ keyword.operator.arithmetic
+;                               ^^ constant.numeric
+N10 DEFINE _E_MAC_TR_CON AS REAL _FI,REAL _FM,
+;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                          ^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
+;                           ^^^^ storage.type
+;                                ^^^ variable.other
+;                                   ^ punctuation.separator.comma
+;                                    ^^^^ storage.type
+;                                         ^^^ variable.other
+;                                            ^ punctuation.separator.comma
+N10 DEFINE PROC_PAR AS DISPLOF SBLOF
+;                      ^^^^^^^ storage.modifier.function.s840d_gcode
+;                              ^^^^^ storage.modifier.function.s840d_gcode
+N10 DEFINE TEST AS A[
+N11 DEFINE
+;<- comment.blockno - meta.definition
