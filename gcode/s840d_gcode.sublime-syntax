@@ -1680,9 +1680,9 @@ contexts:
     - match: (?i:DEF|DEFINE|EXTERN|PROC|REDEF|AS)\b.*
       scope: invalid.illegal.keywords.definition.s840d_gcode
     - match: (?i:BLOCK|CASE|CTAB(?:DEF|END)|DEFAULT|ELSE|(?:END)?(?:IF|FOR|LOOP|WHILE)|ISOCALL|GOTO[BCFS]?|[MP]?CALL|OF|REPEATB?|RET|TO|UNTIL)\b
-      scope: invalid.illegal.keywords.control.s840d_gcode
+      scope: invalid.illegal.keyword.control.s840d_gcode
     - match: (?i:AXIS|BOOL|FRAME|INT|REAL|STRING|TR|FI|RT|SC|MI|NCK|CHAN|AP[RWX][BP]?|LL[IU]|PHU|SYN(?:[RW]|RW)|VAR|INI(?:CF|RE|PO)|PRLOC)\b
-      scope: invalid.illegal.keywords.storage.s840d_gcode
+      scope: invalid.illegal.keyword.storage.s840d_gcode
 
   illegal-operators:
     - match: (?i:[-+/\*<>=]MOD|DIV|_DEC[1-9]|(?:B_)?(?:AND|OR|XOR|NOT))\b
