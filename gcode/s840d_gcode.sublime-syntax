@@ -75,7 +75,7 @@ contexts:
         # match incomplete keyword DEF or DEFINE
         # to avoid to set main-sublevel too early
         - match: (?i:DE?F?I?N?E?)\b
-          scope: keyword.control.define.s840d_gcode
+          scope: keyword.declaration.define.s840d_gcode
         - match: (?=\S)
           set: main-sublevel
 
@@ -309,7 +309,7 @@ contexts:
 
   stmt-define:
     - match: (?i:DEFINE)\b
-      scope: keyword.control.define.s840d_gcode
+      scope: keyword.declaration.define.s840d_gcode
       set: [stmt-define-as, stmt-define-name]
 
   stmt-define-name:
@@ -321,7 +321,7 @@ contexts:
   stmt-define-as:
     - meta_scope: meta.definition.macro.s840d_gcode
     - match: (?i:AS)\b
-      scope: keyword.control.as.s840d_gcode
+      scope: keyword.declaration.as.s840d_gcode
       set: stmt-define-action
     - include: line-end-or-illegal
 
@@ -359,7 +359,7 @@ contexts:
 
   stmt-def:
     - match: (?i:DEF)\b
-      scope: meta.definition.variable.s840d_gcode keyword.control.def.s840d_gcode
+      scope: meta.definition.variable.s840d_gcode keyword.declaration.def.s840d_gcode
       set:
         - meta_content_scope: meta.definition.variable.storage.s840d_gcode
         - include: storage-modifier-scope
@@ -414,7 +414,7 @@ contexts:
 
   stmt-redef:
     - match: (?i:REDEF)\b
-      scope: keyword.control.redef.s840d_gcode
+      scope: keyword.declaration.redef.s840d_gcode
       set: [stmt-redef-value, stmt-redef-modifier, stmt-redef-operand]
 
   stmt-redef-operand:

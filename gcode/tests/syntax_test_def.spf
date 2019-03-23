@@ -7,24 +7,24 @@
 
 DEF
 ; <- meta.definition.variable
-; <- keyword.control.def
+; <- keyword.declaration.def
 
 N10DEF
 ;  ^^^ meta.definition.variable
-;  ^^^ keyword.control.def
+;  ^^^ keyword.declaration.def
 
 N10 DEF
 ;   ^^^ meta.definition.variable
-;   ^^^ keyword.control.def
+;   ^^^ keyword.declaration.def
 
 N10 DEF INT
 ;   ^^^^^^^ meta.definition.variable
-;   ^^^ keyword.control.def
+;   ^^^ keyword.declaration.def
 ;       ^^^ storage.type
 
 DEF INT VAR = 0 ; comment
 ;             <- meta.definition.variable
-; <- keyword.control.def
+; <- keyword.declaration.def
 ;   ^^^ storage.type
 ;       ^^^ variable.other
 ;           ^ keyword.operator.assignment
@@ -33,7 +33,7 @@ DEF INT VAR = 0 ; comment
 
 N10DEF INT VAR=0;comment
 ;  ^^^^^^^^^^^^^ meta.definition.variable
-;  ^^^ keyword.control.def
+;  ^^^ keyword.declaration.def
 ;      ^^^ storage.type
 ;          ^^^ variable.other
 ;             ^ keyword.operator.assignment
@@ -42,7 +42,7 @@ N10DEF INT VAR=0;comment
 
 N10DEF NCK APW 5 APR 7 APX 7 REAL PHU 5 LLI -100.0 LLU +100.0 VAR[3,3] = SET(1,0,0, 0,1,0, 0,0,1) ; comment
 ;  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
-;  ^^^ keyword.control.def
+;  ^^^ keyword.declaration.def
 ;      ^^^ storage.modifier.scope
 ;          ^^^ storage.modifier.access
 ;              ^ constant.numeric.integer
@@ -71,7 +71,7 @@ N10DEF NCK APW 5 APR 7 APX 7 REAL PHU 5 LLI -100.0 LLU +100.0 VAR[3,3] = SET(1,0
 ;  multiple definitions
 N10 DEF INT VAR=0, VAR2[10] = 20 , VAR3 = 40 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
-;   ^^^ keyword.control.def
+;   ^^^ keyword.declaration.def
 ;       ^^^ storage.type
 ;           ^^^ variable.other
 ;              ^ keyword.operator.assignment
@@ -96,7 +96,7 @@ N10 DEF REAL VAR[4]=(0.6,0.7,0.5,0.7), VAR2[9] = SET(0) ; comment
 ;                                      ^^^^^^^ meta.definition.variable.operand
 ;                                              ^^^^^^^^^ meta.definition.variable.value
 ;                   ^^^^^^^^^^^^^^^^^ meta.group
-;   ^^^ keyword.control.def
+;   ^^^ keyword.declaration.def
 ;       ^^^ storage.type
 ;            ^^^ variable.other
 ;               ^ punctuation.section.brackets.begin
@@ -118,7 +118,7 @@ N10 DEF REAL VAR[4]=(0.6,0.7,0.5,0.7), VAR2[9] = SET(0) ; comment
 ; illegal array definition
 N10 DEF INT VAR2[10][10] = 20 ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable
-;   ^^^ keyword.control.def
+;   ^^^ keyword.declaration.def
 ;       ^^^ storage.type
 ;           ^^^^ variable.other
 ;               ^ punctuation.section.brackets.begin
@@ -131,13 +131,13 @@ N10 DEF INT VAR2[10][10] = 20 ; comment
 
 N20 REDEF VAR INIRE ""
 ;   ^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
-;   ^^^^^ keyword.control.redef
+;   ^^^^^ keyword.declaration.redef
 ;         ^^^ variable.other
 ;             ^^^^^ storage.modifier.init
 ;                   ^^ string.quoted.double
 N20 REDEF VAR INIRE REP(0) INIRE
 ;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
-;   ^^^^^ keyword.control.redef
+;   ^^^^^ keyword.declaration.redef
 ;         ^^^ variable.other
 ;             ^^^^^ storage.modifier.init
 ;                   ^^^ support.function
