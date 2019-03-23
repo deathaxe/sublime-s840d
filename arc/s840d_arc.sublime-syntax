@@ -32,28 +32,31 @@ contexts:
     - include: s840d_gcode.sublime-syntax#comment-line
     - match: '%'
       scope: punctuation.definition.tag.s840d_arc
-      push: header-file
-      with_prototype:
-        - match: (?=^%)
-          pop: true
+      embed: header-file
+      escape: (?=^%)
 
   header-file:
+    # NOTE: need a push after embed before set due to embed bug
+    # https://github.com/SublimeTextIssues/Core/issues/2395
+    - match: ''
+      push: header-file-content
+
+  header-file-content:
     - meta_scope: annotation.archive.s840d_arc
     - meta_content_scope: entity.name.tag.dest-file.s840d_arc
     # RunMyScreens / EasyScreen
-    - match: COM\b
-      set: [hmi-contents, header-path]
+    - match: _(?i:COM)\b
+      set: [hmi-meta, scope:source.s840d_hmi, header-path]
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
-    - match: (?:DEF)\b
-      set: [def-contents, header-path]
-    - match: (?:MPF)\b
-      set: [mpf-contents, header-path]
-    - match: (?:SPF)\b
-      set: [spf-contents, header-path]
-    - match: (?:GUD|INI|RPA|TEA|TOA|UFR)\b
-      set: [tea-contents, header-path]
-
+    - match: _(?i:DEF)\b
+      set: [def-meta, scope:source.s840d_gcode, header-path]
+    - match: _(?i:MPF)\b
+      set: [mpf-meta, scope:source.s840d_gcode, header-path]
+    - match: _(?i:SPF)\b
+      set: [spf-meta, scope:source.s840d_gcode, header-path]
+    - match: _(?i:GUD|INI|RPA|TEA|TOA|UFR)\b
+      set: [tea-meta, scope:source.s840d_gcode, header-path]
     # unknown signature
     - match: \W+
       scope: invalid.illegal.unknown-signature.s840d_arc
@@ -94,22 +97,27 @@ contexts:
     - match: .+
       scope: invalid.illegal.dest-path.s840d_arc
 
-  hmi-contents:
+  hmi-meta:
     - meta_scope: source.s840d_hmi
-    - include: scope:source.s840d_hmi
+    - match: ''
+      pop: true
 
-  def-contents:
+  def-meta:
     - meta_scope: source.s840d_gcode.def
-    - include: scope:source.s840d_gcode.def
+    - match: ''
+      pop: true
 
-  mpf-contents:
+  mpf-meta:
     - meta_scope: source.s840d_gcode.mpf
-    - include: scope:source.s840d_gcode.mpf
+    - match: ''
+      pop: true
 
-  spf-contents:
+  spf-meta:
     - meta_scope: source.s840d_gcode.spf
-    - include: scope:source.s840d_gcode.spf
+    - match: ''
+      pop: true
 
-  tea-contents:
+  tea-meta:
     - meta_scope: source.s840d_gcode.tea
-    - include: scope:source.s840d_gcode.tea
+    - match: ''
+      pop: true
