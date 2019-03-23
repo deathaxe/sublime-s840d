@@ -1195,17 +1195,6 @@ contexts:
     - include: illegal-keywords
     - include: function-call
     - include: variables
-    - include: comment-block
-
-  comment-block:
-    - match: \(
-      scope: punctuation.definition.comment.begin.s840d_gcode
-      push:
-        - meta_scope: comment.block.s840d_gcode
-        - match: \)
-          scope: punctuation.definition.comment.end.s840d_gcode
-          pop: true
-        - include: ignore-parens
 
   comment-line:
     - match: ;
