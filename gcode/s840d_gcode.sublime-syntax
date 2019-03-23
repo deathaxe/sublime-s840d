@@ -71,7 +71,13 @@ contexts:
       push:
         - include: line-end
         - include: definitions
-        - include: statements
+        - include: storage-modifier-access
+        # match incomplete keyword DEF or DEFINE
+        # to avoid to set main-sublevel too early
+        - match: (?i:DE?F?I?N?E?)\b
+          scope: keyword.control.define.s840d_gcode
+        - match: (?=\S)
+          set: main-sublevel
 
   main-sublevel:
     - include: iso-blockno
@@ -1393,7 +1399,7 @@ contexts:
       push:
         - meta_scope: meta.definition.access.s840d_gcode
         # allowed access levels are 0..7
-        - match: \b[0-7]\b
+        - match: \d+\b
           scope: constant.numeric.integer.s840d_gcode
           pop: true
         # macro defined value
