@@ -59,9 +59,11 @@ contexts:
       scope: invalid.illegal.unknown-signature.s840d_arc
 
   header-path:
+    - clear_scopes: 1
     - match: ^;\$
       scope: punctuation.definition.tag.s840d_arc
       set:
+        - clear_scopes: 1
         - meta_scope: annotation.archive.s840d_arc meta.mapping.key.s840d_arc
         - match: PATH
           scope: entity.other.attribute-name.s840d_arc
@@ -71,6 +73,7 @@ contexts:
       pop: true
 
   header-path-assign:
+    - clear_scopes: 1
     - meta_content_scope: annotation.archive.s840d_arc meta.mapping.s840d_arc
     - match: '='
       scope: punctuation.separator.mapping.key-value.s840d_arc
@@ -78,6 +81,7 @@ contexts:
     - include: header-path-end
 
   header-path-value:
+    - clear_scopes: 1
     - meta_content_scope: annotation.archive.s840d_arc meta.mapping.value.s840d_arc
     - match: /_N_[A-Z_][A-Z_][0-9A-Z_/]+\b
       scope: entity.name.tag.dest-path.s840d_arc
