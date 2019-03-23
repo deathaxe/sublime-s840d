@@ -6,15 +6,13 @@ import subprocess
 import tempfile
 
 import sublime
-
-from . import base
-from . import minify
+import sublime_plugin
 
 # check if protector exists in PATH
 _HAVE_PROTECTOR = bool(shutil.which('protector'))
 
 
-class S840dProtectCommand(base.TextCommand):
+class S840dProtectCommand(sublime_plugin.WindowCommand):
     """Shrink code code as small as possible and convert to cpf.
 
     Remove all comments and block numbers as well as all unrequired
@@ -23,53 +21,62 @@ class S840dProtectCommand(base.TextCommand):
 
     def is_enabled(self):
         """Enable command for G-Code if protector.exe exists."""
-        return _HAVE_PROTECTOR and super().is_enabled()
+        return _HAVE_PROTECTOR
 
-    def run(self, edit):
+    def run(self, paths=None):
         """API entry point to run 's840d_protect' command.
 
         Arguments:
             edit (Edit): The current edit token which groups this operation
         """
-        sublime.set_timeout_async(self._run_async)
+        if not paths:
+            paths = [self.window.extract_variables()['file']]
+            if not paths:
+                return
 
-    def _run_async(self):
-
-        # check if view is saved to disk
-        file_name = self.view.file_name()
-        if not file_name or not os.path.isfile(file_name):
-            return sublime.error_message(
-                "Please save the cycle to disk first.")
-        # save view to disk to sync timestamp
-        self.view.run_command("save")
-
-        # get file content
-        source = self.view.substr(sublime.Region(0, self.view.size()))
-        # strip ARC headers
-        source = re.sub(r'^\s*(?:%_N_|;\$PATH=).*$', '', source, flags=re.MULTILINE)
-        # create temporary output panel and use it to run the minify command.
-        panel = self.view.window().create_output_panel('s840d_protector', unlisted=True)
-        panel.run_command("insert", {"characters": source})
-        panel.run_command("s840d_minify")
-        source = panel.substr(sublime.Region(0, panel.size())).encode()
-        self.view.window().destroy_output_panel('s840d_protector')
-
-        # save to temporary file and run protector
         try:
-            file, temp_name = tempfile.mkstemp(suffix='.spf')
-            os.write(file, source)
-            os.close(file)
-            self._protector(temp_name)
-            # move protected file next to source file
-            shutil.move(os.path.splitext(temp_name)[0] + '.CPF',
-                        os.path.splitext(file_name)[0] + '.CPF')
-        except:
-            print('S840D: Program not encrypted!')
+            # Temporary file to use for protector
+            temp_name = tempfile.mktemp(suffix='.spf')
+            # Create temporary output panel and use it to run the minify command.
+            panel = self.window.create_output_panel('s840d_protector', unlisted=True)
+            # Let all plugins no to leave this view alone
+            panel.settings().set('is_widget', True)
+            # Don't mess with my indenting Sublime!
+            panel.settings().set("auto_indent", False)
+            # Don't translate anything.
+            panel.settings().set("translate_tabs_to_spaces", False)
+            # Don't need diff gutter
+            panel.settings().set("mini_diff", False)
+            # Protect all files
+            for file_name in paths:
+                if os.path.isfile(file_name):
+                    self._protect(panel, file_name, temp_name)
         finally:
+            self.window.destroy_output_panel('s840d_protector')
             try:
                 os.unlink(temp_name)
             except:
                 pass
+
+    def _protect(self, panel, file_name, temp_name):
+        source = ''
+        try:
+            print("Encrypting", file_name)
+            with open(file_name, encoding='utf-8') as file:
+                source = file.read()
+            # strip ARC headers
+            source = re.sub(r'^\s*(?:%_N_|;\$PATH=).*$', '', source, flags=re.MULTILINE)
+            panel.run_command("insert", {"characters": source})
+            panel.run_command("s840d_minify")
+            source = panel.substr(sublime.Region(0, panel.size()))
+            with open(temp_name, 'w', encoding='utf-8') as file:
+                file.write(source)
+            self._protector(temp_name)
+            # move protected file next to source file
+            shutil.move(os.path.splitext(temp_name)[0] + '.CPF',
+                        os.path.splitext(file_name)[0] + '.CPF')
+        except Exception as error:
+            print('  -> Error!  ({})'.format(error))
 
     @staticmethod
     def _protector(filename):
