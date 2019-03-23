@@ -409,14 +409,24 @@ contexts:
   stmt-redef:
     - match: (?i:REDEF)\b
       scope: keyword.control.redef.s840d_gcode
-      set:
-        - meta_scope: meta.redefinition.s840d_gcode
-        - include: storage-modifier-access
-        - include: storage-modifier-init
-        - include: storage-modifier-sync
-        - include: storage-modifier-limits
-        - include: variables
-        - include: line-end-or-illegal
+      set: [stmt-redef-value, stmt-redef-modifier, stmt-redef-operand]
+
+  stmt-redef-operand:
+    - match: '{{ident}}'
+      scope: variable.other.s840d_gcode
+      pop: true
+    - include: scope-end
+
+  stmt-redef-modifier:
+    - include: storage-modifier-access
+    - include: storage-modifier-init
+    - include: storage-modifier-sync
+    - include: storage-modifier-limits
+    - include: scope-end
+
+  stmt-redef-value:
+    - meta_scope: meta.redefinition.s840d_gcode
+    - include: expressions-line
 
 ###############################################################################
 # STATEMENTS

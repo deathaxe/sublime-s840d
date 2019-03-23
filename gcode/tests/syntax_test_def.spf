@@ -128,3 +128,17 @@ N10 DEF INT VAR2[10][10] = 20 ; comment
 ;                        ^ keyword.operator.assignment
 ;                          ^^ constant.numeric
 ;                             ^^^^ comment.line
+
+N20 REDEF VAR INIRE ""
+;   ^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
+;   ^^^^^ keyword.control.redef
+;         ^^^ variable.other
+;             ^^^^^ storage.modifier.init
+;                   ^^ string.quoted.double
+N20 REDEF VAR INIRE REP(0) INIRE
+;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.redefinition - meta.definition.variable
+;   ^^^^^ keyword.control.redef
+;         ^^^ variable.other
+;             ^^^^^ storage.modifier.init
+;                   ^^^ support.function
+;                          ^^^^^ invalid.illegal.keyword.storage.s840d_gcode
