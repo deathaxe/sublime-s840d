@@ -295,7 +295,7 @@ contexts:
     - meta_content_scope: meta.function.attributes.s840d_gcode
     - match: \n
       scope: meta.eol.s840d_gcode
-      set: [comment-doc]
+      set: comment-doc
     - match: (?=;)
       set: [comment-doc, comment-line]
     - match: '{{proc_attr}}'
