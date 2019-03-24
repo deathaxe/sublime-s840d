@@ -8,14 +8,14 @@
 ; incomplete procedure definition
 PROC ; comment
 ;  <- meta.function
-;  <- keyword.control.proc
+;  <- keyword.declaration.proc
 ;    ^ comment.line
 
 ; incomplete procedure definition
 N10PROC ; comment
 ;  ^^^^ meta.function
 ; <- comment.blockno
-;  ^ keyword.control.proc
+;  ^ keyword.declaration.proc
 ;       ^ comment.line
 
 ; simple procedure definition
@@ -23,7 +23,7 @@ N20PROC name ; comment
 ;  ^^^^^^^^^ meta.function
 ;      ^^^^^ meta.function.name
 ; <- comment.blockno
-;  ^ keyword.control.proc
+;  ^ keyword.declaration.proc
 ;       ^ entity.name.function
 ;            ^ comment.line
 
@@ -33,7 +33,7 @@ N30 PROC name(VAR BOOL DATA) ; comment
 ;       ^^^^^ meta.function.name
 ;            ^^^^^^^^^^^^^^^ meta.function.parameters
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;            ^ punctuation.section.parameters.begin
 ;             ^ storage.modifier
@@ -50,7 +50,7 @@ N40 PROC name (VAR BOOL DATA[10]) SBLOF DISPLOF ; comment
 ;                                ^^^^^^^^^^^^^^ meta.function.attributes
 ;                           ^^^^ meta.brackets
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;             ^ punctuation.section.parameters.begin
 ;              ^^^ storage.modifier
@@ -70,7 +70,7 @@ N40 PROC name (VAR REAL DATA = -1.0) SBLOF DISPLOF ; comment
 ;             ^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters
 ;                                   ^^^^^^^^^^^^^^ meta.function.attributes
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;             ^ punctuation.section.parameters.begin
 ;              ^^^ storage.modifier
@@ -89,7 +89,7 @@ N50 PROC name SBLOF ACTBLOCNO ; comment
 ;       ^^^^^ meta.function.name - meta.function.attributes
 ;            ^^^^^^^^^^^^^^^^ meta.function.attributes - meta.function.name
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;             ^ storage.modifier
 ;                   ^ storage.modifier
@@ -101,7 +101,7 @@ N70 PROC name FOOBAR ; comment
 ;       ^^^^^ meta.function.name - meta.function.attributes
 ;            ^^^^^^^^ meta.function.attributes - meta.function.name
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;             ^^^^^^ invalid.illegal
 ;                    ^ comment.line
@@ -112,7 +112,7 @@ N70 PROC name SBLOF FOOBAR DISPLOF ; comment
 ;       ^^^^^ meta.function.name - meta.function.attributes
 ;            ^^^^^^^^^^^^^^^^^^^^^ meta.function.attributes - meta.function.name
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;             ^^^^^ storage.modifier
 ;                   ^^^^^^ invalid.illegal
@@ -125,7 +125,7 @@ N80 PROC name SBLOF (VAR BOOL DATA) ; comment
 ;       ^^^^^^^^^^^^ meta.function.name
 ;                   ^^^^^^^^^^^^^^^ meta.function.parameters
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^ entity.name.function
 ;             ^^^^^ invalid.illegal
 ;                                   ^ comment.line
@@ -135,7 +135,7 @@ N90 PROC name invalid (VAR BOOL - DATA) ; comment
 ;       ^^^^^^^^^^^^^^ meta.function.name
 ;                     ^^^^^^^^^^^^^^^^^ meta.function.parameters
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^^^^ entity.name.function
 ;             ^^^^^^^ invalid.illegal
 ;                     ^ punctuation.section.parameters.begin
@@ -152,7 +152,7 @@ N90 PROC name invalid (VAR BOOL - DATA)(BOOL INVALID) SBLOF DUMDUM ; comment
 ;                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.attributes
 ;                                                                  ^ comment.line punctuation.definition.comment.begin - meta.function
 ; <- comment.blockno
-;   ^ keyword.control.proc
+;   ^ keyword.declaration.proc
 ;        ^^^^ entity.name.function
 ;             ^^^^^^^ invalid.illegal
 ;                     ^ punctuation.section.parameters.begin
