@@ -8,50 +8,50 @@
 DEFINE
 ;<- meta.definition.macro
 ;^^^^^^ meta.definition.macro
-;    <- keyword.control.define
+;    <- keyword.declaration.define
 DEFINE ; comment
 ;    <- meta.definition.macro
 ;^^^^^^ meta.definition.macro
-;    <- keyword.control.define
+;    <- keyword.declaration.define
 ;      ^ comment.line
 N10DEFINE ; comment
 ;  ^^^^^^^ meta.definition.macro
-;  ^^^^^^ keyword.control.define
+;  ^^^^^^ keyword.declaration.define
 ;         ^ comment.line
 N10 DEFINE ; comment
 ;   ^^^^^^^ meta.definition.macro
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^ comment.line
 N10 DEFINE name
 ;   ^^^^^^^^^^^^ meta.definition.macro
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
 N10 DEFINE name AS
 ;   ^^^^^^^^^^^^^^^ meta.definition.macro
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
-;               ^^ keyword.control.as
+;               ^^ keyword.declaration.as
 N10 DEFINE name AS $MN_USER_DATA_HEX[10]
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
-;               ^^ keyword.control.as
+;               ^^ keyword.declaration.as
 ;                   ^^^^^^^^^^^^^^^^ support.variable.nck.machdata
 N10 DEFINE name AS $MN_USER_DATA_HEX[10] ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
-;               ^^ keyword.control.as
+;               ^^ keyword.declaration.as
 ;                   ^^^^^^^^^^^^^^^^ support.variable.nck.machdata
 ;                                        ^ comment.line
 N10 DEFINE name AS GORAP X0 Y0 ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
-;               ^^ keyword.control.as
+;               ^^ keyword.declaration.as
 ;                  ^^^^^ support.function.iso.command
 ;                        ^ support.variable.iso.position
 ;                         ^ constant.numeric
@@ -61,33 +61,55 @@ N10 DEFINE name AS GORAP X0 Y0 ; comment
 N10 DEFINE name AS MSG("HELLO") ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
-;               ^^ keyword.control.as
+;               ^^ keyword.declaration.as
 ;                  ^^^ support.function.nck.procedure
 ;                               ^ comment.line
 N10 DEFINE name AS WHILE TRUE ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^^^^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
-;               ^^ keyword.control.as
-;                  ^^^^^ keyword.control.while
+;               ^^ keyword.declaration.as
+;                  ^^^^^ keyword.control
 ;                             ^ comment.line
 N10 DEFINE 1inv AS _1v ; comment
 ;   ^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                 ^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ invalid.illegal
-;               ^^ keyword.control.as
+;               ^^ keyword.declaration.as
 ;                  ^^^ invalid.illegal
 ;                      ^ comment.line
 N10 DEFINE name invalid AS 1av ; comment
 ;   ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
 ;                         ^^^^^ meta.definition.macro.action
-;   ^^^^^^ keyword.control.define
+;   ^^^^^^ keyword.declaration.define
 ;          ^^^^ entity.name.macro
 ;               ^^^^^^^ invalid.illegal
-;                       ^^ keyword.control.as
+;                       ^^ keyword.declaration.as
 ;                          ^^^ invalid.illegal
 ;                              ^ comment.line
+N10 DEFINE _DEC2 AS MOD 100 DIV 10
+;   ^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                  ^^^^^^^^^^^^^^^ meta.definition.macro.action
+;                   ^^^ keyword.operator.arithmetic
+;                       ^^^ constant.numeric
+;                           ^^^ keyword.operator.arithmetic
+;                               ^^ constant.numeric
+N10 DEFINE _E_MAC_TR_CON AS REAL _FI,REAL _FM,
+;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.macro - meta.definition.macro.action
+;                          ^^^^^^^^^^^^^^^^^^^ meta.definition.macro.action
+;                           ^^^^ storage.type
+;                                ^^^ variable.other
+;                                   ^ punctuation.separator.comma
+;                                    ^^^^ storage.type
+;                                         ^^^ variable.other
+;                                            ^ punctuation.separator.comma
+N10 DEFINE PROC_PAR AS DISPLOF SBLOF
+;                      ^^^^^^^ storage.modifier.function.s840d_gcode
+;                              ^^^^^ storage.modifier.function.s840d_gcode
+N10 DEFINE TEST AS A[
+N11 DEFINE
+;<- comment.blockno - meta.definition

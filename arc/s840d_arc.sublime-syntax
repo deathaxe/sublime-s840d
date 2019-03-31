@@ -31,38 +31,45 @@ contexts:
   main:
     - include: s840d_gcode.sublime-syntax#comment-line
     - match: '%'
-      scope: punctuation.definition.tag.s840d_arc
-      push: header-file
-      with_prototype:
-        - match: (?=^%)
-          pop: true
+      scope: meta.annotation.archive.s840d_arc punctuation.definition.tag.s840d_arc
+      embed: header-file
+      escape: (?=^%)
 
   header-file:
-    - meta_scope: annotation.archive.s840d_arc
+    # NOTE: need a push after embed before set due to embed bug
+    # https://github.com/SublimeTextIssues/Core/issues/2395
+    - match: ''
+      push: header-file-content
+
+  header-file-content:
+    - meta_scope: meta.annotation.archive.s840d_arc
     - meta_content_scope: entity.name.tag.dest-file.s840d_arc
     # RunMyScreens / EasyScreen
-    - match: COM\b
-      set: [hmi-contents, header-path]
+    - match: _(?i:COM)\b
+      set: [scope:source.s840d_hmi, header-path]
     # NC-CYCLE: MPF/SPF
     # INI-FILES: DEF/INI/TEA
-    - match: (?:DEF)\b
-      set: [def-contents, header-path]
-    - match: (?:MPF)\b
-      set: [mpf-contents, header-path]
-    - match: (?:SPF)\b
-      set: [spf-contents, header-path]
-    - match: (?:GUD|INI|RPA|TEA|TOA|UFR)\b
-      set: [tea-contents, header-path]
-
+    - match: _(?i:DEF)\b
+      set: [scope:source.s840d_gcode.def, header-path]
+    - match: _(?i:MPF)\b
+      set: [scope:source.s840d_gcode.mpf, header-path]
+    - match: _(?i:SPF)\b
+      set: [scope:source.s840d_gcode.spf, header-path]
+    - match: _(?i:GUD|INI|RPA|TEA|TOA|UFR)\b
+      set: [scope:source.s840d_gcode.tea, header-path]
     # unknown signature
-    - match: \W+
+    - match: $
+      set: [scope:text.plain, header-path]
+    - match: '[^0-9A-Za-z_]+'
       scope: invalid.illegal.unknown-signature.s840d_arc
 
   header-path:
+    - clear_scopes: 1
     - match: ^;\$
       scope: punctuation.definition.tag.s840d_arc
       set:
-        - meta_scope: annotation.archive.s840d_arc meta.mapping.key.s840d_arc
+        - clear_scopes: 1
+        - meta_scope: meta.annotation.archive.s840d_arc meta.mapping.key.s840d_arc
         - match: PATH
           scope: entity.other.attribute-name.s840d_arc
           set: header-path-assign
@@ -71,41 +78,23 @@ contexts:
       pop: true
 
   header-path-assign:
-    - meta_content_scope: annotation.archive.s840d_arc meta.mapping.s840d_arc
+    - clear_scopes: 1
+    - meta_content_scope: meta.annotation.archive.s840d_arc meta.mapping.s840d_arc
     - match: '='
       scope: punctuation.separator.mapping.key-value.s840d_arc
       set: header-path-value
     - include: header-path-end
 
   header-path-value:
-    - meta_content_scope: annotation.archive.s840d_arc meta.mapping.value.s840d_arc
+    - clear_scopes: 1
+    - meta_content_scope: meta.annotation.archive.s840d_arc meta.mapping.value.s840d_arc
     - match: /_N_[A-Z_][A-Z_][0-9A-Z_/]+\b
       scope: entity.name.tag.dest-path.s840d_arc
       set: header-path-end
     - include: header-path-end
 
   header-path-end:
-    - match: $
+    - match: $\n?
       pop: true
     - match: .+
       scope: invalid.illegal.dest-path.s840d_arc
-
-  hmi-contents:
-    - meta_scope: source.s840d_hmi
-    - include: scope:source.s840d_hmi
-
-  def-contents:
-    - meta_scope: source.s840d_gcode.def
-    - include: scope:source.s840d_gcode.def
-
-  mpf-contents:
-    - meta_scope: source.s840d_gcode.mpf
-    - include: scope:source.s840d_gcode.mpf
-
-  spf-contents:
-    - meta_scope: source.s840d_gcode.spf
-    - include: scope:source.s840d_gcode.spf
-
-  tea-contents:
-    - meta_scope: source.s840d_gcode.tea
-    - include: scope:source.s840d_gcode.tea

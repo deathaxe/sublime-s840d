@@ -1019,7 +1019,7 @@ contexts:
             P\#                    # pointer prefix
             [ \t]*                 # optional space
             (?:
-                [AEML]?            # input, output, marker, temp,
+                [AEMLP]?           # input, output, marker, temp, pointer,
               | DIX                # instance address
               | (?:DB\d+(\.))?DBX  # datablock & address
             )
