@@ -59,7 +59,7 @@ contexts:
 
   main:
     - match: ^
-      set: [main-toplevel, comment-doc-meta, comment-doc-version]
+      push: [main-toplevel, comment-doc-meta, comment-doc-version]
 
   main-toplevel:
     - include: iso-blockno
