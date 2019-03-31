@@ -9,7 +9,7 @@ import sublime
 import sublime_plugin
 
 # check if protector exists in PATH
-_HAVE_PROTECTOR = bool(shutil.which('protector'))
+_HAVE_PROTECTOR = bool(shutil.which('protector.exe'))
 
 
 class S840dProtectCommand(sublime_plugin.WindowCommand):
@@ -87,7 +87,7 @@ class S840dProtectCommand(sublime_plugin.WindowCommand):
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             out = subprocess.check_output(
-                args=['protector', filename],
+                args=['protector.exe', filename],
                 stderr=subprocess.STDOUT,
                 startupinfo=startupinfo)
             if out:
