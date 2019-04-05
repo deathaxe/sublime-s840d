@@ -1129,7 +1129,7 @@ contexts:
     - match: (?:[01]?[0-9]|2[0-4])D
       scope: constant.language.time.day.s7.awl
       pop: true
-    - match: (?:.+?(?:D|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:D|(?=_)))?
       scope: invalid.illegal.time.day.s7.awl
       pop: true
 
@@ -1137,7 +1137,7 @@ contexts:
     - match: (?:[01]?[0-9]|2[0-4])H
       scope: constant.language.time.hour.s7.awl
       pop: true
-    - match: (?:.+?(?:H|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:H|(?=_)))?
       scope: invalid.illegal.time.hour.s7.awl
       pop: true
 
@@ -1145,7 +1145,7 @@ contexts:
     - match: '[0-5]?\dM(?!S)'
       scope: constant.language.time.minute.s7.awl
       pop: true
-    - match: (?:.+?(?:M(?!S)|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:M(?!S)|(?=_)))?
       scope: invalid.illegal.time.minute.s7.awl
       pop: true
 
@@ -1153,7 +1153,7 @@ contexts:
     - match: '[0-5]?\dS'
       scope: constant.language.time.second.s7.awl
       pop: true
-    - match: (?:.+?(?:[^M]S|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:[^M]S|(?=_)))?
       scope: invalid.illegal.time.second.s7.awl
       pop: true
 
@@ -1161,7 +1161,7 @@ contexts:
     - match: \d{0,3}MS
       scope: constant.language.time.millisecond.s7.awl
       pop: true
-    - match: (?:.+?(?:MS|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.s7.awl
       pop: true
 
