@@ -1754,6 +1754,17 @@
 //         ^^^^^^^^^^ string.quoted.double
 //                  ^ punctuation.definition.string.end
 //                    ^ punctuation.section.parens.begin
+           EN      := L 4.0,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^  meta.mapping.key
+//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
+//                   ^^^^^ meta.mapping.value - meta.mapping.key
+//                        ^ meta.mapping
+//         ^^ variable.parameter
+//                 ^^ punctuation.separator.key-value
+//                    ^^^^^ variable.language.address.s7.awl
+//                         ^ punctuation.separator.mapping.pair.s7.awl
            INTF    := DB 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
