@@ -1285,9 +1285,9 @@ contexts:
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
     # DIW10, DIW10, DID10
-    - match: \b(?:(?:P?[AE]|[LMV])[BWD])[ \t]*{{int}}
+    - match: \b(?:(?:P?[AE]|DI|[LMV])[BWD])[ \t]*{{int}}
       scope: variable.language.address.s7.awl
-    # DBB10, DIB10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
+    # DBB10, DBD10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
     - match: \b(?:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
       captures:
         1: variable.language.db.s7.awl
