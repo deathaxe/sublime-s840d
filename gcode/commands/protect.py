@@ -76,28 +76,19 @@ class S840dProtectCommand(sublime_plugin.WindowCommand):
             source = panel.substr(sublime.Region(0, panel.size()))
             with open(temp_name, 'w', encoding='utf-8') as file:
                 file.write(source)
-            self._protector(temp_name)
-            # move protected file next to source file
-            shutil.move(os.path.splitext(temp_name)[0] + '.CPF',
-                        os.path.splitext(file_name)[0] + '.CPF')
-        except Exception as error:
-            print('  -> Error!  ({})'.format(error))
-
-    @staticmethod
-    def _protector(filename):
-        try:
             # protect temporary file
             startupinfo = None
             if os.name == 'nt':
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             out = subprocess.check_output(
-                args=['protector.exe', filename],
+                args=['protector.exe', temp_name],
                 stderr=subprocess.STDOUT,
                 startupinfo=startupinfo)
             if out:
                 print(out.decode().replace('\r', ''))
-        except subprocess.CalledProcessError as error:
-            print('S840D: protector failed with error', error.returncode)
-        except FileNotFoundError:
-            print('S840D: Can\'t encrypt cycle, protector.exe was not found!')
+            # move protected file next to source file
+            shutil.move(os.path.splitext(temp_name)[0] + '.CPF',
+                        os.path.splitext(file_name)[0] + '.CPF')
+        except Exception as error:
+            print('  Error!  ({})'.format(error))
