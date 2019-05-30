@@ -18,6 +18,17 @@ class S840dProtectCommand(sublime_plugin.WindowCommand):
     Remove all comments and block numbers as well as all unrequired
     whitespaces to create as small as possible encrypted cycle.
     """
+    PANEL_SETTINGS = {
+        "auto_indent": False,
+        "detect_indentation": False,
+        "fold_buttons": False,
+        "gutter": False,
+        "is_widget": True,
+        "mini_diff": False,
+        "syntax": "s840d_gcode.sublime-syntax",
+        "translate_tabs_to_spaces": False,
+        "word_wrap": False,
+    }
 
     def is_enabled(self):
         """Enable command for G-Code if protector.exe exists."""
@@ -39,14 +50,8 @@ class S840dProtectCommand(sublime_plugin.WindowCommand):
             temp_name = tempfile.mktemp(suffix='.spf')
             # Create temporary output panel and use it to run the minify command.
             panel = self.window.create_output_panel('s840d_protector', unlisted=True)
-            # Let all plugins no to leave this view alone
-            panel.settings().set('is_widget', True)
-            # Don't mess with my indenting Sublime!
-            panel.settings().set("auto_indent", False)
-            # Don't translate anything.
-            panel.settings().set("translate_tabs_to_spaces", False)
-            # Don't need diff gutter
-            panel.settings().set("mini_diff", False)
+            for key, value in self.PANEL_SETTINGS.items():
+                panel.settings().set(key, value)
             # Protect all files
             for file_name in paths:
                 if os.path.isfile(file_name):
