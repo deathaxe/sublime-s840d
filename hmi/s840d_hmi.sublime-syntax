@@ -1716,6 +1716,8 @@ contexts:
         - match: \w*\b
           scope: support.variable.nck.unknown.s840d_hmi invalid.illegal.s840d_hmi
           set: nc-variables-index
+        - match: $|(?=\S)
+          pop: true
 
   nc-variables-index:
     - clear_scopes: 1
