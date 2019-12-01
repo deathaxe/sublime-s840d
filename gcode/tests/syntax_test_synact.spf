@@ -18,6 +18,14 @@ N1 DO G0 F=$MN_USER_DATA_HEX[12 + R1] X10 Y20
 ;                                         ^ support.variable
 ;                                          ^^ constant.numeric
 
+N1 DO G710 $AC_PARAM[31]=20*$A_IN[5]
+;  ^^ keyword.control.synact.operation
+;     ^^^^ support.function.iso.command
+;          ^^^^^^^^^ support.variable.nck
+;                       ^ keyword.operator.assignment
+;                        ^^ constant.numeric.integer
+;                          ^ keyword.operator.arithmetic
+
 ; constant condition
 N2 WHEN TRUE DO M5=10
 ;  ^^^^ keyword.control.synact.condition
@@ -44,6 +52,14 @@ N4 WHEN _VAR==TRUE DO M5=10
 ;                     ^^ support.function
 ;                       ^ keyword.operator.assignment
 ;                        ^^ constant.numeric
+N4 WHEN G710 ($AC_PARAM[31]+$A_DBB[55]) DO $A_IN[1]=1
+;  ^^^^ keyword.control.synact.condition
+;       ^^^^ support.function.iso.command
+;            ^ punctuation.section.group.begin
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group
+;                                     ^ punctuation.section.group.end
+;                                       ^^ keyword.control.synact.operation
+;                                          ^ support.variable.nck punctuation.definition.variable.nck
 
 ; condition expression and operation statement
 N5 WHENEVER ABS(R1)==10 DO M5=SQRT(-R2)*$PI

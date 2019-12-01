@@ -983,13 +983,13 @@ contexts:
 
   iso-value-void:
     # nothing but another word or comment allowed
-    - match: (?=$|[ \t]*[A-Za-z;]|[ \t]+_)
+    - match: (?=$|[ \t]*[A-Za-z$\(;]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
   iso-value-void2:
     # nothing but another word, comment or assignment allowed
-    - match: (?=$|[ \t]*[A-Za-z;=]|[ \t]+_)
+    - match: (?=$|[ \t]*[A-Za-z$\(;=]|[ \t]+_)
       pop: true
     - include: illegal-pop
 
@@ -1122,6 +1122,7 @@ contexts:
         - match: =(?!=)
           scope: invalid.illegal.s840d_gcode
         - include: stmt-synact-operation
+        - include: iso-gcode
         - include: expressions-line
     - include: stmt-synact-operation
 
