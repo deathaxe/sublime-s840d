@@ -43,8 +43,8 @@ class S840dAwlSaveSplitCommand(sublime_plugin.TextCommand):
                 file_name = pattern.search(content).group(1).strip() + '.awl'
                 file_path = os.path.join(output_path, file_name)
                 with open(file_path, 'w+', encoding='utf-8') as file:
-                    file.write(content)
-                    file.write('\n')
+                    file.write("\n".join((
+                        l.rstrip(" \t") for l in content.splitlines())) + '\n')
                 index.append(file_name)
             except Exception as error:
                 print(error)
