@@ -898,7 +898,7 @@ contexts:
       scope: meta.function-call.s7.awl keyword.control.call.s7.awl
       push:
         - meta_content_scope: meta.function-call.name.s7.awl
-        - include: operands-symbols
+        - include: awl-stmt-call-name
         - include: code-termination
     # CALL
     - match: \bCALL\b
@@ -907,27 +907,56 @@ contexts:
         - meta_content_scope: meta.function-call.name.s7.awl
         - match: ','
           scope: punctuation.separator.sequence.s7.awl
-          set:
-            - meta_content_scope: meta.function-call.instance.s7.awl
-            - include: awl-stmt-call-name
+          set: awl-stmt-call-instance
+        - include: awl-stmt-call-arguments
         - include: awl-stmt-call-name
-
-  awl-stmt-call-name:
-        - include: operands-symbols
-        - match: (?=\()
-          set: awl-stmt-call-arguments
         - include: code-termination
 
+  awl-stmt-call-name:
+    # global symbols
+    - match: \"
+      scope:
+        string.quoted.double.s7.awl
+        punctuation.definition.string.begin.s7.awl
+      push:
+        - meta_scope: meta.string.s7.awl
+        - meta_content_scope: variable.function.symbol.s7.awl
+        - meta_include_prototype: false
+        - match: \"
+          scope:
+            string.quoted.double.s7.awl
+            punctuation.definition.string.end.s7.awl
+          pop: true
+        - match: '[^"]$'
+          scope: invalid.illegal.s7.awl
+          pop: true
+    # absolute address
+    - match: (?:S?F[BC])\s*\d+\b
+      scope: variable.function.address.s7.awl
+    # local variables
+    - match: (#)(\w+)\b
+      captures:
+        1: punctuation.definition.variable.begin.s7.awl
+        2: variable.function.local.s7.awl
+
+  awl-stmt-call-instance:
+    - meta_content_scope: meta.function-call.instance.s7.awl
+    - include: awl-stmt-call-arguments
+    - include: operands-datablock-absolute
+    - include: operands-symbols
+    - include: code-termination
+
   awl-stmt-call-arguments:
-      - match: \(
-        scope: punctuation.section.parens.begin.s7.awl
-        set:
-          - meta_scope: meta.function-call.arguments.s7.awl
-          - match: \)
-            scope: punctuation.section.parens.end.s7.awl
-            set: code-termination
-          - include: awl-stmt-mapping
-      - include: code-termination
+    - match: (?=\()
+      set:
+        - match: \(
+          scope: punctuation.section.parens.begin.s7.awl
+          set:
+            - meta_scope: meta.function-call.arguments.s7.awl meta.parens.s7.awl
+            - match: \)
+              scope: punctuation.section.parens.end.s7.awl
+              set: code-termination
+            - include: awl-stmt-mapping
 
 ###############################################################################
 # STATEMENTS: MAPPING                                                         #
