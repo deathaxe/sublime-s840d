@@ -1444,25 +1444,29 @@ contexts:
   operands-symbols:
     # global symbols
     - match: \"
-      scope: punctuation.definition.string.begin.s7.awl
-      push:
-        - meta_include_prototype: false
-        - meta_scope: string.quoted.double.s7.awl
-        - meta_content_scope: variable.other.symbol.s7.awl
-        - match: (?=\")
-          set:
-            - match: \"
-              scope: string.quoted.double.s7.awl punctuation.definition.string.end.s7.awl
-              set: struct-members
-        - match: '[^"]$'
-          scope: invalid.illegal.s7.awl
-          pop: true
+      scope: 
+        string.quoted.double.s7.awl
+        punctuation.definition.string.begin.s7.awl
+      push: [struct-members, symbols-common]
     # local variables
     - match: (#)(\w+)\b
       captures:
         1: punctuation.definition.variable.begin.s7.awl
         2: variable.other.local.s7.awl
       push: [struct-members, array-index]
+
+  symbols-common:
+    - meta_scope: meta.string.s7.awl
+    - meta_content_scope: variable.other.symbol.s7.awl
+    - meta_include_prototype: false
+    - match: \"
+      scope:
+        string.quoted.double.s7.awl
+        punctuation.definition.string.end.s7.awl
+      pop: true
+    - match: '[^"]$'
+      scope: invalid.illegal.s7.awl
+      pop: true
 
   struct-members:
     - match: (\.)(\w+)\b

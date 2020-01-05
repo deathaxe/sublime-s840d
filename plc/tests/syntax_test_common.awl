@@ -169,10 +169,10 @@
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ punctuation.definition.string.begin
-// ^^^^^^^^^^^^^^ string.quoted.double
-//  ^^^^^^^^^^^^ variable.other.symbol
-//              ^ punctuation.definition.string.end
+// ^ string.quoted.double punctuation.definition.string.begin
+// ^^^^^^^^^^^^^^ meta.string
+//  ^^^^^^^^^^^^ variable.other.symbol - string
+//              ^ string.quoted.double punctuation.definition.string.end
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body
@@ -972,10 +972,10 @@
 //       ^^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
 //                      ^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
-//          ^^^^^^^^^^^ string.quoted.double.s7.awl
-//          ^ punctuation.definition.string.begin.s7.awl
-//           ^^^^^^^^^ variable.other.symbol.s7.awl
-//                    ^ punctuation.definition.string.end.s7.awl
+//          ^ string.quoted.double punctuation.definition.string.begin
+//          ^^^^^^^^^^^ meta.string
+//           ^^^^^^^^^ variable.other.symbol - string
+//                    ^ string.quoted.double punctuation.definition.string.end
 //                     ^ punctuation.terminator.line.s7.awl
       AUF   DBNO;
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
@@ -1360,10 +1360,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.string.begin - variable.other.symbol
-//         ^^^^^^^^^^^ string.quoted.double
-//          ^^^^^^^^^ variable.other.symbol
-//                   ^ punctuation.definition.string.end - variable.other.symbol
+//         ^ string.quoted.double punctuation.definition.string.begin - variable
+//         ^^^^^^^^^^^ meta.string
+//          ^^^^^^^^^ variable.other.symbol - string
+//                   ^ string.quoted.double punctuation.definition.string.end - variable
 //                    ^ punctuation.accessor.dot
 //                     ^^^^^^ variable.other.member
 //                           ^ punctuation.section.brackets.begin
@@ -1379,10 +1379,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.string.begin - variable.other.symbol
-//         ^^^^^^^^^^^ string.quoted.double
-//          ^^^^^^^^^ variable.other.symbol
-//                   ^ punctuation.definition.string.end - variable.other.symbol
+//         ^ string.quoted.double punctuation.definition.string.begin - variable
+//         ^^^^^^^^^^^ meta.string
+//          ^^^^^^^^^ variable.other.symbol - string
+//                   ^ string.quoted.double punctuation.definition.string.end - variable
 //                    ^ punctuation.accessor.dot
 //                     ^^^^^^ variable.other.member
 //                           ^ punctuation.accessor.dot
@@ -1892,10 +1892,10 @@
 //                                  ^ meta.mapping
 //         ^^^ variable.parameter
 //                 ^^ punctuation.separator.key-value
-//                    ^ punctuation.definition.string.begin
-//                    ^^^^^^ string.quoted.double
-//                     ^^^^ variable.other.symbol
-//                         ^ punctuation.definition.string.end
+//                    ^ string.quoted.double punctuation.definition.string.begin - variable
+//                    ^^^^^^ meta.string
+//                     ^^^^ variable.other.symbol - string
+//                         ^ string.quoted.double punctuation.definition.string.end - variable
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
 //                                  ^ punctuation.separator.mapping.pair
