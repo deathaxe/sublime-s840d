@@ -1,6 +1,4 @@
 # -*- encoding: utf-8 -*-
-import re
-import sublime
 from . import base
 
 
