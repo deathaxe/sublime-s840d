@@ -167,8 +167,8 @@ def cache_init(force_update):
                     VALUES('version', '""" + doc_version + "')")
 
         # save the database
-        sql.execute("VACUUM")
         sql.commit()
+        sql.execute("VACUUM")
 
         # list all available languages
         #    ['de', 'en'] by default
