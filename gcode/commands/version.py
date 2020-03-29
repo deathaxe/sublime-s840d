@@ -1,6 +1,5 @@
 import time
 
-import sublime
 import sublime_plugin
 
 

@@ -169,10 +169,10 @@
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ punctuation.definition.string.begin
-// ^^^^^^^^^^^^^^ string.quoted.double
-//  ^^^^^^^^^^^^ variable.other.symbol
-//              ^ punctuation.definition.string.end
+// ^ string.quoted.double punctuation.definition.string.begin
+// ^^^^^^^^^^^^^^ meta.string
+//  ^^^^^^^^^^^^ variable.other.symbol - string
+//              ^ string.quoted.double punctuation.definition.string.end
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body
@@ -436,24 +436,24 @@
 // ^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.line
-     _AS  : ARRAY[ 0 .. 20 ] OF STRUCT //array
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+     _AS  : ARRAY[0..20] OF STRUCT //array
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
-//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
-//                              ^^^^^^^^^^^^^^ meta.struct
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array
+//                          ^^^^^^^^^^^^^^ meta.struct
 //   ^^^ variable.other
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
-//                   ^^ punctuation.separator.sequence
-//                      ^^ constant.numeric.integer
-//                         ^ punctuation.definition.array.end
-//                           ^^ keyword.control.of
-//                              ^^^^^^ storage.type.struct.begin
-//                                     ^^ punctuation.definition.comment.begin
-//                                     ^^^^^^^ comment.line.double-slash
+//                ^ constant.numeric.integer
+//                 ^^ punctuation.separator.sequence
+//                   ^^ constant.numeric.integer
+//                     ^ punctuation.definition.array.end
+//                       ^^ keyword.control.of
+//                          ^^^^^^ storage.type.struct.begin
+//                                 ^^ punctuation.definition.comment.begin
+//                                 ^^^^^^^ comment.line.double-slash
        RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.sequence.array meta.struct
 //     ^^^^^ meta.definition.variable
@@ -972,10 +972,10 @@
 //       ^^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
 //                      ^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
-//          ^^^^^^^^^^^ string.quoted.double.s7.awl
-//          ^ punctuation.definition.string.begin.s7.awl
-//           ^^^^^^^^^ variable.other.symbol.s7.awl
-//                    ^ punctuation.definition.string.end.s7.awl
+//          ^ string.quoted.double punctuation.definition.string.begin
+//          ^^^^^^^^^^^ meta.string
+//           ^^^^^^^^^ variable.other.symbol - string
+//                    ^ string.quoted.double punctuation.definition.string.end
 //                     ^ punctuation.terminator.line.s7.awl
       AUF   DBNO;
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
@@ -1360,10 +1360,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.string.begin - variable.other.symbol
-//         ^^^^^^^^^^^ string.quoted.double
-//          ^^^^^^^^^ variable.other.symbol
-//                   ^ punctuation.definition.string.end - variable.other.symbol
+//         ^ string.quoted.double punctuation.definition.string.begin - variable
+//         ^^^^^^^^^^^ meta.string
+//          ^^^^^^^^^ variable.other.symbol - string
+//                   ^ string.quoted.double punctuation.definition.string.end - variable
 //                    ^ punctuation.accessor.dot
 //                     ^^^^^^ variable.other.member
 //                           ^ punctuation.section.brackets.begin
@@ -1379,10 +1379,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.string.begin - variable.other.symbol
-//         ^^^^^^^^^^^ string.quoted.double
-//          ^^^^^^^^^ variable.other.symbol
-//                   ^ punctuation.definition.string.end - variable.other.symbol
+//         ^ string.quoted.double punctuation.definition.string.begin - variable
+//         ^^^^^^^^^^^ meta.string
+//          ^^^^^^^^^ variable.other.symbol - string
+//                   ^ string.quoted.double punctuation.definition.string.end - variable
 //                    ^ punctuation.accessor.dot
 //                     ^^^^^^ variable.other.member
 //                           ^ punctuation.accessor.dot
@@ -1834,13 +1834,13 @@
       CALL "ALARM_SQ" (
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//    ^^^^ meta.function-call - meta.function-call.name - meta.function-call.arguments
-//        ^^^^^^^^^^^^ meta.function-call.name - meta.function-call.arguments
-//                    ^ meta.function-call.arguments - meta.function-call.name
+//    ^^^^ meta.function-call - meta.function-call meta.function-call
+//        ^^^^^^^^^^^^ meta.function-call.name - meta.function-call meta.function-call
+//                    ^ meta.function-call.arguments - meta.function-call meta.function-call
 //    ^^^^ keyword.control.call
-//         ^ punctuation.definition.string.begin
-//         ^^^^^^^^^^ string.quoted.double
-//                  ^ punctuation.definition.string.end
+//         ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.begin.s7.awl - variable
+//          ^^^^^^^^ meta.string.s7.awl variable.function.symbol.s7.awl - string
+//                  ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.end.s7.awl - variable
 //                    ^ punctuation.section.parens.begin
            EN      := L 4.0,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1892,10 +1892,10 @@
 //                                  ^ meta.mapping
 //         ^^^ variable.parameter
 //                 ^^ punctuation.separator.key-value
-//                    ^ punctuation.definition.string.begin
-//                    ^^^^^^ string.quoted.double
-//                     ^^^^ variable.other.symbol
-//                         ^ punctuation.definition.string.end
+//                    ^ string.quoted.double punctuation.definition.string.begin - variable
+//                    ^^^^^^ meta.string
+//                     ^^^^ variable.other.symbol - string
+//                         ^ string.quoted.double punctuation.definition.string.end - variable
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
 //                                  ^ punctuation.separator.mapping.pair
@@ -1955,6 +1955,50 @@
 //                    ^^^^^ variable.language.address
 //                         ^ punctuation.section.parens.end
 //                          ^ punctuation.terminator.line
+
+   CALL FC 10 ();
+// ^^^^ meta.function-call.s7.awl
+//     ^^^^^^^ meta.function-call.name.s7.awl
+//            ^^ meta.function-call.arguments.s7.awl
+// ^^^^ keyword.control.call.s7.awl
+//      ^^^^^ variable.function.address.s7.awl
+//            ^ punctuation.section.parens.begin.s7.awl
+//             ^ punctuation.section.parens.end.s7.awl
+
+   CALL SFC 10 ();
+// ^^^^ meta.function-call.s7.awl
+//     ^^^^^^^^ meta.function-call.name.s7.awl
+//             ^^ meta.function-call.arguments.s7.awl
+// ^^^^ keyword.control.call.s7.awl
+//      ^^^^^^ variable.function.address.s7.awl
+//             ^ punctuation.section.parens.begin.s7.awl
+//              ^ punctuation.section.parens.end.s7.awl
+
+   CALL FB 10, DB 10 ();
+// ^^^^ meta.function-call.s7.awl - meta.function-call meta.function-call
+//     ^^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
+//            ^^^^^^^ meta.function-call.instance.s7.awl - meta.function-call meta.function-call
+//                   ^^ meta.function-call.arguments.s7.awl - meta.function-call meta.function-call
+// ^^^^ keyword.control.call.s7.awl
+//      ^^^^^ variable.function.address.s7.awl
+//           ^ punctuation.separator.sequence.s7.awl
+//             ^^^^^ variable.language.db.s7.awl
+//                   ^ punctuation.section.parens.begin.s7.awl
+//                    ^ punctuation.section.parens.end.s7.awl
+
+   CALL "Block", "InstDB" ();
+// ^^^^ meta.function-call.s7.awl - meta.function-call meta.function-call
+//     ^^^^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
+//              ^^^^^^^^^^ meta.function-call.instance.s7.awl - meta.function-call meta.function-call
+//                        ^^ meta.function-call.arguments.s7.awl - meta.function-call meta.function-call
+// ^^^^ keyword.control.call.s7.awl
+//      ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.begin.s7.awl - variable
+//       ^^^^^ meta.string.s7.awl variable.function.symbol.s7.awl - string
+//            ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.end.s7.awl - variable
+//             ^ punctuation.separator.sequence.s7.awl
+//                ^^^^^^ variable.other.symbol.s7.awl
+//                        ^ punctuation.section.parens.begin.s7.awl
+//                         ^ punctuation.section.parens.end.s7.awl
 
    END_FUNCTION
 // ^^^^^^^^^^^^ meta.block.fc.body
