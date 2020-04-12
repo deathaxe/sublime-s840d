@@ -211,27 +211,30 @@ contexts:
 ###############################################################################
 
   class-grid:
-    - match: (//[Gg]\b)\s*(?=\()
-      captures:
-        0: meta.class.grid.s840d_hmi
-        1: keyword.declaration.class.begin.s840d_hmi
-      push:
-        - meta_content_scope: meta.class.grid.parameters.s840d_hmi
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set: class-grid-attr-name
-        - include: class-grid-attr-end
+    - match: //[Gg]\b
+      scope: keyword.declaration.class.begin.s840d_hmi
+      push: 
+        - meta_scope: meta.class.grid.s840d_hmi
+        - match: (?=\()
+          set:
+            - class-grid-attr-name
+            - class-name-pop
+            - parens-begin
+        - include: class-grid-body
 
   class-grid-attr-name:
-    - meta_content_scope: meta.class.grid.parameters.name.s840d_hmi
+    - meta_scope:
+        meta.class.grid.parameters.name.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-grid-attr-type
-    - include: class-name
     - include: class-grid-attr-end
 
   class-grid-attr-type:
-    - meta_content_scope: meta.class.grid.parameters.type.s840d_hmi
+    - meta_content_scope:
+        meta.class.grid.parameters.type.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-grid-attr-rowcount
@@ -239,7 +242,9 @@ contexts:
     - include: class-grid-attr-end
 
   class-grid-attr-rowcount:
-    - meta_content_scope: meta.class.grid.parameters.row.count.s840d_hmi
+    - meta_content_scope:
+        meta.class.grid.parameters.row.count.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-grid-attr-fixed-row
@@ -247,7 +252,9 @@ contexts:
     - include: class-grid-attr-end
 
   class-grid-attr-fixed-row:
-    - meta_content_scope: meta.class.grid.parameters.row.fixed.s840d_hmi
+    - meta_content_scope:
+        meta.class.grid.parameters.row.fixed.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
       set: class-grid-attr-end
@@ -260,11 +267,15 @@ contexts:
     - include: class-grid-attr-end
 
   class-grid-attr-fixed-col:
-    - meta_content_scope: meta.class.grid.parameters.col.fixed.s840d_hmi
+    - meta_content_scope:
+        meta.class.grid.parameters.col.fixed.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
       set:
-        - meta_content_scope: meta.class.grid.parameters.col.s840d_hmi
+        - meta_content_scope:
+            meta.class.grid.parameters.col.s840d_hmi
+            meta.parens.s840d_hmi
         - include: class-grid-attr-end
     - match: \d
       scope: constant.numeric.integer.s840d_hmi
@@ -273,16 +284,29 @@ contexts:
 
   class-grid-attr-end:
     - match: \)|$
-      scope: punctuation.section.parameters.end.s840d_hmi
+      scope: punctuation.section.parens.end.s840d_hmi
       set: class-grid-body
+    - include: comment
     - include: illegal
 
   class-grid-body:
-    - meta_content_scope: meta.class.grid.body.s840d_hmi
-    - match: (?=//)
-      set:
-        - meta_scope: meta.class.grid.end.s840d_hmi
-        - include: class-end-pop
+    - meta_content_scope: meta.class.grid.s840d_hmi
+    - match: ^
+      set: class-grid-body-block
+    - include: comment
+    - include: illegal
+
+  class-grid-body-block:
+    - meta_content_scope:
+        meta.class.grid.body.s840d_hmi
+        meta.block.s840d_hmi
+    - match: //(?i:END)\b
+      scope:
+        meta.class.grid.s840d_hmi
+        keyword.declaration.class.end.s840d_hmi
+      pop: true
+    - match: '{{class}}'
+      pop: true
     - include: def-column
     - include: comment
     - include: illegal
@@ -301,11 +325,13 @@ contexts:
 
   def-column:
     - match: \(
-      scope: meta.column.s840d_hmi punctuation.section.column.begin.s840d_hmi
+      scope: punctuation.section.parens.begin.s840d_hmi
       push: def-column-type
 
   def-column-type:
-    - meta_content_scope: meta.column.type.s840d_hmi
+    - meta_scope:
+        meta.column.type.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-limits
@@ -313,7 +339,9 @@ contexts:
     - include: def-column-end
 
   def-column-limits:
-    - meta_content_scope: meta.column.limits.s840d_hmi
+    - meta_content_scope:
+        meta.column.limits.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-default
@@ -322,7 +350,9 @@ contexts:
     - include: def-column-end
 
   def-column-default:
-    - meta_content_scope: meta.column.default.s840d_hmi
+    - meta_content_scope:
+        meta.column.default.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-captions
@@ -332,7 +362,9 @@ contexts:
 
   # texts (tooltip, title)
   def-column-captions:
-    - meta_content_scope: meta.column.captions.s840d_hmi
+    - meta_content_scope:
+        meta.column.captions.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-attributes
@@ -341,7 +373,9 @@ contexts:
     - include: def-column-end
 
   def-column-attributes:
-    - meta_content_scope: meta.column.attributes.s840d_hmi
+    - meta_content_scope:
+        meta.column.attributes.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-picture
@@ -352,7 +386,9 @@ contexts:
     - include: def-column-end
 
   def-column-picture:
-    - meta_content_scope: meta.column.picture.s840d_hmi
+    - meta_content_scope:
+        meta.column.picture.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-address
@@ -360,7 +396,9 @@ contexts:
     - include: def-column-end
 
   def-column-address:
-    - meta_content_scope: meta.column.address.s840d_hmi
+    - meta_content_scope:
+        meta.column.address.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-width
@@ -368,7 +406,9 @@ contexts:
     - include: def-column-end
 
   def-column-width:
-    - meta_content_scope: meta.column.width.s840d_hmi
+    - meta_content_scope:
+        meta.column.width.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-offsets
@@ -376,21 +416,25 @@ contexts:
     - include: def-column-end
 
   def-column-offsets:
-    - meta_content_scope: meta.column.offsets.s840d_hmi
+    - meta_content_scope:
+        meta.column.offsets.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
       set:
-        - meta_content_scope: meta.column.s840d_hmi
+        - meta_content_scope:
+            meta.column.s840d_hmi
+            meta.parens.s840d_hmi
         - include: def-column-end
     - include: attr-seperator
     - include: number
     - include: def-column-end
 
   def-column-end:
-    - match: \)|$
-      scope: punctuation.section.column.end.s840d_hmi
+    - match: \)
+      scope: punctuation.section.parens.end.s840d_hmi
       set: line-end
-    - include: illegal
+    - include: line-end
 
 ###############################################################################
 # DIALOG
