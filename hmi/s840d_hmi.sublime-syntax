@@ -30,7 +30,7 @@ scope: source.s840d_hmi
 ###############################################################################
 
 variables:
-  class: (?=//[ABGMS]\b)
+  class: (?=//(?i:[ABGMS])\b)
   key: \b(?i:ENTER|P[UD]|S[LRUD]|TOGGLE)\b
   softkey: \b(?i:[HV]S\d+|RECALL)\b
 
@@ -82,41 +82,61 @@ contexts:
 ###############################################################################
 
   class-array:
-    - match: (//[Aa]\b)\s*(?=\()
-      captures:
-        0: meta.class.array.s840d_hmi
-        1: keyword.declaration.class.begin.s840d_hmi
+    - match: //[Aa]\b
+      scope: keyword.declaration.class.begin.s840d_hmi
       push:
-        - meta_content_scope: meta.class.array.parameters.s840d_hmi
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set:
-            - meta_content_scope: meta.class.array.parameters.name.s840d_hmi
-            - match: \)|$
-              scope: punctuation.section.parameters.end.s840d_hmi
-              set: class-array-body
-            - include: class-name
-        - include: illegal-pop
+        - class-array-body
+        - class-array-parameters
+
+  class-array-parameters:
+    - match: (?=\()
+      set:
+        - class-array-parameters-end
+        - class-name-pop
+        - parens-begin
+    - include: line-end
+
+  class-array-parameters-end:
+    - clear_scopes: 1
+    - meta_scope:
+        meta.class.array.parameters.name.s840d_hmi
+        meta.parens.s840d_hmi
+    - include: parens-end
+    - include: line-end
 
   class-array-body:
-    - meta_content_scope: meta.class.array.body.s840d_hmi
-    - match: (?=//)
-      set:
-        - meta_scope: meta.class.array.end.s840d_hmi
-        - include: class-end-pop
+    - meta_scope: meta.class.array.s840d_hmi
+    - match: ^
+      set: class-array-body-block
+    - include: comment
+    - include: illegal
+
+  class-array-body-block:
+    - meta_content_scope:
+        meta.class.array.body.s840d_hmi
+        meta.block.s840d_hmi
     - match: \(
-      scope: punctuation.section.row.begin.s840d_hmi
+      scope: punctuation.section.parens.begin.s840d_hmi
       push:
-        - meta_scope: meta.row.s840d_hmi
-        - match: \)|$
-          scope: punctuation.section.row.end.s840d_hmi
+        - meta_scope: 
+            meta.row.s840d_hmi
+            meta.parens.s840d_hmi
+        - match: \)
+          scope: punctuation.section.parens.end.s840d_hmi
           pop: true
         - match: /
           scope: punctuation.separator.column.s840d_hmi
         - include: string
         - include: number
         - include: boolean
-        - include: illegal
+        - include: line-end
+    - match: //(?i:END)\b
+      scope:
+        meta.class.array.s840d_hmi
+        keyword.declaration.class.end.s840d_hmi
+      pop: true
+    - match: '{{class}}'
+      pop: true
     - include: comment
     - include: illegal
 
@@ -546,6 +566,12 @@ contexts:
   class-name:
     - match: \b\w+\b
       scope: entity.name.class.s840d_hmi
+
+  class-name-pop:
+    - match: \b\w+\b
+      scope: entity.name.class.s840d_hmi
+      pop: true
+    - include: else-pop
 
   attr-seperator:
     - match: ','
@@ -1747,6 +1773,10 @@ contexts:
 
 ###############################################################################
 
+  else-pop:
+    - match: (?=\S)|$
+      pop: true
+
   line-end:
     - match: $
       pop: true
@@ -1754,12 +1784,22 @@ contexts:
     - include: illegal
 
   illegal:
-    - match: \S+?(?=[/,])
+    - match: \S
       scope: invalid.illegal.s840d_hmi
 
   illegal-pop:
     - match: \S+
       scope: invalid.illegal.s840d_hmi
+      pop: true
+
+  parens-begin:
+    - match: \(
+      scope: punctuation.section.parens.begin.s840d_hmi
+      pop: true
+
+  parens-end:
+    - match: \)
+      scope: punctuation.section.parens.end.s840d_hmi
       pop: true
 
 ###############################################################################
