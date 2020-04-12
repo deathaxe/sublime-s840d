@@ -548,7 +548,7 @@ LOAD
 ; DO UNTIL CONTROL STRUCTURE TEST
     DO_UNTIL NOT FOO.vld
 ;   ^^^^^^^^ keyword.control.flow.loop
-;            ^^^ keyword.operator.boolean
+;            ^^^ keyword.operator.logical
 ;                ^^^ variable.other
 ;                   ^ punctuation.accessor.parameters
 ;                    ^^^ entity.other.attribute-name
