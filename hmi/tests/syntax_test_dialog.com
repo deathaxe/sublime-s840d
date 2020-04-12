@@ -2,63 +2,139 @@
 
 ; ==================================================
 ;  //M tests
-;  Performance: 0.9ms
+;  Performance: 4.6ms
 ; ==================================================
 
+
+//M
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+//M
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+//END
+;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+
+//M()
+;^^^^^ - meta.class.dialog meta.class.dialog
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;  ^ meta.class.dialog.parameters.name.s840d_hmi meta.parens.s840d_hmi punctuation.section.parens.begin.s840d_hmi
+;   ^ meta.class.dialog.parameters.name.s840d_hmi meta.parens.s840d_hmi punctuation.section.parens.end.s840d_hmi
+//END
+;^^^^ - meta.class.dialog meta.class.dialog
+;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+
+//M(
+;^^^^ - meta.class.dialog meta.class.dialog
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;  ^ meta.class.dialog.parameters.name.s840d_hmi meta.parens.s840d_hmi punctuation.section.parens.begin.s840d_hmi
+//END
+;^^^^ - meta.class.dialog meta.class.dialog
+;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+
+//M(name)
+;^^^^^^^^^ - meta.class.dialog meta.class.dialog
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi
+;  ^^^^^^ meta.class.dialog.parameters.name.s840d_hmi meta.parens.s840d_hmi
+;        ^ meta.class.dialog.s840d_hmi
+;^^ keyword.declaration.class.begin.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+;   ^^^^ entity.name.class.s840d_hmi
+;       ^ punctuation.section.parens.end.s840d_hmi
+//END
+;^^^^ - meta.class.dialog meta.class.dialog
+;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+
+//M illegal
+;^^^^^^^^^^^ - meta.class.dialog meta.class.dialog
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^^^^^^^^^^ meta.class.dialog.s840d_hmi
+;^^ keyword.declaration.class.begin.s840d_hmi
+;   ^^^^^^^ invalid.illegal.s840d_hmi
+//END
+;^^^^ - meta.class.dialog meta.class.dialog
+;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+
+//M(name illegal) illegal ; comment
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.class.dialog meta.class.dialog
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+;  ^^^^^^^^^^^^^^ meta.class.dialog.parameters.name.s840d_hmi meta.parens.s840d_hmi
+;                ^^^^^^^^^^^^^^^^^^^ meta.class.dialog.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+;   ^^^^ entity.name.class.s840d_hmi
+;        ^^^^^^^ invalid.illegal.s840d_hmi
+;               ^ punctuation.section.parens.end.s840d_hmi
+;                 ^^^^^^^ invalid.illegal.s840d_hmi
+;                         ^^^^^^^^^^ comment.line.s840d_hmi
+//END
+;^^^^ - meta.class.dialog meta.class.dialog
+;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+
 //M(NAME/"TITLE"/"PIC"/0,0,640,480/"VAR"/20,20,64,64/PA1/129/"LANG.COM")
-;<- meta.class.dialog
-;^^ meta.class.dialog - meta.class.dialog.parameters
-;  ^ meta.class.dialog.parameters
-;   ^^^^^ meta.class.dialog.parameters.name
-;        ^^^^^^^^ meta.class.dialog.parameters.caption
-;                ^^^^^^ meta.class.dialog.parameters.picture
-;                      ^^^^^^^^^^^^ meta.class.dialog.parameters.dimension
-;                                  ^^^^^^ meta.class.dialog.parameters.variable
-;                                        ^^^^^^^^^^^^ meta.class.dialog.parameters.picture-position
-;                                                    ^^^^ meta.class.dialog.parameters.attributes
-;                                                        ^^^^ meta.class.dialog.parameters.background
-;                                                            ^^^^^^^^^^^ meta.class.dialog.parameters.langfiles
-;                                                                       ^ meta.class.dialog.body
-;<- keyword.declaration.class.begin
-;^^ keyword.declaration.class.begin
-;  ^ punctuation.section.parameters.begin
-;   ^^^^ entity.name.class
-;       ^ punctuation.separator
-;        ^ punctuation.definition.string.begin
-;        ^^^^^^^ string.quoted.double
-;              ^ punctuation.definition.string.end
-;               ^ punctuation.separator
-;                ^ punctuation.definition.string.begin
-;                ^^^^^ string.quoted.double
-;                    ^ punctuation.definition.string.end
-;                     ^ punctuation.separator
-;                      ^ constant.numeric.integer
-;                       ^ punctuation.separator
-;                        ^ constant.numeric.integer
-;                         ^ punctuation.separator
-;                          ^^^ constant.numeric.integer
-;                             ^ punctuation.separator
-;                              ^^^ constant.numeric.integer
-;                                 ^ punctuation.separator
-;                                  ^ punctuation.definition.string.begin
-;                                  ^^^^^ string.quoted.double
-;                                      ^ punctuation.definition.string.end
-;                                       ^ punctuation.separator
-;                                        ^^ constant.numeric.integer
-;                                          ^ punctuation.separator
-;                                           ^^ constant.numeric.integer
-;                                             ^ punctuation.separator
-;                                              ^^ constant.numeric.integer
-;                                                ^ punctuation.separator
-;                                                 ^^ constant.numeric.integer
-;                                                   ^ punctuation.separator
-;                                                    ^^^ constant.language.attribute
-;                                                       ^ punctuation.separator
-;                                                        ^^^ constant.numeric.integer
-;                                                           ^ punctuation.separator
-;                                                            ^ punctuation.definition.string.begin
-;                                                            ^^^^^^^^^^ string.quoted.double
-;                                                                     ^ punctuation.definition.string.end
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.class.dialog meta.class.dialog
+;<- meta.class.dialog.s840d_hmi
+;^^ meta.class.dialog.s840d_hmi
+;  ^^^^^^ meta.class.dialog.parameters.name.s840d_hmi
+;        ^^^^^^^^ meta.class.dialog.parameters.caption.s840d_hmi
+;                ^^^^^^ meta.class.dialog.parameters.picture.s840d_hmi
+;                      ^^^^^^^^^^^^ meta.class.dialog.parameters.dimension.s840d_hmi
+;                                  ^^^^^^ meta.class.dialog.parameters.variable.s840d_hmi
+;                                        ^^^^^^^^^^^^ meta.class.dialog.parameters.picture-position.s840d_hmi
+;                                                    ^^^^ meta.class.dialog.parameters.attributes.s840d_hmi
+;                                                        ^^^^ meta.class.dialog.parameters.background.s840d_hmi
+;                                                            ^^^^^^^^^^^ meta.class.dialog.parameters.langfiles.s840d_hmi
+;                                                                       ^ meta.class.dialog.s840d_hmi
+;<- keyword.declaration.class.begin.s840d_hmi
+;^^ keyword.declaration.class.begin.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+;   ^^^^ entity.name.class.s840d_hmi
+;       ^ punctuation.separator.s840d_hmi
+;        ^ punctuation.definition.string.begin.s840d_hmi
+;        ^^^^^^^ string.quoted.double.s840d_hmi
+;              ^ punctuation.definition.string.end.s840d_hmi
+;               ^ punctuation.separator.s840d_hmi
+;                ^ punctuation.definition.string.begin.s840d_hmi
+;                ^^^^^ string.quoted.double.s840d_hmi
+;                    ^ punctuation.definition.string.end.s840d_hmi
+;                     ^ punctuation.separator.s840d_hmi
+;                      ^ constant.numeric.integer.s840d_hmi
+;                       ^ punctuation.separator.s840d_hmi
+;                        ^ constant.numeric.integer.s840d_hmi
+;                         ^ punctuation.separator.s840d_hmi
+;                          ^^^ constant.numeric.integer.s840d_hmi
+;                             ^ punctuation.separator.s840d_hmi
+;                              ^^^ constant.numeric.integer.s840d_hmi
+;                                 ^ punctuation.separator.s840d_hmi
+;                                  ^ punctuation.definition.string.begin.s840d_hmi
+;                                  ^^^^^ string.quoted.double.s840d_hmi
+;                                      ^ punctuation.definition.string.end.s840d_hmi
+;                                       ^ punctuation.separator.s840d_hmi
+;                                        ^^ constant.numeric.integer.s840d_hmi
+;                                          ^ punctuation.separator.s840d_hmi
+;                                           ^^ constant.numeric.integer.s840d_hmi
+;                                             ^ punctuation.separator.s840d_hmi
+;                                              ^^ constant.numeric.integer.s840d_hmi
+;                                                ^ punctuation.separator.s840d_hmi
+;                                                 ^^ constant.numeric.integer.s840d_hmi
+;                                                   ^ punctuation.separator.s840d_hmi
+;                                                    ^^^ constant.language.attribute.scaling.pictures.s840d_hmi
+;                                                       ^ punctuation.separator.s840d_hmi
+;                                                        ^^^ constant.numeric.integer.s840d_hmi
+;                                                           ^ punctuation.separator.s840d_hmi
+;                                                            ^ punctuation.definition.string.begin.s840d_hmi
+;                                                            ^^^^^^^^^^ string.quoted.double.s840d_hmi
+;                                                                     ^ punctuation.definition.string.end.s840d_hmi
+;                                                                      ^ punctuation.section.parens.end.s840d_hmi
 DEF FOO, BAR, BAZ ; comment
 ;<- meta.class.dialog.body
 ;^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body
@@ -705,7 +781,7 @@ END_SUSPEND
 ;^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.suspend.end
 
 //END    ; //M(NAME)
-; <- meta.class.dialog.end keyword.declaration.class.end
-;^^^^ meta.class.dialog.end keyword.declaration.class.end
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
+;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
 ;    ^^^^^^^^^^^^^^^ - meta.class
 ;        ^^^^^^^^^^^ comment.line

@@ -446,27 +446,30 @@ contexts:
 ###############################################################################
 
   class-dialog:
-    - match: (//[Mm]\b)\s*(?=\()
-      captures:
-        0: meta.class.dialog.s840d_hmi
-        1: keyword.declaration.class.begin.s840d_hmi
+    - match: //[Mm]\b
+      scope: keyword.declaration.class.begin.s840d_hmi
       push:
-        - meta_content_scope: meta.class.dialog.parameters.s840d_hmi
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set: class-dialog-attr-name
-        - include: class-dialog-attr-end
+        - meta_scope: meta.class.dialog.s840d_hmi
+        - match: (?=\()
+          set:
+            - class-dialog-attr-name
+            - class-name-pop
+            - parens-begin
+        - include: class-dialog-body
 
   class-dialog-attr-name:
-    - meta_content_scope: meta.class.dialog.parameters.name.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.name.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-caption
-    - include: class-name
     - include: class-dialog-attr-end
 
   class-dialog-attr-caption:
-    - meta_content_scope: meta.class.dialog.parameters.caption.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.caption.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-picture
@@ -474,7 +477,9 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-picture:
-    - meta_content_scope: meta.class.dialog.parameters.picture.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.picture.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-dimension
@@ -482,7 +487,9 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-dimension:
-    - meta_content_scope: meta.class.dialog.parameters.dimension.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.dimension.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-variable
@@ -493,7 +500,9 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-variable:
-    - meta_content_scope: meta.class.dialog.parameters.variable.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.variable.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-picture-position
@@ -501,7 +510,9 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-picture-position:
-    - meta_content_scope: meta.class.dialog.parameters.picture-position.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.picture-position.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-attribute
@@ -510,7 +521,9 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-attribute:
-    - meta_content_scope: meta.class.dialog.parameters.attributes.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.attributes.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-background
@@ -530,7 +543,9 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-background:
-    - meta_content_scope: meta.class.dialog.parameters.background.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.background.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-langfiles
@@ -539,10 +554,13 @@ contexts:
     - include: class-dialog-attr-end
 
   class-dialog-attr-langfiles:
-    - meta_content_scope: meta.class.dialog.parameters.langfiles.s840d_hmi
+    - meta_content_scope:
+        meta.class.dialog.parameters.langfiles.s840d_hmi
+        meta.parens.s840d_hmi
     - match: /
       scope: invalid.illegal.separator.s840d_hmi
       set:
+        - clear_scopes: 1
         - meta_content_scope: meta.class.dialog.parameters.s840d_hmi
         - include: class-dialog-attr-end
     - include: attr-seperator
@@ -551,16 +569,29 @@ contexts:
 
   class-dialog-attr-end:
     - match: \)|$
-      scope: punctuation.section.parameters.end.s840d_hmi
+      scope: punctuation.section.parens.end.s840d_hmi
       set: class-dialog-body
+    - include: comment
     - include: illegal
 
   class-dialog-body:
-    - meta_content_scope: meta.class.dialog.body.s840d_hmi
-    - match: (?=//)
-      set:
-        - meta_scope: meta.class.dialog.end.s840d_hmi
-        - include: class-end-pop
+    - meta_content_scope: meta.class.dialog.s840d_hmi
+    - match: ^
+      set: class-dialog-body-block
+    - include: comment
+    - include: illegal
+
+  class-dialog-body-block:
+    - meta_content_scope:
+        meta.class.dialog.body.s840d_hmi
+        meta.block.s840d_hmi
+    - match: //(?i:END)\b
+      scope:
+        meta.class.dialog.s840d_hmi
+        keyword.declaration.class.end.s840d_hmi
+      pop: true
+    - match: '{{class}}'
+      pop: true
     - include: def-operand
     - include: def-softkey
     - include: def-methods
