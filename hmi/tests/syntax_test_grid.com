@@ -69,4 +69,4 @@
 ;                                                                 ^ punctuation.section.column.end
 //END
 ;    <- meta.class.grid.end
-;    <- keyword.class.end
+;    <- keyword.declaration.class.end

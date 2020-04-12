@@ -85,7 +85,7 @@ contexts:
     - match: (//[Aa]\b)\s*(?=\()
       captures:
         0: meta.class.array.s840d_hmi
-        1: keyword.class.begin.s840d_hmi
+        1: keyword.declaration.class.begin.s840d_hmi
       push:
         - meta_content_scope: meta.class.array.parameters.s840d_hmi
         - match: \(
@@ -133,7 +133,7 @@ contexts:
     - match: (//[Bb]\b)\s*(?=\()
       captures:
         0: meta.class.subprogram.s840d_hmi
-        1: keyword.class.begin.s840d_hmi
+        1: keyword.declaration.class.begin.s840d_hmi
       push:
         - meta_content_scope: meta.class.subprogram.parameters.s840d_hmi
         - match: \(
@@ -176,7 +176,7 @@ contexts:
     - match: (//[Gg]\b)\s*(?=\()
       captures:
         0: meta.class.grid.s840d_hmi
-        1: keyword.class.begin.s840d_hmi
+        1: keyword.declaration.class.begin.s840d_hmi
       push:
         - meta_content_scope: meta.class.grid.parameters.s840d_hmi
         - match: \(
@@ -367,7 +367,7 @@ contexts:
     - match: (//[Mm]\b)\s*(?=\()
       captures:
         0: meta.class.dialog.s840d_hmi
-        1: keyword.class.begin.s840d_hmi
+        1: keyword.declaration.class.begin.s840d_hmi
       push:
         - meta_content_scope: meta.class.dialog.parameters.s840d_hmi
         - match: \(
@@ -498,7 +498,7 @@ contexts:
     - match: (//[Ss]\b)\s*(?=\()
       captures:
         0: meta.class.menu.s840d_hmi
-        1: keyword.class.begin.s840d_hmi
+        1: keyword.declaration.class.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -555,7 +555,7 @@ contexts:
     - match: '{{class}}'
       pop: true
     - match: //(?i:END)\b
-      scope: keyword.class.end.s840d_hmi
+      scope: keyword.declaration.class.end.s840d_hmi
       pop: true
     - include: illegal
 

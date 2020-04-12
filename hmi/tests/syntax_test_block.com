@@ -8,7 +8,7 @@
 //B(BLOCK_NAME)
 ;              <- meta.class.subprogram
 ;   ^^^^^^^^^^ meta.parens
-;  <- keyword.class.begin
+;  <- keyword.declaration.class.begin
 ;  ^ punctuation.section.parens.begin
 ;   ^^^^^^^^^^ entity.name.class
 ;             ^ punctuation.section.parens.end
@@ -20,4 +20,4 @@ END_SUB
 
 //END
 ;    <- meta.class.subprogram.end
-;    <- keyword.class.end
+;    <- keyword.declaration.class.end

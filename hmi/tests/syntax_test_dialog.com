@@ -19,8 +19,8 @@
 ;                                                        ^^^^ meta.class.dialog.parameters.background
 ;                                                            ^^^^^^^^^^^ meta.class.dialog.parameters.langfiles
 ;                                                                       ^ meta.class.dialog.body
-;<- keyword.class.begin
-;^^ keyword.class.begin
+;<- keyword.declaration.class.begin
+;^^ keyword.declaration.class.begin
 ;  ^ punctuation.section.parameters.begin
 ;   ^^^^ entity.name.class
 ;       ^ punctuation.separator
@@ -705,7 +705,7 @@ END_SUSPEND
 ;^^^^^^^^^^ meta.class.dialog.body keyword.definition.method.suspend.end
 
 //END    ; //M(NAME)
-; <- meta.class.dialog.end keyword.class.end
-;^^^^ meta.class.dialog.end keyword.class.end
+; <- meta.class.dialog.end keyword.declaration.class.end
+;^^^^ meta.class.dialog.end keyword.declaration.class.end
 ;    ^^^^^^^^^^^^^^^ - meta.class
 ;        ^^^^^^^^^^^ comment.line
