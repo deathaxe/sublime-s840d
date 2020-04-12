@@ -227,8 +227,8 @@ DEF FOO(2) = (S32), ; comment
 ;      ^^^ meta.operand.array-size
 ;         ^^^ meta.operand
 ;            ^^^^^ meta.operand.parameters
-;<- keyword.language.def
-;^^ keyword.language.def
+;<- keyword.declaration.def
+;^^ keyword.declaration.def
 ;   ^^^ variable.other
 ;      ^ punctuation.section.array-size.begin
 ;       ^ constant.numeric.integer
