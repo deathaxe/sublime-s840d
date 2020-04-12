@@ -92,7 +92,7 @@ contexts:
     - match: (?=\()
       set:
         - class-array-parameters-end
-        - class-name-pop
+        - class-name
         - parens-begin
     - include: line-end
 
@@ -160,7 +160,7 @@ contexts:
     - match: (?=\()
       set:
         - class-block-parameters-end
-        - class-name-pop
+        - class-name
         - parens-begin
     - include: line-end
 
@@ -218,7 +218,7 @@ contexts:
         - match: (?=\()
           set:
             - class-grid-attr-name
-            - class-name-pop
+            - class-name
             - parens-begin
         - include: class-grid-body
 
@@ -453,7 +453,7 @@ contexts:
         - match: (?=\()
           set:
             - class-dialog-attr-name
-            - class-name-pop
+            - class-name
             - parens-begin
         - include: class-dialog-body
 
@@ -615,7 +615,7 @@ contexts:
         - match: (?=\()
           set:
             - class-menu-attr-name
-            - class-name-pop
+            - class-name
             - parens-begin
         - include: class-menu-body
 
@@ -674,10 +674,6 @@ contexts:
 ###############################################################################
 
   class-name:
-    - match: \b\w+\b
-      scope: entity.name.class.s840d_hmi
-
-  class-name-pop:
     - match: \b\w+\b
       scope: entity.name.class.s840d_hmi
       pop: true
