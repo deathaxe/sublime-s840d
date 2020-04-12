@@ -608,21 +608,25 @@ contexts:
 ###############################################################################
 
   class-menu:
-    - match: (//[Ss]\b)\s*(?=\()
-      captures:
-        0: meta.class.menu.s840d_hmi
-        1: keyword.declaration.class.begin.s840d_hmi
-      push:
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
+    - match: //[Ss]\b
+      scope: keyword.declaration.class.begin.s840d_hmi
+      push: 
+        - meta_scope: meta.class.menu.s840d_hmi
+        - match: (?=\()
           set:
-            - meta_scope: meta.class.menu.parameters.name.s840d_hmi
-            - match: ','
-              scope: punctuation.separator.parameters.s840d_hmi
-              set: class-menu-attr-langfiles
-            - include: class-name
-            - include: class-menu-attr-end
+            - class-menu-attr-name
+            - class-name-pop
+            - parens-begin
         - include: class-menu-body
+
+  class-menu-attr-name:
+    - meta_scope: 
+        meta.class.menu.parameters.name.s840d_hmi
+        meta.parens.s840d_hmi
+    - match: ','
+      scope: punctuation.separator.parameters.s840d_hmi
+      set: class-menu-attr-langfiles
+    - include: class-menu-attr-end
 
   class-menu-attr-langfiles:
     - meta_content_scope: meta.class.menu.parameters.langfiles.s840d_hmi
@@ -637,16 +641,29 @@ contexts:
 
   class-menu-attr-end:
     - match: \)|$
-      scope: punctuation.section.parameters.end.s840d_hmi
+      scope: punctuation.section.parens.end.s840d_hmi
       set: class-menu-body
+    - include: comment
     - include: illegal
 
   class-menu-body:
-    - meta_content_scope: meta.class.menu.body.s840d_hmi
-    - match: (?=//)
-      set:
-        - meta_scope: meta.class.menu.end.s840d_hmi
-        - include: class-end-pop
+    - meta_content_scope: meta.class.menu.s840d_hmi
+    - match: ^
+      set: class-menu-body-block
+    - include: comment
+    - include: illegal
+
+  class-menu-body-block:
+    - meta_content_scope:
+        meta.class.menu.body.s840d_hmi
+        meta.block.s840d_hmi
+    - match: //(?i:END)\b
+      scope:
+        meta.class.menu.s840d_hmi
+        keyword.declaration.class.end.s840d_hmi
+      pop: true
+    - match: '{{class}}'
+      pop: true
     - include: def-softkey
     - include: def-methods
     - include: comment
