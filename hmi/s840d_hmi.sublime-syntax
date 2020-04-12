@@ -889,13 +889,13 @@ contexts:
 
   def-method-accesslevel:
     - match: \b(?i:ACCESSLEVEL)\b
-      scope: keyword.definition.method.accesslevel.begin.s840d_hmi
+      scope: keyword.declaration.function.accesslevel.begin.s840d_hmi
       push: def-method-accesslevel-body
 
   def-method-accesslevel-body:
     - meta_content_scope: meta.block.method.accesslevel.s840d_hmi
     - match: \b(?i:END_ACCESSLEVEL)\b
-      scope: keyword.definition.method.accesslevel.end.s840d_hmi
+      scope: keyword.declaration.function.accesslevel.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -911,13 +911,13 @@ contexts:
 
   def-method-activate:
     - match: \b(?i:ACTIVATE)\b
-      scope: keyword.definition.method.activate.begin.s840d_hmi
+      scope: keyword.declaration.function.activate.begin.s840d_hmi
       push: def-method-activate-body
 
   def-method-activate-body:
     - meta_content_scope: meta.block.method.activate.s840d_hmi
     - match: \b(?i:END_ACTIVATE)\b
-      scope: keyword.definition.method.activate.end.s840d_hmi
+      scope: keyword.declaration.function.activate.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -934,7 +934,7 @@ contexts:
 
   def-method-change:
     - match: \b(?i:CHANGE)\b
-      scope: keyword.definition.method.change.begin.s840d_hmi
+      scope: keyword.declaration.function.change.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -952,7 +952,7 @@ contexts:
   def-method-change-body:
     - meta_content_scope: meta.block.method.change.s840d_hmi
     - match: \b(?i:END_CHANGE)\b
-      scope: keyword.definition.method.change.end.s840d_hmi
+      scope: keyword.declaration.function.change.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -969,13 +969,13 @@ contexts:
 
   def-method-channel:
     - match: \b(?i:CHANNEL)\b
-      scope: keyword.definition.method.channel.begin.s840d_hmi
+      scope: keyword.declaration.function.channel.begin.s840d_hmi
       push: def-method-channel-body
 
   def-method-channel-body:
     - meta_content_scope: meta.block.method.channel.s840d_hmi
     - match: \b(?i:END_CHANNEL)\b
-      scope: keyword.definition.method.channel.end.s840d_hmi
+      scope: keyword.declaration.function.channel.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -992,13 +992,13 @@ contexts:
 
   def-method-control:
     - match: \b(?i:CONTROL)\b
-      scope: keyword.definition.method.control.begin.s840d_hmi
+      scope: keyword.declaration.function.control.begin.s840d_hmi
       push: def-method-control-body
 
   def-method-control-body:
     - meta_content_scope: meta.block.method.control.s840d_hmi
     - match: \b(?i:END_CONTROL)\b
-      scope: keyword.definition.method.control.end.s840d_hmi
+      scope: keyword.declaration.function.control.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1015,7 +1015,7 @@ contexts:
 
   def-method-focus:
     - match: \b(?i:FOCUS)\b
-      scope: keyword.definition.method.focus.begin.s840d_hmi
+      scope: keyword.declaration.function.focus.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -1033,7 +1033,7 @@ contexts:
   def-method-focus-body:
     - meta_content_scope: meta.block.method.focus.s840d_hmi
     - match: \b(?i:END_FOCUS)\b
-      scope: keyword.definition.method.focus.end.s840d_hmi
+      scope: keyword.declaration.function.focus.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1050,13 +1050,13 @@ contexts:
 
   def-method-language:
     - match: \b(?i:LANGUAGE)\b
-      scope: keyword.definition.method.language.begin.s840d_hmi
+      scope: keyword.declaration.function.language.begin.s840d_hmi
       push: def-method-language-body
 
   def-method-language-body:
     - meta_content_scope: meta.block.method.language.s840d_hmi
     - match: \b(?i:END_LANGUAGE)\b
-      scope: keyword.definition.method.language.end.s840d_hmi
+      scope: keyword.declaration.function.language.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1073,13 +1073,13 @@ contexts:
 
   def-method-load:
     - match: \b(?i:LOAD)\b
-      scope: keyword.definition.method.load.begin.s840d_hmi
+      scope: keyword.declaration.function.load.begin.s840d_hmi
       push: def-method-load-body
 
   def-method-load-body:
     - meta_content_scope: meta.block.method.load.s840d_hmi
     - match: \b(?i:END_LOAD)\b
-      scope: keyword.definition.method.load.end.s840d_hmi
+      scope: keyword.declaration.function.load.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1096,13 +1096,13 @@ contexts:
 
   def-method-unload:
     - match: \b(?i:UNLOAD)\b
-      scope: keyword.definition.method.unload.begin.s840d_hmi
+      scope: keyword.declaration.function.unload.begin.s840d_hmi
       push: def-method-unload-body
 
   def-method-unload-body:
     - meta_content_scope: meta.block.method.unload.s840d_hmi
     - match: \b(?i:END_UNLOAD)\b
-      scope: keyword.definition.method.unload.end.s840d_hmi
+      scope: keyword.declaration.function.unload.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1118,7 +1118,7 @@ contexts:
 
   def-method-output:
     - match: \b(?i:OUTPUT)\b
-      scope: keyword.definition.method.output.begin.s840d_hmi
+      scope: keyword.declaration.function.output.begin.s840d_hmi
       push: def-method-output-argument
 
   def-method-output-argument:
@@ -1150,7 +1150,7 @@ contexts:
   def-method-output-body:
     - meta_content_scope: meta.block.method.output.s840d_hmi
     - match: \b(?i:END_OUTPUT)\b
-      scope: keyword.definition.method.output.end.s840d_hmi
+      scope: keyword.declaration.function.output.end.s840d_hmi
       pop: true
     # register not allowed in output
     - match: \b(?i:REG)\b
@@ -1171,7 +1171,7 @@ contexts:
 
   def-method-press:
     - match: \b(?i:PRESS)\b
-      scope: keyword.definition.method.press.begin.s840d_hmi
+      scope: keyword.declaration.function.press.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -1192,7 +1192,7 @@ contexts:
   def-method-press-body:
     - meta_content_scope: meta.block.method.press.s840d_hmi
     - match: \b(?i:END_PRESS)\b
-      scope: keyword.definition.method.press.end.s840d_hmi
+      scope: keyword.declaration.function.press.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1209,13 +1209,13 @@ contexts:
 
   def-method-resolution:
     - match: \b(?i:RESOLUTION)\b
-      scope: keyword.definition.method.resolution.begin.s840d_hmi
+      scope: keyword.declaration.function.resolution.begin.s840d_hmi
       push: def-method-resolution-body
 
   def-method-resolution-body:
     - meta_content_scope: meta.block.method.resolution.s840d_hmi
     - match: \b(?i:END_RESOLUTION)\b
-      scope: keyword.definition.method.resolution.end.s840d_hmi
+      scope: keyword.declaration.function.resolution.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1232,13 +1232,13 @@ contexts:
 
   def-method-resume:
     - match: \b(?i:RESUME)\b
-      scope: keyword.definition.method.resume.begin.s840d_hmi
+      scope: keyword.declaration.function.resume.begin.s840d_hmi
       push: def-method-resume-body
 
   def-method-resume-body:
     - meta_content_scope: meta.block.method.resume.s840d_hmi
     - match: \b(?i:END_RESUME)\b
-      scope: keyword.definition.method.resume.end.s840d_hmi
+      scope: keyword.declaration.function.resume.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1254,7 +1254,7 @@ contexts:
 
   def-method-sub:
     - match: \b(?i:SUB)\b
-      scope: keyword.definition.method.sub.begin.s840d_hmi
+      scope: keyword.declaration.function.sub.begin.s840d_hmi
       push:
         - match: \(
           scope: punctuation.section.parameters.begin.s840d_hmi
@@ -1271,7 +1271,7 @@ contexts:
   def-method-sub-body:
     - meta_content_scope: meta.block.method.sub.s840d_hmi
     - match: \b(?i:END_SUB)\b
-      scope: keyword.definition.method.sub.end.s840d_hmi
+      scope: keyword.declaration.function.sub.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1288,13 +1288,13 @@ contexts:
 
   def-method-suspend:
     - match: \b(?i:SUSPEND)\b
-      scope: keyword.definition.method.suspend.begin.s840d_hmi
+      scope: keyword.declaration.function.suspend.begin.s840d_hmi
       push: def-method-suspend-body
 
   def-method-suspend-body:
     - meta_content_scope: meta.block.method.suspend.s840d_hmi
     - match: \b(?i:END_SUSPEND)\b
-      scope: keyword.definition.method.suspend.end.s840d_hmi
+      scope: keyword.declaration.function.suspend.end.s840d_hmi
       pop: true
     - include: statements
 
