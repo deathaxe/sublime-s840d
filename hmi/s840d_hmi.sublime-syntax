@@ -1366,13 +1366,21 @@ contexts:
 
   def-method-resume:
     - match: \b(?i:RESUME)\b
-      scope: keyword.declaration.function.resume.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-resume-body
 
   def-method-resume-body:
-    - meta_content_scope: meta.block.method.resume.s840d_hmi
+    - meta_scope: meta.method.resume.s840d_hmi
+    - match: ^
+      set: def-method-resume-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-resume-body-block:
+    - meta_scope: meta.method.resume.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_RESUME)\b
-      scope: keyword.declaration.function.resume.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 

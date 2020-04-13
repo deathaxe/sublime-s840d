@@ -83,7 +83,7 @@
 //M
 ; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
 RESUME
-; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi keyword.declaration.function
+; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
 //M
 ; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
 RESOLUTION
@@ -750,17 +750,35 @@ END_RESOLUTION
 ;^^^^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.resolution.end
 
 RESUME
-; <- meta.class.dialog.body keyword.declaration.function.resume.begin
-;^^^^^ meta.class.dialog.body keyword.declaration.function.resume.begin
+;<- meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^ meta.method.resume.s840d_hmi - keyword
+
+RESUME()
+;<- meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^^ meta.method.resume.s840d_hmi invalid.illegal.s840d_hmi
+;       ^ meta.method.resume.s840d_hmi - keyword - illegal
+
+RESUME ; comment
+;<- meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^ meta.method.resume.s840d_hmi - keyword - comment
+;      ^^^^^^^^^^ meta.method.resume.s840d_hmi comment.line.s840d_hmi
+
+RESUME
+;<- meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
     LM("MASK")
-;<- meta.class.dialog.body meta.block.method.resume
-;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.resume
-;   ^^ meta.function-call
-;     ^^^^^^^^ meta.function-call.arguments
-;   ^^ support.function
+;<- meta.method.resume.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.resume.s840d_hmi meta.block.s840d_hmi
+;   ^^ meta.function-call.identifier.s840d_hmi
+;     ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^ support.function.s840d_hmi
 END_RESUME
-; <- meta.class.dialog.body keyword.declaration.function.resume.end
-;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.resume.end
+;<- meta.method.resume.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^ meta.method.resume.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;         ^ - meta.method.resume
 
 SUB
 ;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
