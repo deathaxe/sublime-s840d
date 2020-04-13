@@ -345,7 +345,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-default
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     - include: def-column-end
 
@@ -368,7 +368,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-attributes
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: string
     - include: def-column-end
 
@@ -379,7 +379,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-column-picture
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: attribute-accesslevel
     - include: attribute-limit
     - include: attribute-writeability
@@ -426,7 +426,7 @@ contexts:
             meta.column.s840d_hmi
             meta.parens.s840d_hmi
         - include: def-column-end
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     - include: def-column-end
 
@@ -493,7 +493,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-variable
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     # layout name
     - include: string
@@ -516,7 +516,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-attribute
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     - include: class-dialog-attr-end
 
@@ -527,7 +527,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: class-dialog-attr-background
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: attribute-accesslevel
     - include: attribute-alignment
     - include: attribute-alignment-title
@@ -563,7 +563,7 @@ contexts:
         - clear_scopes: 1
         - meta_content_scope: meta.class.dialog.parameters.s840d_hmi
         - include: class-dialog-attr-end
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: string
     - include: class-dialog-attr-end
 
@@ -635,7 +635,7 @@ contexts:
       set:
         - meta_content_scope: meta.class.menu.parameters.s840d_hmi
         - include: class-menu-attr-end
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: string
     - include: class-menu-attr-end
 
@@ -678,10 +678,6 @@ contexts:
       scope: entity.name.class.s840d_hmi
       pop: true
     - include: else-pop
-
-  attr-seperator:
-    - match: ','
-      scope: punctuation.separator.s840d_hmi
 
   class-end-pop:
     - match: '{{class}}'
@@ -776,7 +772,7 @@ contexts:
         - match: /
           scope: punctuation.separator.s840d_hmi
           set: def-operand-default
-        - include: attr-seperator
+        - include: punctuation-separator-comma
         - include: string
         - include: number
         - include: operator
@@ -788,7 +784,7 @@ contexts:
         - match: /
           scope: punctuation.separator.s840d_hmi
           set: def-operand-default
-        - include: attr-seperator
+        - include: punctuation-separator-comma
         - include: string
         - include: number
         - include: operator
@@ -811,7 +807,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-attributes
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: string
     - include: def-operand-end
 
@@ -821,7 +817,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-picture
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: attribute-accesslevel
     - include: attribute-alignment
     - include: attribute-changeblock
@@ -859,7 +855,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-inputpos
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     - include: def-operand-end
 
@@ -870,7 +866,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-colors
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     - include: def-operand-end
 
@@ -880,7 +876,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-helpfile
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     # string is used for "#RRGGBB" colors
     - include: string
@@ -892,7 +888,7 @@ contexts:
     - match: /
       scope: punctuation.separator.s840d_hmi
       set: def-operand-units
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: number
     - include: string
     - include: def-operand-end
@@ -972,8 +968,7 @@ contexts:
 
   def-softkey-attr-attributes:
     - meta_content_scope: meta.softkey.parameters.attributes.s840d_hmi
-    - match: ','
-      scope: punctuation.separator.s840d_hmi
+    - include: punctuation-separator-comma
     - include: attribute-accesslevel
     - include: attribute-alignment-picture
     - include: attribute-alignment-text
@@ -1495,7 +1490,7 @@ contexts:
   expressions:
     - include: string       # must be the first
     - include: boolean
-    - include: attr-seperator
+    - include: punctuation-separator-comma
     - include: attribute-accesslevel
     - include: attribute-alignment
     - include: attribute-alignment-title
@@ -1708,8 +1703,6 @@ contexts:
     - meta_scope:
         meta.function-call.arguments.s840d_hmi
         meta.parens.s840d_hmi
-    - match: ','
-      scope: punctuation.separator.s840d_hmi
     - include: parens-end
     - include: expressions
     - include: line-end
@@ -1776,6 +1769,10 @@ contexts:
       scope: keyword.operator.logical.s840d_hmi
     - match: \b(?i:B(?:AND|X?OR|NOT)|SH[LR])\b
       scope: keyword.operator.binary.s840d_hmi
+
+  punctuation-separator-comma:
+    - match: ','
+      scope: punctuation.separator.s840d_hmi
 
   attributes:
     # dialog attributes
@@ -1860,8 +1857,7 @@ contexts:
         - match: \]
           scope: punctuation.section.item-access.end.s840d_hmi
           pop: true
-        - match: ','
-          scope: punctuation.separator.s840d_hmi
+        - include: punctuation-separator-comma
         - include: number
         - include: variable
         - match: \w+
