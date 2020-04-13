@@ -718,23 +718,63 @@ END_OUTPUT
 ; <- meta.class.dialog.body keyword.declaration.function.output.end
 ;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.output.end
 
+PRESS
+;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^ meta.method.press.s840d_hmi
+
+PRESS(
+;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^ meta.method.press.parameters.s840d_hmi meta.parens.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+
+PRESS(HS1 illegal ; comment
+;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^^^^^^^^^^^^ meta.method.press.parameters.s840d_hmi meta.parens.s840d_hmi
+;                 ^^^^^^^^^^ meta.method.press.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+;     ^^^ variable.language.softkey.s840d_hmi
+;         ^^^^^^^ invalid.illegal.s840d_hmi
+;                 ^^^^^^^^^^ comment.line.s840d_hmi
+
+PRESS)
+;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^ meta.method.press.s840d_hmi
+;    ^ invalid.illegal.s840d_hmi
+
+PRESS(RECALL illegal) illegal ; comment
+;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^^^^^^^^^^^^^^^ meta.method.press.parameters.s840d_hmi meta.parens.s840d_hmi
+;                    ^^^^^^^^^^^^^^^^^^^ meta.method.press.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+;     ^^^^^^ variable.language.softkey.s840d_hmi
+;            ^^^^^^^ invalid.illegal.s840d_hmi
+;                   ^ punctuation.section.parens.end.s840d_hmi
+;                     ^^^^^^^ invalid.illegal.s840d_hmi
+;                             ^^^^^^^^^^ comment.line.s840d_hmi
+
 PRESS(ENTER)
-; <- meta.class.dialog.body keyword.declaration.function.press.begin
-;^^^^^^^^^^^^ meta.class.dialog.body
-;    ^^^^^^^ meta.function.parameters.press.softkey
-;^^^^ keyword.declaration.function.press.begin
-;    ^ punctuation.section.parameters.begin
-;     ^^^^^ entity.name.key
-;          ^ punctuation.section.parameters.end
+;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^^^^^^ meta.method.press.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^ keyword.declaration.method.begin.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+;     ^^^^^ variable.language.key.s840d_hmi
+;          ^ punctuation.section.parens.end.s840d_hmi
     LM("MASK")
-;<- meta.class.dialog.body meta.block.method.press
-;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.press
-;   ^^ meta.function-call
-;     ^^^^^^^^ meta.function-call.arguments
-;   ^^ support.function
+;<- meta.method.press.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.press.s840d_hmi meta.block.s840d_hmi
+;   ^^ meta.function-call.identifier.s840d_hmi
+;     ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^ support.function.s840d_hmi
 END_PRESS
-; <- meta.class.dialog.body keyword.declaration.function.press.end
-;^^^^^^^^ meta.class.dialog.body keyword.declaration.function.press.end
+;<- meta.method.press.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^ meta.method.press.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;        ^ - meta.method.press
 
 RESOLUTION
 ;<- meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi

@@ -1305,28 +1305,47 @@ contexts:
 
   def-method-press:
     - match: \b(?i:PRESS)\b
-      scope: keyword.declaration.function.press.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push:
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set:
-            - meta_scope: meta.function.parameters.press.softkey.s840d_hmi
-            - match: \)|$
-              scope: punctuation.section.parameters.end.s840d_hmi
-              set: def-method-press-body
-            - match: '{{softkey}}'
-              scope: entity.name.softkey.s840d_hmi
-            - match: '{{key}}'
-              scope: entity.name.key.s840d_hmi
-            - include: illegal
-        - match: $
-          set: def-method-press
-        - include: illegal
+        - def-method-press-body
+        - def-method-press-parameters
+
+  def-method-press-parameters:
+    - match: (?=\()
+      set:
+        - def-method-press-parameters-common
+        - def-method-press-name
+        - parens-begin
+    - include: else-pop
+
+  def-method-press-parameters-common:
+    - clear_scopes: 1
+    - meta_scope:
+        meta.method.press.parameters.s840d_hmi
+        meta.parens.s840d_hmi
+    - include: expect-parens-end
+
+  def-method-press-name:
+    - match: '{{softkey}}'
+      scope: variable.language.softkey.s840d_hmi
+      pop: true
+    - match: '{{key}}'
+      scope: variable.language.key.s840d_hmi
+      pop: true
+    - include: else-pop
 
   def-method-press-body:
-    - meta_content_scope: meta.block.method.press.s840d_hmi
+    - meta_scope: meta.method.press.s840d_hmi
+    - match: ^
+      set: def-method-press-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-press-body-block:
+    - meta_scope: meta.method.press.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_PRESS)\b
-      scope: keyword.declaration.function.press.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
