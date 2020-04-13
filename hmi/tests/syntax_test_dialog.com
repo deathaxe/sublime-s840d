@@ -525,12 +525,12 @@ LANGUAGE
     DLGL(S_LANG)
 ;<- meta.class.dialog.body meta.block.method.language
 ;^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.language
-;   ^^^^ meta.function-call
-;       ^^^^^^^^ meta.function-call.arguments
+;   ^^^^ meta.function-call.identifier.s840d_hmi
+;       ^^^^^^^^ meta.function-call.arguments.s840d_hmi
 ;   ^^^^ support.function
-;       ^ punctuation.section.arguments.begin
+;       ^ punctuation.section.parens.begin
 ;        ^^^^^^ support.variable.language
-;              ^ punctuation.section.arguments.end
+;              ^ punctuation.section.parens.end
 END_LANGUAGE
 ; <- meta.class.dialog.body keyword.declaration.function.language.end
 ;^^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.language.end
@@ -566,22 +566,22 @@ LOAD
 ;       ^^^ entity.other.attribute-name
 ;           ^ keyword.operator.assignment
 ;             ^^^ support.function
-;                ^ punctuation.section.arguments.begin
+;                ^ punctuation.section.parens.begin
 ;                  ^ punctuation.definition.string.begin
 ;                  ^^^^^^^^^^^^ string.quoted.double
 ;                             ^ punctuation.definition.string.end
-;                               ^ punctuation.section.arguments.end
+;                               ^ punctuation.section.parens.end
     CALL("function")
 ;  ^ - meta.function-call
 ;   ^^^^ meta.function-call
 ;       ^^^^^^^^^^^^ meta.function-call.arguments
 ;                   ^ - meta.function-call
 ;   ^^^^ support.function
-;       ^ punctuation.section.arguments.begin
+;       ^ punctuation.section.parens.begin
 ;        ^ punctuation.definition.string.begin
 ;        ^^^^^^^^^^ string.quoted.double
 ;                 ^ punctuation.definition.string.end
-;                  ^ punctuation.section.arguments.end
+;                  ^ punctuation.section.parens.end
 
 ; IF ELSE CONTROL STRUCTURE TEST
     IF FOO == FALSE

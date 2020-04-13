@@ -1698,22 +1698,21 @@ contexts:
       push: function-arguments
 
   function-arguments:
-    - meta_scope: meta.function-call.s840d_hmi
+    - meta_scope: meta.function-call.identifier.s840d_hmi
     - match: (?=\()
-      set:
-        - match: \(
-          scope: punctuation.section.arguments.begin.s840d_hmi
-          set:
-            - meta_scope: meta.function-call.arguments.s840d_hmi
-            - match: \)
-              scope: punctuation.section.arguments.end.s840d_hmi
-              pop: true
-            - match: ','
-              scope: punctuation.separator.s840d_hmi
-            - include: expressions
-            - include: illegal
+      set: [function-arguments-common, parens-begin]
     - match: (?=\S)
       pop: true
+
+  function-arguments-common:
+    - meta_scope:
+        meta.function-call.arguments.s840d_hmi
+        meta.parens.s840d_hmi
+    - match: ','
+      scope: punctuation.separator.s840d_hmi
+    - include: parens-end
+    - include: expressions
+    - include: line-end
 
   group:
     - match: \(
