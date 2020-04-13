@@ -30,7 +30,16 @@ scope: source.s840d_hmi
 ###############################################################################
 
 variables:
-  class: (?=//(?i:[ABGMS])\b)
+  class_begin_ahead: (?=//(?i:[ABGMS])\b)
+  class_end_ahead: (?=//(?i:END|[ABGMS])\b)
+
+  method_names: |-
+    (?xi:
+      ACCESSLEVEL|ACTIVATE|CHANGE|CHANNEL|CONTROL|FOCUS|LANGUAGE|LOAD|
+      OUTPUT|PRESS|RESOLUTION|RESUME|SUB|SUSPEND|UNLOAD
+    )\b
+  method_end_ahead: (?=(?i:(?:END_)?{{method_names}}))
+
   key: \b(?i:ENTER|P[UD]|S[LRUD]|TOGGLE)\b
   softkey: \b(?i:[HV]S\d+|RECALL)\b
 
@@ -48,7 +57,7 @@ contexts:
       scope: invalid.illegal.s840d_hmi
 
     # file contains EasyScreen/RunMyScreens
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       push:
         - include: comment
         - include: class-dialog
@@ -135,7 +144,7 @@ contexts:
         meta.class.array.s840d_hmi
         keyword.declaration.class.end.s840d_hmi
       pop: true
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       pop: true
     - include: comment
     - include: illegal
@@ -188,7 +197,7 @@ contexts:
         meta.class.subprogram.s840d_hmi
         keyword.declaration.class.end.s840d_hmi
       pop: true
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       pop: true
     - include: def-method-sub
     - include: comment
@@ -305,7 +314,7 @@ contexts:
         meta.class.grid.s840d_hmi
         keyword.declaration.class.end.s840d_hmi
       pop: true
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       pop: true
     - include: def-column
     - include: comment
@@ -590,7 +599,7 @@ contexts:
         meta.class.dialog.s840d_hmi
         keyword.declaration.class.end.s840d_hmi
       pop: true
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       pop: true
     - include: def-operand
     - include: def-softkey
@@ -662,7 +671,7 @@ contexts:
         meta.class.menu.s840d_hmi
         keyword.declaration.class.end.s840d_hmi
       pop: true
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       pop: true
     - include: def-softkey
     - include: def-methods
@@ -680,7 +689,7 @@ contexts:
     - include: else-pop
 
   class-end-pop:
-    - match: '{{class}}'
+    - match: '{{class_begin_ahead}}'
       pop: true
     - match: //(?i:END)\b
       scope: keyword.declaration.class.end.s840d_hmi
@@ -1432,6 +1441,10 @@ contexts:
 ###############################################################################
 
   statements:
+    - match: '{{method_end_ahead}}'
+      pop: true
+    - match: '{{class_end_ahead}}'
+      pop: true
     - include: comment
     - include: conditional
     - include: procedures

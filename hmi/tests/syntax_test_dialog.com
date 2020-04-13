@@ -80,6 +80,19 @@
 ;<- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
 ;^^^^ meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi
 
+//M
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+RESUME
+; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi keyword.declaration.function
+//M
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+RESOLUTION
+; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi keyword.declaration.function
+//M
+; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
+SUB
+; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi keyword.declaration.function
+
 //M(NAME/"TITLE"/"PIC"/0,0,640,480/"VAR"/20,20,64,64/PA1/129/"LANG.COM")
 ;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.class.dialog meta.class.dialog
 ;<- meta.class.dialog.s840d_hmi
