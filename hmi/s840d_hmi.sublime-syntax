@@ -1343,13 +1343,21 @@ contexts:
 
   def-method-resolution:
     - match: \b(?i:RESOLUTION)\b
-      scope: keyword.declaration.function.resolution.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-resolution-body
 
   def-method-resolution-body:
-    - meta_content_scope: meta.block.method.resolution.s840d_hmi
+    - meta_scope: meta.method.resolution.s840d_hmi
+    - match: ^
+      set: def-method-resolution-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-resolution-body-block:
+    - meta_scope: meta.method.resolution.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_RESOLUTION)\b
-      scope: keyword.declaration.function.resolution.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 

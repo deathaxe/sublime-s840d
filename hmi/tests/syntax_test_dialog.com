@@ -87,7 +87,7 @@ RESUME
 //M
 ; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
 RESOLUTION
-; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi keyword.declaration.function
+; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
 //M
 ; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
 SUB
@@ -737,17 +737,35 @@ END_PRESS
 ;^^^^^^^^ meta.class.dialog.body keyword.declaration.function.press.end
 
 RESOLUTION
-; <- meta.class.dialog.body keyword.declaration.function.resolution.begin
-;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.resolution.begin
+;<- meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^ meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;         ^ meta.method.resolution.s840d_hmi - keyword
+
+RESOLUTION()
+;<- meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^ meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;         ^^ meta.method.resolution.s840d_hmi invalid.illegal.s840d_hmi
+;           ^ meta.method.resolution.s840d_hmi - keyword - illegal
+
+RESOLUTION ; comment
+;<- meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^ meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;         ^ meta.method.resolution.s840d_hmi - keyword - comment
+;          ^^^^^^^^^^ meta.method.resolution.s840d_hmi comment.line.s840d_hmi
+
+RESOLUTION
+;<- meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^ meta.method.resolution.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;         ^ meta.method.resolution.s840d_hmi - keyword
     LM("MASK")
-;<- meta.class.dialog.body meta.block.method.resolution
-;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.resolution
-;   ^^ meta.function-call
-;     ^^^^^^^^ meta.function-call.arguments
-;   ^^ support.function
+;<- meta.method.resolution.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.resolution.s840d_hmi meta.block.s840d_hmi
+;   ^^ meta.function-call.identifier.s840d_hmi
+;     ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^ support.function.s840d_hmi
 END_RESOLUTION
-; <- meta.class.dialog.body keyword.declaration.function.resolution.end
-;^^^^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.resolution.end
+;<- meta.method.resolution.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^^^^^ meta.method.resolution.s840d_hmi keyword.declaration.method.end.s840d_hmi
 
 RESUME
 ;<- meta.method.resume.s840d_hmi keyword.declaration.method.begin.s840d_hmi
