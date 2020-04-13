@@ -91,7 +91,7 @@ RESOLUTION
 //M
 ; <- meta.class.dialog.s840d_hmi keyword.declaration.class.begin.s840d_hmi
 SUB
-; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi keyword.declaration.function
+; <- meta.class.dialog.body.s840d_hmi meta.block.s840d_hmi meta.method.sub.s840d_hmi keyword.declaration.method
 
 //M(NAME/"TITLE"/"PIC"/0,0,640,480/"VAR"/20,20,64,64/PA1/129/"LANG.COM")
 ;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.class.dialog meta.class.dialog
@@ -762,23 +762,62 @@ END_RESUME
 ; <- meta.class.dialog.body keyword.declaration.function.resume.end
 ;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.resume.end
 
+SUB
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^ meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;  ^ meta.method.sub.s840d_hmi
+
+SUB(
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^ meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;  ^^ meta.method.sub.parameters.s840d_hmi meta.parens.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+
+SUB(sub_name illegal ; comment
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^ meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;  ^^^^^^^^^^^^^^^^^^ meta.method.sub.parameters.s840d_hmi meta.parens.s840d_hmi
+;                    ^^^^^^^^^^ meta.method.sub.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+;   ^^^^^^^^ entity.name.function.s840d_hmi
+;            ^^^^^^^ invalid.illegal.s840d_hmi
+;                    ^^^^^^^^^^ comment.line.s840d_hmi
+
+SUB)
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^ meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;  ^^ meta.method.sub.s840d_hmi
+;  ^ invalid.illegal.s840d_hmi
+
+SUB(sub_name illegal) illegal ; comment
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^ meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;  ^^^^^^^^^^^^^^^^^^ meta.method.sub.parameters.s840d_hmi meta.parens.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+;   ^^^^^^^^ entity.name.function.s840d_hmi
+;            ^^^^^^^ invalid.illegal.s840d_hmi
+;                   ^ punctuation.section.parens.end.s840d_hmi
+;                     ^^^^^^^ invalid.illegal.s840d_hmi
+;                             ^^^^^^^^^^ comment.line.s840d_hmi
+
 SUB(sub_name)
-; <- meta.class.dialog.body keyword.declaration.function.sub.begin
-;^^^^^^^^^^^^^ meta.class.dialog.body
-;  ^^^^^^^^^^ meta.function.parameters.sub.name
-;^^ keyword.declaration.function.sub.begin
-;  ^ punctuation.section.parameters.begin
-;   ^^^^^^^^ string.unquoted entity.name.function
-;           ^ punctuation.section.parameters.end
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^ meta.method.sub.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;  ^^^^^^^^^^ meta.method.sub.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^ keyword.declaration.method.begin.s840d_hmi
+;  ^ punctuation.section.parens.begin.s840d_hmi
+;   ^^^^^^^^ entity.name.function.s840d_hmi
+;           ^ punctuation.section.parens.end.s840d_hmi
     LM("MASK")
-;<- meta.class.dialog.body meta.block.method.sub
-;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.sub
-;   ^^ meta.function-call
-;     ^^^^^^^^ meta.function-call.arguments
-;   ^^ support.function
+;<- meta.method.sub.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.sub.s840d_hmi meta.block.s840d_hmi
+;   ^^ meta.function-call.identifier.s840d_hmi
+;     ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^ support.function.s840d_hmi
 END_SUB
-; <- meta.class.dialog.body keyword.declaration.function.sub.end
-;^^^^^^ meta.class.dialog.body keyword.declaration.function.sub.end
+;<- meta.method.sub.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^ meta.method.sub.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;      ^ - meta.method.sub
 
 SUSPEND
 ; <- meta.class.dialog.body keyword.declaration.function.suspend.begin

@@ -110,8 +110,7 @@ contexts:
     - meta_scope:
         meta.class.array.parameters.name.s840d_hmi
         meta.parens.s840d_hmi
-    - include: parens-end
-    - include: line-end
+    - include: expect-parens-end
 
   class-array-body:
     - meta_scope: meta.class.array.s840d_hmi
@@ -178,8 +177,7 @@ contexts:
     - meta_scope:
         meta.class.subprogram.parameters.name.s840d_hmi
         meta.parens.s840d_hmi
-    - include: parens-end
-    - include: line-end
+    - include: expect-parens-end
 
   class-block-body:
     - meta_scope: meta.class.subprogram.s840d_hmi
@@ -1390,24 +1388,44 @@ contexts:
 
   def-method-sub:
     - match: \b(?i:SUB)\b
-      scope: keyword.declaration.function.sub.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push:
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set:
-            - meta_scope: meta.function.parameters.sub.name.s840d_hmi
-            - match: \)|$
-              scope: punctuation.section.parameters.end.s840d_hmi
-              set: def-method-sub-body
-            - match: \b\w+\b
-              scope: string.unquoted.s840d_hmi entity.name.function.sub.s840d_hmi
-            - include: illegal
-        - include: def-method-sub-body
+        - def-method-sub-body
+        - def-method-sub-parameters
+
+  def-method-sub-parameters:
+    - match: (?=\()
+      set:
+        - def-method-sub-parameters-common
+        - def-method-sub-name
+        - parens-begin
+    - include: else-pop
+
+  def-method-sub-parameters-common:
+    - clear_scopes: 1
+    - meta_scope:
+        meta.method.sub.parameters.s840d_hmi
+        meta.parens.s840d_hmi
+    - include: expect-parens-end
+
+  def-method-sub-name:
+    - match: \b\w+\b
+      scope: entity.name.function.s840d_hmi
+      pop: true
+    - include: else-pop
 
   def-method-sub-body:
-    - meta_content_scope: meta.block.method.sub.s840d_hmi
+    - meta_scope: meta.method.sub.s840d_hmi
+    - match: ^
+      set: def-method-sub-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-sub-body-block:
+    - meta_scope: meta.method.sub.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_SUB)\b
-      scope: keyword.declaration.function.sub.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1897,6 +1915,11 @@ contexts:
     - include: comment
     - include: illegal
 
+  illegal-eol:
+    - match: \n
+      scope: invalid.illegal.unexpected-newline.s840d_hmi
+      pop: true
+
   illegal:
     - match: \S
       scope: invalid.illegal.s840d_hmi
@@ -1915,6 +1938,13 @@ contexts:
     - match: \)
       scope: punctuation.section.parens.end.s840d_hmi
       pop: true
+
+  expect-parens-end:
+    - include: parens-end
+    - include: illegal-eol
+    - match: (?=;)
+      pop: true
+    - include: illegal
 
 ###############################################################################
 # OBJECT MEMBERS
