@@ -1230,15 +1230,24 @@ contexts:
 
   def-method-unload:
     - match: \b(?i:UNLOAD)\b
-      scope: keyword.declaration.function.unload.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-unload-body
 
   def-method-unload-body:
-    - meta_content_scope: meta.block.method.unload.s840d_hmi
+    - meta_scope: meta.method.unload.s840d_hmi
+    - match: ^
+      set: def-method-unload-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-unload-body-block:
+    - meta_scope: meta.method.unload.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_UNLOAD)\b
-      scope: keyword.declaration.function.unload.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
+
 
 ###############################################################################
 # OUTPUT block

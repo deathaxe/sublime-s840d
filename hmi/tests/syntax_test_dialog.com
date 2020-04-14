@@ -681,17 +681,35 @@ END_LOAD
 ;^^^^^^^ meta.class.dialog.body keyword.declaration.function.load.end
 
 UNLOAD
-; <- meta.class.dialog.body keyword.declaration.function.unload.begin
-;^^^^^ meta.class.dialog.body keyword.declaration.function.unload.begin
+;<- meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^ meta.method.unload.s840d_hmi - keyword
+
+UNLOAD()
+;<- meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^^ meta.method.unload.s840d_hmi invalid.illegal.s840d_hmi
+;       ^ meta.method.unload.s840d_hmi - keyword - illegal
+
+UNLOAD ; comment
+;<- meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^ meta.method.unload.s840d_hmi - keyword - comment
+;      ^^^^^^^^^^ meta.method.unload.s840d_hmi comment.line.s840d_hmi
+
+UNLOAD
+;<- meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi
     LM("MASK")
-;<- meta.class.dialog.body meta.block.method.unload
-;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.unload
-;   ^^ meta.function-call
-;     ^^^^^^^^ meta.function-call.arguments
-;   ^^ support.function
+;<- meta.method.unload.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.unload.s840d_hmi meta.block.s840d_hmi
+;   ^^ meta.function-call.identifier.s840d_hmi
+;     ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^ support.function.s840d_hmi
 END_UNLOAD
-; <- meta.class.dialog.body keyword.declaration.function.unload.end
-;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.unload.end
+;<- meta.method.unload.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^ meta.method.unload.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;         ^ - meta.method.unload
 
 OUTPUT(output_name, 1)
 ; <- meta.class.dialog.body keyword.declaration.function.output.begin
