@@ -1149,25 +1149,44 @@ contexts:
 
   def-method-focus:
     - match: \b(?i:FOCUS)\b
-      scope: keyword.declaration.function.focus.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push:
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set:
-            - meta_scope: meta.function.parameters.focus.s840d_hmi
-            - match: \)|$
-              scope: punctuation.section.parameters.end.s840d_hmi
-              set: def-method-focus-body
-            - include: operand
-            - include: illegal
-        - match: $
-          set: def-method-focus-body
-        - include: illegal
+        - def-method-focus-body
+        - def-method-focus-parameters
+
+  def-method-focus-parameters:
+    - match: (?=\()
+      set:
+        - def-method-focus-parameters-common
+        - def-method-focus-operand
+        - parens-begin
+    - include: else-pop
+
+  def-method-focus-parameters-common:
+    - clear_scopes: 1
+    - meta_scope:
+        meta.method.focus.parameters.s840d_hmi
+        meta.parens.s840d_hmi
+    - include: expect-parens-end
+
+  def-method-focus-operand:
+    - match: \b\w+\b
+      scope: variable.other.s840d_hmi
+      set: operand-index
+    - include: else-pop
 
   def-method-focus-body:
-    - meta_content_scope: meta.block.method.focus.s840d_hmi
+    - meta_scope: meta.method.focus.s840d_hmi
+    - match: ^
+      set: def-method-focus-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-focus-body-block:
+    - meta_scope: meta.method.focus.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_FOCUS)\b
-      scope: keyword.declaration.function.focus.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 

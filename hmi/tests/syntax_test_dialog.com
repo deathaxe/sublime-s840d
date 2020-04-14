@@ -520,17 +520,57 @@ END_CONTROL
 ; <- meta.class.dialog.body keyword.declaration.function.control.end
 ;^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.control.end
 
+FOCUS
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^ meta.method.focus.s840d_hmi
+
+FOCUS(
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^ meta.method.focus.parameters.s840d_hmi meta.parens.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+
+FOCUS(HS1 illegal ; comment
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^^^^^^^^^^^^ meta.method.focus.parameters.s840d_hmi meta.parens.s840d_hmi
+;                 ^^^^^^^^^^ meta.method.focus.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+;     ^^^ variable.other.s840d_hmi
+;         ^^^^^^^ invalid.illegal.s840d_hmi
+;                 ^^^^^^^^^^ comment.line.s840d_hmi
+
+FOCUS)
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^ meta.method.focus.s840d_hmi
+;    ^ invalid.illegal.s840d_hmi
+
+FOCUS(RECALL illegal) illegal ; comment
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^^^^^^^^^^^^^^^^ meta.method.focus.parameters.s840d_hmi meta.parens.s840d_hmi
+;                    ^^^^^^^^^^^^^^^^^^^ meta.method.focus.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+;     ^^^^^^ variable.other.s840d_hmi
+;            ^^^^^^^ invalid.illegal.s840d_hmi
+;                   ^ punctuation.section.parens.end.s840d_hmi
+;                     ^^^^^^^ invalid.illegal.s840d_hmi
+;                             ^^^^^^^^^^ comment.line.s840d_hmi
+
 FOCUS(var_name)
-; <- meta.class.dialog.body keyword.declaration.function.focus.begin
-;^^^^^^^^^^^^^^^ meta.class.dialog.body
-;    ^^^^^^^^^^ meta.function.parameters.focus
-;^^^^ keyword.declaration.function.focus.begin
-;    ^ punctuation.section.parameters.begin
-;     ^^^^^^^^ variable.other
-;             ^ punctuation.section.parameters.end
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;    ^ meta.method.focus.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^ keyword.declaration.method.begin.s840d_hmi
+;    ^ punctuation.section.parens.begin.s840d_hmi
+;     ^^^^^^^^ variable.other.s840d_hmi
+;             ^ punctuation.section.parens.end.s840d_hmi
 END_FOCUS
-; <- meta.class.dialog.body keyword.declaration.function.focus.end
-;^^^^^^^^ meta.class.dialog.body keyword.declaration.function.focus.end
+;<- meta.method.focus.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^ meta.method.focus.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;        ^ - meta.method.focus - keyword
 
 LANGUAGE
 ;<- meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
