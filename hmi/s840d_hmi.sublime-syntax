@@ -1346,39 +1346,62 @@ contexts:
 
   def-method-output:
     - match: \b(?i:OUTPUT)\b
-      scope: keyword.declaration.function.output.begin.s840d_hmi
-      push: def-method-output-argument
+      scope: keyword.declaration.method.begin.s840d_hmi
+      push:
+        - def-method-output-body
+        - def-method-output-parameters
 
-  def-method-output-argument:
-    - match: \(
-      scope: punctuation.section.parameters.begin.s840d_hmi
-      set: def-method-output-argument-name
-    - include: line-end
+  def-method-output-parameters:
+    - match: (?=\()
+      set:
+        - def-method-output-parameters-end
+        - def-method-output-version
+        - def-method-output-separator
+        - def-method-output-operand
+        - parens-begin
+    - include: else-pop
 
-  def-method-output-argument-name:
-    - meta_scope: meta.function.parameters.output.name.s840d_hmi
+  def-method-output-operand:
+    - match: \b\w+\b
+      scope: entity.name.function.s840d_hmi
+      pop: true
+    - include: else-pop
+
+  def-method-output-separator:
     - match: ','
       scope: punctuation.separator.s840d_hmi
-      set: def-method-output-argument-version
-    - match: \b\w+\b
-      scope: string.unquoted.s840d_hmi entity.name.function.output.s840d_hmi
-    - include: def-method-output-argument-end
+      pop: true
+    - include: else-pop
 
-  def-method-output-argument-version:
-    - meta_content_scope: meta.function.parameters.output.version.s840d_hmi
-    - include: number
-    - include: def-method-output-argument-end
+  def-method-output-version:
+    - match: \d+
+      scope: constant.numeric.integer.s840d_hmi
+      pop: true
+    - include: else-pop
 
-  def-method-output-argument-end:
-    - match: \)|$
-      scope: punctuation.section.parameters.end.s840d_hmi
-      set: def-method-output-body
-    - include: illegal
+  def-method-output-parameters-end:
+    - clear_scopes: 1
+    - meta_scope:
+        meta.method.output.parameters.s840d_hmi
+        meta.parens.s840d_hmi
+    - include: expect-parens-end
 
   def-method-output-body:
-    - meta_content_scope: meta.block.method.output.s840d_hmi
+    - meta_scope: meta.method.output.s840d_hmi
+    - match: ^
+      set: def-method-output-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-output-body-block:
+    - meta_scope: meta.method.output.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_OUTPUT)\b
-      scope: keyword.declaration.function.output.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
+      pop: true
+    - match: '{{method_end_ahead}}'
+      pop: true
+    - match: '{{class_end_ahead}}'
       pop: true
     # register not allowed in output
     - match: \b(?i:REG)\b

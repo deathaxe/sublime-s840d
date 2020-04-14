@@ -947,20 +947,57 @@ END_UNLOAD
 ;^^^^^^^^^ meta.method.unload.s840d_hmi keyword.declaration.method.end.s840d_hmi
 ;         ^ - meta.method.unload
 
+OUTPUT
+;<- meta.method.output.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.output.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ - keyword
+
+OUTPUT(
+;<- meta.method.output.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.output.s840d_hmi
+;     ^^ meta.method.output.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+
+OUTPUT(,
+;<- meta.method.output.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.output.s840d_hmi
+;     ^^^ meta.method.output.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^ punctuation.separator.s840d_hmi
+
+OUTPUT(name
+;<- meta.method.output.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.output.s840d_hmi
+;     ^^^^^^ meta.method.output.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^^^^ entity.name.function.s840d_hmi
+
+OUTPUT(,0)
+;<- meta.method.output.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.output.s840d_hmi
+;     ^^^^ meta.method.output.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^ punctuation.separator.s840d_hmi
+;       ^ constant.numeric.integer.s840d_hmi
+
 OUTPUT(output_name, 1)
-; <- meta.class.dialog.body keyword.declaration.function.output.begin
-;^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body
-;     ^^^^^^^^^^^^ meta.function.parameters.output.name
-;                  ^^^ meta.function.parameters.output.version
-;^^^^^ keyword.declaration.function.output.begin
-;     ^ punctuation.section.parameters.begin
-;      ^^^^^^^^^^^ string.unquoted entity.name.function.output
-;                 ^ punctuation.separator
-;                   ^ constant.numeric.integer
-;                    ^ punctuation.section.parameters.end
+;<- meta.method.output.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.output.s840d_hmi
+;     ^^^^^^^^^^^^^^^^ meta.method.output.parameters.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^^^^^^^^^^^ entity.name.function.s840d_hmi
+;                 ^ punctuation.separator.s840d_hmi
+;                   ^ constant.numeric.integer.s840d_hmi
+;                    ^ punctuation.section.parens.end.s840d_hmi
    "CYCLE(""" FOO """," BAR "," BAZ ")"
-; <- meta.class.dialog.body meta.block.method.output
-;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.output
+;<- meta.method.output.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.method.output.s840d_hmi meta.block.s840d_hmi
 ;  ^^^^^^^^^^ string.quoted.double
 ;             ^^^ variable.other
 ;                 ^^^^^ string.quoted.double
@@ -969,8 +1006,9 @@ OUTPUT(output_name, 1)
 ;                               ^^^ variable.other
 ;                                   ^^^ string.quoted.double
 END_OUTPUT
-; <- meta.class.dialog.body keyword.declaration.function.output.end
-;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.output.end
+;<- meta.method.output.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^ meta.method.output.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;         ^ - meta.method.output
 
 PRESS
 ;<- meta.method.press.s840d_hmi keyword.declaration.method.begin.s840d_hmi
