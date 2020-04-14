@@ -1103,13 +1103,21 @@ contexts:
 
   def-method-channel:
     - match: \b(?i:CHANNEL)\b
-      scope: keyword.declaration.function.channel.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-channel-body
 
   def-method-channel-body:
-    - meta_content_scope: meta.block.method.channel.s840d_hmi
+    - meta_scope: meta.method.channel.s840d_hmi
+    - match: ^
+      set: def-method-channel-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-channel-body-block:
+    - meta_scope: meta.method.channel.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_CHANNEL)\b
-      scope: keyword.declaration.function.channel.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
