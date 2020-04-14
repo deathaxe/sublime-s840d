@@ -1045,13 +1045,21 @@ contexts:
 
   def-method-activate:
     - match: \b(?i:ACTIVATE)\b
-      scope: keyword.declaration.function.activate.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-activate-body
 
   def-method-activate-body:
-    - meta_content_scope: meta.block.method.activate.s840d_hmi
+    - meta_scope: meta.method.activate.s840d_hmi
+    - match: ^
+      set: def-method-activate-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-activate-body-block:
+    - meta_scope: meta.method.activate.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_ACTIVATE)\b
-      scope: keyword.declaration.function.activate.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 

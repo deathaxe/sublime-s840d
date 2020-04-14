@@ -494,6 +494,40 @@ DEF FOO(2) = (S32), ; comment
 ;                      ^^^ constant.language.attribute.state
 ;                         ^ punctuation.section.parameters.end
 
+ACTIVATE
+;<- meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;       ^ meta.method.activate.s840d_hmi - keyword
+
+ACTIVATE()
+;<- meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;       ^^ meta.method.activate.s840d_hmi invalid.illegal.s840d_hmi
+;         ^ meta.method.activate.s840d_hmi - keyword - illegal
+
+ACTIVATE ; comment
+;<- meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;       ^ meta.method.activate.s840d_hmi - keyword - comment
+;        ^^^^^^^^^^ meta.method.activate.s840d_hmi comment.line.s840d_hmi
+
+ACTIVATE
+;<- meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+    DLGL(S_LANG)
+;<- meta.method.activate.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^ meta.method.activate.s840d_hmi meta.block.s840d_hmi
+;   ^^^^ meta.function-call.identifier.s840d_hmi
+;       ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^^^ support.function
+;       ^ punctuation.section.parens.begin
+;        ^^^^^^ support.variable.language
+;              ^ punctuation.section.parens.end
+END_ACTIVATE
+;<- meta.method.activate.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;           ^ - meta.method.activate
+
 CHANGE(var_name)
 ; <- meta.class.dialog.body keyword.declaration.function.change.begin
 ;^^^^^^^^^^^^^^^^ meta.class.dialog.body
