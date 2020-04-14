@@ -533,11 +533,28 @@ END_FOCUS
 ;^^^^^^^^ meta.class.dialog.body keyword.declaration.function.focus.end
 
 LANGUAGE
-; <- meta.class.dialog.body keyword.declaration.function.language.begin
-;^^^^^^^ meta.class.dialog.body keyword.declaration.function.language.begin
+;<- meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;       ^ meta.method.language.s840d_hmi - keyword
+
+LANGUAGE()
+;<- meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;       ^^ meta.method.language.s840d_hmi invalid.illegal.s840d_hmi
+;         ^ meta.method.language.s840d_hmi - keyword - illegal
+
+LANGUAGE ; comment
+;<- meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;       ^ meta.method.language.s840d_hmi - keyword - comment
+;        ^^^^^^^^^^ meta.method.language.s840d_hmi comment.line.s840d_hmi
+
+LANGUAGE
+;<- meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^ meta.method.language.s840d_hmi keyword.declaration.method.begin.s840d_hmi
     DLGL(S_LANG)
-;<- meta.class.dialog.body meta.block.method.language
-;^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.language
+;<- meta.method.language.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^ meta.method.language.s840d_hmi meta.block.s840d_hmi
 ;   ^^^^ meta.function-call.identifier.s840d_hmi
 ;       ^^^^^^^^ meta.function-call.arguments.s840d_hmi
 ;   ^^^^ support.function
@@ -545,10 +562,8 @@ LANGUAGE
 ;        ^^^^^^ support.variable.language
 ;              ^ punctuation.section.parens.end
 END_LANGUAGE
-; <- meta.class.dialog.body keyword.declaration.function.language.end
-;^^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.language.end
-
-; METHOD SYNTAX TESTS
+;<- meta.method.language.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^^^ meta.method.language.s840d_hmi keyword.declaration.method.end.s840d_hmi
 
 LOAD
 ;<- meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi

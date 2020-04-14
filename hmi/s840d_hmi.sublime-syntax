@@ -1184,13 +1184,21 @@ contexts:
 
   def-method-language:
     - match: \b(?i:LANGUAGE)\b
-      scope: keyword.declaration.function.language.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-language-body
 
   def-method-language-body:
-    - meta_content_scope: meta.block.method.language.s840d_hmi
+    - meta_scope: meta.method.language.s840d_hmi
+    - match: ^
+      set: def-method-language-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-language-body-block:
+    - meta_scope: meta.method.language.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_LANGUAGE)\b
-      scope: keyword.declaration.function.language.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
@@ -1255,7 +1263,6 @@ contexts:
       scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
-
 
 ###############################################################################
 # OUTPUT block
