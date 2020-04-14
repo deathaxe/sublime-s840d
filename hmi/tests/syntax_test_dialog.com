@@ -514,11 +514,38 @@ END_CHANNEL
 ;^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.channel.end
 
 CONTROL
-; <- meta.class.dialog.body keyword.declaration.function.control.begin
-;^^^^^^ meta.class.dialog.body keyword.declaration.function.control.begin
+;<- meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^ meta.method.control.s840d_hmi - keyword
+
+CONTROL()
+;<- meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^^ meta.method.control.s840d_hmi invalid.illegal.s840d_hmi
+;        ^ meta.method.control.s840d_hmi - keyword - illegal
+
+CONTROL ; comment
+;<- meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^ meta.method.control.s840d_hmi - keyword - comment
+;       ^^^^^^^^^^ meta.method.control.s840d_hmi comment.line.s840d_hmi
+
+CONTROL
+;<- meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.control.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+    DLGL(S_LANG)
+;<- meta.method.control.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^ meta.method.control.s840d_hmi meta.block.s840d_hmi
+;   ^^^^ meta.function-call.identifier.s840d_hmi
+;       ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^^^ support.function
+;       ^ punctuation.section.parens.begin
+;        ^^^^^^ support.variable.language
+;              ^ punctuation.section.parens.end
 END_CONTROL
-; <- meta.class.dialog.body keyword.declaration.function.control.end
-;^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.control.end
+;<- meta.method.control.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^^ meta.method.control.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;          ^ - meta.method.control
 
 FOCUS
 ;<- meta.method.focus.s840d_hmi keyword.declaration.method.begin.s840d_hmi

@@ -1126,13 +1126,21 @@ contexts:
 
   def-method-control:
     - match: \b(?i:CONTROL)\b
-      scope: keyword.declaration.function.control.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-control-body
 
   def-method-control-body:
-    - meta_content_scope: meta.block.method.control.s840d_hmi
+    - meta_scope: meta.method.control.s840d_hmi
+    - match: ^
+      set: def-method-control-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-control-body-block:
+    - meta_scope: meta.method.control.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_CONTROL)\b
-      scope: keyword.declaration.function.control.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
