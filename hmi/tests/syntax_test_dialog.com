@@ -528,17 +528,57 @@ END_ACTIVATE
 ;^^^^^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.end.s840d_hmi
 ;           ^ - meta.method.activate
 
+CHANGE
+;<- meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^ meta.method.change.s840d_hmi
+
+CHANGE(
+;<- meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^^ meta.method.change.parameters.s840d_hmi meta.parens.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+
+CHANGE(HS1 illegal ; comment
+;<- meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^^^^^^^^^^^^^ meta.method.change.parameters.s840d_hmi meta.parens.s840d_hmi
+;                  ^^^^^^^^^^ meta.method.change.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^^^ variable.other.s840d_hmi
+;          ^^^^^^^ invalid.illegal.s840d_hmi
+;                  ^^^^^^^^^^ comment.line.s840d_hmi
+
+CHANGE)
+;<- meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^^ meta.method.change.s840d_hmi
+;     ^ invalid.illegal.s840d_hmi
+
+CHANGE(RECALL illegal) illegal ; comment
+;<- meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^^^^^^^^^^^^^^^^ meta.method.change.parameters.s840d_hmi meta.parens.s840d_hmi
+;                     ^^^^^^^^^^^^^^^^^^^ meta.method.change.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^^^^^^ variable.other.s840d_hmi
+;             ^^^^^^^ invalid.illegal.s840d_hmi
+;                    ^ punctuation.section.parens.end.s840d_hmi
+;                      ^^^^^^^ invalid.illegal.s840d_hmi
+;                              ^^^^^^^^^^ comment.line.s840d_hmi
+
 CHANGE(var_name)
-; <- meta.class.dialog.body keyword.declaration.function.change.begin
-;^^^^^^^^^^^^^^^^ meta.class.dialog.body
-;     ^^^^^^^^^^ meta.function.parameters.change
-;^^^^^ keyword.declaration.function.change.begin
-;     ^ punctuation.section.parameters.begin
-;      ^^^^^^^^ variable.other
-;              ^ punctuation.section.parameters.end
+;<- meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;     ^ meta.method.change.parameters.s840d_hmi meta.parens.s840d_hmi
+;^^^^^ keyword.declaration.method.begin.s840d_hmi
+;     ^ punctuation.section.parens.begin.s840d_hmi
+;      ^^^^^^^^ variable.other.s840d_hmi
+;              ^ punctuation.section.parens.end.s840d_hmi
 END_CHANGE
-; <- meta.class.dialog.body keyword.declaration.function.change.end
-;^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.change.end
+;<- meta.method.change.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^ meta.method.change.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;         ^ - meta.method.change - keyword
 
 CHANNEL
 ;<- meta.method.channel.s840d_hmi keyword.declaration.method.begin.s840d_hmi

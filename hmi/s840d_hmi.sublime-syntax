@@ -1076,25 +1076,44 @@ contexts:
 
   def-method-change:
     - match: \b(?i:CHANGE)\b
-      scope: keyword.declaration.function.change.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push:
-        - match: \(
-          scope: punctuation.section.parameters.begin.s840d_hmi
-          set:
-            - meta_scope: meta.function.parameters.change.s840d_hmi
-            - match: \)|$
-              scope: punctuation.section.parameters.end.s840d_hmi
-              set: def-method-change-body
-            - include: operand
-            - include: illegal
-        - match: $
-          set: def-method-change-body
-        - include: illegal
+        - def-method-change-body
+        - def-method-change-parameters
+
+  def-method-change-parameters:
+    - match: (?=\()
+      set:
+        - def-method-change-parameters-common
+        - def-method-change-operand
+        - parens-begin
+    - include: else-pop
+
+  def-method-change-parameters-common:
+    - clear_scopes: 1
+    - meta_scope:
+        meta.method.change.parameters.s840d_hmi
+        meta.parens.s840d_hmi
+    - include: expect-parens-end
+
+  def-method-change-operand:
+    - match: \b\w+\b
+      scope: variable.other.s840d_hmi
+      set: operand-index
+    - include: else-pop
 
   def-method-change-body:
-    - meta_content_scope: meta.block.method.change.s840d_hmi
+    - meta_scope: meta.method.change.s840d_hmi
+    - match: ^
+      set: def-method-change-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-change-body-block:
+    - meta_scope: meta.method.change.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_CHANGE)\b
-      scope: keyword.declaration.function.change.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
