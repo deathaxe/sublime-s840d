@@ -549,28 +549,46 @@ END_LANGUAGE
 ;^^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.language.end
 
 ; METHOD SYNTAX TESTS
+
 LOAD
-; <- meta.class.dialog.body keyword.declaration.function.load.begin
-;^^^ meta.class.dialog.body keyword.declaration.function.load.begin
+;<- meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^ meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;   ^ meta.method.load.s840d_hmi - keyword
+
+LOAD()
+;<- meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^ meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;   ^^ meta.method.load.s840d_hmi invalid.illegal.s840d_hmi
+;     ^ meta.method.load.s840d_hmi - keyword - illegal
+
+LOAD ; comment
+;<- meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^ meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;   ^ meta.method.load.s840d_hmi - keyword - comment
+;    ^^^^^^^^^^ meta.method.load.s840d_hmi comment.line.s840d_hmi
+
+LOAD
+;<- meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^ meta.method.load.s840d_hmi keyword.declaration.method.begin.s840d_hmi
     Hd="dialog title"
-; <- meta.class.dialog.body meta.block.method.load
-;^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.load
+;<-  meta.method.load.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^^^^^^ meta.method.load.s840d_hmi meta.block.s840d_hmi
 ;   ^^ entity.other.attribute-name
 ;     ^ keyword.operator.assignment
 ;      ^ punctuation.definition.string.begin
 ;      ^^^^^^^^^^^^^^ string.quoted.double
 ;                   ^ punctuation.definition.string.end
     VS1.ac=7
-; <- meta.class.dialog.body meta.block.method.load
-;^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.load
+;<-  meta.method.load.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^ meta.method.load.s840d_hmi meta.block.s840d_hmi
 ;   ^^^ entity.name.softkey
 ;      ^ punctuation.accessor
 ;       ^^ entity.other.attribute-name
 ;         ^ keyword.operator.assignment
 ;          ^ constant.numeric.integer
     FOO.val = RNP( "DB10.DBB25" )
-; <- meta.class.dialog.body meta.block.method.load
-;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.load
+;<-  meta.method.load.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.method.load.s840d_hmi meta.block.s840d_hmi
 ;             ^^^ meta.function-call - meta.function-call.arguments
 ;                ^^^^^^^^^^^^^^^^ meta.function-call.arguments
 ;                                ^ - meta.function-call
@@ -677,8 +695,9 @@ LOAD
     END_SWITCH
 ;   ^^^^^^^^^^ keyword.control.flow.conditional
 END_LOAD
-; <- meta.class.dialog.body keyword.declaration.function.load.end
-;^^^^^^^ meta.class.dialog.body keyword.declaration.function.load.end
+;<- meta.method.load.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^ meta.method.load.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;       ^ - meta.method.load
 
 UNLOAD
 ;<- meta.method.unload.s840d_hmi keyword.declaration.method.begin.s840d_hmi

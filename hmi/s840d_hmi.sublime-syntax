@@ -1207,13 +1207,21 @@ contexts:
 
   def-method-load:
     - match: \b(?i:LOAD)\b
-      scope: keyword.declaration.function.load.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-load-body
 
   def-method-load-body:
-    - meta_content_scope: meta.block.method.load.s840d_hmi
+    - meta_scope: meta.method.load.s840d_hmi
+    - match: ^
+      set: def-method-load-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-load-body-block:
+    - meta_scope: meta.method.load.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_LOAD)\b
-      scope: keyword.declaration.function.load.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
