@@ -494,6 +494,40 @@ DEF FOO(2) = (S32), ; comment
 ;                      ^^^ constant.language.attribute.state
 ;                         ^ punctuation.section.parameters.end
 
+ACCESSLEVEL
+;<- meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^^ meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;          ^ meta.method.accesslevel.s840d_hmi - keyword
+
+ACCESSLEVEL()
+;<- meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^^ meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;          ^^ meta.method.accesslevel.s840d_hmi invalid.illegal.s840d_hmi
+;            ^ meta.method.accesslevel.s840d_hmi - keyword - illegal
+
+ACCESSLEVEL ; comment
+;<- meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^^ meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;          ^ meta.method.accesslevel.s840d_hmi - keyword - comment
+;           ^^^^^^^^^^ meta.method.accesslevel.s840d_hmi comment.line.s840d_hmi
+
+ACCESSLEVEL
+;<- meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^^^^^ meta.method.accesslevel.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+    DLGL(S_LANG)
+;<- meta.method.accesslevel.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^^^ meta.method.accesslevel.s840d_hmi meta.block.s840d_hmi
+;   ^^^^ meta.function-call.identifier.s840d_hmi
+;       ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^^^ support.function
+;       ^ punctuation.section.parens.begin
+;        ^^^^^^ support.variable.language
+;              ^ punctuation.section.parens.end
+END_ACCESSLEVEL
+;<- meta.method.accesslevel.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.accesslevel.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;              ^ - meta.method.accesslevel
+
 ACTIVATE
 ;<- meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi
 ;^^^^^^^ meta.method.activate.s840d_hmi keyword.declaration.method.begin.s840d_hmi

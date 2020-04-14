@@ -1023,13 +1023,21 @@ contexts:
 
   def-method-accesslevel:
     - match: \b(?i:ACCESSLEVEL)\b
-      scope: keyword.declaration.function.accesslevel.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-accesslevel-body
 
   def-method-accesslevel-body:
-    - meta_content_scope: meta.block.method.accesslevel.s840d_hmi
+    - meta_scope: meta.method.accesslevel.s840d_hmi
+    - match: ^
+      set: def-method-accesslevel-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-accesslevel-body-block:
+    - meta_scope: meta.method.accesslevel.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_ACCESSLEVEL)\b
-      scope: keyword.declaration.function.accesslevel.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
