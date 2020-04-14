@@ -820,17 +820,36 @@ END_SUB
 ;      ^ - meta.method.sub
 
 SUSPEND
-; <- meta.class.dialog.body keyword.declaration.function.suspend.begin
-;^^^^^^ meta.class.dialog.body keyword.declaration.function.suspend.begin
+;<- meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^ meta.method.s840d_hmi - keyword
+
+SUSPEND()
+;<- meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^^ meta.method.s840d_hmi invalid.illegal.s840d_hmi
+;        ^ meta.method.s840d_hmi - keyword - illegal
+
+SUSPEND ; comment
+;<- meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^ meta.method.s840d_hmi - keyword - comment
+;       ^^^^^^^^^^ meta.method.s840d_hmi comment.line.s840d_hmi
+
+SUSPEND
+;<- meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;^^^^^^ meta.method.s840d_hmi keyword.declaration.method.begin.s840d_hmi
+;      ^ meta.method.s840d_hmi - keyword
     LM("MASK")
-;<- meta.class.dialog.body meta.block.method.suspend
-;^^^^^^^^^^^^^^^ meta.class.dialog.body meta.block.method.suspend
-;   ^^ meta.function-call
-;     ^^^^^^^^ meta.function-call.arguments
-;   ^^ support.function
+;<- meta.method.s840d_hmi meta.block.s840d_hmi
+;^^^^^^^^^^^^^^ meta.method.s840d_hmi meta.block.s840d_hmi
+;   ^^ meta.function-call.identifier.s840d_hmi
+;     ^^^^^^^^ meta.function-call.arguments.s840d_hmi
+;   ^^ support.function.s840d_hmi
 END_SUSPEND
-; <- meta.class.dialog.body keyword.declaration.function.suspend.end
-;^^^^^^^^^^ meta.class.dialog.body keyword.declaration.function.suspend.end
+;<- meta.method.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;^^^^^^^^^^ meta.method.s840d_hmi keyword.declaration.method.end.s840d_hmi
+;          ^ - meta.method
 
 //END    ; //M(NAME)
 ; <- meta.class.dialog.s840d_hmi keyword.declaration.class.end.s840d_hmi

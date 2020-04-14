@@ -1442,13 +1442,21 @@ contexts:
 
   def-method-suspend:
     - match: \b(?i:SUSPEND)\b
-      scope: keyword.declaration.function.suspend.begin.s840d_hmi
+      scope: keyword.declaration.method.begin.s840d_hmi
       push: def-method-suspend-body
 
   def-method-suspend-body:
-    - meta_content_scope: meta.block.method.suspend.s840d_hmi
+    - meta_scope: meta.method.s840d_hmi
+    - match: ^
+      set: def-method-suspend-body-block
+    - include: comment
+    - include: illegal
+
+  def-method-suspend-body-block:
+    - meta_scope: meta.method.s840d_hmi
+    - meta_content_scope: meta.block.s840d_hmi
     - match: \b(?i:END_SUSPEND)\b
-      scope: keyword.declaration.function.suspend.end.s840d_hmi
+      scope: keyword.declaration.method.end.s840d_hmi
       pop: true
     - include: statements
 
