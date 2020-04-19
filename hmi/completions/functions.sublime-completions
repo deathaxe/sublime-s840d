@@ -2,339 +2,507 @@
 	"scope": "source.s840d_hmi & meta.method meta.block - meta.operand.attribute - meta.softkey.attribute - comment - string",
 	"completions": [
 		{
-			"trigger": "ABS(VAL)\tabsolute value",
+			"trigger": "ABS(VAL)",
+			"annotation": "absolute value",
+			"kind": "function",
 			"contents": "ABS(${1:VAL})"
 		},
 		{
-			"trigger": "CALC_ACOS(VAL)\tarcus cosinus",
+			"trigger": "CALC_ACOS(VAL)",
+			"annotation": "arcus cosinus",
+			"kind": "function",
 			"contents": "CALC_ACOS(${1:VAL})"
 		},
 		{
-			"trigger": "CALC_ASIN(VAL)\tarcus sinus",
+			"trigger": "CALC_ASIN(VAL)",
+			"annotation": "arcus sinus",
+			"kind": "function",
 			"contents": "CALC_ASIN(${1:VAL})"
 		},
 		{
-			"trigger": "CALC_CEIL(VAL)\tround up",
+			"trigger": "CALC_CEIL(VAL)",
+			"annotation": "round up",
+			"kind": "function",
 			"contents": "CALC_CEIL(${1:VAL})"
 		},
 		{
-			"trigger": "CALC_FLOOR(VAL)\tround down",
+			"trigger": "CALC_FLOOR(VAL)",
+			"annotation": "round down",
+			"kind": "function",
 			"contents": "CALC_FLOOR(${1:VAL})"
 		},
 		{
-			"trigger": "CALC_LOG10(VAL)\tlog base 10",
+			"trigger": "CALC_LOG10(VAL)",
+			"annotation": "log base 10",
+			"kind": "function",
 			"contents": "CALC_LOG10(${1:VAL})"
 		},
 		{
-			"trigger": "CALC_MAX(VAL1,VAL2)\tlog base 10",
+			"trigger": "CALC_MAX(VAL1,VAL2)",
+			"annotation": "maximum value",
+			"kind": "function",
 			"contents": "CALC_MAX(${1:VAL1},${2:VAL2})"
 		},
 		{
-			"trigger": "CALC_MIN(VAL1,VAL2)\tlog base 10",
+			"trigger": "CALC_MIN(VAL1,VAL2)",
+			"annotation": "minimum value",
+			"kind": "function",
 			"contents": "CALC_MIN(${1:VAL1},${2:VAL2})"
 		},
 		{
-			"trigger": "CALC_POW(VAL,EXP)\tlog base 10",
+			"trigger": "CALC_POW(VAL,EXP)",
+			"annotation": "exponent",
+			"kind": "function",
 			"contents": "CALC_POW(${1:VAL},${2:EXP})"
 		},
 		{
-			"trigger": "CALL(SUB)\texists program",
+			"trigger": "CALL(SUB)",
+			"annotation": "exists program",
+			"kind": "function",
 			"contents": "CALL(\"${1:SUB}\")"
 		},
 		{
-			"trigger": "CLEAR_BACKGROUND\tdelete lines",
+			"trigger": "CLEAR_BACKGROUND",
+			"annotation": "delete lines",
+			"kind": "function",
 			"contents": "CLEAR_BACKGROUND"
 		},
 		{
-			"trigger": "COS(VAL)\tcosinus",
+			"trigger": "COS(VAL)",
+			"annotation": "cosinus",
+			"kind": "function",
 			"contents": "COS(${1:VAL})"
 		},
 		{
-			"trigger": "CP(SRC,DST,ERR)\tcopy program",
+			"trigger": "CP(SRC,DST,ERR)",
+			"annotation": "copy program",
+			"kind": "function",
 			"contents": "CP(\"${1:SRC}\",\"${2:DST}\",${3:ERR})"
 		},
 		{
-			"trigger": "CVAR(VAL)\tcheck variable",
+			"trigger": "CVAR(VAL)",
+			"annotation": "check variable",
+			"kind": "function",
 			"contents": "CVAR(${1:VAL})"
 		},
 		{
-			"trigger": "DEBUG(TXT)\tprint to easyscreen_log.txt",
+			"trigger": "DEBUG(TXT)",
+			"annotation": "print to easyscreen_log.txt",
+			"kind": "function",
 			"contents": "DEBUG(${1:TXT})"
 		},
 		{
-			"trigger": "DLGL(TEXT)\tdialog message",
+			"trigger": "DLGL(TEXT)",
+			"annotation": "dialog message",
+			"kind": "function",
 			"contents": "DLGL(\"${1:message}\")"
 		},
 		{
-			"trigger": "DP(PATH,ERR)\tdelete program",
+			"trigger": "DP(PATH,ERR)",
+			"annotation": "delete program",
+			"kind": "function",
 			"contents": "DP(\"${1:PATH}\",${3:ERR})"
 		},
 		{
-			"trigger": "ELLIPSE(x,y,w,h,f1,f2,s)\tdraw ellipse",
+			"trigger": "ELLIPSE(x,y,w,h,f1,f2,s)",
+			"annotation": "draw ellipse",
+			"kind": "function",
 			"contents": "ELLIPSE(${1:x},${2:y},${3:w},${4:h},${5:f1},${6:f2},${7:s})"
 		},
 		{
-			"trigger": "EP(PATH)\texists program",
+			"trigger": "EP(PATH)",
+			"annotation": "exists program",
+			"kind": "function",
 			"contents": "EP(\"${1:PATH}\")"
 		},
 		{
-			"trigger": "EVAL(VAL)\tevaluate",
+			"trigger": "EVAL(VAL)",
+			"annotation": "evaluate",
+			"kind": "function",
 			"contents": "EVAL(${1:VAL})"
 		},
 		{
-			"trigger": "EXIT\texit dialog",
+			"trigger": "EXIT",
+			"annotation": "exit dialog",
+			"kind": "function",
 			"contents": "EXIT"
 		},
 		{
-			"trigger": "EXITLS\texit menu",
+			"trigger": "EXITLS",
+			"annotation": "exit menu",
+			"kind": "function",
 			"contents": "EXITLS"
 		},
 		{
-			"trigger": "FORMAT(FORMAT,VAR,...)\tcreate formatted string",
+			"trigger": "FORMAT(FORMAT,VAR,...)",
+			"annotation": "create formatted string",
+			"kind": "function",
 			"contents": "FORMAT(\"${1:FORMAT}\",${2:VAR}${2:,${3:...}})"
 		},
 		{
-			"trigger": "GC(OUTPUT,DST,COMMENTS,APPEND)\tgenerate code",
+			"trigger": "GC(OUTPUT,DST,COMMENTS,APPEND)",
+			"annotation": "generate code",
+			"kind": "function",
 			"contents": "GC(\"${1:OUTPUT}\",\"${2:DST}\",${3:TRUE},${4:FALSE})"
 		},
 		{
-			"trigger": "H_SEPARATOR(y,w,f,s)\tdraw horizontal separator",
+			"trigger": "H_SEPARATOR(y,w,f,s)",
+			"annotation": "draw horizontal separator",
+			"kind": "function",
 			"contents": "H_SEPARATOR(${1:Y},${2:w},${3:f},${4:s})"
 		},
 		{
-			"trigger": "INSTR(STR,WHAT)\tsearch WHAT in STR",
+			"trigger": "INSTR(STR,WHAT)",
+			"annotation": "search WHAT in STR",
+			"kind": "function",
 			"contents": "INSTR(${1:STR},${2:WHAT})"
 		},
 		{
-			"trigger": "ISNUM(VAL)\tis numeric",
+			"trigger": "ISNUM(VAL)",
+			"annotation": "is numeric",
+			"kind": "function",
 			"contents": "ISNUM(${1:VAL})"
 		},
 		{
-			"trigger": "ISSTR(VAL)\tis string",
+			"trigger": "ISSTR(VAL)",
+			"annotation": "is string",
+			"kind": "function",
 			"contents": "ISSTR(${1:VAL})"
 		},
 		{
-			"trigger": "LA(NAME[,FILE])\tload array",
+			"trigger": "LA(NAME[,FILE])",
+			"annotation": "load array",
+			"kind": "function",
 			"contents": "LA(\"${1:NAME}\"${2:,\"${3:FILE.COM}\"})"
 		},
 		{
-			"trigger": "LB(NAME[,FILE])\tload block",
+			"trigger": "LB(NAME[,FILE])",
+			"annotation": "load block",
+			"kind": "function",
 			"contents": "LB(\"${1:NAME}\"${2:,\"${3:FILE.COM}\"})"
 		},
 		{
 			"trigger": "LEFT(STR,LEN)",
+			"annotation": "left part of string",
+			"kind": "function",
 			"contents": "LEFT(${1:STR},${2:LEN})"
 		},
 		{
-			"trigger": "LEN(STR)\tstring length",
+			"trigger": "LEN(STR)",
+			"annotation": "string length",
+			"kind": "function",
 			"contents": "LEN(${1:STR})"
 		},
 		{
-			"trigger": "LG(NAME[,VAR[,FILE]])\tload grid",
+			"trigger": "LG(NAME[,VAR[,FILE]])",
+			"annotation": "load grid",
+			"kind": "function",
 			"contents": "LG(\"${1:NAME}\"${2:,\"${3:VAR}\"}${4:,\"${5:FILE.COM}\"})"
 		},
 		{
-			"trigger": "LINE(x1,y1,x2,y2,f,s)\tdraw line",
+			"trigger": "LINE(x1,y1,x2,y2,f,s)",
+			"annotation": "draw line",
+			"kind": "function",
 			"contents": "LINE(${1:x1},${2:y1},${3:x2},${4:y2},${5:f},${6:s})"
 		},
 		{
-			"trigger": "LISTADDITEM(VAR,VAL,CAPTION)\tadd list item",
+			"trigger": "LISTADDITEM(VAR,VAL,CAPTION)",
+			"annotation": "add list item",
+			"kind": "function",
 			"contents": "LISTADDITEM(\"${1:VAR}\",${2:VAL}${3:,\"${4:CAPTION}\"})"
 		},
 		{
-			"trigger": "LISTCLEAR(VAR)\tcount list items",
+			"trigger": "LISTCLEAR(VAR)",
+			"annotation": "count list items",
+			"kind": "function",
 			"contents": "LISTCLEAR(\"${1:VAR}\")"
 		},
 		{
-			"trigger": "LISTCOUNT(VAR)\tcount list items",
+			"trigger": "LISTCOUNT(VAR)",
+			"annotation": "count list items",
+			"kind": "function",
 			"contents": "LISTCOUNT(\"${1:VAR}\")"
 		},
 		{
-			"trigger": "LISTDELETEITEM(VAR,POS)\tremove list item",
+			"trigger": "LISTDELETEITEM(VAR,POS)",
+			"annotation": "remove list item",
+			"kind": "function",
 			"contents": "LISTDELETEITEM(\"${1:VAR}\",${2:POS})"
 		},
 		{
-			"trigger": "LISTINSERTITEM(VAR,POS,VAL,CAPTION)\tinsert list item",
+			"trigger": "LISTINSERTITEM(VAR,POS,VAL,CAPTION)",
+			"annotation": "insert list item",
+			"kind": "function",
 			"contents": "LISTINSERTITEM(\"${1:VAR}\",${2:POS},${3:VAL}${4:,\"${5:CAPTION}\"})"
 		},
 		{
-			"trigger": "LM(NAME)\tload mask",
+			"trigger": "LM(NAME)",
+			"annotation": "load mask",
+			"kind": "function",
 			"contents": "LM(\"${1:NAME}\")"
 		},
 		{
-			"trigger": "LM(NAME,,CHILD)\tload mask",
+			"trigger": "LM(NAME,,CHILD)",
+			"annotation": "load mask",
+			"kind": "function",
 			"contents": "LM(\"${1:NAME}\"${2:,,${3:TRUE}})"
 		},
 		{
-			"trigger": "LM(NAME,FILE)\tload mask",
+			"trigger": "LM(NAME,FILE)",
+			"annotation": "load mask",
+			"kind": "function",
 			"contents": "LM(\"${1:NAME}\"${2:,\"${3:FILE.COM}\"})"
 		},
 		{
-			"trigger": "LM(NAME,FILE,CHILD)\tload mask",
+			"trigger": "LM(NAME,FILE,CHILD)",
+			"annotation": "load mask",
+			"kind": "function",
 			"contents": "LM(\"${1:NAME}\",${2:\"${3:FILE.COM}\"}${4:,${5:TRUE}})"
 		},
 		{
-			"trigger": "LM(NAME,FILE,CHILD,VAR)\tload mask",
+			"trigger": "LM(NAME,FILE,CHILD,VAR)",
+			"annotation": "load mask",
+			"kind": "function",
 			"contents": "LM(\"${1:NAME}\",${2:\"${3:FILE.COM}\"},${4:TRUE}${6:,${7:REG[0]}})"
 		},
 		{
-			"trigger": "LS(NAME)\tload softkeys",
+			"trigger": "LS(NAME)",
+			"annotation": "load softkeys",
+			"kind": "function",
 			"contents": "LS(\"${1:NAME}\")"
 		},
 		{
-			"trigger": "LS(NAME,,MERGE)\tload softkeys",
+			"trigger": "LS(NAME,,MERGE)",
+			"annotation": "load softkeys",
+			"kind": "function",
 			"contents": "LS(\"${1:NAME}\",,${2:TRUE})"
 		},
 		{
-			"trigger": "LS(NAME,FILE)\tload softkeys",
+			"trigger": "LS(NAME,FILE)",
+			"annotation": "load softkeys",
+			"kind": "function",
 			"contents": "LS(\"${1:NAME}\",\"${2:FILE}\")"
 		},
 		{
-			"trigger": "LS(NAME,FILE,MERGE)\tload softkeys",
+			"trigger": "LS(NAME,FILE,MERGE)",
+			"annotation": "load softkeys",
+			"kind": "function",
 			"contents": "LS(\"${1:NAME}\",\"${2:FILE}\",${3:TRUE})"
 		},
 		{
 			"trigger": "MIDS(STR,START,LEN)",
+			"annotation": "middle string part",
+			"kind": "function",
 			"contents": "MIDS(${1:STR},${2:START},${3:LEN})"
 		},
 		{
-			"trigger": "MP(SRC,DST,ERR)\tmove program",
+			"trigger": "MP(SRC,DST,ERR)",
+			"annotation": "move program",
+			"kind": "function",
 			"contents": "MP(\"${1:SRC}\",\"${2:DST}\",${3:ERR})"
 		},
 		{
-			"trigger": "MRDOP(SERVO,VARS,REG_IDX)\tread multiple drive parameters",
+			"trigger": "MRDOP(SERVO,VARS,REG_IDX)",
+			"annotation": "read multiple drive parameters",
+			"kind": "function",
 			"contents": "MRDOP(\"${1:SERVO_3:13:2}\",\"${2:10*23}\",${3:REG_IDX})"
 		},
 		{
-			"trigger": "MRNP(\"VAR1*VAR2*...\",REG)\tmultiread from NC/PLC",
+			"trigger": "MRNP(\"VAR1*VAR2*...\",REG)",
+			"annotation": "multiread from NC/PLC",
+			"kind": "function",
 			"contents": "MRNP(\"${1:VAR1}*${2:VAR2}\",${3:0})"
 		},
 		{
-			"trigger": "PI_SERVICE()\tselect pi service",
+			"trigger": "PI_SERVICE()",
+			"annotation": "select pi service",
+			"kind": "function",
 			"contents": "PI_SERVICE($0)"
 		},
 		{
-			"trigger": "PI_START()\tstart pi service",
+			"trigger": "PI_START()",
+			"annotation": "start pi service",
+			"kind": "function",
 			"contents": "PI_START($0)"
 		},
 		{
-			"trigger": "RDFILE(PATH,SECTION,KEY)\tread value from ini-file",
+			"trigger": "RDFILE(PATH,SECTION,KEY)",
+			"annotation": "read value from ini-file",
+			"kind": "function",
 			"contents": "RDFILE(${1:PATH},\"${2:SECTION}\",\"${3:KEY}\")"
 		},
 		{
-			"trigger": "RDLINEFILE(PATH,LINE_NO)\tread value from file",
+			"trigger": "RDLINEFILE(PATH,LINE_NO)",
+			"annotation": "read value from file",
+			"kind": "function",
 			"contents": "RDLINEFILE(${1:PATH},${2:LINE_NO})"
 		},
 		{
-			"trigger": "RDOP(SERVO,VAR,VAL)\tread drive parameter",
+			"trigger": "RDOP(SERVO,VAR,VAL)",
+			"annotation": "read drive parameter",
+			"kind": "function",
 			"contents": "RDOP(\"${1:SERVO_3:13:2}\",\"${2:10}\")"
 		},
 		{
-			"trigger": "RECT(x,y,w,h,f1,f2,s)\tdraw rectangle",
+			"trigger": "RECT(x,y,w,h,f1,f2,s)",
+			"annotation": "draw rectangle",
+			"kind": "function",
 			"contents": "RECT(${1:x},${2:y},${3:w},${4:h},${5:f1},${6:f2},${7:s})"
 		},
 		{
-			"trigger": "REPLACE(STR,WHAT,REPL)\treplace WHAT by REPL in STR",
+			"trigger": "REPLACE(STR,WHAT,REPL)",
+			"annotation": "replace WHAT by REPL in STR",
+			"kind": "function",
 			"contents": "REPLACE(${1:STR},${2:WHAT},${3:REPL})"
 		},
 		{
-			"trigger": "RESIZE_VAR_IO(VAR,X,Y,W,H)\tresize intput/output control",
+			"trigger": "RESIZE_VAR_IO(VAR,X,Y,W,H)",
+			"annotation": "resize intput/output control",
+			"kind": "function",
 			"contents": "RESIZE_VAR_IO(${1:VAR},${2:X},${3:Y},${4:W},${5:H})"
 		},
 		{
-			"trigger": "RESIZE_VAR_TXT(VAR,X,Y,W,H)\tresize intput/output control",
+			"trigger": "RESIZE_VAR_TXT(VAR,X,Y,W,H)",
+			"annotation": "resize intput/output control",
+			"kind": "function",
 			"contents": "RESIZE_VAR_TXT(${1:VAR},${2:X},${3:Y},${4:W},${5:H})"
 		},
 		{
-			"trigger": "RETURN\texit method",
+			"trigger": "RETURN",
+			"annotation": "exit method",
+			"kind": "function",
 			"contents": "RETURN"
 		},
 		{
-			"trigger": "RIGHT(STR,LEN)\treturn LEN chars from right",
+			"trigger": "RIGHT(STR,LEN)",
+			"annotation": "return LEN chars from right",
+			"kind": "function",
 			"contents": "RIGHT(${1:STR},${2:LEN})"
 		},
 		{
-			"trigger": "RNP(VAR)\tread from NC/PLC",
+			"trigger": "RNP(VAR)",
+			"annotation": "read from NC/PLC",
+			"kind": "function",
 			"contents": "RNP(\"${1:VAR}\")"
 		},
 		{
-			"trigger": "ROUND(VAL,DEC)\tround value",
+			"trigger": "ROUND(VAL,DEC)",
+			"annotation": "round value",
+			"kind": "function",
 			"contents": "ROUND(${1:VAL},${1:0})"
 		},
 		{
-			"trigger": "SDEG(VAL)\tsdeg",
+			"trigger": "SDEG(VAL)",
+			"annotation": "sdeg",
+			"kind": "function",
 			"contents": "SDEG(${1:VAL})"
 		},
 		{
-			"trigger": "SIN(VAL)\tsinus",
+			"trigger": "SIN(VAL)",
+			"annotation": "sinus",
+			"kind": "function",
 			"contents": "SIN(${1:VAL})"
 		},
 		{
-			"trigger": "SP(PATH,ERR)\tselect program",
+			"trigger": "SP(PATH,ERR)",
+			"annotation": "select program",
+			"kind": "function",
 			"contents": "SP(\"${1:PATH}\",${3:ERR})"
 		},
 		{
-			"trigger": "SQRT(VAL)\tsquare root",
+			"trigger": "SQRT(VAL)",
+			"annotation": "square root",
+			"kind": "function",
 			"contents": "SQRT(${1:VAL})"
 		},
 		{
-			"trigger": "SRAD(VAL)\tsrad",
+			"trigger": "SRAD(VAL)",
+			"annotation": "srad",
+			"kind": "function",
 			"contents": "SRAD(${1:VAL})"
 		},
 		{
-			"trigger": "STAN(VAL)\tstan",
+			"trigger": "STAN(VAL)",
+			"annotation": "stan",
+			"kind": "function",
 			"contents": "STAN(${1:VAL})"
 		},
 		{
-			"trigger": "START_TIMER(\"SUB\",INTERVAL)\tstart cyclic call of SUB",
+			"trigger": "START_TIMER(\"SUB\",INTERVAL)",
+			"annotation": "start cyclic call of SUB",
+			"kind": "function",
 			"contents": "START_TIMER(\"${1:SUB}\",${2:INTERVAL})"
 		},
 		{
-			"trigger": "STOP_TIMER(\"SUB\")\tstop cyclic call of SUB",
+			"trigger": "STOP_TIMER(\"SUB\")",
+			"annotation": "stop cyclic call of SUB",
+			"kind": "function",
 			"contents": "STOP_TIMER(\"${1:SUB}\")"
 		},
 		{
-			"trigger": "STRCMP(STR1,STR2)\tcompare strings",
+			"trigger": "STRCMP(STR1,STR2)",
+			"annotation": "compare strings",
+			"kind": "function",
 			"contents": "STRCMP(${1:STR1},${2:STR2})"
 		},
 		{
-			"trigger": "STRINSERT(STR,INSERT,POS)\tinsert into string",
+			"trigger": "STRINSERT(STR,INSERT,POS)",
+			"annotation": "insert into string",
+			"kind": "function",
 			"contents": "STRINSERT(${1:STR},${2:INSERT},${2:POS})"
 		},
 		{
-			"trigger": "STRREMOVE(STR,POS,COUNT)\tremove from string",
+			"trigger": "STRREMOVE(STR,POS,COUNT)",
+			"annotation": "remove from string",
+			"kind": "function",
 			"contents": "STRREMOVE(${1:STR},${2:POS},${2:COUNT})"
 		},
 		{
-			"trigger": "TAN(VAL)\ttangens",
+			"trigger": "TAN(VAL)",
+			"annotation": "tangens",
+			"kind": "function",
 			"contents": "TAN(${1:VAL})"
 		},
 		{
-			"trigger": "TRIMLEFT(STR)\tremove leading whitespace",
+			"trigger": "TRIMLEFT(STR)",
+			"annotation": "remove leading whitespace",
+			"kind": "function",
 			"contents": "TRIMLEFT(${1:STR})"
 		},
 		{
-			"trigger": "TRIMRIGHT(STR)\tremove trailing whitespace",
+			"trigger": "TRIMRIGHT(STR)",
+			"annotation": "remove trailing whitespace",
+			"kind": "function",
 			"contents": "TRIMRIGHT(${1:STR})"
 		},
 		{
-			"trigger": "V_SEPARATOR(x,w,f,s)\tdraw vertical separator",
+			"trigger": "V_SEPARATOR(x,w,f,s)",
+			"annotation": "draw vertical separator",
+			"kind": "function",
 			"contents": "V_SEPARATOR(${1:x},${2:w},${3:f},${4:s})"
 		},
 		{
-			"trigger": "WDOP(SERVO,VAR,VAL)\twrite drive parameter",
+			"trigger": "WDOP(SERVO,VAR,VAL)",
+			"annotation": "write drive parameter",
+			"kind": "function",
 			"contents": "WDOP(\"${1:SERVO_3:13:2}\",\"${2:10}\",${3:VAL})"
 		},
 		{
-			"trigger": "WNP(VAR,VAL)\twrite to NC/PLC",
+			"trigger": "WNP(VAR,VAL)",
+			"annotation": "write to NC/PLC",
+			"kind": "function",
 			"contents": "WNP(\"${1:VAR}\",${2:VAL})"
 		},
 		{
-			"trigger": "WRFILE(PATH,SECTION,KEY)\twrite value to ini-file",
+			"trigger": "WRFILE(PATH,SECTION,KEY)",
+			"annotation": "write value to ini-file",
+			"kind": "function",
 			"contents": "WRFILE(${1:PATH},\"${2:SECTION}\",\"${3:KEY}\")"
 		},
 		{
-			"trigger": "WRLINEFILE(TXT,PATH)\twrite value to file",
+			"trigger": "WRLINEFILE(TXT,PATH)",
+			"annotation": "write value to file",
+			"kind": "function",
 			"contents": "WRLINEFILE(${1:TXT},${2:PATH})"
 		}
 	]

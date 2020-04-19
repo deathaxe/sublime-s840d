@@ -2,80 +2,263 @@
 	"scope": "meta.class.dialog.parameters.background.s840d_hmi | meta.operand.parameters.colors.s840d_hmi",
 	"completions": [
 		{
-			"trigger": "\"#RRGGBB\"\tCOLOR",
+			"trigger": "#RRGGBB",
+			"annotation": "LOR",
+			"kind": ["variable", "c", "Color"],
+			"details": "A RGB color value.",
 			"contents": "\"#${1:00}${2:00}${3:00}\""
 		},
 		{
-			"trigger": "1: black\tCOLOR",
+			"trigger": "1",
+			"annotation": "black",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "1"
 		},
 		{
-			"trigger": "2: orange\tCOLOR",
+			"trigger": "2",
+			"annotation": "orange",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "2"
 		},
 		{
-			"trigger": "3: dark green\tCOLOR",
+			"trigger": "3",
+			"annotation": "dark green",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "3"
 		},
 		{
-			"trigger": "4: light grey\tCOLOR",
+			"trigger": "4",
+			"annotation": "light grey",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "4"
 		},
 		{
-			"trigger": "5: dark grey\tCOLOR",
+			"trigger": "5",
+			"annotation": "dark grey",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "5"
 		},
 		{
-			"trigger": "6: blue\tCOLOR",
+			"trigger": "6",
+			"annotation": "blue",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "6"
 		},
 		{
-			"trigger": "7: red\tCOLOR",
+			"trigger": "7",
+			"annotation": "red",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "7"
 		},
 		{
-			"trigger": "8: brown\tCOLOR",
+			"trigger": "8",
+			"annotation": "brown",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "8"
 		},
 		{
-			"trigger": "9: yellow\tCOLOR",
+			"trigger": "9",
+			"annotation": "yellow",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "9"
 		},
 		{
-			"trigger": "10: white\tCOLOR",
+			"trigger": "10",
+			"annotation": "Cwhite",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "10"
 		},
 		{
-			"trigger": "126: input text color\tCOLOR",
+			"trigger": "126",
+			"annotation": "input text color",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "126"
 		},
 		{
-			"trigger": "127: focused input background\tCOLOR",
+			"trigger": "127",
+			"annotation": "focused input background",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "127"
 		},
 		{
-			"trigger": "128: focus color\tCOLOR",
+			"trigger": "128",
+			"annotation": "focus color",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "128"
 		},
 		{
-			"trigger": "129: window background\tCOLOR",
+			"trigger": "129",
+			"annotation": "window background",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "129"
 		},
 		{
-			"trigger": "130: active header background\tCOLOR",
+			"trigger": "130",
+			"annotation": "active header background",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "130"
 		},
 		{
-			"trigger": "131: active header text\tCOLOR",
+			"trigger": "131",
+			"annotation": "active header text",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "131"
 		},
 		{
-			"trigger": "132: toggle box background\tCOLOR",
+			"trigger": "132",
+			"annotation": "toggle box background",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "132"
 		},
 		{
-			"trigger": "133: list box background\tCOLOR",
+			"trigger": "133",
+			"annotation": "list box background",
+			"kind": ["variable", "c", "Color"],
+			"details": "An integer representing a color.",
 			"contents": "133"
-		}
+		},
+        {
+            "trigger": "black",
+            "annotation": "1",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "1"
+        },
+        {
+            "trigger": "orange",
+            "annotation": "2",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "2"
+        },
+        {
+            "trigger": "dark green",
+            "annotation": "3",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "3"
+        },
+        {
+            "trigger": "light grey",
+            "annotation": "4",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "4"
+        },
+        {
+            "trigger": "dark grey",
+            "annotation": "5",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "5"
+        },
+        {
+            "trigger": "blue",
+            "annotation": "6",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "6"
+        },
+        {
+            "trigger": "red",
+            "annotation": "7",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "7"
+        },
+        {
+            "trigger": "brown",
+            "annotation": "8",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "8"
+        },
+        {
+            "trigger": "yellow",
+            "annotation": "9",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "9"
+        },
+        {
+            "trigger": "white",
+            "annotation": "10",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "10"
+        },
+        {
+            "trigger": "input text color",
+            "annotation": "126",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "126"
+        },
+        {
+            "trigger": "focused input background",
+            "annotation": "127",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "127"
+        },
+        {
+            "trigger": "focus color",
+            "annotation": "128",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "128"
+        },
+        {
+            "trigger": "window background",
+            "annotation": "129",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "129"
+        },
+        {
+            "trigger": "active header background",
+            "annotation": "130",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "130"
+        },
+        {
+            "trigger": "active header text",
+            "annotation": "131",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "131"
+        },
+        {
+            "trigger": "toggle box background",
+            "annotation": "132",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "132"
+        },
+        {
+            "trigger": "list box background",
+            "annotation": "133",
+            "kind": ["variable", "c", "Color"],
+            "details": "An integer representing a color.",
+            "contents": "133"
+        }
 	]
 }

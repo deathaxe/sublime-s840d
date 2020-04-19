@@ -2,11 +2,17 @@
 	"scope": "meta.class.dialog.parameters.attributes.s840d_hmi",
 	"completions": [
 		{
-			"trigger": "XG0: default\tX3D",
+			"trigger": "XG0",
+			"annotation": "(default) no x3d",
+			"kind": ["variable", "c", "x3d"],
+			"details": "Don't support 3D animations.",
 			"contents": "XG0"
 		},
 		{
-			"trigger": "XG1: add x3d\tX3D",
+			"trigger": "XG1",
+			"annotation": "add x3d",
+			"kind": ["variable", "c", "x3d"],
+			"details": "Enable 3D animations support.",
 			"contents": "XG1"
 		}
 	]

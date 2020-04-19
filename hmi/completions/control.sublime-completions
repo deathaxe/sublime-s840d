@@ -2,31 +2,45 @@
 	"scope": "source.s840d_hmi & meta.method meta.block - meta.operand.attribute - meta.softkey.attribute - comment - string",
 	"completions": [
 		{
-			"trigger": "IF ... ENDIF\tflow control",
+			"trigger": "IF ... ENDIF",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "IF ${1:<condition>}\n\t$0\nENDIF"
 		},
 		{
-			"trigger": "IF ... ELSE ... ENDIF\tflow control",
+			"trigger": "IF ... ELSE ... ENDIF",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "IF ${1:<condition>}\n\t$0\nELSE\n\t\nENDIF"
 		},
 		{
-			"trigger": "SWITCH ... CASE ... END_SWITCH\tflow control",
+			"trigger": "SWITCH ... CASE ... END_SWITCH",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "SWITCH (${1:<var>})\nCASE ${2:<val>}\n\t$0\nDEFAULT\nEND_SWITCH"
 		},
 		{
-			"trigger": "DO_UNTIL ... LOOP\tflow control",
+			"trigger": "DO_UNTIL ... LOOP",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "DO_UNTIL ${1:<condition>}\n\t$0\nLOOP"
 		},
 		{
-			"trigger": "DO_WHILE ... LOOP\tflow control",
+			"trigger": "DO_WHILE ... LOOP",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "DO_WHILE ${1:<condition>}\n\t$0\nLOOP"
 		},
 		{
-			"trigger": "DO ... LOOP_UNTIL\tflow control",
+			"trigger": "DO ... LOOP_UNTIL",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "DO\n\t$0\nLOOP_UNTIL ${1:<condition>}"
 		},
 		{
-			"trigger": "DO ... LOOP_WHILE\tflow control",
+			"trigger": "DO ... LOOP_WHILE",
+			"annotation": "flow control",
+			"kind": "snippet",
 			"contents": "DO\n\t$0\nLOOP_WHILE ${1:<condition>}"
 		},
 	]

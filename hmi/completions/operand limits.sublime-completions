@@ -2,23 +2,33 @@
 	"scope": "meta.operand.parameters.limits.s840d_hmi - comment - string",
 	"completions": [
 		{
-			"trigger": "min, max\tLIMITS",
+			"trigger": "min, max",
+			"annotation": "LIMITS",
+			"Kind": "snippet",
 			"contents": "${1:0},${2:999}"
 		},
 		{
-			"trigger": "0=\"no\", 1=\"yes\"\tLIST",
+			"trigger": "0=\"no\", 1=\"yes\"",
+			"annotation": "LIST",
+			"Kind": "snippet",
 			"contents": "${1:0}=${2:\"no\"},${3:1}=${4:\"yes\"}"
 		},
 		{
-			"trigger": "0=\"OFF\", 1=\"ON\"\tLIST",
+			"trigger": "0=\"OFF\", 1=\"ON\"",
+			"annotation": "LIST",
+			"Kind": "snippet",
 			"contents": "${1:0}=${2:\"OFF\"},${3:1}=${4:\"ON\"}"
 		},
 		{
-			"trigger": "0=\"\\pic0.png\", 1=\"\\pic0.png\"\tPICTURE",
+			"trigger": "0=\"\\pic0.png\", 1=\"\\pic0.png\"",
+			"annotation": "PICTURE",
+			"Kind": "snippet",
 			"contents": "${1:0}=\"${2:\\pic0}.png\",${3:1}=\"${4:\\pic1}.png\""
 		},
 		{
-			"trigger": "GRID\tGRID",
+			"trigger": "GRID",
+			"annotation": "GRID",
+			"Kind": "snippet",
 			"contents": "%${1:name}"
 		}
 	]
