@@ -2,32 +2,52 @@
 	"scope": "source.s840d_gcode & (meta.definition.variable | meta.redefinition | meta.function.parameters)",
 	"completions": [
 		{
-			"trigger": "AXIS\ttype",
-			"contents": "AXIS "
+			"trigger": "AXIS",
+			"kind": ["type", "t", "Type"],
+			"details": "Axis identifier, axis address",
+			"contents": "AXIS"
 		},
 		{
-			"trigger": "BOOL\ttype",
-			"contents": "BOOL "
+			"trigger": "BOOL",
+			"kind": ["type", "t", "Type"],
+			"details": "Data type: Boolean value TRUE/FALSE or 1/0",
+			"contents": "BOOL"
 		},
 		{
-			"trigger": "FRAME\ttype",
-			"contents": "FRAME "
+			"trigger": "CHAR",
+			"kind": ["type", "t", "Type"],
+			"details": "Data type: ASCII character",
+			"contents": "CHAR"
 		},
 		{
-			"trigger": "INT\ttype",
-			"contents": "INT "
+			"trigger": "FRAME",
+			"kind": ["type", "t", "Type"],
+			"details": "Data type for the definition of coordinate systems",
+			"contents": "FRAME"
 		},
 		{
-			"trigger": "REAL\ttype",
-			"contents": "REAL "
+			"trigger": "INT",
+			"kind": ["type", "t", "Type"],
+			"details": "Data type: Integer with sign",
+			"contents": "INT"
 		},
 		{
-			"trigger": "STRING\ttype",
-			"contents": "STRING[$1] "
+			"trigger": "REAL",
+			"kind": ["type", "t", "Type"],
+			"details": "Data type: Floating-point variable with sign (real numbers)",
+			"contents": "REAL"
 		},
 		{
-			"trigger": "VAR (by reference)\tmodifier",
-			"contents": "VAR "
+			"trigger": "STRING",
+			"kind": ["type", "t", "Type"],
+			"details": "Data type: Character string",
+			"contents": "STRING[${1:<Size>}] "
+		},
+		{
+			"trigger": "VAR",
+			"kind": ["type", "t", "Type"],
+			"details": "Keyword: Type of parameter transfer",
+			"contents": "VAR"
 		}
 	]
 }

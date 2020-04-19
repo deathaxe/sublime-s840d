@@ -2,48 +2,82 @@
 	"scope": "source.s840d_gcode meta.function.attributes",
 	"completions": [
 		{
-			"trigger": "ACTBLOCNO  Output alarm block number if (DISPLOF) is active!\tattrib",
-			"contents": "ACTBLOCNO "
+			"trigger": "ACTBLOCNO",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Output of current block number of an alarm block, even if \"current block display suppressed\" (DISPLOF) is active!",
+			"contents": "ACTBLOCNO"
 		},
 		{
-			"trigger": "DISPLOF    Suppress current block display\tattrib",
-			"contents": "DISPLOF "
+			"trigger": "DELAYFSTOF",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Define the end of a stop delay section",
+			"contents": "DELAYFSTOF"
 		},
 		{
-			"trigger": "DISPLON    Revoke suppression of the current block display\tattrib",
-			"contents": "DISPLON "
+			"trigger": "DELAYFSTON",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Define procedure as a stop delay section",
+			"contents": "DELAYFSTON"
 		},
 		{
-			"trigger": "ICYCOF     process all blocks in one interpolation cycle\tattrib",
-			"contents": "ICYCOF "
+			"trigger": "DISPLOF",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Suppress current block display",
+			"contents": "DISPLOF"
 		},
 		{
-			"trigger": "ICYCON     process all blocks in separate interpolation cycles\tattrib",
-			"contents": "ICYCON "
+			"trigger": "DISPLON",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Revoke suppression of the current block display",
+			"contents": "DISPLON"
 		},
 		{
-			"trigger": "IPTRLOCK   disable updating the interruption pointer\tattrib",
-			"contents": "IPTRLOCK "
+			"trigger": "ICYCOF",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "All blocks of a technology cycle are processed in one interpolation cycle",
+			"contents": "ICYCOF"
 		},
 		{
-			"trigger": "IPTRUNLOCK enable updating the interruption pointer\tattrib",
-			"contents": "IPTRUNLOCK "
+			"trigger": "ICYCON",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Each block of a technology cycle is processed in a separate interpolation cycle following ICYCON",
+			"contents": "ICYCON"
 		},
 		{
-			"trigger": "SAVE       Save information when subprograms are called\tattrib",
-			"contents": "SAVE "
+			"trigger": "IPTRLOCK",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Freeze start of the untraceable program section.",
+			"contents": "IPTRLOCK"
 		},
 		{
-			"trigger": "SBLOF      Suppress single block\tattrib",
-			"contents": "SBLOF "
+			"trigger": "IPTRUNLOCK",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Set procedure as traceable",
+			"contents": "IPTRUNLOCK"
 		},
 		{
-			"trigger": "SBLON      Revoke suppression of single block\tattrib",
-			"contents": "SBLON "
+			"trigger": "PREPRO",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Identify subprograms with preparation",
+			"contents": "PREPRO"
 		},
 		{
-			"trigger": "PREPRO     Identify subprograms with preparation\tattrib",
-			"contents": "PREPRO "
+			"trigger": "SAVE",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Attribute for saving information when subprograms are called",
+			"contents": "SAVE"
+		},
+		{
+			"trigger": "SBLOF",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Suppress single block",
+			"contents": "SBLOF"
+		},
+		{
+			"trigger": "SBLON",
+			"kind": ["markup", "a", "Attribute"],
+			"details": "Revoke suppression of single block",
+			"contents": "SBLON"
 		}
 	]
 }

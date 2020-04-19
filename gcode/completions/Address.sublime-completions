@@ -2,423 +2,633 @@
 	"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call.arguments",
 	"completions": [
 		{
-			"trigger": "ACC\taddress",
+			"trigger": "ACC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Effect of current axial acceleration",
 			"contents": "ACC[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "ACCLIMA\taddress",
+			"trigger": "ACCLIMA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Effect of current maximum axial acceleration",
 			"contents": "ACCLIMA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "ATOL\taddress",
+			"trigger": "ATOL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis-specific tolerance for compressor functions, orientation smoothing and smoothing types",
 			"contents": "ATOL[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "COARSEA\taddress",
-			"contents": "COARSEA[${1:<AXIS>}]$0"
+			"trigger": "COARSEA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Motion end when \"Exact stop coarse\" reached",
+			"contents": "COARSEA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "CPBC\taddress",
-			"contents": "CPBC[${1:<FAx>}]=\"${2:<block change creteria>}\" $0"
+			"trigger": "CPBC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Block change criterion",
+			"contents": "CPBC[${1:<FAx>}]=\"${2:<block change creteria>}\" "
 		},
 		{
-			"trigger": "CPDEF\taddress",
-			"contents": "CPDEF=(${1:<FAx>}) $0"
+			"trigger": "CPDEF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Creating a coupling module",
+			"contents": "CPDEF=(${1:<FAx>}) "
 		},
 		{
-			"trigger": "CPDEL\taddress",
-			"contents": "CPDEL=(${1:<FAx>}) $0"
+			"trigger": "CPDEL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Deletion of a coupling module",
+			"contents": "CPDEL=(${1:<FAx>}) "
 		},
 		{
-			"trigger": "CPFMOF\taddress",
-			"contents": "CPFMOF[${1:<FAx>}]=\"${2:<switch off behavior>}\" $0"
+			"trigger": "CPFMOF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Behavior of the following axis at complete switch-off",
+			"contents": "CPFMOF[${1:<FAx>}]=\"${2:<switch off behavior>}\" "
 		},
 		{
-			"trigger": "CPFMON\taddress",
-			"contents": "CPFMON[${1:<FAx>}]=\"${2:<switch on behavior>}\" $0"
+			"trigger": "CPFMON",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Behavior of the following axis when switching on",
+			"contents": "CPFMON[${1:<FAx>}]=\"${2:<switch on behavior>}\" "
 		},
 		{
-			"trigger": "CPFMSON\taddress",
-			"contents": "CPFMSON[${1:<FAx>}]=\"${2:<sync mode>}\" $0"
+			"trigger": "CPFMSON",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Synchronization mode",
+			"contents": "CPFMSON[${1:<FAx>}]=\"${2:<sync mode>}\" "
 		},
 		{
-			"trigger": "CPFPOS\taddress",
+			"trigger": "CPFPOS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Synchronized position of the following axis",
 			"contents": "CPFPOS[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPFRS\taddress",
-			"contents": "CPFRS[${1:<FAx>}]=\"${2:<coordinate reference>}\" $0"
+			"trigger": "CPFRS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Coordinate reference system",
+			"contents": "CPFRS[${1:<FAx>}]=\"${2:<coordinate reference>}\" "
 		},
 		{
-			"trigger": "CPLA\taddress",
-			"contents": "CPLA[${1:<FAx>}]=(${2:<LAx>}) $0"
+			"trigger": "CPLA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Definition of a leading axis",
+			"contents": "CPLA[${1:<FAx>}]=(${2:<LAx>}) "
 		},
 		{
-			"trigger": "CPLCTID\taddress",
+			"trigger": "CPLCTID",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Number of the curve table",
 			"contents": "CPLCTID[${1:<FAx>},${2:<LAx>}]=${0:<INT>}"
 		},
 		{
-			"trigger": "CPLDEF\taddress",
-			"contents": "CPLDEF[${1:<FAx>}]=(${2:<LAx>}) $0"
+			"trigger": "CPLDEF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Definition of a leading axis and creation of a coupling module",
+			"contents": "CPLDEF[${1:<FAx>}]=(${2:<LAx>}) "
 		},
 		{
-			"trigger": "CPLDEL\taddress",
-			"contents": "CPLDEL[${1:<FAx>}]=(${2:<LAx>}) $0"
+			"trigger": "CPLDEL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Deleting a leading axis of a coupling module",
+			"contents": "CPLDEL[${1:<FAx>}]=(${2:<LAx>}) "
 		},
 		{
-			"trigger": "CPLDEN\taddress",
+			"trigger": "CPLDEN",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Denominator of the coupling factor",
 			"contents": "CPLDEN[${1:<FAx>},${2:<LAx>}]=${0:<INT>}"
 		},
 		{
-			"trigger": "CPLINSC\taddress",
+			"trigger": "CPLINSC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Scaling factor of the input value of a leading axis",
 			"contents": "CPLINSC[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPLINTR\taddress",
+			"trigger": "CPLINTR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Offset value of the input value of a leading axis",
 			"contents": "CPLINTR[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPLNUM\taddress",
+			"trigger": "CPLNUM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Numerator of the coupling factor",
 			"contents": "CPLNUM[${1:<FAx>},${2:<LAx>}]=${3:<INT>}"
 		},
 		{
-			"trigger": "CPLOF\taddress",
+			"trigger": "CPLOF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Switching off a leading axis of a coupling module",
 			"contents": "CPLOF[${1:<FAx>}]=${2:<LAx>}"
 		},
 		{
-			"trigger": "CPLON\taddress",
+			"trigger": "CPLON",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Switching on a leading axis of a coupling module",
 			"contents": "CPLON[${1:<FAx>}]=${2:<LAx>}"
 		},
 		{
-			"trigger": "CPLOUTSC\taddress",
+			"trigger": "CPLOUTSC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Scaling factor for the output value of a coupling",
 			"contents": "CPLOUTSC[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPLOUTTR\taddress",
+			"trigger": "CPLOUTTR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Offset value for the output value of a coupling",
 			"contents": "CPLOUTTR[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPLPOS\taddress",
+			"trigger": "CPLPOS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Synchronized position of the leading axis",
 			"contents": "CPLPOS[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPLSETVAL\taddress",
-			"contents": "CPLSETVAL[${1:<FAx>},${2:<LAx>}]=\"${3:<couble reference>}\" $0"
+			"trigger": "CPLSETVAL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Coupling reference",
+			"contents": "CPLSETVAL[${1:<FAx>},${2:<LAx>}]=\"${3:<couble reference>}\" "
 		},
 		{
-			"trigger": "CPMALARM\taddress",
+			"trigger": "CPMALARM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Suppression of special coupling-related alarm outputs",
 			"contents": "CPMALARM[${1:<FAx>}]=${2:<bitwise value>}"
 		},
 		{
-			"trigger": "CPMBRAKE\taddress",
+			"trigger": "CPMBRAKE",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Response of the following axis to certain stop signals and stop commands",
 			"contents": "CPMBRAKE[${1:<FAx>}]=${2:<bitwise value>}"
 		},
 		{
-			"trigger": "CPMPRT\taddress",
-			"contents": "CPMPRT[${1:<FAx>}]=\"${2:<Start behavior>}\" $0"
+			"trigger": "CPMPRT",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Coupling response at part pro gram start under search run via program test",
+			"contents": "CPMPRT[${1:<FAx>}]=\"${2:<Start behavior>}\" "
 		},
 		{
-			"trigger": "CPMRESET\taddress",
-			"contents": "CPMRESET[${1:<FAx>}]=\"${2:<Reset behavior>}\" $0"
+			"trigger": "CPMRESET",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Coupling behavior for RESET",
+			"contents": "CPMRESET[${1:<FAx>}]=\"${2:<Reset behavior>}\" "
 		},
 		{
-			"trigger": "CPMSTART\taddress",
-			"contents": "CPMSTART[${1:<FAx>}]=\"${2:<Start behavior>}\" $0"
+			"trigger": "CPMSTART",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Coupling behavior at part pro gram start",
+			"contents": "CPMSTART[${1:<FAx>}]=\"${2:<Start behavior>}\" "
 		},
 		{
-			"trigger": "CPMVDI\taddress",
+			"trigger": "CPMVDI",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Response of the following axis to certain NC/PLC interface signals",
 			"contents": "CPMVDI[${1:<FAx>}]=${2:<bitwise value>}"
 		},
 		{
-			"trigger": "CPOF\taddress",
-			"contents": "CPOF=(${1:<FAx>}) $0"
+			"trigger": "CPOF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Switching off a coupling module",
+			"contents": "CPOF=(${1:<FAx>}) "
 		},
 		{
-			"trigger": "CPON\taddress",
-			"contents": "CPON=(${1:<FAx>}) $0"
+			"trigger": "CPON",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Switching on a coupling module",
+			"contents": "CPON=(${1:<FAx>}) "
 		},
 		{
-			"trigger": "CPRES\taddress",
+			"trigger": "CPRES",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Activates the configured data of the synchronous spindle coupling",
 			"contents": "CPRES"
 		},
 		{
-			"trigger": "CPSETTYPE\taddress",
-			"contents": "CPSETTYPE[${1:<FAx>}]=\"${2:<couble type>}\" $0"
+			"trigger": "CPSETTYPE",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Coupling type",
+			"contents": "CPSETTYPE[${1:<FAx>}]=\"${2:<couble type>}\" "
 		},
 		{
-			"trigger": "CPSYNCOP\taddress",
+			"trigger": "CPSYNCOP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Threshold value of position synchronism \"Coarse\"",
 			"contents": "CPSYNCOP[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPSYNCOP2\taddress",
+			"trigger": "CPSYNCOP2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Threshold value of position synchronism \"Coarse\" 2",
 			"contents": "CPSYNCOP2[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPSYNCOV\taddress",
+			"trigger": "CPSYNCOV",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Threshold value of velocity syn chronism \"Coarse\"",
 			"contents": "CPSYNCOV[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPSYNFIP\taddress",
+			"trigger": "CPSYNFIP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Threshold value of position synchronism \"Fine\"",
 			"contents": "CPSYNFIP[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPSYNFIP2\taddress",
+			"trigger": "CPSYNFIP2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Threshold value of position synchronism \"Fine\" 2",
 			"contents": "CPSYNFIP2[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CPSYNFIV\taddress",
+			"trigger": "CPSYNFIV",
+			"kind": ["variable", "A", "Address"],
+			"details": "Generic coupling: Threshold value of velocity syn chronism \"Fine\"",
 			"contents": "CPSYNFIV[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "CTOL\taddress",
+			"trigger": "CTOL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Contour tolerance for compressor functions, orientation smoothing and smoothing types",
 			"contents": "CTOL=${0:<REAL>}"
 		},
 		{
-			"trigger": "CUTMOD\taddress",
+			"trigger": "CUTMOD",
+			"kind": ["variable", "A", "Address"],
+			"details": "Activate \"Modification of the offset data for rotatable tools\"",
 			"contents": "CUTMOD=${0:<REAL>}"
 		},
 		{
-			"trigger": "DIACYCOFA\taddress",
-			"contents": "DIACYCOFA[${1:<AXIS>}]$0"
+			"trigger": "DIACYCOFA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis-specific modal diameter programming: OFF in cycles",
+			"contents": "DIACYCOFA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "DIAM90A\taddress",
-			"contents": "DIAM90A[${1:<AXIS>}]$0"
+			"trigger": "DIAM90A",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis-specific modal diameter programming for G90 and AC, radius programming for G91 and IC",
+			"contents": "DIAM90A[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "DIAMCHAN\taddress",
+			"trigger": "DIAMCHAN",
+			"kind": ["variable", "A", "Address"],
+			"details": "Transfer of all axes from MD axis functions to diameter programming channel status",
 			"contents": "DIAMCHAN"
 		},
 		{
-			"trigger": "DIAMCHANA\taddress",
-			"contents": "DIAMCHANA[${1:<AXIS>}]$0"
+			"trigger": "DIAMCHANA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Transfer of the diameter programming channel status",
+			"contents": "DIAMCHANA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "DIAMOFA\taddress",
-			"contents": "DIAMOFA[${1:<AXIS>}]$0"
+			"trigger": "DIAMOFA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis-specific modal diameter programming: OFF Normal position, see machine manufacturer",
+			"contents": "DIAMOFA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "DIAMONA\taddress",
-			"contents": "DIAMONA[${1:<AXIS>}]$0"
+			"trigger": "DIAMONA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis-specific modal diameter programming: ON Activation, see machine manufacturer",
+			"contents": "DIAMONA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "FA\taddress",
+			"trigger": "FA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axial feedrate",
 			"contents": "FA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FDA\taddress",
+			"trigger": "FDA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis feedrate for handwheel override",
 			"contents": "FDA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FGREF\taddress",
+			"trigger": "FGREF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Reference radius for rotary axes or path reference factors for orientation axes (vector interpolation)",
 			"contents": "FGREF[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FINEA\taddress",
-			"contents": "FINEA[${1:<AXIS>}]$0"
+			"trigger": "FINEA",
+			"kind": ["variable", "A", "Address"],
+			"details": "End of motion when \"Exact stop fine\" reached",
+			"contents": "FINEA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "FL\taddress",
+			"trigger": "FL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Limit velocity for synchronized axis",
 			"contents": "FL[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FMA\taddress",
+			"trigger": "FMA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Multiple feed rates axial",
 			"contents": "FMA[${1:<2..7>},${2:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FOC\taddress",
+			"trigger": "FOC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Non-modal torque/force limitation",
 			"contents": "FOC[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FOCOF\taddress",
+			"trigger": "FOCOF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Switch off modal torque/force limitation",
 			"contents": "FOCOF[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FOCON\taddress",
+			"trigger": "FOCON",
+			"kind": ["variable", "A", "Address"],
+			"details": "Switch on modal torque/force limitation",
 			"contents": "FOCON[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FXS\taddress",
+			"trigger": "FXS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Travel to fixed stop ON",
 			"contents": "FXS[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FXST\taddress",
+			"trigger": "FXST",
+			"kind": ["variable", "A", "Address"],
+			"details": "Torque limit for travel to fixed stop",
 			"contents": "FXST[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "FXSW\taddress",
+			"trigger": "FXSW",
+			"kind": ["variable", "A", "Address"],
+			"details": "Monitoring window for travel to fixed stop",
 			"contents": "FXSW[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "IP\taddress",
+			"trigger": "IP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Variable interpolation parameter",
 			"contents": "IP[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "IPOENDA\taddress",
-			"contents": "IPOENDA[${1:<AXIS>}]$0"
+			"trigger": "IPOENDA",
+			"kind": ["variable", "A", "Address"],
+			"details": "End of motion when \"IPO stop\" reached",
+			"contents": "IPOENDA[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "JERKLIM\taddress",
+			"trigger": "JERKLIM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Reduction or overshoot of maximum axial jerk",
 			"contents": "JERKLIM[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "JERKLIMA\taddress",
+			"trigger": "JERKLIMA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Reduction or overshoot of maximum axial jerk",
 			"contents": "JERKLIMA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "LIMS\taddress",
+			"trigger": "LIMS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Speed limitation for G96/G961 and G97",
 			"contents": "LIMS${1:[${2:<SpindleNo>}]}=${0:<REAL>}"
 		},
 		{
-			"trigger": "MEAC\taddress",
+			"trigger": "MEAC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Continuous axial measurement without delete distance-to-go",
 			"contents": "MEAC[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "MEASA\taddress",
+			"trigger": "MEASA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axial measurement with delete distance-to-go",
 			"contents": "MEASA[${1:<AXIS>}]=${0:<INT>}"
 		},
 		{
-			"trigger": "MEAWA\taddress",
+			"trigger": "MEAWA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axial measurement without delete distance-to- go",
 			"contents": "MEAWA[${1:<AXIS>}]=${0:<INT>}"
 		},
 		{
-			"trigger": "MOV\taddress",
+			"trigger": "MOV",
+			"kind": ["variable", "A", "Address"],
+			"details": "Start positioning axis",
 			"contents": "MOV[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OS\taddress",
+			"trigger": "OS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation on/off",
 			"contents": "OS[${1:<AXIS>}]=${0:<0|1>}"
 		},
 		{
-			"trigger": "OSB\taddress",
+			"trigger": "OSB",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillating: Starting point",
 			"contents": "OSB[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OSCILL\taddress",
-			"contents": "OSCILL[${1:<AXIS>}]=(${2:<AXIS>}${3:,${4:[...]}})$0"
+			"trigger": "OSCILL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis: 1 - 3 infeed axes",
+			"contents": "OSCILL[${1:<AXIS>}]=(${2:<AXIS>}${3:,${4:[...]}})"
 		},
 		{
-			"trigger": "OSCTRL\taddress",
-			"contents": "OSCTRL[${1:<AXIS>}]=(${2:<SetPos>},${3:<ResetPos>})$0"
+			"trigger": "OSCTRL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation options",
+			"contents": "OSCTRL[${1:<AXIS>}]=(${2:<SetPos>},${3:<ResetPos>})"
 		},
 		{
-			"trigger": "OSE\taddress",
+			"trigger": "OSE",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation end position",
 			"contents": "OSE[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OSNSC\taddress",
+			"trigger": "OSNSC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillating: Number of spark-out cycles",
 			"contents": "OSNSC[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OSP1\taddress",
+			"trigger": "OSP1",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillating: Left reversal point",
 			"contents": "OSP1[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OSP2\taddress",
+			"trigger": "OSP2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation right reversal point",
 			"contents": "OSP2[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OST1\taddress",
+			"trigger": "OST1",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillating: Stopping point in left reversal point",
 			"contents": "OST1[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OST2\taddress",
+			"trigger": "OST2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillating: Stopping point in right reversal point",
 			"contents": "OST2[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OTOL\taddress",
+			"trigger": "OTOL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Orientation tolerance for compressor functions, orientation smoothing and smoothing types",
 			"contents": "OTOL=${0:<REAL>}"
 		},
 		{
-			"trigger": "OVR\taddress",
+			"trigger": "OVR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Speed offset",
 			"contents": "OVR=${0:<REAL>}"
 		},
 		{
-			"trigger": "OVRA\taddress",
+			"trigger": "OVRA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axial speed offset",
 			"contents": "OVRA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "OVRRAP\taddress",
+			"trigger": "OVRRAP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Rapid traverse override",
 			"contents": "OVRRAP[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "PO\taddress",
+			"trigger": "PO",
+			"kind": ["variable", "A", "Address"],
+			"details": "Polynomial coefficient for polynomial interpolation",
 			"contents": "PO[${1:<Angle/Pos>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "POLF\taddress",
+			"trigger": "POLF",
+			"kind": ["variable", "A", "Address"],
+			"details": "LIFTFAST retraction position",
 			"contents": "POLF[${1:<AXIS>}]=${0:<Pos>}"
 		},
 		{
-			"trigger": "POS\taddress",
+			"trigger": "POS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis positioning",
 			"contents": "POS[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "POSA\taddress",
+			"trigger": "POSA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Position axis across block boundary",
 			"contents": "POSA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "POSP\taddress",
+			"trigger": "POSP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Positioning axis in parts (oscillation)",
 			"contents": "POSP[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "PRIO\taddress",
+			"trigger": "PRIO",
+			"kind": ["variable", "A", "Address"],
+			"details": "Keyword for setting the priority for interrupt processing",
 			"contents": "PRIO=${0:<INT>}"
 		},
 		{
-			"trigger": "SCC\taddress",
-			"contents": "SCC[${1:<AXIS>}]$0"
+			"trigger": "SCC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Selective assignment of transverse axis to G96/ G961/G962. Axis identifiers may take the form of geometry, channel or machine axes.",
+			"contents": "SCC[${1:<AXIS>}]"
 		},
 		{
-			"trigger": "SCPARA\taddress",
+			"trigger": "SCPARA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Program servo parameter set",
 			"contents": "SCPARA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "SPOS\taddress",
+			"trigger": "SPOS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Spindle position",
 			"contents": "SPOS${1:[${2:<SpindleNo>}]}=${0:<Position>}"
 		},
 		{
-			"trigger": "SPOSA\taddress",
+			"trigger": "SPOSA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Spindle position across block boundaries",
 			"contents": "SPOSA${1:[${2:<SpindleNo>}]}=${0:<Position>}"
 		},
 		{
-			"trigger": "SRA\taddress",
+			"trigger": "SRA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation retraction path with external input axial for synchronized action",
 			"contents": "SRA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "STA\taddress",
+			"trigger": "STA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation sparking-out time axial for synchronized action",
 			"contents": "STA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "STAT\taddress",
+			"trigger": "STAT",
+			"kind": ["variable", "A", "Address"],
+			"details": "Position of joints",
 			"contents": "STAT=${0:<HEX>}"
 		},
 		{
-			"trigger": "STOLF\taddress",
+			"trigger": "STOLF",
+			"kind": ["variable", "A", "Address"],
+			"details": "G0 tolerance factor",
 			"contents": "STOLF=${0:<REAL>}"
 		},
 		{
-			"trigger": "SVC\taddress",
+			"trigger": "SVC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool cutting rate",
 			"contents": "SVC${1:[${2:<INT>}]}=${0:<REAL>}"
 		},
 		{
-			"trigger": "TOFF\taddress",
+			"trigger": "TOFF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool length offset in the direction of the tool length component that is effective parallel to the geometry axis specified in the index.",
 			"contents": "TOFF${1:[${2:<GeoAxis>}]}=${0:<REAL>}"
 		},
 		{
-			"trigger": "TU\taddress",
-			"contents": "TU=${0:<HEX>}"
-		},
-		{
-			"trigger": "TOFFL\taddress",
+			"trigger": "TOFFL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool length offset in the direction of the tool length component L1, L2 or L3",
 			"contents": "TOFFL${1:[${2:<Direction>}]}=${0:<REAL>}"
 		},
 		{
-			"trigger": "VELOLIM\taddress",
+			"trigger": "TU",
+			"kind": ["variable", "A", "Address"],
+			"details": "Axis angle",
+			"contents": "TU=${0:<HEX>}"
+		},
+		{
+			"trigger": "VELOLIM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Reduction of the maximum axial velocity",
 			"contents": "VELOLIM[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
-			"trigger": "VELOLIMA\taddress",
+			"trigger": "VELOLIMA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Reduction or increase of the maximum axial velocity of the following axis",
 			"contents": "VELOLIMA[${1:<AXIS>}]=${0:<REAL>}"
 		}
 	]

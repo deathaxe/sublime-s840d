@@ -2,23 +2,33 @@
 	"scope": "source.s840d_gcode & (meta.brackets | meta.group | meta.function.parameters | meta.function-call.arguments) - comment - string - support.variable",
 	"completions": [
 		{
-			"trigger": "FI  fine offset\tkeyword",
+			"trigger": "FI", 
+			"kind": ["variable", "c", "Constant"],
+			"details": "fine offset",
 			"contents": "FI"
 		},
 		{
-			"trigger": "MI  mirroring\tkeyword",
+			"trigger": "MI", 
+			"kind": ["variable", "c", "Constant"],
+			"details": "mirroring",
 			"contents": "MI"
 		},
 		{
-			"trigger": "RT  rotation\tkeyword",
+			"trigger": "RT", 
+			"kind": ["variable", "c", "Constant"],
+			"details": "rotation",
 			"contents": "RT"
 		},
 		{
-			"trigger": "SC  scaling\tkeyword",
+			"trigger": "SC", 
+			"kind": ["variable", "c", "Constant"],
+			"details": "scaling",
 			"contents": "SC"
 		},
 		{
-			"trigger": "TR  offset\tkeyword",
+			"trigger": "TR", 
+			"kind": ["variable", "c", "Constant"],
+			"details": "offset",
 			"contents": "TR"
 		}
 	]

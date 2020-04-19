@@ -5,24 +5,34 @@
 	"scope": "source.s840d_gcode & meta.control.case - comment - string - support.variable",
 	"completions": [
 		{
-			"trigger": "OF\tkeyword",
+			"trigger": "OF",
+			"kind": "keyword",
+			"details": "Control Flow Keywords",
 			"contents": "OF "
 		},
 		{
-			"trigger": "DEFAULT\tkeyword",
+			"trigger": "DEFAULT",
+			"kind": "keyword",
+			"details": "Control Flow Keywords",
 			"contents": "DEFAULT "
 		},
-		{
-			"trigger": "GOTO\tkeyword",
-			"contents": "GOTO "
-		},
-		{
-			"trigger": "GOTOB\tkeyword",
-			"contents": "GOTOB "
-		},
-		{
-			"trigger": "GOTOF\tkeyword",
-			"contents": "GOTOF "
-		}
+        {
+            "trigger": "GOTO",
+            "kind": "keyword",
+            "details": "Jump operation first forward then backward (direction initially to end of program and then to be ginning of program)",
+            "contents": "GOTO "
+        },
+        {
+            "trigger": "GOTOB",
+            "kind": "keyword",
+            "details": "Jump backward (toward the beginning of the program)",
+            "contents": "GOTOB "
+        },
+        {
+            "trigger": "GOTOF",
+            "kind": "keyword",
+            "details": "Jump forward (toward the end of the program)",
+            "contents": "GOTOF "
+        }
 	]
 }
