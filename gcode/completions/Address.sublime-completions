@@ -1,109 +1,425 @@
 {
-"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call",
-"completions": [
-{"trigger": "ACC\taddress", "contents": "ACC[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "ACCLIMA\taddress", "contents": "ACCLIMA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "ATOL\taddress", "contents": "ATOL[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "COARSEA\taddress", "contents": "COARSEA[${1:<AXIS>}]$0"},
-{"trigger": "CPBC\taddress", "contents": "CPBC[${1:<FAx>}]=\"${2:<block change creteria>}\" $0"},
-{"trigger": "CPDEF\taddress", "contents": "CPDEF=(${1:<FAx>}) $0"},
-{"trigger": "CPDEL\taddress", "contents": "CPDEL=(${1:<FAx>}) $0"},
-{"trigger": "CPFMOF\taddress", "contents": "CPFMOF[${1:<FAx>}]=\"${2:<switch off behavior>}\" $0"},
-{"trigger": "CPFMON\taddress", "contents": "CPFMON[${1:<FAx>}]=\"${2:<switch on behavior>}\" $0"},
-{"trigger": "CPFMSON\taddress", "contents": "CPFMSON[${1:<FAx>}]=\"${2:<sync mode>}\" $0"},
-{"trigger": "CPFPOS\taddress", "contents": "CPFPOS[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CPFRS\taddress", "contents": "CPFRS[${1:<FAx>}]=\"${2:<coordinate reference>}\" $0"},
-{"trigger": "CPLA\taddress", "contents": "CPLA[${1:<FAx>}]=(${2:<LAx>}) $0"},
-{"trigger": "CPLCTID\taddress", "contents": "CPLCTID[${1:<FAx>},${2:<LAx>}]=${0:<INT>}"},
-{"trigger": "CPLDEF\taddress", "contents": "CPLDEF[${1:<FAx>}]=(${2:<LAx>}) $0"},
-{"trigger": "CPLDEL\taddress", "contents": "CPLDEL[${1:<FAx>}]=(${2:<LAx>}) $0"},
-{"trigger": "CPLDEN\taddress", "contents": "CPLDEN[${1:<FAx>},${2:<LAx>}]=${0:<INT>}"},
-{"trigger": "CPLINSC\taddress", "contents": "CPLINSC[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"},
-{"trigger": "CPLINTR\taddress", "contents": "CPLINTR[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"},
-{"trigger": "CPLNUM\taddress", "contents": "CPLNUM[${1:<FAx>},${2:<LAx>}]=${3:<INT>}"},
-{"trigger": "CPLOF\taddress", "contents": "CPLOF[${1:<FAx>}]=${2:<LAx>}"},
-{"trigger": "CPLON\taddress", "contents": "CPLON[${1:<FAx>}]=${2:<LAx>}"},
-{"trigger": "CPLOUTSC\taddress", "contents": "CPLOUTSC[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"},
-{"trigger": "CPLOUTTR\taddress", "contents": "CPLOUTTR[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"},
-{"trigger": "CPLPOS\taddress", "contents": "CPLPOS[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"},
-{"trigger": "CPLSETVAL\taddress", "contents": "CPLSETVAL[${1:<FAx>},${2:<LAx>}]=\"${3:<couble reference>}\" $0"},
-{"trigger": "CPMALARM\taddress", "contents": "CPMALARM[${1:<FAx>}]=${2:<bitwise value>}"},
-{"trigger": "CPMBRAKE\taddress", "contents": "CPMBRAKE[${1:<FAx>}]=${2:<bitwise value>}"},
-{"trigger": "CPMPRT\taddress", "contents": "CPMPRT[${1:<FAx>}]=\"${2:<Start behavior>}\" $0"},
-{"trigger": "CPMRESET\taddress", "contents": "CPMRESET[${1:<FAx>}]=\"${2:<Reset behavior>}\" $0"},
-{"trigger": "CPMSTART\taddress", "contents": "CPMSTART[${1:<FAx>}]=\"${2:<Start behavior>}\" $0"},
-{"trigger": "CPMVDI\taddress", "contents": "CPMVDI[${1:<FAx>}]=${2:<bitwise value>}"},
-{"trigger": "CPOF\taddress", "contents": "CPOF=(${1:<FAx>}) $0"},
-{"trigger": "CPON\taddress", "contents": "CPON=(${1:<FAx>}) $0"},
-{"trigger": "CPRES\taddress", "contents": "CPRES"},
-{"trigger": "CPSETTYPE\taddress", "contents": "CPSETTYPE[${1:<FAx>}]=\"${2:<couble type>}\" $0"},
-{"trigger": "CPSYNCOP\taddress", "contents": "CPSYNCOP[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CPSYNCOP2\taddress", "contents": "CPSYNCOP2[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CPSYNCOV\taddress", "contents": "CPSYNCOV[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CPSYNFIP\taddress", "contents": "CPSYNFIP[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CPSYNFIP2\taddress", "contents": "CPSYNFIP2[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CPSYNFIV\taddress", "contents": "CPSYNFIV[${1:<FAx>}]=${0:<REAL>}"},
-{"trigger": "CTOL\taddress", "contents": "CTOL=${0:<REAL>}"},
-{"trigger": "CUTMOD\taddress", "contents": "CUTMOD=${0:<REAL>}"},
-{"trigger": "DIACYCOFA\taddress", "contents": "DIACYCOFA[${1:<AXIS>}]$0"},
-{"trigger": "DIAM90A\taddress", "contents": "DIAM90A[${1:<AXIS>}]$0"},
-{"trigger": "DIAMCHAN\taddress", "contents": "DIAMCHAN"},
-{"trigger": "DIAMCHANA\taddress", "contents": "DIAMCHANA[${1:<AXIS>}]$0"},
-{"trigger": "DIAMOFA\taddress", "contents": "DIAMOFA[${1:<AXIS>}]$0"},
-{"trigger": "DIAMONA\taddress", "contents": "DIAMONA[${1:<AXIS>}]$0"},
-{"trigger": "FA\taddress", "contents": "FA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FDA\taddress", "contents": "FDA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FGREF\taddress", "contents": "FGREF[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FINEA\taddress", "contents": "FINEA[${1:<AXIS>}]$0"},
-{"trigger": "FL\taddress", "contents": "FL[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FMA\taddress", "contents": "FMA[${1:<2..7>},${2:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FOC\taddress", "contents": "FOC[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FOCOF\taddress", "contents": "FOCOF[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FOCON\taddress", "contents": "FOCON[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FXS\taddress", "contents": "FXS[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FXST\taddress", "contents": "FXST[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "FXSW\taddress", "contents": "FXSW[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "IP\taddress", "contents": "IP[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "IPOENDA\taddress", "contents": "IPOENDA[${1:<AXIS>}]$0"},
-{"trigger": "JERKLIM\taddress", "contents": "JERKLIM[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "JERKLIMA\taddress", "contents": "JERKLIMA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "LIMS\taddress", "contents": "LIMS${1:[${2:<SpindleNo>}]}=${0:<REAL>}"},
-{"trigger": "MEAC\taddress", "contents": "MEAC[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "MEASA\taddress", "contents": "MEASA[${1:<AXIS>}]=${0:<INT>}"},
-{"trigger": "MEAWA\taddress", "contents": "MEAWA[${1:<AXIS>}]=${0:<INT>}"},
-{"trigger": "MOV\taddress", "contents": "MOV[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OS\taddress", "contents": "OS[${1:<AXIS>}]=${0:<0|1>}"},
-{"trigger": "OSB\taddress", "contents": "OSB[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OSCILL\taddress", "contents": "OSCILL[${1:<AXIS>}]=(${2:<AXIS>}${3:,${4:[...]}})$0"},
-{"trigger": "OSCTRL\taddress", "contents": "OSCTRL[${1:<AXIS>}]=(${2:<SetPos>},${3:<ResetPos>})$0"},
-{"trigger": "OSE\taddress", "contents": "OSE[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OSNSC\taddress", "contents": "OSNSC[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OSP1\taddress", "contents": "OSP1[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OSP2\taddress", "contents": "OSP2[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OST1\taddress", "contents": "OST1[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OST2\taddress", "contents": "OST2[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OTOL\taddress", "contents": "OTOL=${0:<REAL>}"},
-{"trigger": "OVR\taddress", "contents": "OVR=${0:<REAL>}"},
-{"trigger": "OVRA\taddress", "contents": "OVRA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "OVRRAP\taddress", "contents": "OVRRAP[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "PO\taddress", "contents": "PO[${1:<Angle/Pos>}]=${0:<REAL>}"},
-{"trigger": "POLF\taddress", "contents": "POLF[${1:<AXIS>}]=${0:<Pos>}"},
-{"trigger": "POS\taddress", "contents": "POS[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "POSA\taddress", "contents": "POSA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "POSP\taddress", "contents": "POSP[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "PRIO\taddress", "contents": "PRIO=${0:<INT>}"},
-{"trigger": "SCC\taddress", "contents": "SCC[${1:<AXIS>}]$0"},
-{"trigger": "SCPARA\taddress", "contents": "SCPARA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "SPOS\taddress", "contents": "SPOS${1:[${2:<SpindleNo>}]}=${0:<Position>}"},
-{"trigger": "SPOSA\taddress", "contents": "SPOSA${1:[${2:<SpindleNo>}]}=${0:<Position>}"},
-{"trigger": "SRA\taddress", "contents": "SRA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "STA\taddress", "contents": "STA[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "STAT\taddress", "contents": "STAT=${0:<HEX>}"},
-{"trigger": "STOLF\taddress", "contents": "STOLF=${0:<REAL>}"},
-{"trigger": "SVC\taddress", "contents": "SVC${1:[${2:<INT>}]}=${0:<REAL>}"},
-{"trigger": "TOFF\taddress", "contents": "TOFF${1:[${2:<GeoAxis>}]}=${0:<REAL>}"},
-{"trigger": "TU\taddress", "contents": "TU=${0:<HEX>}"},
-{"trigger": "TOFFL\taddress", "contents": "TOFFL${1:[${2:<Direction>}]}=${0:<REAL>}"},
-{"trigger": "VELOLIM\taddress", "contents": "VELOLIM[${1:<AXIS>}]=${0:<REAL>}"},
-{"trigger": "VELOLIMA\taddress", "contents": "VELOLIMA[${1:<AXIS>}]=${0:<REAL>}"}
-]}
+	"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call",
+	"completions": [
+		{
+			"trigger": "ACC\taddress",
+			"contents": "ACC[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "ACCLIMA\taddress",
+			"contents": "ACCLIMA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "ATOL\taddress",
+			"contents": "ATOL[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "COARSEA\taddress",
+			"contents": "COARSEA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "CPBC\taddress",
+			"contents": "CPBC[${1:<FAx>}]=\"${2:<block change creteria>}\" $0"
+		},
+		{
+			"trigger": "CPDEF\taddress",
+			"contents": "CPDEF=(${1:<FAx>}) $0"
+		},
+		{
+			"trigger": "CPDEL\taddress",
+			"contents": "CPDEL=(${1:<FAx>}) $0"
+		},
+		{
+			"trigger": "CPFMOF\taddress",
+			"contents": "CPFMOF[${1:<FAx>}]=\"${2:<switch off behavior>}\" $0"
+		},
+		{
+			"trigger": "CPFMON\taddress",
+			"contents": "CPFMON[${1:<FAx>}]=\"${2:<switch on behavior>}\" $0"
+		},
+		{
+			"trigger": "CPFMSON\taddress",
+			"contents": "CPFMSON[${1:<FAx>}]=\"${2:<sync mode>}\" $0"
+		},
+		{
+			"trigger": "CPFPOS\taddress",
+			"contents": "CPFPOS[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPFRS\taddress",
+			"contents": "CPFRS[${1:<FAx>}]=\"${2:<coordinate reference>}\" $0"
+		},
+		{
+			"trigger": "CPLA\taddress",
+			"contents": "CPLA[${1:<FAx>}]=(${2:<LAx>}) $0"
+		},
+		{
+			"trigger": "CPLCTID\taddress",
+			"contents": "CPLCTID[${1:<FAx>},${2:<LAx>}]=${0:<INT>}"
+		},
+		{
+			"trigger": "CPLDEF\taddress",
+			"contents": "CPLDEF[${1:<FAx>}]=(${2:<LAx>}) $0"
+		},
+		{
+			"trigger": "CPLDEL\taddress",
+			"contents": "CPLDEL[${1:<FAx>}]=(${2:<LAx>}) $0"
+		},
+		{
+			"trigger": "CPLDEN\taddress",
+			"contents": "CPLDEN[${1:<FAx>},${2:<LAx>}]=${0:<INT>}"
+		},
+		{
+			"trigger": "CPLINSC\taddress",
+			"contents": "CPLINSC[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPLINTR\taddress",
+			"contents": "CPLINTR[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPLNUM\taddress",
+			"contents": "CPLNUM[${1:<FAx>},${2:<LAx>}]=${3:<INT>}"
+		},
+		{
+			"trigger": "CPLOF\taddress",
+			"contents": "CPLOF[${1:<FAx>}]=${2:<LAx>}"
+		},
+		{
+			"trigger": "CPLON\taddress",
+			"contents": "CPLON[${1:<FAx>}]=${2:<LAx>}"
+		},
+		{
+			"trigger": "CPLOUTSC\taddress",
+			"contents": "CPLOUTSC[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPLOUTTR\taddress",
+			"contents": "CPLOUTTR[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPLPOS\taddress",
+			"contents": "CPLPOS[${1:<FAx>},${2:<LAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPLSETVAL\taddress",
+			"contents": "CPLSETVAL[${1:<FAx>},${2:<LAx>}]=\"${3:<couble reference>}\" $0"
+		},
+		{
+			"trigger": "CPMALARM\taddress",
+			"contents": "CPMALARM[${1:<FAx>}]=${2:<bitwise value>}"
+		},
+		{
+			"trigger": "CPMBRAKE\taddress",
+			"contents": "CPMBRAKE[${1:<FAx>}]=${2:<bitwise value>}"
+		},
+		{
+			"trigger": "CPMPRT\taddress",
+			"contents": "CPMPRT[${1:<FAx>}]=\"${2:<Start behavior>}\" $0"
+		},
+		{
+			"trigger": "CPMRESET\taddress",
+			"contents": "CPMRESET[${1:<FAx>}]=\"${2:<Reset behavior>}\" $0"
+		},
+		{
+			"trigger": "CPMSTART\taddress",
+			"contents": "CPMSTART[${1:<FAx>}]=\"${2:<Start behavior>}\" $0"
+		},
+		{
+			"trigger": "CPMVDI\taddress",
+			"contents": "CPMVDI[${1:<FAx>}]=${2:<bitwise value>}"
+		},
+		{
+			"trigger": "CPOF\taddress",
+			"contents": "CPOF=(${1:<FAx>}) $0"
+		},
+		{
+			"trigger": "CPON\taddress",
+			"contents": "CPON=(${1:<FAx>}) $0"
+		},
+		{
+			"trigger": "CPRES\taddress",
+			"contents": "CPRES"
+		},
+		{
+			"trigger": "CPSETTYPE\taddress",
+			"contents": "CPSETTYPE[${1:<FAx>}]=\"${2:<couble type>}\" $0"
+		},
+		{
+			"trigger": "CPSYNCOP\taddress",
+			"contents": "CPSYNCOP[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPSYNCOP2\taddress",
+			"contents": "CPSYNCOP2[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPSYNCOV\taddress",
+			"contents": "CPSYNCOV[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPSYNFIP\taddress",
+			"contents": "CPSYNFIP[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPSYNFIP2\taddress",
+			"contents": "CPSYNFIP2[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CPSYNFIV\taddress",
+			"contents": "CPSYNFIV[${1:<FAx>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "CTOL\taddress",
+			"contents": "CTOL=${0:<REAL>}"
+		},
+		{
+			"trigger": "CUTMOD\taddress",
+			"contents": "CUTMOD=${0:<REAL>}"
+		},
+		{
+			"trigger": "DIACYCOFA\taddress",
+			"contents": "DIACYCOFA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "DIAM90A\taddress",
+			"contents": "DIAM90A[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "DIAMCHAN\taddress",
+			"contents": "DIAMCHAN"
+		},
+		{
+			"trigger": "DIAMCHANA\taddress",
+			"contents": "DIAMCHANA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "DIAMOFA\taddress",
+			"contents": "DIAMOFA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "DIAMONA\taddress",
+			"contents": "DIAMONA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "FA\taddress",
+			"contents": "FA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FDA\taddress",
+			"contents": "FDA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FGREF\taddress",
+			"contents": "FGREF[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FINEA\taddress",
+			"contents": "FINEA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "FL\taddress",
+			"contents": "FL[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FMA\taddress",
+			"contents": "FMA[${1:<2..7>},${2:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FOC\taddress",
+			"contents": "FOC[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FOCOF\taddress",
+			"contents": "FOCOF[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FOCON\taddress",
+			"contents": "FOCON[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FXS\taddress",
+			"contents": "FXS[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FXST\taddress",
+			"contents": "FXST[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FXSW\taddress",
+			"contents": "FXSW[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "IP\taddress",
+			"contents": "IP[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "IPOENDA\taddress",
+			"contents": "IPOENDA[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "JERKLIM\taddress",
+			"contents": "JERKLIM[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "JERKLIMA\taddress",
+			"contents": "JERKLIMA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "LIMS\taddress",
+			"contents": "LIMS${1:[${2:<SpindleNo>}]}=${0:<REAL>}"
+		},
+		{
+			"trigger": "MEAC\taddress",
+			"contents": "MEAC[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "MEASA\taddress",
+			"contents": "MEASA[${1:<AXIS>}]=${0:<INT>}"
+		},
+		{
+			"trigger": "MEAWA\taddress",
+			"contents": "MEAWA[${1:<AXIS>}]=${0:<INT>}"
+		},
+		{
+			"trigger": "MOV\taddress",
+			"contents": "MOV[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OS\taddress",
+			"contents": "OS[${1:<AXIS>}]=${0:<0|1>}"
+		},
+		{
+			"trigger": "OSB\taddress",
+			"contents": "OSB[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OSCILL\taddress",
+			"contents": "OSCILL[${1:<AXIS>}]=(${2:<AXIS>}${3:,${4:[...]}})$0"
+		},
+		{
+			"trigger": "OSCTRL\taddress",
+			"contents": "OSCTRL[${1:<AXIS>}]=(${2:<SetPos>},${3:<ResetPos>})$0"
+		},
+		{
+			"trigger": "OSE\taddress",
+			"contents": "OSE[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OSNSC\taddress",
+			"contents": "OSNSC[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OSP1\taddress",
+			"contents": "OSP1[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OSP2\taddress",
+			"contents": "OSP2[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OST1\taddress",
+			"contents": "OST1[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OST2\taddress",
+			"contents": "OST2[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OTOL\taddress",
+			"contents": "OTOL=${0:<REAL>}"
+		},
+		{
+			"trigger": "OVR\taddress",
+			"contents": "OVR=${0:<REAL>}"
+		},
+		{
+			"trigger": "OVRA\taddress",
+			"contents": "OVRA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "OVRRAP\taddress",
+			"contents": "OVRRAP[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "PO\taddress",
+			"contents": "PO[${1:<Angle/Pos>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "POLF\taddress",
+			"contents": "POLF[${1:<AXIS>}]=${0:<Pos>}"
+		},
+		{
+			"trigger": "POS\taddress",
+			"contents": "POS[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "POSA\taddress",
+			"contents": "POSA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "POSP\taddress",
+			"contents": "POSP[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "PRIO\taddress",
+			"contents": "PRIO=${0:<INT>}"
+		},
+		{
+			"trigger": "SCC\taddress",
+			"contents": "SCC[${1:<AXIS>}]$0"
+		},
+		{
+			"trigger": "SCPARA\taddress",
+			"contents": "SCPARA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "SPOS\taddress",
+			"contents": "SPOS${1:[${2:<SpindleNo>}]}=${0:<Position>}"
+		},
+		{
+			"trigger": "SPOSA\taddress",
+			"contents": "SPOSA${1:[${2:<SpindleNo>}]}=${0:<Position>}"
+		},
+		{
+			"trigger": "SRA\taddress",
+			"contents": "SRA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "STA\taddress",
+			"contents": "STA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "STAT\taddress",
+			"contents": "STAT=${0:<HEX>}"
+		},
+		{
+			"trigger": "STOLF\taddress",
+			"contents": "STOLF=${0:<REAL>}"
+		},
+		{
+			"trigger": "SVC\taddress",
+			"contents": "SVC${1:[${2:<INT>}]}=${0:<REAL>}"
+		},
+		{
+			"trigger": "TOFF\taddress",
+			"contents": "TOFF${1:[${2:<GeoAxis>}]}=${0:<REAL>}"
+		},
+		{
+			"trigger": "TU\taddress",
+			"contents": "TU=${0:<HEX>}"
+		},
+		{
+			"trigger": "TOFFL\taddress",
+			"contents": "TOFFL${1:[${2:<Direction>}]}=${0:<REAL>}"
+		},
+		{
+			"trigger": "VELOLIM\taddress",
+			"contents": "VELOLIM[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "VELOLIMA\taddress",
+			"contents": "VELOLIMA[${1:<AXIS>}]=${0:<REAL>}"
+		}
+	]
+}
