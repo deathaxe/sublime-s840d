@@ -1,140 +1,549 @@
 {
-"scope": "source.s840d_gcode - comment - string - support.variable - meta.definition.variable - meta.redefinition - meta.function",
-"completions": [
-{"trigger": "ABS\tfunction", "contents": "ABS(${1:<REAL>})$0"},
-{"trigger": "AC\tfunction", "contents": "AC(${1:<REAL>})$0"},
-{"trigger": "ACN\tfunction", "contents": "ACN(${1:<REAL>})$0"},
-{"trigger": "ACOS\tfunction", "contents": "ACOS(${1:<REAL>})$0"},
-{"trigger": "ACP\tfunction", "contents": "ACP(${1:<REAL>})$0"},
-{"trigger": "ADDFRAME\tfunction", "contents": "ADDFRAME(${1:<FRAME>},${2:<STRING>})$0"},
-{"trigger": "ASIN\tfunction", "contents": "ASIN(${1:<REAL>})$0"},
-{"trigger": "ATAN2\tfunction", "contents": "ATAN2(${1:<REAL>})$0"},
-{"trigger": "AXNAME\tfunction", "contents": "AXNAME(${1:<STRING>})$0"},
-{"trigger": "AXSTRING\tfunction", "contents": "AXSTRING(${1:<AXIS>})$0"},
-{"trigger": "AXTOSPI\tfunction", "contents": "AXTOSPI(${1:<AXIS>})$0"},
-{"trigger": "BOUND\tfunction", "contents": "BOUND(${1:<MIN>},${2:<MAX>},${3:<REAL>})$0"},
-{"trigger": "BTOI\tfunction", "contents": "BTOI(${1:<BOOL>})$0"},
-{"trigger": "BTOR\tfunction", "contents": "BTOR(${1:<BOOL>})$0"},
-{"trigger": "CAC\tfunction", "contents": "CAC(${1:<INT>})$0"},
-{"trigger": "CACN\tfunction", "contents": "CACN(${1:<INT>})$0"},
-{"trigger": "CACP\tfunction", "contents": "CACP(${1:<INT>})$0"},
-{"trigger": "CALCDAT\tfunction", "contents": "CALCDAT(${1:<BOOL>},${2:<points[,2]>},${3:<num_points>},${4:<result[3]>})$0"},
-{"trigger": "CALCPOSI\tfunction", "contents": "CALCPOSI(${1:<StartPos>},${2:<MoveDist>},${3:<MinLimit>},${4:<MaxDist>},${5:<BaseSys>},${6:<TestLimit>})$0"},
-{"trigger": "CDC\tfunction", "contents": "CDC(${1:<INT>})$0"},
-{"trigger": "CFINE\tfunction", "contents": "CFINE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "CHECKSUM\tfunction", "contents": "CHECKSUM(${1:<STRING CheckSum>}, ${2:<STRING GudName>})$0"},
-{"trigger": "CHKDM\tfunction", "contents": "CHKDM(${1:<MagNo>},${2:<DNo>},${3:<LocNo>})$0"},
-{"trigger": "CHKDNO\tfunction", "contents": "CHKDNO(${1:<TNo1>},${2:<TNo2>}${3:,${4:[DNo]}})$0"},
-{"trigger": "CIC\tfunction", "contents": "CIC(${1:<INT>})$0"},
-{"trigger": "CMIRROR\tfunction", "contents": "CMIRROR(${1:<AXIS>}${2:,${3:[...]}})$0"},
-{"trigger": "COLLPAIR\tfunction", "contents": "COLLPAIR(${1:<Name1>},${2:<Name2>}${3:,${4:<NoError>}})$0"},
-{"trigger": "CORRTRAFO\tfunction", "contents": "CORRTRAFO(${1:<Corr_Vect>},${2:<Corr_Index>},${3:<Corr_Mode>}${4:, ${5:<No_Alarm>}})"},
-{"trigger": "COS\tfunction", "contents": "COS(${1:<REAL>})$0"},
-{"trigger": "CROT\tfunction", "contents": "CROT(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "CROTS\tfunction", "contents": "CROTS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "CRPL\tfunction", "contents": "CRPL(${1:<AXIS>},${2:<REAL>})$0"},
-{"trigger": "CSCALE\tfunction", "contents": "CSCALE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "CTAB\tfunction", "contents": "CTAB(${1:<...>})$0"},
-{"trigger": "CTABEXISTS\tfunction", "contents": "CTABEXISTS(${1:<...>})$0"},
-{"trigger": "CTABFNO\tfunction", "contents": "CTABFNO(${1:<...>})$0"},
-{"trigger": "CTABFPOL\tfunction", "contents": "CTABFPOL(${1:<...>})$0"},
-{"trigger": "CTABFSEG\tfunction", "contents": "CTABFSEG(${1:<...>})$0"},
-{"trigger": "CTABID\tfunction", "contents": "CTABID(${1:ID},${2:[\"SRAM|DRAM\"]})$0"},
-{"trigger": "CTABINV\tfunction", "contents": "CTABINV(${1:<...>})$0"},
-{"trigger": "CTABISLOCK\tfunction", "contents": "CTABISLOCK(${1:<...>})$0"},
-{"trigger": "CTABMEMTYP\tfunction", "contents": "CTABMEMTYP(${1:<...>})$0"},
-{"trigger": "CTABMPOL\tfunction", "contents": "CTABMPOL(${1:<...>})$0"},
-{"trigger": "CTABMSEG\tfunction", "contents": "CTABMSEG(${1:<...>})$0"},
-{"trigger": "CTABNO\tfunction", "contents": "CTABNO(${1:<...>})$0"},
-{"trigger": "CTABNOMEM\tfunction", "contents": "CTABNOMEM(${1:<...>})$0"},
-{"trigger": "CTABPERIOD\tfunction", "contents": "CTABPERIOD(${1:<ID>})$0"},
-{"trigger": "CTABPOL\tfunction", "contents": "CTABPOL(${1:<...>})$0"},
-{"trigger": "CTABPOLID\tfunction", "contents": "CTABPOLID(${1:<...>})$0"},
-{"trigger": "CTABSEG\tfunction", "contents": "CTABSEG(${1:<...>})$0"},
-{"trigger": "CTABSEGID\tfunction", "contents": "CTABSEGID(${1:<...>})$0"},
-{"trigger": "CTABSEV\tfunction", "contents": "CTABSEV(${1:<...>})$0"},
-{"trigger": "CTABSSV\tfunction", "contents": "CTABSSV(${1:<...>})$0"},
-{"trigger": "CTABTEP\tfunction", "contents": "CTABTEP(${1:<...>})$0"},
-{"trigger": "CTABTEV\tfunction", "contents": "CTABTEV(${1:<...>})$0"},
-{"trigger": "CTABTMAX\tfunction", "contents": "CTABTMAX(${1:<...>})$0"},
-{"trigger": "CTABTMIN\tfunction", "contents": "CTABTMIN(${1:<...>})$0"},
-{"trigger": "CTABTSP\tfunction", "contents": "CTABTSP(${1:<...>})$0"},
-{"trigger": "CTABTSV\tfunction", "contents": "CTABTSV(${1:<...>})$0"},
-{"trigger": "CTRANS\tfunction", "contents": "CTRANS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "DAC\tfunction", "contents": "DAC(${1:<REAL>})$0"},
-{"trigger": "DC\tfunction", "contents": "DC(${1:<REAL>})$0"},
-{"trigger": "DELDL\tfunction", "contents": "DELDL(${1:<TNo>},${2:<DNo>})$0"},
-{"trigger": "DELMLOWNER\tfunction", "contents": "DELMLOWNER(${1:<TNo>})$0"},
-{"trigger": "DELMLRES\tfunction", "contents": "DELMLRES(${1:<MagNo>},${2:<LocNo>},${3:<resType>})$0"},
-{"trigger": "DELOBJ\tfunction", "contents": "DELOBJ(${1:<CompType>}${2:,${3:[StartIndex]}}${4:,${5:[EndIndex]}}${6:,${7:[NoAlarm]}})$0"},
-{"trigger": "DELTOOLENV\tfunction", "contents": "DELTOOLENV(${1:<Name>})$0"},
-{"trigger": "DIC\tfunction", "contents": "DIC(${1:<REAL>})$0"},
-{"trigger": "EXP\tfunction", "contents": "EXP(${1:<REAL>})$0"},
-{"trigger": "GETACTT\tfunction", "contents": "GETACTT(${1:<TNo>},${2:<ToolIdent>})$0"},
-{"trigger": "GETACTTD\tfunction", "contents": "GETACTTD(${1:<TNo>},${2:<DNo>})$0"},
-{"trigger": "GETDNO\tfunction", "contents": "GETDNO(${1:<TNo>},${2:<EdgeIndex>})$0"},
-{"trigger": "GETT\tfunction", "contents": "GETT(${1:<ToolIdent>},${2:<DuploNo>})$0"},
-{"trigger": "GETTCOR\tfunction", "contents": "GETTCOR(${1:<Len>},${2:<Comp>},${3:<Stat>},${4:<T>},${5:<D>},${6:<DL>})$0"},
-{"trigger": "GETTENV\tfunction", "contents": "GETTENV(${1:<Name>},${2:<TDDL[3]>})$0"},
-{"trigger": "GETVARAP\tfunction", "contents": "GETVARAP(${1:<...>})$0"},
-{"trigger": "GETVARDFT\tfunction", "contents": "GETVARDFT(${1:<...>})$0"},
-{"trigger": "GETVARLIM\tfunction", "contents": "GETVARLIM(${1:<...>})$0"},
-{"trigger": "GETVARPHU\tfunction", "contents": "GETVARPHU(${1:<...>})$0"},
-{"trigger": "GETVARTYP\tfunction", "contents": "GETVARTYP(${1:<...>})$0"},
-{"trigger": "GP\tfunction", "contents": "GP(${1:<Pos>},${2:<PosAttr>})$0"},
-{"trigger": "IC\tfunction", "contents": "IC(${1:<REAL>})$0"},
-{"trigger": "INDEX\tfunction", "contents": "INDEX(${1:<STRING>},${2:<CHAR>})$0"},
-{"trigger": "INTERSEC\tfunction", "contents": "INTERSEC(${1:<ContTable1>},${2:<ContElem1>},${3:<ContTable2>},${4:<ContElem2>},${5:<Intersect>},${6:<Mode>})$0"},
-{"trigger": "INVFRAME\tfunction", "contents": "INVFRAME(${1:<FRAME>})$0"},
-{"trigger": "ISAXIS\tfunction", "contents": "ISAXIS(${1:<STRING>})$0"},
-{"trigger": "ISFILE\tfunction", "contents": "ISFILE(${1:<STRING>})$0"},
-{"trigger": "ISNUMBER\tfunction", "contents": "ISNUMBER(${1:<STRING>})$0"},
-{"trigger": "ISVAR\tfunction", "contents": "ISVAR(${1:<STRING>})$0"},
-{"trigger": "ITOB\tfunction", "contents": "ITOB(${1:<INT>})$0"},
-{"trigger": "ITOR\tfunction", "contents": "ITOR(${1:<INT>})$0"},
-{"trigger": "LENTOAX\tfunction", "contents": "LENTOAX(${1:<AXIS>},${2:<MATRIX>},${3:<WCS>})$0"},
-{"trigger": "LN\tfunction", "contents": "LN(${1:<REAL>})$0"},
-{"trigger": "MATCH\tfunction", "contents": "MATCH(${1:<STRING>},${2:<STRING>})$0"},
-{"trigger": "MAXVAL\tfunction", "contents": "MAXVAL(${1:<REAL>},${2:<REAL>})$0"},
-{"trigger": "MEAFRAME\tfunction", "contents": "MEAFRAME(${1:<ideal points>},${2:<measuring points>},${3:<quality>})$0"},
-{"trigger": "MEASURE\tfunction", "contents": "MEASURE()$0"},
-{"trigger": "MINDEX\tfunction", "contents": "MINDEX(${1:<STRING>},${2:<STRING>})$0"},
-{"trigger": "MINVAL\tfunction", "contents": "MINVAL(${1:<REAL>},${2:<REAL>})$0"},
-{"trigger": "MODAXVAL\tfunction", "contents": "MODAXVAL(${1:<AXIS>},${2:<REAL>})$0"},
-{"trigger": "NAMETOINT\tfunction", "contents": "NAMETOINT(${1:<VarName>},${2:<VarVal>},${3:<NoAlarm>})"},
-{"trigger": "NEWMT\tfunction", "contents": "NEWMT(${1:<ToolIdent>},${2:<PlaceCount>})$0"},
-{"trigger": "NEWT\tfunction", "contents": "NEWT(${1:<ToolIdent>},${2:<DuploNo>})$0"},
-{"trigger": "NUMBER\tfunction", "contents": "NUMBER(${1:<STRING>})$0"},
-{"trigger": "PM\tfunction", "contents": "PM(${1:<REAL>})$0"},
-{"trigger": "POSRANGE\tfunction", "contents": "POSRANGE(${1:<Axis>},${2:<RefPos>},${3:<Tol>}${4:,${5:<CoordSys>}})$0"},
-{"trigger": "POT\tfunction", "contents": "POT(${1:<REAL>})$0"},
-{"trigger": "PR\tfunction", "contents": "PR(${1:<REAL>})$0"},
-{"trigger": "PROTD\tfunction", "contents": "PROTD(${1:<STRING>},${2:<STRING>},${3:<VAR REAL>,${4:<BOOL>})$0"},
-{"trigger": "QU\tfunction", "contents": "QU(${1:<INT>})$0"},
-{"trigger": "RAC\tfunction", "contents": "RAC(${1:<REAL>})$0"},
-{"trigger": "REP\tfunction", "contents": "REP(${1:<Value>}${2:,${3:[Count]}})$0"},
-{"trigger": "RIC\tfunction", "contents": "RIC(${1:<REAL>})$0"},
-{"trigger": "RINDEX\tfunction", "contents": "RINDEX(${1:<STRING>},${2:<CHAR>})$0"},
-{"trigger": "ROUND\tfunction", "contents": "ROUND(${1:<REAL>})$0"},
-{"trigger": "ROUNDUP\tfunction", "contents": "ROUNDUP(${1:<REAL>})$0"},
-{"trigger": "RTOB\tfunction", "contents": "RTOB(${1:<REAL>})$0"},
-{"trigger": "RTOI\tfunction", "contents": "RTOI(${1:<REAL>})$0"},
-{"trigger": "SET\tfunction", "contents": "SET(${1:<Value 1>}${2:,${3:[Value 2]}${4:,${5:[...]}}})$0"},
-{"trigger": "SETDNO\tfunction", "contents": "SETDNO(${1:<TNo>},${2:<EdgeIndex>},${3:<DNo>})$0"},
-{"trigger": "SETTCOR\tfunction", "contents": "SETTCOR(${1:<CorrVal>[3]},${2:\"GW\"},${3:<Int>},${4:<Int>},${5:<Int>})$0"},
-{"trigger": "SIN\tfunction", "contents": "SIN(${1:<REAL>})$0"},
-{"trigger": "SIRELAY\tfunction", "contents": "SIRELAY(${1:<Id>})$0"},
-{"trigger": "SPI\tfunction", "contents": "SPI(${1:<SpindleNo>})$0"},
-{"trigger": "SPRINT\tfunction", "contents": "SPRINT(${1:<Format>}${2:,${3:[P1]}${4:,${5:[...]}}})$0"},
-{"trigger": "SQRT\tfunction", "contents": "SQRT(${1:<REAL>})$0"},
-{"trigger": "STRINGIS\tfunction", "contents": "STRINGIS(${1:<STRING>})$0"},
-{"trigger": "STRLEN\tfunction", "contents": "STRLEN(${1:<STRING>})$0"},
-{"trigger": "SUBSTR\tfunction", "contents": "SUBSTR(${1:<STRING>},${2:<idx>}${3:,${4:[len]}})$0"},
-{"trigger": "TAN\tfunction", "contents": "TAN(${1:<REAL>})$0"},
-{"trigger": "TOLOWER\tfunction", "contents": "TOLOWER(${1:<STRING>})$0"},
-{"trigger": "TOOLENV\tfunction", "contents": "TOOLENV(${1:<STRING>})$0"},
-{"trigger": "TOOLGNT\tfunction", "contents": "TOOLGNT(${1:<STRING>})$0"},
-{"trigger": "TOOLGT\tfunction", "contents": "TOOLGT(${1:<STRING>},${2:<INT>})$0"},
-{"trigger": "TOUPPER\tfunction", "contents": "TOUPPER(${1:<STRING>})$0"},
-{"trigger": "TRUNC\tfunction", "contents": "TRUNC(${1:<REAL>})$0"}
-]}
+	"scope": "source.s840d_gcode - comment - string - support.variable - meta.definition.variable - meta.redefinition - meta.function",
+	"completions": [
+		{
+			"trigger": "ABS\tfunction",
+			"contents": "ABS(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "AC\tfunction",
+			"contents": "AC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "ACN\tfunction",
+			"contents": "ACN(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "ACOS\tfunction",
+			"contents": "ACOS(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "ACP\tfunction",
+			"contents": "ACP(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "ADDFRAME\tfunction",
+			"contents": "ADDFRAME(${1:<FRAME>},${2:<STRING>})$0"
+		},
+		{
+			"trigger": "ASIN\tfunction",
+			"contents": "ASIN(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "ATAN2\tfunction",
+			"contents": "ATAN2(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "AXNAME\tfunction",
+			"contents": "AXNAME(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "AXSTRING\tfunction",
+			"contents": "AXSTRING(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "AXTOSPI\tfunction",
+			"contents": "AXTOSPI(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "BOUND\tfunction",
+			"contents": "BOUND(${1:<MIN>},${2:<MAX>},${3:<REAL>})$0"
+		},
+		{
+			"trigger": "BTOI\tfunction",
+			"contents": "BTOI(${1:<BOOL>})$0"
+		},
+		{
+			"trigger": "BTOR\tfunction",
+			"contents": "BTOR(${1:<BOOL>})$0"
+		},
+		{
+			"trigger": "CAC\tfunction",
+			"contents": "CAC(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CACN\tfunction",
+			"contents": "CACN(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CACP\tfunction",
+			"contents": "CACP(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CALCDAT\tfunction",
+			"contents": "CALCDAT(${1:<BOOL>},${2:<points[,2]>},${3:<num_points>},${4:<result[3]>})$0"
+		},
+		{
+			"trigger": "CALCPOSI\tfunction",
+			"contents": "CALCPOSI(${1:<StartPos>},${2:<MoveDist>},${3:<MinLimit>},${4:<MaxDist>},${5:<BaseSys>},${6:<TestLimit>})$0"
+		},
+		{
+			"trigger": "CDC\tfunction",
+			"contents": "CDC(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CFINE\tfunction",
+			"contents": "CFINE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "CHECKSUM\tfunction",
+			"contents": "CHECKSUM(${1:<STRING CheckSum>}, ${2:<STRING GudName>})$0"
+		},
+		{
+			"trigger": "CHKDM\tfunction",
+			"contents": "CHKDM(${1:<MagNo>},${2:<DNo>},${3:<LocNo>})$0"
+		},
+		{
+			"trigger": "CHKDNO\tfunction",
+			"contents": "CHKDNO(${1:<TNo1>},${2:<TNo2>}${3:,${4:[DNo]}})$0"
+		},
+		{
+			"trigger": "CIC\tfunction",
+			"contents": "CIC(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CMIRROR\tfunction",
+			"contents": "CMIRROR(${1:<AXIS>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "COLLPAIR\tfunction",
+			"contents": "COLLPAIR(${1:<Name1>},${2:<Name2>}${3:,${4:<NoError>}})$0"
+		},
+		{
+			"trigger": "CORRTRAFO\tfunction",
+			"contents": "CORRTRAFO(${1:<Corr_Vect>},${2:<Corr_Index>},${3:<Corr_Mode>}${4:, ${5:<No_Alarm>}})"
+		},
+		{
+			"trigger": "COS\tfunction",
+			"contents": "COS(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "CROT\tfunction",
+			"contents": "CROT(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "CROTS\tfunction",
+			"contents": "CROTS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "CRPL\tfunction",
+			"contents": "CRPL(${1:<AXIS>},${2:<REAL>})$0"
+		},
+		{
+			"trigger": "CSCALE\tfunction",
+			"contents": "CSCALE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "CTAB\tfunction",
+			"contents": "CTAB(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABEXISTS\tfunction",
+			"contents": "CTABEXISTS(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABFNO\tfunction",
+			"contents": "CTABFNO(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABFPOL\tfunction",
+			"contents": "CTABFPOL(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABFSEG\tfunction",
+			"contents": "CTABFSEG(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABID\tfunction",
+			"contents": "CTABID(${1:ID},${2:[\"SRAM|DRAM\"]})$0"
+		},
+		{
+			"trigger": "CTABINV\tfunction",
+			"contents": "CTABINV(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABISLOCK\tfunction",
+			"contents": "CTABISLOCK(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABMEMTYP\tfunction",
+			"contents": "CTABMEMTYP(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABMPOL\tfunction",
+			"contents": "CTABMPOL(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABMSEG\tfunction",
+			"contents": "CTABMSEG(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABNO\tfunction",
+			"contents": "CTABNO(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABNOMEM\tfunction",
+			"contents": "CTABNOMEM(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABPERIOD\tfunction",
+			"contents": "CTABPERIOD(${1:<ID>})$0"
+		},
+		{
+			"trigger": "CTABPOL\tfunction",
+			"contents": "CTABPOL(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABPOLID\tfunction",
+			"contents": "CTABPOLID(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABSEG\tfunction",
+			"contents": "CTABSEG(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABSEGID\tfunction",
+			"contents": "CTABSEGID(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABSEV\tfunction",
+			"contents": "CTABSEV(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABSSV\tfunction",
+			"contents": "CTABSSV(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABTEP\tfunction",
+			"contents": "CTABTEP(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABTEV\tfunction",
+			"contents": "CTABTEV(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABTMAX\tfunction",
+			"contents": "CTABTMAX(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABTMIN\tfunction",
+			"contents": "CTABTMIN(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABTSP\tfunction",
+			"contents": "CTABTSP(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABTSV\tfunction",
+			"contents": "CTABTSV(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTRANS\tfunction",
+			"contents": "CTRANS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "DAC\tfunction",
+			"contents": "DAC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "DC\tfunction",
+			"contents": "DC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "DELDL\tfunction",
+			"contents": "DELDL(${1:<TNo>},${2:<DNo>})$0"
+		},
+		{
+			"trigger": "DELMLOWNER\tfunction",
+			"contents": "DELMLOWNER(${1:<TNo>})$0"
+		},
+		{
+			"trigger": "DELMLRES\tfunction",
+			"contents": "DELMLRES(${1:<MagNo>},${2:<LocNo>},${3:<resType>})$0"
+		},
+		{
+			"trigger": "DELOBJ\tfunction",
+			"contents": "DELOBJ(${1:<CompType>}${2:,${3:[StartIndex]}}${4:,${5:[EndIndex]}}${6:,${7:[NoAlarm]}})$0"
+		},
+		{
+			"trigger": "DELTOOLENV\tfunction",
+			"contents": "DELTOOLENV(${1:<Name>})$0"
+		},
+		{
+			"trigger": "DIC\tfunction",
+			"contents": "DIC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "EXP\tfunction",
+			"contents": "EXP(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "GETACTT\tfunction",
+			"contents": "GETACTT(${1:<TNo>},${2:<ToolIdent>})$0"
+		},
+		{
+			"trigger": "GETACTTD\tfunction",
+			"contents": "GETACTTD(${1:<TNo>},${2:<DNo>})$0"
+		},
+		{
+			"trigger": "GETDNO\tfunction",
+			"contents": "GETDNO(${1:<TNo>},${2:<EdgeIndex>})$0"
+		},
+		{
+			"trigger": "GETT\tfunction",
+			"contents": "GETT(${1:<ToolIdent>},${2:<DuploNo>})$0"
+		},
+		{
+			"trigger": "GETTCOR\tfunction",
+			"contents": "GETTCOR(${1:<Len>},${2:<Comp>},${3:<Stat>},${4:<T>},${5:<D>},${6:<DL>})$0"
+		},
+		{
+			"trigger": "GETTENV\tfunction",
+			"contents": "GETTENV(${1:<Name>},${2:<TDDL[3]>})$0"
+		},
+		{
+			"trigger": "GETVARAP\tfunction",
+			"contents": "GETVARAP(${1:<...>})$0"
+		},
+		{
+			"trigger": "GETVARDFT\tfunction",
+			"contents": "GETVARDFT(${1:<...>})$0"
+		},
+		{
+			"trigger": "GETVARLIM\tfunction",
+			"contents": "GETVARLIM(${1:<...>})$0"
+		},
+		{
+			"trigger": "GETVARPHU\tfunction",
+			"contents": "GETVARPHU(${1:<...>})$0"
+		},
+		{
+			"trigger": "GETVARTYP\tfunction",
+			"contents": "GETVARTYP(${1:<...>})$0"
+		},
+		{
+			"trigger": "GP\tfunction",
+			"contents": "GP(${1:<Pos>},${2:<PosAttr>})$0"
+		},
+		{
+			"trigger": "IC\tfunction",
+			"contents": "IC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "INDEX\tfunction",
+			"contents": "INDEX(${1:<STRING>},${2:<CHAR>})$0"
+		},
+		{
+			"trigger": "INTERSEC\tfunction",
+			"contents": "INTERSEC(${1:<ContTable1>},${2:<ContElem1>},${3:<ContTable2>},${4:<ContElem2>},${5:<Intersect>},${6:<Mode>})$0"
+		},
+		{
+			"trigger": "INVFRAME\tfunction",
+			"contents": "INVFRAME(${1:<FRAME>})$0"
+		},
+		{
+			"trigger": "ISAXIS\tfunction",
+			"contents": "ISAXIS(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "ISFILE\tfunction",
+			"contents": "ISFILE(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "ISNUMBER\tfunction",
+			"contents": "ISNUMBER(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "ISVAR\tfunction",
+			"contents": "ISVAR(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "ITOB\tfunction",
+			"contents": "ITOB(${1:<INT>})$0"
+		},
+		{
+			"trigger": "ITOR\tfunction",
+			"contents": "ITOR(${1:<INT>})$0"
+		},
+		{
+			"trigger": "LENTOAX\tfunction",
+			"contents": "LENTOAX(${1:<AXIS>},${2:<MATRIX>},${3:<WCS>})$0"
+		},
+		{
+			"trigger": "LN\tfunction",
+			"contents": "LN(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "MATCH\tfunction",
+			"contents": "MATCH(${1:<STRING>},${2:<STRING>})$0"
+		},
+		{
+			"trigger": "MAXVAL\tfunction",
+			"contents": "MAXVAL(${1:<REAL>},${2:<REAL>})$0"
+		},
+		{
+			"trigger": "MEAFRAME\tfunction",
+			"contents": "MEAFRAME(${1:<ideal points>},${2:<measuring points>},${3:<quality>})$0"
+		},
+		{
+			"trigger": "MEASURE\tfunction",
+			"contents": "MEASURE()$0"
+		},
+		{
+			"trigger": "MINDEX\tfunction",
+			"contents": "MINDEX(${1:<STRING>},${2:<STRING>})$0"
+		},
+		{
+			"trigger": "MINVAL\tfunction",
+			"contents": "MINVAL(${1:<REAL>},${2:<REAL>})$0"
+		},
+		{
+			"trigger": "MODAXVAL\tfunction",
+			"contents": "MODAXVAL(${1:<AXIS>},${2:<REAL>})$0"
+		},
+		{
+			"trigger": "NAMETOINT\tfunction",
+			"contents": "NAMETOINT(${1:<VarName>},${2:<VarVal>},${3:<NoAlarm>})"
+		},
+		{
+			"trigger": "NEWMT\tfunction",
+			"contents": "NEWMT(${1:<ToolIdent>},${2:<PlaceCount>})$0"
+		},
+		{
+			"trigger": "NEWT\tfunction",
+			"contents": "NEWT(${1:<ToolIdent>},${2:<DuploNo>})$0"
+		},
+		{
+			"trigger": "NUMBER\tfunction",
+			"contents": "NUMBER(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "PM\tfunction",
+			"contents": "PM(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "POSRANGE\tfunction",
+			"contents": "POSRANGE(${1:<Axis>},${2:<RefPos>},${3:<Tol>}${4:,${5:<CoordSys>}})$0"
+		},
+		{
+			"trigger": "POT\tfunction",
+			"contents": "POT(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "PR\tfunction",
+			"contents": "PR(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "PROTD\tfunction",
+			"contents": "PROTD(${1:<STRING>},${2:<STRING>},${3:<VAR REAL>,${4:<BOOL>})$0"
+		},
+		{
+			"trigger": "QU\tfunction",
+			"contents": "QU(${1:<INT>})$0"
+		},
+		{
+			"trigger": "RAC\tfunction",
+			"contents": "RAC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "REP\tfunction",
+			"contents": "REP(${1:<Value>}${2:,${3:[Count]}})$0"
+		},
+		{
+			"trigger": "RIC\tfunction",
+			"contents": "RIC(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "RINDEX\tfunction",
+			"contents": "RINDEX(${1:<STRING>},${2:<CHAR>})$0"
+		},
+		{
+			"trigger": "ROUND\tfunction",
+			"contents": "ROUND(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "ROUNDUP\tfunction",
+			"contents": "ROUNDUP(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "RTOB\tfunction",
+			"contents": "RTOB(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "RTOI\tfunction",
+			"contents": "RTOI(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "SET\tfunction",
+			"contents": "SET(${1:<Value 1>}${2:,${3:[Value 2]}${4:,${5:[...]}}})$0"
+		},
+		{
+			"trigger": "SETDNO\tfunction",
+			"contents": "SETDNO(${1:<TNo>},${2:<EdgeIndex>},${3:<DNo>})$0"
+		},
+		{
+			"trigger": "SETTCOR\tfunction",
+			"contents": "SETTCOR(${1:<CorrVal>[3]},${2:\"GW\"},${3:<Int>},${4:<Int>},${5:<Int>})$0"
+		},
+		{
+			"trigger": "SIN\tfunction",
+			"contents": "SIN(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "SIRELAY\tfunction",
+			"contents": "SIRELAY(${1:<Id>})$0"
+		},
+		{
+			"trigger": "SPI\tfunction",
+			"contents": "SPI(${1:<SpindleNo>})$0"
+		},
+		{
+			"trigger": "SPRINT\tfunction",
+			"contents": "SPRINT(${1:<Format>}${2:,${3:[P1]}${4:,${5:[...]}}})$0"
+		},
+		{
+			"trigger": "SQRT\tfunction",
+			"contents": "SQRT(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "STRINGIS\tfunction",
+			"contents": "STRINGIS(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "STRLEN\tfunction",
+			"contents": "STRLEN(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "SUBSTR\tfunction",
+			"contents": "SUBSTR(${1:<STRING>},${2:<idx>}${3:,${4:[len]}})$0"
+		},
+		{
+			"trigger": "TAN\tfunction",
+			"contents": "TAN(${1:<REAL>})$0"
+		},
+		{
+			"trigger": "TOLOWER\tfunction",
+			"contents": "TOLOWER(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "TOOLENV\tfunction",
+			"contents": "TOOLENV(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "TOOLGNT\tfunction",
+			"contents": "TOOLGNT(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "TOOLGT\tfunction",
+			"contents": "TOOLGT(${1:<STRING>},${2:<INT>})$0"
+		},
+		{
+			"trigger": "TOUPPER\tfunction",
+			"contents": "TOUPPER(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "TRUNC\tfunction",
+			"contents": "TRUNC(${1:<REAL>})$0"
+		}
+	]
+}

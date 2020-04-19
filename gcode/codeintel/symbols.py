@@ -24,7 +24,7 @@ def completions(view, prefix, location):
         list [[trigger, contents], ...]:
             The list of symbols which match prefix distinquished by type.
     """
-    selector = '- meta.definition - meta.redefinition'
+    selector = '- meta.definition - meta.function - meta.redefinition'
     if not view.match_selector(location, selector):
         return None
 

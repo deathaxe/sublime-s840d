@@ -1,87 +1,337 @@
 {
-"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call",
-"completions": [
-{"trigger": "A2\toperand", "contents": "A2=${0:<REAL>}"},
-{"trigger": "A3\toperand", "contents": "A3=${0:<REAL>}"},
-{"trigger": "A4\toperand", "contents": "A4=${0:<REAL>}"},
-{"trigger": "A5\toperand", "contents": "A5=${0:<REAL>}"},
-{"trigger": "ADIS\toperand", "contents": "ADIS=${0:<REAL>}"},
-{"trigger": "ADISPOS\toperand", "contents": "ADISPOS=${0:<REAL>}"},
-{"trigger": "ALF\toperand", "contents": "ALF=${0:<INT>}"},
-{"trigger": "ANG\toperand", "contents": "ANG=${0:<REAL>}"},
-{"trigger": "AP\toperand", "contents": "AP=${0:<REAL>}"},
-{"trigger": "AR\toperand", "contents": "AR=${0:<REAL>}"},
-{"trigger": "B2\toperand", "contents": "B2=${0:<REAL>}"},
-{"trigger": "B3\toperand", "contents": "B3=${0:<REAL>}"},
-{"trigger": "B4\toperand", "contents": "B4=${0:<REAL>}"},
-{"trigger": "B5\toperand", "contents": "B5=${0:<REAL>}"},
-{"trigger": "C2\toperand", "contents": "C2=${0:<REAL>}"},
-{"trigger": "C3\toperand", "contents": "C3=${0:<REAL>}"},
-{"trigger": "C4\toperand", "contents": "C4=${0:<REAL>}"},
-{"trigger": "C5\toperand", "contents": "C5=${0:<REAL>}"},
-{"trigger": "CHF\toperand", "contents": "CHF=${0:<REAL>}"},
-{"trigger": "CHR\toperand", "contents": "CHR=${0:<REAL>}"},
-{"trigger": "CR\toperand", "contents": "CR=${0:<REAL>}"},
-{"trigger": "D0\toperand", "contents": "D0"},
-{"trigger": "D\toperand", "contents": "D${0:1}"},
-{"trigger": "DILF\toperand", "contents": "DILF=${0:<RetractDist>}"},
-{"trigger": "DISC\toperand", "contents": "DISC"},
-{"trigger": "DISCL\toperand", "contents": "DISCL=${0:<REAL>}"},
-{"trigger": "DISPR\toperand", "contents": "DISPR=${0:<REAL>}"},
-{"trigger": "DISR\toperand", "contents": "DISR=${0:<REAL>}"},
-{"trigger": "DISRP\toperand", "contents": "DISRP=${0:<REAL>}"},
-{"trigger": "DITE\toperand", "contents": "DITE=${0:<REAL>}"},
-{"trigger": "DITS\toperand", "contents": "DITS=${0:<REAL>}"},
-{"trigger": "DL\toperand", "contents": "DL"},
-{"trigger": "F\toperand", "contents": "F${0:<REAL>}"},
-{"trigger": "FAD\toperand", "contents": "FAD=${0:<REAL>}"},
-{"trigger": "FB\toperand", "contents": "FB=${0:<REAL>}"},
-{"trigger": "FD\toperand", "contents": "FD=${0:<REAL>}"},
-{"trigger": "FP\toperand", "contents": "FP=${0:<INT>}"},
-{"trigger": "FRC\toperand", "contents": "FRC=${0:<REAL>}"},
-{"trigger": "FRCM\toperand", "contents": "FRCM=${0:<REAL>}"},
-{"trigger": "FZ\toperand", "contents": "FZ=${0:<REAL>}"},
-{"trigger": "I1\toperand", "contents": "I1=${0:<REAL>}"},
-{"trigger": "I\toperand", "contents": "I=${0:<REAL>}"},
-{"trigger": "IR\toperand", "contents": "IR=${0:<REAL>}"},
-{"trigger": "ISD\toperand", "contents": "ISD=${0:<REAL>}"},
-{"trigger": "J1\toperand", "contents": "J1=${0:<REAL>}"},
-{"trigger": "J\toperand", "contents": "J=${0:<REAL>}"},
-{"trigger": "JR\toperand", "contents": "JR=${0:<REAL>}"},
-{"trigger": "K1\toperand", "contents": "K1=${0:<REAL>}"},
-{"trigger": "K\toperand", "contents": "K=${0:<REAL>}"},
-{"trigger": "KR\toperand", "contents": "KR=${0:<REAL>}"},
-{"trigger": "LEAD\toperand", "contents": "LEAD=${0:<REAL>}"},
-{"trigger": "MEAS\toperand", "contents": "MEAS=${0:<INT>}"},
-{"trigger": "MEAW\toperand", "contents": "MEAW=${0:<INT>}"},
-{"trigger": "MOVT\toperand", "contents": "MOVT=${0:<REAL>}"},
-{"trigger": "N\toperand", "contents": "N${0<Block>}"},
-{"trigger": "OFFN\toperand", "contents": "OFFN=${0:<REAL>}"},
-{"trigger": "OMA1\toperand", "contents": "OMA1=${0:<REAL>}"},
-{"trigger": "OMA2\toperand", "contents": "OMA2=${0:<REAL>}"},
-{"trigger": "OMA3\toperand", "contents": "OMA3=${0:<REAL>}"},
-{"trigger": "OMA4\toperand", "contents": "OMA4=${0:<REAL>}"},
-{"trigger": "OMA5\toperand", "contents": "OMA5=${0:<REAL>}"},
-{"trigger": "ORIS\toperand", "contents": "ORIS"},
-{"trigger": "P\toperand", "contents": "P=${1:<INT>}"},
-{"trigger": "PL\toperand", "contents": "PL=${0:<REAL>}"},
-{"trigger": "PW\toperand", "contents": "PW=${0:<REAL>}"},
-{"trigger": "R\toperand", "contents": "R${0:<INT>}"},
-{"trigger": "RND\toperand", "contents": "RND=${0:<REAL>}"},
-{"trigger": "RNDM\toperand", "contents": "RNDM=${0:<REAL>}"},
-{"trigger": "RP\toperand", "contents": "RP=${0:<REAL>}"},
-{"trigger": "RPL\toperand", "contents": "RPL=${0:<REAL>}"},
-{"trigger": "S\toperand", "contents": "S${1:[${2:<SpindleNo>}]=}$0"},
-{"trigger": "SD\toperand", "contents": "SD=${0:<INT>}"},
-{"trigger": "SF\toperand", "contents": "SF=${0:<REAL>}"},
-{"trigger": "SPN\toperand", "contents": "SPN=${0:<REAL>}"},
-{"trigger": "SPP\toperand", "contents": "SPP=${0:<REAL>}"},
-{"trigger": "SR\toperand", "contents": "SR=${0:<REAL>}"},
-{"trigger": "ST\toperand", "contents": "ST=${0:<REAL>}"},
-{"trigger": "T\toperand", "contents": "T=${0:<INT>}"},
-{"trigger": "TCARR\toperand", "contents": "TCARR=${0:<INT>}"},
-{"trigger": "THETA\toperand", "contents": "THETA=${0:<REAL>}"},
-{"trigger": "TILT\toperand", "contents": "TILT=${0:<REAL>}"},
-{"trigger": "TOFFR\toperand", "contents": "TOFFR"},
-{"trigger": "TURN\toperand", "contents": "TURN=${0:<INT>}"}
-]}
+	"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call.arguments",
+	"completions": [
+		{
+			"trigger": "A2\toperand",
+			"contents": "A2=${0:<REAL>}"
+		},
+		{
+			"trigger": "A3\toperand",
+			"contents": "A3=${0:<REAL>}"
+		},
+		{
+			"trigger": "A4\toperand",
+			"contents": "A4=${0:<REAL>}"
+		},
+		{
+			"trigger": "A5\toperand",
+			"contents": "A5=${0:<REAL>}"
+		},
+		{
+			"trigger": "ADIS\toperand",
+			"contents": "ADIS=${0:<REAL>}"
+		},
+		{
+			"trigger": "ADISPOS\toperand",
+			"contents": "ADISPOS=${0:<REAL>}"
+		},
+		{
+			"trigger": "ALF\toperand",
+			"contents": "ALF=${0:<INT>}"
+		},
+		{
+			"trigger": "ANG\toperand",
+			"contents": "ANG=${0:<REAL>}"
+		},
+		{
+			"trigger": "AP\toperand",
+			"contents": "AP=${0:<REAL>}"
+		},
+		{
+			"trigger": "AR\toperand",
+			"contents": "AR=${0:<REAL>}"
+		},
+		{
+			"trigger": "B2\toperand",
+			"contents": "B2=${0:<REAL>}"
+		},
+		{
+			"trigger": "B3\toperand",
+			"contents": "B3=${0:<REAL>}"
+		},
+		{
+			"trigger": "B4\toperand",
+			"contents": "B4=${0:<REAL>}"
+		},
+		{
+			"trigger": "B5\toperand",
+			"contents": "B5=${0:<REAL>}"
+		},
+		{
+			"trigger": "C2\toperand",
+			"contents": "C2=${0:<REAL>}"
+		},
+		{
+			"trigger": "C3\toperand",
+			"contents": "C3=${0:<REAL>}"
+		},
+		{
+			"trigger": "C4\toperand",
+			"contents": "C4=${0:<REAL>}"
+		},
+		{
+			"trigger": "C5\toperand",
+			"contents": "C5=${0:<REAL>}"
+		},
+		{
+			"trigger": "CHF\toperand",
+			"contents": "CHF=${0:<REAL>}"
+		},
+		{
+			"trigger": "CHR\toperand",
+			"contents": "CHR=${0:<REAL>}"
+		},
+		{
+			"trigger": "CR\toperand",
+			"contents": "CR=${0:<REAL>}"
+		},
+		{
+			"trigger": "D0\toperand",
+			"contents": "D0"
+		},
+		{
+			"trigger": "D\toperand",
+			"contents": "D${0:1}"
+		},
+		{
+			"trigger": "DILF\toperand",
+			"contents": "DILF=${0:<RetractDist>}"
+		},
+		{
+			"trigger": "DISC\toperand",
+			"contents": "DISC"
+		},
+		{
+			"trigger": "DISCL\toperand",
+			"contents": "DISCL=${0:<REAL>}"
+		},
+		{
+			"trigger": "DISPR\toperand",
+			"contents": "DISPR=${0:<REAL>}"
+		},
+		{
+			"trigger": "DISR\toperand",
+			"contents": "DISR=${0:<REAL>}"
+		},
+		{
+			"trigger": "DISRP\toperand",
+			"contents": "DISRP=${0:<REAL>}"
+		},
+		{
+			"trigger": "DITE\toperand",
+			"contents": "DITE=${0:<REAL>}"
+		},
+		{
+			"trigger": "DITS\toperand",
+			"contents": "DITS=${0:<REAL>}"
+		},
+		{
+			"trigger": "DL\toperand",
+			"contents": "DL"
+		},
+		{
+			"trigger": "F\toperand",
+			"contents": "F${0:<REAL>}"
+		},
+		{
+			"trigger": "FAD\toperand",
+			"contents": "FAD=${0:<REAL>}"
+		},
+		{
+			"trigger": "FB\toperand",
+			"contents": "FB=${0:<REAL>}"
+		},
+		{
+			"trigger": "FD\toperand",
+			"contents": "FD=${0:<REAL>}"
+		},
+		{
+			"trigger": "FP\toperand",
+			"contents": "FP=${0:<INT>}"
+		},
+		{
+			"trigger": "FRC\toperand",
+			"contents": "FRC=${0:<REAL>}"
+		},
+		{
+			"trigger": "FRCM\toperand",
+			"contents": "FRCM=${0:<REAL>}"
+		},
+		{
+			"trigger": "FZ\toperand",
+			"contents": "FZ=${0:<REAL>}"
+		},
+		{
+			"trigger": "I1\toperand",
+			"contents": "I1=${0:<REAL>}"
+		},
+		{
+			"trigger": "I\toperand",
+			"contents": "I=${0:<REAL>}"
+		},
+		{
+			"trigger": "IR\toperand",
+			"contents": "IR=${0:<REAL>}"
+		},
+		{
+			"trigger": "ISD\toperand",
+			"contents": "ISD=${0:<REAL>}"
+		},
+		{
+			"trigger": "J1\toperand",
+			"contents": "J1=${0:<REAL>}"
+		},
+		{
+			"trigger": "J\toperand",
+			"contents": "J=${0:<REAL>}"
+		},
+		{
+			"trigger": "JR\toperand",
+			"contents": "JR=${0:<REAL>}"
+		},
+		{
+			"trigger": "K1\toperand",
+			"contents": "K1=${0:<REAL>}"
+		},
+		{
+			"trigger": "K\toperand",
+			"contents": "K=${0:<REAL>}"
+		},
+		{
+			"trigger": "KR\toperand",
+			"contents": "KR=${0:<REAL>}"
+		},
+		{
+			"trigger": "LEAD\toperand",
+			"contents": "LEAD=${0:<REAL>}"
+		},
+		{
+			"trigger": "MEAS\toperand",
+			"contents": "MEAS=${0:<INT>}"
+		},
+		{
+			"trigger": "MEAW\toperand",
+			"contents": "MEAW=${0:<INT>}"
+		},
+		{
+			"trigger": "MOVT\toperand",
+			"contents": "MOVT=${0:<REAL>}"
+		},
+		{
+			"trigger": "N\toperand",
+			"contents": "N${0<Block>}"
+		},
+		{
+			"trigger": "OFFN\toperand",
+			"contents": "OFFN=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA1\toperand",
+			"contents": "OMA1=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA2\toperand",
+			"contents": "OMA2=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA3\toperand",
+			"contents": "OMA3=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA4\toperand",
+			"contents": "OMA4=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA5\toperand",
+			"contents": "OMA5=${0:<REAL>}"
+		},
+		{
+			"trigger": "ORIS\toperand",
+			"contents": "ORIS"
+		},
+		{
+			"trigger": "P\toperand",
+			"contents": "P=${1:<INT>}"
+		},
+		{
+			"trigger": "PL\toperand",
+			"contents": "PL=${0:<REAL>}"
+		},
+		{
+			"trigger": "PW\toperand",
+			"contents": "PW=${0:<REAL>}"
+		},
+		{
+			"trigger": "R\toperand",
+			"contents": "R${0:<INT>}"
+		},
+		{
+			"trigger": "RND\toperand",
+			"contents": "RND=${0:<REAL>}"
+		},
+		{
+			"trigger": "RNDM\toperand",
+			"contents": "RNDM=${0:<REAL>}"
+		},
+		{
+			"trigger": "RP\toperand",
+			"contents": "RP=${0:<REAL>}"
+		},
+		{
+			"trigger": "RPL\toperand",
+			"contents": "RPL=${0:<REAL>}"
+		},
+		{
+			"trigger": "S\toperand",
+			"contents": "S${1:[${2:<SpindleNo>}]=}$0"
+		},
+		{
+			"trigger": "SD\toperand",
+			"contents": "SD=${0:<INT>}"
+		},
+		{
+			"trigger": "SF\toperand",
+			"contents": "SF=${0:<REAL>}"
+		},
+		{
+			"trigger": "SPN\toperand",
+			"contents": "SPN=${0:<REAL>}"
+		},
+		{
+			"trigger": "SPP\toperand",
+			"contents": "SPP=${0:<REAL>}"
+		},
+		{
+			"trigger": "SR\toperand",
+			"contents": "SR=${0:<REAL>}"
+		},
+		{
+			"trigger": "ST\toperand",
+			"contents": "ST=${0:<REAL>}"
+		},
+		{
+			"trigger": "T\toperand",
+			"contents": "T=${0:<INT>}"
+		},
+		{
+			"trigger": "TCARR\toperand",
+			"contents": "TCARR=${0:<INT>}"
+		},
+		{
+			"trigger": "THETA\toperand",
+			"contents": "THETA=${0:<REAL>}"
+		},
+		{
+			"trigger": "TILT\toperand",
+			"contents": "TILT=${0:<REAL>}"
+		},
+		{
+			"trigger": "TOFFR\toperand",
+			"contents": "TOFFR"
+		},
+		{
+			"trigger": "TURN\toperand",
+			"contents": "TURN=${0:<INT>}"
+		}
+	]
+}
