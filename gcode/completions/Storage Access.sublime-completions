@@ -1,77 +1,293 @@
 {
 	"scope": "source.s840d_gcode & (meta.definition.variable | meta.redefinition)",
 	"completions": [
-		{"trigger": "APR 0: SIEMENS\tREAD ALL", "contents": "APR 0 "},
-		{"trigger": "APR 1: MANUFACTOR\tREAD ALL", "contents": "APR 1 "},
-		{"trigger": "APR 2: SERVICE\tREAD ALL", "contents": "APR 2 "},
-		{"trigger": "APR 3: CUSTOMER\tREAD ALL", "contents": "APR 3 "},
-		{"trigger": "APR 4: KEYSWITCH 3\tREAD ALL", "contents": "APR 4 "},
-		{"trigger": "APR 5: KEYSWITCH 2\tREAD ALL", "contents": "APR 5 "},
-		{"trigger": "APR 6: KEYSWITCH 1\tREAD ALL", "contents": "APR 6 "},
-		{"trigger": "APR 7: KEYSWITCH 0\tREAD ALL", "contents": "APR 7 "},
-		{"trigger": "APRP 0: SIEMENS\tREAD PROG", "contents": "APRP 0 "},
-		{"trigger": "APRP 1: MANUFACTOR\tREAD PROG", "contents": "APRP 1 "},
-		{"trigger": "APRP 2: SERVICE\tREAD PROG", "contents": "APRP 2 "},
-		{"trigger": "APRP 3: CUSTOMER\tREAD PROG", "contents": "APRP 3 "},
-		{"trigger": "APRP 4: KEYSWITCH 3\tREAD PROG", "contents": "APRP 4 "},
-		{"trigger": "APRP 5: KEYSWITCH 2\tREAD PROG", "contents": "APRP 5 "},
-		{"trigger": "APRP 6: KEYSWITCH 1\tREAD PROG", "contents": "APRP 6 "},
-		{"trigger": "APRP 7: KEYSWITCH 0\tREAD PROG", "contents": "APRP 7 "},
-		{"trigger": "APRB 0: SIEMENS\tREAD BTSS", "contents": "APRB 0 "},
-		{"trigger": "APRB 1: MANUFACTOR\tREAD BTSS", "contents": "APRB 1 "},
-		{"trigger": "APRB 2: SERVICE\tREAD BTSS", "contents": "APRB 2 "},
-		{"trigger": "APRB 3: CUSTOMER\tREAD BTSS", "contents": "APRB 3 "},
-		{"trigger": "APRB 4: KEYSWITCH 3\tREAD BTSS", "contents": "APRB 4 "},
-		{"trigger": "APRB 5: KEYSWITCH 2\tREAD BTSS", "contents": "APRB 5 "},
-		{"trigger": "APRB 6: KEYSWITCH 1\tREAD BTSS", "contents": "APRB 6 "},
-		{"trigger": "APRB 7: KEYSWITCH 0\tREAD BTSS", "contents": "APRB 7 "},
-		{"trigger": "APW 0: SIEMENS\tWRITE ALL", "contents": "APW 0 "},
-		{"trigger": "APW 1: MANUFACTOR\tWRITE ALL", "contents": "APW 1 "},
-		{"trigger": "APW 2: SERVICE\tWRITE ALL", "contents": "APW 2 "},
-		{"trigger": "APW 3: CUSTOMER\tWRITE ALL", "contents": "APW 3 "},
-		{"trigger": "APW 4: KEYSWITCH 3\tWRITE ALL", "contents": "APW 4 "},
-		{"trigger": "APW 5: KEYSWITCH 2\tWRITE ALL", "contents": "APW 5 "},
-		{"trigger": "APW 6: KEYSWITCH 1\tWRITE ALL", "contents": "APW 6 "},
-		{"trigger": "APW 7: KEYSWITCH 0\tWRITE ALL", "contents": "APW 7 "},
-		{"trigger": "APWP 0: SIEMENS\tWRITE PROG", "contents": "APWP 0 "},
-		{"trigger": "APWP 1: MANUFACTOR\tWRITE PROG", "contents": "APWP 1 "},
-		{"trigger": "APWP 2: SERVICE\tWRITE PROG", "contents": "APWP 2 "},
-		{"trigger": "APWP 3: CUSTOMER\tWRITE PROG", "contents": "APWP 3 "},
-		{"trigger": "APWP 4: KEYSWITCH 3\tWRITE PROG", "contents": "APWP 4 "},
-		{"trigger": "APWP 5: KEYSWITCH 2\tWRITE PROG", "contents": "APWP 5 "},
-		{"trigger": "APWP 6: KEYSWITCH 1\tWRITE PROG", "contents": "APWP 6 "},
-		{"trigger": "APWP 7: KEYSWITCH 0\tWRITE PROG", "contents": "APWP 7 "},
-		{"trigger": "APWB 0: SIEMENS\tWRITE BTSS", "contents": "APWB 0 "},
-		{"trigger": "APWB 1: MANUFACTOR\tWRITE BTSS", "contents": "APWB 1 "},
-		{"trigger": "APWB 2: SERVICE\tWRITE BTSS", "contents": "APWB 2 "},
-		{"trigger": "APWB 3: CUSTOMER\tWRITE BTSS", "contents": "APWB 3 "},
-		{"trigger": "APWB 4: KEYSWITCH 3\tWRITE BTSS", "contents": "APWB 4 "},
-		{"trigger": "APWB 5: KEYSWITCH 2\tWRITE BTSS", "contents": "APWB 5 "},
-		{"trigger": "APWB 6: KEYSWITCH 1\tWRITE BTSS", "contents": "APWB 6 "},
-		{"trigger": "APWB 7: KEYSWITCH 0\tWRITE BTSS", "contents": "APWB 7 "},
-		{"trigger": "APX 0: SIEMENS\tEXEC ALL", "contents": "APX 0 "},
-		{"trigger": "APX 1: MANUFACTOR\tEXEC ALL", "contents": "APX 1 "},
-		{"trigger": "APX 2: SERVICE\tEXEC ALL", "contents": "APX 2 "},
-		{"trigger": "APX 3: CUSTOMER\tEXEC ALL", "contents": "APX 3 "},
-		{"trigger": "APX 4: KEYSWITCH 3\tEXEC ALL", "contents": "APX 4 "},
-		{"trigger": "APX 5: KEYSWITCH 2\tEXEC ALL", "contents": "APX 5 "},
-		{"trigger": "APX 6: KEYSWITCH 1\tEXEC ALL", "contents": "APX 6 "},
-		{"trigger": "APX 7: KEYSWITCH 0\tEXEC ALL", "contents": "APX 7 "},
-		{"trigger": "APXP 0: SIEMENS\tEXEC PROG", "contents": "APXP 0 "},
-		{"trigger": "APXP 1: MANUFACTOR\tEXEC PROG", "contents": "APXP 1 "},
-		{"trigger": "APXP 2: SERVICE\tEXEC PROG", "contents": "APXP 2 "},
-		{"trigger": "APXP 3: CUSTOMER\tEXEC PROG", "contents": "APXP 3 "},
-		{"trigger": "APXP 4: KEYSWITCH 3\tEXEC PROG", "contents": "APXP 4 "},
-		{"trigger": "APXP 5: KEYSWITCH 2\tEXEC PROG", "contents": "APXP 5 "},
-		{"trigger": "APXP 6: KEYSWITCH 1\tEXEC PROG", "contents": "APXP 6 "},
-		{"trigger": "APXP 7: KEYSWITCH 0\tEXEC PROG", "contents": "APXP 7 "},
-		{"trigger": "APXB 0: SIEMENS\tEXEC BTSS", "contents": "APXB 0 "},
-		{"trigger": "APXB 1: MANUFACTOR\tEXEC BTSS", "contents": "APXB 1 "},
-		{"trigger": "APXB 2: SERVICE\tEXEC BTSS", "contents": "APXB 2 "},
-		{"trigger": "APXB 3: CUSTOMER\tEXEC BTSS", "contents": "APXB 3 "},
-		{"trigger": "APXB 4: KEYSWITCH 3\tEXEC BTSS", "contents": "APXB 4 "},
-		{"trigger": "APXB 5: KEYSWITCH 2\tEXEC BTSS", "contents": "APXB 5 "},
-		{"trigger": "APXB 6: KEYSWITCH 1\tEXEC BTSS", "contents": "APXB 6 "},
-		{"trigger": "APXB 7: KEYSWITCH 0\tEXEC BTSS", "contents": "APXB 7 "}
+		{
+			"trigger": "APR 0: SIEMENS\tREAD ALL",
+			"contents": "APR 0 "
+		},
+		{
+			"trigger": "APR 1: MANUFACTOR\tREAD ALL",
+			"contents": "APR 1 "
+		},
+		{
+			"trigger": "APR 2: SERVICE\tREAD ALL",
+			"contents": "APR 2 "
+		},
+		{
+			"trigger": "APR 3: CUSTOMER\tREAD ALL",
+			"contents": "APR 3 "
+		},
+		{
+			"trigger": "APR 4: KEYSWITCH 3\tREAD ALL",
+			"contents": "APR 4 "
+		},
+		{
+			"trigger": "APR 5: KEYSWITCH 2\tREAD ALL",
+			"contents": "APR 5 "
+		},
+		{
+			"trigger": "APR 6: KEYSWITCH 1\tREAD ALL",
+			"contents": "APR 6 "
+		},
+		{
+			"trigger": "APR 7: KEYSWITCH 0\tREAD ALL",
+			"contents": "APR 7 "
+		},
+		{
+			"trigger": "APRP 0: SIEMENS\tREAD PROG",
+			"contents": "APRP 0 "
+		},
+		{
+			"trigger": "APRP 1: MANUFACTOR\tREAD PROG",
+			"contents": "APRP 1 "
+		},
+		{
+			"trigger": "APRP 2: SERVICE\tREAD PROG",
+			"contents": "APRP 2 "
+		},
+		{
+			"trigger": "APRP 3: CUSTOMER\tREAD PROG",
+			"contents": "APRP 3 "
+		},
+		{
+			"trigger": "APRP 4: KEYSWITCH 3\tREAD PROG",
+			"contents": "APRP 4 "
+		},
+		{
+			"trigger": "APRP 5: KEYSWITCH 2\tREAD PROG",
+			"contents": "APRP 5 "
+		},
+		{
+			"trigger": "APRP 6: KEYSWITCH 1\tREAD PROG",
+			"contents": "APRP 6 "
+		},
+		{
+			"trigger": "APRP 7: KEYSWITCH 0\tREAD PROG",
+			"contents": "APRP 7 "
+		},
+		{
+			"trigger": "APRB 0: SIEMENS\tREAD BTSS",
+			"contents": "APRB 0 "
+		},
+		{
+			"trigger": "APRB 1: MANUFACTOR\tREAD BTSS",
+			"contents": "APRB 1 "
+		},
+		{
+			"trigger": "APRB 2: SERVICE\tREAD BTSS",
+			"contents": "APRB 2 "
+		},
+		{
+			"trigger": "APRB 3: CUSTOMER\tREAD BTSS",
+			"contents": "APRB 3 "
+		},
+		{
+			"trigger": "APRB 4: KEYSWITCH 3\tREAD BTSS",
+			"contents": "APRB 4 "
+		},
+		{
+			"trigger": "APRB 5: KEYSWITCH 2\tREAD BTSS",
+			"contents": "APRB 5 "
+		},
+		{
+			"trigger": "APRB 6: KEYSWITCH 1\tREAD BTSS",
+			"contents": "APRB 6 "
+		},
+		{
+			"trigger": "APRB 7: KEYSWITCH 0\tREAD BTSS",
+			"contents": "APRB 7 "
+		},
+		{
+			"trigger": "APW 0: SIEMENS\tWRITE ALL",
+			"contents": "APW 0 "
+		},
+		{
+			"trigger": "APW 1: MANUFACTOR\tWRITE ALL",
+			"contents": "APW 1 "
+		},
+		{
+			"trigger": "APW 2: SERVICE\tWRITE ALL",
+			"contents": "APW 2 "
+		},
+		{
+			"trigger": "APW 3: CUSTOMER\tWRITE ALL",
+			"contents": "APW 3 "
+		},
+		{
+			"trigger": "APW 4: KEYSWITCH 3\tWRITE ALL",
+			"contents": "APW 4 "
+		},
+		{
+			"trigger": "APW 5: KEYSWITCH 2\tWRITE ALL",
+			"contents": "APW 5 "
+		},
+		{
+			"trigger": "APW 6: KEYSWITCH 1\tWRITE ALL",
+			"contents": "APW 6 "
+		},
+		{
+			"trigger": "APW 7: KEYSWITCH 0\tWRITE ALL",
+			"contents": "APW 7 "
+		},
+		{
+			"trigger": "APWP 0: SIEMENS\tWRITE PROG",
+			"contents": "APWP 0 "
+		},
+		{
+			"trigger": "APWP 1: MANUFACTOR\tWRITE PROG",
+			"contents": "APWP 1 "
+		},
+		{
+			"trigger": "APWP 2: SERVICE\tWRITE PROG",
+			"contents": "APWP 2 "
+		},
+		{
+			"trigger": "APWP 3: CUSTOMER\tWRITE PROG",
+			"contents": "APWP 3 "
+		},
+		{
+			"trigger": "APWP 4: KEYSWITCH 3\tWRITE PROG",
+			"contents": "APWP 4 "
+		},
+		{
+			"trigger": "APWP 5: KEYSWITCH 2\tWRITE PROG",
+			"contents": "APWP 5 "
+		},
+		{
+			"trigger": "APWP 6: KEYSWITCH 1\tWRITE PROG",
+			"contents": "APWP 6 "
+		},
+		{
+			"trigger": "APWP 7: KEYSWITCH 0\tWRITE PROG",
+			"contents": "APWP 7 "
+		},
+		{
+			"trigger": "APWB 0: SIEMENS\tWRITE BTSS",
+			"contents": "APWB 0 "
+		},
+		{
+			"trigger": "APWB 1: MANUFACTOR\tWRITE BTSS",
+			"contents": "APWB 1 "
+		},
+		{
+			"trigger": "APWB 2: SERVICE\tWRITE BTSS",
+			"contents": "APWB 2 "
+		},
+		{
+			"trigger": "APWB 3: CUSTOMER\tWRITE BTSS",
+			"contents": "APWB 3 "
+		},
+		{
+			"trigger": "APWB 4: KEYSWITCH 3\tWRITE BTSS",
+			"contents": "APWB 4 "
+		},
+		{
+			"trigger": "APWB 5: KEYSWITCH 2\tWRITE BTSS",
+			"contents": "APWB 5 "
+		},
+		{
+			"trigger": "APWB 6: KEYSWITCH 1\tWRITE BTSS",
+			"contents": "APWB 6 "
+		},
+		{
+			"trigger": "APWB 7: KEYSWITCH 0\tWRITE BTSS",
+			"contents": "APWB 7 "
+		},
+		{
+			"trigger": "APX 0: SIEMENS\tEXEC ALL",
+			"contents": "APX 0 "
+		},
+		{
+			"trigger": "APX 1: MANUFACTOR\tEXEC ALL",
+			"contents": "APX 1 "
+		},
+		{
+			"trigger": "APX 2: SERVICE\tEXEC ALL",
+			"contents": "APX 2 "
+		},
+		{
+			"trigger": "APX 3: CUSTOMER\tEXEC ALL",
+			"contents": "APX 3 "
+		},
+		{
+			"trigger": "APX 4: KEYSWITCH 3\tEXEC ALL",
+			"contents": "APX 4 "
+		},
+		{
+			"trigger": "APX 5: KEYSWITCH 2\tEXEC ALL",
+			"contents": "APX 5 "
+		},
+		{
+			"trigger": "APX 6: KEYSWITCH 1\tEXEC ALL",
+			"contents": "APX 6 "
+		},
+		{
+			"trigger": "APX 7: KEYSWITCH 0\tEXEC ALL",
+			"contents": "APX 7 "
+		},
+		{
+			"trigger": "APXP 0: SIEMENS\tEXEC PROG",
+			"contents": "APXP 0 "
+		},
+		{
+			"trigger": "APXP 1: MANUFACTOR\tEXEC PROG",
+			"contents": "APXP 1 "
+		},
+		{
+			"trigger": "APXP 2: SERVICE\tEXEC PROG",
+			"contents": "APXP 2 "
+		},
+		{
+			"trigger": "APXP 3: CUSTOMER\tEXEC PROG",
+			"contents": "APXP 3 "
+		},
+		{
+			"trigger": "APXP 4: KEYSWITCH 3\tEXEC PROG",
+			"contents": "APXP 4 "
+		},
+		{
+			"trigger": "APXP 5: KEYSWITCH 2\tEXEC PROG",
+			"contents": "APXP 5 "
+		},
+		{
+			"trigger": "APXP 6: KEYSWITCH 1\tEXEC PROG",
+			"contents": "APXP 6 "
+		},
+		{
+			"trigger": "APXP 7: KEYSWITCH 0\tEXEC PROG",
+			"contents": "APXP 7 "
+		},
+		{
+			"trigger": "APXB 0: SIEMENS\tEXEC BTSS",
+			"contents": "APXB 0 "
+		},
+		{
+			"trigger": "APXB 1: MANUFACTOR\tEXEC BTSS",
+			"contents": "APXB 1 "
+		},
+		{
+			"trigger": "APXB 2: SERVICE\tEXEC BTSS",
+			"contents": "APXB 2 "
+		},
+		{
+			"trigger": "APXB 3: CUSTOMER\tEXEC BTSS",
+			"contents": "APXB 3 "
+		},
+		{
+			"trigger": "APXB 4: KEYSWITCH 3\tEXEC BTSS",
+			"contents": "APXB 4 "
+		},
+		{
+			"trigger": "APXB 5: KEYSWITCH 2\tEXEC BTSS",
+			"contents": "APXB 5 "
+		},
+		{
+			"trigger": "APXB 6: KEYSWITCH 1\tEXEC BTSS",
+			"contents": "APXB 6 "
+		},
+		{
+			"trigger": "APXB 7: KEYSWITCH 0\tEXEC BTSS",
+			"contents": "APXB 7 "
+		}
 	]
 }

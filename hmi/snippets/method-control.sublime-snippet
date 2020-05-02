@@ -10,5 +10,5 @@ END_CONTROL
 ]]>
 </content>
 <tabTrigger>CONTROL</tabTrigger>
-<scope>source.s840d_hmi &amp; ((meta.class.dialog | meta.class.menu) - meta.block.method - meta.operand)</scope>
+<scope>source.s840d_hmi &amp; (meta.class.dialog.body | meta.class.menu.body) - meta.method - meta.operand - meta.softkey - comment - string</scope>
 </snippet>

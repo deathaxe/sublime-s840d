@@ -1,178 +1,701 @@
 {
-"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call",
-"completions": [
-{"trigger": "ADISPOSA\tprocedure", "contents": "ADISPOSA(${1:<AXIS>},${2:<MODE>},${3:<TOL>},)$0"},
-{"trigger": "AUXFUDEL\tprocedure", "contents": "AUXFUDEL(${1:<Type>},${2:<Extension>},${3:<Value>},${4:<Group>})$0"},
-{"trigger": "AUXFUDELG\tprocedure", "contents": "AUXFUDELG(${1:<Group>})$0"},
-{"trigger": "AUXFUMSEQ\tprocedure", "contents": "AUXFUMSEQ(${1:<NumIn>},${2:<InM>},${3:<InExt>},${4:<NumOut>},${5:<OutM>},${6:<OutExt>})$0"},
-{"trigger": "AUXFUSYNC\tprocedure", "contents": "AUXFUSYNC(${1:<Num>},${2:<Group>},${3:<Assembled>)$0"},
-{"trigger": "AXCTSWE\tprocedure", "contents": "AXCTSWE(${1:<AXCONTAINER>})$0"},
-{"trigger": "AXCTSWEC\tprocedure", "contents": "AXCTSWEC(${1:<AXCONTAINER>})$0"},
-{"trigger": "AXCTSWED\tprocedure", "contents": "AXCTSWED(${1:<AXCONTAINER>})$0"},
-{"trigger": "AXTOCHAN\tprocedure", "contents": "AXTOCHAN(${1:<AXIS>},${2:<CHAN>}${3:,${4:[...]}})$0"},
-{"trigger": "BRISKA\tprocedure", "contents": "BRISKA(${1:<AXIS>})$0"},
-{"trigger": "CALLPATH\tprocedure", "contents": "CALLPATH(${1:<path>})$0"},
-{"trigger": "CANCEL\tprocedure", "contents": "CANCEL(${1:<IDS1>}${2:,${3:[...]}})$0"},
-{"trigger": "CANCELSUB\tprocedure", "contents": "CANCELSUB"},
-{"trigger": "CHANDATA\tprocedure", "contents": "CHANDATA(${1:<INT>})$0"},
-{"trigger": "CLEARM\tprocedure", "contents": "CLEARM(${1:<INT>}${2:,${3:[...]}})$0"},
-{"trigger": "CLRINT\tprocedure", "contents": "CLRINT(${1:<INT>})$0"},
-{"trigger": "CONTDCON\tprocedure", "contents": "CONTDCON(${1:<ContourTable>},${2:<Type>},${3:<UnderCuts>},${4:<Direction>})$0"},
-{"trigger": "CONTPRON\tprocedure", "contents": "CONTPRON(${1:<ContourTable>},${2:<Direction>})$0"},
-{"trigger": "CORROF\tprocedure", "contents": "CORROF(${1:<AXIS>},${2:<STRING>})$0"},
-{"trigger": "COUPDEF\tprocedure", "contents": "COUPDEF(${1:<FS>},${2:<LS>},${3:<UFS>},${4:<ULS>},${5:<BlockTrans>},${6:<CoupType>})$0"},
-{"trigger": "COUPDEL\tprocedure", "contents": "COUPDEL(${1:<FS>},${2:<LS>})$0"},
-{"trigger": "COUPOF\tprocedure", "contents": "COUPOF(${1:<FS>},${2:<LS>},${3:<POSFS>},${4:<POSLS>})$0"},
-{"trigger": "COUPOFS\tprocedure", "contents": "COUPOFS(${1:<FS>},${2:<LS>})$0"},
-{"trigger": "COUPON\tprocedure", "contents": "COUPON(${1:<FS>},${2:<LS>})$0"},
-{"trigger": "COUPONC\tprocedure", "contents": "COUPONC(${1:<FS>},${2:<LS>})$0"},
-{"trigger": "COUPRES\tprocedure", "contents": "COUPRES(${1:<FS>},${2:<LS>})$0"},
-{"trigger": "CPROT\tprocedure", "contents": "CPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"},
-{"trigger": "CPROTDEF\tprocedure", "contents": "CPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"},
-{"trigger": "CTABDEF\tprocedure", "contents": "CTABDEF(${1:<FAx>},${2:<LAx>},${3:<ID>},${4:<Period>},${5:[MemLoc]})$0"},
-{"trigger": "CTABDEL\tprocedure", "contents": "CTABDEL(${1:<...>})$0"},
-{"trigger": "CTABLOCK\tprocedure", "contents": "CTABLOCK(${1:<...>})$0"},
-{"trigger": "CTABUNLOCK\tprocedure", "contents": "CTABUNLOCK(${1:<...>})$0"},
-{"trigger": "DELAYFSTOF\tprocedure", "contents": "DELAYFSTOF"},
-{"trigger": "DELAYFSTON\tprocedure", "contents": "DELAYFSTON"},
-{"trigger": "DELDTG\tprocedure", "contents": "DELDTG"},
-{"trigger": "DELETE\tprocedure", "contents": "DELETE(${1:<Err>},${2:<FileName>})$0"},
-{"trigger": "DELMT\tprocedure", "contents": "DELMT(${1:<ToolIdent>})$0"},
-{"trigger": "DELT\tprocedure", "contents": "DELT(${1:<ToolIdent>},${2:<DuploNo>})$0"},
-{"trigger": "DELTC\tprocedure", "contents": "DELTC(${1:<StartIndex>},${2:<EndIndex>})$0"},
-{"trigger": "DISABLE\tprocedure", "contents": "DISABLE(${1:<INT>})$0"},
-{"trigger": "DRIVEA\tprocedure", "contents": "DRIVEA(${1:<AXIS>}${2:,${3:[...]}})$0"},
-{"trigger": "DZERO\tprocedure", "contents": "DZERO(${1:<INT>})$0"},
-{"trigger": "EGDEF\tprocedure", "contents": "EGDEF(${1:<...>})$0"},
-{"trigger": "EGDEL\tprocedure", "contents": "EGDEL(${1:<...>})$0"},
-{"trigger": "EGOFC\tprocedure", "contents": "EGOFC(${1:<...>})$0"},
-{"trigger": "EGOFS\tprocedure", "contents": "EGOFS(${1:<...>})$0"},
-{"trigger": "EGON\tprocedure", "contents": "EGON(${1:<...>})$0"},
-{"trigger": "EGONSYN\tprocedure", "contents": "EGONSYN(${1:<...>})$0"},
-{"trigger": "EGONSYNE\tprocedure", "contents": "EGONSYNE(${1:<...>})$0"},
-{"trigger": "ENABLE\tprocedure", "contents": "ENABLE(${1:<INT>})$0"},
-{"trigger": "ESRR\tprocedure", "contents": "ESRR(${1:<axis1>},${2:<dist1>},${3:<velo1>}${4:,${5:[...]}})$0"},
-{"trigger": "ESRS\tprocedure", "contents": "ESRS(${1:<axis1>},${2:<time1>},${3:,${4:[...]}})$0"},
-{"trigger": "EXECSTRING\tprocedure", "contents": "EXECSTRING(${1:<STRING>})$0"},
-{"trigger": "EXECTAB\tprocedure", "contents": "EXECTAB(${1:<ContourTable>}${2:<ContourElem>})$0"},
-{"trigger": "EXECUTE\tprocedure", "contents": "EXECUTE(${1:<Error>})$0"},
-{"trigger": "EXTCALL\tprocedure", "contents": "EXTCALL(${1:<ProgPath>})$0"},
-{"trigger": "EXTCLOSE\tprocedure", "contents": "EXTCLOSE(${1:<Result>},${2:<ExtDev>})$0 "},
-{"trigger": "EXTOPEN\tprocedure", "contents": "EXTOPEN(${1:<Result>},${2:<ExtDev>},${3:<SyncMode>},${4:<AccessMode>},${5:<WriteMode>})$0"},
-{"trigger": "FCTDEF\tprocedure", "contents": "FCTDEF(${1:<Func>},${2:<Min>},${3:<Max>},${4:<a0>},${5:<a1>},${6:<a2>},${7:<a3>})$0"},
-{"trigger": "FGROUP\tprocedure", "contents": "FGROUP(${1:<ChanAxis>})$0"},
-{"trigger": "FILEDATE\tprocedure", "contents": "FILEDATE(${1:<State>},${2:<File>},${3:<Result>})$0"},
-{"trigger": "FILEINFO\tprocedure", "contents": "FILEINFO(${1:<State>},${2:<File>},${3:<Result>})$0"},
-{"trigger": "FILESIZE\tprocedure", "contents": "FILESIZE(${1:<State>},${2:<File>},${3:<Result>})$0"},
-{"trigger": "FILESTAT\tprocedure", "contents": "FILESTAT(${1:<State>},${2:<File>},${3:<Result>})$0"},
-{"trigger": "FILETIME\tprocedure", "contents": "FILETIME(${1:<State>},${2:<File>},${3:<Result>})$0"},
-{"trigger": "FPO\tprocedure", "contents": "FPO(${1:<..,..,..>})$0"},
-{"trigger": "FPR\tprocedure", "contents": "FPR(${1:<AXIS>})$0"},
-{"trigger": "FPRAOF\tprocedure", "contents": "FPRAOF(${1:<AXIS>},${2:<AXIS>})$0"},
-{"trigger": "FPRAON\tprocedure", "contents": "FPRAON(${1:<AXIS>},${2:<AXIS>})$0"},
-{"trigger": "FTOC\tprocedure", "contents": "FTOC(${1:<ID>},${2:<offset[]>},${3:<len>,${4:<channel>},${5:<spindle>})$0"},
-{"trigger": "GEOAX\tprocedure", "contents": "GEOAX(${1:<INT>},${2:<AXIS>}${3:,${4:[...]}})$0"},
-{"trigger": "GET\tprocedure", "contents": "GET(${1:<AXIS>})$0"},
-{"trigger": "GETD\tprocedure", "contents": "GETD(${1:<AXIS>})$0"},
-{"trigger": "GETEXET\tprocedure", "contents": "GETEXET(${1:<TNo>}${2:,${3:[SpindleNo]}})$0"},
-{"trigger": "GETFREELOC\tprocedure", "contents": "GETFREELOC(${1:<FreeMagNo>},${2:<FreeLocNo>},${3:<TNo>}${4:,${5:[refMagNo]}}${6:,${7:[refLocNo]}}${8:,${9:[Reserve]}})$0"},
-{"trigger": "GETSELT\tprocedure", "contents": "GETSELT(${1:<TNo>}${2:,${3:[SpindleNo]}})$0"},
-{"trigger": "GWPSOF\tprocedure", "contents": "GWPSOF(${1:<TNo>})$0"},
-{"trigger": "GWPSON\tprocedure", "contents": "GWPSON(${1:<TNo>})$0"},
-{"trigger": "ICYCOF\tprocedure", "contents": "ICYCOF"},
-{"trigger": "ICYCON\tprocedure", "contents": "ICYCON"},
-{"trigger": "INIT\tprocedure", "contents": "INIT(${1:<Channel>},${2:\"/_N_MPF_DIR/_N_PROG_MPF\"})$0"},
-{"trigger": "IPOBRKA\tprocedure", "contents": "IPOBRKA(${1:<AXIS>},${2:<ELAPSED>})$0"},
-{"trigger": "IPTRLOCK\tprocedure", "contents": "IPTRLOCK"},
-{"trigger": "IPTRUNLOCK\tprocedure", "contents": "IPTRUNLOCK"},
-{"trigger": "JERKA\tprocedure", "contents": "JERKA(${1:<AXIS>})$0"},
-{"trigger": "L\tprocedure", "contents": "L${0:<INT>}"},
-{"trigger": "LEADOF\tprocedure", "contents": "LEADOF(${1:<FAx>},${2:<LAx>})$0"},
-{"trigger": "LEADON\tprocedure", "contents": "LEADON(${1:<FAx>},${2:<LAx>},${3:<CurveTable>})$0"},
-{"trigger": "LOCK\tprocedure", "contents": "LOCK(${1:<IDS1>}${2:,${3:[...]}})$0"},
-{"trigger": "MASLDEF\tprocedure", "contents": "MASLDEF(${1:<Slv1>}${2:,${3:[...]}})$0"},
-{"trigger": "MASLDEL\tprocedure", "contents": "MASLDEL(${1:<Slv1>}${2:,${3:[...]}})$0"},
-{"trigger": "MASLOF\tprocedure", "contents": "MASLOF(${1:<Slv1>}${2:,${3:[...]}})$0"},
-{"trigger": "MASLOFS\tprocedure", "contents": "MASLOFS(${1:<Slv1>}${2:,${3:[...]}})$0"},
-{"trigger": "MASLON\tprocedure", "contents": "MASLON(${1:<Slv1>}${2:,${3:[...]}})$0"},
-{"trigger": "MMC\tprocedure", "contents": "MMC(${1:<...>})$0"},
-{"trigger": "MSG\tprocedure", "contents": "MSG(${1:<STRING>})$0"},
-{"trigger": "MVTOOL\tprocedure", "contents": "MVTOOL(${1:<State>},${2:<MagTo>},${3:<LocFrom>},${4:<MagTo>},${5:<LocTo>})$0"},
-{"trigger": "NEWCONF\tprocedure", "contents": "NEWCONF"},
-{"trigger": "NPROT\tprocedure", "contents": "NPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"},
-{"trigger": "NPROTDEF\tprocedure", "contents": "NPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"},
-{"trigger": "ORIRESET\tprocedure", "contents": "ORIRESET(${1:<ofs1>},${2:<ofs2>},${3:<ofs3>})$0"},
-{"trigger": "POLFA\tprocedure", "contents": "POLFA(${1:<AXIS>},${2:<Type>},${3:<Pos>})$0"},
-{"trigger": "POLFMASK\tprocedure", "contents": "POLFMASK(${1:<AXIS>}${2:,${3:[...]}})$0"},
-{"trigger": "POLFMLIN\tprocedure", "contents": "POLFMLIN(${1:<AXIS>}${2:,${3:[...]}})$0"},
-{"trigger": "POLYPATH\tprocedure", "contents": "POLYPATH(${1:<AXIS>},${2:<Vector>})$0"},
-{"trigger": "POSM\tprocedure", "contents": "POSM(${1:<MagLoc>},${2:<MagNo>},${3:<IntMagLoc>},${4:<IntMagNo>})$0"},
-{"trigger": "POSMT\tprocedure", "contents": "POSMT(${1:<State>},${2:<MultiToolLocNo>},${3:<ToolHolderNo>})$0"},
-{"trigger": "PRESETON\tprocedure", "contents": "PRESETON(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "PRESETONS\tprocedure", "contents": "PRESETONS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"},
-{"trigger": "PROTA\tprocedure", "contents": "PROTA(${1:\"R\"})$0"},
-{"trigger": "PROTS\tprocedure", "contents": "PROTS(${1:<STRING>},${2:<STRING>})$0"},
-{"trigger": "PUNCHACC\tprocedure", "contents": "PUNCHACC(${1:<...>})$0"},
-{"trigger": "PUTFTOC\tprocedure", "contents": "PUTFTOC(${1:<RefVal>},${2:<ToolParam>},${3:<Chan>},${4:<Spindle>})$0"},
-{"trigger": "PUTFTOCF\tprocedure", "contents": "PUTFTOCF(${1:<Func>},${2:<RefVal>},${3:<ToolParam>},${4:<Chan>},${5:<Spindle>})$0"},
-{"trigger": "RDISABLE\tprocedure", "contents": "RDISABLE"},
-{"trigger": "READ\tprocedure", "contents": "READ(${1:<State>},${2:<File>},${3:<FirstLine>},${4:<LineCount>},${5:<Content>})$0"},
-{"trigger": "RELEASE\tprocedure", "contents": "RELEASE(${1:<AXIS>})$0"},
-{"trigger": "RESET\tprocedure", "contents": "RESET(${1:<IDS1>}${2:,${3:[...]}})$0"},
-{"trigger": "RESETMON\tprocedure", "contents": "RESETMON(${1:<State>},${2:<TNo>},${3:<DNo>}${4:,${5:[MonType]}}${6:,${7:[ResetStates]}})$0"},
-{"trigger": "RET\tprocedure", "contents": "RET"},
-{"trigger": "RETB\tprocedure", "contents": "RETB"},
-{"trigger": "SBLOF\tprocedure", "contents": "SBLOF"},
-{"trigger": "SBLON\tprocedure", "contents": "SBLON"},
-{"trigger": "SETAL\tprocedure", "contents": "SETAL(${1:<INT>},${2:<STRING>})$0"},
-{"trigger": "SETINT\tprocedure", "contents": "SETINT(${1:<INT>}) PRIO=${2:<INT>} ${3:[<CycleName>]} ${4:[LIFTFAST]} $0"},
-{"trigger": "SETM\tprocedure", "contents": "SETM(${1:<INT>})$0"},
-{"trigger": "SETMS\tprocedure", "contents": "SETMS(${1:[SpindleNo]})$0"},
-{"trigger": "SETMTH\tprocedure", "contents": "SETMTH(${1:<ToolHolderNo>})$0"},
-{"trigger": "SETPIECE\tprocedure", "contents": "SETPIECE(${1:<Count>}${2:,${3:[SpindleNo]})$0"},
-{"trigger": "SETTA\tprocedure", "contents": "SETTA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})$0"},
-{"trigger": "SETTIA\tprocedure", "contents": "SETTIA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})$0"},
-{"trigger": "SIRELIN\tprocedure", "contents": "SIRELIN(${1:<Id>},${2:<State>},\"${3:<Q1>}\",\"${4:<Q2>}\",\"${5:<E1>}\",\"${6:<E2>}\",\"${7:<E3>}\")$0"},
-{"trigger": "SIRELOUT\tprocedure", "contents": "SIRELOUT(${1:<Id>},${2:<State>},\"${3:<A0>}\",\"${4:<A1>}\",\"${5:<A3>}\",\"${6:<A4>}\")$0"},
-{"trigger": "SIRELTIME\tprocedure", "contents": "SIRELTIME(${1:<Id>},${2:<State>},${3:<TM1>},${4:<TI1>},${5:<TI2>},${6:<TI3>})$0"},
-{"trigger": "SOFTA\tprocedure", "contents": "SOFTA(${1:<AXIS>})$0"},
-{"trigger": "SPCOF\tprocedure", "contents": "SPCOF(${1:[SpindleNo]})$0"},
-{"trigger": "SPCON\tprocedure", "contents": "SPCON(${1:[SpindleNo]})$0"},
-{"trigger": "SPLINEPATH\tprocedure", "contents": "SPLINEPATH(1,${1:<AXIS>}${2:,${3:[AXIS]}${4:,${5:[...]}}})$0"},
-{"trigger": "START\tprocedure", "contents": "START(${1:<INT>})$0"},
-{"trigger": "STOPRE\tprocedure", "contents": "STOPRE"},
-{"trigger": "STOPREOF\tprocedure", "contents": "STOPREOF"},
-{"trigger": "SYNFCT\tprocedure", "contents": "SYNFCT(${1:<PolyNo>},${2:<VarOut>},${3:<VarIn>})$0"},
-{"trigger": "TANG\tprocedure", "contents": "TANG(${1:<FAx>},${2:<LAx1>},${3:<LAx2>},${4:<CoupleFactor>},${5:<CoordSys>},${6:<Opt>})$0"},
-{"trigger": "TANGDEL\tprocedure", "contents": "TANGDEL(${1:<FAx>})$0"},
-{"trigger": "TANGOF\tprocedure", "contents": "TANGOF(${1:<FAx>})$0"},
-{"trigger": "TANGON\tprocedure", "contents": "TANGON(${1:<FAx>},${2:<Angle>},${3:<Dist>},${4:<AngleTol>})$0"},
-{"trigger": "TCA\tprocedure", "contents": "TCA(${1:<ToolIdent>}${2:,${3:[DuploNo]}}${4:,${5:[ToolHolderNo]}})$0"},
-{"trigger": "TCI\tprocedure", "contents": "TCI(${1:<IntLocNo>}${2:,${3:[ToolHolderNo]}})$0"},
-{"trigger": "TLIFT\tprocedure", "contents": "TLIFT(${1:<FAx>})$0"},
-{"trigger": "TML\tprocedure", "contents": "TML(${1:<...>})$0"},
-{"trigger": "TMOF\tprocedure", "contents": "TMOF(${1:<TNo>})$0"},
-{"trigger": "TMON\tprocedure", "contents": "TMON(${1:<TNo>})$0"},
-{"trigger": "TOFFOF\tprocedure", "contents": "TOFFOF(${1:<Direction>})$0"},
-{"trigger": "TOFFON\tprocedure", "contents": "TOFFON(${1:<Direction>}${2:,${3:[Offset]}})$0"},
-{"trigger": "TRAANG\tprocedure", "contents": "TRAANG(${1:<ANGLE>},${2:<TRAFO>})$0"},
-{"trigger": "TRACON\tprocedure", "contents": "TRACON(${1:<TRAFO>},${2:<Param1>}${3:,${4:[...]}})$0"},
-{"trigger": "TRACYL\tprocedure", "contents": "TRACYL(${1:<DIAM>},${2:<TRAFO>})$0"},
-{"trigger": "TRAFOOF\tprocedure", "contents": "TRAFOOF"},
-{"trigger": "TRAFOON\tprocedure", "contents": "TRAFOON(${1:<TRAFO>}${2:,${3:<DIAM>},${4:<k>}})$0"},
-{"trigger": "TRAILOF\tprocedure", "contents": "TRAILOF(${1:<FAx>})$0"},
-{"trigger": "TRAILON\tprocedure", "contents": "TRAILON(${1:<FAx>},${2:<LAx>},${3:<CoupleFactor>})$0"},
-{"trigger": "TRANSMIT\tprocedure", "contents": "TRANSMIT(${1:<TRAFO>})$0"},
-{"trigger": "TRAORI\tprocedure", "contents": "TRAORI(${1:<TRAFO>},${2:<ORIVEC>},${3:<ROTOFS>})$0"},
-{"trigger": "UNLOCK\tprocedure", "contents": "UNLOCK(${1:<IDS1>}${2:,${3:[...]}})$0"},
-{"trigger": "WAITC\tprocedure", "contents": "WAITC(${1:<FollowSpindle>},${2:<BlockTrans>},${3:<LeadSpindle>},${4:<BlockTrans>})$0"},
-{"trigger": "WAITE\tprocedure", "contents": "WAITE(${1:<ChanNo>},${2:<ChanName>})$0"},
-{"trigger": "WAITENC\tprocedure", "contents": "WAITENC"},
-{"trigger": "WAITM\tprocedure", "contents": "WAITM(${1:<MarkNo>},${2:<ChanName>})$0"},
-{"trigger": "WAITMC\tprocedure", "contents": "WAITMC(${1:<MarkNo>},${2:<ChanName>})$0"},
-{"trigger": "WAITP\tprocedure", "contents": "WAITP(${1:<AXIS>})$0"},
-{"trigger": "WAITS\tprocedure", "contents": "WAITS(${1:<SpindleNo>})$0"},
-{"trigger": "WORKPIECE\tprocedure", "contents": "WORKPIECE(${1:<WP>},${2:<RefP>},${3:<ZeroOffset>},${4:<Type>},${5:<Par5>},${6:[...]})$0"},
-{"trigger": "WRITE\tprocedure", "contents": "WRITE(${1:<State>},${2:<File>},${3:<Text>})$0"},
-{"trigger": "WRTPR\tprocedure", "contents": "WRTPR(${1:<Text>}${2:,${3:[Execution]}})$0"}
-]}
+	"scope": "source.s840d_gcode meta.function-call.name - comment - string",
+	"completions": [
+		{
+			"trigger": "ADISPOSA\tprocedure",
+			"contents": "ADISPOSA(${1:<AXIS>},${2:<MODE>},${3:<TOL>},)$0"
+		},
+		{
+			"trigger": "AUXFUDEL\tprocedure",
+			"contents": "AUXFUDEL(${1:<Type>},${2:<Extension>},${3:<Value>},${4:<Group>})$0"
+		},
+		{
+			"trigger": "AUXFUDELG\tprocedure",
+			"contents": "AUXFUDELG(${1:<Group>})$0"
+		},
+		{
+			"trigger": "AUXFUMSEQ\tprocedure",
+			"contents": "AUXFUMSEQ(${1:<NumIn>},${2:<InM>},${3:<InExt>},${4:<NumOut>},${5:<OutM>},${6:<OutExt>})$0"
+		},
+		{
+			"trigger": "AUXFUSYNC\tprocedure",
+			"contents": "AUXFUSYNC(${1:<Num>},${2:<Group>},${3:<Assembled>)$0"
+		},
+		{
+			"trigger": "AXCTSWE\tprocedure",
+			"contents": "AXCTSWE(${1:<AXCONTAINER>})$0"
+		},
+		{
+			"trigger": "AXCTSWEC\tprocedure",
+			"contents": "AXCTSWEC(${1:<AXCONTAINER>})$0"
+		},
+		{
+			"trigger": "AXCTSWED\tprocedure",
+			"contents": "AXCTSWED(${1:<AXCONTAINER>})$0"
+		},
+		{
+			"trigger": "AXTOCHAN\tprocedure",
+			"contents": "AXTOCHAN(${1:<AXIS>},${2:<CHAN>}${3:,${4:[...]}})$0"
+		},
+		{
+			"trigger": "BRISKA\tprocedure",
+			"contents": "BRISKA(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "CALLPATH\tprocedure",
+			"contents": "CALLPATH(${1:<path>})$0"
+		},
+		{
+			"trigger": "CANCEL\tprocedure",
+			"contents": "CANCEL(${1:<IDS1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "CANCELSUB\tprocedure",
+			"contents": "CANCELSUB"
+		},
+		{
+			"trigger": "CHANDATA\tprocedure",
+			"contents": "CHANDATA(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CLEARM\tprocedure",
+			"contents": "CLEARM(${1:<INT>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "CLRINT\tprocedure",
+			"contents": "CLRINT(${1:<INT>})$0"
+		},
+		{
+			"trigger": "CONTDCON\tprocedure",
+			"contents": "CONTDCON(${1:<ContourTable>},${2:<Type>},${3:<UnderCuts>},${4:<Direction>})$0"
+		},
+		{
+			"trigger": "CONTPRON\tprocedure",
+			"contents": "CONTPRON(${1:<ContourTable>},${2:<Direction>})$0"
+		},
+		{
+			"trigger": "CORROF\tprocedure",
+			"contents": "CORROF(${1:<AXIS>},${2:<STRING>})$0"
+		},
+		{
+			"trigger": "COUPDEF\tprocedure",
+			"contents": "COUPDEF(${1:<FS>},${2:<LS>},${3:<UFS>},${4:<ULS>},${5:<BlockTrans>},${6:<CoupType>})$0"
+		},
+		{
+			"trigger": "COUPDEL\tprocedure",
+			"contents": "COUPDEL(${1:<FS>},${2:<LS>})$0"
+		},
+		{
+			"trigger": "COUPOF\tprocedure",
+			"contents": "COUPOF(${1:<FS>},${2:<LS>},${3:<POSFS>},${4:<POSLS>})$0"
+		},
+		{
+			"trigger": "COUPOFS\tprocedure",
+			"contents": "COUPOFS(${1:<FS>},${2:<LS>})$0"
+		},
+		{
+			"trigger": "COUPON\tprocedure",
+			"contents": "COUPON(${1:<FS>},${2:<LS>})$0"
+		},
+		{
+			"trigger": "COUPONC\tprocedure",
+			"contents": "COUPONC(${1:<FS>},${2:<LS>})$0"
+		},
+		{
+			"trigger": "COUPRES\tprocedure",
+			"contents": "COUPRES(${1:<FS>},${2:<LS>})$0"
+		},
+		{
+			"trigger": "CPROT\tprocedure",
+			"contents": "CPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+		},
+		{
+			"trigger": "CPROTDEF\tprocedure",
+			"contents": "CPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+		},
+		{
+			"trigger": "CTABDEF\tprocedure",
+			"contents": "CTABDEF(${1:<FAx>},${2:<LAx>},${3:<ID>},${4:<Period>},${5:[MemLoc]})$0"
+		},
+		{
+			"trigger": "CTABDEL\tprocedure",
+			"contents": "CTABDEL(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABLOCK\tprocedure",
+			"contents": "CTABLOCK(${1:<...>})$0"
+		},
+		{
+			"trigger": "CTABUNLOCK\tprocedure",
+			"contents": "CTABUNLOCK(${1:<...>})$0"
+		},
+		{
+			"trigger": "DELAYFSTOF\tprocedure",
+			"contents": "DELAYFSTOF"
+		},
+		{
+			"trigger": "DELAYFSTON\tprocedure",
+			"contents": "DELAYFSTON"
+		},
+		{
+			"trigger": "DELDTG\tprocedure",
+			"contents": "DELDTG"
+		},
+		{
+			"trigger": "DELETE\tprocedure",
+			"contents": "DELETE(${1:<Err>},${2:<FileName>})$0"
+		},
+		{
+			"trigger": "DELMT\tprocedure",
+			"contents": "DELMT(${1:<ToolIdent>})$0"
+		},
+		{
+			"trigger": "DELT\tprocedure",
+			"contents": "DELT(${1:<ToolIdent>},${2:<DuploNo>})$0"
+		},
+		{
+			"trigger": "DELTC\tprocedure",
+			"contents": "DELTC(${1:<StartIndex>},${2:<EndIndex>})$0"
+		},
+		{
+			"trigger": "DISABLE\tprocedure",
+			"contents": "DISABLE(${1:<INT>})$0"
+		},
+		{
+			"trigger": "DRIVEA\tprocedure",
+			"contents": "DRIVEA(${1:<AXIS>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "DZERO\tprocedure",
+			"contents": "DZERO(${1:<INT>})$0"
+		},
+		{
+			"trigger": "EGDEF\tprocedure",
+			"contents": "EGDEF(${1:<...>})$0"
+		},
+		{
+			"trigger": "EGDEL\tprocedure",
+			"contents": "EGDEL(${1:<...>})$0"
+		},
+		{
+			"trigger": "EGOFC\tprocedure",
+			"contents": "EGOFC(${1:<...>})$0"
+		},
+		{
+			"trigger": "EGOFS\tprocedure",
+			"contents": "EGOFS(${1:<...>})$0"
+		},
+		{
+			"trigger": "EGON\tprocedure",
+			"contents": "EGON(${1:<...>})$0"
+		},
+		{
+			"trigger": "EGONSYN\tprocedure",
+			"contents": "EGONSYN(${1:<...>})$0"
+		},
+		{
+			"trigger": "EGONSYNE\tprocedure",
+			"contents": "EGONSYNE(${1:<...>})$0"
+		},
+		{
+			"trigger": "ENABLE\tprocedure",
+			"contents": "ENABLE(${1:<INT>})$0"
+		},
+		{
+			"trigger": "ESRR\tprocedure",
+			"contents": "ESRR(${1:<axis1>},${2:<dist1>},${3:<velo1>}${4:,${5:[...]}})$0"
+		},
+		{
+			"trigger": "ESRS\tprocedure",
+			"contents": "ESRS(${1:<axis1>},${2:<time1>},${3:,${4:[...]}})$0"
+		},
+		{
+			"trigger": "EXECSTRING\tprocedure",
+			"contents": "EXECSTRING(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "EXECTAB\tprocedure",
+			"contents": "EXECTAB(${1:<ContourTable>}${2:<ContourElem>})$0"
+		},
+		{
+			"trigger": "EXECUTE\tprocedure",
+			"contents": "EXECUTE(${1:<Error>})$0"
+		},
+		{
+			"trigger": "EXTCALL\tprocedure",
+			"contents": "EXTCALL(${1:<ProgPath>})$0"
+		},
+		{
+			"trigger": "EXTCLOSE\tprocedure",
+			"contents": "EXTCLOSE(${1:<Result>},${2:<ExtDev>})$0 "
+		},
+		{
+			"trigger": "EXTOPEN\tprocedure",
+			"contents": "EXTOPEN(${1:<Result>},${2:<ExtDev>},${3:<SyncMode>},${4:<AccessMode>},${5:<WriteMode>})$0"
+		},
+		{
+			"trigger": "FCTDEF\tprocedure",
+			"contents": "FCTDEF(${1:<Func>},${2:<Min>},${3:<Max>},${4:<a0>},${5:<a1>},${6:<a2>},${7:<a3>})$0"
+		},
+		{
+			"trigger": "FGROUP\tprocedure",
+			"contents": "FGROUP(${1:<ChanAxis>})$0"
+		},
+		{
+			"trigger": "FILEDATE\tprocedure",
+			"contents": "FILEDATE(${1:<State>},${2:<File>},${3:<Result>})$0"
+		},
+		{
+			"trigger": "FILEINFO\tprocedure",
+			"contents": "FILEINFO(${1:<State>},${2:<File>},${3:<Result>})$0"
+		},
+		{
+			"trigger": "FILESIZE\tprocedure",
+			"contents": "FILESIZE(${1:<State>},${2:<File>},${3:<Result>})$0"
+		},
+		{
+			"trigger": "FILESTAT\tprocedure",
+			"contents": "FILESTAT(${1:<State>},${2:<File>},${3:<Result>})$0"
+		},
+		{
+			"trigger": "FILETIME\tprocedure",
+			"contents": "FILETIME(${1:<State>},${2:<File>},${3:<Result>})$0"
+		},
+		{
+			"trigger": "FPO\tprocedure",
+			"contents": "FPO(${1:<..,..,..>})$0"
+		},
+		{
+			"trigger": "FPR\tprocedure",
+			"contents": "FPR(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "FPRAOF\tprocedure",
+			"contents": "FPRAOF(${1:<AXIS>},${2:<AXIS>})$0"
+		},
+		{
+			"trigger": "FPRAON\tprocedure",
+			"contents": "FPRAON(${1:<AXIS>},${2:<AXIS>})$0"
+		},
+		{
+			"trigger": "FTOC\tprocedure",
+			"contents": "FTOC(${1:<ID>},${2:<offset[]>},${3:<len>,${4:<channel>},${5:<spindle>})$0"
+		},
+		{
+			"trigger": "GEOAX\tprocedure",
+			"contents": "GEOAX(${1:<INT>},${2:<AXIS>}${3:,${4:[...]}})$0"
+		},
+		{
+			"trigger": "GET\tprocedure",
+			"contents": "GET(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "GETD\tprocedure",
+			"contents": "GETD(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "GETEXET\tprocedure",
+			"contents": "GETEXET(${1:<TNo>}${2:,${3:[SpindleNo]}})$0"
+		},
+		{
+			"trigger": "GETFREELOC\tprocedure",
+			"contents": "GETFREELOC(${1:<FreeMagNo>},${2:<FreeLocNo>},${3:<TNo>}${4:,${5:[refMagNo]}}${6:,${7:[refLocNo]}}${8:,${9:[Reserve]}})$0"
+		},
+		{
+			"trigger": "GETSELT\tprocedure",
+			"contents": "GETSELT(${1:<TNo>}${2:,${3:[SpindleNo]}})$0"
+		},
+		{
+			"trigger": "GWPSOF\tprocedure",
+			"contents": "GWPSOF(${1:<TNo>})$0"
+		},
+		{
+			"trigger": "GWPSON\tprocedure",
+			"contents": "GWPSON(${1:<TNo>})$0"
+		},
+		{
+			"trigger": "ICYCOF\tprocedure",
+			"contents": "ICYCOF"
+		},
+		{
+			"trigger": "ICYCON\tprocedure",
+			"contents": "ICYCON"
+		},
+		{
+			"trigger": "INIT\tprocedure",
+			"contents": "INIT(${1:<Channel>},${2:\"/_N_MPF_DIR/_N_PROG_MPF\"})$0"
+		},
+		{
+			"trigger": "IPOBRKA\tprocedure",
+			"contents": "IPOBRKA(${1:<AXIS>},${2:<ELAPSED>})$0"
+		},
+		{
+			"trigger": "IPTRLOCK\tprocedure",
+			"contents": "IPTRLOCK"
+		},
+		{
+			"trigger": "IPTRUNLOCK\tprocedure",
+			"contents": "IPTRUNLOCK"
+		},
+		{
+			"trigger": "JERKA\tprocedure",
+			"contents": "JERKA(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "L\tprocedure",
+			"contents": "L${0:<INT>}"
+		},
+		{
+			"trigger": "LEADOF\tprocedure",
+			"contents": "LEADOF(${1:<FAx>},${2:<LAx>})$0"
+		},
+		{
+			"trigger": "LEADON\tprocedure",
+			"contents": "LEADON(${1:<FAx>},${2:<LAx>},${3:<CurveTable>})$0"
+		},
+		{
+			"trigger": "LOCK\tprocedure",
+			"contents": "LOCK(${1:<IDS1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "MASLDEF\tprocedure",
+			"contents": "MASLDEF(${1:<Slv1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "MASLDEL\tprocedure",
+			"contents": "MASLDEL(${1:<Slv1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "MASLOF\tprocedure",
+			"contents": "MASLOF(${1:<Slv1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "MASLOFS\tprocedure",
+			"contents": "MASLOFS(${1:<Slv1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "MASLON\tprocedure",
+			"contents": "MASLON(${1:<Slv1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "MMC\tprocedure",
+			"contents": "MMC(${1:<...>})$0"
+		},
+		{
+			"trigger": "MSG\tprocedure",
+			"contents": "MSG(${1:<STRING>})$0"
+		},
+		{
+			"trigger": "MVTOOL\tprocedure",
+			"contents": "MVTOOL(${1:<State>},${2:<MagTo>},${3:<LocFrom>},${4:<MagTo>},${5:<LocTo>})$0"
+		},
+		{
+			"trigger": "NEWCONF\tprocedure",
+			"contents": "NEWCONF"
+		},
+		{
+			"trigger": "NPROT\tprocedure",
+			"contents": "NPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+		},
+		{
+			"trigger": "NPROTDEF\tprocedure",
+			"contents": "NPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+		},
+		{
+			"trigger": "ORIRESET\tprocedure",
+			"contents": "ORIRESET(${1:<ofs1>},${2:<ofs2>},${3:<ofs3>})$0"
+		},
+		{
+			"trigger": "POLFA\tprocedure",
+			"contents": "POLFA(${1:<AXIS>},${2:<Type>},${3:<Pos>})$0"
+		},
+		{
+			"trigger": "POLFMASK\tprocedure",
+			"contents": "POLFMASK(${1:<AXIS>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "POLFMLIN\tprocedure",
+			"contents": "POLFMLIN(${1:<AXIS>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "POLYPATH\tprocedure",
+			"contents": "POLYPATH(${1:<AXIS>},${2:<Vector>})$0"
+		},
+		{
+			"trigger": "POSM\tprocedure",
+			"contents": "POSM(${1:<MagLoc>},${2:<MagNo>},${3:<IntMagLoc>},${4:<IntMagNo>})$0"
+		},
+		{
+			"trigger": "POSMT\tprocedure",
+			"contents": "POSMT(${1:<State>},${2:<MultiToolLocNo>},${3:<ToolHolderNo>})$0"
+		},
+		{
+			"trigger": "PRESETON\tprocedure",
+			"contents": "PRESETON(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "PRESETONS\tprocedure",
+			"contents": "PRESETONS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+		},
+		{
+			"trigger": "PROTA\tprocedure",
+			"contents": "PROTA(${1:\"R\"})$0"
+		},
+		{
+			"trigger": "PROTS\tprocedure",
+			"contents": "PROTS(${1:<STRING>},${2:<STRING>})$0"
+		},
+		{
+			"trigger": "PUNCHACC\tprocedure",
+			"contents": "PUNCHACC(${1:<...>})$0"
+		},
+		{
+			"trigger": "PUTFTOC\tprocedure",
+			"contents": "PUTFTOC(${1:<RefVal>},${2:<ToolParam>},${3:<Chan>},${4:<Spindle>})$0"
+		},
+		{
+			"trigger": "PUTFTOCF\tprocedure",
+			"contents": "PUTFTOCF(${1:<Func>},${2:<RefVal>},${3:<ToolParam>},${4:<Chan>},${5:<Spindle>})$0"
+		},
+		{
+			"trigger": "RDISABLE\tprocedure",
+			"contents": "RDISABLE"
+		},
+		{
+			"trigger": "READ\tprocedure",
+			"contents": "READ(${1:<State>},${2:<File>},${3:<FirstLine>},${4:<LineCount>},${5:<Content>})$0"
+		},
+		{
+			"trigger": "RELEASE\tprocedure",
+			"contents": "RELEASE(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "RESET\tprocedure",
+			"contents": "RESET(${1:<IDS1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "RESETMON\tprocedure",
+			"contents": "RESETMON(${1:<State>},${2:<TNo>},${3:<DNo>}${4:,${5:[MonType]}}${6:,${7:[ResetStates]}})$0"
+		},
+		{
+			"trigger": "RET\tprocedure",
+			"contents": "RET"
+		},
+		{
+			"trigger": "RETB\tprocedure",
+			"contents": "RETB"
+		},
+		{
+			"trigger": "SBLOF\tprocedure",
+			"contents": "SBLOF"
+		},
+		{
+			"trigger": "SBLON\tprocedure",
+			"contents": "SBLON"
+		},
+		{
+			"trigger": "SETAL\tprocedure",
+			"contents": "SETAL(${1:<INT>},${2:<STRING>})$0"
+		},
+		{
+			"trigger": "SETINT\tprocedure",
+			"contents": "SETINT(${1:<INT>}) PRIO=${2:<INT>} ${3:[<CycleName>]} ${4:[LIFTFAST]} $0"
+		},
+		{
+			"trigger": "SETM\tprocedure",
+			"contents": "SETM(${1:<INT>})$0"
+		},
+		{
+			"trigger": "SETMS\tprocedure",
+			"contents": "SETMS(${1:[SpindleNo]})$0"
+		},
+		{
+			"trigger": "SETMTH\tprocedure",
+			"contents": "SETMTH(${1:<ToolHolderNo>})$0"
+		},
+		{
+			"trigger": "SETPIECE\tprocedure",
+			"contents": "SETPIECE(${1:<Count>}${2:,${3:[SpindleNo]})$0"
+		},
+		{
+			"trigger": "SETTA\tprocedure",
+			"contents": "SETTA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})$0"
+		},
+		{
+			"trigger": "SETTIA\tprocedure",
+			"contents": "SETTIA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})$0"
+		},
+		{
+			"trigger": "SIRELIN\tprocedure",
+			"contents": "SIRELIN(${1:<Id>},${2:<State>},\"${3:<Q1>}\",\"${4:<Q2>}\",\"${5:<E1>}\",\"${6:<E2>}\",\"${7:<E3>}\")$0"
+		},
+		{
+			"trigger": "SIRELOUT\tprocedure",
+			"contents": "SIRELOUT(${1:<Id>},${2:<State>},\"${3:<A0>}\",\"${4:<A1>}\",\"${5:<A3>}\",\"${6:<A4>}\")$0"
+		},
+		{
+			"trigger": "SIRELTIME\tprocedure",
+			"contents": "SIRELTIME(${1:<Id>},${2:<State>},${3:<TM1>},${4:<TI1>},${5:<TI2>},${6:<TI3>})$0"
+		},
+		{
+			"trigger": "SOFTA\tprocedure",
+			"contents": "SOFTA(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "SPCOF\tprocedure",
+			"contents": "SPCOF(${1:[SpindleNo]})$0"
+		},
+		{
+			"trigger": "SPCON\tprocedure",
+			"contents": "SPCON(${1:[SpindleNo]})$0"
+		},
+		{
+			"trigger": "SPLINEPATH\tprocedure",
+			"contents": "SPLINEPATH(1,${1:<AXIS>}${2:,${3:[AXIS]}${4:,${5:[...]}}})$0"
+		},
+		{
+			"trigger": "START\tprocedure",
+			"contents": "START(${1:<INT>})$0"
+		},
+		{
+			"trigger": "STOPRE\tprocedure",
+			"contents": "STOPRE"
+		},
+		{
+			"trigger": "STOPREOF\tprocedure",
+			"contents": "STOPREOF"
+		},
+		{
+			"trigger": "SYNFCT\tprocedure",
+			"contents": "SYNFCT(${1:<PolyNo>},${2:<VarOut>},${3:<VarIn>})$0"
+		},
+		{
+			"trigger": "TANG\tprocedure",
+			"contents": "TANG(${1:<FAx>},${2:<LAx1>},${3:<LAx2>},${4:<CoupleFactor>},${5:<CoordSys>},${6:<Opt>})$0"
+		},
+		{
+			"trigger": "TANGDEL\tprocedure",
+			"contents": "TANGDEL(${1:<FAx>})$0"
+		},
+		{
+			"trigger": "TANGOF\tprocedure",
+			"contents": "TANGOF(${1:<FAx>})$0"
+		},
+		{
+			"trigger": "TANGON\tprocedure",
+			"contents": "TANGON(${1:<FAx>},${2:<Angle>},${3:<Dist>},${4:<AngleTol>})$0"
+		},
+		{
+			"trigger": "TCA\tprocedure",
+			"contents": "TCA(${1:<ToolIdent>}${2:,${3:[DuploNo]}}${4:,${5:[ToolHolderNo]}})$0"
+		},
+		{
+			"trigger": "TCI\tprocedure",
+			"contents": "TCI(${1:<IntLocNo>}${2:,${3:[ToolHolderNo]}})$0"
+		},
+		{
+			"trigger": "TLIFT\tprocedure",
+			"contents": "TLIFT(${1:<FAx>})$0"
+		},
+		{
+			"trigger": "TML\tprocedure",
+			"contents": "TML(${1:<...>})$0"
+		},
+		{
+			"trigger": "TMOF\tprocedure",
+			"contents": "TMOF(${1:<TNo>})$0"
+		},
+		{
+			"trigger": "TMON\tprocedure",
+			"contents": "TMON(${1:<TNo>})$0"
+		},
+		{
+			"trigger": "TOFFOF\tprocedure",
+			"contents": "TOFFOF(${1:<Direction>})$0"
+		},
+		{
+			"trigger": "TOFFON\tprocedure",
+			"contents": "TOFFON(${1:<Direction>}${2:,${3:[Offset]}})$0"
+		},
+		{
+			"trigger": "TRAANG\tprocedure",
+			"contents": "TRAANG(${1:<ANGLE>},${2:<TRAFO>})$0"
+		},
+		{
+			"trigger": "TRACON\tprocedure",
+			"contents": "TRACON(${1:<TRAFO>},${2:<Param1>}${3:,${4:[...]}})$0"
+		},
+		{
+			"trigger": "TRACYL\tprocedure",
+			"contents": "TRACYL(${1:<DIAM>},${2:<TRAFO>})$0"
+		},
+		{
+			"trigger": "TRAFOOF\tprocedure",
+			"contents": "TRAFOOF"
+		},
+		{
+			"trigger": "TRAFOON\tprocedure",
+			"contents": "TRAFOON(${1:<TRAFO>}${2:,${3:<DIAM>},${4:<k>}})$0"
+		},
+		{
+			"trigger": "TRAILOF\tprocedure",
+			"contents": "TRAILOF(${1:<FAx>})$0"
+		},
+		{
+			"trigger": "TRAILON\tprocedure",
+			"contents": "TRAILON(${1:<FAx>},${2:<LAx>},${3:<CoupleFactor>})$0"
+		},
+		{
+			"trigger": "TRANSMIT\tprocedure",
+			"contents": "TRANSMIT(${1:<TRAFO>})$0"
+		},
+		{
+			"trigger": "TRAORI\tprocedure",
+			"contents": "TRAORI(${1:<TRAFO>},${2:<ORIVEC>},${3:<ROTOFS>})$0"
+		},
+		{
+			"trigger": "UNLOCK\tprocedure",
+			"contents": "UNLOCK(${1:<IDS1>}${2:,${3:[...]}})$0"
+		},
+		{
+			"trigger": "WAITC\tprocedure",
+			"contents": "WAITC(${1:<FollowSpindle>},${2:<BlockTrans>},${3:<LeadSpindle>},${4:<BlockTrans>})$0"
+		},
+		{
+			"trigger": "WAITE\tprocedure",
+			"contents": "WAITE(${1:<ChanNo>},${2:<ChanName>})$0"
+		},
+		{
+			"trigger": "WAITENC\tprocedure",
+			"contents": "WAITENC"
+		},
+		{
+			"trigger": "WAITM\tprocedure",
+			"contents": "WAITM(${1:<MarkNo>},${2:<ChanName>})$0"
+		},
+		{
+			"trigger": "WAITMC\tprocedure",
+			"contents": "WAITMC(${1:<MarkNo>},${2:<ChanName>})$0"
+		},
+		{
+			"trigger": "WAITP\tprocedure",
+			"contents": "WAITP(${1:<AXIS>})$0"
+		},
+		{
+			"trigger": "WAITS\tprocedure",
+			"contents": "WAITS(${1:<SpindleNo>})$0"
+		},
+		{
+			"trigger": "WORKPIECE\tprocedure",
+			"contents": "WORKPIECE(${1:<WP>},${2:<RefP>},${3:<ZeroOffset>},${4:<Type>},${5:<Par5>},${6:[...]})$0"
+		},
+		{
+			"trigger": "WRITE\tprocedure",
+			"contents": "WRITE(${1:<State>},${2:<File>},${3:<Text>})$0"
+		},
+		{
+			"trigger": "WRTPR\tprocedure",
+			"contents": "WRTPR(${1:<Text>}${2:,${3:[Execution]}})$0"
+		}
+	]
+}

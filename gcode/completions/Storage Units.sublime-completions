@@ -1,54 +1,201 @@
 {
 	"scope": "source.s840d_gcode & (meta.definition.variable | meta.redefinition)",
 	"completions": [
-		{"trigger": "PHU 000: Not a physical unit\t-", "contents": "PHU 0 "},
-		{"trigger": "PHU 001: Linear or angular position\t[ mm ], [ inch ], [ degree ]", "contents": "PHU 1 "},
-		{"trigger": "PHU 002: Linear position\t[ mm ], [ inch ]", "contents": "PHU 2 "},
-		{"trigger": "PHU 003: Angular position\t[ degree ]", "contents": "PHU 3 "},
-		{"trigger": "PHU 004: Linear or angular velocity\t[ mm/min ], [ inch/min ], [ rpm ]", "contents": "PHU 4 "},
-		{"trigger": "PHU 005: Linear velocity\t[ mm/min ]", "contents": "PHU 5 "},
-		{"trigger": "PHU 006: Angular velocity\t[ rpm ]", "contents": "PHU 6 "},
-		{"trigger": "PHU 007: Linear or angular acceleration\t[ m/s² ], [ inch/s² ], [ rev/s² ]", "contents": "PHU 7 "},
-		{"trigger": "PHU 008: Linear acceleration\t[ m/s² ], [ inch/s² ]", "contents": "PHU 8 "},
-		{"trigger": "PHU 009: Angular acceleration\t[ rev/s² ]", "contents": "PHU 9 "},
-		{"trigger": "PHU 010: Linear or angular jerk\t[ m/s³ ], [ inch/s³ ], [ rev/s³ ]", "contents": "PHU 10 "},
-		{"trigger": "PHU 011: Linear jerk\t[ m/s³ ], [ inch/s³ ]", "contents": "PHU 11 "},
-		{"trigger": "PHU 012: Angular jerk\t[ rev/s³ ]", "contents": "PHU 12 "},
-		{"trigger": "PHU 013: Time\t[ s ]", "contents": "PHU 13 "},
-		{"trigger": "PHU 014: Position controller gain\t[ 16.667/s ]", "contents": "PHU 14 "},
-		{"trigger": "PHU 015: Revolutional feedrate\t[ mm/rev ], [ inch/rev ]", "contents": "PHU 15 "},
-		{"trigger": "PHU 016: Temperature compensation\t[ mm ], [ inch ]", "contents": "PHU 16 "},
-		{"trigger": "PHU 018: Force\t[ N ]", "contents": "PHU 18 "},
-		{"trigger": "PHU 019: Mass\t[ kg ]", "contents": "PHU 19 "},
-		{"trigger": "PHU 020: Moment of inertia\t[ kgm² ]", "contents": "PHU 20 "},
-		{"trigger": "PHU 021: Percent\t[ % ]", "contents": "PHU 21 "},
-		{"trigger": "PHU 022: Frequency\t[ Hz ]", "contents": "PHU 22 "},
-		{"trigger": "PHU 023: Voltage\t[ V ]", "contents": "PHU 23 "},
-		{"trigger": "PHU 024: Current\t[ A ]", "contents": "PHU 24 "},
-		{"trigger": "PHU 025: Temperature\t[ °C ]", "contents": "PHU 25 "},
-		{"trigger": "PHU 026: Angle\t[ degree ]", "contents": "PHU 26 "},
-		{"trigger": "PHU 027: KV\t[ 1000/min ]", "contents": "PHU 27 "},
-		{"trigger": "PHU 028: Linear or angular position\t[ mm ], [ inch ], [ degree ]", "contents": "PHU 28 "},
-		{"trigger": "PHU 029: Cutting rate\t[ m/min ], [ feet/min ]", "contents": "PHU 29 "},
-		{"trigger": "PHU 030: Peripheral speed\t[ m/s], [ feet/s ]", "contents": "PHU 30 "},
-		{"trigger": "PHU 031: Resistance\t[ ohm ]", "contents": "PHU 31 "},
-		{"trigger": "PHU 032: Inductance\t[ mH ]", "contents": "PHU 32 "},
-		{"trigger": "PHU 033: Torque\t[ Nm ]", "contents": "PHU 33 "},
-		{"trigger": "PHU 034: Torque constant\t[ Nm/A ]", "contents": "PHU 34 "},
-		{"trigger": "PHU 035: Current controller gain\t[ V/A ]", "contents": "PHU 35 "},
-		{"trigger": "PHU 036: Speed controller gain\t[ Nm/(rad*s) ]", "contents": "PHU 36 "},
-		{"trigger": "PHU 037: Speed\t[ rpm ]", "contents": "PHU 37 "},
-		{"trigger": "PHU 042: Power\t[ kW ]", "contents": "PHU 42 "},
-		{"trigger": "PHU 043: Current, low\t[ µA ]", "contents": "PHU 43 "},
-		{"trigger": "PHU 046: Torque, low\t[ µNm ]", "contents": "PHU 46 "},
-		{"trigger": "PHU 048: Per mil\t[ 1/1000 ]", "contents": "PHU 48 "},
-		{"trigger": "PHU 049: -\t[ Hz/s ]", "contents": "PHU 49 "},
-		{"trigger": "PHU 065: Flow rate\t[ l/min ]", "contents": "PHU 65 "},
-		{"trigger": "PHU 066: Pressure\t[ bar ]", "contents": "PHU 66 "},
-		{"trigger": "PHU 067: Volume\t[ cm³ ]", "contents": "PHU 67 "},
-		{"trigger": "PHU 068: Controlled-system gain\t[ mm/(V*min) ]", "contents": "PHU 68 "},
-		{"trigger": "PHU 069: Force controller controlled-system gain\t[ N/V ]", "contents": "PHU 69 "},
-		{"trigger": "PHU 155: Thread lead\t[ mm/rev ], [ inch/rev ]", "contents": "PHU 155 "},
-		{"trigger": "PHU 156: Change in thread lead\t[ mm/rev / rev ], [ inch/rev / rev ]", "contents": "PHU 156 "}
+		{
+			"trigger": "PHU 000: Not a physical unit\t-",
+			"contents": "PHU 0 "
+		},
+		{
+			"trigger": "PHU 001: Linear or angular position\t[ mm ], [ inch ], [ degree ]",
+			"contents": "PHU 1 "
+		},
+		{
+			"trigger": "PHU 002: Linear position\t[ mm ], [ inch ]",
+			"contents": "PHU 2 "
+		},
+		{
+			"trigger": "PHU 003: Angular position\t[ degree ]",
+			"contents": "PHU 3 "
+		},
+		{
+			"trigger": "PHU 004: Linear or angular velocity\t[ mm/min ], [ inch/min ], [ rpm ]",
+			"contents": "PHU 4 "
+		},
+		{
+			"trigger": "PHU 005: Linear velocity\t[ mm/min ]",
+			"contents": "PHU 5 "
+		},
+		{
+			"trigger": "PHU 006: Angular velocity\t[ rpm ]",
+			"contents": "PHU 6 "
+		},
+		{
+			"trigger": "PHU 007: Linear or angular acceleration\t[ m/s² ], [ inch/s² ], [ rev/s² ]",
+			"contents": "PHU 7 "
+		},
+		{
+			"trigger": "PHU 008: Linear acceleration\t[ m/s² ], [ inch/s² ]",
+			"contents": "PHU 8 "
+		},
+		{
+			"trigger": "PHU 009: Angular acceleration\t[ rev/s² ]",
+			"contents": "PHU 9 "
+		},
+		{
+			"trigger": "PHU 010: Linear or angular jerk\t[ m/s³ ], [ inch/s³ ], [ rev/s³ ]",
+			"contents": "PHU 10 "
+		},
+		{
+			"trigger": "PHU 011: Linear jerk\t[ m/s³ ], [ inch/s³ ]",
+			"contents": "PHU 11 "
+		},
+		{
+			"trigger": "PHU 012: Angular jerk\t[ rev/s³ ]",
+			"contents": "PHU 12 "
+		},
+		{
+			"trigger": "PHU 013: Time\t[ s ]",
+			"contents": "PHU 13 "
+		},
+		{
+			"trigger": "PHU 014: Position controller gain\t[ 16.667/s ]",
+			"contents": "PHU 14 "
+		},
+		{
+			"trigger": "PHU 015: Revolutional feedrate\t[ mm/rev ], [ inch/rev ]",
+			"contents": "PHU 15 "
+		},
+		{
+			"trigger": "PHU 016: Temperature compensation\t[ mm ], [ inch ]",
+			"contents": "PHU 16 "
+		},
+		{
+			"trigger": "PHU 018: Force\t[ N ]",
+			"contents": "PHU 18 "
+		},
+		{
+			"trigger": "PHU 019: Mass\t[ kg ]",
+			"contents": "PHU 19 "
+		},
+		{
+			"trigger": "PHU 020: Moment of inertia\t[ kgm² ]",
+			"contents": "PHU 20 "
+		},
+		{
+			"trigger": "PHU 021: Percent\t[ % ]",
+			"contents": "PHU 21 "
+		},
+		{
+			"trigger": "PHU 022: Frequency\t[ Hz ]",
+			"contents": "PHU 22 "
+		},
+		{
+			"trigger": "PHU 023: Voltage\t[ V ]",
+			"contents": "PHU 23 "
+		},
+		{
+			"trigger": "PHU 024: Current\t[ A ]",
+			"contents": "PHU 24 "
+		},
+		{
+			"trigger": "PHU 025: Temperature\t[ °C ]",
+			"contents": "PHU 25 "
+		},
+		{
+			"trigger": "PHU 026: Angle\t[ degree ]",
+			"contents": "PHU 26 "
+		},
+		{
+			"trigger": "PHU 027: KV\t[ 1000/min ]",
+			"contents": "PHU 27 "
+		},
+		{
+			"trigger": "PHU 028: Linear or angular position\t[ mm ], [ inch ], [ degree ]",
+			"contents": "PHU 28 "
+		},
+		{
+			"trigger": "PHU 029: Cutting rate\t[ m/min ], [ feet/min ]",
+			"contents": "PHU 29 "
+		},
+		{
+			"trigger": "PHU 030: Peripheral speed\t[ m/s], [ feet/s ]",
+			"contents": "PHU 30 "
+		},
+		{
+			"trigger": "PHU 031: Resistance\t[ ohm ]",
+			"contents": "PHU 31 "
+		},
+		{
+			"trigger": "PHU 032: Inductance\t[ mH ]",
+			"contents": "PHU 32 "
+		},
+		{
+			"trigger": "PHU 033: Torque\t[ Nm ]",
+			"contents": "PHU 33 "
+		},
+		{
+			"trigger": "PHU 034: Torque constant\t[ Nm/A ]",
+			"contents": "PHU 34 "
+		},
+		{
+			"trigger": "PHU 035: Current controller gain\t[ V/A ]",
+			"contents": "PHU 35 "
+		},
+		{
+			"trigger": "PHU 036: Speed controller gain\t[ Nm/(rad*s) ]",
+			"contents": "PHU 36 "
+		},
+		{
+			"trigger": "PHU 037: Speed\t[ rpm ]",
+			"contents": "PHU 37 "
+		},
+		{
+			"trigger": "PHU 042: Power\t[ kW ]",
+			"contents": "PHU 42 "
+		},
+		{
+			"trigger": "PHU 043: Current, low\t[ µA ]",
+			"contents": "PHU 43 "
+		},
+		{
+			"trigger": "PHU 046: Torque, low\t[ µNm ]",
+			"contents": "PHU 46 "
+		},
+		{
+			"trigger": "PHU 048: Per mil\t[ 1/1000 ]",
+			"contents": "PHU 48 "
+		},
+		{
+			"trigger": "PHU 049: -\t[ Hz/s ]",
+			"contents": "PHU 49 "
+		},
+		{
+			"trigger": "PHU 065: Flow rate\t[ l/min ]",
+			"contents": "PHU 65 "
+		},
+		{
+			"trigger": "PHU 066: Pressure\t[ bar ]",
+			"contents": "PHU 66 "
+		},
+		{
+			"trigger": "PHU 067: Volume\t[ cm³ ]",
+			"contents": "PHU 67 "
+		},
+		{
+			"trigger": "PHU 068: Controlled-system gain\t[ mm/(V*min) ]",
+			"contents": "PHU 68 "
+		},
+		{
+			"trigger": "PHU 069: Force controller controlled-system gain\t[ N/V ]",
+			"contents": "PHU 69 "
+		},
+		{
+			"trigger": "PHU 155: Thread lead\t[ mm/rev ], [ inch/rev ]",
+			"contents": "PHU 155 "
+		},
+		{
+			"trigger": "PHU 156: Change in thread lead\t[ mm/rev / rev ], [ inch/rev / rev ]",
+			"contents": "PHU 156 "
+		}
 	]
 }
