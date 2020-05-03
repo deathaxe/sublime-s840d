@@ -29,3 +29,10 @@ else:
     # export event handlers
     from .hmi.events import S840dHmiEvents
     from .gcode.events import S840dNckViewEvents
+
+    def plugin_loaded():
+        """Called by SublimeText after all plugins have been loaded."""
+        from threading import Thread
+        from .doc import database
+
+        Thread(target=lambda: database.cache_init(False)).start()

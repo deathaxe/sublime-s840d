@@ -321,9 +321,9 @@ def dump_vars():
         # output all machine data
         with open(os.path.join(path, "cmc_doc_md.tea"), "w") as out:
             for row in sql.execute("""
-                                   SELECT DISTINCT id,name,dim
+                                   SELECT DISTINCT id,name,dim,brief
                                    FROM vars
-                                   WHERE id > 0
+                                   WHERE id > 0 and lang is "en"
                                    """).fetchall():
 
                 # print number and variable name
@@ -338,14 +338,17 @@ def dump_vars():
                         dim -= 1
                     line = line[:-1] + ']'
 
+                if row[3]:
+                    line += ' ;' + row[3]
+
                 out.write(line + '\n')
 
         # output all other variables
         with open(os.path.join(path, "cmc_doc_vars.tea"), "w") as out:
             for row in sql.execute("""
-                                   SELECT DISTINCT name,dim
+                                   SELECT DISTINCT name,dim,brief
                                    FROM vars
-                                   WHERE id = 0
+                                   WHERE id = 0 and lang is "en"
                                    """).fetchall():
 
                 # print number and variable name
@@ -359,5 +362,8 @@ def dump_vars():
                         line += '0,'
                         dim -= 1
                     line = line[:-1] + ']'
+
+                if row[2]:
+                    line += ' ;' + row[2]
 
                 out.write(line + '\n')
