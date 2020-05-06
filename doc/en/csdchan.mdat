@@ -828,7 +828,8 @@ Units digit
    5 = retain free component for Y from active transformation
    6 = retain free component for Z from active transformation
 Tens digit
-  1x = close vector chain, only with tool carrier (55645[0] for the head chain, 55645[1] for the table chain)
+  0 = vector chain closed, only with tool carrier (55645[0] for the head chain, 55645[1] for the table chain)
+  1x = vector chain open, only with tool carrier (55645[0] for the head chain, 55645[1] for the table chain)
 
 </description>
 </parameter>
@@ -865,6 +866,13 @@ Value range 10 to 180 degrees
 <brief>Perform komplete kinematics measurement: Vector of the ball mounting</brief>
 <description>Perform komplete kinematics measurement: Vector of the ball mounting
 
+</description>
+</parameter>
+<parameter number="55700" type="DOUBLE" dim="0">
+<name>MEA_SIMULTAN_LIMIT</name>
+<brief>Simultaneous measuring, overrun travel</brief>
+<description>Maximum permissible difference between switching point of 1st and 2nd probes
+with simultaneous measuring (MD51740 bit14)
 </description>
 </parameter>
 <parameter number="55730" type="STRING" dim="1" display="ASCII">

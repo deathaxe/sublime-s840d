@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="toolCarrierVar">
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR1</name>
+<brief>X component of offset vector l1</brief>
+<description>$TC_CARR1[n]
+x component of offset vector l1
+Attention! All system parameters beginning with '$TC_' are parameters belonging to the TOA area.
+The special characteristic of this area is that machine data 28085 = MM_LINK_TOA_UNIT can be set to allow
+different NCK channels to access these parameters.
+If this type of parameter setting has been selected by the NCK, you must be aware that changing these data can have
+a negative impact on other channels. Before you change any data settings, make sure that the changes will have
+only a local effect on the channel in which they are made.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR2</name>
+<brief>Y component of offset vector l1</brief>
+<description>$TC_CARR2[n]
+Y component of offset vector l1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR3</name>
+<brief>Z component of offset vector l1</brief>
+<description>$TC_CARR3[n]
+Z component of offset vector l1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR4</name>
+<brief>X component of offset vector l2</brief>
+<description>$TC_CARR4[n]
+X component of offset vector l2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR5</name>
+<brief>Y component of offset vector l2</brief>
+<description>$TC_CARR5[n]
+Y component of offset vector l2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR6</name>
+<brief>Z component of offset vector l2</brief>
+<description>$TC_CARR6[n]
+Z component of offset vector l2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR7</name>
+<brief>X component of rotary axis v1</brief>
+<description>$TC_CARR7[n]
+X component of rotary axis v1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR8</name>
+<brief>Y component of rotary axis v1</brief>
+<description>$TC_CARR8[n]
+Y component of rotary axis v1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR9</name>
+<brief>Z component of rotary axis v1</brief>
+<description>$TC_CARR9[n]
+Z component of rotary axis v1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR10</name>
+<brief>X component of rotary axis V2</brief>
+<description>$TC_CARR10[n]
+X component of rotary axis v2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR11</name>
+<brief>Y component of rotary axis v2</brief>
+<description>$TC_CARR11[n]
+Y component of rotary axis v2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR12</name>
+<brief>Z component of rotary axis v2</brief>
+<description>$TC_CARR12[n]
+Z component of rotary axis v2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR13</name>
+<brief>Angle of rotation alpha1 (in degrees)</brief>
+<description>$TC_CARR13[n]
+Angle of rotation alpha1 (in degrees)
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR14</name>
+<brief>Angle of rotation alpha2 (in degrees)</brief>
+<description>$TC_CARR14[n]
+Angle of rotation alpha2 (in degrees)
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR15</name>
+<brief>X component of offset vector l3</brief>
+<description>$TC_CARR15[n]
+X component of offset vector l3
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR16</name>
+<brief>Y component of offset vector l3</brief>
+<description>$TC_CARR16[n]
+Y component of offset vector l3
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR17</name>
+<brief>Z component of offset vector l3</brief>
+<description>$TC_CARR17[n]
+Z component of offset vector l3
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR18</name>
+<brief>X component of offset vector l4</brief>
+<description>$TC_CARR18[n]
+X component of offset vector l4
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR19</name>
+<brief>Y component of offset vector l4</brief>
+<description>$TC_CARR19[n]
+Y component of offset vector l4
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR20</name>
+<brief>Z component of offset vector l4</brief>
+<description>$TC_CARR20[n]
+Z component of offset vector l4
+</description>
+</parameter>
+<parameter type="AXIS" dim="1">
+<name>$TC_CARR21</name>
+<brief>Axis identifier of 1st rotary axis</brief>
+<description>$TC_CARR21[n]
+Axis identifier of 1st rotary axis
+</description>
+</parameter>
+<parameter type="AXIS" dim="1">
+<name>$TC_CARR22</name>
+<brief>Axis identifier of 2nd rotary axis</brief>
+<description>$TC_CARR22[n]
+Axis identifier of 2nd rotary axis
+</description>
+</parameter>
+<parameter type="CHAR" dim="1">
+<name>$TC_CARR23</name>
+<brief>Kinematic type</brief>
+<description>$TC_CARR23[n]
+Type of kinematics: P: Rotatable workpiece (Part)
+M: Rotatable tool and rotatable workpiece (Mixed)
+T or any other character apart from P and M: Rotatable tool
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR24</name>
+<brief>Offset of 1st rotary axis in degrees</brief>
+<description>$TC_CARR24[n]
+Offset of 1st rotary axis in degrees
+Specifies the angle in degrees of the 1st rotary axis at which the axis assumes its initial position.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR25</name>
+<brief>Offset of 2nd rotary axis in degrees</brief>
+<description>$TC_CARR25[n]
+Offset of 2nd rotary axis in degrees
+Specifies the angle in degrees of the 2nd rotary axis at which the axis assumes its initial position.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR26</name>
+<brief>Offset of 1st rotary axis with Hirth teeth</brief>
+<description>$TC_CARR26[n]
+Specifies the offset of the 1st rotary axis if its position is not continuously variable (Hirth tooth system).
+This variable is evaluated only if $TC_CARR28 is set to a value other than zero.
+For exact meanings, please refer to the description of $TC_CARR28
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR27</name>
+<brief>Offset of 2nd rotary axis with Hirth teeth</brief>
+<description>$TC_CARR27[n]
+Specifies the offset of the 2nd rotary axis if its position is not continuously variable (Hirth tooth system).
+This variable is evaluated only if $TC_CARR29 is set to a value other than zero.
+For exact meanings, please refer to the description of $TC_CARR29
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR28</name>
+<brief>Minimum incremental step of 1st rotary axis</brief>
+<description>$TC_CARR28[n]
+Specifies the size of the minimum increment (in degrees) by which the 1st rotary axis can change position (e.g. with Hirth tooth systems).
+A programmed or calculated angle is rounded to the nearest value 
+calculated from phi = s + n * d  
+when n is an integer.
+In this equation
+s = $TC_CARR28
+d = $TC_CARR26
+If $TC_CARR28 equals zero, $TC_CARR26 and $TC_CARR28 are not used.
+The settings in machine data
+$MC_TOCARR_ROT_ANGLE_INCR[i] and  $MC_TOCARR_ROT_ANGLE_OFFSET[i]
+are applied instead.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR29</name>
+<brief>Minimum incremental step of 2nd rotary axis</brief>
+<description>$TC_CARR29[n]
+Specifies the size of the minimum increment (in degrees) by which the 2nd rotary axis can change position (e.g. with Hirth tooth systems).
+A programmed or calculated angle is rounded to the nearest value 
+calculated from phi = s + n * d  when n
+is an integer.
+In this equation
+s = $TC_CARR29
+d = $TC_CARR27
+If $TC_CARR29 equals zero, $TC_CARR27 and $TC_CARR29 are not used.
+The settings in machine data
+$MC_TOCARR_ROT_ANGLE_INCR[i] and  $MC_TOCARR_ROT_ANGLE_OFFSET[i]
+are applied instead.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR30</name>
+<brief>Minimum position of 1st rotary axis</brief>
+<description>$TC_CARR30[n]
+Specifies the minimum position of the 1st rotary axis. For full description, see $TC_CARR32
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR31</name>
+<brief>Minimum position of 2nd rotary axis</brief>
+<description>$TC_CARR31[n]
+Specifies the minimum position of the 2nd rotary axis. For full description, see $TC_CARR33
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR32</name>
+<brief>Maximum position of 1st rotary axis</brief>
+<description>$TC_CARR32[n]
+Specifies the maximum position of the 1st rotary axis.
+When the angle of the 1st rotary axis of an orientable tool carrier aligned according to a frame (TCOFR) is calculated, the only acceptable solutions are those which lie within the $TC_CARR30 to $TC_CARR32 range.
+The same applies when the rotary angle is programmed absolutely (TCOABS).
+The limits are not evaluated if both $TC_CARR30 and $TC_CARR32 equal zero.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR33</name>
+<brief>Maximum position of 2nd rotary axis</brief>
+<description>$TC_CARR33[n]
+Specifies the maximum position of the 2nd rotary axis.
+When the angle of the 2nd rotary axis of an orientable tool carrier aligned according to a frame (TCOFR) is calculated, the only acceptable solutions are those which lie within the $TC_CARR31 to $TC_CARR33 range.
+The same applies when the rotary angle is programmed absolutely (TCOABS).
+The limits are not evaluated if both $TC_CARR31 and $TC_CARR33 equal zero.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR34</name>
+<brief>Freely usable string (tool carrier name)</brief>
+<description>$TC_CARR34[n]
+Contains a freely definable string. This is provided as a free identifier for the orientable tool carrier.
+However, it currently has no significance within the NCK, and is therefore not evaluated.
+This identifier should not be used for other purposes as it may be used in a future upgrade to allow the activation of an orientable tool carrier via a name rather than a number.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR35</name>
+<brief>Freely available string (1st rotary axis name)</brief>
+<description>$TC_CARR35[n]
+Contains a freely definable string. This is provided as a free identifier for the first rotary axis.
+Within the NCK, however, it has no significance at all and is therefore not evaluated.
+It can also be used for any other purpose.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR36</name>
+<brief>Freely available string (2nd rotary axis name)</brief>
+<description>$TC_CARR36[n]
+Contains a freely definable string. This is provided as a free identifier for the second rotary axis.
+Within the NCK, however, it has no significance at all and is therefore not evaluated.
+It can also be used for any other purpose.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_CARR37</name>
+<brief>Freely available numeric identifier (tool carrier number)</brief>
+<description>$TC_CARR37[n]
+Contains an integer number for identifying the toolholder.
+Within the NCK, however, it has no significance at all and is therefore not evaluated.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR38</name>
+<brief>Freely available position value (X position)</brief>
+<description>$TC_CARR38[n]
+Contains a position (X component of retraction position)
+Within the NCK, however, it has no significance at all and is therefore not evaluated.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR39</name>
+<brief>Freely available position value (Y position)</brief>
+<description>$TC_CARR39[n]
+Contains a position (Y component of retraction position)
+Within the NCK, however, it has no significance at all and is therefore not evaluated.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR40</name>
+<brief>Freely available position value (Z position)</brief>
+<description>$TC_CARR40[n]
+Contains a position (Z component of retraction position)
+Within the NCK, however, it has no significance at all and is therefore not evaluated.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR41</name>
+<brief>Fine offset X of the offset vector l1</brief>
+<description>$TC_CARR41[n]
+X component of fine offset of offset vector l1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR42</name>
+<brief>Fine offset Y of the offset vector l1</brief>
+<description>$TC_CARR42[n]
+Y component of fine offset of offset vector l1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR43</name>
+<brief>Fine offset Z of the offset vector l1</brief>
+<description>$TC_CARR43[n]
+Z component of fine offset of offset vector l1
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR44</name>
+<brief>Fine offset X of the offset vector l2</brief>
+<description>$TC_CARR44[n]
+X component of fine offset of offset vector l2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR45</name>
+<brief>Fine offset Y of the offset vector l2</brief>
+<description>$TC_CARR45[n]
+Y component of fine offset of offset vector l2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR46</name>
+<brief>Fine offset Z of the offset vector l2</brief>
+<description>$TC_CARR46[n]
+Z component of fine offset of offset vector l2
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR55</name>
+<brief>Fine offset X of the offset vector l3</brief>
+<description>$TC_CARR55[n]
+X component of fine offset of offset vector l3
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR56</name>
+<brief>Fine offset Y of the offset vector l3</brief>
+<description>$TC_CARR56[n]
+Y component of fine offset of offset vector l3
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR57</name>
+<brief>Fine offset Z of the offset vector l3</brief>
+<description>$TC_CARR57[n]
+Z component of fine offset of offset vector l3
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR58</name>
+<brief>Fine offset X of the offset vector l4</brief>
+<description>$TC_CARR58[n]
+X component of fine offset of offset vector l4
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR59</name>
+<brief>Fine offset Y of the offset vector l4</brief>
+<description>$TC_CARR59[n]
+Y component of fine offset of offset vector l4
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR60</name>
+<brief>Fine offset Z of the offset vector l4</brief>
+<description>$TC_CARR60[n]
+Z component of fine offset of offset vector l4
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR64</name>
+<brief>Fine offset of 1st rotary axis v1</brief>
+<description>$TC_CARR64[n]
+Fine offset of offset ($TC_CARR24) of 1st rotary axis in degrees
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_CARR65</name>
+<brief>Fine offset of 2nd rotary axis v2</brief>
+<description>$TC_CARR65[n]
+Fine offset of offset ($TC_CARR25) of 2nd rotary axis in degrees
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR_KIN_TOOL_START</name>
+<brief>Start element of the TOOL chain for parameterization from kinematic chains</brief>
+<description>$TC_CARR_KIN_TOOL_START[n]
+If this system variable is empty, the transfer of data from a machine model defined by kinematic chains to the tool carrier takes into account the entire chain from the root element to the end of the chain defined by $TC_CARR_KIN_TOOL_END.
+If the variable contains a name, the chain taken into account starts with the starting point of the named element.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR_KIN_TOOL_END</name>
+<brief>End element of the tool chain for parameterization from kinematic chains</brief>
+<description>$TC_CARR_KIN_TOOL_START[n]
+Contains the name of the last element of the kinematic chain used to parameterize the tool chain of a tool carrier.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR_KIN_PART_START</name>
+<brief>Start element of the PART chain for parameterization from kinematic chains</brief>
+<description>$TC_CARR_KIN_PART_START[n]
+If this system variable is empty, the transfer of data from a machine model defined by kinematic chains to the tool carrier takes into account the entire chain from the root element to the end of the chain defined by $TC_CARR_KIN_PART_END.
+If the variable contains a name, the chain taken into account starts with the starting point of the named element.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR_KIN_PART_END</name>
+<brief>End element of the part chain for parameterization from kinematic chains</brief>
+<description>$TC_CARR_KIN_TOOL_START[n]
+Contains the name of the last element of the kinematic chain used to parameterize the part chain of a tool carrier.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_CARR_KIN_CNTRL</name>
+<brief>Controls the transfer of geometry data from kinematic chain elements.</brief>
+<description>$TC_CARR_KIN_CNTRL[n]
+This system data controls the transfer of geometry data from a machine model defined by kinematic chains to parameterize a tool carrier.
+Currently, only bits 0-2 are assigned  All other bits are reserved.
+The individual bits have the following meanings:
+
+Bit 0 :
+If this bit is set, the following geometry data - as far as they are required - are read from kinematic chain elements. The content of the corresponding tool carrier data from ($TC_CARRxx) is then ignored.
+Offset vector l1      ($TC_CARR1  - $TC_CARR3)
+Offset vector l2      ($TC_CARR4  - $TC_CARR6)
+Rotary axis direction v1  ($TC_CARR7  - $TC_CARR9)
+Rotary axis direction v2  ($TC_CARR10 - $TC_CARR12)
+Offset vector l3      ($TC_CARR15 - $TC_CARR17)
+Offset vector l4      ($TC_CARR18 - $TC_CARR20)
+Rotary axis offsets      ($TC_CARR24 - $TC_CARR25)
+Bit 1 - 2 (H2 - H4):
+If these bits are set (bit 1: part chain; bit 2: tool chain), the contents of the offset vectors I1 (tool chain) and I4 (part chain) are changed so that the end point of the chain coincides with the machine zero point ("Close chain").
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR_CORR_ELEM</name>
+<brief>Name of the offset vector l[m] of a tool carrier.</brief>
+<description>Name of the offset vector l[m] of the tool carrier[n]. A maximum of 4 offset vectors (l1 to l4) are defined for a tool carrier. The first index designates the index of the tool carrier, the second index the index of the offset vector (1...4).
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_CARR_KIN_ROTAX_NAME</name>
+<brief>Rotary axis with index m for parameterization from kinematic chains</brief>
+<description>$TC_CARR_KIN_ROTAX_NAME[n,m]
+Contains the name of the rotary element of the kinematic chain used to parameterize the mth rotary axis of the nth tool carrier.
+</description>
+</parameter>
+</info>

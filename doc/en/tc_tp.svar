@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="tool">
+<parameter type="STRING" dim="1">
+<name>$TC_TP2</name>
+<brief>Tool identifier</brief>
+<description>$TC_TP2[t]
+Tool identifier
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP1</name>
+<brief>Duplonumber</brief>
+<description>$TC_TP1[t]
+Duplo number
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP3</name>
+<brief>Size on left</brief>
+<description>$TC_TP3[t]
+Size on left
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP4</name>
+<brief>Size on right</brief>
+<description>$TC_TP4[t]
+Size on right
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP5</name>
+<brief>Size at top</brief>
+<description>$TC_TP5[t]
+Size at top
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP6</name>
+<brief>Size at bottom</brief>
+<description>$TC_TP6[t]
+Size at bottom
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP7</name>
+<brief>Magazine location type</brief>
+<description>$TC_TP7[t]
+Magazine location type
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP8</name>
+<brief>Status</brief>
+<description>$TC_TP8[t]
+Tool status
+
+Value 0: Not enabled
+Bit 0: Active tool
+Bit 1: Enabled
+Bit 2: Disabled
+Bit 3: Measure
+Bit 4: Prewarning limit reached
+Bit 5: Tool is being changed
+Bit 6: Fixed-location-coded
+Bit 7: Tool was in use
+Bit 8: Tool in buffer magazine with transport order
+Bit 9=1: Ignore disabled status of the tool
+Bit 9=0: Do not ignore
+Bit 10: Tool is to be unloaded
+Bit 11: Tool is to be loaded
+Bit 12: Tool is master tool
+Bit 13: Reserved
+Bit 14: Tool marked for 1:1 replacement
+Bit 15: Tool in use as manual tool
+Bit 16: Reserved
+Bit 17: Tool is at a disabled magazine location
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP9</name>
+<brief>Type of tool monitoring</brief>
+<description>$TC_TP9[t]
+Type of tool monitoring
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP11</name>
+<brief>Sub-group for $P_USEKT</brief>
+<description>$TC_TP11[t]
+Specification of the sub-group to which the tool belongs. (See $P_USEKT) The data is bit-coded.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP10</name>
+<brief>Order of the replacement tools for tool search</brief>
+<description>$TC_TP10[t]
+Selection order of replacement tools if this is set with $TC_MAMP2, bit 3
+Replacement tool is selected with ascending values. The uniqueness is not checked.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_TP_PROTA</name>
+<brief>Name for the protection zone</brief>
+<description>$TC_TP_PROTA[t]
+Name of the 3-dimensional protection area for the Multitool, or the name of the file that contains the description of the protection area for the Multitool. A new name can only be written if the collision avoidance or 3D protection area function is activated.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_TP_MAX_VELO</name>
+<brief>Maximum speed of the tool</brief>
+<description>$TC_TP_MAX_VELO[t]
+Maximum speed of the tool when the value is &gt;0. There is no monitoring if a speed limit has not been defined (=0).
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_TP_MAX_ACC</name>
+<brief>Maximum acceleration of the tool</brief>
+<description>$TC_TP_MAX_ACC[t]
+Maximum acceleration of the tool when the value is &gt;0. There is no monitoring if an acceleration limit has not been defined (=0).
+</description>
+</parameter>
+</info>

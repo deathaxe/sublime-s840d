@@ -1477,18 +1477,27 @@ Korrespondiert mit:
 <name>AX_JERK_MODE</name>
 <brief>Filtertyp für axiale Ruckbegrenzung</brief>
 <description>Filtertyp für axiale Ruckbegrenzung:
-1:	Filter 2. Ordnung (wie SW 1 bis 4)
-2:	Gleitende Mittelwertbildung (ab SW 5)
-3:	Bandsperre (ab SW 6)
+1:	Filter 2. Ordnung
+2:	Gleitende Mittelwertbildung
+3:	Bandsperre
+4:	Doppelte gleitende Mittelwertbildung
+5:	FIR-Tiefpass
+zweistellige Parametrierung aktiviert umschaltbare Filterketten, z.B.
+25:	Umschaltbare Filterkette mit Ruckfiltern Typ 5 und Typ 2
 
-Typ 2 benötigt etwas mehr Rechenzeit, führt aber bei gleicher Glättungswirkung zu geringeren Konturfehlern, bzw. bei gleicher Genauigkeit zu weicheren Bewegungen.
-Typ 2 wird empfohlen, Typ 1 ist  aus Kompatibilitätsgründen als Standardwert voreingestellt.
-Der maximal auftretende Ruck wird über die Zeitkonstante MD32410 $MA_AX_JERK_TIME eingestellt.
-Empfohlene Werte für Typ 1:
-	min: 0.03 s bis max. 0.06s.
-Empfohlene Werte für Typ 2:
-	min: 1 Lageregeltakt bis max: 16 Lageregeltakte
-	Bei 2ms Lageregeltakt entspricht dies 0.002 s bis 0.032 s.
+Hinweise zur Parametrierung:
+MD32402 $MA_AX_JERK_MODE ist nur wirksam, wenn MD32400 $MA_AX_JERK_ENABLE auf 1 gesetzt ist.
+
+Typ 1 benötigt die Einstellung von
+MD32410 $MA_AX_JERK_TIME
+Empfohlene Werte min: 0.03 s bis max. 0.06s
+Typ 1 wird aus Kompatibilitätsgründen angeboten, Typ 2 wird empfohlen:
+
+Typ 2 benötigt die Einstellung von
+MD32410 $MA_AX_JERK_TIME
+Empfohlene Werte: min: 1 Lageregeltakt bis max: 127 Lageregeltakte. Bei 2ms Lageregeltakt entspricht dies 0.002 s bis 0.254 s.
+Typ 2 benötigt etwas mehr Rechenzeit als Typ 1, führt aber bei gleicher Glättungswirkung zu geringeren Konturfehlern oder bei gleicher Genauigkeit zu weicheren Bewegungen.
+
 Typ 3 benötigt die Einstellung von
 MD32410 $MA_AX_JERK_TIME
 MD32412 $MA_AX_JERK_FREQ
@@ -1497,40 +1506,113 @@ Zur Parametrierung einer reinen Bandsperre wird empfohlen, MD32410 $MA_AX_JERK_T
 , wodurch automatisch "Nennerfrequenz = Zählerfrequenz = Sperrfrequenz = MD32412 $MA_AX_JERK_FREQ" eingestellt wird.
 Mit MD32410 $MA_AX_JERK_TIME &gt; 0 dagegen stellt man eine eigene Nennerfrequenz ein, damit ist eine Bandsperre mit Amplitudenanhebung bei Frequenzen oberhalb der Sperrfrequenz realisierbar.
 
-Das MD32402 $MA_AX_JERK_MODE ist nur wirksam, wenn MD32400 $MA_AX_JERK_ENABLE auf 1 gesetzt ist.
+Typ 4 entspricht zwei hintereinandergeschalteten Filtern vom Typ2 und benötigt dazu die Einstellung von
+MD32410 $MA_AX_JERK_TIME
+MD32411 $MA_AX_JERK_TIME_ADD
 
-Sonderfälle, Fehler:
-	Das Maschinendatum muss für alle Achsen eines Achscontainers gleich sein.
+Typ 5 benötigt die Einstellung von
+MD32407 $MA_AX_JERK_FIR_FREQ
+MD32408 $MA_AX_JERK_FIR_ORDER
+MD32409 $MA_AX_JERK_FIR_WINDOW
+
+zweistellige Parametrierung aktiviert umschaltbare Filterketten, z.B.
+Typ 25 ergänzt Typ 5 um eine umschaltbare Alternative Typ 2
+Die Parametrierung erfolgt in Index 0 der Parameter für Typ 5 sowie in Index 1 der Parameter für Typ 2.
+
+Eine Laufzeitanpassung der umschaltbaren Filterketten ist in den Indizes 0 und 1 von MD32895 $MA_DESVAL_DELAY_TIME möglich, falls dies durch MD32890 $MA_DESVAL_DELAY_ENABLE freigegeben ist.
 
 Korrespondiert mit:
 	MD32400 $MA_AX_JERK_ENABLE
+MD32407 $MA_AX_JERK_FIR_FREQ
+MD32408 $MA_AX_JERK_FIR_ORDER
+MD32409 $MA_AX_JERK_FIR_WINDOW
 	MD32410 $MA_AX_JERK_TIME
-	sowie bei Typ3:
-MD32412 $MA_AX_JERK_FREQ und
-MD32414 $MA_AX_JERK_DAMP
+MD32411 $MA_AX_JERK_TIME_ADD
+	MD32412 $MA_AX_JERK_FREQ und
+	MD32414 $MA_AX_JERK_DAMP
+	MD32890 $MA_DESVAL_DELAY_ENABLE
+	MD32895 $MA_DESVAL_DELAY_TIME
 </description>
 </parameter>
-<parameter number="32410" type="DOUBLE" dim="0">
+<parameter number="32407" type="DOUBLE" dim="1">
+<name>AX_JERK_FIR_FREQ</name>
+<brief>Eckfrequenz axialer Ruckfilter Typ 5</brief>
+<description>Eckfrequenz der axialen FIR-Ruckfilter-Glättung. Das MD ist nur wirksam bei MD32402 $MA_AX_JERK_MODE = 5
+
+Korrespondiert mit:
+	MD32400 $MA_AX_JERK_ENABLE (Axiale Ruckbegrenzung)
+	MD32402 $MA_AX_JERK_MODE
+	MD32408 $MA_AX_JERK_FIR_ORDER
+	MD32409 $MA_AX_JERK_FIR_WINDOW
+</description>
+</parameter>
+<parameter number="32408" type="DWORD" dim="1">
+<name>AX_JERK_FIR_ORDER</name>
+<brief>Filterordnung axialer Ruckfilter Typ 5</brief>
+<description>Filterordnung der axialen FIR-Ruckfilter-Glättung. Das MD ist nur wirksam bei MD32402 $MA_AX_JERK_MODE = 5
+
+Korrespondiert mit:
+	MD32400 $MA_AX_JERK_ENABLE (Axiale Ruckbegrenzung)
+	MD32402 $MA_AX_JERK_MODE
+	MD32407 $MA_AX_JERK_FIR_FREQ
+	MD32409 $MA_AX_JERK_FIR_WINDOW
+</description>
+</parameter>
+<parameter number="32409" type="DWORD" dim="1">
+<name>AX_JERK_FIR_WINDOW</name>
+<brief>Filter-Fenster-Typ axialer Ruckfilter Typ 5</brief>
+<description>Filter-Fenster-Typ der axialen FIR-Ruckfilter-Glättung. Das MD ist nur wirksam bei MD32402 $MA_AX_JERK_MODE = 5
+
+Fenster-Typ 0 verwendet kein Fenster
+Fenster-Typ 1 verwendet Hamming-Fenster
+Fenster-Typ 2 verwendet Blackman-Harris-Fenster
+Fenster-Typ 3 verwendet Gauss-Fenster
+
+Korrespondiert mit:
+	MD32400 $MA_AX_JERK_ENABLE (Axiale Ruckbegrenzung)
+	MD32402 $MA_AX_JERK_MODE
+	MD32407 $MA_AX_JERK_FIR_FREQ
+	MD32408 $MA_AX_JERK_FIR_ORDER
+</description>
+</parameter>
+<parameter number="32410" type="DOUBLE" dim="1">
 <name>AX_JERK_TIME</name>
 <brief>Zeitkonstante für den axialen Ruckfilter</brief>
 <description>Zeitkonstante des axialen Ruckfilters, welche einen weicheren Achssollwertverlauf bewirkt. Der Ruckfilter ist nur dann wirksam, wenn die Zeitkonstante größer ist als ein Lageregeltakt.
 
-Unwirksam bei Fehlerzuständen, die einen Wechsel in den Nachführbetrieb bewirken (z.B. NOT-HALT)
+Dieses MD ist unwirksam bei Fehlerzuständen, die einen Wechsel in den Nachführbetrieb bewirken (z.B. NOT-HALT)
 
 Sonderfälle:
 	Maschinenachsen, die miteinander interpolieren sollen, müssen identische effektive Ruckfilterung besitzen (z.B. gleiche Zeitkonstante beim Gewindebohren ohne Ausgleichsfutter).
 
 Korrespondiert mit:
 	MD32400 $MA_AX_JERK_ENABLE (Axiale Ruckbegrenzung)
+	MD32402 $MA_AX_JERK_MODE
 </description>
 </parameter>
-<parameter number="32412" type="DOUBLE" dim="0">
+<parameter number="32411" type="DOUBLE" dim="1">
+<name>AX_JERK_TIME_ADD</name>
+<brief>Zeitkonstante für den zweiten axialen Ruckfilter Typ 4</brief>
+<description>Zeitkonstante der zweiten gleitenden Mittelwertbildung. Dieses MD ist nur wirksam bei MD32402 $MA_AX_JERK_MODE = 4 und wenn die Zeitkonstante größer ist als ein Lageregeltakt.
+
+Dieses MD ist unwirksam bei Fehlerzuständen, die einen Wechsel in den Nachführbetrieb bewirken (z.B. NOT-HALT)
+
+Sonderfälle:
+	Maschinenachsen, die miteinander interpolieren sollen, müssen identische effektive Ruckfilterung besitzen (z.B. gleiche Zeitkonstante beim Gewindebohren ohne Ausgleichsfutter).
+
+Korrespondiert mit:
+	MD32400 $MA_AX_JERK_ENABLE (Axiale Ruckbegrenzung)
+	MD32402 $MA_AX_JERK_MODE
+	MD32410 $MA_AX_JERK_TIME
+</description>
+</parameter>
+<parameter number="32412" type="DOUBLE" dim="1">
 <name>AX_JERK_FREQ</name>
 <brief>Sperrfrequenz axialer Ruckfilter</brief>
 <description>Sperrfrequenz der axialen Ruckfilter-Bandsperre MD ist nur wirksam bei MD32402 $MA_AX_JERK_MODE = 3
 </description>
 </parameter>
-<parameter number="32414" type="DOUBLE" dim="0">
+<parameter number="32414" type="DOUBLE" dim="1">
 <name>AX_JERK_DAMP</name>
 <brief>Dämpfung axialer Ruckfilter</brief>
 <description>Dämpfung der axialen Ruckfilter-Bandsperre:
@@ -2690,7 +2772,7 @@ Korrespondiert mit:
 	MD32895 $MA_DESVAL_DELAY_TIME (Zeitkonstante für das axiale Sollwert-Phasenfilter)
 </description>
 </parameter>
-<parameter number="32895" type="DOUBLE" dim="0">
+<parameter number="32895" type="DOUBLE" dim="1">
 <name>DESVAL_DELAY_TIME</name>
 <brief>Zeitkonstante für das axiale Sollwert-Phasenfilter</brief>
 <description>In das MD ist die Zeitkonstante für das Phasenfilter (Totzeit/Verzögerung) einzutragen.
@@ -2699,10 +2781,12 @@ Damit kann der axiale Sollwert-Phasengang unabhängig vom Amplitudengang eingeste
 Zeitkonstanten im Bereich von 0 bis 64 Lagereglertakten sind einstellbar, das Phasenfilter kann bei z.B. 2ms Lagereglertakt also die Sollwerte um 0 bis 128ms verzögern.
  Eingabewerte ausserhalb dieser Grenzen werden implizit auf die genannten Grenzen (ohne Alarm) begrenzt.
  Hinweis: Verzögerungen in der Sollwertkette können systembedingt die Reaktion bei z.B. Gewindebohren, Safety-Rückzugsbewegungen oder Genauhalt/Satzwechsel verlangsamen bzw. verschlechtern, deshalb sollten so kleine Zeitkonstanten als möglich im MD eingestellt werden.
+Index 1 des MD wird nur bei umschaltbarem Ruckfilter benötigt (zweistellige Eingabewerte in MD32402 $MA_AX_JERK_MODE).
 Das MD ist nur wirksam, wenn MD32890 $MA_DESVAL_DELAY_ENABLE = 1 ist.
 
 Korrespondiert mit:
 	MD32890 $MA_DESVAL_DELAY_ENABLE (axiales Sollwert-Phasenfilter)
+	MD32402 $MA_AX_JERK_MODE
 </description>
 </parameter>
 <parameter number="32900" type="BOOLEAN" dim="0">
@@ -5726,6 +5810,12 @@ Hinweis:
 
 Literatur:
 	/FB/, S7, "Speicherkonfiguration"
+</description>
+</parameter>
+<parameter number="38020" type="DWORD" dim="1">
+<name>MM_CPREC_FIR_POINTS</name>
+<brief>Anzahl Punkte für Kennlinienapproximation von FIR-Filtern für CPRECON</brief>
+<description>Die Funktion "Programmierbare Konturgenauigkeit" (G-Code CPRECON) verwendet zur Approximation der inversen Kennlinie von FIR-Filtern eine Tabelle. Dieses Datum gibt die Anzahl der Tabellenwerte an. Je größer der Wert, umso genauer ist die Approximation. Empfohlen werden $MA_AX_JERK_FIR_FREQ Punkte.
 </description>
 </parameter>
 </info>

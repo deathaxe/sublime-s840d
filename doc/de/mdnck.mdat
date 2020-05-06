@@ -501,6 +501,16 @@ Wert 1: Es werden pro Kanal in jedem Zyklus der Präparationstask folgende Inform
         Daneben gibt es ein fest eingestelltes Taktverhältnis, sodass auch bei einer Abgabemöglichkeit die Präparation mindestens zweimal drankommt, bevor Rechenzeit freiwillig abgegeben wird.
 </description>
 </parameter>
+<parameter number="10158" type="UBYTE" dim="1">
+<name>PREPJOB_PERF_REGULATOR</name>
+<brief>funktionsspezifischer Leistungsregler in Prozent der einzelnen PraepJobs</brief>
+<description>Die verschiedenen Array-Elemente bedeuten:
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[0]: Leistungsregler für Hardware-Überwachungen
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[1]: Leistungsregler für Freie-Raum-Berechnung (Kollisionsvermeidung)
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[2]: Leistungsregler für die parallelen Anteile von TopSurface
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[3]: Leistungsregler für AlarmJob (nur entwicklungsintern)
+</description>
+</parameter>
 <parameter number="10160" type="DWORD" dim="0">
 <name>PREP_COM_TASK_CYCLE_RATIO</name>
 <brief>Faktor für HMI-Kommunikation</brief>
@@ -599,6 +609,14 @@ Die Diagnosedaten werden bei jedem NCK-Hochlauf mit NULL initialisiert.
 <brief>Rechenzeitanteil des NCK</brief>
 <description>Das Maschinendatum legt fest, welchen Anteil an der Rechenzeit der NC-Kern im Gesamtsystem maximal bekommt. Die vom Anwender vorgegebene Aufteilung wird bestmöglich umgesetzt.
 Bei der Umsetzung der Vorgabe berücksichtigt das System Grenzwerte für die absoluten Rechenzeitanteile, die nicht unter bzw. überschritten werden dürfen.
+Anpassungen werden ohne Generierung eines Alarms durchgeführt.
+</description>
+</parameter>
+<parameter number="10186" type="DOUBLE" dim="1">
+<name>NCK_PCOS_TIME_RATIO_SIDEJOB</name>
+<brief>Rechenzeitanteil des NCK auf Nebenkernen</brief>
+<description>Das Maschinendatum legt fest, welchen Anteil an der Rechenzeit von zusätzlich dem NC-Kern zur Verfügung stehenden Nebencores der NC-Kern bekommt. Die vom Anwender vorgegebene Aufteilung wird bestmöglich umgesetzt.
+Bei der Umsetzung der Vorgabe berücksichtigt das System Grenzwerte für die absoluten Rechenzeitanteile, die nicht unter bzw. überschritten werden dürfen. Weiter müssen entsprechende Nebencores auf der Baugruppe vorhanden sein
 Anpassungen werden ohne Generierung eines Alarms durchgeführt.
 </description>
 </parameter>
@@ -2457,7 +2475,7 @@ Achtung:
 <name>PROG_TEST_MASK</name>
 <brief>Programmtest Modi</brief>
 <description>Bit-Codierte Maske für Programmtest Betrieb
-Bit 0 == 1   Programmtest ist im Programmzustand angehalten nicht abwählbar.
+Bit 0        Ohne Funktion.
 Bit 1 == 1   Freischaltung der Aktivierung des Programmtest durch das PI-Kommando _N_NCKMOD
 Bit 2 == 1   Aktivierung des Programmtest mit dem beschleunigten Vorschub in der normalen Programmverarbeitung. Ist das Bit gesetzt, wird ueber das VDI-Signal im ersten Kanal der Programmtest mit beschleunigten Vorschub in allen Kanaelen aktiv. Das VDI-Signal hat in allen anderen Kanaelen keine Wirkung, solange das Bit gesetzt ist. Als Vorschub wird der Wert in $MC_SERUPRO_SPEED_FACTOR des ersten Kanals benutzt. Nur zu Testzwecken freigegeben.
 Bit 3 == 1   Aktivierung des Programmtest mit dem beschleunigten Vorschub in der Simulation.
@@ -3755,13 +3773,16 @@ Es werden Zeilenprüfsummen und MD-Nummern, aber keine Kanalachsnamen als Feldind
 <brief>SDB-Nummer</brief>
 <description>Nummer des verwendeten Systemdatenbausteins (SDB) zur Konfigurierung der Peripherie
 
-Es sind folgende Belegungen von MD11240[0,1,2,3] zugelassen:
+Bei 828D sind folgende Belegungen von MD11240[0,1,2,3] zugelassen:
 [0, -1, 0, 0] Telegramm 136 und Achserweiterung NX10.3
 [1, -1, 1, 1] Telegramm 136 und Achserweiterung NX15.3 (= Voreinstellung)
-[2, -1, 2, 2] Telegramm 136 und Achserweiterung NX15.3, 1x CU320-2 PN (nur PPU 26x.3/28x.3)
+[2, -1, 2, 2] Telegramm 136 und Achserweiterung NX15.3, 1x CU320-2 PN (nur PPU26x.3/28x.3)
 [3, -1, 3, 3] Telegramm 116 und Achserweiterung NX10.3
-[4, -1, 4, 4] Telegramm 136 und Achserweiterung NX15.3, 1x CU310-2 PN (nur PPU 26x.3/28x.3)
-[5, -1, 5, 5] Telegramm 136 und Achserweiterung NX15.3, 2x CU310-2 PN (nur PPU 26x.3/28x.3)
+[4, -1, 4, 4] Telegramm 136 und Achserweiterung NX15.3, 1x CU310-2 PN (nur PPU26x.3/28x.3)
+[5, -1, 5, 5] Telegramm 136 und Achserweiterung NX15.3, 2x CU310-2 PN (nur PPU26x.3/28x.3)
+Bei 808D sind folgende Belegungen von MD11240[0,1,2,3] zugelassen:
+[0, -1, -1, -1] Drive-Bus für 5 Achsen - Adressen 11..15 (= Voreinstellung)
+[1, -1, -1, -1] Drive-Bus für 6 Achsen - Adressen 11..16 (nur PPU16x)
 </description>
 </parameter>
 <parameter number="11241" type="DWORD" dim="0">
@@ -4387,6 +4408,12 @@ Bit	Hex.	Bedeutung
               Damit ist der Inbetriebnehmer bzw. Anwender selbst verantwortlich, dass Achsen und dezentrale IOs am PROFINET synchron zu einander arbeiten, z.B. miteinander interpolieren können.
 25: 0x2000000 16736/22282 "Hinweisalarme Kanal %1 Satz %2: Prog. Gewindesatz zur Einhaltung der Dynamikgrenzwerte zu kurz %3, benötigt %4
               Alarme bzgl. zu kurzer Überschleifsätze und damit verbundener Überziehung der Dynamikgrezwerte zwischen zwei Gewindesätzen werden abgeschaltet.
+27: 0x8000000 5020 "Kommunikationsauftrag ist zu umfangreich"
+28:0x10000000 5030 "Kommunikationsauftrag nicht ausführbar"
+26: 0x4000000 6710 "Datenverlust beim Trace im Bedienbereich Diagnose. Der IPO-Takt ist zu kurz, um alle ausgewählten Daten sicher aufzeichnen zu können"
+              6720 "Datenverlust beim Trace im Bedienbereich Diagnose. Der Vorlauf ist zu stark ausgelastet, um alle ausgewählten Daten sicher aufzeichnen zu können"
+              6730 "Datenverlust beim Trace im Bedienbereich Diagnose. Der Wert des Maschinendatums $MN_MM_PROTOC_FILE_BUFFER_SIZE[5-8] ist zu niedrig"
+              6740 "Datenverlust beim Trace im Bedienbereich Diagnose. Die Kommunikation zum HMI ist zu stark belastet, um alle ausgewählten Daten übertragen zu können"
 </description>
 </parameter>
 <parameter number="11416" type="UDWORD" dim="0" display="HEX">
@@ -4498,7 +4525,9 @@ BitNr.      Bedeutung bei gesetztem Bit
 4	Wie 3, aber bei jedem Repos, nicht nur bei Satzsuchlauf.
 5	Wenn das Bit gesetzt ist, werden geänderte Vorschübe und Spindeldrehzahlen bereits im Restsatz gültig, sonst erst im darauffolgenden Satz.
 6	Wenn das Bit gesetzt ist, werden nach Serupro neutrale Achsen und positionierende Spindeln im Anfahrsatz als Kommando-Achsen repositioniert.
-7	Das Bit verändert das Verhalten des VDI-AXIN-Nahtstellen-Signals "Repos-Delay". Der Pegel von "Repos-Delay" wird gelesen, wenn REPOSA interpretiert wird. Achsen, die weder Geo- noch Orientierungsachsen sind, werden dann vom REPOS ausgeschlossen, d.h. REPOS bewegt diese Achsen NICHT.
+7	Das Bit verändert das Verhalten des VDI-AXIN-Nahtstellen-Signals &lt;Repos_Delay/&gt; (Repos-Delay). Der Pegel von  &lt;Repos_Delay/&gt; (Repos-Delay) wird gelesen, wenn REPOSA interpretiert wird.
+     Achsen, die weder Geo- noch Orientierungsachsen sind, werden dann vom REPOS ausgeschlossen, d.h. REPOS bewegt diese Achsen NICHT.
+     Achtung: Dieses Bit schaltet das kanalspezifische VDI-Signal &lt;Repos_Path_Mode/&gt; (ReposPathMode) komplett ab.
 </description>
 </parameter>
 <parameter number="11480" type="DWORD" dim="0">
@@ -7076,15 +7105,15 @@ Die gepufferten Daten gehen mit Änderung des Maschinendatums verloren!
 <parameter number="18102" type="DWORD" dim="0">
 <name>MM_TYPE_OF_CUTTING_EDGE</name>
 <brief>Art der D-Nummer Programmierung (SRAM)</brief>
-<description>Mit dem MD wird die 'flache D-Nummernverwaltung' aktiviert.
+<description>Mit dem MD wird die 'flache D-Nummernverwaltung' aktiviert. Diese Funktion wird nicht mehr unterstützt.
 
 Der Standardwert ist Null. Das bedeutet, dass NCK die T- und D-Nummern verwaltet.
 
-Ein Wert &gt; 0 wird von NCK nur akzeptiert, wenn in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK das Bit0 nicht gesetzt ist; d.h. es darf nicht gleichzeitig die Werkzeugverwaltungsfunktion aktiv sein.
+Ein Wert &gt; 0 wird von NCK nur akzeptiert, wenn in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK das Bit0 und Bit1 nicht gesetzt ist; d.h. es darf weder die Magazinverwaltungsfunktion noch die Werkzeugüberwachung aktiv sein.
 
 Wert:   Bedeutung
 -----------------------------------------------------------------------------------
-0:	keine 'flache D-Nummernverwaltung' aktiv
+0:   keine 'flache D-Nummernverwaltung' aktiv
 1:   Funktion 'flache D-Nummern' ist aktiv
 
 </description>
@@ -8617,6 +8646,8 @@ Synchronaktionen gelesen und geschrieben werden.
 <name>MM_SIZEOF_LINKVAR_DATA</name>
 <brief>Größe des NCU-Link-Variablen-Speichers</brief>
 <description>Anzahl Bytes des NCU-Link-Speichers für die Variablen $A_DLx.
+
+Hinweis: überschreitet die Anzahl der adressierbaren NCU-Link-Variablen den Wert 32767, so können Variablen mit einem Index über dieser Grenze nicht im Diagnosebild, etc. visualisiert werden. Funktional stehen sie dennoch zur Verfügung.
 </description>
 </parameter>
 <parameter number="18710" type="DWORD" dim="0">
@@ -8835,13 +8866,13 @@ Dieses Maschinendatum wird nur ausgewertet, wenn das Maschinendatum MD18880 $MN_
 <parameter number="18891" type="DWORD" dim="0">
 <name>MM_MAXNUM_3D_WPFX_PROT_ELEM</name>
 <brief>Max. Anzahl der Schutzbereichselemente für WORKPIECE und FIXTURE</brief>
-<description>Maximale Anzahl von Schutzbereichselementen für die automatische Erzeugung von Schutzbereichenmit den Sprachbefehlen WORKPIECE und FIXTURE.
+<description>Maximale Anzahl von Schutzbereichselementen für die automatische Erzeugung von Schutzbereichen mit den Sprachbefehlen WORKPIECE und FIXTURE.
 </description>
 </parameter>
 <parameter number="18892" type="DWORD" dim="0">
 <name>MM_MAXNUM_3D_PROT_AREA_ELEM</name>
 <brief>Max. Anzahl der Schutzbereichselemente</brief>
-<description>Maximale Anzahl von  Schutzbereichselementen. Hat dieses MD den Wert 0 (Standardwert), so sind keine Schutzbereiche möglich.
+<description>Maximale Anzahl von Schutzbereichselementen. Hat dieses MD den Wert 0 (Standardwert), so sind keine Schutzbereiche möglich.
 </description>
 </parameter>
 <parameter number="18893" type="DWORD" dim="0">
@@ -8885,7 +8916,7 @@ Dieses Maschinendatum wird nur dann ausgewertet und führt nur dann zur Reservier
 <parameter number="18898" type="DWORD" dim="0">
 <name>MM_MAXNUM_3D_COLL_PAIRS</name>
 <brief>Maximale Anzahl der 3D-Kollisionspaare</brief>
-<description>Maximale Anzahl der 3D-Kollsionspaare.
+<description>Maximale Anzahl der 3D-Kollisionspaare.
 Dieses Maschinendatum wird nur ausgewertet, wenn das MD18890 $MN_MAX_NUM_3D_PROT_AREAS ungleich Null ist.
 Ist dieses Maschinendatum Null und das MD18890 $MN_MAX_NUM_3D_PROT_AREAS ist ungleich Null, wird automatisch Speicherplatz für die maximal mögliche Anzahl verschiedener Kollisionspaare reserviert ($MN_MAX_NUM_3D_PROT_AREAS * ($MN_MAX_NUM_3D_PROT_AREAS - 1) / 2).
 Ist der Inhalt dieses Maschinendatums größer als der genannte Maximalwert, wird es intern ohne Fehlermeldung auf diesen Maximalwert begrenzt.
@@ -8913,14 +8944,14 @@ Bit 0   = 1:
 	Die Adresse, an der der Rechenfehler auftrat, kann in der Alarmausgabe exakt lokalisiert werden.
 </description>
 </parameter>
-<parameter number="18910" type="UDWORD" dim="0" display="HEX">
+<parameter number="18901" type="UDWORD" dim="0" display="HEX">
 <name>FPU_CTRLWORD_INIT</name>
 <brief>Grundinitialisierung des FPU-Control-Words</brief>
 <description>Grundinitialisierung des FPU-Control-Words ermöglicht die Änderung der FPU-Arbeitsweise (z.B. Rundungsmodus)
 Bedeutung der Bits: siehe Manual der verwendeten FPU
 </description>
 </parameter>
-<parameter number="18920" type="UDWORD" dim="0" display="HEX">
+<parameter number="18902" type="UDWORD" dim="0" display="HEX">
 <name>FPU_EXEPTION_MASK</name>
 <brief>Exeption-Maske für FPU-Rechenfehler</brief>
 <description>Exception-Maske für FPU-Rechenfehler ermöglicht die Auswahl der FPU-Fehler, bei denen eine Exception ausgelöst wird.
@@ -8953,6 +8984,14 @@ Bit 28:
 	floating inexact (precision): Ergebnis ist nicht exakt darstellbar
 Bit 29:
 	denormalized Operand
+</description>
+</parameter>
+<parameter number="18911" type="UDWORD" dim="0" display="HEX">
+<name>MULTICORE_ACTIVATION_MASK</name>
+<brief>Funktionsmaske fuer Systeme mit mehreren CPU-Kernen</brief>
+<description>Bit 0 = 1:
+	Aktivert die Verteilung von PREP-Funktionen (PrepJobs) auf andere CPU-Kerne.
+
 </description>
 </parameter>
 <parameter number="18930" type="STRING" dim="0">

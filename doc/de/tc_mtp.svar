@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="multitool">
+<parameter type="INT" dim="1">
+<name>$TC_MTPN</name>
+<brief>Anzahl Plätze im Multitool</brief>
+<description>$TC_MTPN[n]
+Anzahl Plätze im Multitool
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_MTP2</name>
+<brief>Bezeichner des Multitool</brief>
+<description>$TC_MTP2[n]
+Bezeichner des Multitool
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP3</name>
+<brief>Größe nach links</brief>
+<description>$TC_MTP3[n]
+Größe nach links
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP4</name>
+<brief>Größe nach rechts</brief>
+<description>$TC_MTP4[n]
+Größe nach rechts
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP5</name>
+<brief>Größe nach oben</brief>
+<description>$TC_MTP5[n]
+Größe nach oben
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP6</name>
+<brief>Größe nach unten</brief>
+<description>$TC_MTP6[n]
+Größe nach unten
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP7</name>
+<brief>Multitoolplatztyp</brief>
+<description>$TC_MTP7[n]
+Multitoolplatztyp
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP8</name>
+<brief>Multitoolzustand</brief>
+<description>$TC_MTP8[n]
+Multitoolzustand
+
+Wert 0: nicht freigegeben
+Bit 0: aktives MT
+Bit 1: freigegeben
+Bit 2: gesperrt
+Bit 3: vermessen
+Bit 4: Vorwarngrenze erreicht
+Bit 5: MT ist im Wechsel
+Bit 6: festplatzcodiert
+Bit 7: MT war im Einsatz
+Bit 8: MT im Zwischenspeicher mit Transportauftrag
+Bit 9: ignoriere gesperrt Zustand des MTs
+Bit 10: MT ist zu entladen
+Bit 11: MT ist zu beladen
+Bit 12: Stamm-WZ
+Bit 13: reserviert
+Bit 14: für 1:1-Tausch markiert
+Bit 15: Hand-WZ
+Bit 16: MT wird gesperrt, falls ein WZ im MT gesperrt wird
+Bit 17: MT ist auf einen gesperrten Magazinplatz
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP_POS</name>
+<brief>Position</brief>
+<description>$TC_MTP_POS[n]
+Position
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MTP_KD</name>
+<brief>Art der Abstandskodierung</brief>
+<description>$TC_MTP_KD[n]
+Art der Abstandskodierung
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_MTP_PROTA</name>
+<brief>Name für den Schutzbereich.</brief>
+<description>$TC_MTP_PROTA[n]
+Name des 3 dimensionalen Schutzbereichs für das Multitool, oder der Name der Datei, die die Beschreibung des Schutzbereichs für das Multitool enthält. Ein neuer Name kann nur geschrieben werden, wenn die Funktion Kollisionsvermeidung bzw. 3D-Schutzbereiche aktiviert ist.
+</description>
+</parameter>
+</info>

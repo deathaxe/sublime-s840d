@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="CECDescr">
+<parameter type="DOUBLE" dim="2">
+<name>$AN_CEC</name>
+<brief>CEC table: Compensation value</brief>
+<description>$AN_CEC[n,m]
+Compensation value
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_INPUT_NCU</name>
+<brief>CEC table: Basic axis on NCU</brief>
+<description>$AN_CEC_INPUT_NCU[n]:
+NCU on which the basic axis is calculated
+</description>
+</parameter>
+<parameter type="AXIS" dim="1">
+<name>$AN_CEC_INPUT_AXIS</name>
+<brief>CEC table: Basic axis</brief>
+<description>$AN_CEC_INPUT_AXIS[n]:
+Name of axis whose setpoint is used as the compensation table input
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_OUTPUT_NCU</name>
+<brief>CEC table: Compensation axis on NCU</brief>
+<description>$AN_CEC_OUTPUT_NCU[n]:
+NCU on which the compensation axis is calculated
+</description>
+</parameter>
+<parameter type="AXIS" dim="1">
+<name>$AN_CEC_OUTPUT_AXIS</name>
+<brief>CEC table: Compensation axis</brief>
+<description>$AN_CEC_OUTPUT_AXIS[n]:
+Name of axis to which the output of the compensation table is applied
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$AN_CEC_STEP</name>
+<brief>CEC table: Distance between interpolation points</brief>
+<description>$AN_CEC_STEP[n]
+Distance of offset values
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$AN_CEC_MIN</name>
+<brief>CEC table: Starting position</brief>
+<description>AN_CEC_MIN[n]
+Start position of compensation table
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$AN_CEC_MAX</name>
+<brief>CEC table: End position</brief>
+<description>AN_CEC_MAX[n]
+End position of compensation table
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_DIRECTION</name>
+<brief>CEC table: Direction-dependence</brief>
+<description>$AN_CEC_DIRECTION[n]
+Activates direction-dependent action of compensation table
+0: both traversing directions of the basic axis
+1: positive traversing direction of the basic axis
+-1: negative traversing direction of the basic axis
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_MULT_BY_TABLE</name>
+<brief>CEC table: Multiplication</brief>
+<description>$AN_CEC_MULT_BY_TABLE[n]
+Number of table whose output value is to be multiplied by the output
+value of the compensation table
+</description>
+</parameter>
+<parameter type="BOOL" dim="1">
+<name>$AN_CEC_IS_MODULO</name>
+<brief>CEC table: Modulo functionality</brief>
+<description>$AN_CEC_IS_MODULO[n]
+TRUE: Cyclical repetition of compensation table
+FALSE: No cyclical repetition of compensation table
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$AN_CEC_TYPE</name>
+<brief>CEC table: table type</brief>
+<description>$AN_CEC_TYPE[n]
+0: no special table type
+1: table, cylinder error compensation type
+</description>
+</parameter>
+</info>

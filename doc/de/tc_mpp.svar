@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="magazine">
+<parameter type="BOOL" dim="2">
+<name>$TC_MPP3</name>
+<brief>Nebenplatzbetrachtung ein</brief>
+<description>$TC_MPP3[n,m]
+Nebenplatzbetrachtung ein/aus
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP1</name>
+<brief>Platzart</brief>
+<description>$TC_MPP1[n,m]
+Platzart
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP2</name>
+<brief>Platztyp</brief>
+<description>$TC_MPP2[n,m]
+Platztyp
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP6</name>
+<brief>T-no. des WZ auf diesem Platz</brief>
+<description>$TC_MPP6[n,m]
+T-no. des WZ auf diesem Platz
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP4</name>
+<brief>Platzzustand</brief>
+<description>$TC_MPP4[n,m]
+Platzzustand
+
+Bit 0: gesperrt
+Bit 1=1: frei zur Aufnahme eines Werkzeugs
+Bit 1=0: belegt
+Bit 2: reserviert für Werkzeug aus Zwischenspeicher
+Bit 3: reserviert für neu zu beladendes Werkzeug
+Bit 4: belegt im linken Halbplatz
+Bit 5: belegt im rechten Halbplatz
+Bit 6: belegt im oberen Halbplatz
+Bit 7: belegt im unteren Halbplatz
+Bit 8: linker Halbplatz reserviert
+Bit 9: rechter Halbplatz reserviert
+Bit 10: oberer Halbplatz reserviert
+Bit 11: unterer Halbplatz reserviert
+Bit 12: Verschleißverbund gesperrt
+Bit 13: gesperrter Magazinplatz kann durch uebergroßes WZ ueberlappt werden
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP5</name>
+<brief>Platzartindex/Verschleißverbundnummer</brief>
+<description>$TC_MPP5[n,m]
+Zwischenspeichermagazin:  	Platzartindex
+reale Magazine:		Verschleißverbundnummer
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP7</name>
+<brief>Adapternummer des WZ-Adapters auf diesem Platz</brief>
+<description>$TC_MPP7[n,m]
+Adapternummer des WZ-Adapters auf diesem Platz
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP66</name>
+<brief>reserviert für T-No.</brief>
+<description>$TC_MPP66[n,m]
+T-no. des im Zwischenspeicher befindlichen WZs,
+für das der durch n,m bestimmte Platz reserviert ist.
+Schreiboperation ist nur sinnvoll beim Laden einer Sicherungsdatei nach NCK.
+Die Namensgebung ist angelehnt an $TC_MPP6 - T-Nr. des auf dem Magazinplatz befindlichen WZs.
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$TC_MPP_SP</name>
+<brief>Spindel-Nummer, die dem Werkzeughalter zugeordnet ist</brief>
+<description>$TC_MPP_SP[n,m]
+Nur von Bedeutung, wenn 
+- mit Werkzeughaltern gearbeitet wird ($MC_TOOLHOLDER_MANAGEMENT &gt; 0)
+- der Magazinplatz "m" zu einem Zwischenmagazin "n" gehört
+- der Magazinplatz einen Werkzeughalter beschreibt ($TC_MPP1[n,m]=2)
+In diesem Fall enthält die Systemvariable die Spindel-Nummer,  deren Drehzahl auf die maximale Werkzeug-Drehzahl überwacht werden soll.
+Wenn nicht mit Werkzeughaltern gearbeitet wird ($MC_TOOLHOLDER_MANAGEMENT = 0), enthält die Variable den Wert des Spindel-Index aus $TC_MPP5
+Wenn Magazinplatz "n,m" kein Zwischenmagazinplatz für eine Spindel oder Werkzeughalter handelt, enthält diese Variable den Wert =0.
+
+</description>
+</parameter>
+</info>

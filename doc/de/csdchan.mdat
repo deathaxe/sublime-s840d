@@ -828,7 +828,8 @@ Einerstelle
    5 = freie Komponente für Y aus aktiver Trafo beibehalten
    6 = freie Komponente für Z aus aktiver Trafo beibehalten
 Zehnerstelle
-  1x = Vektorkette schließen, nur bei Toolcarrier (55645[0] für die Kopfkette, 55645[1] für die Tischkette)
+  0x = Vektorkette geschlossen, nur bei Toolcarrier (55645[0] für die Kopfkette, 55645[1] für die Tischkette)
+  1x = Vektorkette geöffnet, nur bei Toolcarrier (55645[0] für die Kopfkette, 55645[1] für die Tischkette)
 
 </description>
 </parameter>
@@ -865,6 +866,13 @@ Wertebereich 10 bis 180 Grad
 <brief>Kinematik komplett vermessen: Vektor der Kugelhalterung</brief>
 <description>Kinematik komplett vermessen: Vektor der Kugelhalterung
 
+</description>
+</parameter>
+<parameter number="55700" type="DOUBLE" dim="0">
+<name>MEA_SIMULTAN_LIMIT</name>
+<brief>simultanes Messen, Überlaufweg</brief>
+<description>Maximal zulässiger Differenzbetrag zwischen Schaltpunkt des 1. und 2. Messtaster
+beim simultanen Messen (MD51740 Bit14)
 </description>
 </parameter>
 <parameter number="55730" type="STRING" dim="1" display="ASCII">

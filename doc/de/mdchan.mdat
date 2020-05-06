@@ -245,8 +245,8 @@ Bit 2= 1 MKS - Maschinenachse in den Fenstern Preset/Ankratzen/Parameter-Nullpun
 Bit 3= 1 MKS - Maschinenachse im Fenster Handradauswahl anzeigen
        0 MKS - Maschinenachse im Fenster Handradauswahl ausblenden
 (Bit 4) nicht belegt
-Bit 5= 1 Spindel im T,F,S-Fenster anzeigen
-       0 Spindel im T,F,S-Fenster ausblenden
+Bit 5= 1 Spindel im T,F,S-Fenster und T,S,M-Fenster anzeigen
+       0 Spindel im T,F,S-Fenster und T,S,M-Fenster ausblenden
 
 Bit 16 bis 31: WKS
 Bit 16= 1 WKS - Geometrieachse in den Istwertfenstern anzeigen
@@ -1186,16 +1186,15 @@ GCODE_RESET_VALUES[69]	   70		1 (nicht festgelegt)
 <description>Festlegung der nicht veränderbaren SIEMENS-G-Codes-Modes
 für Sinumerik 828D gilt:
 MD	Index	Wert
-		Turning	Milling
-	[5]	0	1
-	[7]	1	1
-	[12]	0	0
-	[15]	0
+		Turning	Milling CGrinding SGrinding
+	[5]	0	1        -         -
 	[7]	-	-        1         1
+	[12]	0	0        0         0
+	[15]	0	-        0         -
 für Sinumerik 808D gilt:
 MD	Index	Wert
 		Turning	Milling
-	[27]	2	2
+	[27]	0	0
 </description>
 </parameter>
 <parameter number="20152" type="BYTE" dim="1">
@@ -1223,6 +1222,7 @@ War insbesondere zum Resetzeitpunkt G54 bereits aktiv, so werden die Werte zum R
 Soll die aktuelle Einstellung für die 8. G-Gruppe (Nullpunktverschiebung) jedoch über Reset/Teileprogrammende hinaus erhalten bleiben, so ergibt sich folgende Einstellung:
 MD20152 $MC_GCODE_RESET_MODE[7]=1   ; War zum Resetzeitpunkt eine Nullpunktverschiebung (z.B. G54) aktiv, so werden die Werte zum Resetzeitpunkt des entsprechenden Datenhaltungsframes (bei G54 also UIFR[1]) aktiviert
 
+Systemspezifisch kann das Ändern der Löschstellung einzelner G-Gruppen gesperrt sein.
 Korrespondierend mit:
 MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
@@ -2044,31 +2044,15 @@ Sonderfälle:
 <brief>Sonderfunktionen des Look Ahead</brief>
 <description>Sonderfunktionen des Look Ahead:
 Bit 0 = 1:
-	Die Safety Integrated Sollwertbegrenzung wird bereits im Look Ahead berücksichtigt.
+	Die Safety Integrated Sollwertbegrenzung wird bereits im Look Ahead berücksichtigt. Aus ihr wird eine satzweite Begrenzung der Bahngeschwindigkeit berechnet, die neben den übrigen Begrenzungen (z.B. Override) wirkt.
 Bit 1 = 1:
-	Die Safety Integrated Sollwertbegrenzung wird über den Satz detailliert berücksichtigt.
-</description>
-</parameter>
-<parameter number="20460" type="DOUBLE" dim="0">
-<name>LOOKAH_SMOOTH_FACTOR</name>
-<brief>Glättungsfaktor bei Look Ahead</brief>
-<description>Achtung: Diese Funktion ist obsolet und wird nicht mehr unterstützt!
-Zugunsten einer ruhigeren Bahngeschwindigkeitsführung konnte ein Glättungsfaktor vorgegeben werden.
-Er bestimmte den maximal zulässigen Produktivitätsverlust.
-Beschleunigungsvorgänge, die weniger als dieser Faktor zu einer kürzeren Programmlaufzeit beitragen, wurden dann nicht durchgeführt.
-
-Betrachtet wurden dabei nur Beschleunigungsvorgänge, deren Frequenz oberhalb der im MD32440 $MA_LOOKAH_FREQUENCY parametrierten Frequenz liegen.
-Durch Eingabe von 0.0 wird die Funktion deaktiviert.
-</description>
-</parameter>
-<parameter number="20462" type="BOOLEAN" dim="0">
-<name>LOOKAH_SMOOTH_WITH_FEED</name>
-<brief>Bahnglättung mit programmiertem Vorschub</brief>
-<description>Das MD legt fest, ob bei der Glättung der Bahngeschwindigkeit auch der programmierte Vorschub berücksichtigt wird. In diesen Fällen kann der vorgegebene Faktor aus MD20460 $MC_LOOKAH_SMOOTH_FACTOR besser eingehalten werden, wenn der Override auf 100% steht.
+	Die Funktion von Bit 0 wird erweitert, sodass aus der Safety Integrated Sollwertbegrenzung für verschiedene Bereiche des Satzes auch verschiedene Begrenzungen der Bahngeschwindigkeit berechnet werden. Im Vergleich zur Funktionalität von Bit 0 kann dadurch die Achsgeschwindigkeit näher an (aber weiterhin unterhalb) der Safety Integrated Sollwertbegrenzung verlaufen.
+Bit 2 = 1:
+	Reserviert
 
 Korrespondiert mit:
-	MD32440 $MA_LOOKAH_FREQUENCY,
-	MD20460 $MC_LOOKAH_SMOOTH_FACTOR
+ MD36931 $MA_SAFE_VELO_LIMIT
+ MD36933 $MA_SAFE_DES_VELO_LIMIT
 </description>
 </parameter>
 <parameter number="20463" type="DOUBLE" dim="0">
@@ -2093,17 +2077,6 @@ Bit0:
 	Werden im Satz ausschließlich Rundachsen als Bahnachsen mit aktiven G700 verfahren, entspricht die programmierte Rundachsgeschwindigkeit
 0:	[grad/min]
 1:	[25.4*grad/min]
-</description>
-</parameter>
-<parameter number="20465" type="DOUBLE" dim="1">
-<name>ADAPT_PATH_DYNAMIC</name>
-<brief>Adaption der Bahndynamik</brief>
-<description>Achtung: Diese Funktion ist obsolet und wird nicht mehr unterstützt!
-Mit diesem Anpassfaktor konnte die Dynamik von Änderungen der Bahngeschwindigkeit verringert werden.
-ADAPT_PATH_DYNAMIC[0] war bei Brisk wirksam und reduzierte die zulässige Beschleunigung.
-ADAPT_PATH_DYNAMIC[1] war bei Soft wirksam und reduzierte den zulässigen Ruck.
-Betrachtet wurden dabei nur Beschleunigungsvorgänge, deren Frequenz oberhalb der im MD32440 $MA_LOOKAH_FREQUENCY parametrierten Frequenz liegen.
-Durch Eingabe von 1.0 wird die Funktion deaktiviert.
 </description>
 </parameter>
 <parameter number="20470" type="BYTE" dim="0">
@@ -3437,6 +3410,7 @@ Bedeutung der Hunderterstelle:
 	1. MD36100 $MA_POS_LIMIT_MINUS[AX5] = -5.0 und MD36110 $MA_POS_LIMIT_PLUS[AX5] = 135.0, der mögliche Bereich der Achse AX5 ist 0 ... 135.0
 	2. MD36100 $MA_POS_LIMIT_MINUS[AX5] = -100.0 und MD36110 $MA_POS_LIMIT_PLUS[AX5] = 10.0, der mögliche Bereich der Achse AX5 ist -100.0 ... 0.0
 	3. MD36100 $MA_POS_LIMIT_MINUS[AX5] = 5.0 und MD36110 $MA_POS_LIMIT_PLUS[AX5] = 120.0, der mögliche Bereich ist 5.0 ... 120.0, es gibt keine automatische Begrenzung des Verfahrbereichs.
+Tausenderstelle: Reserviert.
 </description>
 </parameter>
 <parameter number="21186" type="BOOLEAN" dim="0">
@@ -4434,19 +4408,19 @@ aktive D-Nr. &gt; 0 und aktive D-Nr.=0 führt zu einer Alarmmeldung
 
 Bit 3 und 4 sind nur bei aktiver WZV von Bedeutung.
 Funktion:
-Steuerung des Verhaltens der Initsatzgenerierung bei Programm Start, falls gesperrtes Werkzeug auf der Spindel ist und dieses aktiviert werden soll.
+Steuerung des Verhaltens der Initsatzgenerierung bei Programm Start, falls ein nicht einsatzfähiges Werkzeug auf der Spindel ist und dieses aktiviert werden soll.
 Siehe hierzu: MD20112 $MC_START_MODE_MASK, MD20110 $MC_RESET_MODE_MASK
 Bei RESET wird das Verhalten "lasse gesperrtes WZ auf der Spindel weiterhin aktiv" hiermit nicht beeinflusst.
 
-Bit 3=0: Standard: Falls das WZ auf der Spindel gesperrt ist: WZ-Wechselkommando erzeugen, das ein Ersatz-WZ anfordert. Gibt es eins solches nicht, so wird ein Alarm erzeugt.
-Bit 3=1: Der Gesperrtzustand des Spindelwerkzeugs wird ignoriert. Das Werkzeug wird aktiv. Das folgende Teileprogramm sollte derart formuliert sein, dass keine Teile mit dem gesperrten Werkzeug gefertigt werden.
+Bit 3=0: Standard: Falls das WZ auf der Spindel nicht einsatzfähig ist: WZ-Wechselkommando erzeugen, das ein Ersatz-WZ anfordert. Gibt es eins solches nicht, so wird ein Alarm erzeugt.
+Bit 3=1: Der Zustand des nicht einsatzfähigen Spindelwerkzeugs wird ignoriert. (Ausnahme: nicht freigegebene WZe.) Das Werkzeug wird aktiv. Das folgende Teileprogramm sollte derart formuliert sein, dass keine Teile mit dem nicht einsatzfähigen Werkzeug gefertigt werden.
 
 Bit 4=0: Standard: Es wird versucht, das Spindelwerkzeug bzw. dessen Ersatz-WZ zu aktivieren
-Bit 4=1: Falls das Werkzeug auf der Spindel gesperrt ist, dann wird im Start Initsatz T0 programmiert.
+Bit 4=1: Falls das Werkzeug auf der Spindel nicht einsatzfähig ist, dann wird im Start Initsatz T0 programmiert.
 Bei der Kombination von Bit 3 und 4 erhält man folgende Aussagen:
-0 / 0: Verhalten wie bisher, automatischer Wechsel bei NC-Start, wenn gesperrtes Werkzeug in Spindel
-1 / 0: Wird nicht automatisch gewechselt
-0 / 1: Ein T0 wird bei gesperrtem Werkzeug in Spindel bei NC-Start automatisch generiert
+0 / 0: Verhalten wie bisher, automatischer Wechsel bei NC-Start, wenn nicht einsatzfähiges Werkzeug in Spindel
+1 / 0: Wird nicht immer automatisch gewechselt
+0 / 1: Ein T0 wird bei nicht einsatzfähigem Werkzeug in Spindel bei NC-Start automatisch generiert
 1 / 1: keine Aussage
 
 Bit 5: reserviert
@@ -4492,6 +4466,11 @@ Wenn Bit 0=1 gesetzt ist, ist dieses Bit ohne Bedeutung.
 
 Bit 8=0: Ein Werkzeug, dass auf einen gesperrten Magazinplatz sitzt, wird bei der Werkzeuganwahl nicht berücksichtigt. (Default-Einstellung)
 Bit 8=1: Auch ein Werkzeug, das auf einen gesperrten Magazinplatz sitzt, wird bei der Werkzeuganwahl berücksichtigt. (Entspricht dem früheren Verhalten.)
+
+Bit 9=0: Der Werkzeugstatus "zu entladen" ($TC_TP8[T_Nr] Bit10=1) hat keine Bedeutung. (Default-Einstellung)
+Bit 9=1: Ein Werkzeug, das den Status "zu entladen" ($TC_TP8[T_Nr] Bit10=1) hat, wird im Rahmen einer T-Programmierung nicht angewählt.
+Bit 9=1: Wenn ein Multitool oder eines der Werkzeuge auf dem Multitool den Status "zu entladen" hat ($TC_MTP8[MT_Nr] bzw. $TC_TP8[T_Nr] Bit10=1)
+werden die Werkzeuge auf dem Multitool im Rahmen einer T-Programmierung nicht angewählt.
 </description>
 </parameter>
 <parameter number="22600" type="DWORD" dim="0">
@@ -4730,6 +4709,7 @@ Bit Nr. Bedeutung bei gesetztem Bit
 24     Aufzeichnung von Multi-Threading-Abläufen (Multicore).
 25     Aufzeichnung der Externen Kommunikation.
 26     Aufzeichnung von Geometriedaten: Positionen, vLim, vLimSafety, OVR, Klemmung, etc.
+27     Programm-Trace: Erweiterung von Bit 10 um Aufzeichnung von NC-Sätzen in einer an die Basissatzanzeige angelehnte Darstellung mit vorangestellter Kennung ":PT:"
 </description>
 </parameter>
 <parameter number="22800" type="BYTE" dim="0">
@@ -8120,6 +8100,12 @@ Der Wert dieses Maschinendatums gibt an, über wieviele Sätze maximal die Orienti
 Bei größeren Werten dieses MD nimmt der Speicherbedarf im DRAM stark zu.
 Minimal sollte mindestens der Wert 4 eingegeben werden.
 Ist dieses MD &lt; 4 und wird der G-Code ORISON programmiert, so wird der Alarm 10982 ausgegeben.
+</description>
+</parameter>
+<parameter number="28592" type="DWORD" dim="0">
+<name>MM_NUM_SINGULARITY_BLOCKS</name>
+<brief>Anzahl der Sätze für die Singularitätsbehandlung. (DRAM)</brief>
+<description>Mit diesem MD wird die Funktion "Singularitätsbehandlung" aktiviert und dafür Speicher reserviert. Hat dieses Datum den Wert "Null", ist keine Singularitätsbehandlung möglich.
 </description>
 </parameter>
 <parameter number="28600" type="DWORD" dim="0" display="DECIMAL">

@@ -501,6 +501,16 @@ Value 1: The following information is collected for each channel in each cycle o
         There is also a permanently set cycle ratio so that in the event of a possible transfer, the preparation is called at least twice before computing is voluntarily given away.
 </description>
 </parameter>
+<parameter number="10158" type="UBYTE" dim="1">
+<name>PREPJOB_PERF_REGULATOR</name>
+<brief>Function-specific power regulator in percent of the individual PrepJobs</brief>
+<description>The various array elements mean:
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[0]: Power regulator for hardware monitoring
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[1]: Power regulator for free space computation (collision avoidance)
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[2]: Power regulator for the parallel proportions of TopSurface
+  MD10158 $MN_PREPJOB_PERF_REGULATOR[3]: Power regulator for AlarmJob (only internally in the development)
+</description>
+</parameter>
 <parameter number="10160" type="DWORD" dim="0">
 <name>PREP_COM_TASK_CYCLE_RATIO</name>
 <brief>Factor for communication with HMI</brief>
@@ -600,6 +610,14 @@ Diagnostic data are initialized with ZERO at each NCK power up
 <description>This machine data defines the maximum proportion of CPU time given to the NC kernel in the entire system. The division specified by the user is implemented as well as possible.
 When implementing the specification, the system takes into account limiting values for the absolute proportion of CPU time that must not be exceeded or undershot.
 Adaptations are made without generating an alarm.
+</description>
+</parameter>
+<parameter number="10186" type="DOUBLE" dim="1">
+<name>NCK_PCOS_TIME_RATIO_SIDEJOB</name>
+<brief>CPU time share of the NCK on secondary kernels</brief>
+<description>The machine data specifies the proportion of CPU time the secondary kernels of the NC kernel receive in addition to the NC kernel. The distribution specified by the user is implemented as well as possible.
+Implementation of the specification takes into account the system limit values for the absolute proportions of CPU time, which must not be over or undershot. There must also be corresponding secondary kernels on the component.
+Adjustments are performed without generating an alarm.
 </description>
 </parameter>
 <parameter number="10190" type="DOUBLE" dim="0">
@@ -2457,7 +2475,7 @@ Notice!
 <name>PROG_TEST_MASK</name>
 <brief>Program test mode</brief>
 <description>Bit-coded mask for program test
-Bit 0 == 1   Program test cannot be deselected in 'Stopped' program status.
+Bit 0 == 1   No function.
 Bit 1 == 1   Enable to activate the program test using the PI command _N_NCKMOD
 Bit 2 == 1   Activation of program test with accelerated feed in normal program processing. If the bit is set, the program test is active in all channels with accelerated feed via the VDI signal in the first channel. The VDI signal has no effect in all other channels as long as the bit is set. The value in $MC_SERUPRO_SPEED_FACTOR of the first channel is used as the feed. Only released for test purposes.
 Bit 3 == 1   Activation of program test with accelerated feed in the simulation.
@@ -3755,13 +3773,16 @@ The line check sums and MD numbers are generated, but not channel names as field
 <brief>SDB number</brief>
 <description>Number of the system data block (SDB) used for configuring the I/Os.
 
-The following assignments of MD11240[0,1,2,3] are prmitted:
+For 828D, the following assignments of MD11240[0,1,2,3] are permitted:
 [0, -1, 0, 0] telegram 136 and axis extension NX10.3
 [1, -1, 1, 1] telegram 136 and axis extension NX15.3 (= default)
 [2, -1, 2, 2] telegram 136 and axis extension NX15.3, 1x CU320-2 PN (only PPU 26x.3/28x.3)
 [3, -1, 3, 3] telegram 116 and axis extension NX10.3
 [4, -1, 4, 4] telegram 136 and axis extension NX15.3, 1x CU310-2 PN (only PPU 26x.3/28x.3)
 [5, -1, 5, 5] telegram 136 and axis extension NX15.3, 2x CU310-2 PN (only PPU 26x.3/28x.3)
+For 808D, the following assignments of MD11240[0,1,2,3] are permitted:
+[0, -1, -1, -1] Drive bus for 5 axes - addresses 11..15 (= default setting)
+[1, -1, -1, -1] Drive bus for 6 axes - addresses 11..16 (PPU16x only)
 </description>
 </parameter>
 <parameter number="11241" type="DWORD" dim="0">
@@ -4387,6 +4408,12 @@ Bit	Hex. 	Meaning
               The setup engineer or user is thus responsible for ensuring that axes and distributed I/Os work synchronously with one another on the PROFINET, e.g. they can interpolate with one another.
 25: 0x2000000 16736/22282 "Informational alarms channel %1 Block %2: Prog. thread block is too short %3 to maintain dynamic limit values, %4 is required
               Alarms relating to short smoothing blocks and the associated exceeding of the dynamic limit values between thread blocks are disabled.
+27: 0x8000000 5020 "Communication job is too extensive"
+28:0x10000000 5030 "Communication job not executable"
+26: 0x4000000 6710 "Data loss with trace in the operating area diagnostics. The IPO cycle is too short to be able to record all the selected data reliably"
+              6720 "Data loss with trace in the operating area diagnostics. The preprocessing is too heavily loaded to be able to transfer all the selected data reliably"
+              6730 "Data loss with trace in the operating area diagnostics. The value of the machine data $MN_MM_PROTOC_FILE_BUFFER_SIZE[5-8] is too low"
+              6740 "Data loss with trace in the operating area diagnostics. Communication with the HMI is too heavily loaded to be able to transfer all the selected data"
 </description>
 </parameter>
 <parameter number="11416" type="UDWORD" dim="0" display="HEX">
@@ -4498,7 +4525,9 @@ Bit no.      Meaning when bit set
 4	As 3, but after every Repos, not only during search run.
 5	When the bit is set, changed feeds and spindle speeds already become valid in the residual block, otherwise not until the following block.
 6	When the bit is set, neutral axes and positioning spindles are repositioned after SERUPRO as command axes in the approach block.
-7	The bit changes the behavior of the VDI-AXIN interface signal "Repos Delay". The level of "Repos Delay" is read if REPOSA is interpreted. Axes that are neither geo nor orientation axes are then excluded from the REPOS, that is REPOS does NOT move these axes.
+7	The bit changes the behavior of the VDI-AXIN interface signal &lt;Repos_Delay/&gt; (Repos Delay). The level of &lt;Repos_Delay/&gt; (Repos Delay) is read if REPOSA is interpreted.
+     Axes that are neither geo nor orientation axes are then excluded from the REPOS, that is REPOS does NOT move these axes.
+     Notice: This bit switches off the channel-specific VDI Signal &lt;Repos_Path_Mode/&gt; (ReposPathMode) completely.
 </description>
 </parameter>
 <parameter number="11480" type="DWORD" dim="0">
@@ -7076,16 +7105,16 @@ The buffered data is lost if this machine data is altered!
 <parameter number="18102" type="DWORD" dim="0">
 <name>MM_TYPE_OF_CUTTING_EDGE</name>
 <brief>Type of D No. programming (SRAM)</brief>
-<description>This MD activates the 'flat D number management'.
+<description>This MD activates the 'flat D number management'. This function is  no longer supported.
 
 The default value is zero. This means that the NCK manages the T and D numbers.
 
-The NCK only accepts a value &gt; 0 if bit 0 is not set in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK. That means the tool management function cannot be active at the same time.
+The NCK only accepts a value &gt; 0 if bit 0 and bit 1 are not set in MD18080 $MN_MM_TOOL_MANAGEMENT_MASK. This means that neither the magazine management function nor the tool monitoring can be active.
 
 Value:   Meaning
 -----------------------------------------------------------------------------------
-0:	No 'flat D number management' active
-1:	'Flat D number' function is active
+0:   No 'flat D number management' active
+1:   'Flat D number' function is active
 
 </description>
 </parameter>
@@ -8617,6 +8646,8 @@ and also via synchronous actions.
 <name>MM_SIZEOF_LINKVAR_DATA</name>
 <brief>Size of NCU-link variable memory</brief>
 <description>Number of bytes of the NCK link memory for the variables $A_DLx.
+
+Note: If the number of addressable NCU link variables exceeds the value 32767, variables with an index greater than this limit cannot be visualized in the diagnostic display, etc. However they are still functionally available.
 </description>
 </parameter>
 <parameter number="18710" type="DWORD" dim="0">
@@ -8913,14 +8944,14 @@ Bit 0   = 1:
 	The address at which the arithmetic error occurred can be exactly localized in the alarm output
 </description>
 </parameter>
-<parameter number="18910" type="UDWORD" dim="0" display="HEX">
+<parameter number="18901" type="UDWORD" dim="0" display="HEX">
 <name>FPU_CTRLWORD_INIT</name>
 <brief>Basic initialization of FPU control word</brief>
 <description>The basic initialization of the FPU control word enables the FPU mode of operation (e.g. rounding mode) to be changed.
 Significance of the bit: see manual of the FPU used.
 </description>
 </parameter>
-<parameter number="18920" type="UDWORD" dim="0" display="HEX">
+<parameter number="18902" type="UDWORD" dim="0" display="HEX">
 <name>FPU_EXEPTION_MASK</name>
 <brief>Exception mask for FPU calculation errors</brief>
 <description>The exception mask for FPU calculation errors enables selection of the FPU error for which an exception was issued.
@@ -8953,6 +8984,14 @@ Bit 28:
 	floating inexact (precision): result cannot be displayed exactly
 Bit 29:
 	denormalized operand
+</description>
+</parameter>
+<parameter number="18911" type="UDWORD" dim="0" display="HEX">
+<name>MULTICORE_ACTIVATION_MASK</name>
+<brief>Function mask for systems with multiple CPU kernels</brief>
+<description>Bit 0 = 1:
+	Activates the distribution of PREP functions (PrepJobs) on other CPU kernels.
+
 </description>
 </parameter>
 <parameter number="18930" type="STRING" dim="0">
