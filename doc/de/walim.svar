@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="waLimCS">
+<parameter type="INT" dim="1">
+<name>$P_WORKAREA_CS_COORD_SYSTEM</name>
+<brief>Koordinatensystem für das die Arbeitsfeldbegr. gilt</brief>
+<description>Koordinatensystem, in dem die Gruppe gelten soll.
+Es gelten folgende Werte:
+   Arbeitsfeldbegrenzung gilt im WKS
+   Arbeitsfeldbegrenzung gilt im ENS
+</description>
+</parameter>
+<parameter type="BOOL" dim="2">
+<name>$P_WORKAREA_CS_PLUS_ENABLE</name>
+<brief>koordinatensystem spezifische Arbeitsfeldbegr. plus gültig</brief>
+<description>TRUE: Die Begrenzung in Plus-Richtung für die angegebene Achse von der  angegebene Gruppe der koordinatensystem-spezifischen Arbeitsfeldbegrenzung ist gültig. (s. $P_WORKAREA_CS_LIMIT_PLUS[ groupNo-1, ax])
+</description>
+</parameter>
+<parameter type="BOOL" dim="2">
+<name>$P_WORKAREA_CS_MINUS_ENABLE</name>
+<brief>koordinatensystem spezifische Arbeitsfeldbegr. minus gültig</brief>
+<description>TRUE: Die Begrenzung in Minus-Richtung für die angegebene Achse von der  angegebene Gruppe der koordinatensystem-spezifischen Arbeitsfeldbegrenzung ist gültig. (s. $P_WORKAREA_CS_LIMIT_MINUS[ groupNo-1, ax])
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$P_WORKAREA_CS_LIMIT_PLUS</name>
+<brief>koordinatensystem spezifische Arbeitsfeldbegr. plus</brief>
+<description>Die Begrenzung in Plus-Richtung für die angegebene Achse von der  angegebene Gruppe der koordinatensystem-spezifischen Arbeitsfeldbegrenzung. Dieser Wert nur ausgewertet, wenn $P_WORKAREA_CS_PLUS_ENABLE[ groupNo-1, ax] = TRUE ist.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$P_WORKAREA_CS_LIMIT_MINUS</name>
+<brief>koordinatensystem spezifische Arbeitsfeldbegr. minus</brief>
+<description>Die Begrenzung in Minus-Richtung für die angegebene Achse von der  angegebene Gruppe der koordinatensystem-spezifischen Arbeitsfeldbegrenzung. Dieser Wert nur ausgewertet, wenn $P_WORKAREA_CS_MINUS_ENABLE[ groupNo-1, ax] = TRUE ist.
+</description>
+</parameter>
+</info>

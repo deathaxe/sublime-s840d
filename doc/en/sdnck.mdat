@@ -633,6 +633,15 @@ Related to ....
 	MD10541 $MN_COMPAR_TYPE_2
 </description>
 </parameter>
+<parameter number="41670" type="DOUBLE" dim="0">
+<name>SINGULARITY_THRESHOLD</name>
+<brief>Threshold value for singularity detection.</brief>
+<description>This SD specifies the threshold value for detecting singularities in the programmed blocks.
+If the values of this SD are too high, unnecessary singularity handlings will be performed, which can also lead to unnecessary contour deviations.
+If the values of this SD are too low, not all singular positions will be detected and handled.
+The value 2.0e-6 is recommended.
+</description>
+</parameter>
 <parameter number="41610" type="DOUBLE" dim="0">
 <name>CORR_TRAFO_LIN_MAX</name>
 <brief>Maximum permissible offset value for offset vectors with CORRTRAFO</brief>
@@ -645,6 +654,13 @@ This setting data limits the maximum permissible change in each component of suc
 <brief>Maximum permissible angle deviation for direction vectors with CORRTRAFO</brief>
 <description>With the CORRTRAFO function for machine measurement, the direction vectors of rotary axes can be modified in the kinematic model of a machine.
 This setting data limits the maximum permissible angle change of such a vector to the specified maximum value.
+</description>
+</parameter>
+<parameter number="41612" type="DOUBLE" dim="0">
+<name>CORR_TOCARR_LIN_MAX</name>
+<brief>Maximum permissible compensation value for offset vectors with CORRTC</brief>
+<description>Offset vectors in the kinematic model of a tool carrier can be modified using the CORRTC function for tool carrier measurement.
+This setting data limits the maximum permissible change in each component of such a vector to the stated maximum value.
 </description>
 </parameter>
 <parameter number="41700" type="DWORD" dim="1">

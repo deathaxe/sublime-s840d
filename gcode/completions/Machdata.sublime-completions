@@ -202,6 +202,10 @@
 			"contents": "MN_RELEASE_PREP_CPU_POWER"
 		},
 		{
+			"trigger": "N10158 MN_PREPJOB_PERF_REGULATOR\tMD",
+			"contents": "MN_PREPJOB_PERF_REGULATOR[${1:0}]${0}"
+		},
+		{
 			"trigger": "N10160 MN_PREP_COM_TASK_CYCLE_RATIO\tMD",
 			"contents": "MN_PREP_COM_TASK_CYCLE_RATIO"
 		},
@@ -244,6 +248,10 @@
 		{
 			"trigger": "N10185 MN_NCK_PCOS_TIME_RATIO\tMD",
 			"contents": "MN_NCK_PCOS_TIME_RATIO"
+		},
+		{
+			"trigger": "N10186 MN_NCK_PCOS_TIME_RATIO_SIDEJOB\tMD",
+			"contents": "MN_NCK_PCOS_TIME_RATIO_SIDEJOB[${1:0}]${0}"
 		},
 		{
 			"trigger": "N10190 MN_TOOL_CHANGE_TIME\tMD",
@@ -2230,6 +2238,10 @@
 			"contents": "MN_MM_ACTFILESYS_LOG_FILE_MEM[${1:0}]${0}"
 		},
 		{
+			"trigger": "N18232 MN_MM_ACTFILESYS_LOG_FILE_MEM\tMD",
+			"contents": "MN_MM_ACTFILESYS_LOG_FILE_MEM[${1:0}]${0}"
+		},
+		{
 			"trigger": "N18233 MN_IS_CONTINOUS_DATA_SAVE_ON\tMD",
 			"contents": "MN_IS_CONTINOUS_DATA_SAVE_ON[${1:0}]${0}"
 		},
@@ -2650,12 +2662,16 @@
 			"contents": "MN_FPU_ERROR_MODE"
 		},
 		{
-			"trigger": "N18910 MN_FPU_CTRLWORD_INIT\tMD",
+			"trigger": "N18901 MN_FPU_CTRLWORD_INIT\tMD",
 			"contents": "MN_FPU_CTRLWORD_INIT"
 		},
 		{
-			"trigger": "N18920 MN_FPU_EXEPTION_MASK\tMD",
+			"trigger": "N18902 MN_FPU_EXEPTION_MASK\tMD",
 			"contents": "MN_FPU_EXEPTION_MASK"
+		},
+		{
+			"trigger": "N18911 MN_MULTICORE_ACTIVATION_MASK\tMD",
+			"contents": "MN_MULTICORE_ACTIVATION_MASK"
 		},
 		{
 			"trigger": "N18930 MN_COREFILE_NAME\tMD",
@@ -2818,10 +2834,6 @@
 			"contents": "ON_TECHNO_CYCLES_MASK[${1:0}]${0}"
 		},
 		{
-			"trigger": "N19630 ON_CNC_SHOPFLOOR_MGMT_SW_MASK\tMD",
-			"contents": "ON_CNC_SHOPFLOOR_MGMT_SW_MASK[${1:0}]${0}"
-		},
-		{
 			"trigger": "N19700 ON_ELEC_TRANSFER\tMD",
 			"contents": "ON_ELEC_TRANSFER"
 		},
@@ -2848,6 +2860,10 @@
 		{
 			"trigger": "N19732 ON_HMI_MASK\tMD",
 			"contents": "ON_HMI_MASK"
+		},
+		{
+			"trigger": "N19734 ON_HMI_OPT_MASK\tMD",
+			"contents": "ON_HMI_OPT_MASK[${1:0}]${0}"
 		},
 		{
 			"trigger": "N19740 ON_DRIVE_MASK\tMD",
@@ -3696,6 +3712,10 @@
 		{
 			"trigger": "N21240 MC_PREVENT_SYNACT_LOCK_CHAN\tMD",
 			"contents": "MC_PREVENT_SYNACT_LOCK_CHAN[${1:0}]${0}"
+		},
+		{
+			"trigger": "N21300 MC_COUPLE_AXIS_1\tMD",
+			"contents": "MC_COUPLE_AXIS_1[${1:0}]${0}"
 		},
 		{
 			"trigger": "N21300 MC_COUPLE_AXIS_1\tMD",
@@ -5710,12 +5730,40 @@
 			"contents": "MA_AX_JERK_MODE[AX${1:1}]${0}"
 		},
 		{
+			"trigger": "N32407 MA_AX_JERK_FIR_FREQ\tMD",
+			"contents": "MA_AX_JERK_FIR_FREQ[${1:0},AX${2:1}]${0}"
+		},
+		{
+			"trigger": "N32408 MA_AX_JERK_FIR_ORDER\tMD",
+			"contents": "MA_AX_JERK_FIR_ORDER[${1:0},AX${2:1}]${0}"
+		},
+		{
+			"trigger": "N32409 MA_AX_JERK_FIR_WINDOW\tMD",
+			"contents": "MA_AX_JERK_FIR_WINDOW[${1:0},AX${2:1}]${0}"
+		},
+		{
+			"trigger": "N32410 MA_AX_JERK_TIME\tMD",
+			"contents": "MA_AX_JERK_TIME[${1:0},AX${2:1}]${0}"
+		},
+		{
 			"trigger": "N32410 MA_AX_JERK_TIME\tMD",
 			"contents": "MA_AX_JERK_TIME[AX${1:1}]${0}"
 		},
 		{
+			"trigger": "N32411 MA_AX_JERK_TIME_ADD\tMD",
+			"contents": "MA_AX_JERK_TIME_ADD[${1:0},AX${2:1}]${0}"
+		},
+		{
+			"trigger": "N32412 MA_AX_JERK_FREQ\tMD",
+			"contents": "MA_AX_JERK_FREQ[${1:0},AX${2:1}]${0}"
+		},
+		{
 			"trigger": "N32412 MA_AX_JERK_FREQ\tMD",
 			"contents": "MA_AX_JERK_FREQ[AX${1:1}]${0}"
+		},
+		{
+			"trigger": "N32414 MA_AX_JERK_DAMP\tMD",
+			"contents": "MA_AX_JERK_DAMP[${1:0},AX${2:1}]${0}"
 		},
 		{
 			"trigger": "N32414 MA_AX_JERK_DAMP\tMD",
@@ -5988,6 +6036,10 @@
 		{
 			"trigger": "N32890 MA_DESVAL_DELAY_ENABLE\tMD",
 			"contents": "MA_DESVAL_DELAY_ENABLE[AX${1:1}]${0}"
+		},
+		{
+			"trigger": "N32895 MA_DESVAL_DELAY_TIME\tMD",
+			"contents": "MA_DESVAL_DELAY_TIME[${1:0},AX${2:1}]${0}"
 		},
 		{
 			"trigger": "N32895 MA_DESVAL_DELAY_TIME\tMD",
@@ -7226,6 +7278,10 @@
 			"contents": "MA_MM_QEC_MAX_POINTS[${1:0},AX${2:1}]${0}"
 		},
 		{
+			"trigger": "N38020 MA_MM_CPREC_FIR_POINTS\tMD",
+			"contents": "MA_MM_CPREC_FIR_POINTS[${1:0},AX${2:1}]${0}"
+		},
+		{
 			"trigger": "N41010 SN_JOG_VAR_INCR_SIZE\tMD",
 			"contents": "SN_JOG_VAR_INCR_SIZE"
 		},
@@ -7304,6 +7360,14 @@
 		{
 			"trigger": "N41355 SN_CEC_CALC\tMD",
 			"contents": "SN_CEC_CALC[${1:0}]${0}"
+		},
+		{
+			"trigger": "N41355 SN_CEC_CALC\tMD",
+			"contents": "SN_CEC_CALC[${1:0}]${0}"
+		},
+		{
+			"trigger": "N41356 SN_CEC_CALC_ADD\tMD",
+			"contents": "SN_CEC_CALC_ADD[${1:0}]${0}"
 		},
 		{
 			"trigger": "N41356 SN_CEC_CALC_ADD\tMD",
@@ -8182,6 +8246,10 @@
 			"contents": "MNS_ACCESS_WRITE_WPC_COUNTER"
 		},
 		{
+			"trigger": "N51075 MNS_ACCESS_WRITE_MDI\tMD",
+			"contents": "MNS_ACCESS_WRITE_MDI"
+		},
+		{
 			"trigger": "N51160 MNS_ACCESS_WRITE_CA_MACH_JOG\tMD",
 			"contents": "MNS_ACCESS_WRITE_CA_MACH_JOG"
 		},
@@ -8640,6 +8708,10 @@
 		{
 			"trigger": "N52485 MCS_FUNCTION_MASK_MILL_PARAXES\tMD",
 			"contents": "MCS_FUNCTION_MASK_MILL_PARAXES"
+		},
+		{
+			"trigger": "N52500 MCS_IPT_TRAFO\tMD",
+			"contents": "MCS_IPT_TRAFO"
 		},
 		{
 			"trigger": "N52740 MCS_MEA_FUNCTION_MASK\tMD",
@@ -10000,6 +10072,6 @@
 		{
 			"trigger": "N9999 MM_TRACE\tMD",
 			"contents": "MM_TRACE"
-		},
+		}
 	]
 }

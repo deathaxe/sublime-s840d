@@ -633,6 +633,15 @@ korrespondierend mit ....
 	MD10541 $MN_COMPAR_TYPE_2
 </description>
 </parameter>
+<parameter number="41670" type="DOUBLE" dim="0">
+<name>SINGULARITY_THRESHOLD</name>
+<brief>Schwellwert für Singularitätserkennung.</brief>
+<description>Mit diesem SD wird der Schwellwert für die Erkennung von Singularitäten in den programmierten Sätzen festgelegt.
+Bei zu großen Werten dieses SD werden unnötige Singularitätsbehandlungen ausgeführt die auch zu unnötige Konturabweichungen führen können.
+Bei zu kleinen Werten dieses SD werden nicht alle singulären Stellen erkannt und behandelt.
+Der Wert 2.0e-6 wird empfohlen.
+</description>
+</parameter>
 <parameter number="41610" type="DOUBLE" dim="0">
 <name>CORR_TRAFO_LIN_MAX</name>
 <brief>Maximal zulässiger Korrekturwert für Offsetvektoren bei CORRTRAFO</brief>
@@ -645,6 +654,13 @@ Dieses Settingdatum begrenzt die maximal zulässige Änderung in jeder Komponente 
 <brief>Maximal zulässige Winkelabweichung für Richtungsvektoren bei CORRTRAFO</brief>
 <description>Mit der Funktion CORRTRAFO zur Maschinenvermessung können die Richtungsvektoren von rotatorischen Achsen im kinematischen Modell einer Maschine modifiziert werden.
 Dieses Settingdatum begrenzt die maximal zulässige Winkeländerung eines solchen Vektors auf den angegebenen Maximalwert.
+</description>
+</parameter>
+<parameter number="41612" type="DOUBLE" dim="0">
+<name>CORR_TOCARR_LIN_MAX</name>
+<brief>Maximal zulässiger Korrekturwert für Offsetvektoren bei CORRTC</brief>
+<description>Mit der Funktion CORRTC zur Werkzeugträgervermessung können Offsetvektoren im kinematischen Modell eines Werkzeugträger modifiziert werden.
+Dieses Settingdatum begrenzt die maximal zulässige Änderung in jeder Komponente eines solchen Vektors auf den angegebenen Maximalwert.
 </description>
 </parameter>
 <parameter number="41700" type="DWORD" dim="1">

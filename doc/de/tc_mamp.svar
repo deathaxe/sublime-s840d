@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="magazine">
+<parameter type="STRING" dim="1">
+<name>$TC_MAMP1</name>
+<brief>Bezeichner des Magazinbausteins</brief>
+<description>$TC_MAMP1
+Bezeichner des Magazinbausteins
+</description>
+</parameter>
+<parameter type="INT" dim="0">
+<name>$TC_MAMP2</name>
+<brief>Art der Suchstrategie (WZ-Suche und Leerplatzsuche)</brief>
+<description>$TC_MAMP2
+Art der WZ-Suche (bit0..7) und Art der Leerplatzsuche (bit8..16)
+
+WZ-Suche:
+Bit0=0: (Defaultstrategie) Nimm das erste verfügbare WZ das in der WZ-Gruppe gefunden wird. Suche zuerst in dem Magazin, aus dem der letzte Wechsel erfolgte.
+Bit0=1: Wähle das "aktive" WZ im Magazin des zuvor gewechselten WZ, sonst suche das Ersatzwerkzeug mit kleinster Duplonummer. Falls in diesem Magazin kein WZ gefunden wird, wird die Suche in den anderen verbundenen Magazinen fortgesetzt.
+Bit1: Suche das nächste Ersatzwerkzeug aus, das die kürzeste Entfernung von der aktuellen Magazinposition hat.
+Bit2: Wähle das "aktive" WZ, sonst Ersatzwerkzeug mit der kleinsten in $TC_TP10 enthaltenen Nummer.
+Bit3: Suche das Werkzeug in der Gruppe, mit dem kleinsten Istwert der überwachten Größe.
+Bit4: Suche das Werkzeug in der Gruppe, mit dem größten Istwert der überwachten Größe.
+Bit5: Reserviert
+Bit6: Suche vorrangig im aktuell betrachteten Magazin (wirkt nur in Verbindung mit Bit 7=1).
+Bit7=0: Beginn der WZ-Suche im Magazin, aus dem das zuletzt gewechselte WZ stammt.
+Bit7=1: Beginn der Suche immer im 1. Magazin der Distanztabelle.
+Hinweis:
+Bit7=1 + Bit0=1 oder Bit2=1, falls kein "aktives WZ" im Magazin gefunden wird, dann wird - falls vorhanden - das aktive WZ aus einem anderen, mit dem WZHalter verbundenen Magazinen angewählt
+
+Leerplatzsuche:
+Bit8: Vorwärts-Suchen. Die Suche erfolgt ab Platz-Nr.1 in aufsteigender Reihenfolge.
+Bit9: Vorwärts-Suchen. Die Suche erfolgt ab aktuellem Platz an der Wechselstelle in aufsteigender Reihenfolge.
+Bit10: Rückwärts-Suchen. Die Suche erfolgt ab letzter Platz-Nr. rückwärts.
+Bit11: Rückwärts-Suchen. Die Suche erfolgt ab aktuellem Platz an der Wechselstelle rückwärts.
+Bit12: Symmetrisches Suchen. Die Suche beginnt bei aktueller Platz-Nr. an der Wechselstelle (1. Platz links, 1. Platz rechts, 2. Platz links, 2. Platz rechts. usw.).
+Bit13: 1:1-Tausch (nur beim Werkzeugwechsel von Bedeutung): Wenn Platztyp und Größe des Alt- und Neu-Werkzeuges gleich sind, wird der Magazinplatz des "neuen" einzuwechselnden Werkzeugs an das "alte" auszuwechselnde Werkzeug übertragen und umgekehrt. Der 1:1-Tausch wird vorrangig geprüft. Wenn der 1:1-Tausch nicht möglich ist, wirken die anderen Einstellungen für die Suchstrategie.
+Bit14=0: Suche vorrangig in den einzelnen Magazinen. Wenn kein möglicher Platz gefunden wird, suche im nächsten Magazin nach einen freien Platz für das Werkzeug.
+Bit14=1: Suche in allen Magazinen nach dem besten Platz entsprechend der Hierarchie für das Werkzeug.
+Bit15=0: (konventioneller Hierarchieart): Bei dieser Art wird der Platztyp des suchenden Werkzeuges in der Tabelle der Systemvariablen $TC_MPTH gesucht. Wird der Platztyp gefunden, wird diese Hierarchie genommen und von dieser Stufe bis zum Ende ausgewertet.
+Bit15=1: (alternative Hierarchieart): Für die ausgezeichneten Platztypen 1, ..., $MN_MM_MAX_NUM_OF_HIERARCHIES können Platztyphierarchien definiert werden. Die Hierarchie für Platztyp 1 wird durch $TC_MPTH[0,n] definiert, für den Platztyp 2 wird durch $TC_MPTH[1,n] definiert und so weiter. (n: Index innerhalb einer Hierarchie). Es können bei dieser Einstellung ein Platztyp in verschiedenen Hierarchien definiert sein.
+Bit16: Hierarchie-Betrachtung wird bei der Mini-Hierarchie, die nur aus dem Platztyp selbst und dem Platztyp 0 besteht, aufgehoben. In diesem Fall wird bei der Leerplatzsuche nicht zwischen dem passenden Platztyp ( $TC_TP7 == $TC_MPP2) und dem allgemeinen Platztyp "0" des Magazinplatzes unterschieden.
+</description>
+</parameter>
+<parameter type="INT" dim="0">
+<name>$TC_MAMP3</name>
+<brief>Behandlung der Werkzeuge bei Verschleißverbunden</brief>
+<description>$TC_MAMP3
+Behandlung der Werkzeuge bei Verschleißverbunden
+</description>
+</parameter>
+</info>

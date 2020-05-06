@@ -17,6 +17,7 @@ Klassen-Id:
  7   (0x7) 808D
  8   (0x8) 840evo
 15   (0xF) Simulation
+32   (0x20)NC Light
 
 Subsystem-ID:
 =============
@@ -34,14 +35,14 @@ bei 828D gilt:
  1   (0x01) SW26*.* T
  2   (0x02) SW26*.* M
  3   (0x03) reserviert
- 4   (0x04) SW28*.* T
- 5   (0x05) SW28*.* M
+ 4   (0x04) reserviert ab 4.8 SP3 : war SW28*.* T
+ 5   (0x05) reserviert ab 4.8 SP3 : war SW28*.* M
  6   (0x06) reserviert
  7   (0x07) SW24*.* T
  8   (0x08) SW24*.* M
  9   (0x09) reserviert
-10   (0x0A) SW28*.* T Adv.
-11   (0x0B) SW28*.* M Adv.
+10   (0x0A) ab 4.8 SP3 : SW28*.* T, war SW28*.* T Adv.
+11   (0x0B) ab 4.8 SP3 : SW28*.* M, war SW28*.* M Adv.
 81/1 (0x51) SW24*.* GC
 81/2 (0x51) SW24*.* GS
 83/1 (0x53) SW26*.* GC
@@ -56,6 +57,9 @@ bei 840Dsl gilt:
 bei 840evo gilt:
   4   (0xB4) 31-3
   5   (0xB5) 31-3e
+
+bei NC Light gilt:
+  5   (0xC5) ecoe
 
 Exportkennung:
 =============
@@ -218,6 +222,7 @@ Bit 8            NOCO Nick-Kompensation ECO
 <brief>Antriebsoptionen</brief>
 <description>Optionsdatum zur Freigabe von SINAMICS Antriebsfunktionen:
 Bit 0 (LSB):  Freigabe "'Advanced Positioning Control' (APC)" (Antriebsparameter r108 Bit 7)
+Bit 1:        Freigabe "'Advanced Positioning Control ECO' (APCeco)" (Antriebsparameter r108 Bit 19)
 </description>
 </parameter>
 <parameter number="19310" type="UDWORD" dim="0" display="HEX">
@@ -297,7 +302,11 @@ Bit 15:              Freigabe "SINUMERIK Schleifen Advanced"
 Bit 16:              frei
 Bit 17:              Freigabe "Top Surface"
 Bit 18:              Freigabe "Orientierungsoffset statisch/dynamisch"
-Bit 19:              frei
+Bit 19:              Freigabe "Schlitzformerkennung"
+Bit 20:              Freigabe "Intelligent load control"
+Bit 21:              Freigabe "Top Speed"
+Bit 22:              Freigabe "Jerk Adaptation"
+Bit 23:              frei
 Bit 31:		Reserved ""
 </description>
 </parameter>
@@ -412,6 +421,13 @@ $ON_TECHNO_EXTENTION_MASK[1-n]
    ( von Siemens vermarktete ELF-Files )
 </description>
 </parameter>
+<parameter number="19620" type="UDWORD" dim="1" display="HEX">
+<name>TECHNO_CYCLES_MASK</name>
+<brief>Technologische Erweiterungen</brief>
+<description>Optionsdatum zum Freischalten von Technologiefunktionen, die als nachladbare Zyklen eingebracht wurden.
+
+</description>
+</parameter>
 <parameter number="19700" type="BOOLEAN" dim="0">
 <name>ELEC_TRANSFER</name>
 <brief>Elektronischer Transfer</brief>
@@ -498,6 +514,8 @@ $ON_TECHNO_EXTENTION_MASK[1-n]
 <brief>Funktionen der SoftPLC</brief>
 <description>Optionsdatum zur Freigabe von Funktionen der SoftPLC
 Bit 0 (LSB): Freigabe "DB-Adressierung für PROFINET-MSTT"
+Bit 1      : Freigabe "I/O-Adressierung für USB-MSTT"
+           :    Hinweis: Das Bit1 ist nicht mit Bit0 = 1 kombinierbar
 Bit 4      : Freigabe "32000 Ladder Steps"
 </description>
 </parameter>
@@ -561,12 +579,15 @@ Bit 18:      Freigabe "MC Information System RPC SINUMERIK"                     
 Bit 19:      Freigabe "MC Information System TDI Statistic"                                      OD19730 $ON_HMI_FUNCTION_MASK[1].19
 Bit 20:      Freigabe "MC Information System TDI Ident Connection"                               OD19730 $ON_HMI_FUNCTION_MASK[1].20
 Bit 21:      Freigabe "Electronic Key System (EKS)"                                              OD19730 $ON_HMI_FUNCTION_MASK[1].21
-------:      Reserved                                                                            OD19730 $ON_HMI_FUNCTION_MASK[1].22
+Bit 22:      Freigabe "SIMATIC ProDiag S7-1500 für WinCC"                                        OD19730 $ON_HMI_FUNCTION_MASK[1].22
 Bit 23:      Freigabe "integrierter Spindelmonitor (S-Monitor)"                                  OD19730 $ON_HMI_FUNCTION_MASK[1].23
 Bit 24:      Freigabe "DXF-Reader"                                                               OD19730 $ON_HMI_FUNCTION_MASK[1].24
 Bit 25:      frei (war "SINUMERIK 828 Ladder Editor")                                            OD19730 $ON_HMI_FUNCTION_MASK[1].25
 Bit 26:      Freigabe "SINUMERIK extended touch"                                                 OD19730 $ON_HMI_FUNCTION_MASK[1].26
 Bit 27:      Freigabe "Run MyRobot /Handling"                                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
+Bit 28:      Freigabe "xxx reserviert JJ 2018-04-17"                                             OD19730 $ON_HMI_FUNCTION_MASK[1].28
+Bit 29:      Freigabe "Feature-based Machining"                                                  OD19730 $ON_HMI_FUNCTION_MASK[1].29
+Bit 30:      Freigabe "xxx reserviert cn3sce00 Interpolations Drehen AP57 "                      OD19730 $ON_HMI_FUNCTION_MASK[1].30
 </description>
 </parameter>
 <parameter number="19732" type="UBYTE" dim="0" display="HEX" readonly="true">
@@ -580,6 +601,20 @@ Bit 3:        SINUMERIK PCU-Basesoftware /IPC
 Bit 4:        SINUMERIK Operate /universal client
 Bit 5:        Run MyHMI /3GL
 Bit 6:        SINUMERIK Operate Display Manager
+</description>
+</parameter>
+<parameter number="19734" type="UDWORD" dim="1" display="HEX" readonly="true">
+<name>HMI_OPT_MASK</name>
+<brief>Bedienoptionen</brief>
+<description>Optionsdatum zur Freigabe von HMI-Funktionen:
+Bit 0 (LSB):  Reserved
+Bit 1:        Reserved
+Bit 2:        Reserved
+Bit 3:        Reserved
+Bit 4:        Reserved
+Bit 5:        Reserved
+Bit 6:        Reserved
+Bit 7:        Reserved
 </description>
 </parameter>
 <parameter number="19740" type="UDWORD" dim="1" display="HEX">

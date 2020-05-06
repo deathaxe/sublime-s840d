@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="frameVar">
+<parameter type="FRAME" dim="1">
+<name>$P_UIFR</name>
+<brief>Einstellbare Datenhaltungsframes</brief>
+<description>Die Feldvariable $P_UIFR[n] dient zur Programmierung von einstellbaren Datenhaltungsframes. Das entsprechende Datenhaltungsframe kann über G500, G54 .. G599 aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+
+Über $MC_MM_NUM_USER_FRAMES wird die Anzahl der einstellbaren Frames projektiert.
+0: G500
+1: G54
+2: G55
+3: G56
+4: G57
+5: G505
+6: G506
+..
+99: G599
+</description>
+</parameter>
+<parameter type="FRAME" dim="1">
+<name>$P_CHBFR</name>
+<brief>Kanal-Basisframes in der Datenhaltung</brief>
+<description>Die Feldvariable $P_CHBFR[n] dient zur Programmierung von kanalspezifischen Basisframes in der Datenhaltung. Die Datenhaltungsframes können über G500, G54 .. G599 aktiviert werden. Alle aktiven Basisframes werden dabei miteinander verkettet und ergeben das Summen-Basisframe $P_ACTBFRAME. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_SETFR</name>
+<brief>Datenhaltungsframe für Istwertsetzen</brief>
+<description>Die Variable $P_SETFR dient zur Programmierung des Systemframes in der Datenhaltung für Istwertsetzen und Ankratzen. Dieser Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit0 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_EXTFR</name>
+<brief>Datenhaltungsframe für externes Frame</brief>
+<description>Die Variable $P_EXTFR dient zur Programmierung des Systemframes in der Datenhaltung für die externe Nullpunktverschiebung. Dieser Frame wird über die PLC aktiviert. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit1 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_PARTFR</name>
+<brief>Datenhaltungsframe für TCARR und PAROT</brief>
+<description>Die Variable $P_PARTFR dient zur Programmierung des Systemframes in der Datenhaltung für TCARR und PAROT. Dieser Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_TOOLFR</name>
+<brief>Datenhaltungsframe für TOROT und TOFRAME</brief>
+<description>Die Variable $P_TOOLFR dient zur Programmierung des Systemframes in der Datenhaltung für TOROT und TOFRAME. Dieser Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_WPFR</name>
+<brief>Datenhaltungsframe für das Werkstück</brief>
+<description>Die Variable $P_WPFR dient zur Programmierung des Systemframes in der Datenhaltung für Werkstückbezugspunkte. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit4 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_CYCFR</name>
+<brief>Datenhaltungsframe für Zyklen</brief>
+<description>Die Variable $P_CYCFR dient zur Programmierung des Systemframes in der Datenhaltung für Zyklen. Dieser Frame sollte nur über Zyklen manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit5 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_TRAFR</name>
+<brief>Datenhaltungsframe für Transformationen</brief>
+<description>Die Variable $P_TRAFR dient zur Programmierung des Systemframes in der Datenhaltung für Transformationen. Dieser Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_ISO1FR</name>
+<brief>Datenhaltungsframe für ISO G51.1 Spiegeln</brief>
+<description>Die Variable $P_ISO1FR dient zur Programmierung des Systemframes in der Datenhaltung für den ISO-Gcode G51.1 Spiegeln. Dieses Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit0 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_ISO2FR</name>
+<brief>Datenhaltungsframe für ISO G68 2DROT</brief>
+<description>Die Variable $P_ISO2FR dient zur Programmierung des Systemframes in der Datenhaltung für den ISO-Gcode G68 2DROT. Dieses Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit0 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_ISO3FR</name>
+<brief>Datenhaltungsframe für ISO G68 3DROT</brief>
+<description>Die Variable $P_ISO3FR dient zur Programmierung des Systemframes in der Datenhaltung für den ISO-Gcode G68 3DROT. Dieses Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit0 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_ISO4FR</name>
+<brief>Datenhaltungsframe für ISO G51 Scale</brief>
+<description>Die Variable $P_ISO4FR dient zur Programmierung des Systemframes in der Datenhaltung für den ISO-Gcode G51 Scale. Dieses Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Bei Reset kann das Systemframe über die Projektierung von Bit0 in $MC_CHSFRAME_RESET_CLEAR_MASK gelöscht werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="0">
+<name>$P_RELFR</name>
+<brief>Datenhaltungsframe für relative Koordinatensysteme</brief>
+<description>Die Variable $P_RELFR dient zur Programmierung des Systemframes in der Datenhaltung für relative Koordinatensysteme. Dieser Frame sollte nur über die Systemfunktion manipuliert und aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+Die Projektierung des Systemframes erfolgt über folgende Maschinendaten:
+Bit 11 in $MC_MM_SYSTEM_FRAME_MASK
+Bit 11 in $MC_MM_SYSTEM_DATAFRAME_MASK
+Bit 11 in $MC_CHSFRAME_RESET_MASK
+Bit 11 in $MC_CHSFRAME_RESET_CLEAR_MASK
+Bit 11 in $MC_CHSFRAME_POWERON_MASK
+</description>
+</parameter>
+<parameter type="FRAME" dim="1">
+<name>$P_NCBFR</name>
+<brief>Globale Basisframes in der Datenhaltung</brief>
+<description>Die Feldvariable $P_NCBFR[n] dient zur Programmierung von globalen Basisframes in der Datenhaltung. Die Datenhaltungsframes können über G500, G54 .. G599 aktiviert werden. Alle aktiven Basisframes werden dabei miteinander verkettet und ergeben das Summen-Basisframe $P_ACTBFRAME. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+</description>
+</parameter>
+<parameter type="FRAME" dim="1">
+<name>$P_GFR</name>
+<brief>Datenhaltungsframes für Schleifapplikationen</brief>
+<description>Die Feldvariable $P_GFR[n] dient zur Programmierung von Datenhaltungsframes für Schleifapplikationen. Das entsprechende Datenhaltungsframe kann über GFRAME1 .. GFRAME100 aktiviert werden. Die Datenhaltungsframes werden im SRAM gespeichert und können über die Datensicherung ein- und ausgelesen werden.
+
+Über $MC_MM_NUM_G_FRAMES wird die Anzahl der Grinding Frames projektiert.
+0: GFRAME0 kein Grinding Frame ist aktiv
+1: GFRAME1
+..
+100: GFRAME100
+</description>
+</parameter>
+</info>
