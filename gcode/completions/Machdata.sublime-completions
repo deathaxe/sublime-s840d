@@ -632,6 +632,20 @@
 			"contents": "MN_RELEASE_PREP_CPU_POWER"
 		},
 		{
+			"trigger": "MD10158",
+			"annotation": "$MN_PREPJOB_PERF_REGULATOR",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Function-specific power regulator in percent of the individual PrepJobs",
+			"contents": "MN_PREPJOB_PERF_REGULATOR[$1]"
+		},
+		{
+			"trigger": "MN_PREPJOB_PERF_REGULATOR",
+			"annotation": "N10158",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Function-specific power regulator in percent of the individual PrepJobs",
+			"contents": "MN_PREPJOB_PERF_REGULATOR[$1]"
+		},
+		{
 			"trigger": "MD10160",
 			"annotation": "$MN_PREP_COM_TASK_CYCLE_RATIO",
 			"kind": ["variable", "M", "Machine Data"],
@@ -784,6 +798,20 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Processing time share NCK",
 			"contents": "MN_NCK_PCOS_TIME_RATIO"
+		},
+		{
+			"trigger": "MD10186",
+			"annotation": "$MN_NCK_PCOS_TIME_RATIO_SIDEJOB",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "CPU time share of the NCK on secondary kernels",
+			"contents": "MN_NCK_PCOS_TIME_RATIO_SIDEJOB[$1]"
+		},
+		{
+			"trigger": "MN_NCK_PCOS_TIME_RATIO_SIDEJOB",
+			"annotation": "N10186",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "CPU time share of the NCK on secondary kernels",
+			"contents": "MN_NCK_PCOS_TIME_RATIO_SIDEJOB[$1]"
 		},
 		{
 			"trigger": "MD10190",
@@ -8710,7 +8738,7 @@
 			"contents": "MN_FPU_ERROR_MODE"
 		},
 		{
-			"trigger": "MD18910",
+			"trigger": "MD18901",
 			"annotation": "$MN_FPU_CTRLWORD_INIT",
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Basic initialization of FPU control word",
@@ -8718,13 +8746,13 @@
 		},
 		{
 			"trigger": "MN_FPU_CTRLWORD_INIT",
-			"annotation": "N18910",
+			"annotation": "N18901",
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Basic initialization of FPU control word",
 			"contents": "MN_FPU_CTRLWORD_INIT"
 		},
 		{
-			"trigger": "MD18920",
+			"trigger": "MD18902",
 			"annotation": "$MN_FPU_EXEPTION_MASK",
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Exception mask for FPU calculation errors",
@@ -8732,10 +8760,24 @@
 		},
 		{
 			"trigger": "MN_FPU_EXEPTION_MASK",
-			"annotation": "N18920",
+			"annotation": "N18902",
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Exception mask for FPU calculation errors",
 			"contents": "MN_FPU_EXEPTION_MASK"
+		},
+		{
+			"trigger": "MD18911",
+			"annotation": "$MN_MULTICORE_ACTIVATION_MASK",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Function mask for systems with multiple CPU kernels",
+			"contents": "MN_MULTICORE_ACTIVATION_MASK"
+		},
+		{
+			"trigger": "MN_MULTICORE_ACTIVATION_MASK",
+			"annotation": "N18911",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Function mask for systems with multiple CPU kernels",
+			"contents": "MN_MULTICORE_ACTIVATION_MASK"
 		},
 		{
 			"trigger": "MD18930",
@@ -9200,6 +9242,20 @@
 			"contents": "ON_TECHNO_EXTENSION_MASK[$1]"
 		},
 		{
+			"trigger": "MD19620",
+			"annotation": "$ON_TECHNO_CYCLES_MASK",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Technological extensions",
+			"contents": "ON_TECHNO_CYCLES_MASK[$1]"
+		},
+		{
+			"trigger": "ON_TECHNO_CYCLES_MASK",
+			"annotation": "N19620",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Technological extensions",
+			"contents": "ON_TECHNO_CYCLES_MASK[$1]"
+		},
+		{
 			"trigger": "MD19700",
 			"annotation": "$ON_ELEC_TRANSFER",
 			"kind": ["variable", "M", "Machine Data"],
@@ -9296,6 +9352,20 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Operating options",
 			"contents": "ON_HMI_MASK"
+		},
+		{
+			"trigger": "MD19734",
+			"annotation": "$ON_HMI_OPT_MASK",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Operating options",
+			"contents": "ON_HMI_OPT_MASK[$1]"
+		},
+		{
+			"trigger": "ON_HMI_OPT_MASK",
+			"annotation": "N19734",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Operating options",
+			"contents": "ON_HMI_OPT_MASK[$1]"
 		},
 		{
 			"trigger": "MD19740",
@@ -10796,34 +10866,6 @@
 			"contents": "MC_LOOKAH_FUNCTION_MASK"
 		},
 		{
-			"trigger": "MD20460",
-			"annotation": "$MC_LOOKAH_SMOOTH_FACTOR",
-			"kind": ["variable", "M", "Machine Data"],
-			"details": "Smoothing factor for Look Ahead",
-			"contents": "MC_LOOKAH_SMOOTH_FACTOR"
-		},
-		{
-			"trigger": "MC_LOOKAH_SMOOTH_FACTOR",
-			"annotation": "N20460",
-			"kind": ["variable", "M", "Machine Data"],
-			"details": "Smoothing factor for Look Ahead",
-			"contents": "MC_LOOKAH_SMOOTH_FACTOR"
-		},
-		{
-			"trigger": "MD20462",
-			"annotation": "$MC_LOOKAH_SMOOTH_WITH_FEED",
-			"kind": ["variable", "M", "Machine Data"],
-			"details": "Path velocity smoothing with programmed feed",
-			"contents": "MC_LOOKAH_SMOOTH_WITH_FEED"
-		},
-		{
-			"trigger": "MC_LOOKAH_SMOOTH_WITH_FEED",
-			"annotation": "N20462",
-			"kind": ["variable", "M", "Machine Data"],
-			"details": "Path velocity smoothing with programmed feed",
-			"contents": "MC_LOOKAH_SMOOTH_WITH_FEED"
-		},
-		{
 			"trigger": "MD20463",
 			"annotation": "$MC_FIFOCTRL_ADAPTION",
 			"kind": ["variable", "M", "Machine Data"],
@@ -10850,20 +10892,6 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Path behavior",
 			"contents": "MC_PATH_MODE_MASK"
-		},
-		{
-			"trigger": "MD20465",
-			"annotation": "$MC_ADAPT_PATH_DYNAMIC",
-			"kind": ["variable", "M", "Machine Data"],
-			"details": "Adaptation of path dynamic response",
-			"contents": "MC_ADAPT_PATH_DYNAMIC[$1]"
-		},
-		{
-			"trigger": "MC_ADAPT_PATH_DYNAMIC",
-			"annotation": "N20465",
-			"kind": ["variable", "M", "Machine Data"],
-			"details": "Adaptation of path dynamic response",
-			"contents": "MC_ADAPT_PATH_DYNAMIC[$1]"
 		},
 		{
 			"trigger": "MD20470",
@@ -17740,6 +17768,20 @@
 			"contents": "MC_MM_ORISON_BLOCKS"
 		},
 		{
+			"trigger": "MD28592",
+			"annotation": "$MC_MM_NUM_SINGULARITY_BLOCKS",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Number of blocks for singularity handling. (DRAM)",
+			"contents": "MC_MM_NUM_SINGULARITY_BLOCKS"
+		},
+		{
+			"trigger": "MC_MM_NUM_SINGULARITY_BLOCKS",
+			"annotation": "N28592",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Number of blocks for singularity handling. (DRAM)",
+			"contents": "MC_MM_NUM_SINGULARITY_BLOCKS"
+		},
+		{
 			"trigger": "MD28600",
 			"annotation": "$MC_MM_NUM_WORKAREA_CS_GROUPS",
 			"kind": ["variable", "M", "Machine Data"],
@@ -19098,6 +19140,48 @@
 			"contents": "MA_AX_JERK_MODE[$1]"
 		},
 		{
+			"trigger": "MD32407",
+			"annotation": "$MA_AX_JERK_FIR_FREQ",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Cutoff frequency of axial jerk filter type 5",
+			"contents": "MA_AX_JERK_FIR_FREQ[$1]"
+		},
+		{
+			"trigger": "MA_AX_JERK_FIR_FREQ",
+			"annotation": "N32407",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Cutoff frequency of axial jerk filter type 5",
+			"contents": "MA_AX_JERK_FIR_FREQ[$1]"
+		},
+		{
+			"trigger": "MD32408",
+			"annotation": "$MA_AX_JERK_FIR_ORDER",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Filter order of axial jerk filter type 5",
+			"contents": "MA_AX_JERK_FIR_ORDER[$1]"
+		},
+		{
+			"trigger": "MA_AX_JERK_FIR_ORDER",
+			"annotation": "N32408",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Filter order of axial jerk filter type 5",
+			"contents": "MA_AX_JERK_FIR_ORDER[$1]"
+		},
+		{
+			"trigger": "MD32409",
+			"annotation": "$MA_AX_JERK_FIR_WINDOW",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Filter window type of axial jerk filter type 5",
+			"contents": "MA_AX_JERK_FIR_WINDOW[$1]"
+		},
+		{
+			"trigger": "MA_AX_JERK_FIR_WINDOW",
+			"annotation": "N32409",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Filter window type of axial jerk filter type 5",
+			"contents": "MA_AX_JERK_FIR_WINDOW[$1]"
+		},
+		{
 			"trigger": "MD32410",
 			"annotation": "$MA_AX_JERK_TIME",
 			"kind": ["variable", "M", "Machine Data"],
@@ -19110,6 +19194,20 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Time constant for axial jerk filter",
 			"contents": "MA_AX_JERK_TIME[$1]"
+		},
+		{
+			"trigger": "MD32411",
+			"annotation": "$MA_AX_JERK_TIME_ADD",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Time constant for the second axial jerk filter type 4",
+			"contents": "MA_AX_JERK_TIME_ADD[$1]"
+		},
+		{
+			"trigger": "MA_AX_JERK_TIME_ADD",
+			"annotation": "N32411",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Time constant for the second axial jerk filter type 4",
+			"contents": "MA_AX_JERK_TIME_ADD[$1]"
 		},
 		{
 			"trigger": "MD32412",
@@ -24180,6 +24278,20 @@
 			"contents": "MA_MM_QEC_MAX_POINTS[$1]"
 		},
 		{
+			"trigger": "MD38020",
+			"annotation": "$MA_MM_CPREC_FIR_POINTS",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "No. of points for characteristic approximation of FIR filters for CPRECON",
+			"contents": "MA_MM_CPREC_FIR_POINTS[$1]"
+		},
+		{
+			"trigger": "MA_MM_CPREC_FIR_POINTS",
+			"annotation": "N38020",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "No. of points for characteristic approximation of FIR filters for CPRECON",
+			"contents": "MA_MM_CPREC_FIR_POINTS[$1]"
+		},
+		{
 			"trigger": "MD41010",
 			"annotation": "$SN_JOG_VAR_INCR_SIZE",
 			"kind": ["variable", "M", "Machine Data"],
@@ -24752,6 +24864,34 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Maximum permissible angle deviation for direction vectors with CORRTRAFO",
 			"contents": "SN_CORR_TRAFO_DIR_MAX"
+		},
+		{
+			"trigger": "MD41612",
+			"annotation": "$SN_CORR_TOCARR_LIN_MAX",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Maximum permissible compensation value for offset vectors with CORRTC",
+			"contents": "SN_CORR_TOCARR_LIN_MAX"
+		},
+		{
+			"trigger": "SN_CORR_TOCARR_LIN_MAX",
+			"annotation": "N41612",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Maximum permissible compensation value for offset vectors with CORRTC",
+			"contents": "SN_CORR_TOCARR_LIN_MAX"
+		},
+		{
+			"trigger": "MD41670",
+			"annotation": "$SN_SINGULARITY_THRESHOLD",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Threshold value for singularity detection.",
+			"contents": "SN_SINGULARITY_THRESHOLD"
+		},
+		{
+			"trigger": "SN_SINGULARITY_THRESHOLD",
+			"annotation": "N41670",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Threshold value for singularity detection.",
+			"contents": "SN_SINGULARITY_THRESHOLD"
 		},
 		{
 			"trigger": "MD41700",
@@ -27484,6 +27624,20 @@
 			"contents": "MNS_ACCESS_WRITE_WPC_COUNTER"
 		},
 		{
+			"trigger": "MD51075",
+			"annotation": "$MNS_ACCESS_WRITE_MDI",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Write protection level MDI program",
+			"contents": "MNS_ACCESS_WRITE_MDI"
+		},
+		{
+			"trigger": "MNS_ACCESS_WRITE_MDI",
+			"annotation": "N51075",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Write protection level MDI program",
+			"contents": "MNS_ACCESS_WRITE_MDI"
+		},
+		{
 			"trigger": "MD51160",
 			"annotation": "$MNS_ACCESS_WRITE_CA_MACH_JOG",
 			"kind": ["variable", "M", "Machine Data"],
@@ -29022,6 +29176,20 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Function mask for parallel axes cycle - CYCLE69",
 			"contents": "MCS_FUNCTION_MASK_MILL_PARAXES"
+		},
+		{
+			"trigger": "MD52500",
+			"annotation": "$MCS_IPT_TRAFO",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Transformation number for interpolation turning",
+			"contents": "MCS_IPT_TRAFO"
+		},
+		{
+			"trigger": "MCS_IPT_TRAFO",
+			"annotation": "N52500",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Transformation number for interpolation turning",
+			"contents": "MCS_IPT_TRAFO"
 		},
 		{
 			"trigger": "MD52740",
@@ -31724,6 +31892,20 @@
 			"kind": ["variable", "M", "Machine Data"],
 			"details": "Perform komplete kinematics measurement: Vector of the ball mounting",
 			"contents": "SCS_MEA_KIN_BALL_VEC[$1]"
+		},
+		{
+			"trigger": "MD55700",
+			"annotation": "$SCS_MEA_SIMULTAN_LIMIT",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Simultaneous measuring, overrun travel",
+			"contents": "SCS_MEA_SIMULTAN_LIMIT"
+		},
+		{
+			"trigger": "SCS_MEA_SIMULTAN_LIMIT",
+			"annotation": "N55700",
+			"kind": ["variable", "M", "Machine Data"],
+			"details": "Simultaneous measuring, overrun travel",
+			"contents": "SCS_MEA_SIMULTAN_LIMIT"
 		},
 		{
 			"trigger": "MD55730",

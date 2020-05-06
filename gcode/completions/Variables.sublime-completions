@@ -1712,6 +1712,84 @@
 			"contents": "AA_PROG_INDEX_AX_POS_NO[$1]"
 		},
 		{
+			"trigger": "AA_QEC",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC compensation value",
+			"contents": "AA_QEC[$1]"
+		},
+		{
+			"trigger": "AA_QEC_ACCEL_1",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC acceleration limit range 1",
+			"contents": "AA_QEC_ACCEL_1[$1]"
+		},
+		{
+			"trigger": "AA_QEC_ACCEL_2",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC acceleration limit range 2",
+			"contents": "AA_QEC_ACCEL_2[$1]"
+		},
+		{
+			"trigger": "AA_QEC_ACCEL_3",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC acceleration limit range 3",
+			"contents": "AA_QEC_ACCEL_3[$1]"
+		},
+		{
+			"trigger": "AA_QEC_COARSE_STEPS",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC coarse quantizing",
+			"contents": "AA_QEC_COARSE_STEPS[$1]"
+		},
+		{
+			"trigger": "AA_QEC_DIRECTIONAL",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC direction-dependence",
+			"contents": "AA_QEC_DIRECTIONAL[$1]"
+		},
+		{
+			"trigger": "AA_QEC_FINE_STEPS",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC fine quantizing",
+			"contents": "AA_QEC_FINE_STEPS[$1]"
+		},
+		{
+			"trigger": "AA_QEC_LEARNING_RATE",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC learning rate",
+			"contents": "AA_QEC_LEARNING_RATE[$1]"
+		},
+		{
+			"trigger": "AA_QEC_MEAS_TIME_1",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC measuring time range 1",
+			"contents": "AA_QEC_MEAS_TIME_1[$1]"
+		},
+		{
+			"trigger": "AA_QEC_MEAS_TIME_2",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC measuring time range 2",
+			"contents": "AA_QEC_MEAS_TIME_2[$1]"
+		},
+		{
+			"trigger": "AA_QEC_MEAS_TIME_3",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC measuring time range 3",
+			"contents": "AA_QEC_MEAS_TIME_3[$1]"
+		},
+		{
+			"trigger": "AA_QEC_TIME_1",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC decay time 1",
+			"contents": "AA_QEC_TIME_1[$1]"
+		},
+		{
+			"trigger": "AA_QEC_TIME_2",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "QEC decay time 2",
+			"contents": "AA_QEC_TIME_2[$1]"
+		},
+		{
 			"trigger": "AA_REF",
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Axis is homed",
@@ -3302,6 +3380,18 @@
 			"contents": "AC_TOOL_O_CORR[$1]"
 		},
 		{
+			"trigger": "AC_TOOL_O_CORR_ANGLE",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Active override of the orientation",
+			"contents": "AC_TOOL_O_CORR_ANGLE"
+		},
+		{
+			"trigger": "AC_TOOL_O_CORR_DIR",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Active override of the orientation",
+			"contents": "AC_TOOL_O_CORR_DIR[$1]"
+		},
+		{
 			"trigger": "AC_TOOL_O_CORRD",
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Active override of the orientation",
@@ -3330,6 +3420,18 @@
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Total rotational direction of tool",
 			"contents": "AC_TOOL_R_CORR[$1]"
+		},
+		{
+			"trigger": "AC_TOOL_R_CORR_ANGLE",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Active override of the rotation of the orientation",
+			"contents": "AC_TOOL_R_CORR_ANGLE"
+		},
+		{
+			"trigger": "AC_TOOL_R_CORR_DIR",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Active override of the rotation vector of the orientation",
+			"contents": "AC_TOOL_R_CORR_DIR[$1]"
 		},
 		{
 			"trigger": "AC_TOOL_R_CORRD",
@@ -3726,6 +3828,12 @@
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Activation conditions of a protection area for collision avoidance",
 			"contents": "AN_COLL_STATE_COND[$1]"
+		},
+		{
+			"trigger": "AN_CUTRACE",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Trigger variable for the SINAMICS trace function",
+			"contents": "AN_CUTRACE"
 		},
 		{
 			"trigger": "AN_ESR_TRIGGER",
@@ -4844,6 +4952,18 @@
 			"contents": "NT_BASE_ORIENT_NORMAL[$1]"
 		},
 		{
+			"trigger": "NT_BASE_TOOL",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Vector of base tool for TRANSMIT or TRACYL.",
+			"contents": "NT_BASE_TOOL[$1]"
+		},
+		{
+			"trigger": "NT_BASE_TOOL_COMP",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Compensation of the tool axes for TRANSMIT or TRACYL with frames.",
+			"contents": "NT_BASE_TOOL_COMP[$1]"
+		},
+		{
 			"trigger": "NT_CLOSE_CHAIN_P",
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Point to close the part chain.",
@@ -4928,6 +5048,12 @@
 			"contents": "NT_OEM_PAR_S[$1]"
 		},
 		{
+			"trigger": "NT_P_CHAIN_FIRST_ELEM",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "First element of the kinematic chain to the workpiece",
+			"contents": "NT_P_CHAIN_FIRST_ELEM[$1]"
+		},
+		{
 			"trigger": "NT_P_CHAIN_LAST_ELEM",
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Last element of the kin. chain to the workpiece",
@@ -4986,6 +5112,12 @@
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Transfer rotary axis offset from the work offset when selecting the transformer",
 			"contents": "NT_ROT_OFFSET_FROM_FRAME[$1]"
+		},
+		{
+			"trigger": "NT_T_CHAIN_FIRST_ELEM",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "First element of the kinematic chain to the tool",
+			"contents": "NT_T_CHAIN_FIRST_ELEM[$1]"
 		},
 		{
 			"trigger": "NT_T_CHAIN_LAST_ELEM",
@@ -6128,6 +6260,12 @@
 			"contents": "P_NCBFRMASK"
 		},
 		{
+			"trigger": "P_NCKTYPE",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "NCK type",
+			"contents": "P_NCKTYPE"
+		},
+		{
 			"trigger": "P_NUM_SPINDLES",
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Number of spindles in channel",
@@ -7136,6 +7274,12 @@
 			"contents": "PC_TRAFO_NAME"
 		},
 		{
+			"trigger": "PC_TRAFO_NUM",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Transformation data set number",
+			"contents": "PC_TRAFO_NUM"
+		},
+		{
 			"trigger": "PC_TRAFO_ROT_CHAIN_INDEX",
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Index of the i-th rotary axis in the kinematic chain",
@@ -7710,6 +7854,12 @@
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Start element of the PART chain for parameterization from kinematic chains",
 			"contents": "TC_CARR_KIN_PART_START[$1]"
+		},
+		{
+			"trigger": "TC_CARR_KIN_ROTAX_NAME",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Rotary axis with index m for parameterization from kinematic chains",
+			"contents": "TC_CARR_KIN_ROTAX_NAME[$1]"
 		},
 		{
 			"trigger": "TC_CARR_KIN_TOOL_END",
@@ -12552,6 +12702,12 @@
 			"kind": ["variable", "v", "NCK Variable"],
 			"details": "Status \"Torque limit reached\"",
 			"contents": "VA_TORQUE_AT_LIMIT[$1]"
+		},
+		{
+			"trigger": "VA_TRACK_ERR_CONTR",
+			"kind": ["variable", "v", "NCK Variable"],
+			"details": "Control deviation of the axis",
+			"contents": "VA_TRACK_ERR_CONTR[$1]"
 		},
 		{
 			"trigger": "VA_VACTM",
