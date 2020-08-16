@@ -9,6 +9,19 @@ if int(sublime.version()) < 3153:
 else:
     import sys
 
+    __all__ = [
+        'S840dBeautifyCommand',
+        'S840dBumpVersion',
+        'S840dGotoDefinitionCommand',
+        'S840dMinifyCommand',
+        'S840dProtectCommand',
+        'S840dRenumberCommand',
+        'S840dAwlLoadMergeCommand',
+        'S840dAwlSaveSplitCommand',
+        'S840dHmiEvents',
+        'S840dNckViewEvents'
+    ]
+
     prefix = __package__ + "."  # don't clear the base package
     for module_name in [
             module_name for module_name in sys.modules
@@ -18,17 +31,17 @@ else:
 
     # export commands
     from .gcode.commands.beautify import S840dBeautifyCommand
-    from .gcode.commands.minify import S840dMinifyCommand
-    from .gcode.commands.protect import S840dProtectCommand
     from .gcode.commands.blockno import S840dRenumberCommand
     from .gcode.commands.goto import S840dGotoDefinitionCommand
+    from .gcode.commands.minify import S840dMinifyCommand
+    from .gcode.commands.protect import S840dProtectCommand
     from .gcode.commands.version import S840dBumpVersion
     from .plc.commands.merge import S840dAwlLoadMergeCommand
     from .plc.commands.split import S840dAwlSaveSplitCommand
 
     # export event handlers
-    from .hmi.events import S840dHmiEvents
     from .gcode.events import S840dNckViewEvents
+    from .hmi.events import S840dHmiEvents
 
     def plugin_loaded():
         """Called by SublimeText after all plugins have been loaded."""
