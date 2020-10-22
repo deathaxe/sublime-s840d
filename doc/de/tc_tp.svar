@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="tool">
+<parameter type="STRING" dim="1">
+<name>$TC_TP2</name>
+<brief>Werkzeugbezeichner</brief>
+<description>$TC_TP2[t]
+Werkzeugbezeichner
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP1</name>
+<brief>Duplo-Nummer</brief>
+<description>$TC_TP1[t]
+Duplo-Nummer
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP3</name>
+<brief>Größe nach links</brief>
+<description>$TC_TP3[t]
+Größe nach links
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP4</name>
+<brief>Größe nach rechts</brief>
+<description>$TC_TP4[t]
+Größe nach rechts
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP5</name>
+<brief>Größe nach oben</brief>
+<description>$TC_TP5[t]
+Größe nach oben
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP6</name>
+<brief>Größe nach unten</brief>
+<description>$TC_TP6[t]
+Größe nach unten
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP7</name>
+<brief>Magazinplatztyp</brief>
+<description>$TC_TP7[t]
+Magazinplatztyp
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP8</name>
+<brief>Status</brief>
+<description>$TC_TP8[t]
+Status des Werkzeuges
+
+Wert 0: nicht freigegeben
+Bit 0: aktives Werkzeug
+Bit 1: freigegeben
+Bit 2: gesperrt
+Bit 3: vermessen
+Bit 4: Vorwarngrenze erreicht
+Bit 5: WZ ist im Wechsel
+Bit 6: festplatzcodiert
+Bit 7: WZ war im Einsatz
+Bit 8: WZ im Zwischenspeicher mit Transportauftrag
+Bit 9=1: ignoriere gesperrt Zustand des Werkzeuges
+Bit 9=0: nicht ignorieren
+Bit 10: WZ ist zu entladen
+Bit 11: WZ ist zu beladen
+Bit 12: WZ ist Stammwerkzeug
+Bit 13: reserviert
+Bit 14: WZ ist für 1:1-Tausch markiert
+Bit 15: WZ ist als Handwerkzeug im Einsatz
+Bit 16: reserviert
+Bit 17: WZ ist auf einen gesperrten Magazinplatz
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP9</name>
+<brief>Art der Werkzeugüberwachung</brief>
+<description>$TC_TP9[t]
+Art der Werkzeugüberwachung
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP11</name>
+<brief>Untergruppe für $P_USEKT</brief>
+<description>$TC_TP11[t]
+Festlegung der Untergruppe zu der das Werkzeug gehört. (Siehe $P_USEKT) Das Datum ist Bit-codiert.
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_TP10</name>
+<brief>Reihenfolge der Ersatzwerkzeuge bei der Werkzeugsuche</brief>
+<description>$TC_TP10[t]
+Auswahl-Reihenfolge der Ersatzwerkzeuge, wenn dies mit $TC_MAMP2, Bit 3 eingestellt ist
+Auswahl des Ersatzwerkzeugs erfolgt mit aufsteigenden Werten. Es erfolgt keine Prüfung auf Eindeutigkeit.
+</description>
+</parameter>
+<parameter type="STRING" dim="1">
+<name>$TC_TP_PROTA</name>
+<brief>Name für den Schutzbereich</brief>
+<description>$TC_TP_PROTA[t]
+Name des 3 dimensionalen Schutzbereichs für das Werkzeug, oder der Name der Datei, die die Beschreibung des Schutzbereichs für das Werkzeug enthält. Ein neuer Name kann nur geschrieben werden, den die Funktion Kollisionsvermeidung bzw. 3D-Schutzbereiche aktiviert ist.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_TP_MAX_VELO</name>
+<brief>maximale Drehzahl des Werkzeuges</brief>
+<description>$TC_TP_MAX_VELO[t]
+Maximale Drehzahl des Werkzeuges, wenn der Wert &gt;0 ist. Wenn keine Drehzahlgrenze definiert ist (=0), dann findet keine Überwachung statt.
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="1">
+<name>$TC_TP_MAX_ACC</name>
+<brief>maximale Beschleunigung des Werkzeuges</brief>
+<description>$TC_TP_MAX_ACC[t]
+Maximale Beschleunigung des Werkzeuges, wenn der Wert &gt;0 ist. Wenn keine Beschleunigungsgrenze definiert ist (=0), dann findet keine Überwachung statt.
+</description>
+</parameter>
+</info>

@@ -1477,60 +1477,142 @@ Related to:
 <name>AX_JERK_MODE</name>
 <brief>Filter type for axial jerk limitation</brief>
 <description>Filter type for axial jerk limitation:
-1:	2nd order filter (as in SW 1 through 4)
-2:	Moving averaging (SW 5 and higher)
-3:	Bandstop filter (SW 6 and higher)
+1:	2nd order filter
+2:	Moving averaging
+3:	Bandstop filter
+4:	Double moving averaging
+5:	FIR low pass
+Two-character parameterization activates switchable filter chains e.g.
+25:	switchable filter chain with jerk filters of type 5 and type 2
 
-Type 2 requires more computing time, but causes smaller contour errors for the same smoothing effect, or smoother movements at the same accuracy.
-Type 2 is recommended; type 1 is set as a default value for reasons of compatibility.
-The maximum jerk is set in the time constant MD32410 $MA_AX_JERK_TIME.
-Recommended values for type 1:
-	Min. 0.03 s; max. 0.06s.
-Recommended values for type 2:
-	Min. 1 position-control cycle; max. 16 position-control cycles
-	At a position-control cycle of 2ms, this corresponds to 0.002 to 0.032 seconds.
+Notes on parameterization:
+MD32402 $MA_AX_JERK_MODE is only effective if MD32400 $MA_AX_JERK_ENABLE is set to 1.
+
+Type1 requires the setting of
+MD32410 $MA_AX_JERK_TIME
+Recommended values from min: 0.03 s to max. 0.06 s
+Type 1 is offered for compatibility reasons, type 2 is recommended
+
+Type 2 requires the setting of
+MD32410 $MA_AX_JERK_TIME
+Recommended values from min: 1 position-control cycle to max: 127 position-control cycles. At 2 ms for a position-control cycle this corresponds to from 0.002 s to 0.254 s.
+Type 2 requires more computing time than type 1, but causes smaller contour errors for the same smoothing effect, or smoother movements with the same accuracy.
+
 Type 3 requires the setting of
 MD32410 $MA_AX_JERK_TIME
 MD32412 $MA_AX_JERK_FREQ
 MD32414 $MA_AX_JERK_DAMP.
-To parameterize a simple bandstop filter, we recommend setting MD32410 $MA_AX_JERK_TIME=0,
-which automatically sets "denominator frequency = numerator frequency = blocking frequency = MD32412 $MA_AX_JERK_FREQ".
-However, MD32410 $MA_AX_JERK_TIME &gt; 0 is used to set a specific denominator frequency, which makes it possible to implement a bandstop filter with amplitude increase for frequencies beyond the blocking frequency.
+To parameterize a pure bandstop filter, it is recommended to set MD32410 $MA_AX_JERK_TIME=0
+, whereby "denominator frequency = numerator frequency = blocking frequency = MD32412 $MA_AX_JERK_FREQ" is set automatically.
+Whereas with MD32410 $MA_AX_JERK_TIME &gt; 0 a separate denominator frequency is set so that a bandstop filter can be implemented with an increased amplitude at frequencies above the blocking frequency.
 
-MD32402 $MA_AX_JERK_MODE is only active if MD32400 $MA_AX_JERK_ENABLE has been set to 1.
+Type 4 corresponds to two type 2 filters connected in series, and therefore requires the setting of
+MD32410 $MA_AX_JERK_TIME
+MD32411 $MA_AX_JERK_TIME_ADD
 
-Special cases, errors:
-	The machine data must be same for all axes of an axis container.
+Type 5 requires the setting of
+MD32407 $MA_AX_JERK_FIR_FREQ
+MD32408 $MA_AX_JERK_FIR_ORDER
+MD32409 $MA_AX_JERK_FIR_WINDOW
+
+Two character parameterization activates switchable filter chains e.g.
+type 25 complements type 5 with a switchable alternative type 2
+The parameterization is made in index 0 of the parameters for type 5 and in index 1 of the parameters for type 2.
+
+A runtime adaptation of the switchable filter chains is possible in the indices 0 and 1 of MD32895 $MA_DESVAL_DELAY_TIME if this is enabled by MD32890 $MA_DESVAL_DELAY_ENABLE.
 
 Related to:
 	MD32400 $MA_AX_JERK_ENABLE
+MD32407 $MA_AX_JERK_FIR_FREQ
+MD32408 $MA_AX_JERK_FIR_ORDER
+MD32409 $MA_AX_JERK_FIR_WINDOW
 	MD32410 $MA_AX_JERK_TIME
-	and for type 3:
-MD32412 $MA_AX_JERK_FREQ and
-MD32414 $MA_AX_JERK_DAMP
+MD32411 $MA_AX_JERK_TIME_ADD
+	MD32412 $MA_AX_JERK_FREQ and
+	MD32414 $MA_AX_JERK_DAMP
+	MD32890 $MA_DESVAL_DELAY_ENABLE
+	MD32895 $MA_DESVAL_DELAY_TIME
 </description>
 </parameter>
-<parameter number="32410" type="DOUBLE" dim="0">
-<name>AX_JERK_TIME</name>
-<brief>Time constant for axial jerk filter</brief>
-<description>Time constant of the axial jerk filter which causes a smoother axis setpoint characteristic. The jerk filter will only be active, if the time constant is higher than a position control cycle.
-
-Not active in case of errors that cause a change in follow-up mode (for example EMERGENCY STOP)
-
-Special cases:
-	Machine axes that are supposed to be interpolating with one another, must have the same effective jerk filtering (for example the same time constant for tapping without compensating chuck).
+<parameter number="32407" type="DOUBLE" dim="1">
+<name>AX_JERK_FIR_FREQ</name>
+<brief>Cutoff frequency of axial jerk filter type 5</brief>
+<description>Cutoff frequency of axial FIR jerk filter smoothing. The MD is only active if MD32402 $MA_AX_JERK_MODE = 5
 
 Related to:
 	MD32400 $MA_AX_JERK_ENABLE (axial jerk limitation)
+	MD32402 $MA_AX_JERK_MODE
+	MD32408 $MA_AX_JERK_FIR_ORDER
+	MD32409 $MA_AX_JERK_FIR_WINDOW
 </description>
 </parameter>
-<parameter number="32412" type="DOUBLE" dim="0">
+<parameter number="32408" type="DWORD" dim="1">
+<name>AX_JERK_FIR_ORDER</name>
+<brief>Filter order of axial jerk filter type 5</brief>
+<description>Filter order of axial FIR jerk filter smoothing. The MD is only active if MD32402 $MA_AX_JERK_MODE = 5
+
+Related to:
+	MD32400 $MA_AX_JERK_ENABLE (axial jerk limitation)
+	MD32402 $MA_AX_JERK_MODE
+	MD32407 $MA_AX_JERK_FIR_FREQ
+	MD32409 $MA_AX_JERK_FIR_WINDOW
+</description>
+</parameter>
+<parameter number="32409" type="DWORD" dim="1">
+<name>AX_JERK_FIR_WINDOW</name>
+<brief>Filter window type of axial jerk filter type 5</brief>
+<description>Filter window type of axial FIR jerk filter smoothing. The MD is only active if MD32402 $MA_AX_JERK_MODE = 5
+
+Window type 0 does not use a window
+Window type 1 uses Hamming window
+Window type 2 uses Blackman-Harris window
+Window type 3 uses Gauss window
+
+Related to:
+	MD32400 $MA_AX_JERK_ENABLE (axial jerk limitation)
+	MD32402 $MA_AX_JERK_MODE
+	MD32407 $MA_AX_JERK_FIR_FREQ
+	MD32408 $MA_AX_JERK_FIR_ORDER
+</description>
+</parameter>
+<parameter number="32410" type="DOUBLE" dim="1">
+<name>AX_JERK_TIME</name>
+<brief>Time constant for axial jerk filter</brief>
+<description>Time constant of the axial jerk filter which causes a smoother axis setpoint characteristic. The jerk filter will only be active if the time constant is greater than a position control cycle.
+
+This MD is not active in case of errors that cause a change in follow-up mode (for example EMERGENCY STOP)
+
+Special cases:
+	Machine axes that are supposed to be interpolating with each other must have the same effective jerk filtering (for example the same time constant for tapping without compensating chuck).
+
+Related to:
+	MD32400 $MA_AX_JERK_ENABLE (axial jerk limitation)
+	MD32402 $MA_AX_JERK_MODE
+</description>
+</parameter>
+<parameter number="32411" type="DOUBLE" dim="1">
+<name>AX_JERK_TIME_ADD</name>
+<brief>Time constant for the second axial jerk filter type 4</brief>
+<description>Time constant of the second moving averaging. This MD is only active if MD32402 $MA_AX_JERK_MODE = 4 and if the time constant is greater than a position control cycle.
+
+This MD is not active in case of errors that cause a change in follow-up mode (for example EMERGENCY STOP)
+
+Special cases:
+	Machine axes that are supposed to be interpolating with one another must have the same effective jerk filtering (for example the same time constant for tapping without compensating chuck).
+
+Related to:
+	MD32400 $MA_AX_JERK_ENABLE (axial jerk limitation)
+	MD32402 $MA_AX_JERK_MODE
+	MD32410 $MA_AX_JERK_TIME
+</description>
+</parameter>
+<parameter number="32412" type="DOUBLE" dim="1">
 <name>AX_JERK_FREQ</name>
 <brief>Blocking frequency of axial jerk filter</brief>
 <description>Blocking frequency of axial jerk filter bandstop MD is only active if MD32402 $MA_AX_JERK_MODE = 3
 </description>
 </parameter>
-<parameter number="32414" type="DOUBLE" dim="0">
+<parameter number="32414" type="DOUBLE" dim="1">
 <name>AX_JERK_DAMP</name>
 <brief>Damping of axial jerk filter</brief>
 <description>Damping of axial jerk filter bandstop:
@@ -2690,19 +2772,21 @@ Corresponds with:
 	MD32895 $MA_DESVAL_DELAY_TIME (time constant for the axial setpoint phase filter)
 </description>
 </parameter>
-<parameter number="32895" type="DOUBLE" dim="0">
+<parameter number="32895" type="DOUBLE" dim="1">
 <name>DESVAL_DELAY_TIME</name>
 <brief>Time constant for the axial setpoint phase filter</brief>
 <description>The time constant for the phase filter (deadtime/delay) should be entered into the MD.
 
 This means that the actual setpoint phase response can be set independently of the amplitude response
-Time constants in the range from 0 up to 64 position controller clock cycles can be set, the phase filter for e.g. 2ms position controller clock cycle, can delay setpoints by 0 to 128ms.
+Time constants in the range of 0 to 64 position control cycles can be set, the phase filter for 2ms position control cycle, for example, can delay setpoints by 0 to 128ms.
  Values entered outside these limits are implicitly limited to the specified limits (without alarm).
  Note: delays in the setpoint circuit, as a result of the system, slow down or have a negative impact on the response, e.g. for thread tapping, safety retraction motion or exact stop/block change; this means that the smallest time constants possible should be set in the MD.
+Index 1 of the MD is only needed for a switchable jerk filter (two-digit input values in MD32402 $MA_AX_JERK_MODE).
 The MD is only effective, if MD32890 $MA_DESVAL_DELAY_ENABLE = 1.
 
-Corresponds with:
+Related to:
 	MD32890 $MA_DESVAL_DELAY_ENABLE (axial setpoint phase filter)
+	MD32402 $MA_AX_JERK_MODE
 </description>
 </parameter>
 <parameter number="32900" type="BOOLEAN" dim="0">
@@ -5726,6 +5810,12 @@ Note:
 
 References:
 	/FB/, S7, "Memory Configuration"
+</description>
+</parameter>
+<parameter number="38020" type="DWORD" dim="1">
+<name>MM_CPREC_FIR_POINTS</name>
+<brief>No. of points for characteristic approximation of FIR filters for CPRECON</brief>
+<description>The function "Programmable contour accuracy" (G code CPRECON) uses a table for approximating the inverse characteristic of FIR filters. This data states the number of table values. The higher the value, the more exact the approximation. $MA_AX_JERK_FIR_FREQ points are recommended.
 </description>
 </parameter>
 </info>

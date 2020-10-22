@@ -17,6 +17,7 @@ Class ID:
  7(0x7) 808D
  8   (0x8) 840evo
 15 (0xF) Simulation
+32   (0x20) NC Light
 
 Subsystem ID:
 =============
@@ -34,20 +35,20 @@ The following applies to 828D:
  1 (0x01) SW26*.* T
  2 (0x02) SW26*.* M
  3 (0x03) Reserved
- 4 (0x04) SW28*.* T
- 5 (0x05) SW28*.* M
+ 4 (0x04) Reserved from 4.8 SP3 : was SW28*.* T
+ 5 (0x05) Reserved from 4.8 SP3 : was SW28*.* M
  6 (0x06) Reserved
  7 (0x07) SW24*.* T
  8 (0x08) SW24*.* M
  9 (0x09) Reserved
-10  (0x0A) SW28*.* T Adv.
-11  (0x0B) SW28*.* M Adv.
- 81/1 (0x51) SW24*.* GC
- 81/2 (0x51) SW24*.* GS
- 83/1 (0x53) SW26*.* GC
- 83/2 (0x53) SW26*.* GS
- 85/1 (0x55) SW28*.* GC Adv.
- 85/2 (0x55) SW28*.* GS Adv.
+10  (0x0A) From 4.8 SP3 : SW28*.* T, was SW28*.* T Adv.
+11  (0x0B) From 4.8 SP3 : SW28*.* M, was SW28*.* M Adv.
+81/1 (0x51) SW24*.* GC
+81/2 (0x51) SW24*.* GS
+83/1 (0x53) SW26*.* GC
+83/2 (0x53) SW26*.* GS
+85/1 (0x55) SW28*.* GC Adv.
+85/2 (0x55) SW28*.* GS Adv.
 
 The following applies to 840Dsl:
   4 (0xA4) 31-3
@@ -56,6 +57,9 @@ The following applies to 840Dsl:
 The following applies to 840evo:
   4   (0xB4) 31-3
   5   (0xB5) 31-3e
+
+The following applies to NC Light:
+  5   (0xC5) ecoe
 
 Export ID:
 =============
@@ -217,7 +221,8 @@ Bit 8            NOCO Nodding compensation ECO
 <name>SINAMICS_FUNCTION_MASK</name>
 <brief>Drive options</brief>
 <description>Option data for enabling SINAMICS drive functions:
-Bit 0 (LSB):  Enable "'Advanced Position Control' (APC)" (drive parameter r108 bit 7)
+Bit 0 (LSB):  Enable "'Advanced Positioning Control' (APC)" (drive parameter r108 bit 7)
+Bit 1:        Enable "'Advanced Positioning Control ECO' (APCeco)" (drive parameter r108 bit 19)
 </description>
 </parameter>
 <parameter number="19310" type="UDWORD" dim="0" display="HEX">
@@ -291,13 +296,17 @@ Bit 9:               Enable "Advanced Surface"
 Bit 10:              Enable "Machining package milling 3 axes (pkg/only placeholder for group option)"
 Bit 11:              Enable "Machining package milling 5 axes (pkg/only placeholder for group option)"
 Bit 12:              Enable "Siemens Cycles Base Technology"
-Bit 13:              Freigabe "Siemens Cycles Advanced Technology"
+Bit 13:              Enable "Siemens Cycles Advanced Technology"
 Bit 14:              Enable "Balance cutting"
 Bit 15:              Enable "SINUMERIK Grinding Advanced"
 Bit 16:              Free
 Bit 17:              Enable "Top Surface"
 Bit 18:              Enable "Orientation offset static/dynamic"
-Bit 19:              Free
+Bit 19:              Enable "Slot shape detection"
+Bit 20:              Enable "Intelligent load control"
+Bit 21:              Enable "Top Speed"
+Bit 22:              Enable "Jerk Adaptation"
+Bit 23:              Free
 Bit 31:		Reserved ""
 </description>
 </parameter>
@@ -412,6 +421,13 @@ $ON_TECHNO_EXTENTION_MASK[1]
    (ELF files marketed by Siemens)
 </description>
 </parameter>
+<parameter number="19620" type="UDWORD" dim="1" display="HEX">
+<name>TECHNO_CYCLES_MASK</name>
+<brief>Technological extensions</brief>
+<description>Option data for activating technology functions that are brought in as reloadable cycles.
+
+</description>
+</parameter>
 <parameter number="19700" type="BOOLEAN" dim="0">
 <name>ELEC_TRANSFER</name>
 <brief>Electronic transfer</brief>
@@ -498,6 +514,8 @@ $ON_TECHNO_EXTENTION_MASK[1]
 <brief>SoftPLC functions</brief>
 <description>Option data for enabling SoftPLC functions:
 Bit 0 (LSB):  Enable "DB addressing for PROFINET MCP"
+Bit 1      : Enable "I/O addressing for USB MCP"
+           :    Note: Bit1 is not combinable with bit0 = 1
 Bit 4      : Enable "32000 ladder steps"
 </description>
 </parameter>
@@ -561,12 +579,15 @@ Bit 18:      Enable "MC information system RPC SINUMERIK"                       
 Bit 19:      Enable "MC information system TDI statistic"                                      OD19730 $ON_HMI_FUNCTION_MASK[1].19
 Bit 20:      Enable "MC information system TDI ident connection"                               OD19730 $ON_HMI_FUNCTION_MASK[1].20
 Bit 21:      Enable "Electronic key system (EKS)"                                              OD19730 $ON_HMI_FUNCTION_MASK[1].21
-------:      Reserved                                                                          OD19730 $ON_HMI_FUNCTION_MASK[1].22
+Bit 22:      Enable "SIMATIC ProDiag S7-1500 for WinCC"                                        OD19730 $ON_HMI_FUNCTION_MASK[1].22
 Bit 23:      Enable "Integrated spindle monitor (S-Monitor)"                                          OD19730 $ON_HMI_FUNCTION_MASK[1].23
 Bit 24:      Enable "DXF reader"                                                               OD19730 $ON_HMI_FUNCTION_MASK[1].24
 Bit 25:      Unused (was "SINUMERIK 828 Ladder Editor")                                              OD19730 $ON_HMI_FUNCTION_MASK[1].25
 Bit 26:      Enable "SINUMERIK extended touch"                                                OD19730 $ON_HMI_FUNCTION_MASK[1].26
 Bit 27:      Enable "Run MyRobot /Handling"                                    OD19730 $ON_HMI_FUNCTION_MASK[1].27
+Bit 28:      Enable "xxx reserved YY 2018-04-17"                                             OD19730 $ON_HMI_FUNCTION_MASK[1].28
+Bit 29:      Enable "Feature-based machining"                                             OD19730 $ON_HMI_FUNCTION_MASK[1].29
+Bit 30:      Enable "xxx reserved cn3sce00 interpolation turning AP57 "                      OD19730 $ON_HMI_FUNCTION_MASK[1].30
 </description>
 </parameter>
 <parameter number="19732" type="UBYTE" dim="0" display="HEX" readonly="true">
@@ -580,6 +601,20 @@ Bit 3:        SINUMERIK basic PCU software /IPC
 Bit 4:        SINUMERIK Operate /universal client
 Bit 5:        Run MyHMI /3GL
 Bit 6:        SINUMERIK Operate Display Manager
+</description>
+</parameter>
+<parameter number="19734" type="UDWORD" dim="1" display="HEX" readonly="true">
+<name>HMI_OPT_MASK</name>
+<brief>Operating options</brief>
+<description>Option data for enabling HMI functions:
+Bit 0 (LSB):  Reserved
+Bit 1:        Reserved
+Bit 2:        Reserved
+Bit 3:        Reserved
+Bit 4:        Reserved
+Bit 5:        Reserved
+Bit 6:        Reserved
+Bit 7:        Reserved
 </description>
 </parameter>
 <parameter number="19740" type="UDWORD" dim="1" display="HEX">

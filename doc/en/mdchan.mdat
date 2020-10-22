@@ -236,28 +236,28 @@ See also:
 This data is only evaluated by the HMI.
 
 Bit 0 to 15: Machine (MCS)
-Bit 0= 1 Machine - display machine axis in the actual value windows
-       0 Machine - hide machine axis in the actual value windows
-Bit 1= 1 Machine - display machine axis in the reference point window
-       0 Machine - hide machine axis in the reference point window
-Bit 2= 1 Machine - display machine axis in preset/scratch/parameter work offset windows
-       0 Machine - hide machine axis in preset/scratch/parameter work offset windows
-Bit 3= 1 Machine - display machine axis in the handwheel selection window
-       0 Machine - hide machine axis in the handwheel selection window
+Bit 0= 1 MCS - display machine axis in the actual value windows
+       0 MCS - hide machine axis in the actual value windows
+Bit 1= 1 MCS - display machine axis in the reference point window
+       0 MCS - hide machine axis in the reference point window
+Bit 2= 1 MCS - display machine axis in preset/scratch/parameter work offset windows
+       0 MCS - hide machine axis in preset/scratch/parameter work offset windows
+Bit 3= 1 MCS - display machine axis in the handwheel selection window
+       0 MCS - hide machine axis in the handwheel selection window
 (Bit 4) Not assigned
-Bit 5= 1 Display spindle in the T,F,S window
-       0 Hide spindle in the T,F,S window
+Bit 5= 1 Display spindle in the T,F,S window and T, S M, window
+       0 Hide spindle in the T,F,S window and T, S M, window
 
-Bit 16 to 31: Work (WCS)
-Bit 16= 1 Work - display geometry axis in the actual value windows
-        0 Work - hide geometry axis in the actual value windows
+Bit 16 to 31: WCS
+Bit 16= 1 WCS- display geometry axis in the actual value windows
+        0 WCS - hide geometry axis in the actual value windows
 (Bit 17) Not assigned
-Bit 18= 1 Work - display geometry axis in parameter work offset window
-        0 Work - hide geometry axis in parameter work offset window
-Bit 19= 1 Work - display geometry axis in the handwheel selection window
-        0 Work - hide geometry axis in the handwheel selection window
-Bit 20= 1 Work - display position axis in the position/straight line windows
-        0 Work - hide position axis in the position/straight line windows
+Bit 18= 1 WCS - display geometry axis in parameter work offset window
+        0 WCS - hide geometry axis in parameter work offset window
+Bit 19= 1 WCS - display geometry axis in the handwheel selection window
+        0 WCS - hide geometry axis in the handwheel selection window
+Bit 20= 1 WCS - display position axis in the position/straight line windows
+        0 WCS - hide position axis in the position/straight line windows
 (Bit 21) Not assigned
 </description>
 </parameter>
@@ -1186,16 +1186,15 @@ GCODE_RESET_VALUES[69]	   70		1 (not defined)
 <description>Specification of non-modifiable SIEMENS G code modes
 The following applies for Sinumerik 828D:
 MD	Index	Value
-		Turning	Milling
-	[5]	0	1
-	[7]	1	1
-	[12]	0	0
-	[15]	0
+		Turning	Milling CGrinding SGrinding
+	[5]	0	1        -         -
 	[7]	-	-        1         1
+	[12]	0	0        0         0
+	[15]	0	-        0         -
 For Sinumerik 808D, the following applies:
-MD	IndexValue	t
+MD	Index	Value
 		Turning	Milling
-	[27]	2	2
+	[27]	0	0
 </description>
 </parameter>
 <parameter number="20152" type="BYTE" dim="1">
@@ -1223,6 +1222,7 @@ If G54 was already active, especially at the time of reset, the values of the co
 However, if the current setting for the 8th G group (work offset) is to be retained after reset / part program end, then the following setting results:
 MD20152 $MC_GCODE_RESET_MODE[7]=1 ; if a work offset (e.g. G54) was active at the time of reset, then the values of the corresponding data handling frame at the time of reset are activated (that is UIFR[1] with G54)
 
+The changing of the initial setting of individual G groups can be disabled for specific systems.
 Related to:
 MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
@@ -2044,31 +2044,15 @@ Special cases:
 <brief>Look Ahead special functions</brief>
 <description>Look Ahead special functions:
 Bit 0 = 1:
-	The Safety Integrated setpoint limitation is already taken into account in Look Ahead.
+	The Safety Integrated setpoint limitation is already taken into account in Look Ahead. It is used to calculate a block-wide limitation of the path velocity which acts in addition to the other limitations (e.g. override).
 Bit 1 = 1:
-	The Safety Integrated setpoint limitation is taken into account in detail in the block.
-</description>
-</parameter>
-<parameter number="20460" type="DOUBLE" dim="0">
-<name>LOOKAH_SMOOTH_FACTOR</name>
-<brief>Smoothing factor for Look Ahead</brief>
-<description>Notice: This function is obsolete and is no longer supported!
-A smoothing factor could be defined to give a more stable path velocity control.
-It defined the maximum permitted productivity loss.
-Acceleration procedures which contribute less than this factor to a shorter program run time have not been executed.
-
-In this case, only those acceleration procedures whose frequency lies above the frequency parameterized in MD32440 $MA_LOOKAH_FREQUENCY have been taken into account.
-The entry of 0.0 deactivates the function.
-</description>
-</parameter>
-<parameter number="20462" type="BOOLEAN" dim="0">
-<name>LOOKAH_SMOOTH_WITH_FEED</name>
-<brief>Path velocity smoothing with programmed feed</brief>
-<description>The MD defines whether the programmed feed is also taken into account for smoothing the path velocity. In these cases, the factor defined in MD20460 $MC_LOOKAH_SMOOTH_FACTOR can be better maintained when the override is set to 100%.
+	The function of bit 0 is extended so that, from the Safety Integrated setpoint limitation, various limits of the path velocity are calculated for various areas of the block. In comparison to the functionality of bit 0, this enables the axis velocity to run nearer (but still below) the Safety Integrated setpoint limitation.
+Bit 2 = 1:
+	Reserved
 
 Related to:
-	MD32440 $MA_LOOKAH_FREQUENCY,
-	MD20460 $MC_LOOKAH_SMOOTH_FACTOR
+ MD36931 $MA_SAFE_VELO_LIMIT
+ MD36933 $MA_SAFE_DES_VELO_LIMIT
 </description>
 </parameter>
 <parameter number="20463" type="DOUBLE" dim="0">
@@ -2093,17 +2077,6 @@ Bit0:
 	If only rotary axes are traversed in the block as path axes with active G700, the programmed rotary axis velocity corresponds to
 0:	[degrees/min]
 1:	[25.4*degrees/min]
-</description>
-</parameter>
-<parameter number="20465" type="DOUBLE" dim="1">
-<name>ADAPT_PATH_DYNAMIC</name>
-<brief>Adaptation of path dynamic response</brief>
-<description>Notice: This function is obsolete and is no longer supported!
-This adaptation factor could be used to reduce the dynamics of changes in the path velocity.
-ADAPT_PATH_DYNAMIC[0] was effective with Brisk and reduced the permissible acceleration
-ADAPT_PATH_DYNAMIC[1] was effective with Soft and reduced the permissible jerk
-Only acceleration processes using a frequency above the frequency parameterized in MD32440 $MA_LOOKAH_FREQUENCY were considered.
-To disable this function, enter 1.0.
 </description>
 </parameter>
 <parameter number="20470" type="BYTE" dim="0">
@@ -3437,6 +3410,7 @@ Meaning of the hundreds digit:
 	 1. MD36100 $MA_POS_LIMIT_MINUS[AX5] = -5.0 and MD36110 $MA_POS_LIMIT_PLUS[AX5] = 135.0, the possible range of axis AX5 is 0 ... 135.0
 	 2. MD36100 $MA_POS_LIMIT_MINUS[AX5] = -100.0 and MD36110 $MA_POS_LIMIT_PLUS[AX5] = 10.0, the possible range of axis AX5 is -100.0 ... 0.0
 	3. MD36100 $MA_POS_LIMIT_MINUS[AX5] = 5.0 und MD36110 $MA_POS_LIMIT_PLUS[AX5] = 120.0, the possible range is 5.0 ... 120.0, there is no automatic limitation of the travel range.
+Meaning of the thousands digit: Reserved.
 </description>
 </parameter>
 <parameter number="21186" type="BOOLEAN" dim="0">
@@ -4434,19 +4408,19 @@ Active D no. &gt; 0 and active D no.=0 lead to an alarm message
 
 Bits 3 and 4 are only relevant with active tool management.
 Function:
-Control of the behavior of the init. block generation on program start if a disabled tool is on the spindle and this tool is to be activated.
+Control of the behavior of the init. block generation on program start if an unserviceable tool is on the spindle and this tool is to be activated.
 See also: MD20112 $MC_START_MODE_MASK, MD20110 $MC_RESET_MODE_MASK
 On RESET, this does not affect the behavior "Keep disabled tool on the spindle active".
 
-Bit 3=0: Standard: If the tool on the spindle is disabled, generate a tool change command requesting a replacement tool. An alarm will be generated if there is no such replacement tool.
-Bit 3=1: The disabled status of the spindle tool is ignored. The tool becomes active. The subsequent part program should be formulated so that no parts are machined with the disabled tool.
+Bit 3=0: Standard: If the tool on the spindle is unserviceable, generate a tool change command requesting a replacement tool. An alarm will be generated if there is no such replacement tool.
+Bit 3=1: The status of the unserviceable spindle tool is ignored. (Exception: disabled tools.) The tool becomes active. The subsequent part program should be formulated so that no parts are machined with the unserviceable tool.
 
 Bit 4=0: Standard: The system tries to activate the spindle tool or its replacement tool
-Bit 4=1: If the tool on the spindle is disabled, T0 is programmed in the start init block.
+Bit 4=1: If the tool on the spindle is unserviceable, T0 is programmed in the start init block.
 The combination of bits 3 and 4 produces the following statements:
-0 / 0: Behavior as before, automatic change on NC start if a disabled tool is in the spindle
-1 / 0: No automatic change
-0 / 1: A T0 is automatically generated if a disabled tool is in the spindle at NC start
+0 / 0: Behavior as before, automatic change on NC start if an unserviceable tool is in the spindle
+1 / 0: Is not always automatically changed
+0 / 1: A T0 is automatically generated if an unserviceable tool is in the spindle at NC start
 1 / 1: No statement
 
 Bit 5: Reserved
@@ -4485,13 +4459,18 @@ Bit 7=0: When Tx is programmed, a check is made to see whether a tool with T num
 Bit 7=1: only if the tool basic functionality is active
 (MD20310 $MC_TOOL_MANAGEMENT_MASK, bit 0,1=0)
 and (MD18102 $MN_MM_TYPE_OF_CUTTING_EDGE=0):
-When Tx is programmed, an unknown Tx is intially ignored, and the alarm relating to the preparation command (Tx) is also ignored until the D selection is interpreted in the program sequence. Only then is alarm 17191, which has been triggered by the preparation command, output. This means that the operator can take corrective actions with the D selection in this block. When the program is continued, the incorrect NC block is re-interpreted, and the preparation command is automatically executed again internally.
+When Tx is programmed, an unknown Tx is initially ignored, and the alarm relating to the preparation command (Tx) is also ignored until the D selection is interpreted in the program sequence. Only then is alarm 17191, which has been triggered by the preparation command, output. This means that the operator can take corrective actions with the D selection in this block. When the program is continued, the incorrect NC block is re-interpreted, and the preparation command is automatically executed again internally.
 (This is of interest for Cutting-Edge-Default=0 or =-2 and D0 programming, otherwise the D of Cutting-Edge-Default is deselected on tool change.).)
 This variant is justified for programming "Tool number=Location" (turret as toolholder) without tool management. The turret can now be positioned on a location for which a tool has not (yet) been defined.
 This bit has no meaning if bit 0=1 is set.
 
 Bit 8=0: A tool that is located at a blocked magazine location is not taken into account when selecting a tool. (default setting)
 Bit 8=1: Even a tool that is located at a blocked magazine location is taken into account when selecting a tool (this corresponds to the previous behavior.)
+
+Bit 9=0: The tool status "to unload" ($TC_TP8[T_No] bit10=1) has no meaning. (default setting)
+Bit 9=1: A tool with the status "to unload" ($TC_TP8[T_No] bit10=1) is not selected in T programming.
+Bit 9=1: If a multitool or one of the tools on the multitool has the status "to unload" ($TC_MTP8[MT_No] or $TC_TP8[T_No] Bit10=1)
+the tools on the multitool are not selected in T programming.
 </description>
 </parameter>
 <parameter number="22600" type="DWORD" dim="0">
@@ -4730,6 +4709,7 @@ Bit no.   Significance when bit is set
 24     Recording of multi-threading sequences (Multicore).
 25     Recording of the external communication.
 26     Recording of geometry data: positions, vLim, vLimSafety, OVR, clamping, etc.
+27     Program trace: Extension of bit 10 to include recording of NC blocks in a representation based on the basic block display with the prefix ID ":PT:"
 </description>
 </parameter>
 <parameter number="22800" type="BYTE" dim="0">
@@ -8120,6 +8100,12 @@ The value of this machine data indicates the maximum number of blocks over which
 .Setting this MD to higher values will significantly increase the memory requirement in the DRAM.
 A value of 4 should be entered as a minimum.
 If this MD is &lt; 4 and if G code ORISON is programmed, alarm 10982 will be displayed.
+</description>
+</parameter>
+<parameter number="28592" type="DWORD" dim="0">
+<name>MM_NUM_SINGULARITY_BLOCKS</name>
+<brief>Number of blocks for singularity handling. (DRAM)</brief>
+<description>The "Singularity handling" function is activated with this MD, and memory is reserved for it. If this data has the value "zero", singularity handling is not possible.
 </description>
 </parameter>
 <parameter number="28600" type="DWORD" dim="0" display="DECIMAL">

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="magazine">
+<parameter type="STRING" dim="1">
+<name>$TC_MAP2</name>
+<brief>Identifier of magazine</brief>
+<description>$TC_MAP2[n]
+Identifier of magazine
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP1</name>
+<brief>Type of magazine</brief>
+<description>$TC_MAP1[n]
+Type of magazine
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP3</name>
+<brief>Status of magazine</brief>
+<description>$TC_MAP3[n]
+Status of magazine
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP4</name>
+<brief>Reserved</brief>
+<description>$TC_MAP4[n]
+Chaining to next magazine
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP5</name>
+<brief>Reserved</brief>
+<description>$TC_MAP5[n]
+Chaining to previous magazine
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP6</name>
+<brief>Number of lines</brief>
+<description>$TC_MAP6[n]
+Number of lines
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP7</name>
+<brief>Number of columns</brief>
+<description>$TC_MAP7[n]
+Number of columns
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP8</name>
+<brief>Current magazine position in relation to tool change position</brief>
+<description>$TC_MAP8[n]
+Current magazine position in relation to tool change position
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP9</name>
+<brief>Current wear group number</brief>
+<description>$TC_MAP9[n]
+Current wear group number
+</description>
+</parameter>
+<parameter type="INT" dim="1">
+<name>$TC_MAP10</name>
+<brief>Current search strategies of the magazine.</brief>
+<description>$TC_MAP10[n
+Current search strategies of the magazine
+- Tool search strategy
+- Empty location search strategy (bits 14, 15 and 16 cannot be changed and are hidden.)
+The NCK enters the value from $TC_MAMP2 as default. In particular the globally effective bits 14, 15 and 16 are entered via $TC_MAMP2 .
+
+A set bit has the following meaning:
+Tool search:
+Bit0=0: (Default strategy) Take the first available tool found in the tool group. Search first in the magazine from which the last change was made.
+Bit0=1: Select the "active" tool in the magazine of the previously changed tool, otherwise find the replacement tool with the lowest duplo number. If no tool is found in this magazine, the search is continued in the other linked magazines.
+Bit1: Find the next replacement tool that is closest to the current magazine position.
+Bit2: Select the "active" tool, otherwise the replacement tool with the lowest number contained in $TC_TP10.
+Bit3: Find the tool in the group with the lowest actual value of the monitored size.
+Bit4: Find the tool in the group with the highest actual value of the monitored size.
+Bit5: Reserved
+Bit6: Search first in the currently considered magazine (effective only in conjunction with bit 7=1).
+Bit7=0: Start the tool search in the magazine from which the last changed tool came.
+Bit7=1: Always start the search in the 1st magazine in the distance table.
+Note:
+Bit7=1 + bit0=1 or bit2=1, if no "active tool" is found in the magazine, then - if present - the active tool is selected from one of the other magazines linked to the tool holder
+
+Empty location search:
+Bit8: Search forwards. Search in ascending order from location no. 1.
+Bit9: Search forwards. Search in ascending order from the current location at the change position.
+Bit10: Search backwards. Search backwards from the last location no.
+Bit11: Search backwards. Search backwards from the current location at the change position.
+Bit12: Symmetrical search. The search starts at the current location no. at the change position (1st location left, 1st location right, 2nd location left, 2nd location right. and so on).
+Bit13: 1:1 exchange (only with tool change of significance): If the old and new tools have the same location type and size, the magazine location of the "new" tool to be loaded is transferred to the "old" tool to be unloaded and vice versa. The 1:1 exchange is checked first. If the 1:1 exchange is not possible, the other settings become effective for the search strategy.
+Bit14=0: Search first in the individual magazines. If no possible location is found, search for a free location for the tool in the next magazine.
+Bit14=1: Search in all magazines for the best location for the tool corresponding to the hierarchy.
+Bit15=0: (Conventional type of hierarchy): With this type, the location type of the sought tool is sought in the table of system variables $TC_MPTH. If the location type is found, this hierarchy is accepted, and evaluated from this level to the end.
+Bit15=1: (Alternative type of hierarchy: Location type hierarchies can be defined for the selected location types 1, ..., $MN_MM_MAX_NUM_OF_HIERARCHIES. The hierarchy for location type 1 is defined by $TC_MPTH[0,n], that for location type 2 by $TC_MPTH[1,n], and so on. (n: index within a hierarchy). With this setting, one location type can be defined in different hierarchies.
+Bit16: The hierarchy analysis is canceled for the mini hierarchy that consists merely of the location type itself and location type 0. In this case, the empty location search does not distinguish between the suitable location type ( $TC_TP7 == $TC_MPP2) and the general location type "0" of the magazine location.$TC_MAP10[n].
+</description>
+</parameter>
+</info>

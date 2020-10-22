@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<info svar="QECDescr">
+<parameter type="DOUBLE" dim="3">
+<name>$AA_QEC</name>
+<brief>QEC compensation value</brief>
+<description>$AA_QEC[n,m,a]
+Result of learning process
+a: Machine axes
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$AA_QEC_COARSE_STEPS</name>
+<brief>QEC coarse quantizing</brief>
+<description>$AA_QEC_COARSE_STEPS[n,a]
+Compensation values: Rough quantization of characteristic
+a: Machine axes
+</description>
+</parameter>
+<parameter type="INT" dim="2">
+<name>$AA_QEC_FINE_STEPS</name>
+<brief>QEC fine quantizing</brief>
+<description>$AA_QEC_FINE_STEPS[n,a]
+Fine quantization of characteristic
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_ACCEL_1</name>
+<brief>QEC acceleration limit range 1</brief>
+<description>$AA_QEC_ACCEL_1[n,a]
+Acceleration at 1st knee point according to definition [mm/s2 or inch/s2 or degree/s2]
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_ACCEL_2</name>
+<brief>QEC acceleration limit range 2</brief>
+<description>$AA_QEC_ACCEL_2[n,a]
+Acceleration at 2nd knee point according to definition [mm/s2 or inch/s2 or degree/s2]
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_ACCEL_3</name>
+<brief>QEC acceleration limit range 3</brief>
+<description>$AA_QEC_ACCEL_3[n,a]
+Acceleration at 3rd knee point according to definition [mm/s2 or inch/s2 or degree/s2]
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_MEAS_TIME_1</name>
+<brief>QEC measuring time range 1</brief>
+<description>$AA_QEC_MEAS_TIME_1[n,a]
+Measuring time for range $AA_QEC_ACCEL_1
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_MEAS_TIME_2</name>
+<brief>QEC measuring time range 2</brief>
+<description>$AA_QEC_MEAS_TIME_2[n,a]
+Measuring time for range $AA_QEC_ACCEL_2
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_MEAS_TIME_3</name>
+<brief>QEC measuring time range 3</brief>
+<description>$AA_QEC_MEAS_TIME_3[n,a]
+Measuring time for range $AA_QEC_ACCEL_3
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_TIME_1</name>
+<brief>QEC decay time 1</brief>
+<description>$AA_QEC_TIME_1[n,a]
+1. Filtering time for feedforward element
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_TIME_2</name>
+<brief>QEC decay time 2</brief>
+<description>$AA_QEC_TIME_2[n,a]
+2. Filtering time for feedforward element
+a: Machine axes
+</description>
+</parameter>
+<parameter type="DOUBLE" dim="2">
+<name>$AA_QEC_LEARNING_RATE</name>
+<brief>QEC learning rate</brief>
+<description>$AA_QEC_LEARNING_RATE[n,a]
+Learning rate for network
+a: Machine axes
+</description>
+</parameter>
+<parameter type="BOOL" dim="2">
+<name>$AA_QEC_DIRECTIONAL</name>
+<brief>QEC direction-dependence</brief>
+<description>$AA_QEC_DIRECTIONAL[n,a]
+TRUE: Direction-dependent compensation
+FALSE: No direction-dependent compensation
+a: Machine axes
+</description>
+</parameter>
+</info>
