@@ -201,10 +201,12 @@ contexts:
 
   stmt-group:
     - match: (?i:GROUP_(BEGIN|END))\b
-      scope: meta.namespace.s840d_gcode entity.name.namespace.s840d_gcode
+      scope: entity.name.namespace.s840d_gcode
       set:
+        - meta_scope: meta.namespace.s840d_gcode
         - match: (?=\()
           set: stmt-group-parameters
+        - include: line-end-or-illegal
 
   stmt-group-parameters:
     - match: \(
@@ -218,7 +220,6 @@ contexts:
         - include: numbers
         - include: strings
         - include: line-end-or-illegal
-    - include: line-end-or-illegal
 
 ###############################################################################
 # EXTERN PROCEDURE DEFINITION
@@ -253,7 +254,6 @@ contexts:
         - include: storage-types
         - include: storage-modifiers
         - include: line-end-or-illegal
-    - include: line-end-or-illegal
 
 ###############################################################################
 # PROCEDURE DEFINITION
@@ -296,7 +296,6 @@ contexts:
           scope: variable.parameter.procedure.s840d_gcode
           push: array-dimension
         - include: line-end-or-illegal
-    - include: line-end-or-illegal
 
   stmt-proc-attributes:
     - meta_content_scope: meta.function.attributes.s840d_gcode
