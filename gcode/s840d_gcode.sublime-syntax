@@ -59,7 +59,14 @@ contexts:
 
   main:
     - match: ^
-      push: [main-toplevel, comment-doc-meta, comment-doc-version]
+      push: [main-toplevel, comment-doc-meta, comment-doc-version, arc-header]
+
+  arc-header:
+    - match: '%.+$'
+      scope: invalid.illegal.arc-header.s840d_gcode
+      pop: true
+    - match: ''
+      pop: true
 
   main-toplevel:
     - include: iso-blockno
