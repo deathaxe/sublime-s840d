@@ -117,7 +117,7 @@ contexts:
     - meta_scope: meta.block.udt.header.s7.awl
     - match: ;
       scope: punctuation.terminator.line.s7.awl
-    - include: annotation
+    - include: annotations
     - include: attribute
     - include: version
     - include: storage-type-struct
@@ -147,7 +147,7 @@ contexts:
       scope: entity.other.attribute-name.s7.awl
     - match: ;
       scope: punctuation.terminator.line.s7.awl
-    - include: annotation
+    - include: annotations
     - include: attribute
     - include: version
     - include: storage-type-struct
@@ -194,7 +194,7 @@ contexts:
     - meta_scope: meta.block.fb.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-fb-body, assert-line-end, block-body-begin]
-    - include: annotation
+    - include: annotations
     - include: attribute
     - include: version
     - include: var-input
@@ -228,7 +228,7 @@ contexts:
     - meta_scope: meta.block.fc.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-fc-body, assert-line-end, block-body-begin]
-    - include: annotation
+    - include: annotations
     - include: attribute
     - include: version
     - include: var-input
@@ -261,7 +261,7 @@ contexts:
     - meta_scope: meta.block.ob.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-ob-body, assert-line-end, block-body-begin]
-    - include: annotation
+    - include: annotations
     - include: attribute
     - include: version
     - include: var-temp
@@ -292,7 +292,7 @@ contexts:
 #                                                                             #
 ###############################################################################
 
-  annotation:
+  annotations:
     - match: \{
       scope: meta.mapping.s7.awl punctuation.section.mapping.begin.s7.awl
       push: annotation-key
@@ -310,7 +310,7 @@ contexts:
   annotation-separator:
     - meta_content_scope: meta.annotation.s7.awl meta.mapping.s7.awl
     - match: :=
-      scope: punctuation.separator.key-value.annotation-attribute.s7.awl
+      scope: punctuation.separator.key-value.s7.awl
       set: annotation-value
     - include: annotation-end
 
@@ -321,8 +321,13 @@ contexts:
 
   annotation-end:
     - match: \}
-      scope: meta.annotation.s7.awl meta.mapping.s7.awl punctuation.section.mapping.end.s7.awl
+      scope:
+        meta.annotation.s7.awl meta.mapping.s7.awl
+        punctuation.section.mapping.end.s7.awl
       pop: true
+    - match: \;
+      scope: punctuation.separator.mapping.pair.s7.awl
+      set: annotation-key
     - include: illegal
 
 ###[ TITLE ]###################################################################
@@ -466,6 +471,7 @@ contexts:
     - match: ':'
       scope: punctuation.separator.key-value.s7.awl
       set: [code-termination, variable-storage]
+    - include: annotations
     - include: code-termination
 
   variable-storage:
