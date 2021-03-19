@@ -27,9 +27,10 @@
 # https://manual.macromates.com/en/language_grammars#naming_conventions
 # https://www.sublimetext.com/docs/3/scope_naming.html
 name: Step7 AWL
+scope: source.s7.awl
+
 file_extensions:
   - awl
-scope: source.s7.awl
 
 ###############################################################################
 
@@ -80,7 +81,7 @@ contexts:
           pop: true
         - include: illegal-eol
     # absolute address
-    - match: \b(?:OB|S?(?:F[BC]|DB)|UDT)\s*\d+\b
+    - match: \b(?i:OB|S?(?:F[BC]|DB)|UDT)\s*\d+\b
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
       pop: true
     # unquoted string symbol
@@ -108,7 +109,7 @@ contexts:
 ###############################################################################
 
   block-udt:
-    - match: \bTYPE\b
+    - match: \b(?i:TYPE)\b
       scope: keyword.other.udt.begin.s7.awl
       push: [block-udt-header, entity-name]
 
@@ -124,7 +125,7 @@ contexts:
     - include: block-udt-end
 
   block-udt-end:
-    - match: \bEND_TYPE\b
+    - match: \b(?i:END_TYPE)\b
       scope: keyword.other.udt.end.s7.awl
       set: assert-line-end
     - include: illegal
@@ -134,15 +135,15 @@ contexts:
 ###############################################################################
 
   block-db:
-    - match: \bDATA_BLOCK\b
+    - match: \b(?i:DATA_BLOCK)\b
       scope: keyword.other.db.begin.s7.awl
       push: [block-db-header, title, entity-name]
 
   block-db-header:
     - meta_scope: meta.block.db.header.s7.awl
-    - match: (?=\bBEGIN\b)
+    - match: (?=\b(?i:BEGIN)\b)
       set: [block-db-body, assert-line-end, block-body-begin]
-    - match: \b(?:NON_RETAIN|READ_ONLY)\b
+    - match: \b(?i:NON_RETAIN|READ_ONLY)\b
       scope: entity.other.attribute-name.s7.awl
     - match: ;
       scope: punctuation.terminator.line.s7.awl
@@ -176,7 +177,7 @@ contexts:
     - include: line-end
 
   block-db-end:
-    - match: \bEND_DATA_BLOCK\b
+    - match: \b(?i:END_DATA_BLOCK)\b
       scope: keyword.other.db.end.s7.awl
       set: assert-line-end
 
@@ -185,13 +186,13 @@ contexts:
 ###############################################################################
 
   block-fb:
-    - match: \bFUNCTION_BLOCK\b
+    - match: \b(?i:FUNCTION_BLOCK)\b
       scope: keyword.other.fb.begin.s7.awl
       push: [block-fb-header, title, return-type, entity-name]
 
   block-fb-header:
     - meta_scope: meta.block.fb.header.s7.awl
-    - match: (?=\bBEGIN\b)
+    - match: (?=\b(?i:BEGIN)\b)
       set: [block-fb-body, assert-line-end, block-body-begin]
     - include: annotation
     - include: attribute
@@ -209,7 +210,7 @@ contexts:
     - include: block-fb-end
 
   block-fb-end:
-    - match: \bEND_FUNCTION_BLOCK\b
+    - match: \b(?i:END_FUNCTION_BLOCK)\b
       scope: keyword.other.fb.end.s7.awl
       set: assert-line-end
     - include: illegal
@@ -219,13 +220,13 @@ contexts:
 ###############################################################################
 
   block-fc:
-    - match: \bFUNCTION\b
+    - match: \b(?i:FUNCTION)\b
       scope: keyword.other.fc.begin.s7.awl
       push: [block-fc-header, title, return-type, entity-name]
 
   block-fc-header:
     - meta_scope: meta.block.fc.header.s7.awl
-    - match: (?=\bBEGIN\b)
+    - match: (?=\b(?i:BEGIN)\b)
       set: [block-fc-body, assert-line-end, block-body-begin]
     - include: annotation
     - include: attribute
@@ -242,7 +243,7 @@ contexts:
     - include: block-fc-end
 
   block-fc-end:
-    - match: \bEND_FUNCTION\b
+    - match: \b(?i:END_FUNCTION)\b
       scope: keyword.other.fc.end.s7.awl
       set: assert-line-end
     - include: illegal
@@ -252,13 +253,13 @@ contexts:
 ###############################################################################
 
   block-ob:
-    - match: \bORGANIZATION_BLOCK\b
+    - match: \b(?i:ORGANIZATION_BLOCK)\b
       scope: keyword.other.ob.begin.s7.awl
       push: [block-ob-header, title, entity-name]
 
   block-ob-header:
     - meta_scope: meta.block.ob.header.s7.awl
-    - match: (?=\bBEGIN\b)
+    - match: (?=\b(?i:BEGIN)\b)
       set: [block-ob-body, assert-line-end, block-body-begin]
     - include: annotation
     - include: attribute
@@ -272,7 +273,7 @@ contexts:
     - include: block-ob-end
 
   block-ob-end:
-    - match: \bEND_ORGANIZATION_BLOCK\b
+    - match: \b(?i:END_ORGANIZATION_BLOCK)\b
       scope: keyword.other.ob.end.s7.awl
       set: assert-line-end
     - include: illegal
@@ -327,7 +328,7 @@ contexts:
 ###[ TITLE ]###################################################################
 
   title:
-    - match: \bTITLE\b
+    - match: \b(?i:TITLE)\b
       scope: entity.other.attribute-name.title.s7.awl
       set: title-separator
     - match: (?=\S)
@@ -349,10 +350,10 @@ contexts:
 ###[ AUTHOR, FAMILY, NAME ]####################################################
 
   attribute:
-    - match: \b(?:AUTHOR|FAMILY|NAME)\b
+    - match: \b(?i:AUTHOR|FAMILY|NAME)\b
       scope: entity.other.attribute-name.s7.awl
       push: attribute-separator
-    - match: \b(?:CODE_VERSION1|KNOW_HOW_PROTECT)\b
+    - match: \b(?i:CODE_VERSION1|KNOW_HOW_PROTECT)\b
       scope: entity.other.attribute-name.s7.awl
       push: assert-line-end
 
@@ -370,7 +371,7 @@ contexts:
 ###[ VERSION ]#################################################################
 
   version:
-    - match: \bVERSION\b
+    - match: \b(?i:VERSION)\b
       scope: entity.other.attribute-name.version.s7.awl
       push: version-separator
 
@@ -393,7 +394,7 @@ contexts:
 ###[ VAR_INPUT ]###############################################################
 
   var-input:
-    - match: \bVAR_INPUT\b
+    - match: \b(?i:VAR_INPUT)\b
       scope: keyword.control.var.input.begin.s7.awl
       push: [var-input-meta, var-body, assert-line-end]
 
@@ -404,7 +405,7 @@ contexts:
 ###[ VAR_OUTPUT ]##############################################################
 
   var-output:
-    - match: \bVAR_OUTPUT\b
+    - match: \b(?i:VAR_OUTPUT)\b
       scope: keyword.control.var.output.begin.s7.awl
       push: [var-output-meta, var-body, assert-line-end]
 
@@ -415,7 +416,7 @@ contexts:
 ###[ VAR_IN_OUT ]##############################################################
 
   var-inout:
-    - match: \bVAR_IN_OUT\b
+    - match: \b(?i:VAR_IN_OUT)\b
       scope: keyword.control.var.in-out.begin.s7.awl
       push: [var-inout-meta, var-body, assert-line-end]
 
@@ -426,7 +427,7 @@ contexts:
 ###[ VAR ]#####################################################################
 
   var-stat:
-    - match: \bVAR\b
+    - match: \b(?i:VAR)\b
       scope: keyword.control.var.stat.begin.s7.awl
       push: [var-stat-meta, var-body, assert-line-end]
 
@@ -437,7 +438,7 @@ contexts:
 ###[ VAR_TEMP ]################################################################
 
   var-temp:
-    - match: \bVAR_TEMP\b
+    - match: \b(?i:VAR_TEMP)\b
       scope: keyword.control.var.temp.begin.s7.awl
       push: [var-temp-meta, var-body, assert-line-end]
 
@@ -448,7 +449,7 @@ contexts:
 ###[ END_VAR ]#################################################################
 
   var-body:
-    - match: \bEND_VAR\b
+    - match: \b(?i:END_VAR)\b
       scope: keyword.control.var.end.s7.awl
       set: assert-line-end
     - include: variable
@@ -508,7 +509,7 @@ contexts:
     - include: storage-type-user
 
   storage-type-array:
-    - match: \bARRAY\b
+    - match: \b(?i:ARRAY)\b
       scope: storage.type.array.s7.awl
       push: [storage-type-array-meta, storage-type-array-dimension]
 
@@ -527,7 +528,7 @@ contexts:
     - include: assert-line-end
 
   storage-type-array-item:
-    - match: \bOF\b
+    - match: \b(?i:OF)\b
       scope: keyword.control.of.s7.awl
       set: expect-storage
     - include: assert-line-end
@@ -537,55 +538,55 @@ contexts:
     - include: else-pop
 
   storage-type-atomic:
-    - match: \bVOID\b
+    - match: \b(?i:VOID)\b
       scope: storage.type.void.s7.awl
-    - match: \bBOOL\b
+    - match: \b(?i:BOOL)\b
       scope: storage.type.bool.s7.awl
-    - match: \bBYTE\b
+    - match: \b(?i:BYTE)\b
       scope: storage.type.byte.s7.awl
-    - match: \bCHAR\b
+    - match: \b(?i:CHAR)\b
       scope: storage.type.char.s7.awl
-    - match: \bINT\b
+    - match: \b(?i:INT)\b
       scope: storage.type.integer.s7.awl
-    - match: \bWORD\b
+    - match: \b(?i:WORD)\b
       scope: storage.type.word.s7.awl
-    - match: \bDINT\b
+    - match: \b(?i:DINT)\b
       scope: storage.type.long.s7.awl
-    - match: \bDWORD\b
+    - match: \b(?i:DWORD)\b
       scope: storage.type.dword.s7.awl
-    - match: \bREAL\b
+    - match: \b(?i:REAL)\b
       scope: storage.type.real.s7.awl
-    - match: \bCOUNTER\b
+    - match: \b(?i:COUNTER)\b
       scope: storage.type.counter.s7.awl
-    - match: \bTIMER\b
+    - match: \b(?i:TIMER)\b
       scope: storage.type.timer.s7.awl
 
   storage-type-blocks:
-    - match: \bBLOCK_S?DB\b
+    - match: \b(?i:BLOCK_S?DB)\b
       scope: storage.type.db.s7.awl
-    - match: \bBLOCK_FB\b
+    - match: \b(?i:BLOCK_FB)\b
       scope: storage.type.block-fb.s7.awl
-    - match: \bBLOCK_FC\b
+    - match: \b(?i:BLOCK_FC)\b
       scope: storage.type.function.s7.awl
 
   storage-type-datetime:
-    - match: \bS5TIME\b
+    - match: \b(?i:S5TIME)\b
       scope: storage.type.s5time.s7.awl
-    - match: \bTIME\b
+    - match: \b(?i:TIME)\b
       scope: storage.type.iec-time.s7.awl
-    - match: \bTIME_OF_DAY\b
+    - match: \b(?i:TIME_OF_DAY)\b
       scope: storage.type.time.s7.awl
-    - match: \bDATE_AND_TIME\b
+    - match: \b(?i:DATE_AND_TIME)\b
       scope: storage.type.datetime.s7.awl
 
   storage-type-pointer:
-    - match: \bANY\b
+    - match: \b(?i:ANY)\b
       scope: storage.type.any.s7.awl
-    - match: \bPOINTER\b
+    - match: \b(?i:POINTER)\b
       scope: storage.type.pointer.s7.awl
 
   storage-type-string:
-    - match: \bSTRING\b
+    - match: \b(?i:STRING)\b
       scope: storage.type.string.s7.awl
       push:
         - match: \[
@@ -600,13 +601,13 @@ contexts:
         - include: scope-end
 
   storage-type-struct:
-    - match: \bSTRUCT\b
+    - match: \b(?i:STRUCT)\b
       scope: storage.type.struct.begin.s7.awl
       push: [storage-type-struct-body, assert-line-end]
 
   storage-type-struct-body:
     - meta_scope: meta.struct.s7.awl
-    - match: \bEND_STRUCT\b
+    - match: \b(?i:END_STRUCT)\b
       scope: storage.type.struct.end.s7.awl
       pop: true
     - include: variable
@@ -639,13 +640,13 @@ contexts:
 ###############################################################################
 
   network:
-    - match: \bNETWORK\b
+    - match: \b(?i:NETWORK)\b
       scope: keyword.control.network.s7.awl
       push: [network-body, title]
 
   network-body:
     - meta_scope: meta.block.network.s7.awl
-    - match: (?=(?:NETWORK|END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
+    - match: (?=(?i:NETWORK|END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
       pop: true
     - include: awl-statements
 
@@ -675,7 +676,7 @@ contexts:
 
   awl-stmt-block:
     # U( , UN( , O(, ON( , X( , XN(
-    - match: \b([OUX]N?)(\()
+    - match: \b((?i:[OUX]N?))(\()
       captures:
         1: keyword.operator.logical.s7.awl
         2: punctuation.section.block.begin.s7.awl
@@ -690,7 +691,7 @@ contexts:
 
   awl-stmt-nop:
     # NOP 0, BLD
-    - match: \b(?:BLD|NOP)\b
+    - match: \b(?i:BLD|NOP)\b
       scope: keyword.operator.nop.s7.awl
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
@@ -699,13 +700,13 @@ contexts:
 
   awl-stmt-logical:
     # U , UN , O, ON, X, XN, FP, FN
-    - match: \b(?:[OUX]N?|F[PN])\b
+    - match: \b(?i:[OUX]N?|F[PN])\b
       scope: keyword.operator.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.logical.s7.awl
         - include: operands
         - include: code-termination
-    - match: \b(?:CLR|NOT|SAVE|SET)\b
+    - match: \b(?i:CLR|NOT|SAVE|SET)\b
       scope: keyword.operator.logical.vke.s7.awl
       push: code-termination
     # ==I, ==D, <>I, <>D, <=I, <=D, >=I, >=D, <I, <D, >I, >D
@@ -715,20 +716,20 @@ contexts:
 
   awl-stmt-bitwise:
     # UW, UD, OW, OD, XOW, XOD
-    - match: \b(?:[OU]|XO)[WD]\b
+    - match: \b(?i:[OU]|XO)[WD]\b
       scope: keyword.operator.bitwise.s7.awl
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-hex
         - include: code-termination
     # INVI, INVD, NEGI, NEGD, NEGR
-    - match: \b(?:INV[ID]|NEG[IDR])\b
+    - match: \b(?i:INV[ID]|NEG[IDR])\b
       scope: keyword.operator.bitwise.s7.awl
       push: code-termination
     # RLD, RLDA, RRD, RRDA
     # SLW, SLD, SRW, SRD
     # SSI, SSD
-    - match: \b(?:R[LR]DA?|S[LR][WD]|SS[DI])\b
+    - match: \b(?i:R[LR]DA?|S[LR][WD]|SS[DI])\b
       scope: keyword.operator.bitwise.s7.awl
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
@@ -741,7 +742,7 @@ contexts:
       scope: keyword.operator.arithmetic.s7.awl
       push: code-termination
     # INC, DEC
-    - match: \b(?:INC|DEC)\b
+    - match: \b(?i:INC|DEC)\b
       scope: keyword.operator.arithmetic.s7.awl
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
@@ -756,7 +757,7 @@ contexts:
         - include: constants-hex
         - include: code-termination
     # 32-bit floating point operations
-    - match: \b(?:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
+    - match: \b(?i:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
       scope: keyword.operator.arithmetic.s7.awl
       push: code-termination
     # type conversions
@@ -764,13 +765,13 @@ contexts:
     # INVI, INVD, NEGI, NEGD, NEGR
     # TAW, TAD
     # RND, RND+ RND-, TRUNC
-    - match: \b(?:IT[BD]|[BD]TI|DT[BR]|RND[-+]?|TRUNC|TA[WD])\b
+    - match: \b(?i:IT[BD]|[BD]TI|DT[BR]|RND[-+]?|TRUNC|TA[WD])\b
       scope: keyword.operator.arithmetic.convert.s7.awl
       push: code-termination
 
   awl-stmt-assignment:
     # L, LC
-    - match: \bLC?\b
+    - match: \b(?i:LC?)\b
       scope: keyword.operator.arithmetic.load.s7.awl
       push:
         - meta_content_scope: meta.operand.numeric.s7.awl
@@ -781,35 +782,35 @@ contexts:
         - include: operands-symbols
         - include: code-termination
     # T
-    - match: \bT\b
+    - match: \b(?i:T)\b
       scope: keyword.operator.assignment.s7.awl
       push:
         - meta_content_scope: meta.operand.assignment.s7.awl
         - include: operands
         - include: code-termination
     # =, S, R
-    - match: =|\b[RS]\b
+    - match: =|\b(?i:[RS])\b
       scope: keyword.operator.assignment.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.marker.s7.awl meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
         - include: code-termination
     # FR
-    - match: \bFR\b
+    - match: \b(?i:FR)\b
       scope: keyword.operator.assignment.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
         - include: code-termination
     # SA, SE, SI, SS, SV
-    - match: \bS[AEISV]?\b
+    - match: \b(?i:S[AEISV]?)\b
       scope: keyword.operator.timer.s7.awl
       push:
         - meta_content_scope: meta.operand.s5time.s7.awl
         - include: operands
         - include: code-termination
     # ZV, ZR
-    - match: \bZ[RV]\b
+    - match: \b(?i:Z[RV])\b
       scope: keyword.operator.counter.s7.awl
       push:
         - meta_content_scope: meta.operand.counter.s7.awl
@@ -817,25 +818,25 @@ contexts:
         - include: code-termination
 
   awl-stmt-akku:
-    - match: \b(?:POP|PUSH|TAK|ENT|LEAVE)\b
+    - match: \b(?i:POP|PUSH|TAK|ENT|LEAVE)\b
       scope: keyword.operator.assignment.akku.s7.awl
       push: code-termination
 
   awl-stmt-datablock:
-    - match: \bAUF\b
+    - match: \b(?i:AUF)\b
       scope: keyword.operator.load.db.s7.awl
       push:
         - meta_content_scope: meta.operand.datablock.s7.awl
         - include: operands-datablock
         - include: operands-symbols
         - include: code-termination
-    - match: \bTDB\b
+    - match: \b(?i:TDB)\b
       scope: keyword.operator.db.s7.awl
       push: code-termination
 
   awl-stmt-address-register:
     # LAR1, LAR2
-    - match: \bLAR[12]\b
+    - match: \b(?i:LAR)[12]\b
       scope: keyword.operator.load.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
@@ -843,14 +844,14 @@ contexts:
         - include: operands
         - include: code-termination
     # TAR1, TAR2
-    - match: \bTAR[12]\b
+    - match: \b(?i:TAR)[12]\b
       scope: keyword.operator.assignment.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
         - include: operands
         - include: code-termination
     # +AR1, +AR2
-    - match: \+AR[12]\b
+    - match: \+(?i:AR)[12]\b
       scope: keyword.operator.arithmetic.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
@@ -860,11 +861,11 @@ contexts:
 
   awl-stmt-goto:
     # BE, BEA, BEB
-    - match: \bBE[AB]?\b  # function block end
+    - match: \b(?i:BE[AB]?)\b  # function block end
       scope: keyword.operator.blockend.s7.awl
       push: code-termination
     - match: |-
-          (?x)\b(?:
+          \b(?xi:
               SPL       # case
             | SPA       # always
             | SPBN?B?   # VKE = 1/0
@@ -892,14 +893,14 @@ contexts:
 
   awl-stmt-call:
     ## CC, UC
-    - match: \b[CU]C\b
+    - match: \b(?i:[CU]C)\b
       scope: meta.function-call.s7.awl keyword.control.call.s7.awl
       push:
         - meta_content_scope: meta.function-call.name.s7.awl
         - include: awl-stmt-call-name
         - include: code-termination
     # CALL
-    - match: \bCALL\b
+    - match: \b(?i:CALL)\b
       scope: meta.function-call.s7.awl keyword.control.call.s7.awl
       push:
         - meta_content_scope: meta.function-call.name.s7.awl
@@ -929,7 +930,7 @@ contexts:
           scope: invalid.illegal.s7.awl
           pop: true
     # absolute address
-    - match: (?:S?F[BC])\s*\d+\b
+    - match: (?i:S?F[BC])\s*\d+\b
       scope: variable.function.address.s7.awl
     # local variables
     - match: (#)(\w+)\b
@@ -1012,7 +1013,7 @@ contexts:
   constants-any:
     # P# DB20.DBX40.0 WORD 10
     - match: |-
-          (?x)
+          (?xi)
             (P(\#))            # pointer prefix
             [ \t]*             # optional space
             (?:
@@ -1044,7 +1045,7 @@ contexts:
   constants-pointer:
     # P#10.0 P#M10.0, P#DB20.DBX10.0
     - match: |-
-          (?x)
+          (?xi)
             (P(\#))                # pointer prefix
             [ \t]*                 # optional space
             (?:
@@ -1061,7 +1062,7 @@ contexts:
         3: punctuation.accessor.dot.s7.awl
         4: punctuation.separator.decimal.s7.awl
     # P##LocalSymbol
-    - match: (P(#))(#)(\w+)\b
+    - match: ([Pp](#))(#)(\w+)\b
       captures:
         1: storage.type.numeric.s7.awl
         2: punctuation.separator.type.s7.awl
@@ -1069,11 +1070,11 @@ contexts:
         4: variable.other.local.s7.awl
 
   constants-bool:
-    - match: \b(?:TRUE|FALSE)\b
+    - match: \b(?i:TRUE|FALSE)\b
       scope: constant.language.boolean.s7.awl
 
   constants-float:
-    - match: '[-+]?\d+(\.)\d+e[-+]\d+\b'
+    - match: '[-+]?\d+(\.)\d+[Ee][-+]\d+\b'
       scope: constant.numeric.float.decimal.s7.awl
       captures:
         1: punctuation.separator.decimal.s7.awl
@@ -1091,7 +1092,7 @@ contexts:
           scope: punctuation.separator.bin.s7.awl
         - match: '[^01_]'
           scope: invalid.illegal.bin.s7.awl
-    - match: ((?:B|byte|W|word|DW|dword)(#))16(#)\h+\b
+    - match: ((?i:B|byte|W|word|DW|dword)(#))16(#)\h+\b
       scope: constant.numeric.integer.hexadecimal.s7.awl
       captures:
         1: storage.type.numeric.s7.awl
@@ -1099,7 +1100,7 @@ contexts:
         3: punctuation.separator.base.s7.awl
 
   constants-int:
-    - match: (L(#))?[-+]?{{int}}
+    - match: ([Ll](#))?[-+]?{{int}}
       scope: constant.numeric.integer.decimal.s7.awl
       captures:
         1: storage.type.numeric.s7.awl
@@ -1110,7 +1111,7 @@ contexts:
       scope: constant.numeric.integer.decimal.s7.awl
 
   constants-counter:
-    - match: (C(#))\d+\b
+    - match: ([Cl](#))\d+\b
       scope: constant.numeric.integer.decimal.s7.awl
       captures:
         1: storage.type.numeric.s7.awl
@@ -1121,7 +1122,7 @@ contexts:
   constants-s5time:
     # S5T#2H_59M_59S_999MS
     # S5TIME#2H_59M_59S_999MS
-    - match: S5T(?:IME)?(#)
+    - match: (?i:S5T(?:IME)?)(#)
       scope: storage.type.numeric.s7.awl
       captures:
         1: punctuation.separator.type.s7.awl
@@ -1145,7 +1146,7 @@ contexts:
   constants-iectime:
     # T#24D_23H_59M_59S_999MS
     # TIME#24D_23H_59M_59S_999MS
-    - match: T(?:IME)?(#)
+    - match: (?i:T(?:IME)?)(#)
       scope: storage.type.numeric.s7.awl
       captures:
         1: punctuation.separator.type.s7.awl
@@ -1189,17 +1190,17 @@ contexts:
       pop: true
 
   constants-time-minute:
-    - match: '[0-5]?\d(M(?!S))'
+    - match: '[0-5]?\d((?i:M(?!S)))'
       scope: constant.language.time.minute.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
       pop: true
-    - match: (?:((?!//)[^;])+?(?:M(?!S)|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?i:M(?!S)|(?=_)))?
       scope: invalid.illegal.time.minute.s7.awl
       pop: true
 
   constants-time-second:
-    - match: '[0-5]?\d(S)'
+    - match: '[0-5]?\d([Ss])'
       scope: constant.language.time.second.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
@@ -1209,12 +1210,12 @@ contexts:
       pop: true
 
   constants-time-millisecond:
-    - match: \d{0,3}(MS)
+    - match: \d{0,3}((?i:MS))
       scope: constant.language.time.millisecond.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
       pop: true
-    - match: (?:((?!//)[^;])+?(?:MS|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?i:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.s7.awl
       pop: true
 
@@ -1229,7 +1230,7 @@ contexts:
   constants-datetime:
     # DT#90-1-1-0:0:0.000
     - match: |-
-        (?x)
+        (?xi)
         ((?:DT|DATE_AND_TIME)\#)    # preamble
         \d{2,4}(-)                  # year
         (?:0?[1-9]|1[0-2])(-)       # month
@@ -1249,7 +1250,7 @@ contexts:
         7: punctuation.separator.time.s7.awl
     # DATE#90-1-1
     - match: |-
-        (?x)
+        (?xi)
         (D(?:ATE)?\#)               # preamble
         \d{2,4}(-)                  # year
         (?:0?[1-9]|1[0-2])(-)       # month
@@ -1261,7 +1262,7 @@ contexts:
         3: punctuation.separator.date.s7.awl
     # TOD#0:0:0.000
     - match: |-
-        (?x)
+        (?xi)
         ((?:TOD|TIME_OF_DAY)\#)     # preamble
         (?:[01]?[0-9]|2[0-4])(:)    # hour
         (?:[0-5]?[0-9])(:)          # minute
@@ -1316,11 +1317,11 @@ contexts:
 
   operands-datablock-absolute:
     # DB10, DB 10 : datablocks
-    - match: \bD[BI][ \t]*{{int}}
+    - match: \b(?i:D[BI])[ \t]*{{int}}
       scope: variable.language.db.s7.awl
 
   operands-datablock-indirect:
-    - match: \bD[BI](?=[ \t]*\[)
+    - match: \b(?i:D[BI])(?=[ \t]*\[)
       push:
         - meta_scope: variable.language.db.s7.awl
         - include: address-indirect
@@ -1333,17 +1334,17 @@ contexts:
     - include: operands-binary-indirect
 
   operands-binary-absolute:
-    - match: \b(?:DBNO|DINO|DBLG|DILG|STW)\b
+    - match: \b(?i:DBNO|DINO|DBLG|DILG|STW)\b
       scope: variable.language.s7.awl
     # EB10, EW10, ED10, PEB10, PEW10, PED10
     # AB10, AW10, AD10, PAB10, PAW10, PAD10
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
     # DIW10, DIW10, DID10
-    - match: \b(?:(?:P?[AE]|DI|[LMV])[BWD])[ \t]*{{int}}
+    - match: \b(?i:(?:P?[AE]|DI|[LMV])[BWD])[ \t]*{{int}}
       scope: variable.language.address.s7.awl
     # DBB10, DBD10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
-    - match: \b(?:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
+    - match: \b(?i:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
       captures:
         1: variable.language.db.s7.awl
         2: punctuation.accessor.dot.s7.awl
@@ -1353,7 +1354,7 @@ contexts:
     # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...], AB[], EB[], PAB[], PEB[]
     # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...], AW[], EW[], PAW[], PEW[]
     # D[...], MD [...], LD [...], VD [...], DID [...], DID[...], AD[], ED[], PAD[], PED[]
-    - match: \b(?:P?[AE]|D[BI]|[LMV])?[BWD](?=[ \t]*\[)
+    - match: \b(?i:P?[AE]|D[BI]|[LMV])?[BWD](?=[ \t]*\[)
       push:
         - meta_scope: variable.language.address.s7.awl
         - include: address-indirect
@@ -1368,13 +1369,13 @@ contexts:
   operands-counter-absolute:
     # C10, C 10 : counter (english)
     # Z10, Z 10 : counter (german)
-    - match: \b[CZ][ \t]*{{int}}
+    - match: \b(?i:[CZ])[ \t]*{{int}}
       scope: variable.language.counter.s7.awl
 
   operands-counter-indirect:
     # C[MW10], C [MW10] : counter (english)
     # Z[MW10], Z [MW10] : counter (german)
-    - match: \b[CZ](?=[ \t]*\[)
+    - match: \b(?i:[CZ])(?=[ \t]*\[)
       push:
         - meta_scope: variable.language.counter.s7.awl
         - include: address-indirect
@@ -1388,12 +1389,12 @@ contexts:
 
   operands-logical-absolute:
     # M 10.0, DIX 10.0, L 0.0, ...
-    - match: \b(?:DIX|[AELMV])\s*\d+(\.)\d+
+    - match: \b(?i:DIX|[AELMV])\s*\d+(\.)\d+
       scope: variable.language.address.s7.awl
       captures:
         1: punctuation.separator.decimal.s7.awl
     # DB10.DBX 10.0
-    - match: \b(?:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
+    - match: \b(?i:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
       captures:
         1: variable.language.db.s7.awl
         2: punctuation.accessor.dot.s7.awl
@@ -1403,12 +1404,12 @@ contexts:
     - match: (?:==|<>|>=|<=|<|>)0\b
       scope: variable.language.status.s7.awl
     # BIE, OV
-    - match: \b(?:BIE|OV)\b
+    - match: \b(?i:BIE|OV)\b
       scope: variable.language.status.s7.awl
 
   operands-logical-indirect:
     # DBX [AR1,P#0.0]
-    - match: \bD[BI]X(?=[ \t]*\[)
+    - match: \b(?i:D[BI]X)(?=[ \t]*\[)
       push:
         - meta_scope: variable.language.address.s7.awl
         - include: address-indirect
@@ -1424,12 +1425,12 @@ contexts:
 
   operands-timer-absolute:
     # T10, T 10 : timer
-    - match: \bT[ \t]*{{int}}
+    - match: \b[Tt][ \t]*{{int}}
       scope: variable.language.timer.s7.awl
 
   operands-timer-indirect:
     # T[MW10], T [MW10] : timer
-    - match: \bT(?=[ \t]*\[)
+    - match: \b[Tt](?=[ \t]*\[)
       push:
         - meta_scope: variable.language.timer.s7.awl
         - include: address-indirect
@@ -1486,7 +1487,7 @@ contexts:
         - include: constants-pointer
         - include: operands-binary-absolute
         - include: operands-symbols
-        - match: \bAR[12]\b
+        - match: \b(?i:AR)[12]\b
           scope: variable.language.address.s7.awl
 
   array-index:
