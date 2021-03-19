@@ -400,7 +400,7 @@ contexts:
 
   var-input-meta:
     - meta_scope: meta.block.var.input.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ VAR_OUTPUT ]##############################################################
 
@@ -411,7 +411,7 @@ contexts:
 
   var-output-meta:
     - meta_scope: meta.block.var.output.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ VAR_IN_OUT ]##############################################################
 
@@ -422,7 +422,7 @@ contexts:
 
   var-inout-meta:
     - meta_scope: meta.block.var.in-out.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ VAR ]#####################################################################
 
@@ -433,7 +433,7 @@ contexts:
 
   var-stat-meta:
     - meta_scope: meta.block.var.stat.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ VAR_TEMP ]################################################################
 
@@ -444,7 +444,7 @@ contexts:
 
   var-temp-meta:
     - meta_scope: meta.block.var.temp.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ END_VAR ]#################################################################
 
@@ -495,8 +495,7 @@ contexts:
     - match: (?=\S)
       set:
         - include: storage-type
-        - match: ''
-          pop: true
+        - include: immediately-pop
 
   storage-type:
     - include: storage-type-atomic
@@ -535,7 +534,7 @@ contexts:
 
   storage-type-array-meta:
     - meta_scope: meta.sequence.array.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
   storage-type-atomic:
     - match: \b(?i:VOID)\b
@@ -1139,7 +1138,7 @@ contexts:
 
   constants-s5time-meta:
     - meta_scope: constant.language.s5time.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ IEC TIME ]################################################################
 
@@ -1165,7 +1164,7 @@ contexts:
 
   constants-iectime-meta:
     - meta_scope: constant.language.iec-time.s7.awl
-    - include: else-pop
+    - include: immediately-pop
 
 ###[ TIME PROTOTYPES ]#########################################################
 
@@ -1521,7 +1520,7 @@ contexts:
           scope: punctuation.definition.comment.end.s7.awl
           pop: true
 
-  else-pop:
+  immediately-pop:
     - match: ''
       pop: true
 
