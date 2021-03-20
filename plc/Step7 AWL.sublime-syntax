@@ -123,8 +123,7 @@ contexts:
 
   block-udt-header:
     - meta_scope: meta.block.udt.header.s7.awl
-    - match: ;
-      scope: punctuation.terminator.line.s7.awl
+    - include: punctuation-terminators
     - include: annotations
     - include: attribute
     - include: version
@@ -153,8 +152,7 @@ contexts:
       set: [block-db-body, assert-line-end, block-body-begin]
     - match: \b(?i:NON_RETAIN|READ_ONLY)\b
       scope: entity.other.attribute-name.s7.awl
-    - match: ;
-      scope: punctuation.terminator.line.s7.awl
+    - include: punctuation-terminators
     - include: annotations
     - include: attribute
     - include: version
@@ -181,7 +179,7 @@ contexts:
         - include: operands-counter-absolute
         - include: operands-timer-absolute
         - include: string-double-quoted
-        - include: code-termination
+        - include: assert-stmt-end
     - include: line-end
 
   block-db-end:
@@ -480,9 +478,9 @@ contexts:
     - meta_scope: meta.definition.variable.s7.awl
     - match: ':'
       scope: punctuation.separator.key-value.s7.awl
-      set: [code-termination, variable-storage]
+      set: [assert-stmt-end, variable-storage]
     - include: annotations
-    - include: code-termination
+    - include: assert-stmt-end
 
   variable-storage:
     - meta_content_scope: meta.definition.variable.storage.s7.awl
@@ -695,13 +693,13 @@ contexts:
       captures:
         1: keyword.operator.logical.s7.awl
         2: punctuation.section.block.begin.s7.awl
-      push: [awl-stmt-block-body, code-termination]
+      push: [awl-stmt-block-body, assert-stmt-end]
 
   awl-stmt-block-body:
     - meta_scope: meta.block.logical.s7.awl
     - match: \)
       scope: punctuation.section.block.end.s7.awl
-      set: code-termination
+      set: assert-stmt-end
     - include: awl-statements
 
   awl-stmt-nop:
@@ -711,7 +709,7 @@ contexts:
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
-        - include: code-termination
+        - include: assert-stmt-end
 
   awl-stmt-logical:
     # U , UN , O, ON, X, XN, FP, FN
@@ -720,14 +718,14 @@ contexts:
       push:
         - meta_content_scope: meta.operand.logical.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     - match: \b(?i:CLR|NOT|SAVE|SET)\b
       scope: keyword.operator.logical.vke.s7.awl
-      push: code-termination
+      push: assert-stmt-end
     # ==I, ==D, <>I, <>D, <=I, <=D, >=I, >=D, <I, <D, >I, >D
     - match: (?:==|<>|<=|>=|<|>)[IDR]
       scope: keyword.operator.logical.s7.awl
-      push: code-termination
+      push: assert-stmt-end
 
   awl-stmt-bitwise:
     # UW, UD, OW, OD, XOW, XOD
@@ -736,11 +734,11 @@ contexts:
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-hex
-        - include: code-termination
+        - include: assert-stmt-end
     # INVI, INVD, NEGI, NEGD, NEGR
     - match: \b(?i:INV[ID]|NEG[IDR])\b
       scope: keyword.operator.bitwise.s7.awl
-      push: code-termination
+      push: assert-stmt-end
     # RLD, RLDA, RRD, RRDA
     # SLW, SLD, SRW, SRD
     # SSI, SSD
@@ -749,20 +747,20 @@ contexts:
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
-        - include: code-termination
+        - include: assert-stmt-end
 
   awl-stmt-aritmetical:
     # -I, -D, -R, +I, +D, +R, ...
     - match: '[-+*/][IDR]\b'
       scope: keyword.operator.arithmetic.s7.awl
-      push: code-termination
+      push: assert-stmt-end
     # INC, DEC
     - match: \b(?i:INC|DEC)\b
       scope: keyword.operator.arithmetic.s7.awl
       push:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-uint16
-        - include: code-termination
+        - include: assert-stmt-end
     # + 10, + -10, + L#20, + L#-20, + B#16#A
     - match: \+
       scope: keyword.operator.arithmetic.s7.awl
@@ -770,11 +768,11 @@ contexts:
         - meta_content_scope: meta.operand.constant.numeric.s7.awl
         - include: constants-int
         - include: constants-hex
-        - include: code-termination
+        - include: assert-stmt-end
     # 32-bit floating point operations
     - match: \b(?i:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
       scope: keyword.operator.arithmetic.s7.awl
-      push: code-termination
+      push: assert-stmt-end
     # type conversions
     # BTI, ITB, BTD, ITD, DTB, DTR
     # INVI, INVD, NEGI, NEGD, NEGR
@@ -782,7 +780,7 @@ contexts:
     # RND, RND+ RND-, TRUNC
     - match: \b(?i:IT[BD]|[BD]TI|DT[BR]|RND[-+]?|TRUNC|TA[WD])\b
       scope: keyword.operator.arithmetic.convert.s7.awl
-      push: code-termination
+      push: assert-stmt-end
 
   awl-stmt-assignment:
     # L, LC
@@ -795,47 +793,47 @@ contexts:
         - include: operands-counter
         - include: operands-timer
         - include: operands-symbols
-        - include: code-termination
+        - include: assert-stmt-end
     # T
     - match: \b(?i:T)\b
       scope: keyword.operator.assignment.s7.awl
       push:
         - meta_content_scope: meta.operand.assignment.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     # =, S, R
     - match: =|\b(?i:[RS])\b
       scope: keyword.operator.assignment.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.marker.s7.awl meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     # FR
     - match: \b(?i:FR)\b
       scope: keyword.operator.assignment.logical.s7.awl
       push:
         - meta_content_scope: meta.operand.counter.s7.awl meta.operand.timer.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     # SA, SE, SI, SS, SV
     - match: \b(?i:S[AEISV]?)\b
       scope: keyword.operator.timer.s7.awl
       push:
         - meta_content_scope: meta.operand.s5time.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     # ZV, ZR
     - match: \b(?i:Z[RV])\b
       scope: keyword.operator.counter.s7.awl
       push:
         - meta_content_scope: meta.operand.counter.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
 
   awl-stmt-akku:
     - match: \b(?i:POP|PUSH|TAK|ENT|LEAVE)\b
       scope: keyword.operator.assignment.akku.s7.awl
-      push: code-termination
+      push: assert-stmt-end
 
   awl-stmt-datablock:
     - match: \b(?i:AUF)\b
@@ -844,10 +842,10 @@ contexts:
         - meta_content_scope: meta.operand.datablock.s7.awl
         - include: operands-datablock
         - include: operands-symbols
-        - include: code-termination
+        - include: assert-stmt-end
     - match: \b(?i:TDB)\b
       scope: keyword.operator.db.s7.awl
-      push: code-termination
+      push: assert-stmt-end
 
   awl-stmt-address-register:
     # LAR1, LAR2
@@ -857,14 +855,14 @@ contexts:
         - meta_content_scope: meta.operand.pointer.s7.awl
         - include: constants-pointer
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     # TAR1, TAR2
     - match: \b(?i:TAR)[12]\b
       scope: keyword.operator.assignment.address-register.s7.awl
       push:
         - meta_content_scope: meta.operand.pointer.s7.awl
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
     # +AR1, +AR2
     - match: \+(?i:AR)[12]\b
       scope: keyword.operator.arithmetic.address-register.s7.awl
@@ -872,13 +870,13 @@ contexts:
         - meta_content_scope: meta.operand.pointer.s7.awl
         - include: constants-pointer
         - include: operands
-        - include: code-termination
+        - include: assert-stmt-end
 
   awl-stmt-goto:
     # BE, BEA, BEB
     - match: \b(?i:BE[AB]?)\b  # function block end
       scope: keyword.operator.blockend.s7.awl
-      push: code-termination
+      push: assert-stmt-end
     - match: |-
           \b(?xi:
               SPL       # case
@@ -901,8 +899,8 @@ contexts:
         - meta_content_scope: meta.operand.goto-label.s7.awl
         - match: \w{1,4}
           scope: entity.name.goto-label.s7.awl
-          set: code-termination
-        - include: code-termination
+          set: assert-stmt-end
+        - include: assert-stmt-end
 
 ###[ CALL ]####################################################################
 
@@ -913,7 +911,7 @@ contexts:
       push:
         - meta_content_scope: meta.function-call.name.s7.awl
         - include: awl-stmt-call-name
-        - include: code-termination
+        - include: assert-stmt-end
     # CALL
     - match: \b(?i:CALL)\b
       scope: meta.function-call.s7.awl keyword.control.call.s7.awl
@@ -924,7 +922,7 @@ contexts:
           set: awl-stmt-call-instance
         - include: awl-stmt-call-arguments
         - include: awl-stmt-call-name
-        - include: code-termination
+        - include: assert-stmt-end
 
   awl-stmt-call-name:
     # global symbols
@@ -958,7 +956,7 @@ contexts:
     - include: awl-stmt-call-arguments
     - include: operands-datablock-absolute
     - include: operands-symbols
-    - include: code-termination
+    - include: assert-stmt-end
 
   awl-stmt-call-arguments:
     - match: (?=\()
@@ -969,7 +967,7 @@ contexts:
             - meta_scope: meta.function-call.arguments.s7.awl meta.parens.s7.awl
             - match: \)
               scope: punctuation.section.parens.end.s7.awl
-              set: code-termination
+              set: assert-stmt-end
             - include: awl-stmt-mapping
 
 ###[ MAPPING ]#################################################################
@@ -1560,17 +1558,17 @@ contexts:
       scope: invalid.illegal.eol-expected.s7.awl
       pop: true
 
-  code-termination:
+  assert-stmt-end:
     - match: ;
-      scope: punctuation.terminator.line.s7.awl
+      scope: punctuation.terminator.statement.s7.awl
       set: assert-line-end
     - match: \S[^;\s]*
       scope: invalid.illegal.terminator-expected.s7.awl
     - include: illegal-eol
 
-  expect-code-termination:
-    - match: $|(?=;)
-      pop: true
+  punctuation-terminators:
+    - match: ;
+      scope: punctuation.terminator.statement.s7.awl
 
 ###############################################################################
 # ILLEAGAL
