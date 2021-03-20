@@ -185,12 +185,8 @@ contexts:
 
   block-db-value:
     - include: constants
-    - include: operands-binary-absolute
-    - include: operands-counter-absolute
-    - include: operands-datablock-absolute
-    - include: operands-logical-absolute
-    - include: operands-timer-absolute
-    - include: string-double-quoted
+    - include: operands-absolute
+    - include: operands-symbols
     - include: assert-stmt-end
 
   block-db-end:
@@ -522,12 +518,8 @@ contexts:
     - match: ','
       scope: punctuation.separator.sequence.s7.awl
     - include: constants
-    - include: operands-binary-absolute
-    - include: operands-counter-absolute
-    - include: operands-datablock-absolute
-    - include: operands-logical-absolute
-    - include: operands-timer-absolute
-    - include: string-double-quoted
+    - include: operands-absolute
+    - include: operands-symbols
     - include: scope-end
 
 ###[ STORAGE TYPES ]###########################################################
@@ -1023,11 +1015,7 @@ contexts:
   awl-stmt-mapping-value:
     - meta_content_scope: meta.mapping.value.s7.awl
     - include: constants
-    - include: operands-binary-absolute
-    - include: operands-counter-absolute
-    - include: operands-datablock-absolute
-    - include: operands-logical-absolute
-    - include: operands-timer-absolute
+    - include: operands-absolute
     - include: operands-symbols
     - include: awl-stmt-mapping-end
 
@@ -1353,6 +1341,13 @@ contexts:
     - include: operands-logical
     - include: operands-timer
     - include: operands-symbols
+
+  operands-absolute:
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-logical-absolute
+    - include: operands-timer-absolute
 
 ###[ DATABLOCK ]###############################################################
 
