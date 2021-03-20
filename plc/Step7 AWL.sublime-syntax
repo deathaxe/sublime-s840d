@@ -515,12 +515,32 @@ contexts:
 
   variable-value:
     - meta_content_scope: meta.definition.variable.value.s7.awl
-    - match: ','
-      scope: punctuation.separator.sequence.s7.awl
+    - include: comma-separators
     - include: constants
+    - include: lists
     - include: operands-absolute
     - include: operands-symbols
     - include: scope-end
+
+  lists:
+    - match: \[
+      scope: punctuation.section.sequence.begin.s7.awl
+      push: list-body
+
+  list-body:
+    - meta_scope: meta.sequence.list.s7.awl
+    - match: \]
+      scope: punctuation.section.sequence.end.s7.awl
+      pop: 1
+    - include: comma-separators
+    - include: constants
+    - include: lists
+    - include: operands-absolute
+    - include: operands-symbols
+
+  comma-separators:
+    - match: ','
+      scope: punctuation.separator.sequence.s7.awl
 
 ###[ STORAGE TYPES ]###########################################################
 

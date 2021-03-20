@@ -392,22 +392,27 @@
 //                              ^^ punctuation.definition.comment.begin
 //                              ^^^^^^^ comment.line.double-slash
 //                                     ^ - invalid
-            DWORD := DW#16#0, DW#16#2, DW#16#A ;  //integer
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
+            DWORD := [ DW#16#0, DW#16#2, DW#16#A ] ;  //integer
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //^^^^^^^^^^^^^^^^ meta.definition.variable.storage
 //^^^^^^^^^^^^^^^ meta.sequence.array
+//               ^^^^ - meta.sequence
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.list.s7.awl
+//                                                ^ - meta.sequence
 //          ^^^^^ storage.type.dword
 //                ^^ keyword.operator.assignment
-//                   ^^^^^^^ constant.numeric.integer.hexadecimal
-//                          ^ punctuation.separator.sequence
-//                            ^^^^^^^ constant.numeric.integer.hexadecimal
-//                                   ^ punctuation.separator.sequence
-//                                     ^^^^^^^ constant.numeric.integer.hexadecimal
-//                                            ^ - invalid
-//                                             ^ punctuation.terminator.statement
-//                                              ^^ - invalid
-//                                                ^^^^^^^^^ comment.line.double-slash
-//                                                         ^ - invalid
+//                   ^ punctuation.section.sequence.begin
+//                     ^^^^^^^ constant.numeric.integer.hexadecimal
+//                            ^ punctuation.separator.sequence
+//                              ^^^^^^^ constant.numeric.integer.hexadecimal
+//                                     ^ punctuation.separator.sequence
+//                                       ^^^^^^^ constant.numeric.integer.hexadecimal
+//                                               ^ punctuation.section.sequence.end
+//                                                ^ - invalid
+//                                                 ^ punctuation.terminator.statement
+//                                                  ^^ - invalid
+//                                                    ^^^^^^^^^ comment.line.double-slash
+//                                                             ^ - invalid
      _ST  : STRUCT  //structure
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
