@@ -103,10 +103,12 @@ contexts:
   return-type:
     - match: ':'
       scope: punctuation.separator.mapping.pair.s7.awl
-      set:
-        - meta_content_scope: meta.function.return-type.s7.awl
-        - include: storage-type
-        - include: line-end
+      set: return-type-content
+    - include: line-end
+
+  return-type-content:
+    - meta_content_scope: meta.function.return-type.s7.awl
+    - include: storage-type
     - include: line-end
 
   block-body-begin:
@@ -125,19 +127,22 @@ contexts:
 
   block-udt-header:
     - meta_scope: meta.block.udt.header.s7.awl
+    - include: block-udt-end
+    - include: block-udt-header-content
+    - include: illegal
+
+  block-udt-header-content:
     - include: punctuation-terminators
     - include: annotations
     - include: attribute
     - include: version
     - include: storage-type-struct
     - include: operands-symbols
-    - include: block-udt-end
 
   block-udt-end:
     - match: \b(?i:END_TYPE)\b
       scope: keyword.other.udt.end.s7.awl
       set: assert-line-end
-    - include: illegal
 
 ###############################################################################
 # DB : DATA_BLOCK                                                             #
@@ -152,6 +157,11 @@ contexts:
     - meta_scope: meta.block.db.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-db-body, assert-line-end, block-body-begin]
+    - include: block-db-end
+    - include: block-db-hearder-content
+    - include: illegal
+
+  block-db-hearder-content:
     - match: \b(?i:NON_RETAIN|READ_ONLY)\b
       scope: entity.other.attribute-name.s7.awl
     - include: punctuation-terminators
@@ -160,8 +170,6 @@ contexts:
     - include: version
     - include: storage-type-struct
     - include: operands-symbols
-    - include: block-db-end
-    - include: illegal
 
   block-db-body:
     - meta_scope: meta.block.db.body.s7.awl
@@ -202,6 +210,10 @@ contexts:
     - meta_scope: meta.block.fb.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-fb-body, assert-line-end, block-body-begin]
+    - include: block-fb-end
+    - include: block-fb-header-content
+
+  block-fb-header-content:
     - include: annotations
     - include: attribute
     - include: version
@@ -210,18 +222,17 @@ contexts:
     - include: var-inout
     - include: var-stat
     - include: var-temp
-    - include: block-fb-end
 
   block-fb-body:
     - meta_scope: meta.block.fb.body.s7.awl
-    - include: network
     - include: block-fb-end
+    - include: network
+    - include: illegal
 
   block-fb-end:
     - match: \b(?i:END_FUNCTION_BLOCK)\b
       scope: keyword.other.fb.end.s7.awl
       set: assert-line-end
-    - include: illegal
 
 ###############################################################################
 # FC : FUNCTION                                                               #
@@ -236,6 +247,11 @@ contexts:
     - meta_scope: meta.block.fc.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-fc-body, assert-line-end, block-body-begin]
+    - include: block-fc-end
+    - include: block-fc-header-content
+    - include: illegal
+
+  block-fc-header-content:
     - include: annotations
     - include: attribute
     - include: version
@@ -243,18 +259,17 @@ contexts:
     - include: var-output
     - include: var-inout
     - include: var-temp
-    - include: block-fc-end
 
   block-fc-body:
     - meta_scope: meta.block.fc.body.s7.awl
-    - include: network
     - include: block-fc-end
+    - include: network
+    - include: illegal
 
   block-fc-end:
     - match: \b(?i:END_FUNCTION)\b
       scope: keyword.other.fc.end.s7.awl
       set: assert-line-end
-    - include: illegal
 
 ###############################################################################
 # OB : ORGANIZATION_BLOCK                                                     #
@@ -269,22 +284,26 @@ contexts:
     - meta_scope: meta.block.ob.header.s7.awl
     - match: (?=\b(?i:BEGIN)\b)
       set: [block-ob-body, assert-line-end, block-body-begin]
+    - include: block-ob-end
+    - include: block-ob-header-content
+    - include: illegal
+
+  block-ob-header-content:
     - include: annotations
     - include: attribute
     - include: version
     - include: var-temp
-    - include: block-ob-end
 
   block-ob-body:
     - meta_scope: meta.block.ob.body.s7.awl
-    - include: network
     - include: block-ob-end
+    - include: network
+    - include: illegal
 
   block-ob-end:
     - match: \b(?i:END_ORGANIZATION_BLOCK)\b
       scope: keyword.other.ob.end.s7.awl
       set: assert-line-end
-    - include: illegal
 
 ###############################################################################
 #  HEADER DATA                                                                #
