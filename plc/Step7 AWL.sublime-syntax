@@ -556,16 +556,21 @@ contexts:
   storage-type-array-dimension:
     - match: \[
       scope: punctuation.definition.array.begin.s7.awl
-      set:
-        - meta_scope: meta.array-size.s7.awl
-        - match: \]
-          scope: punctuation.definition.array.end.s7.awl
-          set: storage-type-array-item
-        - match: \.\.
-          scope: punctuation.separator.sequence.s7.awl
-        - include: constants-uint16
-        - include: assert-line-end
+      set: storage-type-array-dimension-body
     - include: assert-line-end
+
+  storage-type-array-dimension-body:
+    - meta_scope: meta.array-size.s7.awl
+    - match: \]
+      scope: punctuation.definition.array.end.s7.awl
+      set: storage-type-array-item
+    - include: operators-range
+    - include: constants-uint16
+    - include: assert-line-end
+
+  operators-range:
+    - match: \.\.
+      scope: keyword.operator.range.s7.awl
 
   storage-type-array-item:
     - match: \b(?i:OF)\b
