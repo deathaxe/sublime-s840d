@@ -37,6 +37,14 @@ file_extensions:
 variables:
   int: \d+\b(?![.][^.])
 
+  context_keywords: |-
+    \b(?xi:
+      BEGIN
+    | VAR  ( _INPUT | _OUTPUT | _IN_OUT | _TEMP )?
+    | ( END_ ) ? ( DATABLOCK | FUNCTION ( _BLOCK )? | ORGANIZATION_BLOCK | TYPE )
+    )\b
+
+
 ###############################################################################
 # MAIN CONTEXT
 ###############################################################################
@@ -457,6 +465,8 @@ contexts:
     - match: \b(?i:END_VAR)\b
       scope: keyword.control.var.end.s7.awl
       set: assert-line-end
+    - match: (?={{context_keywords}})
+      pop: true
     - include: variable
 
 ###[ VARIABLE DECLARATIONS ]###################################################
