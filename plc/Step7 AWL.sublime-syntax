@@ -28,6 +28,7 @@
 # https://www.sublimetext.com/docs/3/scope_naming.html
 name: Step7 AWL
 scope: source.s7.awl
+version: 2
 
 file_extensions:
   - awl
@@ -88,16 +89,16 @@ contexts:
         - meta_content_scope: entity.name.block.s7.awl
         - match: \"
           scope: punctuation.definition.string.end.s7.awl
-          pop: true
+          pop: 1
         - include: illegal-eol
     # absolute address
     - match: \b(?i:OB|S?(?:F[BC]|DB)|UDT)\s*\d+\b
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
-      pop: true
+      pop: 1
     # unquoted string symbol
     - match: '{{ident}}'
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
-      pop: true
+      pop: 1
     - include: scope-end
 
   return-type:
@@ -114,7 +115,7 @@ contexts:
   block-body-begin:
     - match: (?i:BEGIN)\b
       scope: keyword.other.begin.s7.awl
-      pop: true
+      pop: 1
 
 ###############################################################################
 # UDT : TYPE                                                                  #
@@ -325,6 +326,7 @@ contexts:
     - meta_scope: meta.annotation.s7.awl
     - meta_content_scope: meta.mapping.key.s7.awl
     - match: ({{ident}})\s*(.*?)\s*(?=:=)
+      scope: meta.mapping.key.s7.awl
       captures:
         1: variable.annotation.s7.awl
         2: invalid.illegal.separator-expected.s7.awl
@@ -332,25 +334,23 @@ contexts:
     - include: annotation-end
 
   annotation-separator:
-    - meta_content_scope: meta.annotation.s7.awl meta.mapping.s7.awl
     - match: :=
-      scope: punctuation.separator.key-value.s7.awl
+      scope: meta.mapping.s7.awl punctuation.separator.key-value.s7.awl
       set: annotation-value
     - include: annotation-end
 
   annotation-value:
-    - meta_content_scope: meta.annotation.s7.awl meta.mapping.value.s7.awl
+    - meta_scope: meta.annotation.s7.awl
+    - meta_content_scope: meta.mapping.value.s7.awl
     - include: string-single-quoted
     - include: annotation-end
 
   annotation-end:
     - match: \}
-      scope:
-        meta.annotation.s7.awl meta.mapping.s7.awl
-        punctuation.section.mapping.end.s7.awl
-      pop: true
+      scope: meta.mapping.s7.awl punctuation.section.mapping.end.s7.awl
+      pop: 1
     - match: \;
-      scope: punctuation.separator.mapping.pair.s7.awl
+      scope: meta.mapping.s7.awl punctuation.separator.mapping.pair.s7.awl
       set: annotation-key
     - include: illegal
 
@@ -361,7 +361,7 @@ contexts:
       scope: entity.other.attribute-name.title.s7.awl
       set: title-separator
     - match: (?=\S)
-      pop: true
+      pop: 1
 
   title-separator:
     - meta_scope: meta.mapping.key.s7.awl
@@ -482,7 +482,7 @@ contexts:
       scope: keyword.control.var.end.s7.awl
       set: assert-line-end
     - match: (?={{context_keywords}})
-      pop: true
+      pop: 1
     - include: variable-declarations
 
 ###[ VARIABLE DECLARATIONS ]###################################################
@@ -506,16 +506,11 @@ contexts:
 
   variable-storage:
     - meta_content_scope: meta.definition.variable.storage.s7.awl
-    - match: (?=:=)
-      set: variable-separator-storage-value
+    - match: :=
+      scope: meta.definition.variable.s7.awl keyword.operator.assignment.s7.awl
+      set: variable-value
     - include: storage-type
     - include: scope-end
-
-  variable-separator-storage-value:
-    - meta_content_scope: meta.definition.variable.s7.awl
-    - match: :=
-      scope: keyword.operator.assignment.s7.awl
-      set: variable-value
 
   variable-value:
     - meta_content_scope: meta.definition.variable.value.s7.awl
@@ -657,7 +652,7 @@ contexts:
             - meta_content_scope: meta.string-size.s7.awl
             - match: \]
               scope: punctuation.definition.string-size.end.s7.awl
-              pop: true
+              pop: 1
             - include: constants-uint16
         - include: scope-end
 
@@ -670,7 +665,7 @@ contexts:
     - meta_scope: meta.struct.s7.awl
     - match: \b(?i:END_STRUCT)\b
       scope: storage.type.struct.end.s7.awl
-      pop: true
+      pop: 1
     - include: variable-declarations
 
   storage-type-user:
@@ -708,7 +703,7 @@ contexts:
   awl-network-body:
     - meta_scope: meta.block.network.s7.awl
     - match: (?=(?i:NETWORK|END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
-      pop: true
+      pop: 1
     - include: awl-statements
 
 ###############################################################################
@@ -966,7 +961,7 @@ contexts:
       push:
         - meta_content_scope: meta.function-call.name.s7.awl
         - match: ','
-          scope: punctuation.separator.sequence.s7.awl
+          scope: meta.function-call.s7.awl punctuation.separator.sequence.s7.awl
           set: awl-stmt-call-instance
         - include: awl-stmt-call-arguments
         - include: awl-stmt-call-name
@@ -986,10 +981,10 @@ contexts:
           scope:
             string.quoted.double.s7.awl
             punctuation.definition.string.end.s7.awl
-          pop: true
+          pop: 1
         - match: '[^"]$'
           scope: invalid.illegal.s7.awl
-          pop: true
+          pop: 1
     # absolute address
     - match: (?i:S?F[BC])\s*\d+\b
       scope: variable.function.address.s7.awl
@@ -1007,48 +1002,29 @@ contexts:
     - include: assert-stmt-end
 
   awl-stmt-call-arguments:
-    - match: (?=\()
-      set:
-        - match: \(
-          scope: punctuation.section.parens.begin.s7.awl
-          set:
-            - meta_scope: meta.function-call.arguments.s7.awl meta.parens.s7.awl
-            - match: \)
-              scope: punctuation.section.parens.end.s7.awl
-              set: assert-stmt-end
-            - include: awl-stmt-mapping
+    - match: \(
+      scope: punctuation.section.parens.begin.s7.awl
+      set: awl-stmt-call-arguments-body
 
-###[ MAPPING ]#################################################################
-
-  awl-stmt-mapping:
+  awl-stmt-call-arguments-body:
+    - meta_scope: meta.function-call.arguments.s7.awl meta.parens.s7.awl
+    - match: \)
+      scope: punctuation.section.parens.end.s7.awl
+      set: assert-stmt-end
+    - match: :=
+      scope: keyword.operator.assignment.s7.awl
+      push: arguments-value
+    - match: ','
+      scope: punctuation.separator.sequence.s7.awl
     - match: '{{ident}}'
       scope: variable.parameter.s7.awl
-      push:
-        - meta_scope: meta.mapping.key.s7.awl
-        - match: (?=:=)
-          set: awl-stmt-mapping-separator
-        - include: assert-line-end
 
-  awl-stmt-mapping-separator:
-    - meta_content_scope: meta.mapping.s7.awl
-    - match: :=
-      scope: punctuation.separator.key-value.s7.awl
-      set: awl-stmt-mapping-value
-    - include: awl-stmt-mapping-end
-
-  awl-stmt-mapping-value:
-    - meta_content_scope: meta.mapping.value.s7.awl
+  arguments-value:
+    - match: (?=[,)])
+      pop: 1
     - include: constants
     - include: operands-absolute
     - include: operands-symbols
-    - include: awl-stmt-mapping-end
-
-  awl-stmt-mapping-end:
-    - match: ','
-      scope: meta.mapping.s7.awl punctuation.separator.mapping.pair.s7.awl
-      pop: true
-    - match: (?=\))
-      pop: true
 
 ###############################################################################
 # CONSTANTS                                                                   #
@@ -1144,7 +1120,7 @@ contexts:
       push:
         - meta_scope: constant.numeric.bin.s7.awl
         - match: (?=\W)
-          pop: true
+          pop: 1
         - match: _
           scope: punctuation.separator.bin.s7.awl
         - match: '[^01_]'
@@ -1231,56 +1207,56 @@ contexts:
       scope: constant.language.time.day.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
-      pop: true
+      pop: 1
     - match: (?:((?!//)[^;])+?(?:D|(?=_)))?
       scope: invalid.illegal.time.day.s7.awl
-      pop: true
+      pop: 1
 
   constants-time-hour:
     - match: (?:[01]?[0-9]|2[0-4])(H)
       scope: constant.language.time.hour.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
-      pop: true
+      pop: 1
     - match: (?:((?!//)[^;])+?(?:H|(?=_)))?
       scope: invalid.illegal.time.hour.s7.awl
-      pop: true
+      pop: 1
 
   constants-time-minute:
     - match: '[0-5]?\d((?i:M(?!S)))'
       scope: constant.language.time.minute.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
-      pop: true
+      pop: 1
     - match: (?:((?!//)[^;])+?(?i:M(?!S)|(?=_)))?
       scope: invalid.illegal.time.minute.s7.awl
-      pop: true
+      pop: 1
 
   constants-time-second:
     - match: '[0-5]?\d([Ss])'
       scope: constant.language.time.second.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
-      pop: true
+      pop: 1
     - match: (?:((?!//)[^;])+?(?:[^M]S|(?=_)))?
       scope: invalid.illegal.time.second.s7.awl
-      pop: true
+      pop: 1
 
   constants-time-millisecond:
     - match: \d{0,3}((?i:MS))
       scope: constant.language.time.millisecond.s7.awl
       captures:
         1: keyword.other.unit.s7.awl
-      pop: true
+      pop: 1
     - match: (?:((?!//)[^;])+?(?i:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.s7.awl
-      pop: true
+      pop: 1
 
   constants-time-sep:
     # separator is optional
     - match: _?
       scope: punctuation.separator.time.s7.awl
-      pop: true
+      pop: 1
 
 ###[ DATE AND TIME ]###########################################################
 
@@ -1340,7 +1316,7 @@ contexts:
         - meta_scope: string.quoted.double.s7.awl
         - match: \"
           scope: punctuation.definition.string.end.s7.awl
-          pop: true
+          pop: 1
         - include: illegal-eol
 
   string-single-quoted:
@@ -1351,7 +1327,7 @@ contexts:
         - meta_scope: string.quoted.single.s7.awl
         - match: \'
           scope: punctuation.definition.string.end.s7.awl
-          pop: true
+          pop: 1
         - include: illegal-eol
 
 ###############################################################################
@@ -1524,10 +1500,10 @@ contexts:
       scope:
         string.quoted.double.s7.awl
         punctuation.definition.string.end.s7.awl
-      pop: true
+      pop: 1
     - match: '[^"]$'
       scope: invalid.illegal.s7.awl
-      pop: true
+      pop: 1
 
   struct-members:
     - match: (\.)({{ident}})
@@ -1548,7 +1524,7 @@ contexts:
     - meta_scope: meta.brackets.s7.awl
     - match: \]
       scope: punctuation.section.brackets.end.s7.awl
-      pop: true
+      pop: 1
     - include: illegal-eol
     - include: constants-pointer
     - include: operands-binary-absolute
@@ -1567,7 +1543,7 @@ contexts:
     - meta_scope: meta.brackets.s7.awl
     - match: \]
       scope: punctuation.section.brackets.end.s7.awl
-      pop: true
+      pop: 1
     - include: illegal-eol
     - include: comma-separators
     - include: constants-uint16
@@ -1588,19 +1564,19 @@ contexts:
         - meta_scope: comment.block.double-slash.s7.awl
         - match: \*\)
           scope: punctuation.definition.comment.end.s7.awl
-          pop: true
+          pop: 1
 
   immediately-pop:
     - match: ''
-      pop: true
+      pop: 1
 
   scope-end:
     - match: $|(?=\S)
-      pop: true
+      pop: 1
 
   line-end:
     - match: $
-      pop: true
+      pop: 1
 
   line-end-or-illegal:
     - include: line-end
@@ -1612,7 +1588,7 @@ contexts:
     # none whitespace letter
     - match: \S.*?(?=//|$)
       scope: invalid.illegal.eol-expected.s7.awl
-      pop: true
+      pop: 1
 
   assert-stmt-end:
     - match: ;
@@ -1644,7 +1620,7 @@ contexts:
       push:
         - meta_scope: invalid.illegal.group.s7.awl
         - match: \)|$
-          pop: true
+          pop: 1
         - include: ignore-parens
 
   illegal-square:
@@ -1652,13 +1628,13 @@ contexts:
       push:
         - meta_scope: invalid.illegal.array.s7.awl
         - match: \]|$
-          pop: true
+          pop: 1
         - include: ignore-square
 
   illegal-eol:
     - match: $\n?
       scope: invalid.illegal.eol.s7.awl
-      pop: true
+      pop: 1
 
 ###############################################################################
 # IGNORED NESTED PARENTHESES AND BRAKETS
@@ -1669,12 +1645,12 @@ contexts:
     - match: \(
       push:
         - match: \)|$
-          pop: true
+          pop: 1
         - include: ignore-parens
 
   ignore-square:
     - match: \[
       push:
         - match: \]|$
-          pop: true
+          pop: 1
         - include: ignore-square

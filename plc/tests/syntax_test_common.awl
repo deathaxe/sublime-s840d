@@ -1002,24 +1002,24 @@
       AUF   DB 10;
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
 //^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^^ meta.operand.datablock.s7.awl
-//                ^ - meta.operand.datablock.s7.awl
+//       ^^^^^^^^ meta.operand.datablock.s7.awl
+//               ^^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
 //          ^^^^^ variable.language.db.s7.awl
 //               ^ punctuation.terminator.statement.s7.awl
       AUF   DB [MW 10];
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
 //^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
-//                     ^ - meta.operand.datablock.s7.awl
+//       ^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
+//                    ^^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
 //          ^^^^^^^^^^ variable.language.db.s7.awl
 //                    ^ punctuation.terminator.statement.s7.awl
       AUF   "IDB_Block";
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
 //^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
-//                      ^ - meta.operand.datablock.s7.awl
+//       ^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
+//                     ^^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
 //          ^ string.quoted.double punctuation.definition.string.begin
 //          ^^^^^^^^^^^ meta.string
@@ -1029,16 +1029,16 @@
       AUF   DBNO;
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
 //^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^ meta.operand.datablock.s7.awl
-//               ^ - meta.operand.datablock.s7.awl
+//       ^^^^^^^ meta.operand.datablock.s7.awl
+//              ^^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
 //          ^^^^ invalid.illegal
 //              ^ punctuation.terminator.statement.s7.awl
       AUF   DINO;
 // <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
 //^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^ meta.operand.datablock.s7.awl
-//               ^ - meta.operand.datablock.s7.awl
+//       ^^^^^^^ meta.operand.datablock.s7.awl
+//              ^^ - meta.operand.datablock.s7.awl
 //    ^^^ keyword.operator.load.db.s7.awl
 //          ^^^^ invalid.illegal
 //              ^ punctuation.terminator.statement.s7.awl
@@ -1055,7 +1055,8 @@
       U     E3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
 //            ^ punctuation.separator.decimal
@@ -1064,7 +1065,8 @@
       U     A3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
 //            ^ punctuation.separator.decimal
@@ -1073,7 +1075,8 @@
       U     L3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
 //            ^ punctuation.separator.decimal
@@ -1082,7 +1085,8 @@
       U     M3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
 //            ^ punctuation.separator.decimal
@@ -1091,7 +1095,8 @@
       U     DBX3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^^^ meta.operand.logical.s7.awl
+//                ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^^^ variable.language.address
 //              ^ punctuation.separator.decimal
@@ -1100,7 +1105,8 @@
       U     DIX3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^^^ meta.operand.logical.s7.awl
+//                ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^^^ variable.language.address
 //              ^ punctuation.separator.decimal
@@ -1109,7 +1115,8 @@
       U     DB10.DBX3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//                     ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.db
 //              ^ punctuation.accessor.dot
@@ -1880,6 +1887,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //
 ///////////////////////////////////////////////////////////////////////////////
+
       CALL "ALARM_SQ" (
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1894,113 +1902,78 @@
            EN      := L 4.0,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^ meta.mapping.value - meta.mapping.key
-//                        ^ meta.mapping
 //         ^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^^^ variable.language.address.s7.awl
-//                         ^ punctuation.separator.mapping.pair.s7.awl
+//                         ^ punctuation.separator.sequence.s7.awl
            INTF    := DB 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^ meta.mapping.value - meta.mapping.key
-//                        ^ meta.mapping
 //         ^^^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^^ variable.language.db.s7.awl
+//                        ^ punctuation.separator.sequence.s7.awl
            TMR     := T 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^ meta.mapping.value - meta.mapping.key
-//                       ^ meta.mapping
 //         ^^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^ variable.language.timer.s7.awl
+//                       ^ punctuation.separator.sequence.s7.awl
            CNT     := Z 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^ meta.mapping.value - meta.mapping.key
-//                       ^ meta.mapping
 //         ^^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^ variable.language.counter.s7.awl
+//                       ^ punctuation.separator.sequence.s7.awl
            SIG     := "msgs".A700127,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
-//                                  ^ meta.mapping
 //         ^^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^ string.quoted.double punctuation.definition.string.begin - variable
 //                    ^^^^^^ meta.string
 //                     ^^^^ variable.other.symbol - string
 //                         ^ string.quoted.double punctuation.definition.string.end - variable
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
-//                                  ^ punctuation.separator.mapping.pair
+//                                  ^ punctuation.separator.sequence.s7.awl
            ID      := W#16#EEEE,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^^^^^^ meta.mapping.value - meta.mapping.key
-//                             ^ meta.mapping
 //         ^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^ constant.numeric.integer.hexadecimal
-//                             ^ punctuation.separator.mapping.pair
+//                             ^ punctuation.separator.sequence.s7.awl
            EV_ID   := DW#16#AAEDF,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
-//                               ^ meta.mapping
 //         ^^^^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^ constant.numeric.integer.hexadecimal
-//                               ^ punctuation.separator.mapping.pair
+//                               ^ punctuation.separator.sequence.s7.awl
            ANY     := P# DB20.DBX40.0 WORD 10,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
 //                                    ^^^^ storage.type.s7.awl
-//                                           ^ meta.mapping
 //         ^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.any-pointer
+//                                           ^ punctuation.separator.sequence.s7.awl
            SD      := #data,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^^ meta.mapping.value - meta.mapping.key
-//                         ^ meta.mapping
 //         ^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^ punctuation.definition.variable.begin
 //                     ^^^^ variable.other.local
-//                         ^ punctuation.separator.mapping.pair
+//                         ^ punctuation.separator.sequence.s7.awl
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//         ^^^^^^^^  meta.mapping.key
-//                 ^^ meta.mapping - meta.mapping.key - meta.mapping.value
-//                   ^^^^^^ meta.mapping.value - meta.mapping.key
 //         ^^^^^^^ variable.parameter
-//                 ^^ punctuation.separator.key-value
+//                 ^^ keyword.operator.assignment
 //                    ^^^^^ variable.language.address
 //                         ^ punctuation.section.parens.end
 //                          ^ punctuation.terminator.statement
@@ -2025,7 +1998,8 @@
 
    CALL FB 10, DB 10 ();
 // ^^^^ meta.function-call.s7.awl - meta.function-call meta.function-call
-//     ^^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
+//     ^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
+//           ^ meta.function-call.s7.awl - meta.function-call meta.function-call
 //            ^^^^^^^ meta.function-call.instance.s7.awl - meta.function-call meta.function-call
 //                   ^^ meta.function-call.arguments.s7.awl - meta.function-call meta.function-call
 // ^^^^ keyword.control.call.s7.awl
@@ -2037,7 +2011,8 @@
 
    CALL "Block", "InstDB" ();
 // ^^^^ meta.function-call.s7.awl - meta.function-call meta.function-call
-//     ^^^^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
+//     ^^^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
+//             ^ meta.function-call.s7.awl - meta.function-call meta.function-call
 //              ^^^^^^^^^^ meta.function-call.instance.s7.awl - meta.function-call meta.function-call
 //                        ^^ meta.function-call.arguments.s7.awl - meta.function-call meta.function-call
 // ^^^^ keyword.control.call.s7.awl
