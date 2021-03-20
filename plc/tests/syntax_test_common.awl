@@ -70,7 +70,7 @@
 //^^^^^^^ meta.block.udt.header meta.struct
 //^^^^^^ storage.type.struct.begin
      ID  : INT := 20 ;  //integer
-// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.s7.awl meta.struct.s7.awl
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
 //        ^^^^^ meta.definition.variable.storage
 //             ^^ meta.definition.variable - meta.definition.variable.storage - meta.definition.variable.value
@@ -84,6 +84,28 @@
 //                    ^^ - invalid
 //                      ^^^^^^^^^ comment.line.double-slash
 //                               ^ - invalid
+     PTR : POINTER := P#0.0;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.s7.awl meta.struct.s7.awl
+//   ^^^^^ meta.definition.variable.s7.awl
+//        ^^^^^^^^^ meta.definition.variable.storage.s7.awl
+//                 ^^ meta.definition.variable.s7.awl
+//                   ^^^^^^ meta.definition.variable.value.s7.awl
+//   ^^^ variable.other.s7.awl
+//       ^ punctuation.separator.key-value.s7.awl
+//         ^^^^^^^ storage.type.pointer.s7.awl
+//                 ^^ keyword.operator.assignment.s7.awl
+//                    ^^^^^ constant.language.pointer.s7.awl
+     TMR : TIMER := T0;
+// ^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.s7.awl meta.struct.s7.awl
+//   ^^^^^ meta.definition.variable.s7.awl
+//        ^^^^^^^ meta.definition.variable.storage.s7.awl
+//               ^^ meta.definition.variable.s7.awl
+//                 ^^^ meta.definition.variable.value.s7.awl
+//   ^^^ variable.other.s7.awl
+//       ^ punctuation.separator.key-value.s7.awl
+//         ^^^^^ storage.type.timer.s7.awl
+//               ^^ keyword.operator.assignment.s7.awl
+//                  ^^ variable.language.timer.s7.awl
   END_STRUCT ;
 //^^^^^^^^^^^^^ meta.block.udt.header
 //^^^^^^^^^^ meta.struct storage.type.struct.end

@@ -174,23 +174,24 @@ contexts:
   block-db-body:
     - meta_scope: meta.block.db.body.s7.awl
     - include: block-db-end
+    - include: punctuation-terminators
     - match: '{{ident}}'
       scope: variable.other.local.s7.awl
-      push: [block-db-value, struct-members, array-index]
+      push: [struct-members, array-index]
+    - match: :=
+      scope: keyword.operator.assignment.s7.awl
+      push: block-db-value
     - include: illegal
 
   block-db-value:
-    # TODO: merge with declaration?
-    - match: :=
-      scope: keyword.operator.assignment.s7.awl
-      set:
-        - include: constants
-        - include: operands-datablock-absolute
-        - include: operands-counter-absolute
-        - include: operands-timer-absolute
-        - include: string-double-quoted
-        - include: assert-stmt-end
-    - include: line-end
+    - include: constants
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-logical-absolute
+    - include: operands-timer-absolute
+    - include: string-double-quoted
+    - include: assert-stmt-end
 
   block-db-end:
     - match: \b(?i:END_DATA_BLOCK)\b
@@ -521,6 +522,11 @@ contexts:
     - match: ','
       scope: punctuation.separator.sequence.s7.awl
     - include: constants
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-logical-absolute
+    - include: operands-timer-absolute
     - include: string-double-quoted
     - include: scope-end
 
