@@ -467,11 +467,11 @@ contexts:
       set: assert-line-end
     - match: (?={{context_keywords}})
       pop: true
-    - include: variable
+    - include: variable-declarations
 
 ###[ VARIABLE DECLARATIONS ]###################################################
 
-  variable:
+  variable-declarations:
     - match: '{{ident}}'
       scope: variable.other.s7.awl
       push: variable-separator-name-storage
@@ -625,7 +625,7 @@ contexts:
     - match: \b(?i:END_STRUCT)\b
       scope: storage.type.struct.end.s7.awl
       pop: true
-    - include: variable
+    - include: variable-declarations
 
   storage-type-user:
     # user defined types (UDT, DB, FB)
