@@ -1127,7 +1127,7 @@ contexts:
       scope: constant.language.boolean.s7.awl
 
   constants-float:
-    - match: '[-+]?\d+(\.)\d+[Ee][-+]\d+\b'
+    - match: '[-+]?\d+(\.)\d+(?:[Ee][-+]\d+)?\b'
       scope: constant.numeric.float.decimal.s7.awl
       captures:
         1: punctuation.separator.decimal.s7.awl

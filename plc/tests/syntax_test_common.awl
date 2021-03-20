@@ -446,17 +446,34 @@
 //                 ^^ - invalid
 //                   ^^^^^^^^^ comment.line.double-slash
 //                            ^ - invalid
-       _S1  : STRING[32] ;  //string
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
-//     ^^^^^ meta.definition.variable
-//           ^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+       _S1  : STRING[32] := 'initial';  //string
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
+//     ^^^^^^ meta.definition.variable
+//           ^^^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//                       ^^ meta.definition.variable.storage meta.definition.variable
+//                         ^^^^^^^^^^ meta.definition.variable.storage meta.definition.variable.value
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
-//                       ^ punctuation.terminator.statement
-//                        ^^ - invalid
-//                          ^^^^^^^^ comment.line.double-slash
-//                                  ^ - invalid
+//                       ^^ keyword.operator.assignment.s7.awl
+//                          ^^^^^^^^^ string.quoted.single.s7.awl
+//                                   ^ punctuation.terminator.statement
+//                                    ^^ - invalid
+//                                      ^^^^^^^^ comment.line.double-slash
+//                                              ^ - invalid
+       _V   : FLOAT := -1.2 ;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input meta.definition.variable.storage meta.struct
+//     ^^^^^^ meta.definition.variable
+//           ^^^^^^^ meta.definition.variable.storage meta.definition.variable.storage
+//                  ^^ meta.definition.variable.storage meta.definition.variable
+//                    ^^^^^^ meta.definition.variable.storage meta.definition.variable.value
+//     ^^ variable.other
+//          ^ punctuation.separator.key-value
+//            ^^^^^ storage.type.other.s7.awl
+//                  ^^ keyword.operator.assignment.s7.awl
+//                     ^^^^ constant.numeric.float.decimal.s7.awl
+//                          ^ punctuation.terminator.statement
+//                           ^^ - invalid
     END_STRUCT ;
 // ^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
 // ^^^^^^^^^^^^ meta.definition.variable.storage
