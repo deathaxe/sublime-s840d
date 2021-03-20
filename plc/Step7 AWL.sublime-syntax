@@ -409,55 +409,55 @@ contexts:
   var-input:
     - match: \b(?i:VAR_INPUT)\b
       scope: keyword.control.var.input.begin.s7.awl
-      push: [var-input-meta, var-body, assert-line-end]
+      push: [var-input-body, assert-line-end]
 
-  var-input-meta:
+  var-input-body:
     - meta_scope: meta.block.var.input.s7.awl
-    - include: immediately-pop
+    - include: var-body
 
 ###[ VAR_OUTPUT ]##############################################################
 
   var-output:
     - match: \b(?i:VAR_OUTPUT)\b
       scope: keyword.control.var.output.begin.s7.awl
-      push: [var-output-meta, var-body, assert-line-end]
+      push: [var-output-body, assert-line-end]
 
-  var-output-meta:
+  var-output-body:
     - meta_scope: meta.block.var.output.s7.awl
-    - include: immediately-pop
+    - include: var-body
 
 ###[ VAR_IN_OUT ]##############################################################
 
   var-inout:
     - match: \b(?i:VAR_IN_OUT)\b
       scope: keyword.control.var.in-out.begin.s7.awl
-      push: [var-inout-meta, var-body, assert-line-end]
+      push: [var-inout-body, assert-line-end]
 
-  var-inout-meta:
+  var-inout-body:
     - meta_scope: meta.block.var.in-out.s7.awl
-    - include: immediately-pop
+    - include: var-body
 
 ###[ VAR ]#####################################################################
 
   var-stat:
     - match: \b(?i:VAR)\b
       scope: keyword.control.var.stat.begin.s7.awl
-      push: [var-stat-meta, var-body, assert-line-end]
+      push: [var-stat-body, assert-line-end]
 
-  var-stat-meta:
+  var-stat-body:
     - meta_scope: meta.block.var.stat.s7.awl
-    - include: immediately-pop
+    - include: var-body
 
 ###[ VAR_TEMP ]################################################################
 
   var-temp:
     - match: \b(?i:VAR_TEMP)\b
       scope: keyword.control.var.temp.begin.s7.awl
-      push: [var-temp-meta, var-body, assert-line-end]
+      push: [var-temp-body, assert-line-end]
 
-  var-temp-meta:
+  var-temp-body:
     - meta_scope: meta.block.var.temp.s7.awl
-    - include: immediately-pop
+    - include: var-body
 
 ###[ END_VAR ]#################################################################
 
