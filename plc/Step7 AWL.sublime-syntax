@@ -37,6 +37,8 @@ file_extensions:
 variables:
   int: \d+\b(?![.][^.])
 
+  ident: '[[:alpha:]_][[:alnum:]_]*\b'
+
   context_keywords: |-
     \b(?xi:
       BEGIN
@@ -93,7 +95,7 @@ contexts:
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
       pop: true
     # unquoted string symbol
-    - match: \b\w+\b
+    - match: '{{ident}}'
       scope: string.unquoted.s7.awl entity.name.block.s7.awl
       pop: true
     - include: scope-end
@@ -108,7 +110,7 @@ contexts:
     - include: line-end
 
   block-body-begin:
-    - match: \w+
+    - match: (?i:BEGIN)\b
       scope: keyword.other.begin.s7.awl
       pop: true
 
@@ -164,7 +166,7 @@ contexts:
   block-db-body:
     - meta_scope: meta.block.db.body.s7.awl
     - include: block-db-end
-    - match: \b\w+\b
+    - match: '{{ident}}'
       scope: variable.other.local.s7.awl
       push: [block-db-value, struct-members, array-index]
     - include: illegal
@@ -306,7 +308,7 @@ contexts:
   annotation-key:
     - meta_scope: meta.annotation.s7.awl
     - meta_content_scope: meta.mapping.key.s7.awl
-    - match: \b(\w+)\s*(.*?)\s*(?=:=)
+    - match: ({{ident}})\s*(.*?)\s*(?=:=)
       captures:
         1: variable.annotation.s7.awl
         2: invalid.illegal.separator-expected.s7.awl
@@ -470,7 +472,7 @@ contexts:
 ###[ VARIABLE DECLARATIONS ]###################################################
 
   variable:
-    - match: \w+\b
+    - match: '{{ident}}'
       scope: variable.other.s7.awl
       push: variable-separator-name-storage
 
@@ -633,7 +635,7 @@ contexts:
         1: punctuation.definition.string.begin.s7.awl
         2: storage.type.other.s7.awl
         3: punctuation.definition.string.end.s7.awl
-    - match: \b\w+\b
+    - match: '{{ident}}'
       scope: storage.type.other.s7.awl
 
 ###############################################################################
@@ -946,7 +948,7 @@ contexts:
     - match: (?i:S?F[BC])\s*\d+\b
       scope: variable.function.address.s7.awl
     # local variables
-    - match: (#)(\w+)\b
+    - match: (#)({{ident}})
       captures:
         1: punctuation.definition.variable.begin.s7.awl
         2: variable.function.local.s7.awl
@@ -973,7 +975,7 @@ contexts:
 ###[ MAPPING ]#################################################################
 
   awl-stmt-mapping:
-    - match: \b\w+\b
+    - match: '{{ident}}'
       scope: variable.parameter.s7.awl
       push:
         - meta_scope: meta.mapping.key.s7.awl
@@ -1075,7 +1077,7 @@ contexts:
         3: punctuation.accessor.dot.s7.awl
         4: punctuation.separator.decimal.s7.awl
     # P##LocalSymbol
-    - match: ([Pp](#))(#)(\w+)\b
+    - match: ([Pp](#))(#)({{ident}})
       captures:
         1: storage.type.numeric.s7.awl
         2: punctuation.separator.type.s7.awl
@@ -1459,7 +1461,7 @@ contexts:
         punctuation.definition.string.begin.s7.awl
       push: [struct-members, symbols-common]
     # local variables
-    - match: (#)(\w+)\b
+    - match: (#)({{ident}})
       captures:
         1: punctuation.definition.variable.begin.s7.awl
         2: variable.other.local.s7.awl
@@ -1479,7 +1481,7 @@ contexts:
       pop: true
 
   struct-members:
-    - match: (\.)(\w+)\b
+    - match: (\.)({{ident}})
       captures:
         1: punctuation.accessor.dot.s7.awl
         2: variable.other.member.s7.awl
