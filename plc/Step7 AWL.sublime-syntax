@@ -497,6 +497,10 @@ contexts:
     - match: ':'
       scope: punctuation.separator.key-value.s7.awl
       set: [assert-stmt-end, variable-storage]
+    - match: \b(?i:at)\b
+      scope: keyword.declaration.alias.s7.awl
+      push:
+        - include: variable-value
     - include: annotations
     - include: assert-stmt-end
 
