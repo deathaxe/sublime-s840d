@@ -223,7 +223,7 @@ contexts:
   block-fb-body:
     - meta_scope: meta.block.fb.body.s7.awl
     - include: block-fb-end
-    - include: network
+    - include: awl-networks
     - include: illegal
 
   block-fb-end:
@@ -260,7 +260,7 @@ contexts:
   block-fc-body:
     - meta_scope: meta.block.fc.body.s7.awl
     - include: block-fc-end
-    - include: network
+    - include: awl-networks
     - include: illegal
 
   block-fc-end:
@@ -294,7 +294,7 @@ contexts:
   block-ob-body:
     - meta_scope: meta.block.ob.body.s7.awl
     - include: block-ob-end
-    - include: network
+    - include: awl-networks
     - include: illegal
 
   block-ob-end:
@@ -696,12 +696,12 @@ contexts:
 #    ...                                                                      #
 ###############################################################################
 
-  network:
+  awl-networks:
     - match: \b(?i:NETWORK)\b
       scope: keyword.control.network.s7.awl
-      push: [network-body, title]
+      push: [awl-network-body, title]
 
-  network-body:
+  awl-network-body:
     - meta_scope: meta.block.network.s7.awl
     - match: (?=(?i:NETWORK|END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
       pop: true
