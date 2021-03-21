@@ -110,7 +110,7 @@ contexts:
 
   block-udt:
     - match: \b(?i:TYPE)\b
-      scope: keyword.other.udt.begin.plc
+      scope: keyword.declaration.udt.begin.plc
       push: [block-udt-header, block-udt-name]
 
   block-udt-name:
@@ -146,7 +146,7 @@ contexts:
 
   block-udt-end:
     - match: \b(?i:END_TYPE)\b
-      scope: keyword.other.udt.end.plc
+      scope: keyword.declaration.udt.end.plc
       set: assert-line-end
 
 ###############################################################################
@@ -155,7 +155,7 @@ contexts:
 
   block-db:
     - match: \b(?i:DATA_BLOCK)\b
-      scope: keyword.other.db.begin.plc
+      scope: keyword.declaration.db.begin.plc
       push: [block-db-header, title, block-db-name]
 
   block-db-name:
@@ -213,7 +213,7 @@ contexts:
 
   block-db-end:
     - match: \b(?i:END_DATA_BLOCK)\b
-      scope: keyword.other.db.end.plc
+      scope: keyword.declaration.db.end.plc
       set: assert-line-end
 
 ###############################################################################
@@ -222,7 +222,7 @@ contexts:
 
   block-fb:
     - match: \b(?i:FUNCTION_BLOCK)\b
-      scope: keyword.other.fb.begin.plc
+      scope: keyword.declaration.fb.begin.plc
       push: [block-fb-header, title, return-type, block-fb-name]
 
   block-fb-name:
@@ -266,7 +266,7 @@ contexts:
 
   block-fb-end:
     - match: \b(?i:END_FUNCTION_BLOCK)\b
-      scope: keyword.other.fb.end.plc
+      scope: keyword.declaration.fb.end.plc
       set: assert-line-end
 
 ###############################################################################
@@ -275,7 +275,7 @@ contexts:
 
   block-fc:
     - match: \b(?i:FUNCTION)\b
-      scope: keyword.other.fc.begin.plc
+      scope: keyword.declaration.fc.begin.plc
       push: [block-fc-header, title, return-type, block-fb-name]
 
   block-fc-header:
@@ -302,7 +302,7 @@ contexts:
 
   block-fc-end:
     - match: \b(?i:END_FUNCTION)\b
-      scope: keyword.other.fc.end.plc
+      scope: keyword.declaration.fc.end.plc
       set: assert-line-end
 
 ###############################################################################
@@ -311,7 +311,7 @@ contexts:
 
   block-ob:
     - match: \b(?i:ORGANIZATION_BLOCK)\b
-      scope: keyword.other.ob.begin.plc
+      scope: keyword.declaration.ob.begin.plc
       push: [block-ob-header, title, block-ob-name]
 
   block-ob-name:
@@ -352,7 +352,7 @@ contexts:
 
   block-ob-end:
     - match: \b(?i:END_ORGANIZATION_BLOCK)\b
-      scope: keyword.other.ob.end.plc
+      scope: keyword.declaration.ob.end.plc
       set: assert-line-end
 
 ###############################################################################
@@ -476,7 +476,7 @@ contexts:
 
   var-input:
     - match: \b(?i:VAR_INPUT)\b
-      scope: keyword.control.var.input.begin.plc
+      scope: keyword.declaration.var.input.begin.plc
       push: [var-input-body, assert-line-end]
 
   var-input-body:
@@ -487,7 +487,7 @@ contexts:
 
   var-output:
     - match: \b(?i:VAR_OUTPUT)\b
-      scope: keyword.control.var.output.begin.plc
+      scope: keyword.declaration.var.output.begin.plc
       push: [var-output-body, assert-line-end]
 
   var-output-body:
@@ -498,7 +498,7 @@ contexts:
 
   var-inout:
     - match: \b(?i:VAR_IN_OUT)\b
-      scope: keyword.control.var.in-out.begin.plc
+      scope: keyword.declaration.var.in-out.begin.plc
       push: [var-inout-body, assert-line-end]
 
   var-inout-body:
@@ -509,7 +509,7 @@ contexts:
 
   var-stat:
     - match: \b(?i:VAR)\b
-      scope: keyword.control.var.stat.begin.plc
+      scope: keyword.declaration.var.stat.begin.plc
       push: [var-stat-body, assert-line-end]
 
   var-stat-body:
@@ -520,7 +520,7 @@ contexts:
 
   var-temp:
     - match: \b(?i:VAR_TEMP)\b
-      scope: keyword.control.var.temp.begin.plc
+      scope: keyword.declaration.var.temp.begin.plc
       push: [var-temp-body, assert-line-end]
 
   var-temp-body:
@@ -531,7 +531,7 @@ contexts:
 
   var-body:
     - match: \b(?i:END_VAR)\b
-      scope: keyword.control.var.end.plc
+      scope: keyword.declaration.var.end.plc
       set: assert-line-end
     - match: (?={{context_keywords}})
       pop: 1

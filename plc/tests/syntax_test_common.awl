@@ -11,7 +11,7 @@
 
   TYPE "UDT_TypeName"
 //^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
-//^^^^ keyword.other.udt.begin
+//^^^^ keyword.declaration.udt.begin
 //     ^ punctuation.definition.symbol.begin
 //     ^^^^^^^^^^^^^^ entity.name.type.plc
 //                  ^ punctuation.definition.symbol.end
@@ -115,7 +115,7 @@
 //^^^^^ invalid.illegal
   END_TYPE
 //^^^^^^^^ meta.block.udt.header
-//^^^^^^^^ keyword.other.udt.end
+//^^^^^^^^ keyword.declaration.udt.end
 
 ///////////////////////////////////////////////////////////////////////////////
 // datablocks                                                                //
@@ -123,7 +123,7 @@
 
   DATA_BLOCK "name" // comment
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
-// ^^^^^^^^^ keyword.other.db.begin
+// ^^^^^^^^^ keyword.declaration.db.begin
 //           ^ punctuation.definition.symbol.begin
 //           ^^^^^^ entity.name.datablock.plc
 //                ^ punctuation.definition.symbol.end.plc
@@ -259,7 +259,7 @@
    END_DATA_BLOCK
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^ meta.block.db.body
-// ^^^^^^^^^^^^^^ keyword.other.db.end
+// ^^^^^^^^^^^^^^ keyword.declaration.db.end
 
 ///////////////////////////////////////////////////////////////////////////////
 // functions                                                                 //
@@ -267,7 +267,7 @@
 
    FUNCTION FC 102 : INT  // comment
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
-// ^^^^^^^^ keyword.other.fc.begin
+// ^^^^^^^^ keyword.declaration.fc.begin
 //          ^^^^^^ entity.name.function.plc
 //                 ^ punctuation.separator.mapping.pair
 //                   ^^^ storage.type.integer
@@ -331,7 +331,7 @@
    VAR_INPUT illegal // comment
 // <- meta.block.fc.header - meta.block.fc.body
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.input
-// ^^^^^^^^^ keyword.control.var.input.begin
+// ^^^^^^^^^ keyword.declaration.var.input.begin
 //           ^^^^^^^ invalid.illegal.eol-expected
 //                   ^^^^^^^^^^ comment.line.double-slash
      RUN : BOOL := TRUE ;  //bool
@@ -538,12 +538,12 @@
    END_VAR
 // <- meta.block.fc.header meta.block.var.input
 // ^^^^^^^ meta.block.fc.header meta.block.var.input
-// ^^^^^^^ keyword.control.var.end
+// ^^^^^^^ keyword.declaration.var.end
 
    VAR_OUTPUT
 // <- meta.block.fc.header - meta.block.fc.body
 // ^^^^^^^^^^ meta.block.fc.header meta.block.var.output
-// ^^^^^^^^^^ keyword.control.var.output.begin
+// ^^^^^^^^^^ keyword.declaration.var.output.begin
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.output
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -690,12 +690,12 @@
    END_VAR
 // <- meta.block.fc.header meta.block.var.output
 // ^^^^^^^ meta.block.fc.header meta.block.var.output
-// ^^^^^^^ keyword.control.var.end
+// ^^^^^^^ keyword.declaration.var.end
 
    VAR_IN_OUT
 // <- meta.block.fc.header - meta.block.fc.body
 // ^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
-// ^^^^^^^^^^ keyword.control.var.in-out.begin
+// ^^^^^^^^^^ keyword.declaration.var.in-out.begin
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -821,12 +821,12 @@
    END_VAR
 // <- meta.block.fc.header meta.block.var.in-out
 // ^^^^^^^ meta.block.fc.header meta.block.var.in-out
-// ^^^^^^^ keyword.control.var.end
+// ^^^^^^^ keyword.declaration.var.end
 
    VAR_TEMP
 // <- meta.block.fc.header - meta.block.fc.body
 // ^^^^^^^^ meta.block.fc.header meta.block.var.temp
-// ^^^^^^^^ keyword.control.var.temp.begin
+// ^^^^^^^^ keyword.declaration.var.temp.begin
      RUN : BOOL ;  //bool
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.temp
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
@@ -951,7 +951,7 @@
    END_VAR
 // <- meta.block.fc.header meta.block.var.temp
 // ^^^^^^^ meta.block.fc.header meta.block.var.temp
-// ^^^^^^^ keyword.control.var.end
+// ^^^^^^^ keyword.declaration.var.end
 
    VAR
 // ^^^ meta.block.fc.header invalid.illegal
@@ -961,7 +961,7 @@
 // NOTE: unclosed input declaration context
 
    VAR_INPUT
-// ^^^^^^^^^ keyword.control.var.input.begin
+// ^^^^^^^^^ keyword.declaration.var.input.begin
 
    BEGIN
 // <- meta.block.fc.header - meta.block.fc.body
@@ -2024,4 +2024,4 @@
 
    END_FUNCTION
 // ^^^^^^^^^^^^ meta.block.fc.body
-// ^^^^^^^^^^^^ keyword.other.fc.end
+// ^^^^^^^^^^^^ keyword.declaration.fc.end
