@@ -12,9 +12,9 @@
   TYPE "UDT_TypeName"
 //^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
 //^^^^ keyword.other.udt.begin
-//     ^ punctuation.definition.string.begin
-//     ^^^^^^^^^^^^^^ string.quoted.double
-//                  ^ punctuation.definition.string.end
+//     ^ punctuation.definition.symbol.begin
+//     ^^^^^^^^^^^^^^ entity.name.type.plc
+//                  ^ punctuation.definition.symbol.end
    { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
 // ^ meta.mapping - meta.mapping.key - meta.mapping.value
@@ -70,7 +70,7 @@
 //^^^^^^^ meta.block.udt.header meta.struct
 //^^^^^^ storage.type.struct.begin
      ID  : INT := 20 ;  //integer
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.s7.awl meta.struct.s7.awl
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header meta.struct
 //   ^^^^^ meta.definition.variable - meta.definition.variable.storage
 //        ^^^^^ meta.definition.variable.storage
 //             ^^ meta.definition.variable - meta.definition.variable.storage - meta.definition.variable.value
@@ -85,27 +85,27 @@
 //                      ^^^^^^^^^ comment.line.double-slash
 //                               ^ - invalid
      PTR : POINTER := P#0.0;
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.s7.awl meta.struct.s7.awl
-//   ^^^^^ meta.definition.variable.s7.awl
-//        ^^^^^^^^^ meta.definition.variable.storage.s7.awl
-//                 ^^ meta.definition.variable.s7.awl
-//                   ^^^^^^ meta.definition.variable.value.s7.awl
-//   ^^^ variable.other.s7.awl
-//       ^ punctuation.separator.key-value.s7.awl
-//         ^^^^^^^ storage.type.pointer.s7.awl
-//                 ^^ keyword.operator.assignment.s7.awl
-//                    ^^^^^ constant.language.pointer.s7.awl
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header meta.struct
+//   ^^^^^ meta.definition.variable
+//        ^^^^^^^^^ meta.definition.variable.storage
+//                 ^^ meta.definition.variable
+//                   ^^^^^^ meta.definition.variable.value
+//   ^^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^^^^^ storage.type.pointer
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ constant.language.pointer
      TMR : TIMER := T0;
-// ^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.s7.awl meta.struct.s7.awl
-//   ^^^^^ meta.definition.variable.s7.awl
-//        ^^^^^^^ meta.definition.variable.storage.s7.awl
-//               ^^ meta.definition.variable.s7.awl
-//                 ^^^ meta.definition.variable.value.s7.awl
-//   ^^^ variable.other.s7.awl
-//       ^ punctuation.separator.key-value.s7.awl
-//         ^^^^^ storage.type.timer.s7.awl
-//               ^^ keyword.operator.assignment.s7.awl
-//                  ^^ variable.language.timer.s7.awl
+// ^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header meta.struct
+//   ^^^^^ meta.definition.variable
+//        ^^^^^^^ meta.definition.variable.storage
+//               ^^ meta.definition.variable
+//                 ^^^ meta.definition.variable.value
+//   ^^^ variable.other
+//       ^ punctuation.separator.key-value
+//         ^^^^^ storage.type.timer
+//               ^^ keyword.operator.assignment
+//                  ^^ variable.language.timer
   END_STRUCT ;
 //^^^^^^^^^^^^^ meta.block.udt.header
 //^^^^^^^^^^ meta.struct storage.type.struct.end
@@ -124,9 +124,9 @@
   DATA_BLOCK "name" // comment
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
 // ^^^^^^^^^ keyword.other.db.begin
-//           ^ punctuation.definition.string.begin
-//           ^^^^^^ string.quoted.double
-//            ^^^^ entity.name.block
+//           ^ punctuation.definition.symbol.begin
+//           ^^^^^^ entity.name.datablock.plc
+//                ^ punctuation.definition.symbol.end.plc
 //                  ^^ punctuation.definition.comment.begin
 //                  ^^^^^^^^^^ comment.line.double-slash
    TITLE =the datablock description
@@ -135,7 +135,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
 // ^^^^^ entity.other.attribute-name.title
 //       ^ punctuation.separator.key-value.title
-//        ^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.s7.awl
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section
    { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
 // ^ meta.mapping - meta.mapping.key - meta.mapping.value
@@ -238,7 +238,7 @@
 // ^^^^^^^^^^^^^ variable.other.local
    date_time := DT#90-1-1-0:0:0.000;
 //              ^^^^^^^^^^^^^^^^^^^ constant.language.datetime
-//              ^^^ storage.type.numeric.s7.awl
+//              ^^^ storage.type.numeric
 //                   ^ punctuation.separator.date
 //                     ^ punctuation.separator.date
 //                       ^ punctuation.separator.date
@@ -247,7 +247,7 @@
 //                             ^ punctuation.separator.time
    date_time := DT#2017-12-31-23:59:59.999;
 //              ^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.language.datetime
-//              ^^^ storage.type.numeric.s7.awl
+//              ^^^ storage.type.numeric
 //                     ^ punctuation.separator.date
 //                        ^ punctuation.separator.date
 //                           ^ punctuation.separator.date
@@ -265,12 +265,10 @@
 // functions                                                                 //
 ///////////////////////////////////////////////////////////////////////////////
 
-   FUNCTION "name" : INT  // comment
+   FUNCTION FC 102 : INT  // comment
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
 // ^^^^^^^^ keyword.other.fc.begin
-//          ^ punctuation.definition.string.begin
-//          ^^^^^^ string.quoted.double
-//           ^^^^ entity.name.block
+//          ^^^^^^ entity.name.function.plc
 //                 ^ punctuation.separator.mapping.pair
 //                   ^^^ storage.type.integer
 //                        ^^ punctuation.definition.comment.begin
@@ -281,7 +279,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^ meta.mapping.value - meta.mapping.key
 // ^^^^^ entity.other.attribute-name.title
 //       ^ punctuation.separator.key-value.title
-//        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.s7.awl
+//        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section
    { S7_language illegal := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
 // ^ meta.mapping - meta.mapping.key - meta.mapping.value
@@ -397,7 +395,7 @@
 //^^^^^^^^^^^^^^^^ meta.definition.variable.storage
 //^^^^^^^^^^^^^^^ meta.sequence.array
 //               ^^^^ - meta.sequence
-//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.list.s7.awl
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.list
 //                                                ^ - meta.sequence
 //          ^^^^^ storage.type.dword
 //                ^^ keyword.operator.assignment
@@ -455,8 +453,8 @@
 //     ^^^ variable.other
 //          ^ punctuation.separator.key-value
 //            ^^^^^^^^^^ storage.type.string
-//                       ^^ keyword.operator.assignment.s7.awl
-//                          ^^^^^^^^^ string.quoted.single.s7.awl
+//                       ^^ keyword.operator.assignment
+//                          ^^^^^^^^^ string.quoted.single
 //                                   ^ punctuation.terminator.statement
 //                                    ^^ - invalid
 //                                      ^^^^^^^^ comment.line.double-slash
@@ -469,9 +467,9 @@
 //                    ^^^^^^ meta.definition.variable.storage meta.definition.variable.value
 //     ^^ variable.other
 //          ^ punctuation.separator.key-value
-//            ^^^^^ storage.type.other.s7.awl
-//                  ^^ keyword.operator.assignment.s7.awl
-//                     ^^^^ constant.numeric.float.decimal.s7.awl
+//            ^^^^^ storage.type.other
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ constant.numeric.float.decimal
 //                          ^ punctuation.terminator.statement
 //                           ^^ - invalid
     END_STRUCT ;
@@ -963,7 +961,7 @@
 // NOTE: unclosed input declaration context
 
    VAR_INPUT
-// ^^^^^^^^^ keyword.control.var.input.begin.s7.awl
+// ^^^^^^^^^ keyword.control.var.input.begin
 
    BEGIN
 // <- meta.block.fc.header - meta.block.fc.body
@@ -982,7 +980,7 @@
 //        ^^^^^^^^^ meta.mapping.value
 // ^^^^^ entity.other.attribute-name.title
 //       ^ punctuation.separator.key-value.title
-//        ^^^^^^^^^ entity.name.section.s7.awl
+//        ^^^^^^^^^ entity.name.section
 ///////////////////////////////////////////////////////////////////////////////
 // basic operations                                                          //
 ///////////////////////////////////////////////////////////////////////////////
@@ -1000,53 +998,53 @@
 ///////////////////////////////////////////////////////////////////////////////
 
       AUF   DB 10;
-// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^ meta.operand.datablock.s7.awl
-//               ^^ - meta.operand.datablock.s7.awl
-//    ^^^ keyword.operator.load.db.s7.awl
-//          ^^^^^ variable.language.db.s7.awl
-//               ^ punctuation.terminator.statement.s7.awl
+// <- meta.block.fc.body meta.block.network
+//^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//       ^^^^^^^^ meta.operand.datablock
+//               ^^ - meta.operand.datablock
+//    ^^^ keyword.operator.load.db
+//          ^^^^^ variable.language.db
+//               ^ punctuation.terminator.statement
       AUF   DB [MW 10];
-// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
-//                    ^^ - meta.operand.datablock.s7.awl
-//    ^^^ keyword.operator.load.db.s7.awl
-//          ^^^^^^^^^^ variable.language.db.s7.awl
-//                    ^ punctuation.terminator.statement.s7.awl
+// <- meta.block.fc.body meta.block.network
+//^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//       ^^^^^^^^^^^^^ meta.operand.datablock
+//                    ^^ - meta.operand.datablock
+//    ^^^ keyword.operator.load.db
+//          ^^^^^^^^^^ variable.language.db
+//                    ^ punctuation.terminator.statement
       AUF   "IDB_Block";
-// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^^^^^^^^ meta.operand.datablock.s7.awl
-//                     ^^ - meta.operand.datablock.s7.awl
-//    ^^^ keyword.operator.load.db.s7.awl
+// <- meta.block.fc.body meta.block.network
+//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//       ^^^^^^^^^^^^^^ meta.operand.datablock
+//                     ^^ - meta.operand.datablock
+//    ^^^ keyword.operator.load.db
 //          ^ string.quoted.double punctuation.definition.string.begin
 //          ^^^^^^^^^^^ meta.string
 //           ^^^^^^^^^ variable.other.symbol - string
 //                    ^ string.quoted.double punctuation.definition.string.end
-//                     ^ punctuation.terminator.statement.s7.awl
+//                     ^ punctuation.terminator.statement
       AUF   DBNO;
-// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^ meta.operand.datablock.s7.awl
-//              ^^ - meta.operand.datablock.s7.awl
-//    ^^^ keyword.operator.load.db.s7.awl
+// <- meta.block.fc.body meta.block.network
+//^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//       ^^^^^^^ meta.operand.datablock
+//              ^^ - meta.operand.datablock
+//    ^^^ keyword.operator.load.db
 //          ^^^^ invalid.illegal
-//              ^ punctuation.terminator.statement.s7.awl
+//              ^ punctuation.terminator.statement
       AUF   DINO;
-// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//       ^^^^^^^ meta.operand.datablock.s7.awl
-//              ^^ - meta.operand.datablock.s7.awl
-//    ^^^ keyword.operator.load.db.s7.awl
+// <- meta.block.fc.body meta.block.network
+//^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//       ^^^^^^^ meta.operand.datablock
+//              ^^ - meta.operand.datablock
+//    ^^^ keyword.operator.load.db
 //          ^^^^ invalid.illegal
-//              ^ punctuation.terminator.statement.s7.awl
+//              ^ punctuation.terminator.statement
       TDB   ;
-// <- meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//^^^^^^^^^^^^^^^^ meta.block.fc.body.s7.awl meta.block.network.s7.awl
-//    ^^^ keyword.operator.db.s7.awl
-//          ^ punctuation.terminator.statement.s7.awl
+// <- meta.block.fc.body meta.block.network
+//^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^^^ keyword.operator.db
+//          ^ punctuation.terminator.statement
 
 ///////////////////////////////////////////////////////////////////////////////
 // logical operations                                                        //
@@ -1055,7 +1053,7 @@
       U     E3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical
 //              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
@@ -1065,7 +1063,7 @@
       U     A3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical
 //              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
@@ -1075,7 +1073,7 @@
       U     L3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical
 //              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
@@ -1085,7 +1083,7 @@
       U     M3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^ meta.operand.logical
 //              ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.address
@@ -1095,7 +1093,7 @@
       U     DBX3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^^^ meta.operand.logical
 //                ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^^^ variable.language.address
@@ -1105,7 +1103,7 @@
       U     DIX3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^^^ meta.operand.logical
 //                ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^^^ variable.language.address
@@ -1115,7 +1113,7 @@
       U     DB10.DBX3.0;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//     ^^^^^^^^^^^^^^^^ meta.operand.logical.s7.awl
+//     ^^^^^^^^^^^^^^^^ meta.operand.logical
 //                     ^^ - meta.operand
 //    ^ keyword.operator.logical
 //          ^^^^ variable.language.db
@@ -1330,7 +1328,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.address.s7.awl
+//          ^^^^^^^^ variable.language.address
 //                  ^ punctuation.terminator.statement
 //                     ^^ punctuation.definition.comment.begin
 //                     ^^^^^^^^^^ comment.line.double-slash
@@ -1338,7 +1336,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.address.s7.awl
+//          ^^^^^^^^ variable.language.address
 //                  ^ punctuation.terminator.statement
 //                     ^^ punctuation.definition.comment.begin
 //                     ^^^^^^^^^^ comment.line.double-slash
@@ -1346,7 +1344,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.address.s7.awl
+//          ^^^^^^^^ variable.language.address
 //                  ^ punctuation.terminator.statement
 //                     ^^ punctuation.definition.comment.begin
 //                     ^^^^^^^^^^ comment.line.double-slash
@@ -1354,7 +1352,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.address.s7.awl
+//          ^^^^^^^^ variable.language.address
 //                  ^ punctuation.terminator.statement
 //                     ^^ punctuation.definition.comment.begin
 //                     ^^^^^^^^^^ comment.line.double-slash
@@ -1362,7 +1360,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.address.s7.awl
+//          ^^^^^^^^ variable.language.address
 //                  ^ punctuation.terminator.statement
 //                     ^^ punctuation.definition.comment.begin
 //                     ^^^^^^^^^^ comment.line.double-slash
@@ -1370,7 +1368,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.address.s7.awl
+//          ^^^^^^^^ variable.language.address
 //                  ^ punctuation.terminator.statement
 //                     ^^ punctuation.definition.comment.begin
 //                     ^^^^^^^^^^ comment.line.double-slash
@@ -1475,9 +1473,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^ constant.language.pointer
-//              ^ punctuation.separator.decimal.s7.awl
+//              ^ punctuation.separator.decimal
 //                ^ punctuation.terminator.statement
 //                  ^^ punctuation.definition.comment.begin
 //                  ^^^^^^^^^^ comment.line.double-slash
@@ -1485,7 +1483,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //           ^ punctuation.definition.variable.begin
 //            ^^^^^ variable.other.local
 //                 ^ punctuation.terminator.statement
@@ -1495,7 +1493,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^ constant.language.pointer
 //                ^ punctuation.terminator.statement
 //                   ^^ punctuation.definition.comment.begin
@@ -1504,7 +1502,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^^^^ constant.language.pointer
 //                 ^ punctuation.separator.decimal
 //                   ^ punctuation.terminator.statement
@@ -1514,7 +1512,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^ constant.language.pointer
 //              ^ punctuation.accessor.dot
 //                     ^ punctuation.separator.decimal
@@ -1525,7 +1523,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
 //               ^ punctuation.separator.bin
 //                    ^ punctuation.separator.bin
@@ -1541,7 +1539,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
 //               ^ punctuation.separator.bin
 //                    ^ punctuation.separator.bin
@@ -1557,7 +1555,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
 //             ^ invalid.illegal.bin
 //               ^ punctuation.separator.bin
@@ -1575,7 +1573,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^ constant.numeric.integer.hexadecimal
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
@@ -1584,7 +1582,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^ storage.type.numeric.s7.awl
+//         ^^^^^ storage.type.numeric
 //         ^^^^^^^^^ constant.numeric.integer.hexadecimal
 //                  ^ - invalid
 //                   ^ punctuation.terminator.statement
@@ -1593,7 +1591,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^ constant.numeric.integer.hexadecimal
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
@@ -1602,7 +1600,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^ storage.type.numeric.s7.awl
+//         ^^^^^ storage.type.numeric
 //         ^^^^^^^^^ constant.numeric.integer.hexadecimal
 //                  ^ - invalid
 //                   ^ punctuation.terminator.statement
@@ -1611,7 +1609,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^ storage.type.numeric.s7.awl
+//         ^^^ storage.type.numeric
 //         ^^^^^^^ constant.numeric.integer.hexadecimal
 //                ^ - invalid
 //                 ^ punctuation.terminator.statement
@@ -1620,7 +1618,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^ storage.type.numeric.s7.awl
+//         ^^^^^^ storage.type.numeric
 //         ^^^^^^^^^^ constant.numeric.integer.hexadecimal
 //                   ^ - invalid
 //                    ^ punctuation.terminator.statement
@@ -1629,7 +1627,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^ constant.numeric.integer
 //             ^ - invalid
 //              ^ punctuation.terminator.statement
@@ -1638,7 +1636,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^ constant.numeric.integer
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
@@ -1665,7 +1663,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^ constant.numeric.integer.decimal
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
@@ -1674,7 +1672,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric.s7.awl
+//          ^^^^ storage.type.numeric
 //          ^^^^^^^^ constant.language.s5time
 //              ^^^^ constant.language.time.millisecond
 //                  ^ - invalid
@@ -1684,7 +1682,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric.s7.awl
+//          ^^^^ storage.type.numeric
 //          ^^^^^^^ constant.language.s5time
 //              ^^^ constant.language.time.second
 //                 ^ - invalid
@@ -1694,7 +1692,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric.s7.awl
+//          ^^^^ storage.type.numeric
 //          ^^^^^^^ constant.language.s5time
 //              ^^^ constant.language.time.minute
 //                 ^ - invalid
@@ -1705,7 +1703,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric.s7.awl
+//          ^^^^ storage.type.numeric
 //          ^^^^^^ constant.language.s5time
 //              ^^ constant.language.time.hour
 //                ^ - invalid
@@ -1716,7 +1714,7 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
-//         ^^^^ storage.type.numeric.s7.awl
+//         ^^^^ storage.type.numeric
 //             ^^ constant.language.time.hour
 //               ^ punctuation.separator.time
 //                ^^^ constant.language.time.minute
@@ -1731,12 +1729,12 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^ storage.type.numeric.s7.awl
+//         ^^^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
-//              ^ keyword.other.unit.s7.awl
+//              ^ keyword.other.unit
 //                ^^^ invalid.illegal.time
-//                      ^ keyword.other.unit.s7.awl
-//                           ^^ keyword.other.unit.s7.awl
+//                      ^ keyword.other.unit
+//                           ^^ keyword.other.unit
 //                             ^ - invalid
 //                              ^ punctuation.terminator.statement
 //                               ^ - invalid
@@ -1744,10 +1742,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric.s7.awl
+//          ^^ storage.type.numeric
 //          ^^^^^^ constant.language.iec-time
 //            ^^^^ constant.language.time.millisecond
-//              ^^ keyword.other.unit.s7.awl
+//              ^^ keyword.other.unit
 //                ^ - invalid
 //                 ^ punctuation.terminator.statement
 //                  ^ - invalid
@@ -1755,10 +1753,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric.s7.awl
+//          ^^ storage.type.numeric
 //          ^^^^^ constant.language.iec-time
 //            ^^^ constant.language.time.second
-//              ^ keyword.other.unit.s7.awl
+//              ^ keyword.other.unit
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
 //                 ^ - invalid
@@ -1766,10 +1764,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric.s7.awl
+//          ^^ storage.type.numeric
 //          ^^^^^ constant.language.iec-time
 //            ^^^ constant.language.time.minute
-//              ^ keyword.other.unit.s7.awl
+//              ^ keyword.other.unit
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
 //                 ^ - invalid
@@ -1777,10 +1775,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric.s7.awl
+//          ^^ storage.type.numeric
 //          ^^^^ constant.language.iec-time
 //            ^^ constant.language.time.hour
-//             ^ keyword.other.unit.s7.awl
+//             ^ keyword.other.unit
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
@@ -1788,10 +1786,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric.s7.awl
+//          ^^ storage.type.numeric
 //          ^^^^ constant.language.iec-time
 //            ^^ constant.language.time.day
-//             ^ keyword.other.unit.s7.awl
+//             ^ keyword.other.unit
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
@@ -1800,7 +1798,7 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //           ^^^ constant.language.time.day
 //              ^ punctuation.separator.time
 //               ^^^ constant.language.time.hour
@@ -1818,7 +1816,7 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //           ^^^ invalid.illegal.time.day
 //              ^ punctuation.separator.time
 //               ^^^ constant.language.time.hour
@@ -1836,7 +1834,7 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //           ^^^ constant.language.time.day
 //              ^ punctuation.separator.time
 //               ^^^ invalid.illegal.time.hour
@@ -1853,7 +1851,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric.s7.awl
+//         ^^ storage.type.numeric
 //         ^^^^^^^^^^^^ constant.language.date
 //               ^ punctuation.separator.date
 //                  ^ punctuation.separator.date
@@ -1864,7 +1862,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^ storage.type.numeric.s7.awl
+//         ^^^^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^^ constant.language.date
 //                  ^ punctuation.separator.date
 //                     ^ punctuation.separator.date
@@ -1875,7 +1873,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^ storage.type.numeric.s7.awl
+//         ^^^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^^^ constant.language.time-of-day
 //               ^ punctuation.separator.time
 //                  ^ punctuation.separator.time
@@ -1895,38 +1893,38 @@
 //        ^^^^^^^^^^^^ meta.function-call.name - meta.function-call meta.function-call
 //                    ^ meta.function-call.arguments - meta.function-call meta.function-call
 //    ^^^^ keyword.control.call
-//         ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.begin.s7.awl - variable
-//          ^^^^^^^^ meta.string.s7.awl variable.function.symbol.s7.awl - string
-//                  ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.end.s7.awl - variable
+//         ^ meta.string string.quoted.double punctuation.definition.string.begin - variable
+//          ^^^^^^^^ meta.string variable.function.symbol - string
+//                  ^ meta.string string.quoted.double punctuation.definition.string.end - variable
 //                    ^ punctuation.section.parens.begin
            EN      := L 4.0,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^^^ variable.language.address.s7.awl
-//                         ^ punctuation.separator.sequence.s7.awl
+//                    ^^^^^ variable.language.address
+//                         ^ punctuation.separator.sequence
            INTF    := DB 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^^ variable.language.db.s7.awl
-//                        ^ punctuation.separator.sequence.s7.awl
+//                    ^^^^ variable.language.db
+//                        ^ punctuation.separator.sequence
            TMR     := T 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^ variable.language.timer.s7.awl
-//                       ^ punctuation.separator.sequence.s7.awl
+//                    ^^^ variable.language.timer
+//                       ^ punctuation.separator.sequence
            CNT     := Z 2,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^ variable.language.counter.s7.awl
-//                       ^ punctuation.separator.sequence.s7.awl
+//                    ^^^ variable.language.counter
+//                       ^ punctuation.separator.sequence
            SIG     := "msgs".A700127,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1938,29 +1936,29 @@
 //                         ^ string.quoted.double punctuation.definition.string.end - variable
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
-//                                  ^ punctuation.separator.sequence.s7.awl
+//                                  ^ punctuation.separator.sequence
            ID      := W#16#EEEE,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^ constant.numeric.integer.hexadecimal
-//                             ^ punctuation.separator.sequence.s7.awl
+//                             ^ punctuation.separator.sequence
            EV_ID   := DW#16#AAEDF,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^ constant.numeric.integer.hexadecimal
-//                               ^ punctuation.separator.sequence.s7.awl
+//                               ^ punctuation.separator.sequence
            ANY     := P# DB20.DBX40.0 WORD 10,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
-//                                    ^^^^ storage.type.s7.awl
+//                                    ^^^^ storage.type
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.any-pointer
-//                                           ^ punctuation.separator.sequence.s7.awl
+//                                           ^ punctuation.separator.sequence
            SD      := #data,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1968,7 +1966,7 @@
 //                 ^^ keyword.operator.assignment
 //                    ^ punctuation.definition.variable.begin
 //                     ^^^^ variable.other.local
-//                         ^ punctuation.separator.sequence.s7.awl
+//                         ^ punctuation.separator.sequence
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1979,50 +1977,50 @@
 //                          ^ punctuation.terminator.statement
 
    CALL FC 10 ();
-// ^^^^ meta.function-call.s7.awl
-//     ^^^^^^^ meta.function-call.name.s7.awl
-//            ^^ meta.function-call.arguments.s7.awl
-// ^^^^ keyword.control.call.s7.awl
-//      ^^^^^ variable.function.address.s7.awl
-//            ^ punctuation.section.parens.begin.s7.awl
-//             ^ punctuation.section.parens.end.s7.awl
+// ^^^^ meta.function-call
+//     ^^^^^^^ meta.function-call.name
+//            ^^ meta.function-call.arguments
+// ^^^^ keyword.control.call
+//      ^^^^^ variable.function.address
+//            ^ punctuation.section.parens.begin
+//             ^ punctuation.section.parens.end
 
    CALL SFC 10 ();
-// ^^^^ meta.function-call.s7.awl
-//     ^^^^^^^^ meta.function-call.name.s7.awl
-//             ^^ meta.function-call.arguments.s7.awl
-// ^^^^ keyword.control.call.s7.awl
-//      ^^^^^^ variable.function.address.s7.awl
-//             ^ punctuation.section.parens.begin.s7.awl
-//              ^ punctuation.section.parens.end.s7.awl
+// ^^^^ meta.function-call
+//     ^^^^^^^^ meta.function-call.name
+//             ^^ meta.function-call.arguments
+// ^^^^ keyword.control.call
+//      ^^^^^^ variable.function.address
+//             ^ punctuation.section.parens.begin
+//              ^ punctuation.section.parens.end
 
    CALL FB 10, DB 10 ();
-// ^^^^ meta.function-call.s7.awl - meta.function-call meta.function-call
-//     ^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
-//           ^ meta.function-call.s7.awl - meta.function-call meta.function-call
-//            ^^^^^^^ meta.function-call.instance.s7.awl - meta.function-call meta.function-call
-//                   ^^ meta.function-call.arguments.s7.awl - meta.function-call meta.function-call
-// ^^^^ keyword.control.call.s7.awl
-//      ^^^^^ variable.function.address.s7.awl
-//           ^ punctuation.separator.sequence.s7.awl
-//             ^^^^^ variable.language.db.s7.awl
-//                   ^ punctuation.section.parens.begin.s7.awl
-//                    ^ punctuation.section.parens.end.s7.awl
+// ^^^^ meta.function-call - meta.function-call meta.function-call
+//     ^^^^^^ meta.function-call.name - meta.function-call meta.function-call
+//           ^ meta.function-call - meta.function-call meta.function-call
+//            ^^^^^^^ meta.function-call.instance - meta.function-call meta.function-call
+//                   ^^ meta.function-call.arguments - meta.function-call meta.function-call
+// ^^^^ keyword.control.call
+//      ^^^^^ variable.function.address
+//           ^ punctuation.separator.sequence
+//             ^^^^^ variable.language.db
+//                   ^ punctuation.section.parens.begin
+//                    ^ punctuation.section.parens.end
 
    CALL "Block", "InstDB" ();
-// ^^^^ meta.function-call.s7.awl - meta.function-call meta.function-call
-//     ^^^^^^^^ meta.function-call.name.s7.awl - meta.function-call meta.function-call
-//             ^ meta.function-call.s7.awl - meta.function-call meta.function-call
-//              ^^^^^^^^^^ meta.function-call.instance.s7.awl - meta.function-call meta.function-call
-//                        ^^ meta.function-call.arguments.s7.awl - meta.function-call meta.function-call
-// ^^^^ keyword.control.call.s7.awl
-//      ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.begin.s7.awl - variable
-//       ^^^^^ meta.string.s7.awl variable.function.symbol.s7.awl - string
-//            ^ meta.string.s7.awl string.quoted.double.s7.awl punctuation.definition.string.end.s7.awl - variable
-//             ^ punctuation.separator.sequence.s7.awl
-//                ^^^^^^ variable.other.symbol.s7.awl
-//                        ^ punctuation.section.parens.begin.s7.awl
-//                         ^ punctuation.section.parens.end.s7.awl
+// ^^^^ meta.function-call - meta.function-call meta.function-call
+//     ^^^^^^^^ meta.function-call.name - meta.function-call meta.function-call
+//             ^ meta.function-call - meta.function-call meta.function-call
+//              ^^^^^^^^^^ meta.function-call.instance - meta.function-call meta.function-call
+//                        ^^ meta.function-call.arguments - meta.function-call meta.function-call
+// ^^^^ keyword.control.call
+//      ^ meta.string string.quoted.double punctuation.definition.string.begin - variable
+//       ^^^^^ meta.string variable.function.symbol - string
+//            ^ meta.string string.quoted.double punctuation.definition.string.end - variable
+//             ^ punctuation.separator.sequence
+//                ^^^^^^ variable.other.symbol
+//                        ^ punctuation.section.parens.begin
+//                         ^ punctuation.section.parens.end
 
    END_FUNCTION
 // ^^^^^^^^^^^^ meta.block.fc.body
