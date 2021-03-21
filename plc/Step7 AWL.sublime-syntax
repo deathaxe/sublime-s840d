@@ -1538,30 +1538,35 @@ contexts:
   address-indirect:
     - match: \[
       scope: punctuation.section.brackets.begin.s7.awl
-      push:
-        - meta_scope: meta.brackets.s7.awl
-        - match: \]
-          scope: punctuation.section.brackets.end.s7.awl
-          pop: true
-        - include: illegal-eol
-        - include: constants-pointer
-        - include: operands-binary-absolute
-        - include: operands-symbols
-        - match: \b(?i:AR)[12]\b
-          scope: variable.language.address.s7.awl
+      push: address-indirect-body
+
+  address-indirect-body:
+    - meta_scope: meta.brackets.s7.awl
+    - match: \]
+      scope: punctuation.section.brackets.end.s7.awl
+      pop: true
+    - include: illegal-eol
+    - include: constants-pointer
+    - include: operands-binary-absolute
+    - include: operands-symbols
+    - match: \b(?i:AR)[12]\b
+      scope: variable.language.address.s7.awl
 
   array-index:
     # constant array index used in symbols
     - match: \[
       scope: punctuation.section.brackets.begin.s7.awl
-      set:
-        - meta_scope: meta.brackets.s7.awl
-        - match: \]
-          scope: punctuation.section.brackets.end.s7.awl
-          pop: true
-        - include: illegal-eol
-        - include: constants-uint16
+      set: array-index-body
     - include: scope-end
+
+  array-index-body:
+    - meta_scope: meta.brackets.s7.awl
+    - match: \]
+      scope: punctuation.section.brackets.end.s7.awl
+      pop: true
+    - include: illegal-eol
+    - include: comma-separators
+    - include: constants-uint16
 
 ###############################################################################
 # COMMON PROTOTYPES
