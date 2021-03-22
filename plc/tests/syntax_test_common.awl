@@ -1890,12 +1890,12 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^^^^ meta.function-call - meta.function-call meta.function-call
-//        ^^^^^^^^^^^^ meta.function-call.name - meta.function-call meta.function-call
+//        ^^^^^^^^^^^^ meta.function-call.identifier - meta.function-call meta.function-call
 //                    ^ meta.function-call.arguments - meta.function-call meta.function-call
 //    ^^^^ keyword.control.call
-//         ^ meta.string string.quoted.double punctuation.definition.string.begin - variable
-//          ^^^^^^^^ meta.string variable.function.symbol - string
-//                  ^ meta.string string.quoted.double punctuation.definition.string.end - variable
+//         ^ variable.function.global punctuation.definition.variable.begin
+//          ^^^^^^^^ variable.function.global - punctuation
+//                  ^ variable.function.global punctuation.definition.variable.end
 //                    ^ punctuation.section.parens.begin
            EN      := L 4.0,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1978,7 +1978,7 @@
 
    CALL FC 10 ();
 // ^^^^ meta.function-call
-//     ^^^^^^^ meta.function-call.name
+//     ^^^^^^^ meta.function-call.identifier
 //            ^^ meta.function-call.arguments
 // ^^^^ keyword.control.call
 //      ^^^^^ variable.function.address
@@ -1987,7 +1987,7 @@
 
    CALL SFC 10 ();
 // ^^^^ meta.function-call
-//     ^^^^^^^^ meta.function-call.name
+//     ^^^^^^^^ meta.function-call.identifier
 //             ^^ meta.function-call.arguments
 // ^^^^ keyword.control.call
 //      ^^^^^^ variable.function.address
@@ -1996,7 +1996,7 @@
 
    CALL FB 10, DB 10 ();
 // ^^^^ meta.function-call - meta.function-call meta.function-call
-//     ^^^^^^ meta.function-call.name - meta.function-call meta.function-call
+//     ^^^^^^ meta.function-call.identifier - meta.function-call meta.function-call
 //           ^ meta.function-call - meta.function-call meta.function-call
 //            ^^^^^^^ meta.function-call.instance - meta.function-call meta.function-call
 //                   ^^ meta.function-call.arguments - meta.function-call meta.function-call
@@ -2009,14 +2009,14 @@
 
    CALL "Block", "InstDB" ();
 // ^^^^ meta.function-call - meta.function-call meta.function-call
-//     ^^^^^^^^ meta.function-call.name - meta.function-call meta.function-call
+//     ^^^^^^^^ meta.function-call.identifier - meta.function-call meta.function-call
 //             ^ meta.function-call - meta.function-call meta.function-call
 //              ^^^^^^^^^^ meta.function-call.instance - meta.function-call meta.function-call
 //                        ^^ meta.function-call.arguments - meta.function-call meta.function-call
 // ^^^^ keyword.control.call
-//      ^ meta.string string.quoted.double punctuation.definition.string.begin - variable
-//       ^^^^^ meta.string variable.function.symbol - string
-//            ^ meta.string string.quoted.double punctuation.definition.string.end - variable
+//      ^ variable.function.global punctuation.definition.variable.begin
+//       ^^^^^ variable.function.global - punctuation
+//            ^ variable.function.global punctuation.definition.variable.end
 //             ^ punctuation.separator.sequence
 //                ^^^^^^ variable.other.symbol
 //                        ^ punctuation.section.parens.begin

@@ -342,14 +342,14 @@ contexts:
     - match: \b(?i:[CU]C)\b
       scope: meta.function-call.plc.awl keyword.control.call.plc.awl
       push:
-        - meta_content_scope: meta.function-call.name.plc.awl
+        - meta_content_scope: meta.function-call.identifier.plc.awl
         - include: awl-stmt-call-name
         - include: assert-stmt-end
     # CALL
     - match: \b(?i:CALL)\b
       scope: meta.function-call.plc.awl keyword.control.call.plc.awl
       push:
-        - meta_content_scope: meta.function-call.name.plc.awl
+        - meta_content_scope: meta.function-call.identifier.plc.awl
         - match: ','
           scope: meta.function-call.plc.awl punctuation.separator.sequence.plc.awl
           set: awl-stmt-call-instance
@@ -359,30 +359,19 @@ contexts:
 
   awl-stmt-call-name:
     # global symbols
-    - match: \"
-      scope:
-        string.quoted.double.plc.awl
-        punctuation.definition.string.begin.plc.awl
-      push:
-        - meta_scope: meta.string.plc.awl
-        - meta_content_scope: variable.function.symbol.plc.awl
-        - meta_include_prototype: false
-        - match: \"
-          scope:
-            string.quoted.double.plc.awl
-            punctuation.definition.string.end.plc.awl
-          pop: 1
-        - match: '[^"]$'
-          scope: invalid.illegal.plc.awl
-          pop: 1
-    # absolute address
-    - match: (?i:S?F[BC])\s*\d+\b
-      scope: variable.function.address.plc.awl
+    - match: (")[^"]*(")
+      scope: variable.function.global.plc.awl
+      captures:
+        1: punctuation.definition.variable.begin.plc.awl
+        2: punctuation.definition.variable.end.plc.awl
     # local variables
     - match: (#)({{ident}})
       captures:
         1: punctuation.definition.variable.begin.plc.awl
         2: variable.function.local.plc.awl
+    # absolute address
+    - match: (?i:S?F[BC])\s*\d+\b
+      scope: variable.function.address.plc.awl
 
   awl-stmt-call-instance:
     - meta_content_scope: meta.function-call.instance.plc.awl
