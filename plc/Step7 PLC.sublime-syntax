@@ -696,17 +696,23 @@ contexts:
   storage-type-string:
     - match: \b(?i:STRING)\b
       scope: storage.type.string.plc
-      push:
-        - match: \[
-          scope: punctuation.definition.string-size.begin.plc
-          set:
-            - meta_scope: storage.type.string.plc
-            - meta_content_scope: meta.string-size.plc
-            - match: \]
-              scope: punctuation.definition.string-size.end.plc
-              pop: 1
-            - include: constants-uint16
-        - include: scope-end
+      push: storage-type-string-size
+
+  storage-type-string-size:
+    - meta_include_prototype: false
+    - match: \[
+      scope: punctuation.definition.brackets.begin.plc
+      set: storage-type-string-size-body
+    - include: scope-end
+
+  storage-type-string-size-body:
+    - meta_scope: storage.type.string.plc
+    - meta_content_scope: meta.brackets.plc
+    - match: \]
+      scope: punctuation.definition.brackets.end.plc
+      pop: 1
+    - include: illegal-eol
+    - include: constants-uint16
 
   storage-type-struct:
     - match: \b(?i:STRUCT)\b
