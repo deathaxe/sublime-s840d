@@ -728,12 +728,11 @@ contexts:
 
   storage-type-user:
     # user defined types (UDT, DB, FB)
-    - match: (\")(\S+)(\")
-      scope: string.quoted.double.plc
+    - match: (\")[^"](\")
+      scope: storage.type.other.plc
       captures:
-        1: punctuation.definition.string.begin.plc
-        2: storage.type.other.plc
-        3: punctuation.definition.string.end.plc
+        1: punctuation.definition.type.begin.plc
+        2: punctuation.definition.type.end.plc
     - match: '{{ident}}'
       scope: storage.type.other.plc
 
