@@ -371,39 +371,20 @@ contexts:
 
   annotations:
     - match: \{
-      scope: meta.mapping.plc punctuation.section.mapping.begin.plc
+      scope: punctuation.definition.annotation.begin.plc
       push: annotation-key
 
   annotation-key:
     - meta_scope: meta.annotation.plc
-    - meta_content_scope: meta.mapping.key.plc
-    - match: ({{ident}})\s*(.*?)\s*(?=:=)
-      scope: meta.mapping.key.plc
-      captures:
-        1: variable.annotation.plc
-        2: invalid.illegal.separator-expected.plc
-      set: annotation-separator
-    - include: annotation-end
-
-  annotation-separator:
-    - match: :=
-      scope: meta.mapping.plc punctuation.separator.key-value.plc
-      set: annotation-value
-    - include: annotation-end
-
-  annotation-value:
-    - meta_scope: meta.annotation.plc
-    - meta_content_scope: meta.mapping.value.plc
-    - include: string-single-quoted
-    - include: annotation-end
-
-  annotation-end:
     - match: \}
-      scope: meta.mapping.plc punctuation.section.mapping.end.plc
+      scope: punctuation.definition.annotation.end.plc
       pop: 1
-    - match: \;
-      scope: meta.mapping.plc punctuation.separator.mapping.pair.plc
-      set: annotation-key
+    - match: :=
+      scope: keyword.operator.assignment.plc
+    - match: '{{ident}}'
+      scope: variable.annotation.plc
+    - include: string-single-quoted
+    - include: punctuation-terminators
     - include: illegal
 
 ###[ TITLE ]###################################################################
