@@ -1896,7 +1896,7 @@
 //         ^ variable.function.global punctuation.definition.variable.begin
 //          ^^^^^^^^ variable.function.global - punctuation
 //                  ^ variable.function.global punctuation.definition.variable.end
-//                    ^ punctuation.section.parens.begin
+//                    ^ punctuation.section.group.begin
            EN      := L 4.0,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1973,7 +1973,7 @@
 //         ^^^^^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^ variable.language.address
-//                         ^ punctuation.section.parens.end
+//                         ^ punctuation.section.group.end
 //                          ^ punctuation.terminator.statement
 
    CALL FC 10 ();
@@ -1982,8 +1982,8 @@
 //            ^^ meta.function-call.arguments
 // ^^^^ keyword.control.call
 //      ^^^^^ variable.function.address
-//            ^ punctuation.section.parens.begin
-//             ^ punctuation.section.parens.end
+//            ^ punctuation.section.group.begin
+//             ^ punctuation.section.group.end
 
    CALL SFC 10 ();
 // ^^^^ meta.function-call
@@ -1991,8 +1991,8 @@
 //             ^^ meta.function-call.arguments
 // ^^^^ keyword.control.call
 //      ^^^^^^ variable.function.address
-//             ^ punctuation.section.parens.begin
-//              ^ punctuation.section.parens.end
+//             ^ punctuation.section.group.begin
+//              ^ punctuation.section.group.end
 
    CALL FB 10, DB 10 ();
 // ^^^^ meta.function-call - meta.function-call meta.function-call
@@ -2004,8 +2004,8 @@
 //      ^^^^^ variable.function.address
 //           ^ punctuation.separator.sequence
 //             ^^^^^ variable.language.db
-//                   ^ punctuation.section.parens.begin
-//                    ^ punctuation.section.parens.end
+//                   ^ punctuation.section.group.begin
+//                    ^ punctuation.section.group.end
 
    CALL "Block", "InstDB" ();
 // ^^^^ meta.function-call - meta.function-call meta.function-call
@@ -2019,8 +2019,8 @@
 //            ^ variable.function.global punctuation.definition.variable.end
 //             ^ punctuation.separator.sequence
 //                ^^^^^^ variable.other.symbol
-//                        ^ punctuation.section.parens.begin
-//                         ^ punctuation.section.parens.end
+//                        ^ punctuation.section.group.begin
+//                         ^ punctuation.section.group.end
 
    END_FUNCTION
 // ^^^^^^^^^^^^ meta.block.fc.body

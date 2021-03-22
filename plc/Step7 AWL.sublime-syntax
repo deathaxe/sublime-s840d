@@ -382,23 +382,23 @@ contexts:
 
   awl-stmt-call-arguments:
     - match: \(
-      scope: punctuation.section.parens.begin.plc.awl
+      scope: punctuation.section.group.begin.plc.awl
       set: awl-stmt-call-arguments-body
 
   awl-stmt-call-arguments-body:
-    - meta_scope: meta.function-call.arguments.plc.awl meta.parens.plc.awl
+    - meta_scope: meta.function-call.arguments.plc.awl meta.group.plc.awl
     - match: \)
-      scope: punctuation.section.parens.end.plc.awl
+      scope: punctuation.section.group.end.plc.awl
       set: assert-stmt-end
     - match: :=
       scope: keyword.operator.assignment.plc.awl
-      push: arguments-value
+      push: awl-arguments-value
     - match: ','
       scope: punctuation.separator.sequence.plc.awl
     - match: '{{ident}}'
       scope: variable.parameter.plc.awl
 
-  arguments-value:
+  awl-arguments-value:
     - match: (?=[,)])
       pop: 1
     - include: constants
