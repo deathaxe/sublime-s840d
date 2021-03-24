@@ -1,0 +1,359 @@
+%YAML 1.2
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 DeathAxe <deathaxe82@googlemail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+###############################################################################
+---
+name: Step7 SCL
+scope: source.plc.scl
+version: 2
+
+extends: Step7 PLC.sublime-syntax
+
+file_extensions:
+  - scl
+  - db
+  - udt
+
+variables:
+
+  constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
+
+contexts:
+
+###[ COMMENTS ]################################################################
+
+  comments:
+    - meta_append: true
+    - match: \(\*
+      scope: punctuation.definition.comment.begin.scl
+      push: comment-block-parens
+    - match: /\*
+      scope: punctuation.definition.comment.begin.scl
+      push: comment-block-slash
+
+  comment-block-parens:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.double-slash.scl
+    - match: \*\)
+      scope: punctuation.definition.comment.end.scl
+      pop: 1
+
+  comment-block-slash:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.double-slash.scl
+    - match: \*/
+      scope: punctuation.definition.comment.end.scl
+      pop: 1
+
+###[ INHERITED CONTEXTS ]######################################################
+
+  block-fb-header-content:
+    - meta_prepend: true
+    - include: var-constant
+
+  block-fc-header-content:
+    - meta_prepend: true
+    - include: var-constant
+
+  block-ob-header-content:
+    - meta_prepend: true
+    - include: var-constant
+
+  block-body-content:
+    - include: scl-statements
+    - include: illegal
+
+  constants:
+    - meta_prepend: true
+    - include: scl-constants
+    - include: scl-slice-members
+
+###[ VAR_CONSTANT ]############################################################
+
+  var-constant:
+    - match: \bVAR\s+CONSTANT\b
+      scope: keyword.declaration.var.constant.begin.plc
+      push: [var-constant-body, assert-line-end]
+
+  var-constant-body:
+    - meta_scope: meta.block.var.constant.plc
+    - include: var-body
+
+###############################################################################
+
+  scl-statements:
+    - include: scl-regions
+    - include: scl-stmt-case
+    - include: scl-stmt-repeat
+    - include: scl-control
+    - include: scl-expressions
+
+  scl-expressions:
+    - include: scl-groups
+    - include: scl-operators
+    - include: scl-punctuations
+    - include: scl-function-call
+    - include: scl-constants
+    - include: scl-slice-members
+    - include: constants
+    - include: operands-symbols
+
+###[ STATEMENTS ]##############################################################
+
+  scl-regions:
+    - match: \b((?i:region))(?:\s+(.*?)?\s+)?$
+      scope: meta.block.region.begin.scl
+      captures:
+        1: keyword.context.block.region.begin.scl
+        2: entity.name.section.scl
+      push: scl-region-body
+
+  scl-region-body:
+    - meta_content_scope: meta.block.region.scl
+    - match: \b((?i:end_region))(?:\s+(.*)\s+)?$
+      scope: meta.block.region.end.scl
+      captures:
+        1: keyword.context.block.region.end.scl
+        2: entity.name.section.scl
+      pop: 1
+    - include: scl-statements
+
+  scl-control:
+    # if..then..elsif..then..else..end_if
+    - match: \b(?i:if)\b
+      scope: keyword.control.conditional.if.scl
+    - match: \b(?i:elsif)\b
+      scope: keyword.control.conditional.elseif.scl
+    - match: \b(?i:else)\b
+      scope: keyword.control.conditional.else.scl
+    - match: \b(?i:end_if)\b
+      scope: keyword.control.conditional.end.scl
+    - match: \b(?i:then)\b
+      scope: keyword.control.conditional.then.scl
+    # for ... to .. by .. do ... end_for
+    - match: \b(?i:(?:end_)?for|to|by)\b
+      scope: keyword.control.loop.for.scl
+    - match: \b(?i:do)\b
+      scope: keyword.control.loop.do.scl
+    # while do end_while
+    - match: \b(?i:(?:end_)?while)\b
+      scope: keyword.control.loop.while.scl
+    # flow control
+    - match: \b(?i:continue)\b
+      scope: keyword.control.flow.continue.scl
+    - match: \b(?i:exit)\b
+      scope: keyword.control.flow.break.scl
+    - match: \b(?i:return)\b
+      scope: keyword.control.flow.return.scl
+
+###[ CASE..OF..ELSE..END_CASE ]################################################
+
+  scl-stmt-case:
+    - match: \b(?i:case)\b
+      scope: meta.conditional.case.scl keyword.control.conditional.case.scl
+      push: scl-stmt-case-variable
+
+  scl-stmt-case-variable:
+    - meta_content_scope: meta.conditional.case.variable.scl
+    - match: \b(?i:of)\b
+      scope: meta.conditional.case.scl keyword.control.conditional.of.scl
+      set: scl-stmt-case-branches
+    - include: scl-stmt-case-end
+    - include: scl-expressions
+
+  scl-stmt-case-branches:
+    - meta_content_scope: meta.conditional.case.branches.scl
+    - include: scl-stmt-case-end
+    - include: scl-statements
+    - match: ':'
+      scope: punctuation.separator.scl
+    - match: \.\.
+      scope: keyword.operator.range.scl
+
+  scl-stmt-case-end:
+    - match: \b(?i:end_case)\b
+      scope: meta.conditional.case.scl keyword.control.conditional.end.scl
+      pop: 1
+
+###[ REPEAT..UNTIL ]###########################################################
+
+  scl-stmt-repeat:
+    - match: \b(?i:repeat)\b
+      scope: meta.loop.repeat.scl keyword.control.loop.repeat-until.scl
+      push: scl-stmt-repeat-body
+
+  scl-stmt-repeat-body:
+    - meta_content_scope: meta.loop.repeat.scl
+    - match: \b(?i:until)\b
+      scope: meta.loop.repeat.condition.scl keyword.control.loop.repeat-until.scl
+      set: scl-stmt-repeat-until
+    - include: scl-stmt-repeat-end
+    - include: scl-statements
+
+  scl-stmt-repeat-until:
+    - meta_content_scope: meta.loop.repeat.condition.scl
+    - include: scl-stmt-repeat-end
+    - include: scl-expressions
+
+  scl-stmt-repeat-end:
+    - match: \b(?i:end_repeat)\b
+      scope: meta.loop.repeat.scl keyword.control.loop.repeat-until.scl
+      pop: 1
+    - match: (?=(?i:end_function(_block)?))
+      pop: 1
+
+###[ GROUPS ]##################################################################
+
+  scl-groups:
+    - match: \(
+      scope: punctuation.section.group.begin.scl
+      push: scl-group-body
+
+  scl-group-end:
+    - match: \)
+      scope: punctuation.section.group.end.scl
+      pop: 1
+
+  scl-group-body:
+    - include: scl-group-end
+    - include: scl-expressions
+
+###[ FUNCTION CALL ]###########################################################
+
+  scl-function-call:
+    - match: (")[^"]*(")\s*(?=\()
+      scope:
+        meta.function-call.identifier.scl
+        variable.function.global.scl
+      captures:
+        1: punctuation.definition.variable.begin.scl
+        2: punctuation.definition.variable.end.scl
+      push: scl-function-call-arguments
+    - match: (#){{ident}}\s*(?=\()
+      scope:
+        meta.function-call.identifier.scl
+        variable.function.local.scl
+      captures:
+        1: punctuation.definition.locale.scl
+      push: scl-function-call-arguments
+    - match: '{{ident}}\s*(?=\()'
+      scope:
+        meta.function-call.identifier.scl
+        support.function.scl
+      push: scl-function-call-arguments
+
+  scl-function-call-arguments:
+    - meta_include_prototype: false
+    - match: \(
+      scope: punctuation.section.group.begin.scl
+      set: scl-function-call-arguments-body
+
+  scl-function-call-arguments-body:
+    - meta_scope: meta.function-call.arguments.scl
+    - include: scl-group-end
+    - match: ({{ident}})\s*([:?]=|=>)
+      captures:
+        1: variable.parameter.scl
+        2: keyword.operator.assignment.scl
+    - include: scl-expressions
+
+###[ OPERANDS ]################################################################
+
+  scl-constants:
+    - match: (\"){{constants}}(\")
+      scope: constant.other.global.plc
+      captures:
+        1: punctuation.definition.global.begin.plc
+        2: punctuation.definition.global.end.plc
+    - match: (#){{constants}}
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.local.plc
+
+  scl-slice-members:
+    - match: (\.)((%)[Xx]\d+)
+      captures:
+        1: punctuation.accessor.dot.plc
+        2: variable.language.slice.plc
+        3: punctuation.definition.absolute.plc
+
+###[ OPERATORS ]###############################################################
+
+  scl-punctuations:
+    - match: ';'
+      scope: punctuation.terminator.statement.scl
+    - match: ','
+      scope: punctuation.separator.sequence.scl
+
+  scl-operators:
+    - match: \b(?i:and|not|or|xor|mod)\b
+      scope: keyword.operator.logical.scl
+    - match: \b(?i:ref)\b
+      scope: keyword.operator.reference.scl
+    - match: '[-+*/]='
+      scope: keyword.operator.assignment.augmented.scl
+    - match: '[:?]='
+      scope: keyword.operator.assignment.scl
+    - match: '\*\*?|[-+/]'
+      scope: keyword.operator.arithmetic.scl
+    - match: '<=|>=|<>|<|>|='
+      scope: keyword.operator.comparison.scl
+    - match: '\^'
+      scope: keyword.operator.dereference.scl
+    - match: '&'
+      scope: keyword.operator.logical.scl
+
+###[ STORAGE TYPES ]###########################################################
+
+  storage-type-atomic:
+    - meta_append: true
+    - match: \b(?i:SINT)\b
+      scope: storage.type.short.plc
+    - match: \b(?i:LINT)\b
+      scope: storage.type.longlong.plc
+    - match: \b(?i:USINT)\b
+      scope: storage.type.unsigned-short.plc
+    - match: \b(?i:UINT)\b
+      scope: storage.type.unsigned-integer.plc
+    - match: \b(?i:UDINT)\b
+      scope: storage.type.unsigned-long.plc
+    - match: \b(?i:ULINT)\b
+      scope: storage.type.unsigned-longlong.plc
+    - match: \b(?i:QWORD)\b
+      scope: storage.type.qword.plc
+    - match: \b(?i:LREAL)\b
+      scope: storage.type.double.plc
+    - match: \b(?i:WCHAR)\b
+      scope: storage.type.wchar.plc
+    - match: \b(?i:VARIANT)\b
+      scope: storage.type.variant.plc
+
+  storage-type-blocks:
+    - meta_append: true
+    - match: \b(?i:ANY_DB)\b
+      scope: storage.type.db.plc
+
+  storage-type-string:
+    - meta_append: true
+    - match: \b(?i:WSTRING)\b
+      scope: storage.type.wstring.plc
+      push: storage-type-string-size
