@@ -33,16 +33,7 @@ file_extensions:
 
 contexts:
 
-###############################################################################
-#  GLOBAL FILE TYPES                                                          #
-#  =========                                                                  #
-#    holds all the following declarations                                     #
-#      - DB  : DATA_BLOCK                                                     #
-#      - UDT : DATA_TYPE                                                      #
-#      - FB  : FUNCTION_BLOCK                                                 #
-#      - FC  : FUNCTION                                                       #
-#      - OB  : ORGANIZATION_BLOCK                                             #
-###############################################################################
+###[ INHERITED CONTEXTS ]######################################################
 
   block-udt-name:
     - meta_prepend: true
@@ -76,14 +67,7 @@ contexts:
     - include: awl-networks
     - include: illegal
 
-###############################################################################
-# AWL : NETWORK                                                               #
-#                                                                             #
-#    NETWORK                                                                  #
-#    TITLE =The meaning of the code part                                      #
-#    // the network comment                                                   #
-#    ...                                                                      #
-###############################################################################
+###[ AWL NETWORKS ]############################################################
 
   awl-networks:
     - match: \b(?i:NETWORK)\b
@@ -96,9 +80,7 @@ contexts:
       pop: 1
     - include: awl-statements
 
-###############################################################################
-# AWL : STATEMENTS                                                            #
-###############################################################################
+###[ AWL STATEMENTS ]##########################################################
 
   awl-statements:
     - include: awl-stmt-label
