@@ -181,10 +181,9 @@
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ string.quoted.double punctuation.definition.string.begin
-// ^^^^^^^^^^^^^^ meta.string
-//  ^^^^^^^^^^^^ variable.other.symbol - string
-//              ^ string.quoted.double punctuation.definition.string.end
+// ^ punctuation.definition.global.begin.plc
+// ^^^^^^^^^^^^^^ variable.other.global.plc
+//              ^ punctuation.definition.global.end.plc
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body
@@ -197,14 +196,15 @@
    VAR[0].child[ 0 ].attr := W#16#0 ;  // comment
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //    ^^^ meta.brackets
 //             ^^^^^ meta.brackets
-// ^^^ variable.other.local
+// ^^^ variable.namespace.struct.plc
 //    ^ punctuation.section.brackets.begin
 //     ^ constant.numeric.integer
 //      ^ punctuation.section.brackets.end
 //       ^ punctuation.accessor.dot
-//        ^^^^^ variable.other.member
+//        ^^^^^ variable.namespace.struct.plc
 //             ^ punctuation.section.brackets.begin
 //               ^ constant.numeric.integer
 //                 ^ punctuation.section.brackets.end
@@ -1004,10 +1004,9 @@
 //       ^^^^^^^^^^^^^^ meta.operand.datablock
 //                     ^^ - meta.operand.datablock
 //    ^^^ keyword.operator.load.db
-//          ^ string.quoted.double punctuation.definition.string.begin
-//          ^^^^^^^^^^^ meta.string
-//           ^^^^^^^^^ variable.other.symbol - string
-//                    ^ string.quoted.double punctuation.definition.string.end
+//          ^^^^^^^^^^^ variable.other.global.plc
+//          ^ punctuation.definition.global.begin.plc
+//                    ^ punctuation.definition.global.end.plc
 //                     ^ punctuation.terminator.statement
       AUF   DBNO;
 // <- meta.block.fc.body meta.block.network
@@ -1398,13 +1397,13 @@
       L    "datablock".struct[ 4 ].value;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //    ^ keyword.operator.arithmetic.load
-//         ^ string.quoted.double punctuation.definition.string.begin - variable
-//         ^^^^^^^^^^^ meta.string
-//          ^^^^^^^^^ variable.other.symbol - string
-//                   ^ string.quoted.double punctuation.definition.string.end - variable
+//         ^ punctuation.definition.global.begin.plc
+//         ^^^^^^^^^^^ variable.namespace.datablock.plc
+//                   ^ punctuation.definition.global.end.plc
 //                    ^ punctuation.accessor.dot
-//                     ^^^^^^ variable.other.member
+//                     ^^^^^^ variable.namespace.struct.plc
 //                           ^ punctuation.section.brackets.begin
 //                           ^^^^^ meta.brackets
 //                             ^ constant.numeric.integer
@@ -1417,13 +1416,13 @@
       L    "datablock".struct.value;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//         ^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //    ^ keyword.operator.arithmetic.load
-//         ^ string.quoted.double punctuation.definition.string.begin - variable
-//         ^^^^^^^^^^^ meta.string
-//          ^^^^^^^^^ variable.other.symbol - string
-//                   ^ string.quoted.double punctuation.definition.string.end - variable
+//         ^ punctuation.definition.global.begin.plc
+//         ^^^^^^^^^^^ variable.namespace.datablock.plc
+//                   ^ punctuation.definition.global.end.plc
 //                    ^ punctuation.accessor.dot
-//                     ^^^^^^ variable.other.member
+//                     ^^^^^^ variable.namespace.struct.plc
 //                           ^ punctuation.accessor.dot
 //                            ^^^^^ variable.other.member
 //                                 ^ punctuation.terminator.statement
@@ -1433,14 +1432,14 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.variable.begin
-//          ^^^^^ variable.other.local
+//         ^ punctuation.definition.local.plc
+//         ^^^^^^ variable.namespace.struct.plc
 //               ^ punctuation.section.brackets.begin
 //               ^^^ meta.brackets
 //                ^ constant.numeric.integer
 //                 ^ punctuation.section.brackets.end
 //                  ^ punctuation.accessor.dot
-//                   ^^^^^ variable.other.member
+//                   ^^^^^ variable.namespace.struct.plc
 //                        ^ punctuation.section.brackets.begin
 //                        ^^^ meta.brackets
 //                         ^ constant.numeric.integer
@@ -1915,10 +1914,10 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^ string.quoted.double punctuation.definition.string.begin - variable
-//                    ^^^^^^ meta.string
-//                     ^^^^ variable.other.symbol - string
-//                         ^ string.quoted.double punctuation.definition.string.end - variable
+//                    ^^^^^^^^^^^^^^ meta.path.plc
+//                    ^^^^^^ variable.namespace.datablock.plc
+//                    ^ punctuation.definition.global.begin.plc
+//                         ^ punctuation.definition.global.end.plc
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
 //                                  ^ punctuation.separator.sequence
@@ -1949,8 +1948,8 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^ punctuation.definition.variable.begin
-//                     ^^^^ variable.other.local
+//                    ^^^^^ variable.other.local.plc
+//                    ^ punctuation.definition.local.plc
 //                         ^ punctuation.separator.sequence
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -2003,7 +2002,7 @@
 //       ^^^^^ variable.function.global - punctuation
 //            ^ variable.function.global punctuation.definition.variable.end
 //             ^ punctuation.separator.sequence
-//                ^^^^^^ variable.other.symbol
+//               ^^^^^^^^ variable.other.global.plc
 //                        ^ punctuation.section.group.begin
 //                         ^ punctuation.section.group.end
 

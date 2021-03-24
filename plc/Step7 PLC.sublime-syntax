@@ -30,6 +30,8 @@ version: 2
 ###############################################################################
 
 variables:
+  accessor: \.(?!%)
+
   int: \d+\b(?![.][^.])
 
   ident: '[[:alpha:]_][[:alnum:]_]*\b'
@@ -191,13 +193,19 @@ contexts:
     - meta_scope: meta.block.db.body.plc
     - include: block-db-end
     - include: punctuation-terminators
-    - match: '{{ident}}'
-      scope: variable.other.local.plc
-      push: [struct-members, array-index]
+    - include: block-db-assignments
+    - include: block-db-variables
+    - include: illegal
+
+  block-db-end:
+    - match: \b(?i:END_DATA_BLOCK)\b
+      scope: keyword.declaration.db.end.plc
+      set: assert-line-end
+
+  block-db-assignments:
     - match: :=
       scope: keyword.operator.assignment.plc
       push: block-db-value
-    - include: illegal
 
   block-db-value:
     - include: constants
@@ -205,10 +213,31 @@ contexts:
     - include: operands-symbols
     - include: assert-stmt-end
 
-  block-db-end:
-    - match: \b(?i:END_DATA_BLOCK)\b
-      scope: keyword.declaration.db.end.plc
-      set: assert-line-end
+  block-db-variables:
+    - match: '{{ident}}'
+      branch_point: block-db-variables
+      branch:
+        - unqualified-db-variable
+        - qualified-db-variable
+
+  unqualified-db-variable:
+    - meta_scope: meta.path.plc variable.other.local.plc
+    - match: ''
+      set:
+        - unqualified-db-variable-fail
+        - array-index
+
+  unqualified-db-variable-fail:
+    - match: (?={{accessor}})
+      fail: block-db-variables
+    - include: immediately-pop
+
+  qualified-db-variable:
+    - meta_scope: meta.path.plc variable.namespace.struct.plc
+    - match: ''
+      set:
+        - qualified-members
+        - array-index
 
 ###[ FUNCTION_BLOCK ]##########################################################
 
@@ -1158,39 +1187,80 @@ contexts:
 ###[ SYMBOLS ]#################################################################
 
   operands-symbols:
-    # global symbols
-    - match: \"
-      scope: 
-        string.quoted.double.plc
-        punctuation.definition.string.begin.plc
-      push: [struct-members, symbols-common]
-    # local variables
-    - match: (#)({{ident}})
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: variable.other.local.plc
-      push: [struct-members, array-index]
+    - match: (?=[#"])
+      branch_point: symbols
+      branch:
+        - unqualified-symbol
+        - qualified-symbol
 
-  symbols-common:
-    - meta_scope: meta.string.plc
-    - meta_content_scope: variable.other.symbol.plc
-    - meta_include_prototype: false
-    - match: \"
-      scope:
-        string.quoted.double.plc
-        punctuation.definition.string.end.plc
-      pop: 1
-    - match: '[^"]$'
-      scope: invalid.illegal.plc
-      pop: 1
-
-  struct-members:
-    - match: (\.)({{ident}})
+  unqualified-symbol:
+    - match: (\")[^"]*(\")
+      scope: variable.other.global.plc
       captures:
-        1: punctuation.accessor.dot.plc
-        2: variable.other.member.plc
-      push: array-index
-    - include: scope-end
+        1: punctuation.definition.global.begin.plc
+        2: punctuation.definition.global.end.plc
+      set:
+        - unqualified-symbol-fail
+        - array-index
+    - match: (#){{ident}}
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.local.plc
+      set:
+        - unqualified-symbol-fail
+        - array-index
+
+  unqualified-symbol-fail:
+    - match: (?={{accessor}})
+      fail: symbols
+    - include: immediately-pop
+
+  qualified-symbol:
+    - match: (\")[^"]*(\")
+      scope: variable.namespace.datablock.plc
+      captures:
+        1: punctuation.definition.global.begin.plc
+        2: punctuation.definition.global.end.plc
+      set:
+        - qualified-members
+        - array-index
+    - match: (#){{ident}}
+      scope: variable.namespace.struct.plc
+      captures:
+        1: punctuation.definition.local.plc
+        2: punctuation.accessor.dot.plc
+      set:
+        - qualified-members
+        - array-index
+
+  qualified-members:
+    - meta_scope: meta.path.plc
+    - match: '{{accessor}}'
+      scope: punctuation.accessor.dot.plc
+      branch_point: qualified-members
+      branch:
+        - qualified-member
+        - qualified-namespace
+    - include: immediately-pop
+
+  qualified-member:
+    - match: '{{ident}}'
+      scope: variable.other.member.plc
+      set:
+        - qualified-member-fail
+        - array-index
+    - include: immediately-pop
+
+  qualified-member-fail:
+    - match: '{{accessor}}'
+      fail: qualified-members
+    - include: immediately-pop
+
+  qualified-namespace:
+    - match: '{{ident}}'
+      scope: variable.namespace.struct.plc
+      set: array-index
+    - include: immediately-pop
 
 ###[ OPERANDS PROTOTYPES ]#####################################################
 
