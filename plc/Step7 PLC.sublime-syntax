@@ -1057,6 +1057,12 @@ contexts:
     - include: operands-logical-absolute
     - include: operands-timer-absolute
 
+###[ ADRESS REGISTER ]#########################################################
+
+  operands-address-register:
+    - match: \b(?i:AR)[12]\b
+      scope: variable.language.address.plc
+
 ###[ DATABLOCK ]###############################################################
 
   operands-datablock:
@@ -1073,7 +1079,6 @@ contexts:
       push:
         - meta_scope: variable.language.db.plc
         - include: address-indirect
-        - include: scope-end
 
 ###[ BINARY ]##################################################################
 
@@ -1106,7 +1111,6 @@ contexts:
       push:
         - meta_scope: variable.language.address.plc
         - include: address-indirect
-        - include: scope-end
 
 ###[ COUNTER ]#################################################################
 
@@ -1127,7 +1131,6 @@ contexts:
       push:
         - meta_scope: variable.language.counter.plc
         - include: address-indirect
-        - include: scope-end
 
 ###[ LOGICAL ]#################################################################
 
@@ -1161,7 +1164,6 @@ contexts:
       push:
         - meta_scope: variable.language.address.plc
         - include: address-indirect
-        - include: scope-end
     # [AR1,P#0.0]
     - include: address-indirect
 
@@ -1182,7 +1184,6 @@ contexts:
       push:
         - meta_scope: variable.language.timer.plc
         - include: address-indirect
-        - include: scope-end
 
 ###[ SYMBOLS ]#################################################################
 
@@ -1273,13 +1274,12 @@ contexts:
     - meta_scope: meta.brackets.plc
     - match: \]
       scope: punctuation.section.brackets.end.plc
-      pop: 1
+      pop: 2
     - include: illegal-eol
     - include: constants-pointer
     - include: operands-binary-absolute
     - include: operands-symbols
-    - match: \b(?i:AR)[12]\b
-      scope: variable.language.address.plc
+    - include: operands-address-register
 
   array-index:
     # constant array index used in symbols
