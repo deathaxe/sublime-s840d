@@ -386,3 +386,163 @@ contexts:
     - include: constants
     - include: operands-absolute
     - include: operands-symbols
+
+###############################################################################
+# OPERANDS                                                                    #
+###############################################################################
+
+  operands:
+    - include: operands-binary
+    - include: operands-counter
+    - include: operands-datablock
+    - include: operands-logical
+    - include: operands-timer
+    - include: operands-symbols
+
+  operands-absolute:
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-logical-absolute
+    - include: operands-timer-absolute
+
+
+###[ DATABLOCK ]###############################################################
+
+  operands-datablock:
+    - include: operands-datablock-absolute
+    - include: operands-datablock-indirect
+
+  operands-datablock-absolute:
+    # DB10, DB 10 : datablocks
+    - match: \b(?i:D[BI])[ \t]*{{int}}
+      scope: variable.language.db.plc
+
+  operands-datablock-indirect:
+    - match: \b(?i:D[BI])(?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.db.plc
+        - include: address-indirect
+
+###[ BINARY ]##################################################################
+
+  operands-binary:
+    - include: operands-binary-absolute
+    - include: operands-binary-indirect
+
+  operands-binary-absolute:
+    - match: \b(?i:DBNO|DINO|DBLG|DILG|STW)\b
+      scope: variable.language.plc
+    # EB10, EW10, ED10, PEB10, PEW10, PED10
+    # AB10, AW10, AD10, PAB10, PAW10, PAD10
+    # MB10, MW10, MD10
+    # LB10, LW10, LD10, VB10, VW10, VD10
+    # DIW10, DIW10, DID10
+    - match: \b(?i:(?:P?[AE]|DI|[LMV])[BWD])[ \t]*{{int}}
+      scope: variable.language.address.plc
+    # DBB10, DBD10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
+    - match: \b(?i:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
+      captures:
+        1: variable.language.db.plc
+        2: punctuation.accessor.dot.plc
+        3: variable.language.address.plc
+
+  operands-binary-indirect:
+    # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...], AB[], EB[], PAB[], PEB[]
+    # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...], AW[], EW[], PAW[], PEW[]
+    # D[...], MD [...], LD [...], VD [...], DID [...], DID[...], AD[], ED[], PAD[], PED[]
+    - match: \b(?i:P?[AE]|D[BI]|[LMV])?[BWD](?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.address.plc
+        - include: address-indirect
+
+###[ COUNTER ]#################################################################
+
+  operands-counter:
+    - include: operands-counter-absolute
+    - include: operands-counter-indirect
+
+  operands-counter-absolute:
+    # C10, C 10 : counter (english)
+    # Z10, Z 10 : counter (german)
+    - match: \b(?i:[CZ])[ \t]*{{int}}
+      scope: variable.language.counter.plc
+
+  operands-counter-indirect:
+    # C[MW10], C [MW10] : counter (english)
+    # Z[MW10], Z [MW10] : counter (german)
+    - match: \b(?i:[CZ])(?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.counter.plc
+        - include: address-indirect
+
+###[ LOGICAL ]#################################################################
+
+  operands-logical:
+    - include: operands-logical-absolute
+    - include: operands-logical-indirect
+
+  operands-logical-absolute:
+    # M 10.0, DIX 10.0, L 0.0, ...
+    - match: \b(?i:DIX|[AELMV])\s*\d+(\.)\d+
+      scope: variable.language.address.plc
+      captures:
+        1: punctuation.separator.decimal.plc
+    # DB10.DBX 10.0
+    - match: \b(?i:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
+      captures:
+        1: variable.language.db.plc
+        2: punctuation.accessor.dot.plc
+        3: variable.language.address.plc
+        4: punctuation.separator.decimal.plc
+    # status register A0 A1
+    - match: (?:==|<>|>=|<=|<|>)0\b
+      scope: variable.language.status.plc
+    # BIE, OV
+    - match: \b(?i:BIE|OV)\b
+      scope: variable.language.status.plc
+
+  operands-logical-indirect:
+    # DBX [AR1,P#0.0]
+    - match: \b(?i:D[BI]X)(?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.address.plc
+        - include: address-indirect
+    # [AR1,P#0.0]
+    - include: address-indirect
+
+###[ TIMER ]###################################################################
+
+  operands-timer:
+    - include: operands-timer-absolute
+    - include: operands-timer-indirect
+
+  operands-timer-absolute:
+    # T10, T 10 : timer
+    - match: \b[Tt][ \t]*{{int}}
+      scope: variable.language.timer.plc
+
+  operands-timer-indirect:
+    # T[MW10], T [MW10] : timer
+    - match: \b[Tt](?=[ \t]*\[)
+      push:
+        - meta_scope: variable.language.timer.plc
+        - include: address-indirect
+
+###[ OPERANDS PROTOTYPES ]#####################################################
+
+  address-indirect:
+    - match: \[
+      scope: punctuation.section.brackets.begin.plc
+      push: address-indirect-body
+
+  address-indirect-body:
+    - meta_scope: meta.brackets.plc
+    - match: \]
+      scope: punctuation.section.brackets.end.plc
+      pop: 2
+    - include: illegal-eol
+    - include: constants-pointer
+    - include: operands-binary-absolute
+    - include: operands-symbols
+    - include: operands-address-register
