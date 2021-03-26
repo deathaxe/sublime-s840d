@@ -1065,6 +1065,7 @@ contexts:
         - qualified-symbol
 
   unqualified-symbol:
+    - meta_include_prototype: false
     - match: (\")[^"]*(\")
       scope: variable.other.global.plc
       captures:
@@ -1082,11 +1083,13 @@ contexts:
         - array-index
 
   unqualified-symbol-fail:
+    - meta_include_prototype: false
     - match: (?={{accessor}})
       fail: symbols
     - include: immediately-pop
 
   qualified-symbol:
+    - meta_include_prototype: false
     - match: (\")[^"]*(\")
       scope: variable.namespace.datablock.plc
       captures:
@@ -1105,36 +1108,41 @@ contexts:
         - array-index
 
   qualified-members:
+    - meta_include_prototype: false
     - meta_scope: meta.path.plc
     - match: '{{accessor}}'
       scope: punctuation.accessor.dot.plc
       branch_point: qualified-members
       branch:
-        - qualified-member
+        - qualified-variable
         - qualified-namespace
     - include: immediately-pop
 
-  qualified-member:
+  qualified-variable:
+    - meta_include_prototype: false
     - match: '{{ident}}'
       scope: variable.other.member.plc
+      pop: 1
       set:
-        - qualified-member-fail
+        - qualified-variable-fail
         - array-index
-    - include: immediately-pop
+    - include: immediately-pop2
 
-  qualified-member-fail:
+  qualified-variable-fail:
+    - meta_include_prototype: false
     - match: '{{accessor}}'
       fail: qualified-members
     - include: immediately-pop
 
   qualified-namespace:
+    - meta_include_prototype: false
     - match: '{{ident}}'
       scope: variable.namespace.struct.plc
       set: array-index
-    - include: immediately-pop
+    - include: immediately-pop2
 
   array-index:
-    # constant array index used in symbols
+    - meta_include_prototype: false
     - match: \[
       scope: punctuation.section.brackets.begin.plc
       set: array-index-body
@@ -1156,6 +1164,10 @@ contexts:
   immediately-pop:
     - match: ''
       pop: 1
+
+  immediately-pop2:
+    - match: ''
+      pop: 2
 
   scope-end:
     - match: $|(?=\S)
