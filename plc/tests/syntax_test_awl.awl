@@ -12,9 +12,9 @@
   TYPE "UDT_TypeName"
 //^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
 //^^^^ keyword.declaration.udt.begin
-//     ^ punctuation.definition.symbol.begin
+//     ^ punctuation.definition.variable.begin
 //     ^^^^^^^^^^^^^^ entity.name.type.plc
-//                  ^ punctuation.definition.symbol.end
+//                  ^ punctuation.definition.variable.end
    { S7_language := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.annotation.plc
 // ^ punctuation.definition.annotation.begin
@@ -119,9 +119,9 @@
   DATA_BLOCK "name" // comment
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
 // ^^^^^^^^^ keyword.declaration.db.begin
-//           ^ punctuation.definition.symbol.begin
+//           ^ punctuation.definition.variable.begin
 //           ^^^^^^ entity.name.datablock.plc
-//                ^ punctuation.definition.symbol.end.plc
+//                ^ punctuation.definition.variable.end.plc
 //                  ^^ punctuation.definition.comment.begin
 //                  ^^^^^^^^^^ comment.line.double-slash
    TITLE =the datablock description
@@ -181,9 +181,9 @@
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ punctuation.definition.global.begin.plc
+// ^ punctuation.definition.variable.begin.plc
 // ^^^^^^^^^^^^^^ variable.other.global.plc
-//              ^ punctuation.definition.global.end.plc
+//              ^ punctuation.definition.variable.end.plc
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body
@@ -1005,8 +1005,8 @@
 //                     ^^ - meta.operand.datablock
 //    ^^^ keyword.operator.load.db
 //          ^^^^^^^^^^^ variable.other.global.plc
-//          ^ punctuation.definition.global.begin.plc
-//                    ^ punctuation.definition.global.end.plc
+//          ^ punctuation.definition.variable.begin.plc
+//                    ^ punctuation.definition.variable.end.plc
 //                     ^ punctuation.terminator.statement
       AUF   DBNO;
 // <- meta.block.fc.body meta.block.network
@@ -1399,9 +1399,9 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.global.begin.plc
+//         ^ punctuation.definition.variable.begin.plc
 //         ^^^^^^^^^^^ variable.namespace.datablock.plc
-//                   ^ punctuation.definition.global.end.plc
+//                   ^ punctuation.definition.variable.end.plc
 //                    ^ punctuation.accessor.dot
 //                     ^^^^^^ variable.namespace.struct.plc
 //                           ^ punctuation.section.brackets.begin
@@ -1418,9 +1418,9 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //         ^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.global.begin.plc
+//         ^ punctuation.definition.variable.begin.plc
 //         ^^^^^^^^^^^ variable.namespace.datablock.plc
-//                   ^ punctuation.definition.global.end.plc
+//                   ^ punctuation.definition.variable.end.plc
 //                    ^ punctuation.accessor.dot
 //                     ^^^^^^ variable.namespace.struct.plc
 //                           ^ punctuation.accessor.dot
@@ -1432,7 +1432,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.local.plc
+//         ^ punctuation.definition.variable.plc
 //         ^^^^^^ variable.namespace.struct.plc
 //               ^ punctuation.section.brackets.begin
 //               ^^^ meta.brackets
@@ -1916,8 +1916,8 @@
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^^^^ meta.path.plc
 //                    ^^^^^^ variable.namespace.datablock.plc
-//                    ^ punctuation.definition.global.begin.plc
-//                         ^ punctuation.definition.global.end.plc
+//                    ^ punctuation.definition.variable.begin.plc
+//                         ^ punctuation.definition.variable.end.plc
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
 //                                  ^ punctuation.separator.sequence
@@ -1949,7 +1949,7 @@
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^ variable.other.local.plc
-//                    ^ punctuation.definition.local.plc
+//                    ^ punctuation.definition.variable.plc
 //                         ^ punctuation.separator.sequence
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments

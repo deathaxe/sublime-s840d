@@ -39,43 +39,44 @@ contexts:
     - meta_prepend: true
     # absolute address
     - match: \b(?i:UDT)\s*\d+\b
-      scope: entity.name.type.plc.awl
+      scope: entity.name.type.plc
       pop: 1
 
   block-db-name:
     - meta_prepend: true
     # absolute address
     - match: \b(?i:S?DB)\s*\d+\b
-      scope: entity.name.datablock.plc.awl
+      scope: entity.name.datablock.plc
       pop: 1
 
   block-fb-name:
     - meta_prepend: true
     # absolute address
     - match: \b(?i:S?F[BC])\s*\d+\b
-      scope: entity.name.function.plc.awl
+      scope: entity.name.function.plc
       pop: 1
 
   block-ob-name:
     - meta_prepend: true
     # absolute address
     - match: \b(?i:OB)\s*\d+\b
-      scope: entity.name.type.plc.awl
+      scope: entity.name.type.plc
       pop: 1
 
   block-body-content:
     - include: awl-networks
+    - include: awl-statements
     - include: illegal
 
 ###[ AWL NETWORKS ]############################################################
 
   awl-networks:
     - match: \b(?i:NETWORK)\b
-      scope: keyword.control.network.plc.awl
+      scope: keyword.control.network.plc
       push: [awl-network-body, title]
 
   awl-network-body:
-    - meta_scope: meta.block.network.plc.awl
+    - meta_scope: meta.block.network.plc
     - match: (?=(?i:NETWORK|END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
       pop: 1
     - include: awl-statements
@@ -99,94 +100,94 @@ contexts:
   awl-stmt-label:
     - match: ^\s*(\w{1,4})(:)
       captures:
-        1: entity.name.label.plc.awl
-        2: punctuation.terminator.label.plc.awl
+        1: entity.name.label.plc
+        2: punctuation.terminator.label.plc
 
   awl-stmt-block:
     # U( , UN( , O(, ON( , X( , XN(
     - match: \b((?i:[OUX]N?))(\()
       captures:
-        1: keyword.operator.logical.plc.awl
-        2: punctuation.section.block.begin.plc.awl
+        1: keyword.operator.logical.plc
+        2: punctuation.section.block.begin.plc
       push: [awl-stmt-block-body, assert-stmt-end]
 
   awl-stmt-block-body:
-    - meta_scope: meta.block.logical.plc.awl
+    - meta_scope: meta.block.logical.plc
     - match: \)
-      scope: punctuation.section.block.end.plc.awl
+      scope: punctuation.section.block.end.plc
       set: assert-stmt-end
     - include: awl-statements
 
   awl-stmt-nop:
     # NOP 0, BLD
     - match: \b(?i:BLD|NOP)\b
-      scope: keyword.operator.nop.plc.awl
+      scope: keyword.operator.nop.plc
       push:
-        - meta_content_scope: meta.operand.constant.numeric.plc.awl
+        - meta_content_scope: meta.operand.constant.numeric.plc
         - include: constants-uint16
         - include: assert-stmt-end
 
   awl-stmt-logical:
     # U , UN , O, ON, X, XN, FP, FN
     - match: \b(?i:[OUX]N?|F[PN])\b
-      scope: keyword.operator.logical.plc.awl
+      scope: keyword.operator.logical.plc
       push:
-        - meta_content_scope: meta.operand.logical.plc.awl
+        - meta_content_scope: meta.operand.logical.plc
         - include: operands
         - include: assert-stmt-end
     - match: \b(?i:CLR|NOT|SAVE|SET)\b
-      scope: keyword.operator.logical.vke.plc.awl
+      scope: keyword.operator.logical.vke.plc
       push: assert-stmt-end
     # ==I, ==D, <>I, <>D, <=I, <=D, >=I, >=D, <I, <D, >I, >D
     - match: (?:==|<>|<=|>=|<|>)[IDR]
-      scope: keyword.operator.logical.plc.awl
+      scope: keyword.operator.logical.plc
       push: assert-stmt-end
 
   awl-stmt-bitwise:
     # UW, UD, OW, OD, XOW, XOD
     - match: \b(?i:[OU]|XO)[WD]\b
-      scope: keyword.operator.bitwise.plc.awl
+      scope: keyword.operator.bitwise.plc
       push:
-        - meta_content_scope: meta.operand.constant.numeric.plc.awl
+        - meta_content_scope: meta.operand.constant.numeric.plc
         - include: constants-hex
         - include: assert-stmt-end
     # INVI, INVD, NEGI, NEGD, NEGR
     - match: \b(?i:INV[ID]|NEG[IDR])\b
-      scope: keyword.operator.bitwise.plc.awl
+      scope: keyword.operator.bitwise.plc
       push: assert-stmt-end
     # RLD, RLDA, RRD, RRDA
     # SLW, SLD, SRW, SRD
     # SSI, SSD
     - match: \b(?i:R[LR]DA?|S[LR][WD]|SS[DI])\b
-      scope: keyword.operator.bitwise.plc.awl
+      scope: keyword.operator.bitwise.plc
       push:
-        - meta_content_scope: meta.operand.constant.numeric.plc.awl
+        - meta_content_scope: meta.operand.constant.numeric.plc
         - include: constants-uint16
         - include: assert-stmt-end
 
   awl-stmt-aritmetical:
     # -I, -D, -R, +I, +D, +R, ...
     - match: '[-+*/][IDR]\b'
-      scope: keyword.operator.arithmetic.plc.awl
+      scope: keyword.operator.arithmetic.plc
       push: assert-stmt-end
     # INC, DEC
     - match: \b(?i:INC|DEC)\b
-      scope: keyword.operator.arithmetic.plc.awl
+      scope: keyword.operator.arithmetic.plc
       push:
-        - meta_content_scope: meta.operand.constant.numeric.plc.awl
+        - meta_content_scope: meta.operand.constant.numeric.plc
         - include: constants-uint16
         - include: assert-stmt-end
     # + 10, + -10, + L#20, + L#-20, + B#16#A
     - match: \+
-      scope: keyword.operator.arithmetic.plc.awl
+      scope: keyword.operator.arithmetic.plc
       push:
-        - meta_content_scope: meta.operand.constant.numeric.plc.awl
+        - meta_content_scope: meta.operand.constant.numeric.plc
         - include: constants-int
         - include: constants-hex
         - include: assert-stmt-end
     # 32-bit floating point operations
     - match: \b(?i:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
-      scope: keyword.operator.arithmetic.plc.awl
+      scope: keyword.operator.arithmetic.plc
       push: assert-stmt-end
     # type conversions
     # BTI, ITB, BTD, ITD, DTB, DTR
@@ -194,15 +195,15 @@ contexts:
     # TAW, TAD
     # RND, RND+ RND-, TRUNC
     - match: \b(?i:IT[BD]|[BD]TI|DT[BR]|RND[-+]?|TRUNC|TA[WD])\b
-      scope: keyword.operator.arithmetic.convert.plc.awl
+      scope: keyword.operator.arithmetic.convert.plc
       push: assert-stmt-end
 
   awl-stmt-assignment:
     # L, LC
     - match: \b(?i:LC?)\b
-      scope: keyword.operator.arithmetic.load.plc.awl
+      scope: keyword.operator.arithmetic.load.plc
       push:
-        - meta_content_scope: meta.operand.numeric.plc.awl
+        - meta_content_scope: meta.operand.numeric.plc
         - include: constants
         - include: operands-binary
         - include: operands-counter
@@ -211,78 +212,78 @@ contexts:
         - include: assert-stmt-end
     # T
     - match: \b(?i:T)\b
-      scope: keyword.operator.assignment.plc.awl
+      scope: keyword.operator.assignment.plc
       push:
-        - meta_content_scope: meta.operand.assignment.plc.awl
+        - meta_content_scope: meta.operand.assignment.plc
         - include: operands
         - include: assert-stmt-end
     # =, S, R
     - match: =|\b(?i:[RS])\b
-      scope: keyword.operator.assignment.logical.plc.awl
+      scope: keyword.operator.assignment.logical.plc
       push:
-        - meta_content_scope: meta.operand.marker.plc.awl meta.operand.counter.plc.awl meta.operand.timer.plc.awl
+        - meta_content_scope: meta.operand.marker.plc meta.operand.counter.plc meta.operand.timer.plc
         - include: operands
         - include: assert-stmt-end
     # FR
     - match: \b(?i:FR)\b
-      scope: keyword.operator.assignment.logical.plc.awl
+      scope: keyword.operator.assignment.logical.plc
       push:
-        - meta_content_scope: meta.operand.counter.plc.awl meta.operand.timer.plc.awl
+        - meta_content_scope: meta.operand.counter.plc meta.operand.timer.plc
         - include: operands
         - include: assert-stmt-end
     # SA, SE, SI, SS, SV
     - match: \b(?i:S[AEISV]?)\b
-      scope: keyword.operator.timer.plc.awl
+      scope: keyword.operator.timer.plc
       push:
-        - meta_content_scope: meta.operand.s5time.plc.awl
+        - meta_content_scope: meta.operand.s5time.plc
         - include: operands
         - include: assert-stmt-end
     # ZV, ZR
     - match: \b(?i:Z[RV])\b
-      scope: keyword.operator.counter.plc.awl
+      scope: keyword.operator.counter.plc
       push:
-        - meta_content_scope: meta.operand.counter.plc.awl
+        - meta_content_scope: meta.operand.counter.plc
         - include: operands
         - include: assert-stmt-end
 
   awl-stmt-akku:
     - match: \b(?i:POP|PUSH|TAK|ENT|LEAVE)\b
-      scope: keyword.operator.assignment.akku.plc.awl
+      scope: keyword.operator.assignment.akku.plc
       push: assert-stmt-end
 
   awl-stmt-datablock:
     - match: \b(?i:AUF)\b
-      scope: keyword.operator.load.db.plc.awl
+      scope: keyword.operator.load.db.plc
       push:
-        - meta_content_scope: meta.operand.datablock.plc.awl
+        - meta_content_scope: meta.operand.datablock.plc
         - include: operands-datablock
         - include: operands-symbols
         - include: assert-stmt-end
     - match: \b(?i:TDB)\b
-      scope: keyword.operator.db.plc.awl
+      scope: keyword.operator.db.plc
       push: assert-stmt-end
 
   awl-stmt-address-register:
     # LAR1, LAR2
     - match: \b(?i:LAR)[12]\b
-      scope: keyword.operator.load.address-register.plc.awl
+      scope: keyword.operator.load.address-register.plc
       push:
-        - meta_content_scope: meta.operand.pointer.plc.awl
+        - meta_content_scope: meta.operand.pointer.plc
         - include: constants-pointer
         - include: operands
         - include: assert-stmt-end
     # TAR1, TAR2
     - match: \b(?i:TAR)[12]\b
-      scope: keyword.operator.assignment.address-register.plc.awl
+      scope: keyword.operator.assignment.address-register.plc
       push:
-        - meta_content_scope: meta.operand.pointer.plc.awl
+        - meta_content_scope: meta.operand.pointer.plc
         - include: operands
         - include: assert-stmt-end
     # +AR1, +AR2
     - match: \+(?i:AR)[12]\b
-      scope: keyword.operator.arithmetic.address-register.plc.awl
+      scope: keyword.operator.arithmetic.address-register.plc
       push:
-        - meta_content_scope: meta.operand.pointer.plc.awl
+        - meta_content_scope: meta.operand.pointer.plc
         - include: constants-pointer
         - include: operands
         - include: assert-stmt-end
@@ -290,7 +291,7 @@ contexts:
   awl-stmt-goto:
     # BE, BEA, BEB
     - match: \b(?i:BE[AB]?)\b  # function block end
-      scope: keyword.operator.blockend.plc.awl
+      scope: keyword.operator.blockend.plc
       push: assert-stmt-end
     - match: |-
           \b(?xi:
@@ -309,31 +310,31 @@ contexts:
             | SPU       # result invalid
             | LOOP      # decrement akku and jump if > 0
           )\b
-      scope: keyword.operator.goto.plc.awl
+      scope: keyword.operator.goto.plc
       push:
-        - meta_content_scope: meta.operand.goto-label.plc.awl
+        - meta_content_scope: meta.operand.goto-label.plc
         - match: \w{1,4}
-          scope: entity.name.goto-label.plc.awl
+          scope: entity.name.goto-label.plc
           set: assert-stmt-end
         - include: assert-stmt-end
 
-###[ CALL ]####################################################################
+###[ AWL FUNCTION CALLS ]######################################################
 
   awl-stmt-call:
     ## CC, UC
     - match: \b(?i:[CU]C)\b
-      scope: meta.function-call.plc.awl keyword.control.call.plc.awl
+      scope: meta.function-call.plc keyword.control.call.plc
       push:
-        - meta_content_scope: meta.function-call.identifier.plc.awl
+        - meta_content_scope: meta.function-call.identifier.plc
         - include: awl-stmt-call-name
         - include: assert-stmt-end
     # CALL
     - match: \b(?i:CALL)\b
-      scope: meta.function-call.plc.awl keyword.control.call.plc.awl
+      scope: meta.function-call.plc keyword.control.call.plc
       push:
-        - meta_content_scope: meta.function-call.identifier.plc.awl
+        - meta_content_scope: meta.function-call.identifier.plc
         - match: ','
-          scope: meta.function-call.plc.awl punctuation.separator.sequence.plc.awl
+          scope: meta.function-call.plc punctuation.separator.sequence.plc
           set: awl-stmt-call-instance
         - include: awl-stmt-call-arguments
         - include: awl-stmt-call-name
@@ -342,21 +343,21 @@ contexts:
   awl-stmt-call-name:
     # global symbols
     - match: (")[^"]*(")
-      scope: variable.function.global.plc.awl
+      scope: variable.function.global.plc
       captures:
-        1: punctuation.definition.variable.begin.plc.awl
-        2: punctuation.definition.variable.end.plc.awl
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
     # local variables
     - match: (#)({{ident}})
       captures:
-        1: punctuation.definition.variable.begin.plc.awl
-        2: variable.function.local.plc.awl
+        1: punctuation.definition.variable.begin.plc
+        2: variable.function.local.plc
     # absolute address
     - match: (?i:S?F[BC])\s*\d+\b
-      scope: variable.function.address.plc.awl
+      scope: variable.function.address.plc
 
   awl-stmt-call-instance:
-    - meta_content_scope: meta.function-call.instance.plc.awl
+    - meta_content_scope: meta.function-call.instance.plc
     - include: awl-stmt-call-arguments
     - include: operands-datablock-absolute
     - include: operands-symbols
@@ -364,21 +365,21 @@ contexts:
 
   awl-stmt-call-arguments:
     - match: \(
-      scope: punctuation.section.group.begin.plc.awl
+      scope: punctuation.section.group.begin.plc
       set: awl-stmt-call-arguments-body
 
   awl-stmt-call-arguments-body:
-    - meta_scope: meta.function-call.arguments.plc.awl meta.group.plc.awl
+    - meta_scope: meta.function-call.arguments.plc meta.group.plc
     - match: \)
-      scope: punctuation.section.group.end.plc.awl
+      scope: punctuation.section.group.end.plc
       set: assert-stmt-end
     - match: :=
-      scope: keyword.operator.assignment.plc.awl
+      scope: keyword.operator.assignment.plc
       push: awl-arguments-value
     - match: ','
-      scope: punctuation.separator.sequence.plc.awl
+      scope: punctuation.separator.sequence.plc
     - match: '{{ident}}'
-      scope: variable.parameter.plc.awl
+      scope: variable.parameter.plc
 
   awl-arguments-value:
     - match: (?=[,)])
@@ -405,7 +406,6 @@ contexts:
     - include: operands-datablock-absolute
     - include: operands-logical-absolute
     - include: operands-timer-absolute
-
 
 ###[ DATABLOCK ]###############################################################
 

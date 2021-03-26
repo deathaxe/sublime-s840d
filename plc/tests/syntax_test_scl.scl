@@ -1,0 +1,461 @@
+// SYNTAX TEST "Step7 SCL.sublime-syntax"
+
+FUNCTION_BLOCK MyFunc
+
+    { S7_Optimized_Access := 'TRUE' ; Published := 'TRUE' ; }
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+//    ^^^^^^^^^^^^^^^^^^^ variable.annotation.plc
+//                        ^^ keyword.operator.assignment.plc
+//                           ^^^^^^ string.quoted.single.plc
+//                                  ^ punctuation.terminator.statement.plc
+//                                    ^^^^^^^^^ variable.annotation.plc
+//                                              ^^ keyword.operator.assignment.plc
+//                                                 ^^^^^^ string.quoted.single.plc
+//                                                        ^ punctuation.terminator.statement.plc
+//                                                          ^ punctuation.definition.annotation.end.plc
+
+VAR
+    statVar AT %IW0 : WORD := 0;
+
+    statLReal { S7_Setpoint } : LREAL := 0.0;
+
+END_VAR
+
+
+VAR CONSTANT
+
+END_VAR
+
+BEGIN
+
+
+REGION Main
+// <- meta.block.region.begin.plc keyword.context.block.region.begin.plc
+//^^^^^^^^^^ meta.block.region.begin.plc
+//^^^^ keyword.context.block.region.begin.plc
+//     ^^^^ entity.name.section.plc
+
+    region Sub Region Name
+//  ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.plc meta.block.region.begin.plc
+//  ^^^^^^ keyword.context.block.region.begin.plc
+//         ^^^^^^^^^^^^^^^ entity.name.section.plc
+
+    end_region Sub Region Name // comment
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.plc meta.block.region.end.plc
+//  ^^^^^^^^^^ keyword.context.block.region.end.plc
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.plc
+
+END_REGION // comment
+//^^^^^^^^^^^^^^^^^^^^ meta.block.region.end.plc
+// <- keyword.context.block.region.end.plc
+//^^^^^^^^ keyword.context.block.region.end.plc
+//         ^^^^^^^^^^ entity.name.section.plc
+
+end_region // comment
+// <- invalid.illegal.plc
+//^^^^^^^^ invalid.illegal.plc
+//         ^^^^^^^^^^ comment.line.double-slash.plc
+
+
+/// CASE..OF..ELSE..END_CASE //////////////////////////////////////////////////
+
+    case #var+5 of
+//  ^^^^ meta.conditional.case.plc
+//      ^^^^^^^^ meta.conditional.case.variable.plc
+//              ^^ meta.conditional.case.plc
+//                ^ meta.conditional.case.branches.plc
+//  ^^^^ keyword.control.conditional.case.plc
+//              ^^ keyword.control.conditional.of.plc
+    0: #var := 1;
+// ^^^^ meta.conditional.case.branches.plc
+//  ^ constant.numeric.integer.decimal.plc
+//   ^ punctuation.separator.plc
+//     ^^^^ variable.other.local.plc
+//          ^^ keyword.operator.assignment.plc
+//             ^ constant.numeric.integer.decimal.plc
+//              ^ punctuation.terminator.statement.plc
+    0,1,5:
+// ^^^^^^^^ meta.conditional.case.branches.plc
+//  ^ constant.numeric.integer.decimal.plc
+//   ^ punctuation.separator.sequence.plc
+//    ^ constant.numeric.integer.decimal.plc
+//     ^ punctuation.separator.sequence.plc
+//      ^ constant.numeric.integer.decimal.plc
+//       ^ punctuation.separator.plc
+        return;
+//      ^^^^^^ keyword.control.flow.return.plc
+//            ^ punctuation.terminator.statement.plc
+    0..10:
+// ^^^^^^^^ meta.conditional.case.branches.plc
+//  ^ constant.numeric.integer.decimal.plc
+//   ^^ keyword.operator.range.plc
+//     ^^ constant.numeric.integer.decimal.plc
+//       ^ punctuation.separator.plc
+
+    true:
+// ^^^^^^^ meta.conditional.case.branches.plc
+//  ^^^^ constant.language.boolean.plc
+//      ^ punctuation.separator.plc
+
+    false:
+// ^^^^^^^^ meta.conditional.case.branches.plc
+//  ^^^^^ constant.language.boolean.plc
+//       ^ punctuation.separator.plc
+
+    #LOCAL_CONST:
+// ^^^^^^^^^^^^^^^ meta.conditional.case.branches.plc
+//  ^ constant.other.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^^ constant.other.local.plc
+//              ^ punctuation.separator.plc
+
+    "GLOBAL_CONST":
+// ^^^^^^^^^^^^^^^^^ meta.conditional.case.branches.plc
+//  ^ constant.other.global.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^^^^^ constant.other.global.plc - punctuation
+//               ^ constant.other.global.plc punctuation.definition.variable.end.plc
+//                ^ punctuation.separator.plc
+
+    #var.name:
+//  ^^^^^^^^^ meta.path.plc
+//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
+//   ^^^ variable.namespace.struct.plc
+//      ^ punctuation.accessor.dot.plc - variable
+//       ^^^^ variable.other.member.plc
+
+    else
+// ^^^^^^ meta.conditional.case.branches.plc
+//  ^^^^ keyword.control.conditional.else.plc
+
+    end_case;
+// ^ meta.conditional.case.branches.plc
+//  ^^^^^^^^ meta.conditional.case.plc
+//          ^ - meta.conditional.case
+//  ^^^^^^^^ keyword.control.conditional.end.plc
+//          ^ punctuation.terminator.statement.plc
+
+/// IF..THEN..ELSIF..THEN..ELSE..END_IF ///////////////////////////////////////
+
+    if true then
+//  ^^ keyword.control.conditional.if.plc
+//     ^^^^ constant.language.boolean.plc
+//          ^^^^ keyword.control.conditional.then.plc
+    elsif true then
+//  ^^^^^ keyword.control.conditional.elseif.plc
+//        ^^^^ constant.language.boolean.plc
+//             ^^^^ keyword.control.conditional.then.plc
+    else
+//  ^^^^ keyword.control.conditional.else.plc
+    end_if;
+//  ^^^^^^ keyword.control.conditional.end.plc
+//        ^ punctuation.terminator.statement.plc
+
+/// REPEAT..UNTIL /////////////////////////////////////////////////////////////
+
+    repeat
+//  ^^^^^^^ meta.loop.repeat.plc
+//  ^^^^^^ keyword.control.loop.repeat-until.plc
+
+    until true
+//  ^^^^^^^^^^^ meta.loop.repeat.condition.plc
+//  ^^^^^ keyword.control.loop.repeat-until.plc
+//        ^^^^ constant.language.boolean.plc
+
+    end_repeat;
+// ^ meta.loop.repeat.condition.plc
+//  ^^^^^^^^^^ meta.loop.repeat.plc
+//  ^^^^^^^^^^ keyword.control.loop.repeat-until.plc
+//            ^ punctuation.terminator.statement.plc
+
+    until
+//  ^^^^^ invalid.illegal.plc
+
+    end_repeat
+//  ^^^^^^^^^^ invalid.illegal.plc
+
+    repeat end_repeat
+//  ^^^^^^^^^^^^^^^^^ meta.loop.repeat.plc
+//  ^^^^^^ keyword.control.loop.repeat-until.plc
+//        ^ - keyword
+//         ^^^^^^^^^^ keyword.control.loop.repeat-until.plc
+
+/// WHILE..DO..END_WHILE //////////////////////////////////////////////////////
+
+    while true do
+//  ^^^^^ keyword.control.loop.while.plc
+//        ^^^^ constant.language.boolean.plc
+//             ^^ keyword.control.loop.do.plc
+
+    end_while
+//  ^^^^^^^^^ keyword.control.loop.while.plc
+
+/// FUNCTION CALLS ////////////////////////////////////////////////////////////
+
+    "instFun"(execute := #execute, param := true or false);
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.function-call meta.function-call
+//  ^^^^^^^^^ meta.function-call.identifier.plc
+//  ^ variable.function.global.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^ variable.function.global.plc - punctuation
+//          ^ variable.function.global.plc punctuation.definition.variable.end.plc
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc
+//                                                        ^ - meta.function-call
+//           ^ punctuation.section.group.begin.plc
+//            ^^^^^^^ variable.parameter.plc
+//                    ^^ keyword.operator.assignment.plc
+//                       ^^^^^^^^ variable.other.local.plc
+//                               ^ punctuation.separator.sequence.plc
+//                                 ^^^^^ variable.parameter.plc
+//                                       ^^ keyword.operator.assignment.plc
+//                                          ^^^^ constant.language.boolean.plc
+//                                               ^^ keyword.operator.logical.plc
+//                                                  ^^^^^ constant.language.boolean.plc
+//                                                       ^ punctuation.section.group.end.plc
+//                                                        ^ punctuation.terminator.statement.plc
+
+    #instFun(execute := #execute, param := true or false, out => #out);
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.function-call meta.function-call
+//  ^^^^^^^^ meta.function-call.identifier.plc
+//  ^ variable.function.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^ variable.function.local.plc - punctuation
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc
+//                                                                    ^ - meta.function-call
+//          ^ punctuation.section.group.begin.plc
+//           ^^^^^^^ variable.parameter.plc
+//                   ^^ keyword.operator.assignment.plc
+//                      ^^^^^^^^ variable.other.local.plc
+//                              ^ punctuation.separator.sequence.plc
+//                                ^^^^^ variable.parameter.plc
+//                                      ^^ keyword.operator.assignment.plc
+//                                         ^^^^ constant.language.boolean.plc
+//                                              ^^ keyword.operator.logical.plc
+//                                                 ^^^^^ constant.language.boolean.plc
+//                                                      ^ punctuation.separator.sequence.plc
+//                                                        ^^^ variable.parameter.plc
+//                                                            ^^ keyword.operator.assignment.plc
+//                                                               ^^^^ variable.other.local.plc
+//                                                                   ^ punctuation.section.group.end.plc
+//                                                                    ^ punctuation.terminator.statement.plc
+
+    #arrayFun[5](
+//  ^^^^^^^^^ meta.function-call.identifier.plc - meta.brackets
+//           ^^^ meta.function-call.identifier.plc meta.brackets.plc
+//              ^^ meta.function-call.arguments.plc
+//  ^ variable.function.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^^ variable.function.local.plc
+//           ^ punctuation.section.brackets.begin.plc
+//            ^ constant.numeric.integer.decimal.plc
+//             ^ punctuation.section.brackets.end.plc
+//              ^ punctuation.section.group.begin.plc
+        execute := "globDB".anyFun[10] (IN := #var + 1)
+//     ^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc - meta.function-call meta.function-call
+//                          ^^^^^^^^^^^ meta.function-call.identifier.plc
+//                                     ^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc meta.function-call.arguments.plc - meta.path
+//                 ^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//      ^^^^^^^ variable.parameter.plc
+//              ^^ keyword.operator.assignment.plc
+//                 ^^^^^^^^ variable.namespace.datablock.plc
+//                         ^ punctuation.accessor.dot.plc
+//                          ^^^^^^ variable.function.member.plc
+//                                ^ punctuation.section.brackets.begin.plc
+//                                 ^^ constant.numeric.integer.decimal.plc
+//                                   ^ punctuation.section.brackets.end.plc
+//                                     ^ punctuation.section.group.begin.plc
+//                                      ^^ variable.parameter.plc
+//                                         ^^ keyword.operator.assignment.plc
+//                                            ^^^^ variable.other.local.plc
+    );
+//^^^ meta.function-call.arguments.plc
+//   ^ - meta.function-call
+//  ^ punctuation.section.group.end.plc
+//   ^ punctuation.terminator.statement.plc
+
+    #struct.arrayFun[1](execute := #var + 10 = 5);
+//  ^^^^^^^ meta.path.plc variable.namespace.struct.plc
+//         ^ meta.path.plc punctuation.accessor.dot.plc
+//          ^^^^^^^^^^^ meta.function-call.identifier.plc meta.path.plc
+//                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc - meta.path
+//                     ^ punctuation.section.group.begin.plc
+//                      ^^^^^^^ variable.parameter.plc
+//                              ^^ keyword.operator.assignment.plc
+//                                 ^^^^ variable.other.local.plc
+//                                      ^ keyword.operator.arithmetic.plc
+//                                        ^^ constant.numeric.integer.decimal.plc
+//                                           ^ keyword.operator.comparison.plc
+//                                             ^ constant.numeric.integer.decimal.plc
+//                                              ^ punctuation.section.group.end.plc
+//                                               ^ punctuation.terminator.statement.plc
+
+    #byte = BOOL_TO_BYTE(#boolean);
+//          ^^^^^^^^^^^^^^^^^^^^^^ - meta.function-call meta.function-call
+//          ^^^^^^^^^^^^ meta.function-call.identifier.plc
+//                      ^^^^^^^^^^ meta.function-call.arguments.plc
+//          ^^^^^^^^^^^^ support.function.plc
+//                      ^ punctuation.section.group.begin.plc
+//                       ^^^^^^^^ variable.other.local.plc
+//                               ^ punctuation.section.group.end.plc
+//                                ^ punctuation.terminator.statement.plc
+
+/// OPERATORS /////////////////////////////////////////////////////////////////
+
+    and or xor mod &
+//  ^^^ keyword.operator.logical.plc
+//      ^^ keyword.operator.logical.plc
+//         ^^^ keyword.operator.logical.plc
+//             ^^^ keyword.operator.logical.plc
+//                 ^ keyword.operator.logical.plc
+
+    ref
+//  ^^^ keyword.operator.reference.plc
+
+    += -= *= /=
+//  ^^ keyword.operator.assignment.augmented.plc
+//     ^^ keyword.operator.assignment.augmented.plc
+//        ^^ keyword.operator.assignment.augmented.plc
+//           ^^ keyword.operator.assignment.augmented.plc
+
+    :=  ?=
+//  ^^ keyword.operator.assignment.plc
+//      ^^ keyword.operator.assignment.plc
+
+    - * + / **
+//  ^ keyword.operator.arithmetic.plc
+//    ^ keyword.operator.arithmetic.plc
+//      ^ keyword.operator.arithmetic.plc
+//        ^ keyword.operator.arithmetic.plc
+//          ^^ keyword.operator.arithmetic.plc
+
+    >= <= <> < > =
+//  ^^ keyword.operator.comparison.plc
+//     ^^ keyword.operator.comparison.plc
+//        ^^ keyword.operator.comparison.plc
+//           ^ keyword.operator.comparison.plc
+//             ^ keyword.operator.comparison.plc
+//               ^ keyword.operator.comparison.plc
+
+    ^#var
+//  ^ keyword.operator.dereference.plc
+
+/// VARIABLES /////////////////////////////////////////////////////////////////
+
+    "GLOBAL_CONSTANT"
+//  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
+//  ^ punctuation.definition.variable.begin.plc
+//                  ^ punctuation.definition.variable.end.plc
+
+    "GLOBAL_CONSTANT".%X5
+//  ^ punctuation.definition.variable.begin.plc
+//  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
+//                  ^ punctuation.definition.variable.end.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.language.slice.plc
+//                    ^ punctuation.definition.absolute.plc
+
+    "globalDB".struct.var
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                       ^ - meta.path
+//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
+//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//            ^ punctuation.accessor.dot.plc
+//             ^^^^^^ variable.namespace.struct.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.other.member.plc
+
+    "globalDB".struct.var.%X8
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                       ^^^^ - meta.path
+//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
+//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//            ^ punctuation.accessor.dot.plc
+//             ^^^^^^ variable.namespace.struct.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.other.member.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^ variable.language.slice.plc
+//                        ^ punctuation.definition.absolute.plc
+
+    "arrayDB"[5].arrayItem[4, 5+#var].node[0].%X0
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                                           ^^^^ - meta.path
+//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^ variable.namespace.datablock.plc - punctuation
+//          ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//           ^ punctuation.section.brackets.begin.plc
+//            ^ constant.numeric.integer.decimal.plc
+//             ^ punctuation.section.brackets.end.plc
+//              ^ punctuation.accessor.dot.plc
+//               ^^^^^^^^^ variable.namespace.struct.plc
+//                        ^^^^^^^^^^^ meta.brackets.plc
+//                        ^ punctuation.section.brackets.begin.plc
+//                         ^ constant.numeric.integer.decimal.plc
+//                          ^ punctuation.separator.sequence.plc
+//                            ^ constant.numeric.integer.decimal.plc
+//                             ^ keyword.operator.arithmetic.plc
+//                              ^^^^ variable.other.local.plc
+//                                  ^ punctuation.section.brackets.end.plc
+//                                   ^ punctuation.accessor.dot.plc
+//                                    ^^^^ variable.other.member.plc
+//                                        ^^^ meta.brackets.plc
+//                                        ^ punctuation.section.brackets.begin.plc
+//                                         ^ constant.numeric.integer.decimal.plc
+//                                          ^ punctuation.section.brackets.end.plc
+//                                           ^ punctuation.accessor.dot.plc
+//                                            ^^^ variable.language.slice.plc
+
+    "M04+10-B10"
+//  ^ variable.other.global.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^^^ variable.other.global.plc - punctuation
+//             ^ variable.other.global.plc punctuation.definition.variable.end.plc
+
+    "M04+10-B10".%X5
+//  ^ variable.other.global.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^^^ variable.other.global.plc - punctuation
+//             ^ variable.other.global.plc punctuation.definition.variable.end.plc
+//              ^ punctuation.accessor.dot.plc
+//               ^^^ variable.language.slice.plc
+//               ^ punctuation.definition.absolute.plc
+
+    #LOCAL_CONST
+//  ^ constant.other.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^^ constant.other.local.plc - punctuation
+
+    #LOCAL_CONST.
+//  ^ constant.other.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^^ constant.other.local.plc - punctuation
+//              ^ - punctuation.accessor
+
+    #LOCAL_CONST.%X0
+//  ^ constant.other.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^^ constant.other.local.plc - punctuation
+//              ^ punctuation.accessor.dot.plc
+//               ^^^ variable.language.slice.plc
+//               ^ punctuation.definition.absolute.plc
+
+    #localVar
+//  ^ variable.other.local.plc punctuation.definition.variable.plc
+//   ^^^^^^^^ variable.other.local.plc
+
+    #"local var"
+//  ^^ variable.other.local.plc punctuation.definition.variable.begin.plc
+//    ^^^^^^^^^ variable.other.local.plc - punctuation
+//             ^ variable.other.local.plc punctuation.definition.variable.end.plc
+
+    #structured.variable
+//  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^ variable.namespace.struct.plc - punctuation
+//             ^ punctuation.accessor.dot.plc
+//              ^^^^^^^^ variable.other.member.plc
+
+    #"local struct"."with spaces"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//  ^^ variable.namespace.struct.plc punctuation.definition.variable.begin.plc
+//    ^^^^^^^^^^^^ variable.namespace.struct.plc - punctuation
+//                ^ variable.namespace.struct.plc punctuation.definition.variable.end.plc
+//                 ^ punctuation.accessor.dot.plc
+//                  ^ variable.other.member.plc punctuation.definition.variable.begin.plc
+//                   ^^^^^^^^^^^ variable.other.member.plc - punctuation
+//                              ^ variable.other.member.plc punctuation.definition.variable.end.plc
+
+END_FUNCTION_BLOCK

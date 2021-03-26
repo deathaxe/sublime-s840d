@@ -114,12 +114,12 @@ contexts:
   block-udt-name:
     # quoted string symbol
     - match: \"
-      scope: punctuation.definition.symbol.begin.plc
+      scope: punctuation.definition.variable.begin.plc
       set:
         - meta_include_prototype: false
         - meta_scope: entity.name.type.plc
         - match: \"
-          scope: punctuation.definition.symbol.end.plc
+          scope: punctuation.definition.variable.end.plc
           pop: 1
         - include: illegal-eol
     # unquoted string symbol
@@ -157,12 +157,12 @@ contexts:
   block-db-name:
     # quoted string symbol
     - match: \"
-      scope: punctuation.definition.symbol.begin.plc
+      scope: punctuation.definition.variable.begin.plc
       set:
         - meta_include_prototype: false
         - meta_scope: entity.name.datablock.plc
         - match: \"
-          scope: punctuation.definition.symbol.end.plc
+          scope: punctuation.definition.variable.end.plc
           pop: 1
         - include: illegal-eol
     # unquoted string symbol
@@ -249,12 +249,12 @@ contexts:
   block-fb-name:
     # quoted string symbol
     - match: \"
-      scope: punctuation.definition.symbol.begin.plc
+      scope: punctuation.definition.variable.begin.plc
       set:
         - meta_include_prototype: false
         - meta_scope: entity.name.function.plc
         - match: \"
-          scope: punctuation.definition.symbol.end.plc
+          scope: punctuation.definition.variable.end.plc
           pop: 1
         - include: illegal-eol
     # unquoted string symbol
@@ -334,12 +334,12 @@ contexts:
   block-ob-name:
     # quoted string symbol
     - match: \"
-      scope: punctuation.definition.symbol.begin.plc
+      scope: punctuation.definition.variable.begin.plc
       set:
         - meta_include_prototype: false
         - meta_scope: entity.name.organization-block.plc
         - match: \"
-          scope: punctuation.definition.symbol.end.plc
+          scope: punctuation.definition.variable.end.plc
           pop: 1
         - include: illegal-eol
     # unquoted string symbol
@@ -726,7 +726,7 @@ contexts:
 
   storage-type-user:
     # user defined types (UDT, DB, FB)
-    - match: (\")[^"](\")
+    - match: (\")[^"]*(\")
       scope: storage.type.other.plc
       captures:
         1: punctuation.definition.type.begin.plc
@@ -1020,17 +1020,6 @@ contexts:
         3: punctuation.separator.time.plc
         4: punctuation.separator.time.plc
 
-  string-double-quoted:
-    - match: \"
-      scope: punctuation.definition.string.begin.plc
-      push:
-        - meta_include_prototype: false
-        - meta_scope: string.quoted.double.plc
-        - match: \"
-          scope: punctuation.definition.string.end.plc
-          pop: 1
-        - include: illegal-eol
-
   string-single-quoted:
     - match: \'
       scope: punctuation.definition.string.begin.plc
@@ -1049,7 +1038,7 @@ contexts:
   operands-absolute:
     - include: operands-address-register
 
-###[ ADRESS REGISTER ]#########################################################
+###[ ADDRESS REGISTER ]########################################################
 
   operands-address-register:
     - match: \b(?i:AR)[12]\b
@@ -1066,18 +1055,25 @@ contexts:
 
   unqualified-symbol:
     - meta_include_prototype: false
+    - include: unqualified-symbol-unquoted
+    - include: unqualified-symbol-quoted
+    - include: immediately-pop
+
+  unqualified-symbol-quoted:
     - match: (\")[^"]*(\")
       scope: variable.other.global.plc
       captures:
-        1: punctuation.definition.global.begin.plc
-        2: punctuation.definition.global.end.plc
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
       set:
         - unqualified-symbol-fail
         - array-index
+
+  unqualified-symbol-unquoted:
     - match: (#){{ident}}
       scope: variable.other.local.plc
       captures:
-        1: punctuation.definition.local.plc
+        1: punctuation.definition.variable.plc
       set:
         - unqualified-symbol-fail
         - array-index
@@ -1090,18 +1086,25 @@ contexts:
 
   qualified-symbol:
     - meta_include_prototype: false
+    - include: qualified-symbol-unquoted
+    - include: qualified-symbol-quoted
+    - include: immediately-pop
+
+  qualified-symbol-quoted:
     - match: (\")[^"]*(\")
       scope: variable.namespace.datablock.plc
       captures:
-        1: punctuation.definition.global.begin.plc
-        2: punctuation.definition.global.end.plc
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
       set:
         - qualified-members
         - array-index
+
+  qualified-symbol-unquoted:
     - match: (#){{ident}}
       scope: variable.namespace.struct.plc
       captures:
-        1: punctuation.definition.local.plc
+        1: punctuation.definition.variable.plc
         2: punctuation.accessor.dot.plc
       set:
         - qualified-members
@@ -1118,28 +1121,34 @@ contexts:
         - qualified-namespace
     - include: immediately-pop
 
+  qualified-namespace:
+    - meta_include_prototype: false
+    - include: qualified-namespace-unquoted
+    - include: immediately-pop2
+
+  qualified-namespace-unquoted:
+    - match: '{{ident}}'
+      scope: variable.namespace.struct.plc
+      set: array-index
+
   qualified-variable:
     - meta_include_prototype: false
+    - include: qualified-variable-unquoted
+    - include: immediately-pop2
+
+  qualified-variable-unquoted:
     - match: '{{ident}}'
       scope: variable.other.member.plc
       pop: 1
       set:
         - qualified-variable-fail
         - array-index
-    - include: immediately-pop2
 
   qualified-variable-fail:
     - meta_include_prototype: false
     - match: '{{accessor}}'
       fail: qualified-members
     - include: immediately-pop
-
-  qualified-namespace:
-    - meta_include_prototype: false
-    - match: '{{ident}}'
-      scope: variable.namespace.struct.plc
-      set: array-index
-    - include: immediately-pop2
 
   array-index:
     - meta_include_prototype: false
