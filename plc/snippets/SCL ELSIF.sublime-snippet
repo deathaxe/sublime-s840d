@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+ELSIF ${1:_condition_} THEN
+    $0
+]]></content>
+	<tabTrigger>selsif</tabTrigger>
+	<scope>
+		source.plc.scl meta.block.fb.body - meta.brackets - meta.group - meta.function-call - comment - string,
+		source.plc.scl meta.block.fc.body - meta.brackets - meta.group - meta.function-call - comment - string
+	</scope>
+	<description>ELSIF..</description>
+</snippet>

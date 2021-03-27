@@ -13,7 +13,7 @@ class S840dAwlSaveSplitCommand(sublime_plugin.TextCommand):
         Show the command in command pallet only, if open document is a valid
         SINUMERIK 840D source file.
         """
-        return self.view.match_selector(0, 'source.s7.awl')
+        return self.view.match_selector(0, 'source.plc')
 
     def run(self, edit):
 
