@@ -401,7 +401,7 @@ contexts:
       scope: keyword.operator.assignment.plc
     - match: '{{ident}}'
       scope: variable.annotation.plc
-    - include: string-single-quoted
+    - include: constants-string
     - include: punctuation-terminators
     - include: illegal
 
@@ -750,7 +750,8 @@ contexts:
     - include: constants-datetime
     - include: constants-any
     - include: constants-pointer
-    - include: string-single-quoted
+    - include: constants-character
+    - include: constants-string
 
 ###[ POINTER ]#################################################################
 
@@ -1021,16 +1022,30 @@ contexts:
         3: punctuation.separator.time.plc
         4: punctuation.separator.time.plc
 
-  string-single-quoted:
+###[ CHARACTERS ]##############################################################
+
+  constants-character:
+    - match: (\')([^'])(\')
+      scope: meta.string.plc string.quoted.single.plc
+      captures:
+        1: punctuation.definition.string.begin.plc
+        2: constant.character.literal.plc
+        3: punctuation.definition.string.end.plc
+
+###[ STRINGS ]#################################################################
+
+  constants-string:
     - match: \'
       scope: punctuation.definition.string.begin.plc
-      push:
-        - meta_include_prototype: false
-        - meta_scope: string.quoted.single.plc
-        - match: \'
-          scope: punctuation.definition.string.end.plc
-          pop: 1
-        - include: illegal-eol
+      push: constants-string-body
+
+  constants-string-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.plc string.quoted.single.plc
+    - match: \'
+      scope: punctuation.definition.string.end.plc
+      pop: 1
+    - include: illegal-eol
 
 ###############################################################################
 # OPERANDS                                                                    #

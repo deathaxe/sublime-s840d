@@ -335,6 +335,103 @@ end_region // comment
     ^#var
 //  ^ keyword.operator.dereference.plc
 
+/// CONSTANTS /////////////////////////////////////////////////////////////////
+
+    'A'
+//  ^^^ meta.string.plc string.quoted.single.plc
+//  ^ punctuation.definition.string.begin.plc
+//   ^ constant.character.literal.plc
+//    ^ punctuation.definition.string.end.plc
+
+    '$''
+//  ^^^^ meta.string.plc string.quoted.single.plc
+//  ^ punctuation.definition.string.begin.plc
+//   ^^ constant.character.escape.plc
+//     ^ punctuation.definition.string.end.plc
+
+    CHAR#
+//  ^^^^^ meta.string.plc
+//  ^^^^ storage.type.primitive.plc
+//      ^ punctuation.separator.type.plc
+
+    CHAR#'A'
+//  ^^^^^^^^ meta.string.plc
+//  ^^^^ storage.type.primitive.plc
+//      ^ punctuation.separator.type.plc
+//       ^ string.quoted.single.plc punctuation.definition.string.begin.plc
+//        ^ string.quoted.single.plc constant.character.literal.plc
+//         ^ string.quoted.single.plc punctuation.definition.string.end.plc
+
+    Char#'A'
+//  ^^^^^^^^ meta.string.plc
+//  ^^^^ storage.type.primitive.plc
+//      ^ punctuation.separator.type.plc
+//       ^ string.quoted.single.plc punctuation.definition.string.begin.plc
+//        ^ string.quoted.single.plc constant.character.literal.plc
+//         ^ string.quoted.single.plc punctuation.definition.string.end.plc
+
+    WCHAR#
+//  ^^^^^^ meta.string.plc
+//  ^^^^^ storage.type.primitive.plc
+//       ^ punctuation.separator.type.plc
+
+    WCHAR#'A'
+//  ^^^^^^^^^ meta.string.plc
+//  ^^^^^ storage.type.primitive.plc
+//       ^ punctuation.separator.type.plc
+//        ^ string.quoted.single.plc punctuation.definition.string.begin.plc
+//         ^ string.quoted.single.plc constant.character.literal.plc
+//          ^ string.quoted.single.plc punctuation.definition.string.end.plc
+
+    WChar#'A'
+//  ^^^^^^^^^ meta.string.plc
+//  ^^^^^ storage.type.primitive.plc
+//       ^ punctuation.separator.type.plc
+//        ^ string.quoted.single.plc punctuation.definition.string.begin.plc
+//         ^ string.quoted.single.plc constant.character.literal.plc
+//          ^ string.quoted.single.plc punctuation.definition.string.end.plc
+
+/// STRINGS ///////////////////////////////////////////////////////////////////
+
+    'A string$ $L $l $N $n $P $p $R $r $$ $''
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.plc string.quoted.single.plc
+//                                           ^ - meta.string - string
+//  ^ punctuation.definition.string.begin.plc
+//           ^^ - constant
+//             ^^ constant.character.escape.plc
+//               ^ - constant
+//                ^^ constant.character.escape.plc
+//                  ^ - constant
+//                   ^^ constant.character.escape.plc
+//                     ^^^^ - constant
+//                         ^^ constant.character.escape.plc
+//                           ^ - constant
+//                            ^^ constant.character.escape.plc
+//                              ^ - constant
+//                               ^^ constant.character.escape.plc
+//                                 ^ - constant
+//                                  ^^ constant.character.escape.plc
+//                                    ^ - constant
+//                                     ^^ constant.character.escape.plc
+//                                       ^ - constant
+//                                        ^^ constant.character.escape.plc
+
+    String#'<String constant>'
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.plc
+//  ^^^^^^ storage.type.string.plc
+//        ^ punctuation.separator.type.plc
+//         ^ string.quoted.single.plc punctuation.definition.string.begin.plc
+//          ^^^^^^^^^^^^^^^^^ string.quoted.single.plc - punctuation
+//                           ^ string.quoted.single.plc punctuation.definition.string.end.plc
+
+    WString#'<String constant>'
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.plc
+//  ^^^^^^^ storage.type.string.plc
+//         ^ punctuation.separator.type.plc
+//          ^ string.quoted.single.plc punctuation.definition.string.begin.plc
+//           ^^^^^^^^^^^^^^^^^ string.quoted.single.plc - punctuation
+//                            ^ string.quoted.single.plc punctuation.definition.string.end.plc
+
 /// VARIABLES /////////////////////////////////////////////////////////////////
 
     "GLOBAL_CONSTANT"

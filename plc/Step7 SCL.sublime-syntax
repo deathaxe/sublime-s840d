@@ -36,6 +36,7 @@ file_extensions:
 variables:
 
   constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
+  escapes: '\$[LlNPpRrTt$'']'
 
   quoted_local_ident: (#\")[^"]*(\")
 
@@ -114,7 +115,6 @@ contexts:
     - include: scl-operators
     - include: scl-punctuations
     - include: scl-function-calls
-    - include: scl-constants
     - include: scl-slice-members
     - include: constants
     - include: operands-symbols
@@ -262,6 +262,37 @@ contexts:
         1: variable.parameter.plc
         2: keyword.operator.assignment.plc
     - include: scl-expressions
+
+###[ CHARACTERS ]##############################################################
+
+  constants-character:
+    - match: ((?i:W?CHAR))(#)
+      scope: meta.string.plc
+      captures:
+        1: storage.type.primitive.plc
+        2: punctuation.separator.type.plc
+    - match: (\')(?:({{escapes}})|([^']))(\')
+      scope: meta.string.plc string.quoted.single.plc
+      captures:
+        1: punctuation.definition.string.begin.plc
+        2: constant.character.escape.plc
+        3: constant.character.literal.plc
+        4: punctuation.definition.string.end.plc
+
+###[ STRINGS ]#################################################################
+
+  constants-string:
+    - meta_append: true
+    - match: ((?i:W?STRING))(#)
+      scope: meta.string.plc
+      captures:
+        1: storage.type.string.plc
+        2: punctuation.separator.type.plc
+
+  constants-string-body:
+    - meta_append: true
+    - match: '{{escapes}}'
+      scope: constant.character.escape.plc
 
 ###[ OPERANDS ]################################################################
 
