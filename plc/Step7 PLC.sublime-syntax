@@ -35,6 +35,7 @@ variables:
   int: \d+\b(?![.][^.])
 
   ident: '[[:alpha:]_][[:alnum:]_]*\b'
+  quoted_ident: (\")[^"]*(\")
 
   context_keywords: |-
     \b(?xi:
@@ -726,7 +727,7 @@ contexts:
 
   storage-type-user:
     # user defined types (UDT, DB, FB)
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: storage.type.other.plc
       captures:
         1: punctuation.definition.type.begin.plc
@@ -1060,7 +1061,7 @@ contexts:
     - include: immediately-pop
 
   unqualified-symbol-quoted:
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: variable.other.global.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -1091,7 +1092,7 @@ contexts:
     - include: immediately-pop
 
   qualified-symbol-quoted:
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: variable.namespace.datablock.plc
       captures:
         1: punctuation.definition.variable.begin.plc

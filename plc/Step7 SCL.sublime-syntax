@@ -37,6 +37,8 @@ variables:
 
   constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
 
+  quoted_local_ident: (#\")[^"]*(\")
+
 contexts:
 
 ###[ COMMENTS ]################################################################
@@ -375,7 +377,7 @@ contexts:
     - include: immediately-pop
 
   unqualified-function-quoted:
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: variable.function.global.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -383,7 +385,7 @@ contexts:
       set:
         - unqualified-function-fail
         - array-index
-    - match: (#\")[^"]*(\")
+    - match: '{{quoted_local_ident}}'
       scope: variable.function.local.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -410,7 +412,7 @@ contexts:
 
   unqualified-symbol-quoted:
     - meta_append: true
-    - match: (#\")[^"]*(\")
+    - match: '{{quoted_local_ident}}'
       scope: variable.other.local.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -421,7 +423,7 @@ contexts:
 
   qualified-symbol-quoted:
     - meta_append: true
-    - match: (#\")[^"]*(\")
+    - match: '{{quoted_local_ident}}'
       scope: variable.namespace.struct.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -449,7 +451,7 @@ contexts:
     - include: immediately-pop2
 
   qualified-function-quoted:
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: variable.function.member.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -481,7 +483,7 @@ contexts:
     - include: immediately-pop2
 
   qualified-namespace-quoted:
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: variable.namespace.struct.plc
       captures:
         1: punctuation.definition.variable.begin.plc
@@ -495,7 +497,7 @@ contexts:
     - include: immediately-pop2
 
   qualified-variable-quoted:
-    - match: (\")[^"]*(\")
+    - match: '{{quoted_ident}}'
       scope: variable.other.member.plc
       captures:
         1: punctuation.definition.variable.begin.plc
