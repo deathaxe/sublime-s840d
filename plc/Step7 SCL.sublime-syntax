@@ -87,7 +87,7 @@ contexts:
 
   constants:
     - meta_prepend: true
-    - include: scl-constants
+    - include: constants-symbols
     - include: scl-slice-members
 
 ###[ VAR_CONSTANT ]############################################################
@@ -294,31 +294,6 @@ contexts:
     - match: '{{escapes}}'
       scope: constant.character.escape.plc
 
-###[ OPERANDS ]################################################################
-
-  scl-constants:
-    - match: (#){{constants}}
-      scope: meta.symbol.plc constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.plc
-    - match: (#\"){{constants}}(\")
-      scope: meta.symbol.plc constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-    - match: (\"){{constants}}(\")
-      scope: meta.symbol.plc constant.other.global.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-
-  scl-slice-members:
-    - match: (\.)((%)[Xx]\d+)
-      captures:
-        1: punctuation.accessor.dot.plc
-        2: variable.language.slice.plc
-        3: punctuation.definition.absolute.plc
-
 ###[ OPERATORS ]###############################################################
 
   scl-punctuations:
@@ -344,6 +319,13 @@ contexts:
       scope: keyword.operator.dereference.plc
     - match: '&'
       scope: keyword.operator.logical.plc
+
+  scl-slice-members:
+    - match: (\.)((%)[Xx]\d+)
+      captures:
+        1: punctuation.accessor.dot.plc
+        2: variable.language.slice.plc
+        3: punctuation.definition.absolute.plc
 
 ###[ STORAGE TYPES ]###########################################################
 
@@ -392,8 +374,23 @@ contexts:
 
 ###[ SYMBOLS ]#################################################################
 
+  constants-symbols:
+    - match: (#){{constants}}
+      scope: meta.symbol.plc constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.plc
+    - match: (#\"){{constants}}(\")
+      scope: meta.symbol.plc constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+    - match: (\"){{constants}}(\")
+      scope: meta.symbol.plc constant.other.global.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+
   operands-symbols:
-    # inherited from Step7 PLC
     - match: (?=[#"])
       branch_point: symbols
       branch:
