@@ -69,28 +69,28 @@ end_region // comment
 //              ^^ keyword.control.conditional.of.plc
     0: #var := 1;
 // ^^^^ meta.conditional.case.branches.plc
-//  ^ constant.numeric.integer.decimal.plc
+//  ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //   ^ punctuation.separator.plc
 //     ^^^^ variable.other.local.plc
 //          ^^ keyword.operator.assignment.plc
-//             ^ constant.numeric.integer.decimal.plc
+//             ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //              ^ punctuation.terminator.statement.plc
     0,1,5:
 // ^^^^^^^^ meta.conditional.case.branches.plc
-//  ^ constant.numeric.integer.decimal.plc
+//  ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //   ^ punctuation.separator.sequence.plc
-//    ^ constant.numeric.integer.decimal.plc
+//    ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //     ^ punctuation.separator.sequence.plc
-//      ^ constant.numeric.integer.decimal.plc
+//      ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //       ^ punctuation.separator.plc
         return;
 //      ^^^^^^ keyword.control.flow.return.plc
 //            ^ punctuation.terminator.statement.plc
     0..10:
 // ^^^^^^^^ meta.conditional.case.branches.plc
-//  ^ constant.numeric.integer.decimal.plc
+//  ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //   ^^ keyword.operator.range.plc
-//     ^^ constant.numeric.integer.decimal.plc
+//     ^^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //       ^ punctuation.separator.plc
 
     true:
@@ -243,7 +243,7 @@ end_region // comment
 //  ^ variable.function.local.plc punctuation.definition.variable.plc
 //   ^^^^^^^^ variable.function.local.plc
 //           ^ punctuation.section.brackets.begin.plc
-//            ^ constant.numeric.integer.decimal.plc
+//            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //             ^ punctuation.section.brackets.end.plc
 //              ^ punctuation.section.group.begin.plc
         execute := "globDB".anyFun[10] (IN := #var + 1)
@@ -257,7 +257,7 @@ end_region // comment
 //                         ^ punctuation.accessor.dot.plc
 //                          ^^^^^^ variable.function.member.plc
 //                                ^ punctuation.section.brackets.begin.plc
-//                                 ^^ constant.numeric.integer.decimal.plc
+//                                 ^^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                                   ^ punctuation.section.brackets.end.plc
 //                                     ^ punctuation.section.group.begin.plc
 //                                      ^^ variable.parameter.plc
@@ -279,9 +279,9 @@ end_region // comment
 //                              ^^ keyword.operator.assignment.plc
 //                                 ^^^^ variable.other.local.plc
 //                                      ^ keyword.operator.arithmetic.plc
-//                                        ^^ constant.numeric.integer.decimal.plc
+//                                        ^^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                                           ^ keyword.operator.comparison.plc
-//                                             ^ constant.numeric.integer.decimal.plc
+//                                             ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                                              ^ punctuation.section.group.end.plc
 //                                               ^ punctuation.terminator.statement.plc
 
@@ -335,7 +335,365 @@ end_region // comment
     ^#var
 //  ^ keyword.operator.dereference.plc
 
-/// CONSTANTS /////////////////////////////////////////////////////////////////
+/// NUMBERS ///////////////////////////////////////////////////////////////////
+
+    B#2 Byte#2 B#2#0100 Byte#2#0100 B#16 Byte#16 B#16#AC Byte#16#AC
+//  ^^^ meta.number.integer.decimal.plc
+//      ^^^^^^ meta.number.integer.decimal.plc
+//             ^^^^^^^^ meta.number.integer.binary.plc
+//                      ^^^^^^^^^^^ meta.number.integer.binary.plc
+//                                  ^^^^ meta.number.integer.decimal.plc
+//                                       ^^^^^^^ meta.number.integer.decimal.plc
+//                                               ^^^^^^^ meta.number.integer.hexadecimal.plc
+//                                                       ^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^ storage.type.integer.plc
+//   ^ punctuation.separator.type.plc
+//    ^ constant.numeric.value.plc
+//      ^^^^ storage.type.integer.plc
+//          ^ punctuation.separator.type.plc
+//           ^ constant.numeric.value.plc
+//             ^ storage.type.integer.plc
+//              ^ punctuation.separator.type.plc
+//               ^^ constant.numeric.base.plc
+//                 ^^^^ constant.numeric.value.plc
+//                      ^^^^ storage.type.integer.plc
+//                          ^ punctuation.separator.type.plc
+//                           ^^ constant.numeric.base.plc
+//                             ^^^^ constant.numeric.value.plc
+//                                  ^ storage.type.integer.plc
+//                                   ^ punctuation.separator.type.plc
+//                                    ^^ constant.numeric.value.plc
+//                                       ^^^^ storage.type.integer.plc
+//                                           ^ punctuation.separator.type.plc
+//                                            ^^ constant.numeric.value.plc
+//                                               ^ storage.type.integer.plc
+//                                                ^ punctuation.separator.type.plc
+//                                                 ^^^ constant.numeric.base.plc
+//                                                    ^^ constant.numeric.value.plc
+//                                                       ^^^^ storage.type.integer.plc
+//                                                           ^ punctuation.separator.type.plc
+//                                                            ^^^ constant.numeric.base.plc
+//                                                               ^^ constant.numeric.value.plc
+
+    W#2 Word#2 W#2#0100 Word#2#0100 W#16 Word#16 W#16#AC Word#16#AC
+//  ^^^ meta.number.integer.decimal.plc
+//      ^^^^^^ meta.number.integer.decimal.plc
+//             ^^^^^^^^ meta.number.integer.binary.plc
+//                      ^^^^^^^^^^^ meta.number.integer.binary.plc
+//                                  ^^^^ meta.number.integer.decimal.plc
+//                                       ^^^^^^^ meta.number.integer.decimal.plc
+//                                               ^^^^^^^ meta.number.integer.hexadecimal.plc
+//                                                       ^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^ storage.type.integer.plc
+//   ^ punctuation.separator.type.plc
+//    ^ constant.numeric.value.plc
+//      ^^^^ storage.type.integer.plc
+//          ^ punctuation.separator.type.plc
+//           ^ constant.numeric.value.plc
+//             ^ storage.type.integer.plc
+//              ^ punctuation.separator.type.plc
+//               ^^ constant.numeric.base.plc
+//                 ^^^^ constant.numeric.value.plc
+//                      ^^^^ storage.type.integer.plc
+//                          ^ punctuation.separator.type.plc
+//                           ^^ constant.numeric.base.plc
+//                             ^^^^ constant.numeric.value.plc
+//                                  ^ storage.type.integer.plc
+//                                   ^ punctuation.separator.type.plc
+//                                    ^^ constant.numeric.value.plc
+//                                       ^^^^ storage.type.integer.plc
+//                                           ^ punctuation.separator.type.plc
+//                                            ^^ constant.numeric.value.plc
+//                                               ^ storage.type.integer.plc
+//                                                ^ punctuation.separator.type.plc
+//                                                 ^^^ constant.numeric.base.plc
+//                                                    ^^ constant.numeric.value.plc
+//                                                       ^^^^ storage.type.integer.plc
+//                                                           ^ punctuation.separator.type.plc
+//                                                            ^^^ constant.numeric.base.plc
+//                                                               ^^ constant.numeric.value.plc
+
+    DW#2 DWord#2 DW#2#0100 DWord#2#0100 DW#16 DWord#16 DW#16#AC DWord#16#AC
+//  ^^^^ meta.number.integer.decimal.plc
+//       ^^^^^^^ meta.number.integer.decimal.plc
+//               ^^^^^^^^^ meta.number.integer.binary.plc
+//                         ^^^^^^^^^^^^ meta.number.integer.binary.plc
+//                                      ^^^^^ meta.number.integer.decimal.plc
+//                                            ^^^^^^^^ meta.number.integer.decimal.plc
+//                                                     ^^^^^^^^ meta.number.integer.hexadecimal.plc
+//                                                              ^^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^^ storage.type.integer.plc
+//    ^ punctuation.separator.type.plc
+//     ^ constant.numeric.value.plc
+//       ^^^^^ storage.type.integer.plc
+//            ^ punctuation.separator.type.plc
+//             ^ constant.numeric.value.plc
+//               ^^ storage.type.integer.plc
+//                 ^ punctuation.separator.type.plc
+//                  ^^ constant.numeric.base.plc
+//                    ^^^^ constant.numeric.value.plc
+//                         ^^^^^ storage.type.integer.plc
+//                              ^ punctuation.separator.type.plc
+//                               ^^ constant.numeric.base.plc
+//                                 ^^^^ constant.numeric.value.plc
+//                                      ^^ storage.type.integer.plc
+//                                        ^ punctuation.separator.type.plc
+//                                         ^^ constant.numeric.value.plc
+//                                            ^^^^^ storage.type.integer.plc
+//                                                 ^ punctuation.separator.type.plc
+//                                                  ^^ constant.numeric.value.plc
+//                                                     ^^ storage.type.integer.plc
+//                                                       ^ punctuation.separator.type.plc
+//                                                        ^^^ constant.numeric.base.plc
+//                                                           ^^ constant.numeric.value.plc
+//                                                              ^^^^^ storage.type.integer.plc
+//                                                                   ^ punctuation.separator.type.plc
+//                                                                    ^^^ constant.numeric.base.plc
+//                                                                       ^^ constant.numeric.value.plc
+
+    QW#2 QWord#2 QW#2#0100 QWord#2#0100 QW#16 QWord#16 QW#16#AC QWord#16#AC
+//  ^^^^ meta.number.integer.decimal.plc
+//       ^^^^^^^ meta.number.integer.decimal.plc
+//               ^^^^^^^^^ meta.number.integer.binary.plc
+//                         ^^^^^^^^^^^^ meta.number.integer.binary.plc
+//                                      ^^^^^ meta.number.integer.decimal.plc
+//                                            ^^^^^^^^ meta.number.integer.decimal.plc
+//                                                     ^^^^^^^^ meta.number.integer.hexadecimal.plc
+//                                                              ^^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^^ storage.type.integer.plc
+//    ^ punctuation.separator.type.plc
+//     ^ constant.numeric.value.plc
+//       ^^^^^ storage.type.integer.plc
+//            ^ punctuation.separator.type.plc
+//             ^ constant.numeric.value.plc
+//               ^^ storage.type.integer.plc
+//                 ^ punctuation.separator.type.plc
+//                  ^^ constant.numeric.base.plc
+//                    ^^^^ constant.numeric.value.plc
+//                         ^^^^^ storage.type.integer.plc
+//                              ^ punctuation.separator.type.plc
+//                               ^^ constant.numeric.base.plc
+//                                 ^^^^ constant.numeric.value.plc
+//                                      ^^ storage.type.integer.plc
+//                                        ^ punctuation.separator.type.plc
+//                                         ^^ constant.numeric.value.plc
+//                                            ^^^^^ storage.type.integer.plc
+//                                                 ^ punctuation.separator.type.plc
+//                                                  ^^ constant.numeric.value.plc
+//                                                     ^^ storage.type.integer.plc
+//                                                       ^ punctuation.separator.type.plc
+//                                                        ^^^ constant.numeric.base.plc
+//                                                           ^^ constant.numeric.value.plc
+//                                                              ^^^^^ storage.type.integer.plc
+//                                                                   ^ punctuation.separator.type.plc
+//                                                                    ^^^ constant.numeric.base.plc
+//                                                                       ^^ constant.numeric.value.plc
+
+    L#2 DInt#2 L#2#0100 DInt#2#0100 L#16 DInt#16 L#16#AC DInt#16#AC
+//  ^^^ meta.number.integer.decimal.plc
+//      ^^^^^^ meta.number.integer.decimal.plc
+//             ^^^^^^^^ meta.number.integer.binary.plc
+//                      ^^^^^^^^^^^ meta.number.integer.binary.plc
+//                                  ^^^^ meta.number.integer.decimal.plc
+//                                       ^^^^^^^ meta.number.integer.decimal.plc
+//                                               ^^^^^^^ meta.number.integer.hexadecimal.plc
+//                                                       ^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^ storage.type.integer.plc
+//   ^ punctuation.separator.type.plc
+//    ^ constant.numeric.value.plc
+//      ^^^^ storage.type.integer.plc
+//          ^ punctuation.separator.type.plc
+//           ^ constant.numeric.value.plc
+//             ^ storage.type.integer.plc
+//              ^ punctuation.separator.type.plc
+//               ^^ constant.numeric.base.plc
+//                 ^^^^ constant.numeric.value.plc
+//                      ^^^^ storage.type.integer.plc
+//                          ^ punctuation.separator.type.plc
+//                           ^^ constant.numeric.base.plc
+//                             ^^^^ constant.numeric.value.plc
+//                                  ^ storage.type.integer.plc
+//                                   ^ punctuation.separator.type.plc
+//                                    ^^ constant.numeric.value.plc
+//                                       ^^^^ storage.type.integer.plc
+//                                           ^ punctuation.separator.type.plc
+//                                            ^^ constant.numeric.value.plc
+//                                               ^ storage.type.integer.plc
+//                                                ^ punctuation.separator.type.plc
+//                                                 ^^^ constant.numeric.base.plc
+//                                                    ^^ constant.numeric.value.plc
+//                                                       ^^^^ storage.type.integer.plc
+//                                                           ^ punctuation.separator.type.plc
+//                                                            ^^^ constant.numeric.base.plc
+//                                                               ^^ constant.numeric.value.plc
+
+    UDInt#2 UDInt#2#0100 UDInt#16 UDInt#16#AC
+//  ^^^^^^^ meta.number.integer.decimal.plc
+//          ^^^^^^^^^^^^ meta.number.integer.binary.plc
+//                       ^^^^^^^^ meta.number.integer.decimal.plc
+//                                ^^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^^^^^ storage.type.integer.plc
+//       ^ punctuation.separator.type.plc
+//        ^ constant.numeric.value.plc
+//          ^^^^^ storage.type.integer.plc
+//               ^ punctuation.separator.type.plc
+//                ^^ constant.numeric.base.plc
+//                  ^^^^ constant.numeric.value.plc
+//                       ^^^^^ storage.type.integer.plc
+//                            ^ punctuation.separator.type.plc
+//                             ^^ constant.numeric.value.plc
+//                                ^^^^^ storage.type.integer.plc
+//                                     ^ punctuation.separator.type.plc
+//                                      ^^^ constant.numeric.base.plc
+//                                         ^^ constant.numeric.value.plc
+
+    ULInt#2 ULInt#2#0100 ULInt#16 ULInt#16#AC
+//  ^^^^^^^ meta.number.integer.decimal.plc
+//          ^^^^^^^^^^^^ meta.number.integer.binary.plc
+//                       ^^^^^^^^ meta.number.integer.decimal.plc
+//                                ^^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^^^^^ storage.type.integer.plc
+//       ^ punctuation.separator.type.plc
+//        ^ constant.numeric.value.plc
+//          ^^^^^ storage.type.integer.plc
+//               ^ punctuation.separator.type.plc
+//                ^^ constant.numeric.base.plc
+//                  ^^^^ constant.numeric.value.plc
+//                       ^^^^^ storage.type.integer.plc
+//                            ^ punctuation.separator.type.plc
+//                             ^^ constant.numeric.value.plc
+//                                ^^^^^ storage.type.integer.plc
+//                                     ^ punctuation.separator.type.plc
+//                                      ^^^ constant.numeric.base.plc
+//                                         ^^ constant.numeric.value.plc
+
+    USInt#2 USInt#2#0100 USInt#16 USInt#16#AC
+//  ^^^^^^^ meta.number.integer.decimal.plc
+//          ^^^^^^^^^^^^ meta.number.integer.binary.plc
+//                       ^^^^^^^^ meta.number.integer.decimal.plc
+//                                ^^^^^^^^^^^ meta.number.integer.hexadecimal.plc
+//  ^^^^^ storage.type.integer.plc
+//       ^ punctuation.separator.type.plc
+//        ^ constant.numeric.value.plc
+//          ^^^^^ storage.type.integer.plc
+//               ^ punctuation.separator.type.plc
+//                ^^ constant.numeric.base.plc
+//                  ^^^^ constant.numeric.value.plc
+//                       ^^^^^ storage.type.integer.plc
+//                            ^ punctuation.separator.type.plc
+//                             ^^ constant.numeric.value.plc
+//                                ^^^^^ storage.type.integer.plc
+//                                     ^ punctuation.separator.type.plc
+//                                      ^^^ constant.numeric.base.plc
+//                                         ^^ constant.numeric.value.plc
+
+    ULInd#2 ULInd#2#0100 ULInd#16 ULInd#16#AC
+//        ^ meta.number.integer.decimal.plc
+//                ^^^^^^ meta.number.integer.binary.plc
+//                             ^^ meta.number.integer.decimal.plc
+//                                      ^^^^^ meta.number.integer.hexadecimal.plc
+//  ^^^^^ invalid.illegal.plc
+//        ^ constant.numeric.value.plc
+//          ^^^^^ invalid.illegal.plc
+//                ^^ constant.numeric.base.plc
+//                  ^^^^ constant.numeric.value.plc
+//                       ^^^^^ invalid.illegal.plc
+//                             ^^ constant.numeric.value.plc
+//                                ^^^^^ invalid.illegal.plc
+//                                      ^^^ constant.numeric.base.plc
+//                                         ^^ constant.numeric.value.plc
+
+    REAL#5 REAL#5.5 LReal#5 LReal#-10.5e+10
+//  ^^^^^^ meta.number.float.decimal.plc
+//         ^^^^^^^^ meta.number.float.decimal.plc
+//                  ^^^^^^^ meta.number.float.decimal.plc
+//                          ^^^^^^^^^^^^^^^ meta.number.float.decimal.plc
+//  ^^^^ storage.type.float.plc
+//      ^ punctuation.separator.type.plc
+//       ^ constant.numeric.value.plc
+//         ^^^^ storage.type.float.plc
+//             ^ punctuation.separator.type.plc
+//              ^^^ constant.numeric.value.plc
+//               ^ punctuation.separator.decimal.plc
+//                  ^^^^^ storage.type.float.plc
+//                       ^ punctuation.separator.type.plc
+//                        ^ constant.numeric.value.plc
+//                          ^^^^^ storage.type.float.plc
+//                               ^ punctuation.separator.type.plc
+//                                ^ keyword.operator.arithmetic.plc
+//                                 ^^^^^^^^ constant.numeric.value.plc
+
+/// DATE AND TIME /////////////////////////////////////////////////////////////
+
+    D#2017-12-30 ;
+//  ^^^^^^^^^^^^ meta.number.date.plc
+//  ^ storage.type.time.plc
+//   ^ punctuation.separator.type.plc
+//    ^^^^^^^^^^ constant.numeric.value.plc
+//        ^ punctuation.separator.date.plc
+//           ^ punctuation.separator.date.plc
+//              ^ - invalid
+//               ^ punctuation.terminator.statement.plc
+//                ^ - invalid
+
+    LD#2017-12-30 ;
+//  ^^^^^^^^^^^^^ meta.number.date.plc
+//  ^^ storage.type.time.plc
+//    ^ punctuation.separator.type.plc
+//     ^^^^^^^^^^ constant.numeric.value.plc
+//         ^ punctuation.separator.date.plc
+//            ^ punctuation.separator.date.plc
+//               ^ - invalid
+//                ^ punctuation.terminator.statement.plc
+//                 ^ - invalid
+
+    DATE#2017-12-30 ;
+//  ^^^^^^^^^^^^^^^ meta.number.date.plc
+//  ^^^^ storage.type.time.plc
+//      ^ punctuation.separator.type.plc
+//       ^^^^^^^^^^ constant.numeric.value.plc
+//           ^ punctuation.separator.date.plc
+//              ^ punctuation.separator.date.plc
+//                 ^ - invalid
+//                  ^ punctuation.terminator.statement.plc
+//                   ^ - invalid
+
+    LDATE#2017-12-30 ;
+//  ^^^^^^^^^^^^^^^^ meta.number.date.plc
+//  ^^^^^ storage.type.time.plc
+//       ^ punctuation.separator.type.plc
+//        ^^^^^^^^^^ constant.numeric.value.plc
+//            ^ punctuation.separator.date.plc
+//               ^ punctuation.separator.date.plc
+//                  ^ - invalid
+//                   ^ punctuation.terminator.statement.plc
+//                    ^ - invalid
+
+    TOD#23:59:59.999 ;
+//  ^^^^^^^^^^^^^^^^ meta.number.time-of-day.plc
+//  ^^^ storage.type.time.plc
+//     ^ punctuation.separator.type.plc
+//      ^^^^^^^^^^^^ constant.numeric.value.plc
+//        ^ punctuation.separator.time.plc
+//           ^ punctuation.separator.time.plc
+//              ^ punctuation.separator.time.plc
+//                  ^ - invalid
+//                   ^ punctuation.terminator.statement.plc
+//                    ^ - invalid
+
+    LTOD#23:59:59.999 ;
+//  ^^^^^^^^^^^^^^^^^ meta.number.time-of-day.plc
+//  ^^^^ storage.type.time.plc
+//      ^ punctuation.separator.type.plc
+//       ^^^^^^^^^^^^ constant.numeric.value.plc
+//         ^ punctuation.separator.time.plc
+//            ^ punctuation.separator.time.plc
+//               ^ punctuation.separator.time.plc
+//                   ^ - invalid
+//                    ^ punctuation.terminator.statement.plc
+//                     ^ - invalid
+
+/// CHARACTERS ////////////////////////////////////////////////////////////////
 
     'A'
 //  ^^^ meta.string.plc string.quoted.single.plc
@@ -351,12 +709,12 @@ end_region // comment
 
     CHAR#
 //  ^^^^^ meta.string.plc
-//  ^^^^ storage.type.primitive.plc
+//  ^^^^ storage.type.char.plc
 //      ^ punctuation.separator.type.plc
 
     CHAR#'A'
 //  ^^^^^^^^ meta.string.plc
-//  ^^^^ storage.type.primitive.plc
+//  ^^^^ storage.type.char.plc
 //      ^ punctuation.separator.type.plc
 //       ^ string.quoted.single.plc punctuation.definition.string.begin.plc
 //        ^ string.quoted.single.plc constant.character.literal.plc
@@ -364,7 +722,7 @@ end_region // comment
 
     Char#'A'
 //  ^^^^^^^^ meta.string.plc
-//  ^^^^ storage.type.primitive.plc
+//  ^^^^ storage.type.char.plc
 //      ^ punctuation.separator.type.plc
 //       ^ string.quoted.single.plc punctuation.definition.string.begin.plc
 //        ^ string.quoted.single.plc constant.character.literal.plc
@@ -372,12 +730,12 @@ end_region // comment
 
     WCHAR#
 //  ^^^^^^ meta.string.plc
-//  ^^^^^ storage.type.primitive.plc
+//  ^^^^^ storage.type.char.plc
 //       ^ punctuation.separator.type.plc
 
     WCHAR#'A'
 //  ^^^^^^^^^ meta.string.plc
-//  ^^^^^ storage.type.primitive.plc
+//  ^^^^^ storage.type.char.plc
 //       ^ punctuation.separator.type.plc
 //        ^ string.quoted.single.plc punctuation.definition.string.begin.plc
 //         ^ string.quoted.single.plc constant.character.literal.plc
@@ -385,7 +743,7 @@ end_region // comment
 
     WChar#'A'
 //  ^^^^^^^^^ meta.string.plc
-//  ^^^^^ storage.type.primitive.plc
+//  ^^^^^ storage.type.char.plc
 //       ^ punctuation.separator.type.plc
 //        ^ string.quoted.single.plc punctuation.definition.string.begin.plc
 //         ^ string.quoted.single.plc constant.character.literal.plc
@@ -479,15 +837,15 @@ end_region // comment
 //   ^^^^^^^ variable.namespace.datablock.plc - punctuation
 //          ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
 //           ^ punctuation.section.brackets.begin.plc
-//            ^ constant.numeric.integer.decimal.plc
+//            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //             ^ punctuation.section.brackets.end.plc
 //              ^ punctuation.accessor.dot.plc
 //               ^^^^^^^^^ variable.namespace.struct.plc
 //                        ^^^^^^^^^^^ meta.brackets.plc
 //                        ^ punctuation.section.brackets.begin.plc
-//                         ^ constant.numeric.integer.decimal.plc
+//                         ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                          ^ punctuation.separator.sequence.plc
-//                            ^ constant.numeric.integer.decimal.plc
+//                            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                             ^ keyword.operator.arithmetic.plc
 //                              ^^^^ variable.other.local.plc
 //                                  ^ punctuation.section.brackets.end.plc
@@ -495,7 +853,7 @@ end_region // comment
 //                                    ^^^^ variable.other.member.plc
 //                                        ^^^ meta.brackets.plc
 //                                        ^ punctuation.section.brackets.begin.plc
-//                                         ^ constant.numeric.integer.decimal.plc
+//                                         ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                                          ^ punctuation.section.brackets.end.plc
 //                                           ^ punctuation.accessor.dot.plc
 //                                            ^^^ variable.language.slice.plc

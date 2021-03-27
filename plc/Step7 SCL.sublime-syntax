@@ -40,6 +40,18 @@ variables:
 
   quoted_local_ident: (#\")[^"]*(\")
 
+  # numeric storage type prefixes
+  prefix_binary: '{{prefix_numeric}}'
+  prefix_decimal: '{{prefix_numeric}}'
+  prefix_hexadecimal: '{{prefix_numeric}}'
+  prefix_numeric: (?i:B(?:yte)?|[DQ]?W(?:ord)?|L|U?[DLS]?Int)
+
+  # date and time storage type prefixes
+  prefix_date: (?i:L?D(?:ATE)?)
+  prefix_date_and_time: (?i:L?DT|L?DATE_AND_TIME)
+  prefix_time: (?i:L?T(?:IME)?)
+  prefix_time_of_day: (?i:L?TOD|L?TIME_OF_DAY)
+
 contexts:
 
 ###[ COMMENTS ]################################################################
@@ -85,11 +97,6 @@ contexts:
     - include: scl-statements
     - include: illegal
 
-  constants:
-    - meta_prepend: true
-    - include: constants-symbols
-    - include: scl-slice-members
-
 ###[ VAR_CONSTANT ]############################################################
 
   var-constant:
@@ -116,6 +123,7 @@ contexts:
     - include: scl-punctuations
     - include: scl-function-calls
     - include: scl-slice-members
+    - include: literals
     - include: constants
     - include: operands-symbols
 
@@ -265,11 +273,11 @@ contexts:
 
 ###[ CHARACTERS ]##############################################################
 
-  constants-character:
+  literals-character:
     - match: ((?i:W?CHAR))(#)
       scope: meta.string.plc
       captures:
-        1: storage.type.primitive.plc
+        1: storage.type.char.plc
         2: punctuation.separator.type.plc
     - match: (\')(?:({{escapes}})|([^']))(\')
       scope: meta.string.plc string.quoted.single.plc
@@ -279,17 +287,41 @@ contexts:
         3: constant.character.literal.plc
         4: punctuation.definition.string.end.plc
 
+###[ NUMBERS ]#################################################################
+
+  literals-decimal:
+    - match: (?:({{prefix_decimal}})(#)([-+]?))?({{int}})
+      scope: meta.number.integer.decimal.plc
+      captures:
+        1: storage.type.integer.plc
+        2: punctuation.separator.type.plc
+        3: keyword.operator.arithmetic.plc
+        4: constant.numeric.value.plc
+
+  literals-float:
+    - match: ((?i:L?REAL))(#)(?:([-+]?)(\d+)(?!\.))?
+      scope: meta.number.float.decimal.plc
+      captures:
+        1: storage.type.float.plc
+        2: punctuation.separator.type.plc
+        3: keyword.operator.arithmetic.plc
+        4: constant.numeric.value.plc
+    - match: \d+(\.)\d+(?:[Ee][-+]\d+)?\b
+      scope: meta.number.float.decimal.plc constant.numeric.value.plc
+      captures:
+        1: punctuation.separator.decimal.plc
+
 ###[ STRINGS ]#################################################################
 
-  constants-string:
-    - meta_append: true
+  literals-string:
+    - meta_prepend: true
     - match: ((?i:W?STRING))(#)
       scope: meta.string.plc
       captures:
         1: storage.type.string.plc
         2: punctuation.separator.type.plc
 
-  constants-string-body:
+  literals-string-body:
     - meta_append: true
     - match: '{{escapes}}'
       scope: constant.character.escape.plc
@@ -374,7 +406,7 @@ contexts:
 
 ###[ SYMBOLS ]#################################################################
 
-  constants-symbols:
+  constants:
     - match: (#){{constants}}
       scope: meta.symbol.plc constant.other.local.plc
       captures:

@@ -13,15 +13,15 @@
 //^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header
 //^^^^ keyword.declaration.udt.begin
 //     ^ punctuation.definition.variable.begin
-//     ^^^^^^^^^^^^^^ entity.name.type.plc
+//     ^^^^^^^^^^^^^^ entity.name.type
 //                  ^ punctuation.definition.variable.end
    { S7_language := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.annotation.plc
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header meta.annotation
 // ^ punctuation.definition.annotation.begin
 //   ^^^^^^^^^^^ variable.annotation
-//               ^^ keyword.operator.assignment.plc
-//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single.plc
-//                                                                     ^ punctuation.definition.annotation.end.plc
+//               ^^ keyword.operator.assignment
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single
+//                                                                     ^ punctuation.definition.annotation.end
    NON_RETAIN
 // ^^^^^^^^^^ invalid.illegal
    READ_ONLY
@@ -74,7 +74,7 @@
 //       ^ punctuation.separator.key-value
 //         ^^^ storage.type.integer
 //             ^^ keyword.operator.assignment
-//                ^^ constant.numeric.integer
+//                ^^ meta.number.integer.decimal constant.numeric.value
 //                   ^ punctuation.terminator.statement
 //                    ^^ - invalid
 //                      ^^^^^^^^^ comment.line.double-slash
@@ -120,8 +120,8 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header
 // ^^^^^^^^^ keyword.declaration.db.begin
 //           ^ punctuation.definition.variable.begin
-//           ^^^^^^ entity.name.datablock.plc
-//                ^ punctuation.definition.variable.end.plc
+//           ^^^^^^ entity.name.datablock
+//                ^ punctuation.definition.variable.end
 //                  ^^ punctuation.definition.comment.begin
 //                  ^^^^^^^^^^ comment.line.double-slash
    TITLE =the datablock description
@@ -132,12 +132,12 @@
 //       ^ punctuation.separator.key-value.title
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section
    { S7_language := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header.plc meta.annotation.plc
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header meta.annotation
 // ^ punctuation.definition.annotation.begin
 //   ^^^^^^^^^^^ variable.annotation
-//               ^^ keyword.operator.assignment.plc
-//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single.plc
-//                                                                     ^ punctuation.definition.annotation.end.plc
+//               ^^ keyword.operator.assignment
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single
+//                                                                     ^ punctuation.definition.annotation.end
    NON_RETAIN
 // ^^^^^^^^^^ entity.other.attribute-name
    READ_ONLY
@@ -181,9 +181,9 @@
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ punctuation.definition.variable.begin.plc
-// ^^^^^^^^^^^^^^ variable.other.global.plc
-//              ^ punctuation.definition.variable.end.plc
+// ^ punctuation.definition.variable.begin
+// ^^^^^^^^^^^^^^ variable.other.global
+//              ^ punctuation.definition.variable.end
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body
@@ -196,22 +196,27 @@
    VAR[0].child[ 0 ].attr := W#16#0 ;  // comment
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body
-// ^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+// ^^^^^^^^^^^^^^^^^^^^^^ meta.path
 //    ^^^ meta.brackets
 //             ^^^^^ meta.brackets
-// ^^^ variable.namespace.struct.plc
+// ^^^ variable.namespace.struct
 //    ^ punctuation.section.brackets.begin
-//     ^ constant.numeric.integer
+//     ^ meta.number.integer.decimal constant.numeric.value
 //      ^ punctuation.section.brackets.end
 //       ^ punctuation.accessor.dot
-//        ^^^^^ variable.namespace.struct.plc
+//        ^^^^^ variable.namespace.struct
 //             ^ punctuation.section.brackets.begin
-//               ^ constant.numeric.integer
+//               ^ meta.number.integer.decimal constant.numeric.value
 //                 ^ punctuation.section.brackets.end
 //                  ^ punctuation.accessor.dot
 //                   ^^^^ variable.other.member
 //                        ^^ keyword.operator.assignment
-//                           ^^^^^^ constant.numeric.integer.hexadecimal
+//                           ^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body
+//                           ^ storage.type.integer
+//                            ^ punctuation.separator.type
+//                             ^^^ constant.numeric.base
+//                               ^ punctuation.separator.base
+//                                ^ constant.numeric.value
 //                                  ^ punctuation.terminator.statement
    test := W#16 ; illegal // comment
 // ^^^^ variable.other.local
@@ -227,8 +232,10 @@
    next_is_valid
 // ^^^^^^^^^^^^^ variable.other.local
    date_time := DT#90-1-1-0:0:0.000;
-//              ^^^^^^^^^^^^^^^^^^^ constant.language.datetime
-//              ^^^ storage.type.numeric
+//              ^^^^^^^^^^^^^^^^^^^ meta.number.date-and-time
+//              ^^ storage.type.time
+//                ^ punctuation.separator.type
+//                 ^^^^^^^^^^^^^^^^ constant.numeric.value
 //                   ^ punctuation.separator.date
 //                     ^ punctuation.separator.date
 //                       ^ punctuation.separator.date
@@ -236,8 +243,10 @@
 //                           ^ punctuation.separator.time
 //                             ^ punctuation.separator.time
    date_time := DT#2017-12-31-23:59:59.999;
-//              ^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.language.datetime
-//              ^^^ storage.type.numeric
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date-and-time
+//              ^^ storage.type.time
+//                ^ punctuation.separator.type
+//                 ^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.value
 //                     ^ punctuation.separator.date
 //                        ^ punctuation.separator.date
 //                           ^ punctuation.separator.date
@@ -258,7 +267,7 @@
    FUNCTION FC 102 : INT  // comment
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header
 // ^^^^^^^^ keyword.declaration.fc.begin
-//          ^^^^^^ entity.name.function.plc
+//          ^^^^^^ entity.name.function
 //                 ^ punctuation.separator.mapping.pair
 //                   ^^^ storage.type.integer
 //                        ^^ punctuation.definition.comment.begin
@@ -271,12 +280,12 @@
 //       ^ punctuation.separator.key-value.title
 //        ^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section
    { S7_language := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
-// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header.plc meta.annotation.plc
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.annotation
 // ^ punctuation.definition.annotation.begin
 //   ^^^^^^^^^^^ variable.annotation
-//               ^^ keyword.operator.assignment.plc
-//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single.plc
-//                                                                     ^ punctuation.definition.annotation.end.plc
+//               ^^ keyword.operator.assignment
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single
+//                                                                     ^ punctuation.definition.annotation.end
    VERSION : 1.0
 // ^^^^^^^^^^^^^ meta.block.fc.header
 // ^^^^^^^^^ meta.mapping.key - meta.mapping.value
@@ -365,9 +374,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                          ^ - invalid
 //                           ^^ keyword.control.of
@@ -385,11 +394,11 @@
 //          ^^^^^ storage.type.dword
 //                ^^ keyword.operator.assignment
 //                   ^ punctuation.section.sequence.begin
-//                     ^^^^^^^ constant.numeric.integer.hexadecimal
+//                     ^^^^^^^ meta.number.integer.hexadecimal
 //                            ^ punctuation.separator.sequence
-//                              ^^^^^^^ constant.numeric.integer.hexadecimal
+//                              ^^^^^^^ meta.number.integer.hexadecimal
 //                                     ^ punctuation.separator.sequence
-//                                       ^^^^^^^ constant.numeric.integer.hexadecimal
+//                                       ^^^^^^^ meta.number.integer.hexadecimal
 //                                               ^ punctuation.section.sequence.end
 //                                                ^ - invalid
 //                                                 ^ punctuation.terminator.statement
@@ -454,7 +463,10 @@
 //          ^ punctuation.separator.key-value
 //            ^^^^^ storage.type.other
 //                  ^^ keyword.operator.assignment
-//                     ^^^^ constant.numeric.float.decimal
+//                     ^^^^ meta.number.float.decimal
+//                     ^ keyword.operator.arithmetic
+//                      ^^^ constant.numeric.value
+//                       ^ punctuation.separator.decimal
 //                          ^ punctuation.terminator.statement
 //                           ^^ - invalid
     END_STRUCT ;
@@ -473,9 +485,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                ^ constant.numeric.integer
+//                ^ meta.number.integer constant.numeric.value
 //                 ^^ keyword.operator.range
-//                   ^^ constant.numeric.integer
+//                   ^^ meta.number.integer constant.numeric.value
 //                     ^ punctuation.definition.array.end
 //                       ^^ keyword.control.of
 //                          ^^^^^^ storage.type.struct.begin
@@ -571,9 +583,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                           ^^ keyword.control.of
 //                              ^^ punctuation.definition.comment.begin
@@ -635,9 +647,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                           ^^ keyword.control.of
 //                              ^^^^^^ storage.type.struct.begin
@@ -711,9 +723,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                           ^^ keyword.control.of
 //                              ^^ punctuation.definition.comment.begin
@@ -768,9 +780,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                           ^^ keyword.control.of
 //                              ^^^^^^ storage.type.struct.begin
@@ -842,9 +854,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                           ^^ keyword.control.of
 //                              ^^ punctuation.definition.comment.begin
@@ -898,9 +910,9 @@
 //        ^ punctuation.separator.key-value
 //          ^^^^^ storage.type.array
 //               ^ punctuation.definition.array.begin
-//                 ^ constant.numeric.integer
+//                 ^ meta.number.integer constant.numeric.value
 //                   ^^ keyword.operator.range
-//                      ^^ constant.numeric.integer
+//                      ^^ meta.number.integer constant.numeric.value
 //                         ^ punctuation.definition.array.end
 //                           ^^ keyword.control.of
 //                              ^^^^^^ storage.type.struct.begin
@@ -971,11 +983,11 @@
 ///////////////////////////////////////////////////////////////////////////////
       BLD  1; // comment
 //    ^^^ keyword.operator.nop
-//         ^ constant.numeric.integer
+//         ^ meta.number.integer constant.numeric.value
 //          ^ punctuation.terminator.statement
       NOP  0; // comment
 //    ^^^ keyword.operator.nop
-//         ^ constant.numeric.integer
+//         ^ meta.number.integer constant.numeric.value
 //          ^ punctuation.terminator.statement
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1004,9 +1016,9 @@
 //       ^^^^^^^^^^^^^^ meta.operand.datablock
 //                     ^^ - meta.operand.datablock
 //    ^^^ keyword.operator.load.db
-//          ^^^^^^^^^^^ variable.other.global.plc
-//          ^ punctuation.definition.variable.begin.plc
-//                    ^ punctuation.definition.variable.end.plc
+//          ^^^^^^^^^^^ variable.other.global
+//          ^ punctuation.definition.variable.begin
+//                    ^ punctuation.definition.variable.end
 //                     ^ punctuation.terminator.statement
       AUF   DBNO;
 // <- meta.block.fc.body meta.block.network
@@ -1397,16 +1409,16 @@
       L    "datablock".struct[ 4 ].value;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.variable.begin.plc
-//         ^^^^^^^^^^^ variable.namespace.datablock.plc
-//                   ^ punctuation.definition.variable.end.plc
+//         ^ punctuation.definition.variable.begin
+//         ^^^^^^^^^^^ variable.namespace.datablock
+//                   ^ punctuation.definition.variable.end
 //                    ^ punctuation.accessor.dot
-//                     ^^^^^^ variable.namespace.struct.plc
+//                     ^^^^^^ variable.namespace.struct
 //                           ^ punctuation.section.brackets.begin
 //                           ^^^^^ meta.brackets
-//                             ^ constant.numeric.integer
+//                             ^ meta.number.integer constant.numeric.value
 //                               ^ punctuation.section.brackets.end
 //                                ^ punctuation.accessor.dot
 //                                 ^^^^^ variable.other.member
@@ -1416,13 +1428,13 @@
       L    "datablock".struct.value;  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//         ^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^ meta.path
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.variable.begin.plc
-//         ^^^^^^^^^^^ variable.namespace.datablock.plc
-//                   ^ punctuation.definition.variable.end.plc
+//         ^ punctuation.definition.variable.begin
+//         ^^^^^^^^^^^ variable.namespace.datablock
+//                   ^ punctuation.definition.variable.end
 //                    ^ punctuation.accessor.dot
-//                     ^^^^^^ variable.namespace.struct.plc
+//                     ^^^^^^ variable.namespace.struct
 //                           ^ punctuation.accessor.dot
 //                            ^^^^^ variable.other.member
 //                                 ^ punctuation.terminator.statement
@@ -1432,23 +1444,23 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^ punctuation.definition.variable.plc
-//         ^^^^^^ variable.namespace.struct.plc
+//         ^ punctuation.definition.variable
+//         ^^^^^^ variable.namespace.struct
 //               ^ punctuation.section.brackets.begin
 //               ^^^ meta.brackets
-//                ^ constant.numeric.integer
+//                ^ meta.number.integer constant.numeric.value
 //                 ^ punctuation.section.brackets.end
 //                  ^ punctuation.accessor.dot
-//                   ^^^^^ variable.namespace.struct.plc
+//                   ^^^^^ variable.namespace.struct
 //                        ^ punctuation.section.brackets.begin
 //                        ^^^ meta.brackets
-//                         ^ constant.numeric.integer
+//                         ^ meta.number.integer constant.numeric.value
 //                          ^ punctuation.section.brackets.end
 //                           ^ punctuation.accessor.dot
 //                            ^^^^^ variable.other.member
 //                                 ^ punctuation.section.brackets.begin
 //                                 ^^^^^^ meta.brackets
-//                                   ^^ constant.numeric.integer
+//                                   ^^ meta.number.integer constant.numeric.value
 //                                      ^ punctuation.section.brackets.end
 //                                       ^ punctuation.terminator.statement
 //                                          ^^ punctuation.definition.comment.begin
@@ -1457,8 +1469,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
 //         ^^^^^^^ constant.language.pointer
+//         ^ storage.type.pointer
+//          ^ punctuation.separator.type
 //              ^ punctuation.separator.decimal
 //                ^ punctuation.terminator.statement
 //                  ^^ punctuation.definition.comment.begin
@@ -1467,8 +1480,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//           ^ punctuation.definition.variable.begin
+//         ^ storage.type.pointer
+//          ^ punctuation.separator.type
+//           ^ punctuation.definition.variable
 //            ^^^^^ variable.other.local
 //                 ^ punctuation.terminator.statement
 //                    ^^ punctuation.definition.comment.begin
@@ -1477,8 +1491,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
 //         ^^^^^^^ constant.language.pointer
+//         ^ storage.type.pointer
+//          ^ punctuation.separator.type
 //                ^ punctuation.terminator.statement
 //                   ^^ punctuation.definition.comment.begin
 //                   ^^^^^^^^^^ comment.line.double-slash
@@ -1486,8 +1501,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
 //         ^^^^^^^^^^ constant.language.pointer
+//         ^ storage.type.pointer
+//          ^ punctuation.separator.type
 //                 ^ punctuation.separator.decimal
 //                   ^ punctuation.terminator.statement
 //                      ^^ punctuation.definition.comment.begin
@@ -1496,8 +1512,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
 //         ^^^^^^^^^^^^^^ constant.language.pointer
+//         ^ storage.type.pointer
+//          ^ punctuation.separator.type
 //              ^ punctuation.accessor.dot
 //                     ^ punctuation.separator.decimal
 //                       ^ punctuation.terminator.statement
@@ -1507,31 +1524,36 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
-//               ^ punctuation.separator.bin
-//                    ^ punctuation.separator.bin
-//                         ^ punctuation.separator.bin
-//                              ^ punctuation.separator.bin
-//                                   ^ punctuation.separator.bin
-//                                        ^ punctuation.separator.bin
-//                                             ^ punctuation.separator.bin
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.integer.binary
+//         ^ constant.numeric.base - punctuation
+//          ^ constant.numeric.base punctuation.separator.base
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.value
+//               ^ punctuation.separator.digits
+//                    ^ punctuation.separator.digits
+//                         ^ punctuation.separator.digits
+//                              ^ punctuation.separator.digits
+//                                   ^ punctuation.separator.digits
+//                                        ^ punctuation.separator.digits
+//                                             ^ punctuation.separator.digits
 //                                                  ^ - invalid
 //                                                   ^ punctuation.terminator.statement
 //                                                    ^ - invalid
       L    2#1111_1111_1111_1111_1111_1111_1111_1111 ;
 // <- meta.block.fc.body meta.block.network
+// <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
-//               ^ punctuation.separator.bin
-//                    ^ punctuation.separator.bin
-//                         ^ punctuation.separator.bin
-//                              ^ punctuation.separator.bin
-//                                   ^ punctuation.separator.bin
-//                                        ^ punctuation.separator.bin
-//                                             ^ punctuation.separator.bin
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.integer.binary
+//         ^ constant.numeric.base - punctuation
+//          ^ constant.numeric.base punctuation.separator.base
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.value
+//               ^ punctuation.separator.digits
+//                    ^ punctuation.separator.digits
+//                         ^ punctuation.separator.digits
+//                              ^ punctuation.separator.digits
+//                                   ^ punctuation.separator.digits
+//                                        ^ punctuation.separator.digits
+//                                             ^ punctuation.separator.digits
 //                                                  ^ - invalid
 //                                                   ^ punctuation.terminator.statement
 //                                                    ^ - invalid
@@ -1539,17 +1561,19 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.bin
-//             ^ invalid.illegal.bin
-//               ^ punctuation.separator.bin
-//                    ^ punctuation.separator.bin
-//                      ^ invalid.illegal.bin
-//                         ^ punctuation.separator.bin
-//                              ^ punctuation.separator.bin
-//                                  ^ punctuation.separator.bin
-//                                        ^ punctuation.separator.bin
-//                                             ^ punctuation.separator.bin
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.integer.binary
+//         ^ constant.numeric.base - punctuation
+//          ^ constant.numeric.base punctuation.separator.base
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constant.numeric.value
+//             ^ invalid.illegal.digits
+//               ^ punctuation.separator.digits
+//                    ^ punctuation.separator.digits
+//                      ^ invalid.illegal.digits
+//                         ^ punctuation.separator.digits
+//                              ^ punctuation.separator.digits
+//                                  ^ punctuation.separator.digits
+//                                        ^ punctuation.separator.digits
+//                                             ^ punctuation.separator.digits
 //                                                  ^ - invalid
 //                                                   ^ punctuation.terminator.statement
 //                                                    ^ - invalid
@@ -1557,8 +1581,12 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^^ constant.numeric.integer.hexadecimal
+//         ^^^^^^ meta.number.integer.hexadecimal
+//         ^ storage.type.integer
+//          ^ punctuation.separator.type
+//           ^^ constant.numeric.base - punctuation
+//             ^ constant.numeric.base punctuation.separator.base
+//              ^ constant.numeric.value
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
 //                 ^ - invalid
@@ -1566,8 +1594,12 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^ storage.type.numeric
-//         ^^^^^^^^^ constant.numeric.integer.hexadecimal
+//         ^^^^^^^^^ meta.number.integer.hexadecimal
+//         ^^^^ storage.type.integer
+//             ^ punctuation.separator.type
+//              ^^ constant.numeric.base - punctuation
+//                ^ constant.numeric.base punctuation.separator.base
+//                 ^ constant.numeric.value
 //                  ^ - invalid
 //                   ^ punctuation.terminator.statement
 //                    ^ - invalid
@@ -1575,8 +1607,12 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^^ constant.numeric.integer.hexadecimal
+//         ^^^^^^ meta.number.integer.hexadecimal
+//         ^ storage.type.integer
+//          ^ punctuation.separator.type
+//           ^^ constant.numeric.base - punctuation
+//             ^ constant.numeric.base punctuation.separator.base
+//              ^ constant.numeric.value
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
 //                 ^ - invalid
@@ -1584,17 +1620,25 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^ storage.type.numeric
-//         ^^^^^^^^^ constant.numeric.integer.hexadecimal
+//         ^^^^^^^^^ meta.number.integer.hexadecimal
+//         ^^^^ storage.type.integer
+//             ^ punctuation.separator.type
+//              ^^ constant.numeric.base - punctuation
+//                ^ constant.numeric.base punctuation.separator.base
+//                 ^ constant.numeric.value
 //                  ^ - invalid
 //                   ^ punctuation.terminator.statement
 //                    ^ - invalid
       L    DW#16#0 ;
 // <- meta.block.fc.body meta.block.network
-// ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^ storage.type.numeric
-//         ^^^^^^^ constant.numeric.integer.hexadecimal
+//         ^^^^^^^ meta.number.integer.hexadecimal
+//         ^^ storage.type.integer
+//           ^ punctuation.separator.type
+//            ^^ constant.numeric.base - punctuation
+//              ^ constant.numeric.base punctuation.separator.base
+//               ^ constant.numeric.value
 //                ^ - invalid
 //                 ^ punctuation.terminator.statement
 //                  ^ - invalid
@@ -1602,8 +1646,12 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^ storage.type.numeric
-//         ^^^^^^^^^^ constant.numeric.integer.hexadecimal
+//         ^^^^^^^^^ meta.number.integer.hexadecimal
+//         ^^^^^ storage.type.integer
+//              ^ punctuation.separator.type
+//               ^^ constant.numeric.base - punctuation
+//                 ^ constant.numeric.base punctuation.separator.base
+//                  ^ constant.numeric.value
 //                   ^ - invalid
 //                    ^ punctuation.terminator.statement
 //                     ^ - invalid
@@ -1611,8 +1659,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^ constant.numeric.integer
+//         ^^^^ meta.number.integer.decimal
+//         ^ storage.type.integer
+//          ^ punctuation.separator.type
+//           ^^ constant.numeric.value
 //             ^ - invalid
 //              ^ punctuation.terminator.statement
 //               ^ - invalid
@@ -1620,8 +1670,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^ constant.numeric.integer
+//         ^^^^^ meta.number.integer.decimal
+//         ^ storage.type.integer
+//          ^ punctuation.separator.type
+//           ^ keyword.operator.arithmetic - constant.numeric.value
+//            ^^ constant.numeric.value - keyword.operator
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
@@ -1629,7 +1682,7 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^^ constant.numeric.float
+//         ^^^^^^^^^^^ meta.number.float.decimal constant.numeric.value
 //          ^ punctuation.separator.decimal
 //                    ^ - invalid
 //                     ^ punctuation.terminator.statement
@@ -1638,7 +1691,9 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^^ constant.numeric.float
+//         ^^^^^^^^^^^ meta.number.float.decimal
+//         ^ keyword.operator.arithmetic - constant.numeric.value
+//          ^^^^^^^^^^^ constant.numeric.value - keyword.operator
 //           ^ punctuation.separator.decimal
 //                     ^ - invalid
 //                      ^ punctuation.terminator.statement
@@ -1647,8 +1702,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^ constant.numeric.integer.decimal
+//         ^^^^^ meta.number.counter.s5
+//         ^ storage.type.counter
+//          ^ punctuation.separator.type
+//           ^^^ constant.numeric.value
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
@@ -1656,9 +1713,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric
-//          ^^^^^^^^ constant.language.s5time
-//              ^^^^ constant.language.time.millisecond
+//          ^^^^^^^^ meta.number.time.s5
+//          ^^^ storage.type.time
+//             ^ punctuation.separator.type
+//              ^^ constant.numeric.value.millisecond
+//                ^^ constant.numeric.suffix
 //                  ^ - invalid
 //                   ^ punctuation.terminator.statement
 //                    ^ - invalid
@@ -1666,9 +1725,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric
-//          ^^^^^^^ constant.language.s5time
-//              ^^^ constant.language.time.second
+//          ^^^^^^^ meta.number.time.s5
+//          ^^^ storage.type.time
+//             ^ punctuation.separator.type
+//              ^^ constant.numeric.value.second
+//                ^ constant.numeric.suffix
 //                 ^ - invalid
 //                  ^ punctuation.terminator.statement
 //                   ^ - invalid
@@ -1676,9 +1737,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric
-//          ^^^^^^^ constant.language.s5time
-//              ^^^ constant.language.time.minute
+//          ^^^^^^^ meta.number.time.s5
+//          ^^^ storage.type.time
+//             ^ punctuation.separator.type
+//              ^^ constant.numeric.value.minute
+//                ^ constant.numeric.suffix
 //                 ^ - invalid
 //                  ^ punctuation.terminator.statement
 //                   ^ - invalid
@@ -1687,9 +1750,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^ storage.type.numeric
-//          ^^^^^^ constant.language.s5time
-//              ^^ constant.language.time.hour
+//          ^^^^^^ meta.number.time.s5
+//          ^^^ storage.type.time
+//             ^ punctuation.separator.type
+//              ^ constant.numeric.value.hour
+//               ^ constant.numeric.suffix
 //                ^ - invalid
 //                 ^ punctuation.terminator.statement
 //                  ^ - invalid
@@ -1697,15 +1762,20 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
-//         ^^^^ storage.type.numeric
-//             ^^ constant.language.time.hour
+//         ^^^^^^^^^^^^^^^^^^^^ meta.number.time.s5
+//         ^^^ storage.type.time
+//            ^ punctuation.separator.type
+//             ^ constant.numeric.value.hour
+//              ^ constant.numeric.suffix
 //               ^ punctuation.separator.time
-//                ^^^ constant.language.time.minute
+//                ^^ constant.numeric.value.minute
+//                  ^ constant.numeric.suffix
 //                   ^ punctuation.separator.time
-//                    ^^^ constant.language.time.second
+//                    ^^ constant.numeric.value.second
+//                      ^ constant.numeric.suffix
 //                       ^ punctuation.separator.time
-//                        ^^^^^ constant.language.time.millisecond
+//                        ^^^ constant.numeric.value.millisecond
+//                           ^^ constant.numeric.suffix
 //                             ^ - invalid
 //                              ^ punctuation.terminator.statement
 //                               ^ - invalid
@@ -1713,12 +1783,19 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^ storage.type.numeric
-//         ^^^^^^^^^^^^^^^^^^^^ constant.language.s5time
-//              ^ keyword.other.unit
+//         ^^^^^^^^^^^^^^^^^^^^ meta.number.time.s5
+//         ^^^ storage.type.time
+//            ^ punctuation.separator.type
+//             ^ constant.numeric.value.hour
+//              ^ constant.numeric.suffix
+//               ^ punctuation.separator.time
 //                ^^^ invalid.illegal.time
-//                      ^ keyword.other.unit
-//                           ^^ keyword.other.unit
+//                   ^ punctuation.separator.time
+//                    ^^ constant.numeric.value.second
+//                      ^ constant.numeric.suffix
+//                       ^ punctuation.separator.time
+//                        ^^^ constant.numeric.value.millisecond
+//                           ^^ constant.numeric.suffix
 //                             ^ - invalid
 //                              ^ punctuation.terminator.statement
 //                               ^ - invalid
@@ -1726,10 +1803,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric
-//          ^^^^^^ constant.language.iec-time
-//            ^^^^ constant.language.time.millisecond
-//              ^^ keyword.other.unit
+//          ^^^^^^ meta.number.time.iec
+//          ^ storage.type.time
+//           ^ punctuation.separator.type
+//            ^^ constant.numeric.value.millisecond
+//              ^^ constant.numeric.suffix
 //                ^ - invalid
 //                 ^ punctuation.terminator.statement
 //                  ^ - invalid
@@ -1737,10 +1815,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric
-//          ^^^^^ constant.language.iec-time
-//            ^^^ constant.language.time.second
-//              ^ keyword.other.unit
+//          ^^^^^ meta.number.time.iec
+//          ^ storage.type.time
+//           ^ punctuation.separator.type
+//            ^^ constant.numeric.value.second
+//              ^ constant.numeric.suffix
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
 //                 ^ - invalid
@@ -1748,10 +1827,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric
-//          ^^^^^ constant.language.iec-time
-//            ^^^ constant.language.time.minute
-//              ^ keyword.other.unit
+//          ^^^^^ meta.number.time.iec
+//          ^ storage.type.time
+//           ^ punctuation.separator.type
+//            ^^ constant.numeric.value.minute
+//              ^ constant.numeric.suffix
 //               ^ - invalid
 //                ^ punctuation.terminator.statement
 //                 ^ - invalid
@@ -1759,10 +1839,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric
-//          ^^^^ constant.language.iec-time
-//            ^^ constant.language.time.hour
-//             ^ keyword.other.unit
+//          ^^^^ meta.number.time.iec
+//          ^ storage.type.time
+//           ^ punctuation.separator.type
+//            ^ constant.numeric.value.hour
+//             ^ constant.numeric.suffix
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
@@ -1770,10 +1851,11 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//          ^^ storage.type.numeric
-//          ^^^^ constant.language.iec-time
-//            ^^ constant.language.time.day
-//             ^ keyword.other.unit
+//          ^^^^ meta.number.time.iec
+//          ^ storage.type.time
+//           ^ punctuation.separator.type
+//            ^ constant.numeric.value.day
+//             ^ constant.numeric.suffix
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
@@ -1781,17 +1863,23 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
-//         ^^ storage.type.numeric
-//           ^^^ constant.language.time.day
+//         ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec
+//         ^ storage.type.time
+//          ^ punctuation.separator.type
+//           ^^ constant.numeric.value.day
+//             ^ constant.numeric.suffix
 //              ^ punctuation.separator.time
-//               ^^^ constant.language.time.hour
+//               ^^ constant.numeric.value.hour
+//                 ^ constant.numeric.suffix
 //                  ^ punctuation.separator.time
-//                   ^^^ constant.language.time.minute
+//                   ^^ constant.numeric.value.minute
+//                     ^ constant.numeric.suffix
 //                      ^ punctuation.separator.time
-//                       ^^^ constant.language.time.second
+//                       ^^ constant.numeric.value.second
+//                         ^ constant.numeric.suffix
 //                          ^ punctuation.separator.time
-//                           ^^^^^ constant.language.time.millisecond
+//                           ^^^ constant.numeric.value.millisecond
+//                              ^^ constant.numeric.suffix
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.statement
 //                                  ^ - invalid
@@ -1799,17 +1887,21 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
-//         ^^ storage.type.numeric
+//         ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec
+//         ^ storage.type.time
+//          ^ punctuation.separator.type
 //           ^^^ invalid.illegal.time.day
 //              ^ punctuation.separator.time
-//               ^^^ constant.language.time.hour
+//               ^^ constant.numeric.value.hour
+//                 ^ constant.numeric.suffix
 //                  ^ punctuation.separator.time
 //                   ^^^ invalid.illegal.time.minute
 //                      ^ punctuation.separator.time
-//                       ^^^ constant.language.time.second
+//                       ^^ constant.numeric.value.second
+//                         ^ constant.numeric.suffix
 //                          ^ punctuation.separator.time
-//                           ^^^^^ constant.language.time.millisecond
+//                           ^^^ constant.numeric.value.millisecond
+//                              ^^ constant.numeric.suffix
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.statement
 //                                  ^ - invalid
@@ -1817,17 +1909,21 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.iec-time
-//         ^^ storage.type.numeric
-//           ^^^ constant.language.time.day
+//         ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec
+//         ^ storage.type.time
+//          ^ punctuation.separator.type
+//           ^^ constant.numeric.value.day
+//             ^ constant.numeric.suffix
 //              ^ punctuation.separator.time
 //               ^^^ invalid.illegal.time.hour
 //                  ^ punctuation.separator.time
-//                   ^^^ constant.language.time.minute
+//                   ^^ constant.numeric.value.minute
+//                     ^ constant.numeric.suffix
 //                      ^ punctuation.separator.time
 //                       ^^^ invalid.illegal.time.second
 //                          ^ punctuation.separator.time
-//                           ^^^^^ constant.language.time.millisecond
+//                           ^^^ constant.numeric.value.millisecond
+//                              ^^ constant.numeric.suffix
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.statement
 //                                  ^ - invalid
@@ -1835,8 +1931,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^ storage.type.numeric
-//         ^^^^^^^^^^^^ constant.language.date
+//         ^^^^^^^^^^^^ meta.number.date
+//         ^ storage.type.time
+//          ^ punctuation.separator.type
+//           ^^^^^^^^^^ constant.numeric.value
 //               ^ punctuation.separator.date
 //                  ^ punctuation.separator.date
 //                     ^ - invalid
@@ -1846,8 +1944,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^^ storage.type.numeric
-//         ^^^^^^^^^^^^^^^ constant.language.date
+//         ^^^^^^^^^^^^^^^ meta.number.date
+//         ^^^^ storage.type.time
+//             ^ punctuation.separator.type
+//              ^^^^^^^^^^ constant.numeric.value
 //                  ^ punctuation.separator.date
 //                     ^ punctuation.separator.date
 //                        ^ - invalid
@@ -1857,8 +1957,10 @@
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
-//         ^^^^ storage.type.numeric
-//         ^^^^^^^^^^^^^^^^ constant.language.time-of-day
+//         ^^^^^^^^^^^^^^^^ meta.number.time-of-day
+//         ^^^ storage.type.time
+//            ^ punctuation.separator.type
+//             ^^^^^^^^^^^^ constant.numeric.value
 //               ^ punctuation.separator.time
 //                  ^ punctuation.separator.time
 //                     ^ punctuation.separator.time
@@ -1866,11 +1968,11 @@
 //                          ^ punctuation.terminator.statement
 //                           ^ - invalid
       L    'A'
-//    ^ keyword.operator.arithmetic.load.plc
-//         ^^^ meta.string.plc string.quoted.single.plc
-//         ^ punctuation.definition.string.begin.plc
-//          ^ constant.character.literal.plc
-//           ^ punctuation.definition.string.end.plc
+//    ^ keyword.operator.arithmetic.load
+//         ^^^ meta.string string.quoted.single
+//         ^ punctuation.definition.string.begin
+//          ^ constant.character.literal
+//           ^ punctuation.definition.string.end
 
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //
@@ -1920,10 +2022,10 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^^^^^^^^^^^^ meta.path.plc
-//                    ^^^^^^ variable.namespace.datablock.plc
-//                    ^ punctuation.definition.variable.begin.plc
-//                         ^ punctuation.definition.variable.end.plc
+//                    ^^^^^^^^^^^^^^ meta.path
+//                    ^^^^^^ variable.namespace.datablock
+//                    ^ punctuation.definition.variable.begin
+//                         ^ punctuation.definition.variable.end
 //                          ^ punctuation.accessor
 //                           ^^^^^^^ variable.other.member
 //                                  ^ punctuation.separator.sequence
@@ -1932,14 +2034,14 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^^^^^^^ constant.numeric.integer.hexadecimal
+//                    ^^^^^^^^^ meta.number.integer.hexadecimal
 //                             ^ punctuation.separator.sequence
            EV_ID   := DW#16#AAEDF,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^^^^^^^^^ constant.numeric.integer.hexadecimal
+//                    ^^^^^^^^^^^ meta.number.integer.hexadecimal
 //                               ^ punctuation.separator.sequence
            ANY     := P# DB20.DBX40.0 WORD 10,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -1954,8 +2056,8 @@
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
 //         ^^ variable.parameter
 //                 ^^ keyword.operator.assignment
-//                    ^^^^^ variable.other.local.plc
-//                    ^ punctuation.definition.variable.plc
+//                    ^^^^^ variable.other.local
+//                    ^ punctuation.definition.variable
 //                         ^ punctuation.separator.sequence
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -2008,7 +2110,7 @@
 //       ^^^^^ variable.function.global - punctuation
 //            ^ variable.function.global punctuation.definition.variable.end
 //             ^ punctuation.separator.sequence
-//               ^^^^^^^^ variable.other.global.plc
+//               ^^^^^^^^ variable.other.global
 //                        ^ punctuation.section.group.begin
 //                         ^ punctuation.section.group.end
 

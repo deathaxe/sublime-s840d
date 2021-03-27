@@ -124,7 +124,7 @@ contexts:
       scope: keyword.operator.nop.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: constants-uint16
+        - include: literals-uint16
         - include: assert-stmt-end
 
   awl-stmt-logical:
@@ -149,7 +149,7 @@ contexts:
       scope: keyword.operator.bitwise.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: constants-hex
+        - include: literals-hex
         - include: assert-stmt-end
     # INVI, INVD, NEGI, NEGD, NEGR
     - match: \b(?i:INV[ID]|NEG[IDR])\b
@@ -162,7 +162,7 @@ contexts:
       scope: keyword.operator.bitwise.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: constants-uint16
+        - include: literals-uint16
         - include: assert-stmt-end
 
   awl-stmt-aritmetical:
@@ -175,15 +175,15 @@ contexts:
       scope: keyword.operator.arithmetic.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: constants-uint16
+        - include: literals-uint16
         - include: assert-stmt-end
     # + 10, + -10, + L#20, + L#-20, + B#16#A
     - match: \+
       scope: keyword.operator.arithmetic.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: constants-int
-        - include: constants-hex
+        - include: literals-int
+        - include: literals-hex
         - include: assert-stmt-end
     # 32-bit floating point operations
     - match: \b(?i:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b
@@ -204,7 +204,7 @@ contexts:
       scope: keyword.operator.arithmetic.load.plc
       push:
         - meta_content_scope: meta.operand.numeric.plc
-        - include: constants
+        - include: literals
         - include: operands-binary
         - include: operands-counter
         - include: operands-timer
@@ -269,7 +269,7 @@ contexts:
       scope: keyword.operator.load.address-register.plc
       push:
         - meta_content_scope: meta.operand.pointer.plc
-        - include: constants-pointer
+        - include: literals-pointer
         - include: operands
         - include: assert-stmt-end
     # TAR1, TAR2
@@ -284,7 +284,7 @@ contexts:
       scope: keyword.operator.arithmetic.address-register.plc
       push:
         - meta_content_scope: meta.operand.pointer.plc
-        - include: constants-pointer
+        - include: literals-pointer
         - include: operands
         - include: assert-stmt-end
 
@@ -384,7 +384,7 @@ contexts:
   awl-arguments-value:
     - match: (?=[,)])
       pop: 1
-    - include: constants
+    - include: literals
     - include: operands-absolute
     - include: operands-symbols
 
@@ -542,7 +542,7 @@ contexts:
       scope: punctuation.section.brackets.end.plc
       pop: 2
     - include: illegal-eol
-    - include: constants-pointer
+    - include: literals-pointer
     - include: operands-binary-absolute
     - include: operands-symbols
     - include: operands-address-register
