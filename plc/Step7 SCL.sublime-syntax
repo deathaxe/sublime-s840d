@@ -120,7 +120,6 @@ contexts:
   scl-expressions:
     - include: scl-groups
     - include: scl-operators
-    - include: scl-punctuations
     - include: scl-function-calls
     - include: scl-slice-members
     - include: literals
@@ -328,13 +327,9 @@ contexts:
 
 ###[ OPERATORS ]###############################################################
 
-  scl-punctuations:
-    - match: ';'
-      scope: punctuation.terminator.statement.plc
-    - match: ','
-      scope: punctuation.separator.sequence.plc
-
   scl-operators:
+    - include: punctuation-separators
+    - include: punctuation-terminators
     - match: \b(?i:and|not|or|xor|mod)\b
       scope: keyword.operator.logical.plc
     - match: \b(?i:ref)\b
@@ -572,5 +567,4 @@ contexts:
     - match: \]
       scope: punctuation.section.brackets.end.plc
       pop: 1
-    - include: comma-separators
     - include: scl-expressions

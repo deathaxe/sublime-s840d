@@ -576,7 +576,7 @@ contexts:
 
   variable-value:
     - meta_content_scope: meta.definition.variable.value.plc
-    - include: comma-separators
+    - include: punctuation-separators
     - include: literals
     - include: lists
     - include: operands-absolute
@@ -593,15 +593,11 @@ contexts:
     - match: \]
       scope: punctuation.section.sequence.end.plc
       pop: 1
-    - include: comma-separators
+    - include: punctuation-separators
     - include: literals
     - include: lists
     - include: operands-absolute
     - include: operands-symbols
-
-  comma-separators:
-    - match: ','
-      scope: punctuation.separator.sequence.plc
 
 ###[ STORAGE TYPES ]###########################################################
 
@@ -1242,7 +1238,7 @@ contexts:
       scope: punctuation.section.brackets.end.plc
       pop: 1
     - include: illegal-eol
-    - include: comma-separators
+    - include: punctuation-separators
     - include: literals-uint16
 
 ###############################################################################
@@ -1284,6 +1280,10 @@ contexts:
     - match: \S[^;\s]*
       scope: invalid.illegal.terminator-expected.plc
     - include: illegal-eol
+
+  punctuation-separators:
+    - match: ','
+      scope: punctuation.separator.sequence.plc
 
   punctuation-terminators:
     - match: ;
