@@ -7,6 +7,18 @@ FAMILY  : ${5:OEM}
 NAME    : ${6:short}
 VERSION : ${7:1.0}
 
+VAR_INPUT
+
+END_VAR
+
+VAR_OUTPUT
+
+END_VAR
+
+VAR_TEMP
+
+END_VAR
+
 BEGIN
 NETWORK
 TITLE =${8:Network 1}
@@ -16,6 +28,6 @@ END_FUNCTION
 
 ]]></content>
 	<tabTrigger>sfc</tabTrigger>
-	<scope>source.plc</scope>
+	<scope>source.plc.awl - meta.block - comment - string</scope>
 	<description>FUNCTION</description>
 </snippet>

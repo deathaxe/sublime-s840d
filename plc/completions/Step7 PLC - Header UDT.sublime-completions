@@ -1,0 +1,30 @@
+{
+	"scope": "meta.block.udt.header.plc - meta.struct",
+	"completions": [
+		{
+			"trigger": "AUTHOR",
+			"kind": ["keyword", "a", "Attribute"],
+			"contents": "AUTHOR : ${1:who}\n$0"
+		},
+		{
+			"trigger": "FAMILY",
+			"kind": ["keyword", "a", "Attribute"],
+			"contents": "FAMILY : ${1:who}\n$0"
+		},
+		{
+			"trigger": "NAME",
+			"kind": ["keyword", "a", "Attribute"],
+			"contents": "NAME : ${1:block_name}\n$0"
+		},
+		{
+			"trigger": "VERSION",
+			"kind": ["keyword", "a", "Attribute"],
+			"contents": "VERSION : ${1:0.1}\n$0"
+		},
+		{
+			"trigger": "STRUCT",
+			"kind": "type",
+			"contents": "STRUCT\n\t$0\nEND_STRUCT;"
+		},
+	]
+}

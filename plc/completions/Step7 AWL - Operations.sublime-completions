@@ -1,0 +1,489 @@
+{
+	"scope": "source.plc.awl meta.block.network - meta.operand - meta.function-call - comment - string",
+	"completions": [
+		// manipulate VKE
+		{
+			"trigger": "CLR\tset VKE = 0",
+			"kind": ["function", "O", "Operation"],
+			"contents": "CLR   ;\n$0"
+		},
+		{
+			"trigger": "SET\tset VKE = 1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SET   ;\n$0"
+		},
+		{
+			"trigger": "NOT\tnegate VKE",
+			"kind": ["function", "O", "Operation"],
+			"contents": "NOT   ;\n$0"
+		},
+		{
+			"trigger": "SAVE\tcopy VKE to BIE",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SAVE ;\n$0"
+		},
+
+		// bit logic
+		{
+			"trigger": "U  <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "U     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "UN   <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UN  ${1:operand};\n$0"
+		},
+		{
+			"trigger": "O\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "O     ;\n$0"
+		},
+		{
+			"trigger": "O  <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "O     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "ON   <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "ON  ${1:operand};\n$0"
+		},
+		{
+			"trigger": "X  <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "X     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "XN   <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "XN  ${1:operand};\n$0"
+		},
+
+		// bit logic
+		{
+			"trigger": "U(\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "U(  ;\n$0\n)    ;"
+		},
+		{
+			"trigger": "UN(\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UN(   ;\n$0\n)   ;"
+		},
+		{
+			"trigger": "O(\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "O(  ;\n$0\n)    ;"
+		},
+		{
+			"trigger": "ON(\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "ON(   ;\n$0\n)   ;"
+		},
+		{
+			"trigger": "X(\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "X(  ;\n$0\n)    ;"
+		},
+		{
+			"trigger": "XN(\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "XN(   ;\n$0\n)   ;"
+		},
+
+		// assignment
+		{
+			"trigger": "N  <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "=     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "S  <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "S     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "R  <sym>\tlogic",
+			"kind": ["function", "O", "Operation"],
+			"contents": "R     ${1:operand};\n$0"
+		},
+
+		// counter
+		{
+			"trigger": "ZV   <cnt>\tcounter",
+			"kind": ["function", "O", "Operation"],
+			"contents": "ZV  ${1:Z0};\n$0"
+		},
+		{
+			"trigger": "ZR   <cnt>\tcounter",
+			"kind": ["function", "O", "Operation"],
+			"contents": "ZR  ${1:Z0};\n$0"
+		},
+		{
+			"trigger": "FR   <cnt>\tcounter",
+			"kind": ["function", "O", "Operation"],
+			"contents": "FR  ${1:Z0};\n$0"
+		},
+		{
+			"trigger": "LC   <cnt>\tcounter",
+			"kind": ["function", "O", "Operation"],
+			"contents": "LC  ${1:Z0};\n$0"
+		},
+
+		// timer
+		{
+			"trigger": "SA   <tmr>\ttimer",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SA  ${1:T0};\n$0"
+		},
+		{
+			"trigger": "SE   <tmr>\ttimer",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SE  ${1:T0};\n$0"
+		},
+		{
+			"trigger": "SI   <tmr>\ttimer",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SI  ${1:T0};\n$0"
+		},
+		{
+			"trigger": "SS   <tmr>\ttimer",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SS  ${1:T0};\n$0"
+		},
+		{
+			"trigger": "SV   <tmr>\ttimer",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SV  ${1:T0};\n$0"
+		},
+
+		// AKKU operations
+		{
+			"trigger": "L  <sym>\tload to AKKU1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "L     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "T  <sym>\tsave AKKU1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "T     ${1:operand};\n$0"
+		},
+		{
+			"trigger": "PUSH\tcopy AKKU1 to AKKU2",
+			"kind": ["function", "O", "Operation"],
+			"contents": "PUSH ;\n$0"
+		},
+		{
+			"trigger": "POP\tcopy AKKU2 to AKKU1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "POP   ;\n$0"
+		},
+		{
+			"trigger": "TAK\tswap AKKU2 to AKKU1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "TAK   ;\n$0"
+		},
+
+		// 16bit binary operators
+		{
+			"trigger": "UW\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UW  ;\n$0"
+		},
+		{
+			"trigger": "UW   <const>\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UW  W#16#${1:0};\n$0"
+		},
+		{
+			"trigger": "OW\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "OW  ;\n$0"
+		},
+		{
+			"trigger": "OW   <const>\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "OW  W#16#${1:0};\n$0"
+		},
+		{
+			"trigger": "SLW\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SLW   ;\n$0"
+		},
+		{
+			"trigger": "SLW <const>\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SLW   ${1:1};\n$0"
+		},
+		{
+			"trigger": "SRW\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SRW   ;\n$0"
+		},
+		{
+			"trigger": "SRW <const>\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SRW   ${1:1};\n$0"
+		},
+		{
+			"trigger": "TAW\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "TAW   ;\n$0"
+		},
+		{
+			"trigger": "INVI\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "INVI ;\n$0"
+		},
+		{
+			"trigger": "NEGI\t16bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "NEGI ;\n$0"
+		},
+
+		// 32bit binary operators
+		{
+			"trigger": "UD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UD  ;\n$0"
+		},
+		{
+			"trigger": "UD   <const>\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UD  DW#16#${1:0};\n$0"
+		},
+		{
+			"trigger": "OD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "OD  ;\n$0"
+		},
+		{
+			"trigger": "OD   <const>\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "OD  DW#16#${1:0};\n$0"
+		},
+		{
+			"trigger": "SLD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SLD   ;\n$0"
+		},
+		{
+			"trigger": "SLD <const>\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SLD   ${1:1};\n$0"
+		},
+		{
+			"trigger": "SRD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SRD   ;\n$0"
+		},
+		{
+			"trigger": "SRD <const>\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SRD   ${1:1};\n$0"
+		},
+		{
+			"trigger": "TAD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "TAD   ;\n$0"
+		},
+		{
+			"trigger": "INVD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "INVD ;\n$0"
+		},
+		{
+			"trigger": "NEGD\t32bit binary",
+			"kind": ["function", "O", "Operation"],
+			"contents": "NEGD ;\n$0"
+		},
+
+		// datablock
+		{
+			"trigger": "AUF <sym>\tdatablock",
+			"kind": ["function", "O", "Operation"],
+			"contents": "AUF   ${1:operand};\n$0"
+		},
+		{
+			"trigger": "TDB\tdatablock",
+			"kind": ["function", "O", "Operation"],
+			"contents": "TDB   ;\n$0"
+		},
+
+		// address register 1
+		{
+			"trigger": "LAR1\tAR1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "LAR1 ;\n$0"
+		},
+		{
+			"trigger": "LAR1 <ptr>\tAR1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "LAR1 P#${1:0.0};\n$0"
+		},
+		{
+			"trigger": "TAR1\tAR1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "TAR1 ;\n$0"
+		},
+		{
+			"trigger": "AR1\tAR1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "+AR1 ;\n$0"
+		},
+		{
+			"trigger": "AR1 <ptr>\tAR1",
+			"kind": ["function", "O", "Operation"],
+			"contents": "+AR1 P#${1:0.0};\n$0"
+		},
+
+		// address register 2
+		{
+			"trigger": "LAR2\tAR2",
+			"kind": ["function", "O", "Operation"],
+			"contents": "LAR2 ;\n$0"
+		},
+		{
+			"trigger": "LAR2 <ptr>\tAR2",
+			"kind": ["function", "O", "Operation"],
+			"contents": "LAR2 P#${1:0.0};\n$0"
+		},
+		{
+			"trigger": "TAR2\tAR2",
+			"kind": ["function", "O", "Operation"],
+			"contents": "TAR2 ;\n$0"
+		},
+		{
+			"trigger": "AR2\tAR2",
+			"kind": ["function", "O", "Operation"],
+			"contents": "+AR2 ;\n$0"
+		},
+		{
+			"trigger": "AR2 <ptr>\tAR2",
+			"kind": ["function", "O", "Operation"],
+			"contents": "+AR2 P#${1:0.0};\n$0"
+		},
+
+		// goto
+		{
+			"trigger": "SPL\tif case goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPL   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPA\tif always goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPA   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPB\tif VKE = 1 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPB   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPBN\tif VKE = 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPBN ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPBB\tif VKE = 1, VKE->BIE goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPBB ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPBNB\tif VKE = 0, VKE->BIE goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPBNB ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPBIN\tif BIE = 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPBIN ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPBI\tif BIE = 1 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPBI ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPO\tif OV = 1 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPO   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPS\tif OS = 1 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPS   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPZ\tif result = 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPZ   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPN\tif result <> 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPN   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPP\tif result > 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPP   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPM\tif result < 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPM   ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPPZ\tif result >= 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPPZ ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPMZ\tif result <= 0 goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPMZ ${1:_001};\n$0"
+		},
+		{
+			"trigger": "SPU\tif result invalid goto",
+			"kind": ["function", "O", "Operation"],
+			"contents": "SPU   ${1:_001};\n$0"
+		},
+
+		// function calls
+		{
+			"trigger": "UC    <sym>\trun",
+			"kind": ["function", "O", "Operation"],
+			"contents": "UC  ${1:fc};\n$0"
+		},
+		{
+			"trigger": "CC    <sym>\trun",
+			"kind": ["function", "O", "Operation"],
+			"contents": "CC  ${1:fc};\n$0"
+		},
+		{
+			"trigger": "CALL  <fc>\trun",
+			"kind": ["function", "O", "Operation"],
+			"contents": "CALL ${1:fc} (\n\t$0);\n"
+		},
+		{
+			"trigger": "CALL  <fb>, <db>\trun",
+			"kind": ["function", "O", "Operation"],
+			"contents": "CALL ${1:fb}, ${1:db};\n$0"
+		},
+
+		// block end
+		{
+			"trigger": "BE\tblock end",
+			"kind": ["function", "O", "Operation"],
+			"contents": "BE  ;\n$0"
+		},
+		{
+			"trigger": "BEA\tblock end",
+			"kind": ["function", "O", "Operation"],
+			"contents": "BEA   ;\n$0"
+		},
+	]
+}
