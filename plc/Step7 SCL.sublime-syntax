@@ -358,46 +358,30 @@ contexts:
 
   storage-type-atomic:
     - meta_append: true
-    - match: \b(?i:SINT)\b
-      scope: storage.type.short.plc
-    - match: \b(?i:LINT)\b
-      scope: storage.type.longlong.plc
-    - match: \b(?i:USINT)\b
-      scope: storage.type.unsigned-short.plc
-    - match: \b(?i:UINT)\b
-      scope: storage.type.unsigned-integer.plc
-    - match: \b(?i:UDINT)\b
-      scope: storage.type.unsigned-long.plc
-    - match: \b(?i:ULINT)\b
-      scope: storage.type.unsigned-longlong.plc
-    - match: \b(?i:QWORD)\b
-      scope: storage.type.qword.plc
-    - match: \b(?i:LREAL)\b
-      scope: storage.type.double.plc
-    - match: \b(?i:WCHAR)\b
-      scope: storage.type.wchar.plc
     - match: \b(?i:VARIANT)\b
       scope: storage.type.variant.plc
 
   storage-type-blocks:
     - meta_append: true
     - match: \b(?i:ANY_DB)\b
-      scope: storage.type.db.plc
-
-  storage-type-string:
-    - meta_append: true
-    - match: \b(?i:WSTRING)\b
-      scope: storage.type.wstring.plc
-      push: storage-type-string-size
+      scope: storage.type.datablock.plc
 
   storage-type-datetime:
-    - meta_append: true
-    - match: \b(?i:LTIME)\b
-      scope: storage.type.iec-time.plc
-    - match: \b(?i:LTIME_OF_DAY)\b
+    - match: \b(?i:S5TIME|L?(?:TIME|TIME_OF_DAY|DATE_AND_TIME))\b
       scope: storage.type.time.plc
-    - match: \b(?i:LDATE_AND_TIME)\b
-      scope: storage.type.datetime.plc
+
+  storage-type-numeric:
+    - match: \b(?i:Byte|[DQ]?Word|U?[DLS]?Int)\b
+      scope: storage.type.integer.plc
+    - match: \b(?i:L?Real)\b
+      scope: storage.type.float.plc
+
+  storage-type-string:
+    - match: \b(?i:W?CHAR)\b
+      scope: storage.type.char.plc
+    - match: \b(?i:W?STRING)\b
+      scope: storage.type.string.plc
+      push: storage-type-string-size
 
 ###[ SYMBOLS ]#################################################################
 

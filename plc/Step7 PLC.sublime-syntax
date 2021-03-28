@@ -609,6 +609,7 @@ contexts:
 
   storage-type:
     - include: storage-type-atomic
+    - include: storage-type-numeric
     - include: storage-type-string
     - include: storage-type-pointer
     - include: storage-type-datetime
@@ -656,20 +657,6 @@ contexts:
       scope: storage.type.void.plc
     - match: \b(?i:BOOL)\b
       scope: storage.type.bool.plc
-    - match: \b(?i:BYTE)\b
-      scope: storage.type.byte.plc
-    - match: \b(?i:CHAR)\b
-      scope: storage.type.char.plc
-    - match: \b(?i:INT)\b
-      scope: storage.type.integer.plc
-    - match: \b(?i:WORD)\b
-      scope: storage.type.word.plc
-    - match: \b(?i:DINT)\b
-      scope: storage.type.long.plc
-    - match: \b(?i:DWORD)\b
-      scope: storage.type.dword.plc
-    - match: \b(?i:REAL)\b
-      scope: storage.type.real.plc
     - match: \b(?i:COUNTER)\b
       scope: storage.type.counter.plc
     - match: \b(?i:TIMER)\b
@@ -677,21 +664,21 @@ contexts:
 
   storage-type-blocks:
     - match: \b(?i:BLOCK_S?DB)\b
-      scope: storage.type.db.plc
+      scope: storage.type.datablock.plc
     - match: \b(?i:BLOCK_FB)\b
-      scope: storage.type.block-fb.plc
+      scope: storage.type.functionblock.plc
     - match: \b(?i:BLOCK_FC)\b
       scope: storage.type.function.plc
 
   storage-type-datetime:
-    - match: \b(?i:S5TIME)\b
-      scope: storage.type.s5time.plc
-    - match: \b(?i:TIME)\b
-      scope: storage.type.iec-time.plc
-    - match: \b(?i:TIME_OF_DAY)\b
+    - match: \b(?i:S5TIME|TIME|TIME_OF_DAY|DATE_AND_TIME)\b
       scope: storage.type.time.plc
-    - match: \b(?i:DATE_AND_TIME)\b
-      scope: storage.type.datetime.plc
+
+  storage-type-numeric:
+    - match: \b(?i:BYTE|D?WORD|U?D?INT)\b
+      scope: storage.type.integer.plc
+    - match: \b(?i:REAL)\b
+      scope: storage.type.float.plc
 
   storage-type-pointer:
     - match: \b(?i:ANY)\b
@@ -700,6 +687,8 @@ contexts:
       scope: storage.type.pointer.plc
 
   storage-type-string:
+    - match: \b(?i:CHAR)\b
+      scope: storage.type.char.plc
     - match: \b(?i:STRING)\b
       scope: storage.type.string.plc
       push: storage-type-string-size
