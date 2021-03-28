@@ -128,8 +128,8 @@ contexts:
         - include: assert-stmt-end
 
   awl-stmt-logical:
-    # U , UN , O, ON, X, XN, FP, FN
-    - match: \b(?i:[OUX]N?|F[PN])\b
+    # A, AN, U , UN , O, ON, X, XN, FP, FN
+    - match: \b(?i:[AOUX]N?|F[PN])\b
       scope: keyword.operator.logical.plc
       push:
         - meta_content_scope: meta.operand.logical.plc
@@ -144,8 +144,8 @@ contexts:
       push: assert-stmt-end
 
   awl-stmt-bitwise:
-    # UW, UD, OW, OD, XOW, XOD
-    - match: \b(?i:[OU]|XO)[WD]\b
+    # AW, AD, UW, UD, OW, OD, XOW, XOD
+    - match: \b(?i:[AOU]|XO)[WD]\b
       scope: keyword.operator.bitwise.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
@@ -436,10 +436,10 @@ contexts:
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
     # DIW10, DIW10, DID10
-    - match: \b(?i:(?:P?[AE]|DI|[LMV])[BWD])[ \t]*{{int}}
+    - match: \b(?i:(?:P?[AEIQ]|D[BI]|[LMV])[BWD])[ \t]*{{int}}
       scope: variable.language.address.plc
     # DBB10, DBD10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
-    - match: \b(?i:(DB\d+)(\.))?(DB[BWD][ \t]*{{int}})
+    - match: \b(?i:(DB\d+)(\.))(DB[BWD][ \t]*{{int}})
       captures:
         1: variable.language.db.plc
         2: punctuation.accessor.dot.plc
@@ -449,7 +449,7 @@ contexts:
     # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...], AB[], EB[], PAB[], PEB[]
     # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...], AW[], EW[], PAW[], PEW[]
     # D[...], MD [...], LD [...], VD [...], DID [...], DID[...], AD[], ED[], PAD[], PED[]
-    - match: \b(?i:P?[AE]|D[BI]|[LMV])?[BWD](?=[ \t]*\[)
+    - match: \b(?i:P?[AEIQ]|D[BI]|[LMV])?[BWD](?=[ \t]*\[)
       push:
         - meta_scope: variable.language.address.plc
         - include: address-indirect
@@ -482,9 +482,9 @@ contexts:
 
   operands-logical-absolute:
     # M 10.0, DIX 10.0, L 0.0, ...
-    - match: \b(?i:DIX|[AELMV])\s*\d+(\.)\d+
-      scope: variable.language.address.plc
+    - match: \b(?i:DIX|[AEIQLMV])\s*\d+(\.)\d+
       captures:
+        0: variable.language.address.plc
         1: punctuation.separator.decimal.plc
     # DB10.DBX 10.0
     - match: \b(?i:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
