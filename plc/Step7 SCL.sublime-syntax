@@ -106,7 +106,10 @@ contexts:
 
   var-constant-body:
     - meta_scope: meta.block.var.constant.plc
-    - include: var-body
+    - include: var-end
+    - match: '{{constants}}'
+      scope: entity.name.constant.plc
+      push: variable-separator-name-storage
 
 ###[ STATEMENTS ]##############################################################
 

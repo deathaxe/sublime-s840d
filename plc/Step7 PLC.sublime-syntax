@@ -491,7 +491,8 @@ contexts:
 
   var-input-body:
     - meta_scope: meta.block.var.input.plc
-    - include: var-body
+    - include: var-end
+    - include: variable-declarations
 
 ###[ VAR_OUTPUT ]##############################################################
 
@@ -502,7 +503,8 @@ contexts:
 
   var-output-body:
     - meta_scope: meta.block.var.output.plc
-    - include: var-body
+    - include: var-end
+    - include: variable-declarations
 
 ###[ VAR_IN_OUT ]##############################################################
 
@@ -513,7 +515,8 @@ contexts:
 
   var-inout-body:
     - meta_scope: meta.block.var.in-out.plc
-    - include: var-body
+    - include: var-end
+    - include: variable-declarations
 
 ###[ VAR ]#####################################################################
 
@@ -524,7 +527,8 @@ contexts:
 
   var-stat-body:
     - meta_scope: meta.block.var.stat.plc
-    - include: var-body
+    - include: var-end
+    - include: variable-declarations
 
 ###[ VAR_TEMP ]################################################################
 
@@ -535,29 +539,29 @@ contexts:
 
   var-temp-body:
     - meta_scope: meta.block.var.temp.plc
-    - include: var-body
+    - include: var-end
+    - include: variable-declarations
 
 ###[ END_VAR ]#################################################################
 
-  var-body:
+  var-end:
     - match: \b(?i:END_VAR)\b
       scope: keyword.declaration.var.end.plc
       set: assert-line-end
     - match: (?={{context_keywords}})
       pop: 1
-    - include: variable-declarations
 
 ###[ VARIABLE DECLARATIONS ]###################################################
 
   variable-declarations:
     - match: '{{ident}}'
-      scope: variable.other.plc
+      scope: variable.other.local.plc
       push: variable-separator-name-storage
 
   variable-separator-name-storage:
     - meta_scope: meta.definition.variable.plc
     - match: ':'
-      scope: punctuation.separator.key-value.plc
+      scope: punctuation.separator.type.plc
       set: [assert-stmt-end, variable-storage]
     - match: \b(?i:at)\b
       scope: keyword.declaration.alias.plc
