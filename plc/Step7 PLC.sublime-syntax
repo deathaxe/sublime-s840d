@@ -750,7 +750,7 @@ contexts:
     - include: literals-character
     - include: literals-string
 
-###[ POINTER ]#################################################################
+###[ POINTERS ]################################################################
 
   literals-any:
     # P# DB20.DBX40.0 WORD 10
@@ -1099,12 +1099,9 @@ contexts:
 # OPERANDS                                                                    #
 ###############################################################################
 
-  operands-absolute:
-    - include: operands-address-register
+###[ ADDRESS REGISTERS ]#######################################################
 
-###[ ADDRESS REGISTER ]########################################################
-
-  operands-address-register:
+  operands-address-registers:
     - match: \b(?i:AR)[12]\b
       scope: variable.language.address.plc
 

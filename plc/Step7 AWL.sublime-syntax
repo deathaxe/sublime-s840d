@@ -33,7 +33,7 @@ file_extensions:
 
 contexts:
 
-###[ INHERITED CONTEXTS ]######################################################
+###[ BLOCK HEADERS ]###########################################################
 
   block-udt-name:
     - meta_prepend: true
@@ -388,9 +388,7 @@ contexts:
     - include: operands-absolute
     - include: operands-symbols
 
-###############################################################################
-# OPERANDS                                                                    #
-###############################################################################
+###[ OPERANDS ]################################################################
 
   operands:
     - include: operands-binary
@@ -407,7 +405,7 @@ contexts:
     - include: operands-logical-absolute
     - include: operands-timer-absolute
 
-###[ DATABLOCK ]###############################################################
+###[ DATABLOCKS ]##############################################################
 
   operands-datablock:
     - include: operands-datablock-absolute
@@ -424,7 +422,7 @@ contexts:
         - meta_scope: variable.language.db.plc
         - include: address-indirect
 
-###[ BINARY ]##################################################################
+###[ BINARIES ]################################################################
 
   operands-binary:
     - include: operands-binary-absolute
@@ -456,7 +454,7 @@ contexts:
         - meta_scope: variable.language.address.plc
         - include: address-indirect
 
-###[ COUNTER ]#################################################################
+###[ COUNTERS ]################################################################
 
   operands-counter:
     - include: operands-counter-absolute
@@ -476,7 +474,7 @@ contexts:
         - meta_scope: variable.language.counter.plc
         - include: address-indirect
 
-###[ LOGICAL ]#################################################################
+###[ LOGICALS ]################################################################
 
   operands-logical:
     - include: operands-logical-absolute
@@ -511,7 +509,7 @@ contexts:
     # [AR1,P#0.0]
     - include: address-indirect
 
-###[ TIMER ]###################################################################
+###[ TIMERS ]##################################################################
 
   operands-timer:
     - include: operands-timer-absolute
@@ -529,7 +527,7 @@ contexts:
         - meta_scope: variable.language.timer.plc
         - include: address-indirect
 
-###[ OPERANDS PROTOTYPES ]#####################################################
+###[ OPERAND PROTOTYPES ]######################################################
 
   address-indirect:
     - match: \[
@@ -545,4 +543,4 @@ contexts:
     - include: literals-pointer
     - include: operands-binary-absolute
     - include: operands-symbols
-    - include: operands-address-register
+    - include: operands-address-registers

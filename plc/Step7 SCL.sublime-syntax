@@ -79,7 +79,7 @@ contexts:
       scope: punctuation.definition.comment.end.plc
       pop: 1
 
-###[ INHERITED CONTEXTS ]######################################################
+###[ BLOCK HEADERS ]###########################################################
 
   block-fb-header-content:
     - meta_prepend: true
@@ -108,7 +108,7 @@ contexts:
     - meta_scope: meta.block.var.constant.plc
     - include: var-body
 
-###############################################################################
+###[ STATEMENTS ]##############################################################
 
   scl-statements:
     - include: scl-regions
@@ -118,15 +118,15 @@ contexts:
     - include: scl-expressions
 
   scl-expressions:
-    - include: scl-groups
-    - include: scl-operators
-    - include: scl-function-calls
-    - include: scl-slice-members
+    - include: groups
+    - include: operators
+    - include: slice-members
+    - include: function-calls
     - include: literals
     - include: constants
     - include: operands-symbols
 
-###[ STATEMENTS ]##############################################################
+###[ REGIONS ]#################################################################
 
   scl-regions:
     - match: \b((?i:region))(?:\s+(.*?)?\s+)?$
@@ -145,6 +145,8 @@ contexts:
         2: entity.name.section.plc
       pop: 1
     - include: scl-statements
+
+###[ CONTROL ]#################################################################
 
   scl-control:
     # if..then..elsif..then..else..end_if
@@ -230,25 +232,9 @@ contexts:
     - match: (?=(?i:end_function(_block)?))
       pop: 1
 
-###[ GROUPS ]##################################################################
-
-  scl-groups:
-    - match: \(
-      scope: punctuation.section.group.begin.plc
-      push: scl-group-body
-
-  scl-group-end:
-    - match: \)
-      scope: punctuation.section.group.end.plc
-      pop: 1
-
-  scl-group-body:
-    - include: scl-group-end
-    - include: scl-expressions
-
 ###[ FUNCTION CALL ]###########################################################
 
-  scl-function-calls:
+  function-calls:
     - match: '{{ident}}\s*(?=\()'
       scope:
         meta.function-call.identifier.plc
@@ -263,11 +249,27 @@ contexts:
 
   function-call-arguments-body:
     - meta_scope: meta.function-call.arguments.plc
-    - include: scl-group-end
+    - include: group-end
     - match: ({{ident}})\s*([:?]=|=>)
       captures:
         1: variable.parameter.plc
         2: keyword.operator.assignment.plc
+    - include: scl-expressions
+
+###[ GROUPS ]##################################################################
+
+  groups:
+    - match: \(
+      scope: punctuation.section.group.begin.plc
+      push: group-body
+
+  group-end:
+    - match: \)
+      scope: punctuation.section.group.end.plc
+      pop: 1
+
+  group-body:
+    - include: group-end
     - include: scl-expressions
 
 ###[ CHARACTERS ]##############################################################
@@ -327,7 +329,7 @@ contexts:
 
 ###[ OPERATORS ]###############################################################
 
-  scl-operators:
+  operators:
     - include: punctuation-separators
     - include: punctuation-terminators
     - match: \b(?i:and|not|or|xor|mod)\b
@@ -347,7 +349,7 @@ contexts:
     - match: '&'
       scope: keyword.operator.logical.plc
 
-  scl-slice-members:
+  slice-members:
     - match: (\.)((%)[Xx]\d+)
       captures:
         1: punctuation.accessor.dot.plc
