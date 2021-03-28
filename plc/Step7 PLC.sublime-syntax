@@ -221,8 +221,8 @@ contexts:
 
   block-db-value:
     - include: literals
-    - include: operands-absolute
     - include: operands-symbols
+    - include: operands-absolute
     - include: assert-stmt-end
 
   block-db-variables:
@@ -577,10 +577,10 @@ contexts:
   variable-value:
     - meta_content_scope: meta.definition.variable.value.plc
     - include: punctuation-separators
-    - include: literals
     - include: lists
-    - include: operands-absolute
+    - include: literals
     - include: operands-symbols
+    - include: operands-absolute
     - include: scope-end
 
   lists:
@@ -593,11 +593,7 @@ contexts:
     - match: \]
       scope: punctuation.section.sequence.end.plc
       pop: 1
-    - include: punctuation-separators
-    - include: literals
-    - include: lists
-    - include: operands-absolute
-    - include: operands-symbols
+    - include: variable-value
 
 ###[ STORAGE TYPES ]###########################################################
 

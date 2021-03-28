@@ -800,7 +800,218 @@ end_region
 //           ^^^^^^^^^^^^^^^^^ string.quoted.single.plc - punctuation
 //                            ^ string.quoted.single.plc punctuation.definition.string.end.plc
 
-/// VARIABLES /////////////////////////////////////////////////////////////////
+/// ADDRESSES /////////////////////////////////////////////////////////////////
+
+    %DB10 %DI20
+// ^ - meta.address
+//  ^^^^^ meta.address.plc
+//       ^ - meta.address
+//        ^^^^^ meta.address.plc
+//             ^ - meta.address
+//  ^ variable.language.db.plc punctuation.definition.address.plc
+//   ^^^^ variable.language.db.plc - punctuation
+//       ^ - variable
+//        ^ variable.language.db.plc punctuation.definition.address.plc
+//         ^^^^ variable.language.db.plc - punctuation
+
+    %EB10, %EW10, %ED10, %PEB10, %PEW10, %PED10
+// ^ - meta.address
+//  ^^^^^ meta.address.plc
+//       ^^ - meta.address
+//         ^^^^^ meta.address.plc
+//              ^^ - meta.address
+//                ^^^^^ meta.address.plc
+//                     ^^ - meta.address
+//                       ^^^^^^ meta.address.plc
+//                             ^^ - meta.address
+//                               ^^^^^^ meta.address.plc
+//                                     ^^ - meta.address
+//                                       ^^^^^^ meta.address.plc
+//                                             ^ - meta.address
+//  ^ variable.language.address.plc punctuation.definition.address.plc
+//   ^^^^ variable.language.address.plc - punctuation
+//       ^^ - variable
+//         ^ variable.language.address.plc punctuation.definition.address.plc
+//          ^^^^ variable.language.address.plc - punctuation
+//              ^^ - variable
+//                ^ variable.language.address.plc punctuation.definition.address.plc
+//                 ^^^^ variable.language.address.plc - punctuation
+//                     ^^ - variable
+//                       ^ variable.language.address.plc punctuation.definition.address.plc
+//                        ^^^^^ variable.language.address.plc - punctuation
+//                             ^^ - variable
+//                               ^ variable.language.address.plc punctuation.definition.address.plc
+//                                ^^^^^ variable.language.address.plc - punctuation
+//                                     ^^ - variable
+//                                       ^ variable.language.address.plc punctuation.definition.address.plc
+//                                        ^^^^^ variable.language.address.plc - punctuation
+//                                             ^^ - variable
+
+    %AB10, %AW10, %AD10, %PAB10, %PAW10, %PAD10
+// ^ - meta.address
+//  ^^^^^ meta.address.plc
+//       ^^ - meta.address
+//         ^^^^^ meta.address.plc
+//              ^^ - meta.address
+//                ^^^^^ meta.address.plc
+//                     ^^ - meta.address
+//                       ^^^^^^ meta.address.plc
+//                             ^^ - meta.address
+//                               ^^^^^^ meta.address.plc
+//                                     ^^ - meta.address
+//                                       ^^^^^^ meta.address.plc
+//                                             ^ - meta.address
+//  ^ variable.language.address.plc punctuation.definition.address.plc
+//   ^^^^ variable.language.address.plc - punctuation
+//       ^^ - variable
+//         ^ variable.language.address.plc punctuation.definition.address.plc
+//          ^^^^ variable.language.address.plc - punctuation
+//              ^^ - variable
+//                ^ variable.language.address.plc punctuation.definition.address.plc
+//                 ^^^^ variable.language.address.plc - punctuation
+//                     ^^ - variable
+//                       ^ variable.language.address.plc punctuation.definition.address.plc
+//                        ^^^^^ variable.language.address.plc - punctuation
+//                             ^^ - variable
+//                               ^ variable.language.address.plc punctuation.definition.address.plc
+//                                ^^^^^ variable.language.address.plc - punctuation
+//                                     ^^ - variable
+//                                       ^ variable.language.address.plc punctuation.definition.address.plc
+//                                        ^^^^^ variable.language.address.plc - punctuation
+//                                             ^^ - variable
+
+    %MB10, %MW10, %MD10
+// ^ - meta.address
+//  ^^^^^ meta.address.plc
+//       ^^ - meta.address
+//         ^^^^^ meta.address.plc
+//              ^^ - meta.address
+//                ^^^^^ meta.address.plc
+//                     ^ - meta.address
+//  ^ variable.language.address.plc punctuation.definition.address.plc
+//   ^^^^ variable.language.address.plc - punctuation
+//       ^^ - variable
+//         ^ variable.language.address.plc punctuation.definition.address.plc
+//          ^^^^ variable.language.address.plc - punctuation
+//              ^^ - variable
+//                ^ variable.language.address.plc punctuation.definition.address.plc
+//                 ^^^^ variable.language.address.plc - punctuation
+
+    %LB10, %LW10, %LD10, %VB10, %VW10, %VD10
+// ^ - meta.address
+//  ^^^^^ meta.address.plc
+//       ^^ - meta.address
+//         ^^^^^ meta.address.plc
+//              ^^ - meta.address
+//                ^^^^^ meta.address.plc
+//                     ^^ - meta.address
+//                       ^^^^^ meta.address.plc
+//                            ^^ - meta.address
+//                              ^^^^^ meta.address.plc
+//                                   ^^ - meta.address
+//                                     ^^^^^ meta.address.plc
+//                                          ^ - meta.address
+//  ^ variable.language.address.plc punctuation.definition.address.plc
+//   ^^^^ variable.language.address.plc - punctuation
+//       ^^ - variable
+//         ^ variable.language.address.plc punctuation.definition.address.plc
+//          ^^^^ variable.language.address.plc - punctuation
+//              ^^ - variable
+//                ^ variable.language.address.plc punctuation.definition.address.plc
+//                 ^^^^ variable.language.address.plc - punctuation
+//                     ^^ - variable
+//                       ^ variable.language.address.plc punctuation.definition.address.plc
+//                        ^^^^ variable.language.address.plc - punctuation
+//                            ^^ - variable
+//                              ^ variable.language.address.plc punctuation.definition.address.plc
+//                               ^^^^ variable.language.address.plc - punctuation
+//                                   ^^ - variable
+//                                     ^ variable.language.address.plc punctuation.definition.address.plc
+//                                      ^^^^ variable.language.address.plc - punctuation
+
+    %DIB10, %DIW10, %DID10, %DBB10, %DBW10, %DBD10
+// ^ - meta.address
+//  ^^^^^^ meta.address.plc
+//        ^^ - meta.address
+//          ^^^^^^ meta.address.plc
+//                ^^ - meta.address
+//                  ^^^^^^ meta.address.plc
+//                        ^^ - meta.address
+//                          ^^^^^^ meta.address.plc
+//                                ^^ - meta.address
+//                                  ^^^^^^ meta.address.plc
+//                                        ^^ - meta.address
+//                                          ^^^^^^ meta.address.plc
+//                                                ^ - meta.address
+//  ^ variable.language.address.plc punctuation.definition.address.plc
+//   ^^^^^ variable.language.address.plc - punctuation
+//        ^^ - variable
+//          ^ variable.language.address.plc punctuation.definition.address.plc
+//           ^^^^^ variable.language.address.plc - punctuation
+//                ^^ - variable
+//                  ^ variable.language.address.plc punctuation.definition.address.plc
+//                   ^^^^^ variable.language.address.plc - punctuation
+//                        ^^ - variable
+//                          ^ variable.language.address.plc punctuation.definition.address.plc
+//                           ^^^^^ variable.language.address.plc - punctuation
+//                                ^^ - variable
+//                                  ^ variable.language.address.plc punctuation.definition.address.plc
+//                                   ^^^^^ variable.language.address.plc - punctuation
+//                                        ^^ - variable
+//                                          ^ variable.language.address.plc punctuation.definition.address.plc
+//                                           ^^^^^ variable.language.address.plc - punctuation
+
+    %DB12.DBB5 %DB12.DBW5 %DB12.DBD15
+// ^ - meta.address
+//  ^^^^^^^^^^ meta.address.plc
+//            ^ - meta.address
+//             ^^^^^^^^^^ meta.address.plc
+//                       ^ - meta.address
+//                        ^^^^^^^^^^^ meta.address.plc
+//                                   ^ - meta.address
+//  ^ variable.language.address.plc punctuation.definition.address.plc
+//   ^^^^ variable.language.db.plc
+//       ^ punctuation.accessor.dot.plc
+//        ^^^^ variable.language.address.plc
+//            ^ - variable
+//             ^ variable.language.address.plc punctuation.definition.address.plc
+//              ^^^^ variable.language.db.plc
+//                  ^ punctuation.accessor.dot.plc
+//                   ^^^^ variable.language.address.plc
+//                       ^ - variable
+//                        ^ variable.language.address.plc punctuation.definition.address.plc
+//                         ^^^^ variable.language.db.plc
+//                             ^ punctuation.accessor.dot.plc
+//                              ^^^^^ variable.language.address.plc
+//                                   ^ - variable
+
+    %E75.5 %I10.3 %A232.5 %Q321.5 %M10.7 %L30.5 %V10.0
+// ^ - meta.address
+//  ^^^^^^ meta.address.plc
+//        ^ - meta.address
+//         ^^^^^^ meta.address.plc
+//               ^ - meta.address
+//                ^^^^^^^ meta.address.plc
+//                       ^ - meta.address
+//                        ^^^^^^^ meta.address.plc
+//                               ^ - meta.address
+//                                ^^^^^^ meta.address.plc
+//                                      ^ - meta.address
+//                                       ^^^^^^ meta.address.plc
+//                                             ^ - meta.address
+//                                              ^^^^^^ meta.address.plc
+//                                                    ^ - meta.address
+
+    %C20 %Z7 %T501
+// ^ - meta.address - variable
+//  ^^^^ meta.address.plc variable.language.counter.plc
+//      ^ - meta.address - variable
+//       ^^^ meta.address.plc variable.language.counter.plc
+//          ^ - meta.address - variable
+//           ^^^^^ meta.address.plc variable.language.timer.plc
+//                ^ - meta.address - variable
+
+/// SYMBOLS ///////////////////////////////////////////////////////////////////
 
     "GLOBAL_CONSTANT"
 //  ^^^^^^^^^^^^^^^^^ constant.other.global.plc

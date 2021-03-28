@@ -125,6 +125,7 @@ contexts:
     - include: literals
     - include: constants
     - include: operands-symbols
+    - include: operands-absolute
 
 ###[ REGIONS ]#################################################################
 
@@ -385,6 +386,74 @@ contexts:
     - match: \b(?i:W?STRING)\b
       scope: storage.type.string.plc
       push: storage-type-string-size
+
+###[ ADDRESSES ]###############################################################
+
+  operands-absolute:
+    - include: operands-address-registers
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-logical-absolute
+    - include: operands-timer-absolute
+
+  operands-datablock-absolute:
+    # %DB10 : datablocks
+    - match: (%)(?i:D[BI]){{int}}
+      captures:
+        0: meta.address.plc variable.language.db.plc
+        1: punctuation.definition.address.plc
+
+  operands-binary-absolute:
+    # %EB10, %EW10, %ED10, %PEB10, %PEW10, %PED10
+    # %AB10, %AW10, %AD10, %PAB10, %PAW10, %PAD10
+    # %MB10, %MW10, %MD10
+    # %LB10, %LW10, %LD10, %VB10, %VW10, %VD10
+    # %DBB10, %DBD10, %DBW10, %DIB10, %DIW10, %DID10
+    - match: (%)(?i:(?:P?[AEIQ]|D[BI]|[LMV])[BWD]){{int}}
+      captures:
+        0: meta.address.plc variable.language.address.plc
+        1: punctuation.definition.address.plc
+    # %DB3.DBB10, %DB3.DIB10, %DB3.DBW10
+    - match: (%)(?i:(DB\d+)(\.))(DB[BWD]{{int}})
+      captures:
+        0: meta.address.plc
+        1: variable.language.address.plc punctuation.definition.address.plc
+        2: variable.language.db.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
+
+  operands-counter-absolute:
+    # %C10 : counter (english)
+    # %Z10 : counter (german)
+    - match: (%)(?i:[CZ]){{int}}
+      captures:
+        0: meta.address.plc variable.language.counter.plc
+        1: punctuation.definition.address.plc
+
+  operands-logical-absolute:
+    # %M10.0, %DIX10.0, %L0.0, ...
+    - match: (%)(?i:DIX|[AEIQLMV])\d+(\.)[0-7]\b
+      captures:
+        0: meta.address.plc variable.language.address.plc
+        1: punctuation.definition.address.plc
+        2: punctuation.separator.decimal.plc
+    # %DB10.DBX10.0
+    - match: (%)(?i:(DB\d+)(\.))?(DBX\d+(\.)[0-7]\b)
+      captures:
+        0: meta.address.plc
+        1: punctuation.definition.address.plc
+        2: variable.language.db.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
+        5: punctuation.separator.decimal.plc
+
+  operands-timer-absolute:
+    # %T10 : timer
+    - match: (%)[Tt]{{int}}
+      captures:
+        0: meta.address.plc variable.language.timer.plc
+        1: punctuation.definition.address.plc
 
 ###[ SYMBOLS ]#################################################################
 
