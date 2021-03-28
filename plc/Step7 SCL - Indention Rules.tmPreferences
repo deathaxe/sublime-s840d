@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+	<key>scope</key>
+	<string>source.plc.scl</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string><![CDATA[(?xi:
+			^[ \t]*
+			(?:
+			# block declarations
+			  END_FUNCTION\b
+			| END_FUNCTION_BLOCK\b
+			| END_DATA_BLOCK\b
+			| END_ORGANIZATION_BLOCK\b
+			| END_TYPE\b
+			# block interface
+			| END_VAR\b
+			| END_STRUCT\b
+			# code contexts
+			| BEGIN\b
+			| END_REGION\b
+			# statements
+			| END_IF\b
+			| END_CASE\b
+			| END_FOR\b
+			| END_REPEAT\b
+			| END_WHILE\b
+			| ELSIF\b
+			| ELSE\b
+			| THEN\b
+			| DO\b
+			| OF\b
+			| UNTIL\b
+			# case branch label
+			| .*:[ \t]*((//|[(/]\*).*)?$
+			)
+		)]]></string>
+		<key>increaseIndentPattern</key>
+		<string><![CDATA[(?xi:
+			^[ \t]*
+			(?:
+			# block declarations
+			  FUNCTION\b
+			| FUNCTION_BLOCK\b
+			| DATA_BLOCK\b
+			| ORGANIZATION_BLOCK\b
+			| TYPE\b
+			# block interface
+			| VAR\b
+			| VAR_INPUT\b
+			| VAR_OUTPUT\b
+			| VAR_IN_OUT\b
+			| VAR_TEMP\b
+			| STRUCT\b
+			# code contexts
+			| BEGIN\b
+			| REGION\b
+			# conditional statements
+			| ( IF | ELSIF | ELSE | THEN )\b(?!.*\bEND_IF\b)
+			| ( CASE | OF )\b(?!.*\bEND_CASE\b)
+			# case branch label
+			| .*:[ \t]*((//|[(/]\*).*)?$
+			# loop statements
+			| FOR\b(?!.*\bEND_FOR\b)
+			| REPEAT\b(?!.*\bEND_REPEAT\b)
+			| WHILE\b(?!.*\bEND_WHILE\b)
+			)
+		)]]></string>
+		<key>unIndentedLinePattern</key>
+		<string><![CDATA[^(?xi:
+			CODE_VERSION1 | KNOW_HOW_PROTECT | AUTHOR | FAMILY | NAME | VERSION
+		)\b]]></string>
+	</dict>
+</dict>
+</plist>
