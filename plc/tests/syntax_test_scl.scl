@@ -57,6 +57,16 @@ end_region // comment
 //^^^^^^^^ invalid.illegal.plc
 //         ^^^^^^^^^^ comment.line.double-slash.plc
 
+region
+// <- meta.block.region.begin.plc keyword.context.block.region.begin.plc
+//^^^^^ meta.block.fb.body.plc
+//^^^^ keyword.context.block.region.begin.plc
+    until
+//  ^^^^^ meta.block.region.plc invalid.illegal.plc
+end_region
+// <- meta.block.region.end.plc keyword.context.block.region.end.plc
+//^^^^^^^^ meta.block.region.end.plc keyword.context.block.region.end.plc
+//        ^ - meta.block.region
 
 /// CASE..OF..ELSE..END_CASE //////////////////////////////////////////////////
 
