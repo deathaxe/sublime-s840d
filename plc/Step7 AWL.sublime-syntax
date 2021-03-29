@@ -90,7 +90,7 @@ contexts:
     - include: awl-stmt-assignment
     - include: awl-stmt-bitwise
     - include: awl-stmt-address-register
-    - include: awl-stmt-aritmetical
+    - include: awl-stmt-arithmetic
     - include: awl-stmt-goto
     - include: awl-stmt-akku
     - include: awl-stmt-datablock
@@ -149,7 +149,7 @@ contexts:
       scope: keyword.operator.bitwise.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: literals-hex
+        - include: literals-hexadecimal
         - include: assert-stmt-end
     # INVI, INVD, NEGI, NEGD, NEGR
     - match: \b(?i:INV[ID]|NEG[IDR])\b
@@ -165,7 +165,7 @@ contexts:
         - include: literals-uint16
         - include: assert-stmt-end
 
-  awl-stmt-aritmetical:
+  awl-stmt-arithmetic:
     # -I, -D, -R, +I, +D, +R, ...
     - match: '[-+*/][IDR]\b'
       scope: keyword.operator.arithmetic.plc
@@ -182,8 +182,8 @@ contexts:
       scope: keyword.operator.arithmetic.plc
       push:
         - meta_content_scope: meta.operand.constant.numeric.plc
-        - include: literals-int
-        - include: literals-hex
+        - include: literals-decimal
+        - include: literals-hexadecimal
         - include: assert-stmt-end
     # 32-bit floating point operations
     - match: \b(?i:ABS|A?COS|A?SIN|A?TAN|EXP|LN|MOD|SQRT?)\b

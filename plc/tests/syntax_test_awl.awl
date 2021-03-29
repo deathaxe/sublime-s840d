@@ -1655,6 +1655,25 @@
 //                   ^ - invalid
 //                    ^ punctuation.terminator.statement
 //                     ^ - invalid
+      L    16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^ meta.number.integer.decimal
+//         ^^ constant.numeric.value
+//           ^ - invalid
+//            ^ punctuation.terminator.statement
+//             ^ - invalid
+      L    -16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^ meta.number.integer.decimal
+//         ^ keyword.operator.arithmetic - constant.numeric.value
+//          ^^ constant.numeric.value - keyword.operator
+//            ^ - invalid
+//             ^ punctuation.terminator.statement
+//              ^ - invalid
       L    L#16 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -1973,6 +1992,53 @@
 //         ^ punctuation.definition.string.begin
 //          ^ constant.character.literal
 //           ^ punctuation.definition.string.end
+
+///////////////////////////////////////////////////////////////////////////////
+// aritmetic operations                                                      //
+///////////////////////////////////////////////////////////////////////////////
+
+      +    16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic
+//         ^^ meta.number.integer.decimal
+//         ^^ constant.numeric.value
+//           ^ - invalid
+//            ^ punctuation.terminator.statement
+//             ^ - invalid
+      +    -16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic
+//         ^^^ meta.number.integer.decimal
+//         ^ keyword.operator.arithmetic - constant.numeric.value
+//          ^^ constant.numeric.value - keyword.operator
+//            ^ - invalid
+//             ^ punctuation.terminator.statement
+//              ^ - invalid
+      +    L#16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic
+//         ^^^^ meta.number.integer.decimal
+//         ^ storage.type.integer
+//          ^ punctuation.separator.type
+//           ^^ constant.numeric.value
+//             ^ - invalid
+//              ^ punctuation.terminator.statement
+//               ^ - invalid
+      +    L#-16 ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic
+//         ^^^^^ meta.number.integer.decimal
+//         ^ storage.type.integer
+//          ^ punctuation.separator.type
+//           ^ keyword.operator.arithmetic - constant.numeric.value
+//            ^^ constant.numeric.value - keyword.operator
+//              ^ - invalid
+//               ^ punctuation.terminator.statement
+//                ^ - invalid
 
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //
