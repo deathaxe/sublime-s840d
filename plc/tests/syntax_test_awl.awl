@@ -1005,10 +1005,16 @@
       AUF   DB [MW 10];
 // <- meta.block.fc.body meta.block.network
 //^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
-//       ^^^^^^^^^^^^^ meta.operand.datablock
+//       ^^^ meta.operand.datablock - meta.address
+//          ^^^ meta.operand.datablock meta.address.indirect - meta.brackets
+//             ^^^^^^^ meta.operand.datablock meta.address.indirect meta.brackets
 //                    ^^ - meta.operand.datablock
 //    ^^^ keyword.operator.load.db
-//          ^^^^^^^^^^ variable.language.db
+//          ^^^^^^^^^^ meta.address.indirect
+//          ^^ variable.language.timer
+//             ^ punctuation.section.brackets.begin
+//              ^^^^^ variable.language.address
+//                   ^ punctuation.section.brackets.end
 //                    ^ punctuation.terminator.statement
       AUF   "IDB_Block";
 // <- meta.block.fc.body meta.block.network
@@ -1275,9 +1281,12 @@
       L     T [MW10];  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^ meta.operand.numeric - meta.address
+//          ^^ meta.operand.numeric meta.address.indirect - meta.brackets
+//            ^^^^^^ meta.address.indirect meta.brackets
+//                  ^^^^^^^^^^^^^^ - meta.operand
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.timer
-//            ^^^^^^ meta.brackets
+//          ^ variable.language.timer
 //            ^ punctuation.section.brackets.begin
 //             ^^^^ variable.language.address
 //                 ^ punctuation.section.brackets.end
@@ -1295,9 +1304,12 @@
       L     Z [MW10];  // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//     ^^^^^ meta.operand.numeric - meta.address
+//          ^^ meta.operand.numeric meta.address.indirect - meta.brackets
+//            ^^^^^^ meta.address.indirect meta.brackets
+//                  ^^^^^^^^^^^^^^ - meta.operand
 //    ^ keyword.operator.arithmetic.load
-//          ^^^^^^^^ variable.language.counter
-//            ^^^^^^ meta.brackets
+//          ^ variable.language.counter
 //            ^ punctuation.section.brackets.begin
 //             ^^^^ variable.language.address
 //                 ^ punctuation.section.brackets.end
