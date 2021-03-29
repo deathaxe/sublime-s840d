@@ -5,12 +5,50 @@
 	<string>source.plc.awl</string>
 	<key>settings</key>
 	<dict>
+		<key>indentParens</key>
+		<false/>
+		<key>indentSquareBrackets</key>
+		<false/>
 		<key>decreaseIndentPattern</key>
-		<string><![CDATA[\bEND_(?:(?:FUNCTION|DATA|ORGANIZATION)_BLOCK|FUNCTION|STRUCT|TYPE|VAR)\b]]></string>
+		<string><![CDATA[(?xi:
+			^[ \t]*
+			(?:
+			# block declarations
+			  END_FUNCTION\b
+			| END_FUNCTION_BLOCK\b
+			| END_DATA_BLOCK\b
+			| END_ORGANIZATION_BLOCK\b
+			| END_TYPE\b
+			# block interface
+			| END_VAR\b
+			| END_STRUCT\b
+			# code contexts
+			| BEGIN\b
+			| NETWORK\b
+			| \);
+			)
+		)]]></string>
 		<key>increaseIndentPattern</key>
-		<string><![CDATA[\b(?:(?:FUNCTION|DATA|ORGANIZATION)_BLOCK|FUNCTION|STRUCT|TYPE|VAR(?:_INPUT|_OUTPUT|_IN_OUT|_TEMP)?)\b]]></string>
+		<string><![CDATA[(?xi:
+			^[ \t]*
+			(?:
+			# block interface
+			  VAR\b
+			| VAR_INPUT\b
+			| VAR_OUTPUT\b
+			| VAR_IN_OUT\b
+			| VAR_TEMP\b
+			| STRUCT\b
+			# code contexts
+			| TITLE\b
+			# statements
+			| CALL\b.*\(
+			)
+		)]]></string>
 		<key>unIndentedLinePattern</key>
-		<string><![CDATA[\b(?:BEGIN|NETWORK|TITLE)$]]></string>
+		<string><![CDATA[^(?xi:
+			CODE_VERSION1 | KNOW_HOW_PROTECT | AUTHOR | FAMILY | NAME | VERSION
+		)\b|^[ \t]*//]]></string>
 	</dict>
 </dict>
 </plist>
