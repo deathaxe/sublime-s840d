@@ -38,10 +38,9 @@ variables:
   quoted_ident: (\")[^"]*(\")
 
   context_keywords: |-
-    \b(?xi:
-      BEGIN
-    | VAR  ( _INPUT | _OUTPUT | _IN_OUT | _TEMP )?
-    | ( END_ ) ? ( DATABLOCK | FUNCTION ( _BLOCK )? | ORGANIZATION_BLOCK | TYPE )
+    (?xi:
+      BEGIN | VAR_ (?: INPUT | OUTPUT | IN_OUT | TEMP )
+    | (?: END_ ) ? (?: DATABLOCK | FUNCTION ( _BLOCK )? | ORGANIZATION_BLOCK | TYPE | VAR )
     )\b
 
   # numeric storage type prefixes
@@ -548,8 +547,7 @@ contexts:
     - match: \b(?i:END_VAR)\b
       scope: keyword.declaration.var.end.plc
       set: assert-line-end
-    - match: (?={{context_keywords}})
-      pop: 1
+    - include: context-end
 
 ###[ VARIABLE DECLARATIONS ]###################################################
 
@@ -1266,6 +1264,10 @@ contexts:
     - match: \S[^;\s]*
       scope: invalid.illegal.terminator-expected.plc
     - include: illegal-eol
+
+  context-end:
+    - match: (?={{context_keywords}})
+      pop: 1
 
   punctuation-separators:
     - match: ','

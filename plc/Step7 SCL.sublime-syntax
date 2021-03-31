@@ -35,6 +35,12 @@ file_extensions:
 
 variables:
 
+  control_keywords: |-
+    (?xi:
+      (?: end_ )? (?: case | if | for | region | while ) | by | continue | do
+    | elsif | else | exit | repeat | return | then | to | until
+    )\b
+
   constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
   escapes: '\$[LlNPpRrTt$'']'
 
@@ -130,6 +136,11 @@ contexts:
     - include: operands-symbols
     - include: operands-absolute
 
+  scl-expression-end:
+    # Pop nested expression contexts if control keywords are matched.
+    - match: (?=;|{{control_keywords}})
+      pop: 1
+
 ###[ REGIONS ]#################################################################
 
   scl-regions:
@@ -194,6 +205,7 @@ contexts:
       scope: meta.conditional.case.plc keyword.control.conditional.of.plc
       set: scl-stmt-case-branches
     - include: scl-stmt-case-end
+    - include: scl-expression-end
     - include: scl-expressions
 
   scl-stmt-case-branches:
@@ -209,6 +221,7 @@ contexts:
     - match: \b(?i:end_case)\b
       scope: meta.conditional.case.plc keyword.control.conditional.end.plc
       pop: 1
+    - include: context-end
 
 ###[ REPEAT..UNTIL ]###########################################################
 
@@ -228,14 +241,14 @@ contexts:
   scl-stmt-repeat-until:
     - meta_content_scope: meta.loop.repeat.condition.plc
     - include: scl-stmt-repeat-end
+    - include: scl-expression-end
     - include: scl-expressions
 
   scl-stmt-repeat-end:
     - match: \b(?i:end_repeat)\b
       scope: meta.loop.repeat.plc keyword.control.loop.repeat-until.plc
       pop: 1
-    - match: (?=(?i:end_function(_block)?))
-      pop: 1
+    - include: context-end
 
 ###[ FUNCTION CALL ]###########################################################
 
@@ -272,8 +285,11 @@ contexts:
     - match: \)
       scope: punctuation.section.group.end.plc
       pop: 1
+    - include: context-end
+    - include: scl-expression-end
 
   group-body:
+    - meta_scope: meta.group.plc
     - include: group-end
     - include: scl-expressions
 
@@ -626,4 +642,6 @@ contexts:
     - match: \]
       scope: punctuation.section.brackets.end.plc
       pop: 1
+    - include: context-end
+    - include: scl-expression-end
     - include: scl-expressions

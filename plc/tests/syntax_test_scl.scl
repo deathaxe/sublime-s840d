@@ -1058,6 +1058,9 @@ end_region
 
 /// SYMBOLS ///////////////////////////////////////////////////////////////////
 
+    "GLOBAL_
+//  ^^^^^^^^^ - constant - string
+
     "GLOBAL_CONSTANT"
 //  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
 //  ^ punctuation.definition.variable.begin.plc
@@ -1179,4 +1182,22 @@ end_region
 //                   ^^^^^^^^^^^ variable.other.member.plc - punctuation
 //                              ^ variable.other.member.plc punctuation.definition.variable.end.plc
 
+    #var[ ( return
+//  ^^^^ variable.other.local.plc
+//      ^^ meta.brackets.plc - meta.group
+//        ^^ meta.brackets.plc meta.group.plc
+//          ^^^^^^ - meta.brackets - meta.group
+//      ^ punctuation.section.brackets.begin.plc
+//        ^ punctuation.section.group.begin.plc
+//          ^^^^^^ keyword.control.flow.return.plc
+
+    #var[ end_if
+//  ^^^^ variable.other.local.plc
+//      ^^ meta.brackets.plc
+//        ^^^^^^ - meta.brackets
+//      ^ punctuation.section.brackets.begin.plc
+//        ^^^^^^ keyword.control.conditional.end.plc
+
 END_FUNCTION_BLOCK
+// <- meta.block.fb.body.plc keyword.declaration.fb.end.plc
+//^^^^^^^^^^^^^^^^ meta.block.fb.body.plc keyword.declaration.fb.end.plc
