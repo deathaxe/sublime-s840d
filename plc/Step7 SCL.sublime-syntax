@@ -415,6 +415,18 @@ contexts:
     - meta_append: true
     - match: \b(?i:ANY_DB)\b
       scope: storage.type.datablock.plc
+    - match: |-
+        \b(?xi:
+        | REMOTE | HW_ANY | HW_DEVICE | HW_DPMASTER | HW_DPSLAVE | HW_IO
+        | HW_IOSYSTEM | HW_SUBMODULE | HW_MODULE | HW_INTERFACE | HW_IEPORT
+        | HW_HSC | HW_PWM | HW_PTO | EVENT_ANY | EVENT_ATT | EVENT_HWINT
+        | OB_ANY | OB_DELAY | OB_TOD | OB_CYCLIC | OB_ATT | OB_PCYCLE | OB_HWINT
+        | OB_DIAG | OB_TIMEERROR | OB_STARTUP | PORT | RTM | PIP | CONN_ANY
+        | CONN_PRG | CONN_OUC | CONN_R_ID | DB_ANY | DB_WWW | DB_DYN | C_ALARM
+        | C_ALARM_S | C_ALARM_8 | C_ALARM_8P | C_AR_SEND | C_NOTIFY
+        | C_NOTIFY_8P | C_ALARM_SD
+        )\b
+      scope: support.type.hardware.plc
 
   storage-type-datetime:
     - match: \b(?i:S5TIME|L?(?:TIME|TIME_OF_DAY|DATE_AND_TIME))\b
