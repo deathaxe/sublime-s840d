@@ -50,7 +50,7 @@ variables:
   prefix_binary: '{{prefix_numeric}}'
   prefix_decimal: '{{prefix_numeric}}'
   prefix_hexadecimal: '{{prefix_numeric}}'
-  prefix_numeric: (?i:B(?:yte)?|[DQ]?W(?:ord)?|L|U?[DLS]?Int)
+  prefix_numeric: (?i:B(?:yte)?|[DL]?W(?:ord)?|L|U?[DLS]?Int)
 
   # date and time storage type prefixes
   prefix_date: (?i:L?D(?:ATE)?)
@@ -395,7 +395,7 @@ contexts:
       scope: storage.type.time.plc
 
   storage-type-numeric:
-    - match: \b(?i:Byte|[DQ]?Word|U?[DLS]?Int)\b
+    - match: \b(?i:Byte|[DL]?Word|U?[DLS]?Int)\b
       scope: storage.type.integer.plc
     - match: \b(?i:L?Real)\b
       scope: storage.type.float.plc
