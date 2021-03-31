@@ -312,6 +312,10 @@ contexts:
 
 ###[ NUMBERS ]#################################################################
 
+  literals:
+    - meta_prepend: true
+    - include: literals-octal
+
   literals-decimal:
     - match: (?:({{prefix_decimal}})(#)([-+]?))?({{int}})
       scope: meta.number.integer.decimal.plc
@@ -333,6 +337,28 @@ contexts:
       scope: meta.number.float.decimal.plc constant.numeric.value.plc
       captures:
         1: punctuation.separator.decimal.plc
+
+  literals-octal:
+    # 8#01101
+    # B#8#02202
+    # WORD#8#82302
+    - match: (?:({{prefix_hexadecimal}})(#))?(8(#))
+      captures:
+        1: storage.type.integer.plc
+        2: punctuation.separator.type.plc
+        3: constant.numeric.base.plc
+        4: punctuation.separator.base.plc
+      push: literals-octal-digits
+
+  literals-octal-digits:
+    - meta_scope: meta.number.integer.octal.plc
+    - meta_content_scope: constant.numeric.value.plc
+    - match: '[0-8]+'
+    - match: '[9[:alpha:]]+'
+      scope: invalid.illegal.digit.plc
+    - match: _
+      scope: punctuation.separator.digits.plc
+    - include: immediately-pop
 
 ###[ STRINGS ]#################################################################
 
