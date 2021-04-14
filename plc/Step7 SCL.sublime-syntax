@@ -134,7 +134,6 @@ contexts:
     - include: slice-members
     - include: function-calls
     - include: literals
-    - include: constants
     - include: operands-symbols
     - include: operands-absolute
 
@@ -478,25 +477,9 @@ contexts:
 
 ###[ SYMBOLS ]#################################################################
 
-  constants:
-    - match: (#){{constants}}
-      scope: meta.symbol.plc constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.plc
-    - match: (#\"){{constants}}(\")
-      scope: meta.symbol.plc constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-    - match: (\"){{constants}}(\")
-      scope: meta.symbol.plc constant.other.global.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
+  operands-symbols:
     - match: \b(?:ENO?)\b
       scope: variable.language.scl
-
-  operands-symbols:
     - match: (?=[#"])
       branch_point: symbols
       branch:
@@ -544,8 +527,28 @@ contexts:
     - match: (?=\S)
       fail: symbols
 
+  unqualified-symbol-unquoted:
+    - meta_prepend: true
+    - match: (#){{constants}}
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.plc
+      set: unqualified-symbol-fail
+
   unqualified-symbol-quoted:
-    - meta_append: true
+    - meta_prepend: true
+    - match: (#\"){{constants}}(\")
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: unqualified-symbol-fail
+    - match: (\"){{constants}}(\")
+      scope: constant.other.global.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: unqualified-symbol-fail
     - match: '{{quoted_local_ident}}'
       scope: variable.other.local.plc
       captures:
