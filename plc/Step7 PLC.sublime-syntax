@@ -486,7 +486,7 @@ contexts:
   var-input:
     - match: \b(?i:VAR_INPUT)\b
       scope: keyword.declaration.var.input.begin.plc
-      push: [var-input-body, assert-line-end]
+      push: [var-input-body, var-modifier]
 
   var-input-body:
     - meta_scope: meta.block.var.input.plc
@@ -498,7 +498,7 @@ contexts:
   var-output:
     - match: \b(?i:VAR_OUTPUT)\b
       scope: keyword.declaration.var.output.begin.plc
-      push: [var-output-body, assert-line-end]
+      push: [var-output-body, var-modifier]
 
   var-output-body:
     - meta_scope: meta.block.var.output.plc
@@ -510,7 +510,7 @@ contexts:
   var-inout:
     - match: \b(?i:VAR_IN_OUT)\b
       scope: keyword.declaration.var.in-out.begin.plc
-      push: [var-inout-body, assert-line-end]
+      push: [var-inout-body, var-modifier]
 
   var-inout-body:
     - meta_scope: meta.block.var.in-out.plc
@@ -522,7 +522,7 @@ contexts:
   var-stat:
     - match: \b(?i:VAR)\b
       scope: keyword.declaration.var.stat.begin.plc
-      push: [var-stat-body, assert-line-end]
+      push: [var-stat-body, var-modifier]
 
   var-stat-body:
     - meta_scope: meta.block.var.stat.plc
@@ -548,6 +548,11 @@ contexts:
       scope: keyword.declaration.var.end.plc
       set: assert-line-end
     - include: context-end
+
+  var-modifier:
+    - match: \b(?i:DB_SPECIFIC|RETAIN|SETPOINT)\b
+      scope: storage.modifier.interace.plc
+    - include: assert-line-end
 
 ###[ VARIABLE DECLARATIONS ]###################################################
 

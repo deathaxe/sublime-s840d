@@ -106,8 +106,10 @@ contexts:
 ###[ VAR_CONSTANT ]############################################################
 
   var-constant:
-    - match: \bVAR\s+CONSTANT\b
-      scope: keyword.declaration.var.constant.begin.plc
+    - match: \b(VAR)\s+(CONSTANT)\b
+      captures:
+        1: keyword.declaration.var.constant.begin.plc
+        2: storage.modifier.interface.plc
       push: [var-constant-body, assert-line-end]
 
   var-constant-body:

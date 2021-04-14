@@ -54,7 +54,10 @@ END_VAR
 
 VAR CONSTANT
 // <- meta.block.fb.header.plc meta.block.var.constant.plc keyword.declaration.var.constant.begin.plc
-//^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc keyword.declaration.var.constant.begin.plc
+//^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
+//^ keyword.declaration.var.constant.begin.plc
+// ^ - keyword - storage
+//  ^^^^^^^^ storage.modifier.interface.plc
     LOCAL_CONST : UDInt := 100;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
 //  ^^^^^^^^^^^^^ meta.definition.variable.plc
