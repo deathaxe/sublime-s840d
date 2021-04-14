@@ -584,20 +584,33 @@ contexts:
   variable-value:
     - meta_content_scope: meta.definition.variable.value.plc
     - include: punctuation-separators
-    - include: lists
+    - include: array-initializers
+    - include: struct-initializers
     - include: literals
     - include: operands-symbols
     - include: operands-absolute
     - include: scope-end
 
-  lists:
+  array-initializers:
     - match: \[
       scope: punctuation.section.sequence.begin.plc
-      push: list-body
+      push: array-initializer-body
 
-  list-body:
+  array-initializer-body:
     - meta_scope: meta.sequence.list.plc
     - match: \]
+      scope: punctuation.section.sequence.end.plc
+      pop: 1
+    - include: variable-value
+
+  struct-initializers:
+    - match: \(
+      scope: punctuation.section.sequence.begin.plc
+      push: struct-initializer-body
+
+  struct-initializer-body:
+    - meta_scope: meta.sequence.struct.plc
+    - match: \)
       scope: punctuation.section.sequence.end.plc
       pop: 1
     - include: variable-value
