@@ -127,12 +127,12 @@ REGION Main
 //     ^^^^ entity.name.section.plc
 
     region Sub Region Name
-//  ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.plc meta.block.region.begin.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.begin.plc
 //  ^^^^^^ keyword.context.block.region.begin.plc
 //         ^^^^^^^^^^^^^^^ entity.name.section.plc
 
     end_region Sub Region Name // comment
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.plc meta.block.region.end.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.end.plc
 //  ^^^^^^^^^^ keyword.context.block.region.end.plc
 //             ^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.plc
 
@@ -143,16 +143,17 @@ END_REGION // comment
 //         ^^^^^^^^^^ entity.name.section.plc
 
 end_region // comment
-// <- invalid.illegal.plc
-//^^^^^^^^ invalid.illegal.plc
-//         ^^^^^^^^^^ comment.line.double-slash.plc
+//^^^^^^^^^^^^^^^^^^^^ meta.block.region.end.plc
+// <- keyword.context.block.region.end.plc
+//^^^^^^^^ keyword.context.block.region.end.plc
+//         ^^^^^^^^^^ entity.name.section.plc
 
 region
 // <- meta.block.region.begin.plc keyword.context.block.region.begin.plc
 //^^^^^ meta.block.fb.body.plc
 //^^^^ keyword.context.block.region.begin.plc
     until
-//  ^^^^^ meta.block.region.plc invalid.illegal.plc
+//  ^^^^^ invalid.illegal.plc
 end_region
 // <- meta.block.region.end.plc keyword.context.block.region.end.plc
 //^^^^^^^^ meta.block.region.end.plc keyword.context.block.region.end.plc

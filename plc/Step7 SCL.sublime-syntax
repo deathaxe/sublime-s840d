@@ -150,18 +150,11 @@ contexts:
       captures:
         1: keyword.context.block.region.begin.plc
         2: entity.name.section.plc
-      push: scl-region-body
-
-  scl-region-body:
-    - meta_content_scope: meta.block.region.plc
     - match: \b((?i:end_region))(?:\s+(.*)\s+)?$
       scope: meta.block.region.end.plc
       captures:
         1: keyword.context.block.region.end.plc
         2: entity.name.section.plc
-      pop: 1
-    - include: scl-statements
-    - include: illegal
 
 ###[ CONTROL ]#################################################################
 
