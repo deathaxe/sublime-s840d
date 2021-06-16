@@ -1126,6 +1126,14 @@ end_region
 //                    ^^^ variable.language.slice.plc
 //                    ^ punctuation.definition.absolute.plc
 
+    "GLOBAL_CONSTANT":P
+//  ^ punctuation.definition.variable.begin.plc
+//  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
+//                  ^ punctuation.definition.variable.end.plc
+//                   ^ punctuation.accessor.colon.plc
+//                    ^ variable.language.peripherie.plc
+//
+
     "globalDB".struct.var
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^ - meta.path
@@ -1191,6 +1199,13 @@ end_region
 //              ^ punctuation.accessor.dot.plc
 //               ^^^ variable.language.slice.plc
 //               ^ punctuation.definition.absolute.plc
+
+    "M04+10-B10":P
+//  ^ variable.other.global.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^^^ variable.other.global.plc - punctuation
+//             ^ variable.other.global.plc punctuation.definition.variable.end.plc
+//              ^ punctuation.accessor.colon.plc
+//               ^ variable.language.peripherie.plc
 
     #LOCAL_CONST
 //  ^ constant.other.local.plc punctuation.definition.variable.plc

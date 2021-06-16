@@ -391,6 +391,10 @@ contexts:
       scope: keyword.operator.logical.plc
 
   slice-members:
+    - match: (:)(P)\b
+      captures:
+        1: punctuation.accessor.colon.plc
+        2: variable.language.peripherie.plc
     - match: (\.)((%)[Xx]\d+)
       captures:
         1: punctuation.accessor.dot.plc
