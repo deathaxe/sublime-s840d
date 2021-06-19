@@ -1,0 +1,48 @@
+// SYNTAX TEST reindent-unchanged "Step7 AWL.sublime-syntax"
+
+FUNCTION "Func" : VOID
+VERSION : 0.1
+
+VAR_INPUT
+    #enable : Bool;
+    #param : UInt;
+END_VAR
+
+VAR_OUTPUT
+    #error : Bool;
+    #busy : Bool;
+END_VAR
+
+VAR_IN_OUT
+    #token : "TypeToken";
+END_VAR
+
+VAR_TEMP
+END_VAR
+
+BEGIN
+NETWORK
+TITLE =Simple Load Transfer
+
+    L     MB10;
+    T     AB5;
+
+NETWORK
+TITLE =Boolean Logic
+// Network Comment
+    U(
+    O     E4.0;
+    O     M10.0;
+    )
+    U     #enable;
+    =     #busy;
+    =     A5.0;
+
+NETWORK
+TITLE =Function Call
+
+    CALL "function" (
+        execute := enable;
+    );
+
+END_FUNCTION

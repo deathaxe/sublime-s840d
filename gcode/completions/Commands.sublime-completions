@@ -2,1147 +2,3425 @@
 	"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call.arguments",
 	"completions": [
 		{
-			"trigger": "AMIRROR\tcommand",
+			"trigger": "AMIRROR",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable mirroring",
 			"contents": "AMIRROR"
 		},
 		{
-			"trigger": "AROT\tcommand",
+			"trigger": "AROT",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable rotation",
 			"contents": "AROT"
 		},
 		{
-			"trigger": "AROTS\tcommand",
+			"trigger": "AROTS",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable frame rotations with solid angles",
 			"contents": "AROTS"
 		},
 		{
-			"trigger": "ASCALE\tcommand",
+			"trigger": "ASCALE",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable scaling",
 			"contents": "ASCALE"
 		},
 		{
-			"trigger": "ASPLINE\tcommand",
+			"trigger": "ASPLINE",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Akima spline",
 			"contents": "ASPLINE"
 		},
 		{
-			"trigger": "ATRANS\tcommand",
+			"trigger": "ATRANS",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Additive programmable work offset",
 			"contents": "ATRANS"
 		},
 		{
-			"trigger": "BAUTO\tcommand",
+			"trigger": "BAUTO",
+			"annotation": "G-Group 19",
+			"kind": ["function", "G", "Command"],
+			"details": "Definition of the first spline section by means of the next 3 points",
 			"contents": "BAUTO"
 		},
 		{
-			"trigger": "BNAT\tcommand",
+			"trigger": "BNAT",
+			"annotation": "G-Group 19",
+			"kind": ["function", "G", "Command"],
+			"details": "Natural transition to first spline block",
 			"contents": "BNAT"
 		},
 		{
-			"trigger": "BRISK\tcommand",
+			"trigger": "BRISK",
+			"annotation": "G-Group 21",
+			"kind": ["function", "G", "Command"],
+			"details": "Fast non-smoothed path acceleration",
 			"contents": "BRISK"
 		},
 		{
-			"trigger": "BSPLINE\tcommand",
+			"trigger": "BSPLINE",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "B spline",
 			"contents": "BSPLINE"
 		},
 		{
-			"trigger": "BTAN\tcommand",
+			"trigger": "BTAN",
+			"annotation": "G-Group 19",
+			"kind": ["function", "G", "Command"],
+			"details": "Tangential transition to first spline block",
 			"contents": "BTAN"
 		},
 		{
-			"trigger": "CDOF\tcommand",
+			"trigger": "CDOF",
+			"annotation": "G-Group 23",
+			"kind": ["function", "G", "Command"],
+			"details": "Switch off collision monitoring",
 			"contents": "CDOF"
 		},
 		{
-			"trigger": "CDOF2\tcommand",
+			"trigger": "CDOF2",
+			"annotation": "G-Group 23",
+			"kind": ["function", "G", "Command"],
+			"details": "Switch off collision monitoring during 3D circumferential milling",
 			"contents": "CDOF2"
 		},
 		{
-			"trigger": "CDON\tcommand",
+			"trigger": "CDON",
+			"annotation": "G-Group 23",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate collision monitoring",
 			"contents": "CDON"
 		},
 		{
-			"trigger": "CFC\tcommand",
+			"trigger": "CFC",
+			"annotation": "G-Group 16",
+			"kind": ["function", "G", "Command"],
+			"details": "Constant feedrate on contour",
 			"contents": "CFC"
 		},
 		{
-			"trigger": "CFIN\tcommand",
+			"trigger": "CFIN",
+			"annotation": "G-Group 16",
+			"kind": ["function", "G", "Command"],
+			"details": "Constant feedrate for internal radius only, not for external radius",
 			"contents": "CFIN"
 		},
 		{
-			"trigger": "CFTCP\tcommand",
+			"trigger": "CFTCP",
+			"annotation": "G-Group 16",
+			"kind": ["function", "G", "Command"],
+			"details": "Constant feedrate in tool center point (center point path)",
 			"contents": "CFTCP"
 		},
 		{
-			"trigger": "CIP\tcommand",
+			"trigger": "CIP",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Circular interpolation through intermediate point",
 			"contents": "CIP"
 		},
 		{
-			"trigger": "COMPCAD\tcommand",
+			"trigger": "COMPCAD",
+			"annotation": "G-Group 30",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate the compressor function COMPCAD",
 			"contents": "COMPCAD"
 		},
 		{
-			"trigger": "COMPCURV\tcommand",
+			"trigger": "COMPCURV",
+			"annotation": "G-Group 30",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate the compressor function COMPCURV",
 			"contents": "COMPCURV"
 		},
 		{
-			"trigger": "COMPOF\tcommand",
+			"trigger": "COMPOF",
+			"annotation": "G-Group 30",
+			"kind": ["function", "G", "Command"],
+			"details": "Deactivate NC block compression",
 			"contents": "COMPOF"
 		},
 		{
-			"trigger": "COMPON\tcommand",
+			"trigger": "COMPON",
+			"annotation": "G-Group 30",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate the compressor function COMPON",
 			"contents": "COMPON"
 		},
 		{
-			"trigger": "COMPSURF\tcommand",
+			"trigger": "COMPSURF",
+			"annotation": "G-Group 30",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate the compressor function COMPSURF",
 			"contents": "COMPSURF"
 		},
 		{
-			"trigger": "CP\tcommand",
+			"trigger": "CP",
+			"annotation": "G-Group 49",
+			"kind": ["function", "G", "Command"],
+			"details": "Path motion",
 			"contents": "CP"
 		},
 		{
-			"trigger": "CPRECOF\tcommand",
+			"trigger": "CPRECOF",
+			"annotation": "G-Group 39",
+			"kind": ["function", "G", "Command"],
+			"details": "Deactivate programmable contour accuracy",
 			"contents": "CPRECOF"
 		},
 		{
-			"trigger": "CPRECON\tcommand",
+			"trigger": "CPRECON",
+			"annotation": "G-Group 39",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate programmable contour accuracy",
 			"contents": "CPRECON"
 		},
 		{
-			"trigger": "CSPLINE\tcommand",
+			"trigger": "CSPLINE",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Cubic spline",
 			"contents": "CSPLINE"
 		},
 		{
-			"trigger": "CT\tcommand",
+			"trigger": "CT",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Circle with tangential transition",
 			"contents": "CT"
 		},
 		{
-			"trigger": "CUT2D\tcommand",
+			"trigger": "CUT2D",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "2D tool offset",
 			"contents": "CUT2D"
 		},
 		{
-			"trigger": "CUT2DD\tcommand",
+			"trigger": "CUT2DD",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "2\u00bd D tool offset in relation to the differential tool",
 			"contents": "CUT2DD"
 		},
 		{
-			"trigger": "CUT2DF\tcommand",
+			"trigger": "CUT2DF",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "The 2 D tool offset relative to the current frame (inclined plane)",
 			"contents": "CUT2DF"
 		},
 		{
-			"trigger": "CUT2DFD\tcommand",
+			"trigger": "CUT2DFD",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "2\u00bd D tool offset in relation to the differential tool relative to the current frame (inclined plane)",
 			"contents": "CUT2DFD"
 		},
 		{
-			"trigger": "CUT3DC\tcommand",
+			"trigger": "CUT3DC",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset, circumferential milling",
 			"contents": "CUT3DC"
 		},
 		{
-			"trigger": "CUT3DCC\tcommand",
+			"trigger": "CUT3DCC",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset, circumferential milling with limitation surfaces",
 			"contents": "CUT3DCC"
 		},
 		{
-			"trigger": "CUT3DCCD\tcommand",
+			"trigger": "CUT3DCCD",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset in relation to the differential tool, circumferential milling with limitation surfaces",
 			"contents": "CUT3DCCD"
 		},
 		{
-			"trigger": "CUT3DCD\tcommand",
+			"trigger": "CUT3DCD",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset in relation to the differential tool, circumferential milling",
 			"contents": "CUT3DCD"
 		},
 		{
-			"trigger": "CUT3DF\tcommand",
+			"trigger": "CUT3DF",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset, face milling",
 			"contents": "CUT3DF"
 		},
 		{
-			"trigger": "CUT3DFF\tcommand",
+			"trigger": "CUT3DFF",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset, face milling with constant tool orientation dependent on active frame",
 			"contents": "CUT3DFF"
 		},
 		{
-			"trigger": "CUT3DFS\tcommand",
+			"trigger": "CUT3DFS",
+			"annotation": "G-Group 22",
+			"kind": ["function", "G", "Command"],
+			"details": "3D tool offset, face milling with constant tool orientation independent of active frame",
 			"contents": "CUT3DFS"
 		},
 		{
-			"trigger": "CUTCONOF\tcommand",
+			"trigger": "CUTCONOF",
+			"annotation": "G-Group 40",
+			"kind": ["function", "G", "Command"],
+			"details": "Deactivate tool radius compensation",
 			"contents": "CUTCONOF"
 		},
 		{
-			"trigger": "CUTCONON\tcommand",
+			"trigger": "CUTCONON",
+			"annotation": "G-Group 40",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate tool radius compensation",
 			"contents": "CUTCONON"
 		},
 		{
-			"trigger": "DIAM90\tcommand",
+			"trigger": "DIAM90",
+			"annotation": "G-Group 29",
+			"kind": ["function", "G", "Command"],
+			"details": "Diameter programming for G90, radius programming for G91",
 			"contents": "DIAM90"
 		},
 		{
-			"trigger": "DIAMCYCOF\tcommand",
+			"trigger": "DIAMCYCOF",
+			"annotation": "G-Group 29",
+			"kind": ["function", "G", "Command"],
+			"details": "Channel-specific diameter programming: OFF in cycles",
 			"contents": "DIAMCYCOF"
 		},
 		{
-			"trigger": "DIAMOF\tcommand",
+			"trigger": "DIAMOF",
+			"annotation": "G-Group 29",
+			"kind": ["function", "G", "Command"],
+			"details": "Diameter programming: OFF Normal position, see machine manufacturer",
 			"contents": "DIAMOF"
 		},
 		{
-			"trigger": "DIAMON\tcommand",
+			"trigger": "DIAMON",
+			"annotation": "G-Group 29",
+			"kind": ["function", "G", "Command"],
+			"details": "Diameter programming: ON",
 			"contents": "DIAMON"
 		},
 		{
-			"trigger": "DRFOF\tcommand",
+			"trigger": "DRFOF",
+			"kind": ["function", "G", "Command"],
+			"details": "Deactivation of handwheel offsets (DRF)",
 			"contents": "DRFOF"
 		},
 		{
-			"trigger": "DRIVE\tcommand",
+			"trigger": "DRIVE",
+			"annotation": "G-Group 21",
+			"kind": ["function", "G", "Command"],
+			"details": "Velocity-dependent path acceleration",
 			"contents": "DRIVE"
 		},
 		{
-			"trigger": "DYNFINISH\tcommand",
+			"trigger": "DYNFINISH",
+			"annotation": "G-Group 59",
+			"kind": ["function", "G", "Command"],
+			"details": "Dynamic response for smooth finishing",
 			"contents": "DYNFINISH"
 		},
 		{
-			"trigger": "DYNNORM\tcommand",
+			"trigger": "DYNNORM",
+			"annotation": "G-Group 59",
+			"kind": ["function", "G", "Command"],
+			"details": "Standard dynamic response",
 			"contents": "DYNNORM"
 		},
 		{
-			"trigger": "DYNPOS\tcommand",
+			"trigger": "DYNPOS",
+			"annotation": "G-Group 59",
+			"kind": ["function", "G", "Command"],
+			"details": "Dynamic response for positioning mode, tap ping",
 			"contents": "DYNPOS"
 		},
 		{
-			"trigger": "DYNROUGH\tcommand",
+			"trigger": "DYNROUGH",
+			"annotation": "G-Group 59",
+			"kind": ["function", "G", "Command"],
+			"details": "Dynamic response for roughing",
 			"contents": "DYNROUGH"
 		},
 		{
-			"trigger": "DYNSEMIFIN\tcommand",
+			"trigger": "DYNSEMIFIN",
+			"annotation": "G-Group 59",
+			"kind": ["function", "G", "Command"],
+			"details": "Dynamic response for finishing",
 			"contents": "DYNSEMIFIN"
 		},
 		{
-			"trigger": "EAUTO\tcommand",
+			"trigger": "EAUTO",
+			"annotation": "G-Group 20",
+			"kind": ["function", "G", "Command"],
+			"details": "Definition of the last spline section by means of the last 3 points",
 			"contents": "EAUTO"
 		},
 		{
-			"trigger": "ENAT\tcommand",
+			"trigger": "ENAT",
+			"annotation": "G-Group 20",
+			"kind": ["function", "G", "Command"],
+			"details": "Natural transition to next traversing block",
 			"contents": "ENAT"
 		},
 		{
-			"trigger": "ETAN\tcommand",
+			"trigger": "ETAN",
+			"annotation": "G-Group 20",
+			"kind": ["function", "G", "Command"],
+			"details": "Tangential transition to next traversing block at spline begin",
 			"contents": "ETAN"
 		},
 		{
-			"trigger": "FCUB\tcommand",
+			"trigger": "FCUB",
+			"annotation": "G-Group 37",
+			"kind": ["function", "G", "Command"],
+			"details": "Feedrate variable according to cubic spline",
 			"contents": "FCUB"
 		},
 		{
-			"trigger": "FENDNORM\tcommand",
+			"trigger": "FENDNORM",
+			"annotation": "G-Group 57",
+			"kind": ["function", "G", "Command"],
+			"details": "Corner deceleration OFF",
 			"contents": "FENDNORM"
 		},
 		{
-			"trigger": "FFWOF\tcommand",
+			"trigger": "FFWOF",
+			"annotation": "G-Group 24",
+			"kind": ["function", "G", "Command"],
+			"details": "Feed forward control OFF",
 			"contents": "FFWOF"
 		},
 		{
-			"trigger": "FFWON\tcommand",
+			"trigger": "FFWON",
+			"annotation": "G-Group 24",
+			"kind": ["function", "G", "Command"],
+			"details": "Feed forward control ON",
 			"contents": "FFWON"
 		},
 		{
-			"trigger": "FIFOCTRL\tcommand",
+			"trigger": "FIFOCTRL",
+			"annotation": "G-Group 4",
+			"kind": ["function", "G", "Command"],
+			"details": "Control of preprocessing buffer",
 			"contents": "FIFOCTRL"
 		},
 		{
-			"trigger": "FLIN\tcommand",
+			"trigger": "FLIN",
+			"annotation": "G-Group 37",
+			"kind": ["function", "G", "Command"],
+			"details": "Feed linear variable",
 			"contents": "FLIN"
 		},
 		{
-			"trigger": "FNORM\tcommand",
+			"trigger": "FNORM",
+			"annotation": "G-Group 37",
+			"kind": ["function", "G", "Command"],
+			"details": "Feedrate normal to DIN 66025",
 			"contents": "FNORM"
 		},
 		{
-			"trigger": "FTOCOF\tcommand",
+			"trigger": "FTOCOF",
+			"annotation": "G-Group 33",
+			"kind": ["function", "G", "Command"],
+			"details": "Online fine tool offset OFF",
 			"contents": "FTOCOF"
 		},
 		{
-			"trigger": "FTOCON\tcommand",
+			"trigger": "FTOCON",
+			"annotation": "G-Group 33",
+			"kind": ["function", "G", "Command"],
+			"details": "Online fine tool offset ON",
 			"contents": "FTOCON"
 		},
 		{
-			"trigger": "GFRAME0\tcommand",
+			"trigger": "G0",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear interpolation with rapid traverse (rapid traverse motion)",
+			"contents": "G0"
+		},
+		{
+			"trigger": "G1",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear interpolation with feedrate (linear interpolation)",
+			"contents": "G1"
+		},
+		{
+			"trigger": "G2",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Circular interpolation clockwise",
+			"contents": "G2"
+		},
+		{
+			"trigger": "G3",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Circular interpolation counter-clockwise",
+			"contents": "G3"
+		},
+		{
+			"trigger": "G4",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Dwell time, preset",
+			"contents": "G4"
+		},
+		{
+			"trigger": "G5",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Oblique plunge-cut grinding",
+			"contents": "G5"
+		},
+		{
+			"trigger": "G7",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Compensatory motion during oblique plunge-cut grinding",
+			"contents": "G7"
+		},
+		{
+			"trigger": "G9",
+			"annotation": "G-Group 11",
+			"kind": ["function", "G", "Command"],
+			"details": "Exact stop - deceleration",
+			"contents": "G9"
+		},
+		{
+			"trigger": "G17",
+			"annotation": "G-Group 6",
+			"kind": ["function", "G", "Command"],
+			"details": "Selection of working plane X/Y",
+			"contents": "G17"
+		},
+		{
+			"trigger": "G18",
+			"annotation": "G-Group 6",
+			"kind": ["function", "G", "Command"],
+			"details": "Selection of working plane Z/X",
+			"contents": "G18"
+		},
+		{
+			"trigger": "G19",
+			"annotation": "G-Group 6",
+			"kind": ["function", "G", "Command"],
+			"details": "Selection of working plane Y/Z",
+			"contents": "G19"
+		},
+		{
+			"trigger": "G25",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Lower working area limitation",
+			"contents": "G25"
+		},
+		{
+			"trigger": "G26",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Upper working area limitation",
+			"contents": "G26"
+		},
+		{
+			"trigger": "G33",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Thread cutting with constant lead",
+			"contents": "G33"
+		},
+		{
+			"trigger": "G34",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Thread cutting with linear increasing lead",
+			"contents": "G34"
+		},
+		{
+			"trigger": "G35",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Thread cutting with linear decreasing lead",
+			"contents": "G35"
+		},
+		{
+			"trigger": "G40",
+			"annotation": "G-Group 7",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool radius compensation OFF",
+			"contents": "G40"
+		},
+		{
+			"trigger": "G41",
+			"annotation": "G-Group 7",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool radius compensation left of contour",
+			"contents": "G41"
+		},
+		{
+			"trigger": "G42",
+			"annotation": "G-Group 7",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool radius compensation right of contour",
+			"contents": "G42"
+		},
+		{
+			"trigger": "G53",
+			"annotation": "G-Group 9",
+			"kind": ["function", "G", "Command"],
+			"details": "Suppression of current zero offset (non-modal)",
+			"contents": "G53"
+		},
+		{
+			"trigger": "G54",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "1st settable zero offset",
+			"contents": "G54"
+		},
+		{
+			"trigger": "G55",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "2nd settable zero offset",
+			"contents": "G55"
+		},
+		{
+			"trigger": "G56",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "3rd settable zero offset",
+			"contents": "G56"
+		},
+		{
+			"trigger": "G57",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "4th settable zero offset",
+			"contents": "G57"
+		},
+		{
+			"trigger": "G58",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Absolute programmable work offset (coarse off set)",
+			"contents": "G58"
+		},
+		{
+			"trigger": "G59",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Additive programmable work offset (fine offset)",
+			"contents": "G59"
+		},
+		{
+			"trigger": "G60",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Exact stop - deceleration",
+			"contents": "G60"
+		},
+		{
+			"trigger": "G62",
+			"annotation": "G-Group 57",
+			"kind": ["function", "G", "Command"],
+			"details": "Corner deceleration at inside corners when tool radius offset is active (G41, G42)",
+			"contents": "G62"
+		},
+		{
+			"trigger": "G63",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Tapping with compensating chuck",
+			"contents": "G63"
+		},
+		{
+			"trigger": "G64",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous-path mode",
+			"contents": "G64"
+		},
+		{
+			"trigger": "G70",
+			"annotation": "G-Group 13",
+			"kind": ["function", "G", "Command"],
+			"details": "Inch dimensions for geometric specifications (lengths)",
+			"contents": "G70"
+		},
+		{
+			"trigger": "G71",
+			"annotation": "G-Group 13",
+			"kind": ["function", "G", "Command"],
+			"details": "Metric dimensions for geometric specifications (lengths)",
+			"contents": "G71"
+		},
+		{
+			"trigger": "G74",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Search for reference",
+			"contents": "G74"
+		},
+		{
+			"trigger": "G75",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Fixed point approach",
+			"contents": "G75"
+		},
+		{
+			"trigger": "G90",
+			"annotation": "G-Group 14",
+			"kind": ["function", "G", "Command"],
+			"details": "Absolute dimensions",
+			"contents": "G90"
+		},
+		{
+			"trigger": "G91",
+			"annotation": "G-Group 14",
+			"kind": ["function", "G", "Command"],
+			"details": "Incremental dimensions",
+			"contents": "G91"
+		},
+		{
+			"trigger": "G93",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Inverse-time feedrate rpm",
+			"contents": "G93"
+		},
+		{
+			"trigger": "G94",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear feedrate F in mm/min or inch/min and degree/min",
+			"contents": "G94"
+		},
+		{
+			"trigger": "G95",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Revolutional feedrate F in mm/rev or inch/rev",
+			"contents": "G95"
+		},
+		{
+			"trigger": "G96",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Constant cutting rate (as for G95) ON",
+			"contents": "G96"
+		},
+		{
+			"trigger": "G97",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Constant cutting rate (as for G95) OFF",
+			"contents": "G97"
+		},
+		{
+			"trigger": "G110",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Pole programming relative to the last programmed setpoint position",
+			"contents": "G110"
+		},
+		{
+			"trigger": "G111",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Pole programming relative to zero of current workpiece coordinate system",
+			"contents": "G111"
+		},
+		{
+			"trigger": "G112",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Pole programming relative to the last valid pole",
+			"contents": "G112"
+		},
+		{
+			"trigger": "G140",
+			"annotation": "G-Group 43",
+			"kind": ["function", "G", "Command"],
+			"details": "SAR approach direction defined by G41/G42",
+			"contents": "G140"
+		},
+		{
+			"trigger": "G141",
+			"annotation": "G-Group 43",
+			"kind": ["function", "G", "Command"],
+			"details": "SAR approach direction to left of contour",
+			"contents": "G141"
+		},
+		{
+			"trigger": "G142",
+			"annotation": "G-Group 43",
+			"kind": ["function", "G", "Command"],
+			"details": "SAR approach direction to right of contour",
+			"contents": "G142"
+		},
+		{
+			"trigger": "G143",
+			"annotation": "G-Group 43",
+			"kind": ["function", "G", "Command"],
+			"details": "SAR approach direction tangent-dependent",
+			"contents": "G143"
+		},
+		{
+			"trigger": "G147",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft approach with straight line",
+			"contents": "G147"
+		},
+		{
+			"trigger": "G148",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft retraction with straight line",
+			"contents": "G148"
+		},
+		{
+			"trigger": "G153",
+			"annotation": "G-Group 9",
+			"kind": ["function", "G", "Command"],
+			"details": "Suppression of current frames including basic frame",
+			"contents": "G153"
+		},
+		{
+			"trigger": "G247",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft approach with quadrant",
+			"contents": "G247"
+		},
+		{
+			"trigger": "G248",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft retraction with quadrant",
+			"contents": "G248"
+		},
+		{
+			"trigger": "G290",
+			"annotation": "G-Group 47",
+			"kind": ["function", "G", "Command"],
+			"details": "Switch over to SINUMERIK mode ON",
+			"contents": "G290"
+		},
+		{
+			"trigger": "G291",
+			"annotation": "G-Group 47",
+			"kind": ["function", "G", "Command"],
+			"details": "Switch over to ISO2/3 mode ON",
+			"contents": "G291"
+		},
+		{
+			"trigger": "G331",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Rigid tapping, positive lead, clockwise",
+			"contents": "G331"
+		},
+		{
+			"trigger": "G332",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Rigid tapping, negative lead, counter-clockwise",
+			"contents": "G332"
+		},
+		{
+			"trigger": "G335",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Turning a convex thread in clockwise direction",
+			"contents": "G335"
+		},
+		{
+			"trigger": "G336",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Turning a convex thread in counter-clockwise direction",
+			"contents": "G336"
+		},
+		{
+			"trigger": "G340",
+			"annotation": "G-Group 44",
+			"kind": ["function", "G", "Command"],
+			"details": "Spatial approach block (depth and in plane at the same time (helix))",
+			"contents": "G340"
+		},
+		{
+			"trigger": "G341",
+			"annotation": "G-Group 44",
+			"kind": ["function", "G", "Command"],
+			"details": "Initial infeed on perpendicular axis (z), then approach in plane",
+			"contents": "G341"
+		},
+		{
+			"trigger": "G347",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft approach with semicircle",
+			"contents": "G347"
+		},
+		{
+			"trigger": "G348",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft retraction with semicircle",
+			"contents": "G348"
+		},
+		{
+			"trigger": "G450",
+			"annotation": "G-Group 18",
+			"kind": ["function", "G", "Command"],
+			"details": "Transition circle",
+			"contents": "G450"
+		},
+		{
+			"trigger": "G451",
+			"annotation": "G-Group 18",
+			"kind": ["function", "G", "Command"],
+			"details": "Intersection of equidistances",
+			"contents": "G451"
+		},
+		{
+			"trigger": "G460",
+			"annotation": "G-Group 48",
+			"kind": ["function", "G", "Command"],
+			"details": "Activation of collision detection for the approach and retraction block",
+			"contents": "G460"
+		},
+		{
+			"trigger": "G461",
+			"annotation": "G-Group 48",
+			"kind": ["function", "G", "Command"],
+			"details": "Insertion of a circle into the TRC block",
+			"contents": "G461"
+		},
+		{
+			"trigger": "G462",
+			"annotation": "G-Group 48",
+			"kind": ["function", "G", "Command"],
+			"details": "Insertion of a straight line into the TRC block",
+			"contents": "G462"
+		},
+		{
+			"trigger": "G500",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Deactivation of all adjustable frames, basic frames are active",
+			"contents": "G500"
+		},
+		{
+			"trigger": "G505",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 5",
+			"contents": "G505"
+		},
+		{
+			"trigger": "G506",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 6",
+			"contents": "G506"
+		},
+		{
+			"trigger": "G507",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 7",
+			"contents": "G507"
+		},
+		{
+			"trigger": "G508",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 8",
+			"contents": "G508"
+		},
+		{
+			"trigger": "G509",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 9",
+			"contents": "G509"
+		},
+		{
+			"trigger": "G510",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 10",
+			"contents": "G510"
+		},
+		{
+			"trigger": "G511",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 11",
+			"contents": "G511"
+		},
+		{
+			"trigger": "G512",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 12",
+			"contents": "G512"
+		},
+		{
+			"trigger": "G513",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 13",
+			"contents": "G513"
+		},
+		{
+			"trigger": "G514",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 14",
+			"contents": "G514"
+		},
+		{
+			"trigger": "G515",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 15",
+			"contents": "G515"
+		},
+		{
+			"trigger": "G516",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 16",
+			"contents": "G516"
+		},
+		{
+			"trigger": "G517",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 17",
+			"contents": "G517"
+		},
+		{
+			"trigger": "G518",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 18",
+			"contents": "G518"
+		},
+		{
+			"trigger": "G519",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 19",
+			"contents": "G519"
+		},
+		{
+			"trigger": "G520",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 20",
+			"contents": "G520"
+		},
+		{
+			"trigger": "G521",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 21",
+			"contents": "G521"
+		},
+		{
+			"trigger": "G522",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 22",
+			"contents": "G522"
+		},
+		{
+			"trigger": "G523",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 23",
+			"contents": "G523"
+		},
+		{
+			"trigger": "G524",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 24",
+			"contents": "G524"
+		},
+		{
+			"trigger": "G525",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 25",
+			"contents": "G525"
+		},
+		{
+			"trigger": "G526",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 26",
+			"contents": "G526"
+		},
+		{
+			"trigger": "G527",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 27",
+			"contents": "G527"
+		},
+		{
+			"trigger": "G528",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 28",
+			"contents": "G528"
+		},
+		{
+			"trigger": "G529",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 29",
+			"contents": "G529"
+		},
+		{
+			"trigger": "G530",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 30",
+			"contents": "G530"
+		},
+		{
+			"trigger": "G531",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 31",
+			"contents": "G531"
+		},
+		{
+			"trigger": "G532",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 32",
+			"contents": "G532"
+		},
+		{
+			"trigger": "G533",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 33",
+			"contents": "G533"
+		},
+		{
+			"trigger": "G534",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 34",
+			"contents": "G534"
+		},
+		{
+			"trigger": "G535",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 35",
+			"contents": "G535"
+		},
+		{
+			"trigger": "G536",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 36",
+			"contents": "G536"
+		},
+		{
+			"trigger": "G537",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 37",
+			"contents": "G537"
+		},
+		{
+			"trigger": "G538",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 38",
+			"contents": "G538"
+		},
+		{
+			"trigger": "G539",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 39",
+			"contents": "G539"
+		},
+		{
+			"trigger": "G540",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 40",
+			"contents": "G540"
+		},
+		{
+			"trigger": "G541",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 41",
+			"contents": "G541"
+		},
+		{
+			"trigger": "G542",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 42",
+			"contents": "G542"
+		},
+		{
+			"trigger": "G543",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 43",
+			"contents": "G543"
+		},
+		{
+			"trigger": "G544",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 44",
+			"contents": "G544"
+		},
+		{
+			"trigger": "G545",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 45",
+			"contents": "G545"
+		},
+		{
+			"trigger": "G546",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 46",
+			"contents": "G546"
+		},
+		{
+			"trigger": "G547",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 47",
+			"contents": "G547"
+		},
+		{
+			"trigger": "G548",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 48",
+			"contents": "G548"
+		},
+		{
+			"trigger": "G549",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 49",
+			"contents": "G549"
+		},
+		{
+			"trigger": "G550",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 50",
+			"contents": "G550"
+		},
+		{
+			"trigger": "G551",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 51",
+			"contents": "G551"
+		},
+		{
+			"trigger": "G552",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 52",
+			"contents": "G552"
+		},
+		{
+			"trigger": "G553",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 53",
+			"contents": "G553"
+		},
+		{
+			"trigger": "G554",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 54",
+			"contents": "G554"
+		},
+		{
+			"trigger": "G555",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 55",
+			"contents": "G555"
+		},
+		{
+			"trigger": "G556",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 56",
+			"contents": "G556"
+		},
+		{
+			"trigger": "G557",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 57",
+			"contents": "G557"
+		},
+		{
+			"trigger": "G558",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 58",
+			"contents": "G558"
+		},
+		{
+			"trigger": "G559",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 59",
+			"contents": "G559"
+		},
+		{
+			"trigger": "G560",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 60",
+			"contents": "G560"
+		},
+		{
+			"trigger": "G561",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 61",
+			"contents": "G561"
+		},
+		{
+			"trigger": "G562",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 62",
+			"contents": "G562"
+		},
+		{
+			"trigger": "G563",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 63",
+			"contents": "G563"
+		},
+		{
+			"trigger": "G564",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 64",
+			"contents": "G564"
+		},
+		{
+			"trigger": "G565",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 65",
+			"contents": "G565"
+		},
+		{
+			"trigger": "G566",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 66",
+			"contents": "G566"
+		},
+		{
+			"trigger": "G567",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 67",
+			"contents": "G567"
+		},
+		{
+			"trigger": "G568",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 68",
+			"contents": "G568"
+		},
+		{
+			"trigger": "G569",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 69",
+			"contents": "G569"
+		},
+		{
+			"trigger": "G570",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 70",
+			"contents": "G570"
+		},
+		{
+			"trigger": "G571",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 71",
+			"contents": "G571"
+		},
+		{
+			"trigger": "G572",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 72",
+			"contents": "G572"
+		},
+		{
+			"trigger": "G573",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 73",
+			"contents": "G573"
+		},
+		{
+			"trigger": "G574",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 74",
+			"contents": "G574"
+		},
+		{
+			"trigger": "G575",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 75",
+			"contents": "G575"
+		},
+		{
+			"trigger": "G576",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 76",
+			"contents": "G576"
+		},
+		{
+			"trigger": "G577",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 77",
+			"contents": "G577"
+		},
+		{
+			"trigger": "G578",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 78",
+			"contents": "G578"
+		},
+		{
+			"trigger": "G579",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 79",
+			"contents": "G579"
+		},
+		{
+			"trigger": "G580",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 80",
+			"contents": "G580"
+		},
+		{
+			"trigger": "G581",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 81",
+			"contents": "G581"
+		},
+		{
+			"trigger": "G582",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 82",
+			"contents": "G582"
+		},
+		{
+			"trigger": "G583",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 83",
+			"contents": "G583"
+		},
+		{
+			"trigger": "G584",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 84",
+			"contents": "G584"
+		},
+		{
+			"trigger": "G585",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 85",
+			"contents": "G585"
+		},
+		{
+			"trigger": "G586",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 86",
+			"contents": "G586"
+		},
+		{
+			"trigger": "G587",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 87",
+			"contents": "G587"
+		},
+		{
+			"trigger": "G588",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 88",
+			"contents": "G588"
+		},
+		{
+			"trigger": "G589",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 89",
+			"contents": "G589"
+		},
+		{
+			"trigger": "G590",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 90",
+			"contents": "G590"
+		},
+		{
+			"trigger": "G591",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 91",
+			"contents": "G591"
+		},
+		{
+			"trigger": "G592",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 92",
+			"contents": "G592"
+		},
+		{
+			"trigger": "G593",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 93",
+			"contents": "G593"
+		},
+		{
+			"trigger": "G594",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 94",
+			"contents": "G594"
+		},
+		{
+			"trigger": "G595",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 95",
+			"contents": "G595"
+		},
+		{
+			"trigger": "G596",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 96",
+			"contents": "G596"
+		},
+		{
+			"trigger": "G597",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 97",
+			"contents": "G597"
+		},
+		{
+			"trigger": "G598",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 98",
+			"contents": "G598"
+		},
+		{
+			"trigger": "G599",
+			"annotation": "G-Group 8",
+			"kind": ["function", "G", "Command"],
+			"details": "Settable work offset 99",
+			"contents": "G599"
+		},
+		{
+			"trigger": "G601",
+			"annotation": "G-Group 12",
+			"kind": ["function", "G", "Command"],
+			"details": "Block change at exact stop fine",
+			"contents": "G601"
+		},
+		{
+			"trigger": "G602",
+			"annotation": "G-Group 12",
+			"kind": ["function", "G", "Command"],
+			"details": "Block change at exact stop coarse",
+			"contents": "G602"
+		},
+		{
+			"trigger": "G603",
+			"annotation": "G-Group 12",
+			"kind": ["function", "G", "Command"],
+			"details": "Block change at IPO block end",
+			"contents": "G603"
+		},
+		{
+			"trigger": "G621",
+			"annotation": "G-Group 57",
+			"kind": ["function", "G", "Command"],
+			"details": "Corner deceleration at all corners",
+			"contents": "G621"
+		},
+		{
+			"trigger": "G641",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous-path mode with smoothing as per distance criterion (= programmable rounding clearance)",
+			"contents": "G641"
+		},
+		{
+			"trigger": "G642",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous-path mode with smoothing within the defined tolerances",
+			"contents": "G642"
+		},
+		{
+			"trigger": "G643",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous-path mode with smoothing within the defined tolerances (block-internal)",
+			"contents": "G643"
+		},
+		{
+			"trigger": "G644",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous-path mode with smoothing with maximum possible dynamic response",
+			"contents": "G644"
+		},
+		{
+			"trigger": "G645",
+			"annotation": "G-Group 10",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous-path mode with smoothing and tangential block transitions within the defined tolerances",
+			"contents": "G645"
+		},
+		{
+			"trigger": "G700",
+			"annotation": "G-Group 13",
+			"kind": ["function", "G", "Command"],
+			"details": "Inch dimensions for geometric and technological specifications (lengths, feedrate)",
+			"contents": "G700"
+		},
+		{
+			"trigger": "G710",
+			"annotation": "G-Group 13",
+			"kind": ["function", "G", "Command"],
+			"details": "Metric dimensions for geometric and technological specifications (lengths, feedrate)",
+			"contents": "G710"
+		},
+		{
+			"trigger": "G810",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G810"
+		},
+		{
+			"trigger": "G811",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G811"
+		},
+		{
+			"trigger": "G812",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G812"
+		},
+		{
+			"trigger": "G813",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G813"
+		},
+		{
+			"trigger": "G814",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G814"
+		},
+		{
+			"trigger": "G815",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G815"
+		},
+		{
+			"trigger": "G816",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G816"
+		},
+		{
+			"trigger": "G817",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G817"
+		},
+		{
+			"trigger": "G818",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G818"
+		},
+		{
+			"trigger": "G819",
+			"annotation": "G-Group 31",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G819"
+		},
+		{
+			"trigger": "G820",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G820"
+		},
+		{
+			"trigger": "G821",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G821"
+		},
+		{
+			"trigger": "G822",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G822"
+		},
+		{
+			"trigger": "G823",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G823"
+		},
+		{
+			"trigger": "G824",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G824"
+		},
+		{
+			"trigger": "G825",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G825"
+		},
+		{
+			"trigger": "G826",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G826"
+		},
+		{
+			"trigger": "G827",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G827"
+		},
+		{
+			"trigger": "G828",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G828"
+		},
+		{
+			"trigger": "G829",
+			"annotation": "G-Group 32",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM G-Code",
+			"contents": "G829"
+		},
+		{
+			"trigger": "G931",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Feedrate specified by traversing time",
+			"contents": "G931"
+		},
+		{
+			"trigger": "G942",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Freeze linear feedrate and constant cutting rate",
+			"contents": "G942"
+		},
+		{
+			"trigger": "G952",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Freeze revolutional feedrate and constant cut",
+			"contents": "G952"
+		},
+		{
+			"trigger": "G961",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Constant cutting rate and linear feedrate",
+			"contents": "G961"
+		},
+		{
+			"trigger": "G962",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear or revolutional feedrate and constant cut ting rate",
+			"contents": "G962"
+		},
+		{
+			"trigger": "G971",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Freeze spindle speed and linear feedrate",
+			"contents": "G971"
+		},
+		{
+			"trigger": "G972",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Freeze linear or revolutional feedrate and constant spindle speed",
+			"contents": "G972"
+		},
+		{
+			"trigger": "G973",
+			"annotation": "G-Group 15",
+			"kind": ["function", "G", "Command"],
+			"details": "Revolutional feedrate without spindle speed limitation",
+			"contents": "G973"
+		},
+		{
+			"trigger": "GFRAME0",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 0 of the data management in channel",
 			"contents": "GFRAME0"
 		},
 		{
-			"trigger": "GFRAME1\tcommand",
+			"trigger": "GFRAME1",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 1 of the data management in channel",
 			"contents": "GFRAME1"
 		},
 		{
-			"trigger": "GFRAME2\tcommand",
+			"trigger": "GFRAME2",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 2 of the data management in channel",
 			"contents": "GFRAME2"
 		},
 		{
-			"trigger": "GFRAME3\tcommand",
+			"trigger": "GFRAME3",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 3 of the data management in channel",
 			"contents": "GFRAME3"
 		},
 		{
-			"trigger": "GFRAME4\tcommand",
+			"trigger": "GFRAME4",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 4 of the data management in channel",
 			"contents": "GFRAME4"
 		},
 		{
-			"trigger": "GFRAME5\tcommand",
+			"trigger": "GFRAME5",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 5 of the data management in channel",
 			"contents": "GFRAME5"
 		},
 		{
-			"trigger": "GFRAME6\tcommand",
+			"trigger": "GFRAME6",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 6 of the data management in channel",
 			"contents": "GFRAME6"
 		},
 		{
-			"trigger": "GFRAME7\tcommand",
+			"trigger": "GFRAME7",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 7 of the data management in channel",
 			"contents": "GFRAME7"
 		},
 		{
-			"trigger": "GFRAME8\tcommand",
+			"trigger": "GFRAME8",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 8 of the data management in channel",
 			"contents": "GFRAME8"
 		},
 		{
-			"trigger": "GFRAME9\tcommand",
+			"trigger": "GFRAME9",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 9 of the data management in channel",
 			"contents": "GFRAME9"
 		},
 		{
-			"trigger": "GFRAME10\tcommand",
+			"trigger": "GFRAME10",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 10 of the data management in channel",
 			"contents": "GFRAME10"
 		},
 		{
-			"trigger": "GFRAME11\tcommand",
+			"trigger": "GFRAME11",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 11 of the data management in channel",
 			"contents": "GFRAME11"
 		},
 		{
-			"trigger": "GFRAME12\tcommand",
+			"trigger": "GFRAME12",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 12 of the data management in channel",
 			"contents": "GFRAME12"
 		},
 		{
-			"trigger": "GFRAME13\tcommand",
+			"trigger": "GFRAME13",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 13 of the data management in channel",
 			"contents": "GFRAME13"
 		},
 		{
-			"trigger": "GFRAME14\tcommand",
+			"trigger": "GFRAME14",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 14 of the data management in channel",
 			"contents": "GFRAME14"
 		},
 		{
-			"trigger": "GFRAME15\tcommand",
+			"trigger": "GFRAME15",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 15 of the data management in channel",
 			"contents": "GFRAME15"
 		},
 		{
-			"trigger": "GFRAME16\tcommand",
+			"trigger": "GFRAME16",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 16 of the data management in channel",
 			"contents": "GFRAME16"
 		},
 		{
-			"trigger": "GFRAME17\tcommand",
+			"trigger": "GFRAME17",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 17 of the data management in channel",
 			"contents": "GFRAME17"
 		},
 		{
-			"trigger": "GFRAME18\tcommand",
+			"trigger": "GFRAME18",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 18 of the data management in channel",
 			"contents": "GFRAME18"
 		},
 		{
-			"trigger": "GFRAME19\tcommand",
+			"trigger": "GFRAME19",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 19 of the data management in channel",
 			"contents": "GFRAME19"
 		},
 		{
-			"trigger": "GFRAME20\tcommand",
+			"trigger": "GFRAME20",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 20 of the data management in channel",
 			"contents": "GFRAME20"
 		},
 		{
-			"trigger": "GFRAME21\tcommand",
+			"trigger": "GFRAME21",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 21 of the data management in channel",
 			"contents": "GFRAME21"
 		},
 		{
-			"trigger": "GFRAME22\tcommand",
+			"trigger": "GFRAME22",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 22 of the data management in channel",
 			"contents": "GFRAME22"
 		},
 		{
-			"trigger": "GFRAME23\tcommand",
+			"trigger": "GFRAME23",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 23 of the data management in channel",
 			"contents": "GFRAME23"
 		},
 		{
-			"trigger": "GFRAME24\tcommand",
+			"trigger": "GFRAME24",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 24 of the data management in channel",
 			"contents": "GFRAME24"
 		},
 		{
-			"trigger": "GFRAME25\tcommand",
+			"trigger": "GFRAME25",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 25 of the data management in channel",
 			"contents": "GFRAME25"
 		},
 		{
-			"trigger": "GFRAME26\tcommand",
+			"trigger": "GFRAME26",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 26 of the data management in channel",
 			"contents": "GFRAME26"
 		},
 		{
-			"trigger": "GFRAME27\tcommand",
+			"trigger": "GFRAME27",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 27 of the data management in channel",
 			"contents": "GFRAME27"
 		},
 		{
-			"trigger": "GFRAME28\tcommand",
+			"trigger": "GFRAME28",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 28 of the data management in channel",
 			"contents": "GFRAME28"
 		},
 		{
-			"trigger": "GFRAME29\tcommand",
+			"trigger": "GFRAME29",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 29 of the data management in channel",
 			"contents": "GFRAME29"
 		},
 		{
-			"trigger": "GFRAME30\tcommand",
+			"trigger": "GFRAME30",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 30 of the data management in channel",
 			"contents": "GFRAME30"
 		},
 		{
-			"trigger": "GFRAME31\tcommand",
+			"trigger": "GFRAME31",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 31 of the data management in channel",
 			"contents": "GFRAME31"
 		},
 		{
-			"trigger": "GFRAME32\tcommand",
+			"trigger": "GFRAME32",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 32 of the data management in channel",
 			"contents": "GFRAME32"
 		},
 		{
-			"trigger": "GFRAME33\tcommand",
+			"trigger": "GFRAME33",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 33 of the data management in channel",
 			"contents": "GFRAME33"
 		},
 		{
-			"trigger": "GFRAME34\tcommand",
+			"trigger": "GFRAME34",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 34 of the data management in channel",
 			"contents": "GFRAME34"
 		},
 		{
-			"trigger": "GFRAME35\tcommand",
+			"trigger": "GFRAME35",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 35 of the data management in channel",
 			"contents": "GFRAME35"
 		},
 		{
-			"trigger": "GFRAME36\tcommand",
+			"trigger": "GFRAME36",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 36 of the data management in channel",
 			"contents": "GFRAME36"
 		},
 		{
-			"trigger": "GFRAME37\tcommand",
+			"trigger": "GFRAME37",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 37 of the data management in channel",
 			"contents": "GFRAME37"
 		},
 		{
-			"trigger": "GFRAME38\tcommand",
+			"trigger": "GFRAME38",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 38 of the data management in channel",
 			"contents": "GFRAME38"
 		},
 		{
-			"trigger": "GFRAME39\tcommand",
+			"trigger": "GFRAME39",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 39 of the data management in channel",
 			"contents": "GFRAME39"
 		},
 		{
-			"trigger": "GFRAME40\tcommand",
+			"trigger": "GFRAME40",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 40 of the data management in channel",
 			"contents": "GFRAME40"
 		},
 		{
-			"trigger": "GFRAME41\tcommand",
+			"trigger": "GFRAME41",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 41 of the data management in channel",
 			"contents": "GFRAME41"
 		},
 		{
-			"trigger": "GFRAME42\tcommand",
+			"trigger": "GFRAME42",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 42 of the data management in channel",
 			"contents": "GFRAME42"
 		},
 		{
-			"trigger": "GFRAME43\tcommand",
+			"trigger": "GFRAME43",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 43 of the data management in channel",
 			"contents": "GFRAME43"
 		},
 		{
-			"trigger": "GFRAME44\tcommand",
+			"trigger": "GFRAME44",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 44 of the data management in channel",
 			"contents": "GFRAME44"
 		},
 		{
-			"trigger": "GFRAME45\tcommand",
+			"trigger": "GFRAME45",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 45 of the data management in channel",
 			"contents": "GFRAME45"
 		},
 		{
-			"trigger": "GFRAME46\tcommand",
+			"trigger": "GFRAME46",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 46 of the data management in channel",
 			"contents": "GFRAME46"
 		},
 		{
-			"trigger": "GFRAME47\tcommand",
+			"trigger": "GFRAME47",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 47 of the data management in channel",
 			"contents": "GFRAME47"
 		},
 		{
-			"trigger": "GFRAME48\tcommand",
+			"trigger": "GFRAME48",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 48 of the data management in channel",
 			"contents": "GFRAME48"
 		},
 		{
-			"trigger": "GFRAME49\tcommand",
+			"trigger": "GFRAME49",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 49 of the data management in channel",
 			"contents": "GFRAME49"
 		},
 		{
-			"trigger": "GFRAME50\tcommand",
+			"trigger": "GFRAME50",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 50 of the data management in channel",
 			"contents": "GFRAME50"
 		},
 		{
-			"trigger": "GFRAME51\tcommand",
+			"trigger": "GFRAME51",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 51 of the data management in channel",
 			"contents": "GFRAME51"
 		},
 		{
-			"trigger": "GFRAME52\tcommand",
+			"trigger": "GFRAME52",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 52 of the data management in channel",
 			"contents": "GFRAME52"
 		},
 		{
-			"trigger": "GFRAME53\tcommand",
+			"trigger": "GFRAME53",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 53 of the data management in channel",
 			"contents": "GFRAME53"
 		},
 		{
-			"trigger": "GFRAME54\tcommand",
+			"trigger": "GFRAME54",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 54 of the data management in channel",
 			"contents": "GFRAME54"
 		},
 		{
-			"trigger": "GFRAME55\tcommand",
+			"trigger": "GFRAME55",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 55 of the data management in channel",
 			"contents": "GFRAME55"
 		},
 		{
-			"trigger": "GFRAME56\tcommand",
+			"trigger": "GFRAME56",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 56 of the data management in channel",
 			"contents": "GFRAME56"
 		},
 		{
-			"trigger": "GFRAME57\tcommand",
+			"trigger": "GFRAME57",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 57 of the data management in channel",
 			"contents": "GFRAME57"
 		},
 		{
-			"trigger": "GFRAME58\tcommand",
+			"trigger": "GFRAME58",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 58 of the data management in channel",
 			"contents": "GFRAME58"
 		},
 		{
-			"trigger": "GFRAME59\tcommand",
+			"trigger": "GFRAME59",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 59 of the data management in channel",
 			"contents": "GFRAME59"
 		},
 		{
-			"trigger": "GFRAME60\tcommand",
+			"trigger": "GFRAME60",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 60 of the data management in channel",
 			"contents": "GFRAME60"
 		},
 		{
-			"trigger": "GFRAME61\tcommand",
+			"trigger": "GFRAME61",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 61 of the data management in channel",
 			"contents": "GFRAME61"
 		},
 		{
-			"trigger": "GFRAME62\tcommand",
+			"trigger": "GFRAME62",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 62 of the data management in channel",
 			"contents": "GFRAME62"
 		},
 		{
-			"trigger": "GFRAME63\tcommand",
+			"trigger": "GFRAME63",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 63 of the data management in channel",
 			"contents": "GFRAME63"
 		},
 		{
-			"trigger": "GFRAME64\tcommand",
+			"trigger": "GFRAME64",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 64 of the data management in channel",
 			"contents": "GFRAME64"
 		},
 		{
-			"trigger": "GFRAME65\tcommand",
+			"trigger": "GFRAME65",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 65 of the data management in channel",
 			"contents": "GFRAME65"
 		},
 		{
-			"trigger": "GFRAME66\tcommand",
+			"trigger": "GFRAME66",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 66 of the data management in channel",
 			"contents": "GFRAME66"
 		},
 		{
-			"trigger": "GFRAME67\tcommand",
+			"trigger": "GFRAME67",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 67 of the data management in channel",
 			"contents": "GFRAME67"
 		},
 		{
-			"trigger": "GFRAME68\tcommand",
+			"trigger": "GFRAME68",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 68 of the data management in channel",
 			"contents": "GFRAME68"
 		},
 		{
-			"trigger": "GFRAME69\tcommand",
+			"trigger": "GFRAME69",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 69 of the data management in channel",
 			"contents": "GFRAME69"
 		},
 		{
-			"trigger": "GFRAME70\tcommand",
+			"trigger": "GFRAME70",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 70 of the data management in channel",
 			"contents": "GFRAME70"
 		},
 		{
-			"trigger": "GFRAME71\tcommand",
+			"trigger": "GFRAME71",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 71 of the data management in channel",
 			"contents": "GFRAME71"
 		},
 		{
-			"trigger": "GFRAME72\tcommand",
+			"trigger": "GFRAME72",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 72 of the data management in channel",
 			"contents": "GFRAME72"
 		},
 		{
-			"trigger": "GFRAME73\tcommand",
+			"trigger": "GFRAME73",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 73 of the data management in channel",
 			"contents": "GFRAME73"
 		},
 		{
-			"trigger": "GFRAME74\tcommand",
+			"trigger": "GFRAME74",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 74 of the data management in channel",
 			"contents": "GFRAME74"
 		},
 		{
-			"trigger": "GFRAME75\tcommand",
+			"trigger": "GFRAME75",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 75 of the data management in channel",
 			"contents": "GFRAME75"
 		},
 		{
-			"trigger": "GFRAME76\tcommand",
+			"trigger": "GFRAME76",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 76 of the data management in channel",
 			"contents": "GFRAME76"
 		},
 		{
-			"trigger": "GFRAME77\tcommand",
+			"trigger": "GFRAME77",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 77 of the data management in channel",
 			"contents": "GFRAME77"
 		},
 		{
-			"trigger": "GFRAME78\tcommand",
+			"trigger": "GFRAME78",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 78 of the data management in channel",
 			"contents": "GFRAME78"
 		},
 		{
-			"trigger": "GFRAME79\tcommand",
+			"trigger": "GFRAME79",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 79 of the data management in channel",
 			"contents": "GFRAME79"
 		},
 		{
-			"trigger": "GFRAME80\tcommand",
+			"trigger": "GFRAME80",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 80 of the data management in channel",
 			"contents": "GFRAME80"
 		},
 		{
-			"trigger": "GFRAME81\tcommand",
+			"trigger": "GFRAME81",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 81 of the data management in channel",
 			"contents": "GFRAME81"
 		},
 		{
-			"trigger": "GFRAME82\tcommand",
+			"trigger": "GFRAME82",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 82 of the data management in channel",
 			"contents": "GFRAME82"
 		},
 		{
-			"trigger": "GFRAME83\tcommand",
+			"trigger": "GFRAME83",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 83 of the data management in channel",
 			"contents": "GFRAME83"
 		},
 		{
-			"trigger": "GFRAME84\tcommand",
+			"trigger": "GFRAME84",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 84 of the data management in channel",
 			"contents": "GFRAME84"
 		},
 		{
-			"trigger": "GFRAME85\tcommand",
+			"trigger": "GFRAME85",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 85 of the data management in channel",
 			"contents": "GFRAME85"
 		},
 		{
-			"trigger": "GFRAME86\tcommand",
+			"trigger": "GFRAME86",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 86 of the data management in channel",
 			"contents": "GFRAME86"
 		},
 		{
-			"trigger": "GFRAME87\tcommand",
+			"trigger": "GFRAME87",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 87 of the data management in channel",
 			"contents": "GFRAME87"
 		},
 		{
-			"trigger": "GFRAME88\tcommand",
+			"trigger": "GFRAME88",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 88 of the data management in channel",
 			"contents": "GFRAME88"
 		},
 		{
-			"trigger": "GFRAME89\tcommand",
+			"trigger": "GFRAME89",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 89 of the data management in channel",
 			"contents": "GFRAME89"
 		},
 		{
-			"trigger": "GFRAME90\tcommand",
+			"trigger": "GFRAME90",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 90 of the data management in channel",
 			"contents": "GFRAME90"
 		},
 		{
-			"trigger": "GFRAME91\tcommand",
+			"trigger": "GFRAME91",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 91 of the data management in channel",
 			"contents": "GFRAME91"
 		},
 		{
-			"trigger": "GFRAME92\tcommand",
+			"trigger": "GFRAME92",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 92 of the data management in channel",
 			"contents": "GFRAME92"
 		},
 		{
-			"trigger": "GFRAME93\tcommand",
+			"trigger": "GFRAME93",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 93 of the data management in channel",
 			"contents": "GFRAME93"
 		},
 		{
-			"trigger": "GFRAME94\tcommand",
+			"trigger": "GFRAME94",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 94 of the data management in channel",
 			"contents": "GFRAME94"
 		},
 		{
-			"trigger": "GFRAME95\tcommand",
+			"trigger": "GFRAME95",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 95 of the data management in channel",
 			"contents": "GFRAME95"
 		},
 		{
-			"trigger": "GFRAME96\tcommand",
+			"trigger": "GFRAME96",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 96 of the data management in channel",
 			"contents": "GFRAME96"
 		},
 		{
-			"trigger": "GFRAME97\tcommand",
+			"trigger": "GFRAME97",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 97 of the data management in channel",
 			"contents": "GFRAME97"
 		},
 		{
-			"trigger": "GFRAME98\tcommand",
+			"trigger": "GFRAME98",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 98 of the data management in channel",
 			"contents": "GFRAME98"
 		},
 		{
-			"trigger": "GFRAME99\tcommand",
+			"trigger": "GFRAME99",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 99 of the data management in channel",
 			"contents": "GFRAME99"
 		},
 		{
-			"trigger": "GFRAME100\tcommand",
+			"trigger": "GFRAME100",
+			"annotation": "G-Group 64",
+			"kind": ["function", "G", "Command"],
+			"details": "Activate grinding frame 100 of the data management in channel",
 			"contents": "GFRAME100"
 		},
 		{
-			"trigger": "GORAP\tcommand",
+			"trigger": "GORAP",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear interpolation with rapid traverse (rapid traverse motion)",
 			"contents": "GORAP"
 		},
 		{
-			"trigger": "INVCCW\tcommand",
+			"trigger": "INVCCW",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Trace involute, counter-clockwise",
 			"contents": "INVCCW"
 		},
 		{
-			"trigger": "INVCW\tcommand",
+			"trigger": "INVCW",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Trace involute, clockwise",
 			"contents": "INVCW"
 		},
 		{
-			"trigger": "KONT\tcommand",
+			"trigger": "KONT",
+			"annotation": "G-Group 17",
+			"kind": ["function", "G", "Command"],
+			"details": "Travel around contour on tool offset",
 			"contents": "KONT"
 		},
 		{
-			"trigger": "KONTC\tcommand",
+			"trigger": "KONTC",
+			"annotation": "G-Group 17",
+			"kind": ["function", "G", "Command"],
+			"details": "Approach/retract with continuous-curvature polynomial",
 			"contents": "KONTC"
 		},
 		{
-			"trigger": "KONTT\tcommand",
+			"trigger": "KONTT",
+			"annotation": "G-Group 17",
+			"kind": ["function", "G", "Command"],
+			"details": "Approach/retract with continuous-tangent polynomial",
 			"contents": "KONTT"
 		},
 		{
-			"trigger": "LFOF\tcommand",
+			"trigger": "LFOF",
+			"annotation": "G-Group 41",
+			"kind": ["function", "G", "Command"],
+			"details": "Fast retraction for thread cutting OFF",
 			"contents": "LFOF"
 		},
 		{
-			"trigger": "LFON\tcommand",
+			"trigger": "LFON",
+			"annotation": "G-Group 41",
+			"kind": ["function", "G", "Command"],
+			"details": "Fast retraction for thread cutting ON",
 			"contents": "LFON"
 		},
 		{
-			"trigger": "LFPOS\tcommand",
+			"trigger": "LFPOS",
+			"annotation": "G-Group 46",
+			"kind": ["function", "G", "Command"],
+			"details": "Retraction of the axis declared with POLFMASK or POLFMLIN to the absolute axis position programmed with POLF",
 			"contents": "LFPOS"
 		},
 		{
-			"trigger": "LFTXT\tcommand",
+			"trigger": "LFTXT",
+			"annotation": "G-Group 46",
+			"kind": ["function", "G", "Command"],
+			"details": "The plane of the retraction movement for fast retraction is determined from the path tangent and the current tool direction",
 			"contents": "LFTXT"
 		},
 		{
-			"trigger": "LFWP\tcommand",
+			"trigger": "LFWP",
+			"annotation": "G-Group 46",
+			"kind": ["function", "G", "Command"],
+			"details": "The plane of the retraction movement for fast retraction is determined by the current working plane (G17/G18/G19)",
 			"contents": "LFWP"
 		},
 		{
-			"trigger": "MIRROR\tcommand",
+			"trigger": "MIRROR",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable mirroring",
 			"contents": "MIRROR"
 		},
 		{
-			"trigger": "NORM\tcommand",
+			"trigger": "NORM",
+			"annotation": "G-Group 17",
+			"kind": ["function", "G", "Command"],
+			"details": "Standard setting in starting point and end point with tool offset",
 			"contents": "NORM"
 		},
 		{
-			"trigger": "OEMIPO1\tcommand",
+			"trigger": "OEMIPO1",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM interpolation 1",
 			"contents": "OEMIPO1"
 		},
 		{
-			"trigger": "OEMIPO2\tcommand",
+			"trigger": "OEMIPO2",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "OEM interpolation 2",
 			"contents": "OEMIPO2"
 		},
 		{
-			"trigger": "ORIAXES\tcommand",
+			"trigger": "ORIAXES",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear interpolation of machine axes or orientation axes",
 			"contents": "ORIAXES"
 		},
 		{
-			"trigger": "ORIAXPOS\tcommand",
+			"trigger": "ORIAXPOS",
+			"annotation": "G-Group 50",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation angle via virtual orientation axes with rotary axis positions",
 			"contents": "ORIAXPOS"
 		},
 		{
-			"trigger": "ORIC\tcommand",
+			"trigger": "ORIC",
+			"annotation": "G-Group 27",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation changes at outside corners are superimposed on the circle block to be inserted",
 			"contents": "ORIC"
 		},
 		{
-			"trigger": "ORICONCCW\tcommand",
+			"trigger": "ORICONCCW",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Interpolation on a circular peripheral surface in CCW direction",
 			"contents": "ORICONCCW"
 		},
 		{
-			"trigger": "ORICONCW\tcommand",
+			"trigger": "ORICONCW",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Interpolation on a circular peripheral surface in CW direction",
 			"contents": "ORICONCW"
 		},
 		{
-			"trigger": "ORICONIO\tcommand",
+			"trigger": "ORICONIO",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Interpolation on a circular peripheral surface with intermediate orientation setting",
 			"contents": "ORICONIO"
 		},
 		{
-			"trigger": "ORICONTO\tcommand",
+			"trigger": "ORICONTO",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Interpolation on circular peripheral surface in tangential transition (final orientation)",
 			"contents": "ORICONTO"
 		},
 		{
-			"trigger": "ORICURVE\tcommand",
+			"trigger": "ORICURVE",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Interpolation of orientation with specification of motion of two contact points of tool",
 			"contents": "ORICURVE"
 		},
 		{
-			"trigger": "ORID\tcommand",
+			"trigger": "ORID",
+			"annotation": "G-Group 27",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation changes are performed before the circle block",
 			"contents": "ORID"
 		},
 		{
-			"trigger": "ORIEULER\tcommand",
+			"trigger": "ORIEULER",
+			"annotation": "G-Group 50",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation angle via Euler angle",
 			"contents": "ORIEULER"
 		},
 		{
-			"trigger": "ORIMKS\tcommand",
+			"trigger": "ORIMKS",
+			"annotation": "G-Group 25",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation in the machine coordinate system",
 			"contents": "ORIMKS"
 		},
 		{
-			"trigger": "ORIPATH\tcommand",
+			"trigger": "ORIPATH",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation in relation to path",
 			"contents": "ORIPATH"
 		},
 		{
-			"trigger": "ORIPATHS\tcommand",
+			"trigger": "ORIPATHS",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation in relation to path, blips in the orientation characteristic are smoothed",
 			"contents": "ORIPATHS"
 		},
 		{
-			"trigger": "ORIPLANE\tcommand",
+			"trigger": "ORIPLANE",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Interpolation in a plane (corresponds to ORIVECT), large-radius circular interpolation",
 			"contents": "ORIPLANE"
 		},
 		{
-			"trigger": "ORIROTA\tcommand",
+			"trigger": "ORIROTA",
+			"annotation": "G-Group 54",
+			"kind": ["function", "G", "Command"],
+			"details": "Angle of rotation to an absolute direction of rotation",
 			"contents": "ORIROTA"
 		},
 		{
-			"trigger": "ORIROTC\tcommand",
+			"trigger": "ORIROTC",
+			"annotation": "G-Group 54",
+			"kind": ["function", "G", "Command"],
+			"details": "Tangential rotational vector in relation to path tangent",
 			"contents": "ORIROTC"
 		},
 		{
-			"trigger": "ORIROTR\tcommand",
+			"trigger": "ORIROTR",
+			"annotation": "G-Group 54",
+			"kind": ["function", "G", "Command"],
+			"details": "Angle of rotation relative to the plane between the start and end orientation",
 			"contents": "ORIROTR"
 		},
 		{
-			"trigger": "ORIROTT\tcommand",
+			"trigger": "ORIROTT",
+			"annotation": "G-Group 54",
+			"kind": ["function", "G", "Command"],
+			"details": "Angle of rotation relative to the change in the orientation vector",
 			"contents": "ORIROTT"
 		},
 		{
-			"trigger": "ORIRPY\tcommand",
+			"trigger": "ORIRPY",
+			"annotation": "G-Group 50",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation angle via RPY angle (XYZ)",
 			"contents": "ORIRPY"
 		},
 		{
-			"trigger": "ORIRPY2\tcommand",
+			"trigger": "ORIRPY2",
+			"annotation": "G-Group 50",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation angle via RPY angle (ZYX)",
 			"contents": "ORIRPY2"
 		},
 		{
-			"trigger": "ORISOF\tcommand",
+			"trigger": "ORISOF",
+			"annotation": "G-Group 61",
+			"kind": ["function", "G", "Command"],
+			"details": "Smoothing of the orientation characteristic OFF",
 			"contents": "ORISOF"
 		},
 		{
-			"trigger": "ORISON\tcommand",
+			"trigger": "ORISON",
+			"annotation": "G-Group 61",
+			"kind": ["function", "G", "Command"],
+			"details": "Smoothing of the orientation characteristic ON",
 			"contents": "ORISON"
 		},
 		{
-			"trigger": "ORIVECT\tcommand",
+			"trigger": "ORIVECT",
+			"annotation": "G-Group 51",
+			"kind": ["function", "G", "Command"],
+			"details": "Large-circle interpolation (identical to ORI PLANE)",
 			"contents": "ORIVECT"
 		},
 		{
-			"trigger": "ORIVIRT1\tcommand",
+			"trigger": "ORIVIRT1",
+			"annotation": "G-Group 50",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation angle via virtual orientation axes (definition 1)",
 			"contents": "ORIVIRT1"
 		},
 		{
-			"trigger": "ORIVIRT2\tcommand",
+			"trigger": "ORIVIRT2",
+			"annotation": "G-Group 50",
+			"kind": ["function", "G", "Command"],
+			"details": "Orientation angle via virtual orientation axes (definition 1)",
 			"contents": "ORIVIRT2"
 		},
 		{
-			"trigger": "ORIWKS\tcommand",
+			"trigger": "ORIWKS",
+			"annotation": "G-Group 25",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation in the workpiece coordinate system",
 			"contents": "ORIWKS"
 		},
 		{
-			"trigger": "OSC\tcommand",
+			"trigger": "OSC",
+			"annotation": "G-Group 34",
+			"kind": ["function", "G", "Command"],
+			"details": "Continuous tool orientation smoothing",
 			"contents": "OSC"
 		},
 		{
-			"trigger": "OSD\tcommand",
+			"trigger": "OSD",
+			"annotation": "G-Group 34",
+			"kind": ["function", "G", "Command"],
+			"details": "Smoothing of tool orientation by specifying smoothing distance with SD",
 			"contents": "OSD"
 		},
 		{
-			"trigger": "OSOF\tcommand",
+			"trigger": "OSOF",
+			"annotation": "G-Group 34",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation smoothing OFF",
 			"contents": "OSOF"
 		},
 		{
-			"trigger": "OSS\tcommand",
+			"trigger": "OSS",
+			"annotation": "G-Group 34",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation smoothing at end of block",
 			"contents": "OSS"
 		},
 		{
-			"trigger": "OSSE\tcommand",
+			"trigger": "OSSE",
+			"annotation": "G-Group 34",
+			"kind": ["function", "G", "Command"],
+			"details": "Tool orientation smoothing at start and end of block",
 			"contents": "OSSE"
 		},
 		{
-			"trigger": "OST\tcommand",
+			"trigger": "OST",
+			"annotation": "G-Group 34",
+			"kind": ["function", "G", "Command"],
+			"details": "Smoothing of tool orientation by specifying angular tolerance in degrees with SD (maximum deviation from programmed orientation characteristic)",
 			"contents": "OST"
 		},
 		{
-			"trigger": "PAROT\tcommand",
+			"trigger": "PAROT",
+			"annotation": "G-Group 52",
+			"kind": ["function", "G", "Command"],
+			"details": "Align workpiece coordinate system on work piece",
 			"contents": "PAROT"
 		},
 		{
-			"trigger": "PAROTOF\tcommand",
+			"trigger": "PAROTOF",
+			"annotation": "G-Group 52",
+			"kind": ["function", "G", "Command"],
+			"details": "Deactivate frame rotation in relation to work piece",
 			"contents": "PAROTOF"
 		},
 		{
-			"trigger": "PDELAYOF\tcommand",
+			"trigger": "PDELAYOF",
+			"annotation": "G-Group 36",
+			"kind": ["function", "G", "Command"],
+			"details": "Punching with delay OFF",
 			"contents": "PDELAYOF"
 		},
 		{
-			"trigger": "PDELAYON\tcommand",
+			"trigger": "PDELAYON",
+			"annotation": "G-Group 36",
+			"kind": ["function", "G", "Command"],
+			"details": "Punching with delay ON",
 			"contents": "PDELAYON"
 		},
 		{
-			"trigger": "POLY\tcommand",
+			"trigger": "POLY",
+			"annotation": "G-Group 1",
+			"kind": ["function", "G", "Command"],
+			"details": "Polynomial interpolation",
 			"contents": "POLY"
 		},
 		{
-			"trigger": "PON\tcommand",
+			"trigger": "PON",
+			"annotation": "G-Group 35",
+			"kind": ["function", "G", "Command"],
+			"details": "Punching ON",
 			"contents": "PON"
 		},
 		{
-			"trigger": "PONS\tcommand",
+			"trigger": "PONS",
+			"annotation": "G-Group 35",
+			"kind": ["function", "G", "Command"],
+			"details": "Punching ON in interpolation cycle",
 			"contents": "PONS"
 		},
 		{
-			"trigger": "PTP\tcommand",
+			"trigger": "PTP",
+			"annotation": "G-Group 49",
+			"kind": ["function", "G", "Command"],
+			"details": "Point-to-point motion (PTP travel)",
 			"contents": "PTP"
 		},
 		{
-			"trigger": "PTPG0\tcommand",
+			"trigger": "PTPG0",
+			"annotation": "G-Group 49",
+			"kind": ["function", "G", "Command"],
+			"details": "Point-to-point motion only with G0, otherwise path motion CP",
 			"contents": "PTPG0"
 		},
 		{
-			"trigger": "PTPWOC\tcommand",
+			"trigger": "PTPWOC",
+			"annotation": "G-Group 49",
+			"kind": ["function", "G", "Command"],
+			"details": "Point-to-point motion without compensation movements caused by changes in orientation",
 			"contents": "PTPWOC"
 		},
 		{
-			"trigger": "REPOSA\tcommand",
+			"trigger": "REPOSA",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear repositioning with all axes",
 			"contents": "REPOSA"
 		},
 		{
-			"trigger": "REPOSH\tcommand",
+			"trigger": "REPOSH",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning with semicircle",
 			"contents": "REPOSH"
 		},
 		{
-			"trigger": "REPOSHA\tcommand",
+			"trigger": "REPOSHA",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning with all axes; geometry axes in semicircle",
 			"contents": "REPOSHA"
 		},
 		{
-			"trigger": "REPOSL\tcommand",
+			"trigger": "REPOSL",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear repositioning",
 			"contents": "REPOSL"
 		},
 		{
-			"trigger": "REPOSQ\tcommand",
+			"trigger": "REPOSQ",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning in a quadrant",
 			"contents": "REPOSQ"
 		},
 		{
-			"trigger": "REPOSQA\tcommand",
+			"trigger": "REPOSQA",
+			"annotation": "G-Group 2",
+			"kind": ["function", "G", "Command"],
+			"details": "Linear repositioning with all axes, geometry ax es in quadrant",
 			"contents": "REPOSQA"
 		},
 		{
-			"trigger": "RMB\tcommand",
+			"trigger": "RMB",
+			"annotation": "G-Group 26",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to start of block",
 			"contents": "RMB"
 		},
 		{
-			"trigger": "RMBBL\tcommand",
+			"trigger": "RMBBL",
+			"annotation": "G-Group 62",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to start of block",
 			"contents": "RMBBL"
 		},
 		{
-			"trigger": "RME\tcommand",
+			"trigger": "RME",
+			"annotation": "G-Group 26",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to end of block",
 			"contents": "RME"
 		},
 		{
-			"trigger": "RMEBL\tcommand",
+			"trigger": "RMEBL",
+			"annotation": "G-Group 62",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to end of block",
 			"contents": "RMEBL"
 		},
 		{
-			"trigger": "RMI\tcommand",
+			"trigger": "RMI",
+			"annotation": "G-Group 26",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to interrupt point",
 			"contents": "RMI"
 		},
 		{
-			"trigger": "RMIBL\tcommand",
+			"trigger": "RMIBL",
+			"annotation": "G-Group 62",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to interrupt point",
 			"contents": "RMIBL"
 		},
 		{
-			"trigger": "RMN\tcommand",
+			"trigger": "RMN",
+			"annotation": "G-Group 26",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to the nearest path point",
 			"contents": "RMN"
 		},
 		{
-			"trigger": "RMNBL\tcommand",
+			"trigger": "RMNBL",
+			"annotation": "G-Group 62",
+			"kind": ["function", "G", "Command"],
+			"details": "Repositioning to the nearest path point",
 			"contents": "RMNBL"
 		},
 		{
-			"trigger": "ROT\tcommand",
+			"trigger": "ROT",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable rotation",
 			"contents": "ROT"
 		},
 		{
-			"trigger": "ROTS\tcommand",
+			"trigger": "ROTS",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable frame rotations with solid angles",
 			"contents": "ROTS"
 		},
 		{
-			"trigger": "RTLIOF\tcommand",
+			"trigger": "RTLIOF",
+			"annotation": "G-Group 55",
+			"kind": ["function", "G", "Command"],
+			"details": "G0 without linear interpolation (single-axis interpolation)",
 			"contents": "RTLIOF"
 		},
 		{
-			"trigger": "RTLION\tcommand",
+			"trigger": "RTLION",
+			"annotation": "G-Group 55",
+			"kind": ["function", "G", "Command"],
+			"details": "G0 with linear interpolation",
 			"contents": "RTLION"
 		},
 		{
-			"trigger": "SCALE\tcommand",
+			"trigger": "SCALE",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Programmable scaling",
 			"contents": "SCALE"
 		},
 		{
-			"trigger": "SOFT\tcommand",
+			"trigger": "SOFT",
+			"annotation": "G-Group 21",
+			"kind": ["function", "G", "Command"],
+			"details": "Soft path acceleration",
 			"contents": "SOFT"
 		},
 		{
-			"trigger": "SON\tcommand",
+			"trigger": "SON",
+			"annotation": "G-Group 35",
+			"kind": ["function", "G", "Command"],
+			"details": "Nibbling ON",
 			"contents": "SON"
 		},
 		{
-			"trigger": "SONS\tcommand",
+			"trigger": "SONS",
+			"annotation": "G-Group 35",
+			"kind": ["function", "G", "Command"],
+			"details": "Nibbling ON in interpolation cycle",
 			"contents": "SONS"
 		},
 		{
-			"trigger": "SPATH\tcommand",
+			"trigger": "SPATH",
+			"annotation": "G-Group 45",
+			"kind": ["function", "G", "Command"],
+			"details": "Path reference for FGROUP axes is arc length",
 			"contents": "SPATH"
 		},
 		{
-			"trigger": "SPIF1\tcommand",
+			"trigger": "SPIF1",
+			"annotation": "G-Group 38",
+			"kind": ["function", "G", "Command"],
+			"details": "Fast NCK inputs/outputs for punching/nibbling byte 1",
 			"contents": "SPIF1"
 		},
 		{
-			"trigger": "SPIF2\tcommand",
+			"trigger": "SPIF2",
+			"annotation": "G-Group 38",
+			"kind": ["function", "G", "Command"],
+			"details": "Fast NCK inputs/outputs for punching/nibbling byte 2",
 			"contents": "SPIF2"
 		},
 		{
-			"trigger": "SPOF\tcommand",
+			"trigger": "SPOF",
+			"annotation": "G-Group 35",
+			"kind": ["function", "G", "Command"],
+			"details": "Stroke OFF, nibbling, punching OFF",
 			"contents": "SPOF"
 		},
 		{
-			"trigger": "STARTFIFO\tcommand",
+			"trigger": "STARTFIFO",
+			"annotation": "G-Group 4",
+			"kind": ["function", "G", "Command"],
+			"details": "Execute; fill preprocessing memory simultaneously",
 			"contents": "STARTFIFO"
 		},
 		{
-			"trigger": "STOPFIFO\tcommand",
+			"trigger": "STOPFIFO",
+			"annotation": "G-Group 4",
+			"kind": ["function", "G", "Command"],
+			"details": "Stop machining; fill preprocessing memory until STARTFIFO is detected, preprocessing memory is full or end of program",
 			"contents": "STOPFIFO"
 		},
 		{
-			"trigger": "SUPA\tcommand",
+			"trigger": "SUPA",
+			"annotation": "G-Group 9",
+			"kind": ["function", "G", "Command"],
+			"details": "Suppression of current zero offset, including programmed offsets, system frames, handwheel offsets (DRF), external zero offset, and overlaid movement",
 			"contents": "SUPA"
 		},
 		{
-			"trigger": "TCOABS\tcommand",
+			"trigger": "TCOABS",
+			"annotation": "G-Group 42",
+			"kind": ["function", "G", "Command"],
+			"details": "Determine tool length components from the current tool orientation",
 			"contents": "TCOABS"
 		},
 		{
-			"trigger": "TCOFR\tcommand",
+			"trigger": "TCOFR",
+			"annotation": "G-Group 42",
+			"kind": ["function", "G", "Command"],
+			"details": "Determine tool length components from the orientation of the active frame",
 			"contents": "TCOFR"
 		},
 		{
-			"trigger": "TCOFRX\tcommand",
+			"trigger": "TCOFRX",
+			"annotation": "G-Group 42",
+			"kind": ["function", "G", "Command"],
+			"details": "Determine tool orientation of an active frame on selection of tool, tool points in X direction",
 			"contents": "TCOFRX"
 		},
 		{
-			"trigger": "TCOFRY\tcommand",
+			"trigger": "TCOFRY",
+			"annotation": "G-Group 42",
+			"kind": ["function", "G", "Command"],
+			"details": "Determine tool orientation of an active frame on selection of tool, tool points in Y direction",
 			"contents": "TCOFRY"
 		},
 		{
-			"trigger": "TCOFRZ\tcommand",
+			"trigger": "TCOFRZ",
+			"annotation": "G-Group 42",
+			"kind": ["function", "G", "Command"],
+			"details": "Determine tool orientation of an active frame on selection of tool, tool points in Z direction",
 			"contents": "TCOFRZ"
 		},
 		{
-			"trigger": "TOFRAME\tcommand",
+			"trigger": "TOFRAME",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Align Z axis of the WCS by rotating the frame parallel to the tool orientation",
 			"contents": "TOFRAME"
 		},
 		{
-			"trigger": "TOFRAMEX\tcommand",
+			"trigger": "TOFRAMEX",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Align X axis of the WCS by rotating the frame parallel to the tool orientation",
 			"contents": "TOFRAMEX"
 		},
 		{
-			"trigger": "TOFRAMEY\tcommand",
+			"trigger": "TOFRAMEY",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Align Y axis of the WCS by rotating the frame parallel to the tool orientation",
 			"contents": "TOFRAMEY"
 		},
 		{
-			"trigger": "TOFRAMEZ\tcommand",
+			"trigger": "TOFRAMEZ",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "As TOFRAME",
 			"contents": "TOFRAMEZ"
 		},
 		{
-			"trigger": "TOROT\tcommand",
+			"trigger": "TOROT",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Align Z axis of the WCS by rotating the frame parallel to the tool orientation",
 			"contents": "TOROT"
 		},
 		{
-			"trigger": "TOROTOF\tcommand",
+			"trigger": "TOROTOF",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Frame rotations in tool direction OFF",
 			"contents": "TOROTOF"
 		},
 		{
-			"trigger": "TOROTX\tcommand",
+			"trigger": "TOROTX",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Align X axis of the WCS by rotating the frame parallel to the tool orientation",
 			"contents": "TOROTX"
 		},
 		{
-			"trigger": "TOROTY\tcommand",
+			"trigger": "TOROTY",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "Align Y axis of the WCS by rotating the frame parallel to the tool orientation",
 			"contents": "TOROTY"
 		},
 		{
-			"trigger": "TOROTZ\tcommand",
+			"trigger": "TOROTZ",
+			"annotation": "G-Group 53",
+			"kind": ["function", "G", "Command"],
+			"details": "As TOROT",
 			"contents": "TOROTZ"
 		},
 		{
-			"trigger": "TOWBCS\tcommand",
+			"trigger": "TOWBCS",
+			"annotation": "G-Group 56",
+			"kind": ["function", "G", "Command"],
+			"details": "Wear values in the basic coordinate system (BCS)",
 			"contents": "TOWBCS"
 		},
 		{
-			"trigger": "TOWKCS\tcommand",
+			"trigger": "TOWKCS",
+			"annotation": "G-Group 56",
+			"kind": ["function", "G", "Command"],
+			"details": "Wear values in the coordinate system of the tool head for kinetic transformation (differs from ma chine coordinate system through tool rotation)",
 			"contents": "TOWKCS"
 		},
 		{
-			"trigger": "TOWMCS\tcommand",
+			"trigger": "TOWMCS",
+			"annotation": "G-Group 56",
+			"kind": ["function", "G", "Command"],
+			"details": "Wear values in machine coordinate system",
 			"contents": "TOWMCS"
 		},
 		{
-			"trigger": "TOWSTD\tcommand",
+			"trigger": "TOWSTD",
+			"annotation": "G-Group 56",
+			"kind": ["function", "G", "Command"],
+			"details": "Initial setting value for offsets in tool length",
 			"contents": "TOWSTD"
 		},
 		{
-			"trigger": "TOWTCS\tcommand",
+			"trigger": "TOWTCS",
+			"annotation": "G-Group 56",
+			"kind": ["function", "G", "Command"],
+			"details": "Wear values in the tool coordinate system (tool holder ref. point T at the tool holder)",
 			"contents": "TOWTCS"
 		},
 		{
-			"trigger": "TOWWCS\tcommand",
+			"trigger": "TOWWCS",
+			"annotation": "G-Group 56",
+			"kind": ["function", "G", "Command"],
+			"details": "Wear values in workpiece coordinate system",
 			"contents": "TOWWCS"
 		},
 		{
-			"trigger": "TRANS\tcommand",
+			"trigger": "TRANS",
+			"annotation": "G-Group 3",
+			"kind": ["function", "G", "Command"],
+			"details": "Absolute programmable work offset",
 			"contents": "TRANS"
 		},
 		{
-			"trigger": "UPATH\tcommand",
+			"trigger": "UPATH",
+			"annotation": "G-Group 45",
+			"kind": ["function", "G", "Command"],
+			"details": "Path reference for FGROUP axes is curve parameter",
 			"contents": "UPATH"
 		},
 		{
-			"trigger": "WALCS0\tcommand",
+			"trigger": "WALCS0",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "Workpiece coordinate system working area limitation deselected",
 			"contents": "WALCS0"
 		},
 		{
-			"trigger": "WALCS1\tcommand",
+			"trigger": "WALCS1",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 1 active",
 			"contents": "WALCS1"
 		},
 		{
-			"trigger": "WALCS2\tcommand",
+			"trigger": "WALCS2",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 2 active",
 			"contents": "WALCS2"
 		},
 		{
-			"trigger": "WALCS3\tcommand",
+			"trigger": "WALCS3",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 3 active",
 			"contents": "WALCS3"
 		},
 		{
-			"trigger": "WALCS4\tcommand",
+			"trigger": "WALCS4",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 4 active",
 			"contents": "WALCS4"
 		},
 		{
-			"trigger": "WALCS5\tcommand",
+			"trigger": "WALCS5",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 5 active",
 			"contents": "WALCS5"
 		},
 		{
-			"trigger": "WALCS6\tcommand",
+			"trigger": "WALCS6",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 6 active",
 			"contents": "WALCS6"
 		},
 		{
-			"trigger": "WALCS7\tcommand",
+			"trigger": "WALCS7",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 7 active",
 			"contents": "WALCS7"
 		},
 		{
-			"trigger": "WALCS8\tcommand",
+			"trigger": "WALCS8",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 8 active",
 			"contents": "WALCS8"
 		},
 		{
-			"trigger": "WALCS9\tcommand",
+			"trigger": "WALCS9",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 9 active",
 			"contents": "WALCS9"
 		},
 		{
-			"trigger": "WALCS10\tcommand",
+			"trigger": "WALCS10",
+			"annotation": "G-Group 60",
+			"kind": ["function", "G", "Command"],
+			"details": "WCS working area limitation group 10 active",
 			"contents": "WALCS10"
 		},
 		{
-			"trigger": "WALIMOF\tcommand",
+			"trigger": "WALIMOF",
+			"annotation": "G-Group 28",
+			"kind": ["function", "G", "Command"],
+			"details": "BCS working area limitation OFF",
 			"contents": "WALIMOF"
 		},
 		{
-			"trigger": "WALIMON\tcommand",
+			"trigger": "WALIMON",
+			"annotation": "G-Group 28",
+			"kind": ["function", "G", "Command"],
+			"details": "BCS working area limitation ON",
 			"contents": "WALIMON"
 		}
 	]

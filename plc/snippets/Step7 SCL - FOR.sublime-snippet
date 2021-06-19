@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+FOR ${1:_idx_} := ${2:_start_} TO ${3:_end_} ${4:BY ${5:_step_} }DO
+    $0
+END_FOR;
+]]></content>
+	<tabTrigger>sfor</tabTrigger>
+	<scope>
+		source.plc.scl meta.block.fb.body - meta.brackets - meta.group - meta.function-call - comment - string,
+		source.plc.scl meta.block.fc.body - meta.brackets - meta.group - meta.function-call - comment - string
+	</scope>
+	<description>FOR..TO..BY..DO..</description>
+</snippet>

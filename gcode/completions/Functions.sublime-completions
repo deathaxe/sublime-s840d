@@ -2,548 +2,820 @@
 	"scope": "source.s840d_gcode - comment - string - support.variable - meta.definition.variable - meta.redefinition - meta.function",
 	"completions": [
 		{
-			"trigger": "ABS\tfunction",
-			"contents": "ABS(${1:<REAL>})$0"
+			"trigger": "ABS",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute value (amount)",
+			"contents": "ABS(${1:<REAL>})"
 		},
 		{
-			"trigger": "AC\tfunction",
-			"contents": "AC(${1:<REAL>})$0"
+			"trigger": "AC",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute dimensions of coordinates/positions",
+			"contents": "AC(${1:<REAL>})"
 		},
 		{
-			"trigger": "ACN\tfunction",
-			"contents": "ACN(${1:<REAL>})$0"
+			"trigger": "ACN",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute dimensions for rotary axes, approach position in negative direction",
+			"contents": "ACN(${1:<REAL>})"
 		},
 		{
-			"trigger": "ACOS\tfunction",
-			"contents": "ACOS(${1:<REAL>})$0"
+			"trigger": "ACOS",
+			"kind": ["function", "f", "Function"],
+			"details": "Arc cosine (trigon. function)",
+			"contents": "ACOS(${1:<REAL>})"
 		},
 		{
-			"trigger": "ACP\tfunction",
-			"contents": "ACP(${1:<REAL>})$0"
+			"trigger": "ACP",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute dimensions for rotary axes, approach position in positive direction",
+			"contents": "ACP(${1:<REAL>})"
 		},
 		{
-			"trigger": "ADDFRAME\tfunction",
-			"contents": "ADDFRAME(${1:<FRAME>},${2:<STRING>})$0"
+			"trigger": "ADDFRAME",
+			"kind": ["function", "f", "Function"],
+			"details": "Inclusion and possible activation of a measured frame",
+			"contents": "ADDFRAME(${1:<FRAME>},${2:<STRING>})"
 		},
 		{
-			"trigger": "ASIN\tfunction",
-			"contents": "ASIN(${1:<REAL>})$0"
+			"trigger": "ASIN",
+			"kind": ["function", "f", "Function"],
+			"details": "Arithmetic function, arc sine",
+			"contents": "ASIN(${1:<REAL>})"
 		},
 		{
-			"trigger": "ATAN2\tfunction",
-			"contents": "ATAN2(${1:<REAL>})$0"
+			"trigger": "ATAN2",
+			"kind": ["function", "f", "Function"],
+			"details": "Arc tangent 2",
+			"contents": "ATAN2(${1:<REAL>})"
 		},
 		{
-			"trigger": "AXNAME\tfunction",
-			"contents": "AXNAME(${1:<STRING>})$0"
+			"trigger": "AXNAME",
+			"kind": ["function", "f", "Function"],
+			"details": "Converts input string into axis identifier",
+			"contents": "AXNAME(${1:<STRING>})"
 		},
 		{
-			"trigger": "AXSTRING\tfunction",
-			"contents": "AXSTRING(${1:<AXIS>})$0"
+			"trigger": "AXSTRING",
+			"kind": ["function", "f", "Function"],
+			"details": "Converts string spindle number",
+			"contents": "AXSTRING(${1:<AXIS>})"
 		},
 		{
-			"trigger": "AXTOSPI\tfunction",
-			"contents": "AXTOSPI(${1:<AXIS>})$0"
+			"trigger": "AXTOSPI",
+			"kind": ["function", "f", "Function"],
+			"details": "Converts axis identifier into a spindle index",
+			"contents": "AXTOSPI(${1:<AXIS>})"
 		},
 		{
-			"trigger": "BOUND\tfunction",
-			"contents": "BOUND(${1:<MIN>},${2:<MAX>},${3:<REAL>})$0"
+			"trigger": "BOUND",
+			"kind": ["function", "f", "Function"],
+			"details": "Tests whether the value falls within the defined value range. If the values are equal, the test value is returned.",
+			"contents": "BOUND(${1:<MIN>},${2:<MAX>},${3:<REAL>})"
 		},
 		{
-			"trigger": "BTOI\tfunction",
-			"contents": "BTOI(${1:<BOOL>})$0"
+			"trigger": "CAC",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute position approach",
+			"contents": "CAC(${1:<INT>})"
 		},
 		{
-			"trigger": "BTOR\tfunction",
-			"contents": "BTOR(${1:<BOOL>})$0"
+			"trigger": "CACN",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute approach of the value listed in the table in negative direction",
+			"contents": "CACN(${1:<INT>})"
 		},
 		{
-			"trigger": "CAC\tfunction",
-			"contents": "CAC(${1:<INT>})$0"
+			"trigger": "CACP",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute approach of the value listed in the table in positive direction",
+			"contents": "CACP(${1:<INT>})"
 		},
 		{
-			"trigger": "CACN\tfunction",
-			"contents": "CACN(${1:<INT>})$0"
+			"trigger": "CALCDAT",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculates radius and center point of circle from 3 or 4 points",
+			"contents": "CALCDAT(${1:<BOOL>},${2:<points[,2]>},${3:<num_points>},${4:<result[3]>})"
 		},
 		{
-			"trigger": "CACP\tfunction",
-			"contents": "CACP(${1:<INT>})$0"
+			"trigger": "CALCPOSI",
+			"kind": ["function", "f", "Function"],
+			"details": "Checking for protection area violation, working area limitation and software limits",
+			"contents": "CALCPOSI(${1:<StartPos>},${2:<MoveDist>},${3:<MinLimit>},${4:<MaxDist>},${5:<BaseSys>},${6:<TestLimit>})"
 		},
 		{
-			"trigger": "CALCDAT\tfunction",
-			"contents": "CALCDAT(${1:<BOOL>},${2:<points[,2]>},${3:<num_points>},${4:<result[3]>})$0"
+			"trigger": "CDC",
+			"kind": ["function", "f", "Function"],
+			"details": "Direct approach of a position",
+			"contents": "CDC(${1:<INT>})"
 		},
 		{
-			"trigger": "CALCPOSI\tfunction",
-			"contents": "CALCPOSI(${1:<StartPos>},${2:<MoveDist>},${3:<MinLimit>},${4:<MaxDist>},${5:<BaseSys>},${6:<TestLimit>})$0"
+			"trigger": "CFINE",
+			"kind": ["function", "f", "Function"],
+			"details": "Assignment of fine offset to a FRAME variable",
+			"contents": "CFINE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "CDC\tfunction",
-			"contents": "CDC(${1:<INT>})$0"
+			"trigger": "CHECKSUM",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculates the checksum of the content of global user data",
+			"contents": "CHECKSUM(${1:<STRING CheckSum>}, ${2:<STRING GudName>})"
 		},
 		{
-			"trigger": "CFINE\tfunction",
-			"contents": "CFINE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "CHKDM",
+			"kind": ["function", "f", "Function"],
+			"details": "Uniqueness check within a magazine",
+			"contents": "CHKDM(${1:<MagNo>},${2:<DNo>},${3:<LocNo>})"
 		},
 		{
-			"trigger": "CHECKSUM\tfunction",
-			"contents": "CHECKSUM(${1:<STRING CheckSum>}, ${2:<STRING GudName>})$0"
+			"trigger": "CHKDNO",
+			"kind": ["function", "f", "Function"],
+			"details": "Check for unique D numbers",
+			"contents": "CHKDNO(${1:<TNo1>},${2:<TNo2>}${3:,${4:[DNo]}})"
 		},
 		{
-			"trigger": "CHKDM\tfunction",
-			"contents": "CHKDM(${1:<MagNo>},${2:<DNo>},${3:<LocNo>})$0"
+			"trigger": "CIC",
+			"kind": ["function", "f", "Function"],
+			"details": "Approach position by increments",
+			"contents": "CIC(${1:<INT>})"
 		},
 		{
-			"trigger": "CHKDNO\tfunction",
-			"contents": "CHKDNO(${1:<TNo1>},${2:<TNo2>}${3:,${4:[DNo]}})$0"
+			"trigger": "CMIRROR",
+			"kind": ["function", "f", "Function"],
+			"details": "Mirror on a coordinate axis",
+			"contents": "CMIRROR(${1:<AXIS>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "CIC\tfunction",
-			"contents": "CIC(${1:<INT>})$0"
+			"trigger": "COLLPAIR",
+			"kind": ["function", "f", "Function"],
+			"details": "Check whether part of a collision pair",
+			"contents": "COLLPAIR(${1:<Name1>},${2:<Name2>}${3:,${4:<NoError>}})"
 		},
 		{
-			"trigger": "CMIRROR\tfunction",
-			"contents": "CMIRROR(${1:<AXIS>}${2:,${3:[...]}})$0"
-		},
-		{
-			"trigger": "COLLPAIR\tfunction",
-			"contents": "COLLPAIR(${1:<Name1>},${2:<Name2>}${3:,${4:<NoError>}})$0"
-		},
-		{
-			"trigger": "CORRTRAFO\tfunction",
+			"trigger": "CORRTRAFO",
+			"kind": ["function", "f", "Function"],
+			"details": "Modify orientation transformation after machine measurement",
 			"contents": "CORRTRAFO(${1:<Corr_Vect>},${2:<Corr_Index>},${3:<Corr_Mode>}${4:, ${5:<No_Alarm>}})"
 		},
 		{
-			"trigger": "COS\tfunction",
-			"contents": "COS(${1:<REAL>})$0"
+			"trigger": "COS",
+			"kind": ["function", "f", "Function"],
+			"details": "Cosine (trigon. function)",
+			"contents": "COS(${1:<REAL>})"
 		},
 		{
-			"trigger": "CROT\tfunction",
-			"contents": "CROT(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "CROT",
+			"kind": ["function", "f", "Function"],
+			"details": "Rotation of the current coordinate system",
+			"contents": "CROT(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "CROTS\tfunction",
-			"contents": "CROTS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "CROTS",
+			"kind": ["function", "f", "Function"],
+			"details": "Programmable frame rotations with solid angles (rotation in the specified axes)",
+			"contents": "CROTS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "CRPL\tfunction",
-			"contents": "CRPL(${1:<AXIS>},${2:<REAL>})$0"
+			"trigger": "CRPL",
+			"kind": ["function", "f", "Function"],
+			"details": "Frame rotation in any plane",
+			"contents": "CRPL(${1:<AXIS>},${2:<REAL>})"
 		},
 		{
-			"trigger": "CSCALE\tfunction",
-			"contents": "CSCALE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "CSCALE",
+			"kind": ["function", "f", "Function"],
+			"details": "Scale factor for multiple axes",
+			"contents": "CSCALE(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "CTAB\tfunction",
-			"contents": "CTAB(${1:<...>})$0"
+			"trigger": "CTAB",
+			"kind": ["function", "f", "Function"],
+			"details": "Define following axis position according to leading axis position from curve table",
+			"contents": "CTAB(${1:<...>})"
 		},
 		{
-			"trigger": "CTABEXISTS\tfunction",
-			"contents": "CTABEXISTS(${1:<...>})$0"
+			"trigger": "CTABEXISTS",
+			"kind": ["function", "f", "Function"],
+			"details": "Checks the curve table with number n",
+			"contents": "CTABEXISTS(${1:<...>})"
 		},
 		{
-			"trigger": "CTABFNO\tfunction",
-			"contents": "CTABFNO(${1:<...>})$0"
+			"trigger": "CTABFNO",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of curve tables still possible in the memory",
+			"contents": "CTABFNO(${1:<...>})"
 		},
 		{
-			"trigger": "CTABFPOL\tfunction",
-			"contents": "CTABFPOL(${1:<...>})$0"
+			"trigger": "CTABFPOL",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of polynomials still possible in the memory",
+			"contents": "CTABFPOL(${1:<...>})"
 		},
 		{
-			"trigger": "CTABFSEG\tfunction",
-			"contents": "CTABFSEG(${1:<...>})$0"
+			"trigger": "CTABFSEG",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of curve segments still possible in the memory",
+			"contents": "CTABFSEG(${1:<...>})"
 		},
 		{
-			"trigger": "CTABID\tfunction",
-			"contents": "CTABID(${1:ID},${2:[\"SRAM|DRAM\"]})$0"
+			"trigger": "CTABID",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns table number of the nth curve table",
+			"contents": "CTABID(${1:ID},${2:[\"SRAM|DRAM\"]})"
 		},
 		{
-			"trigger": "CTABINV\tfunction",
-			"contents": "CTABINV(${1:<...>})$0"
+			"trigger": "CTABINV",
+			"kind": ["function", "f", "Function"],
+			"details": "Define leading axis position according to following axis position from curve table",
+			"contents": "CTABINV(${1:<...>})"
 		},
 		{
-			"trigger": "CTABISLOCK\tfunction",
-			"contents": "CTABISLOCK(${1:<...>})$0"
+			"trigger": "CTABISLOCK",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the lock state of the curve table with number n",
+			"contents": "CTABISLOCK(${1:<...>})"
 		},
 		{
-			"trigger": "CTABMEMTYP\tfunction",
-			"contents": "CTABMEMTYP(${1:<...>})$0"
+			"trigger": "CTABMEMTYP",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the memory in which curve table number n is created",
+			"contents": "CTABMEMTYP(${1:<...>})"
 		},
 		{
-			"trigger": "CTABMPOL\tfunction",
-			"contents": "CTABMPOL(${1:<...>})$0"
+			"trigger": "CTABMPOL",
+			"kind": ["function", "f", "Function"],
+			"details": "Max. number of polynomials still possible in the memory",
+			"contents": "CTABMPOL(${1:<...>})"
 		},
 		{
-			"trigger": "CTABMSEG\tfunction",
-			"contents": "CTABMSEG(${1:<...>})$0"
+			"trigger": "CTABMSEG",
+			"kind": ["function", "f", "Function"],
+			"details": "Max. number of curve segments still possible in the memory",
+			"contents": "CTABMSEG(${1:<...>})"
 		},
 		{
-			"trigger": "CTABNO\tfunction",
-			"contents": "CTABNO(${1:<...>})$0"
+			"trigger": "CTABNO",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of defined curve tables in SRAM or DRAM",
+			"contents": "CTABNO(${1:<...>})"
 		},
 		{
-			"trigger": "CTABNOMEM\tfunction",
-			"contents": "CTABNOMEM(${1:<...>})$0"
+			"trigger": "CTABNOMEM",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of defined curve tables in SRAM or DRAM",
+			"contents": "CTABNOMEM(${1:<...>})"
 		},
 		{
-			"trigger": "CTABPERIOD\tfunction",
-			"contents": "CTABPERIOD(${1:<ID>})$0"
+			"trigger": "CTABPERIOD",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the table periodicity of curve table number n",
+			"contents": "CTABPERIOD(${1:<ID>})"
 		},
 		{
-			"trigger": "CTABPOL\tfunction",
-			"contents": "CTABPOL(${1:<...>})$0"
+			"trigger": "CTABPOL",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of polynomials already used in the memory",
+			"contents": "CTABPOL(${1:<...>})"
 		},
 		{
-			"trigger": "CTABPOLID\tfunction",
-			"contents": "CTABPOLID(${1:<...>})$0"
+			"trigger": "CTABPOLID",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of the curve polynomials used by the curve table with number n",
+			"contents": "CTABPOLID(${1:<...>})"
 		},
 		{
-			"trigger": "CTABSEG\tfunction",
-			"contents": "CTABSEG(${1:<...>})$0"
+			"trigger": "CTABSEG",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of curve segments already used in the memory",
+			"contents": "CTABSEG(${1:<...>})"
 		},
 		{
-			"trigger": "CTABSEGID\tfunction",
-			"contents": "CTABSEGID(${1:<...>})$0"
+			"trigger": "CTABSEGID",
+			"kind": ["function", "f", "Function"],
+			"details": "Number of the curve segments used by the curve table with number n",
+			"contents": "CTABSEGID(${1:<...>})"
 		},
 		{
-			"trigger": "CTABSEV\tfunction",
-			"contents": "CTABSEV(${1:<...>})$0"
+			"trigger": "CTABSEV",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the final value of the following axis of a segment of the curve table",
+			"contents": "CTABSEV(${1:<...>})"
 		},
 		{
-			"trigger": "CTABSSV\tfunction",
-			"contents": "CTABSSV(${1:<...>})$0"
+			"trigger": "CTABSSV",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the initial value of the following axis of a segment of the curve table",
+			"contents": "CTABSSV(${1:<...>})"
 		},
 		{
-			"trigger": "CTABTEP\tfunction",
-			"contents": "CTABTEP(${1:<...>})$0"
+			"trigger": "CTABTEP",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the value of the leading axis at curve table end",
+			"contents": "CTABTEP(${1:<...>})"
 		},
 		{
-			"trigger": "CTABTEV\tfunction",
-			"contents": "CTABTEV(${1:<...>})$0"
+			"trigger": "CTABTEV",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the value of the the following axis at curve table end",
+			"contents": "CTABTEV(${1:<...>})"
 		},
 		{
-			"trigger": "CTABTMAX\tfunction",
-			"contents": "CTABTMAX(${1:<...>})$0"
+			"trigger": "CTABTMAX",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the maximum value of the following axis of the curve table",
+			"contents": "CTABTMAX(${1:<...>})"
 		},
 		{
-			"trigger": "CTABTMIN\tfunction",
-			"contents": "CTABTMIN(${1:<...>})$0"
+			"trigger": "CTABTMIN",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the minimum value of the following axis of the curve table",
+			"contents": "CTABTMIN(${1:<...>})"
 		},
 		{
-			"trigger": "CTABTSP\tfunction",
-			"contents": "CTABTSP(${1:<...>})$0"
+			"trigger": "CTABTSP",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the value of the leading axis at curve table start",
+			"contents": "CTABTSP(${1:<...>})"
 		},
 		{
-			"trigger": "CTABTSV\tfunction",
-			"contents": "CTABTSV(${1:<...>})$0"
+			"trigger": "CTABTSV",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the value of the following axis at curve table start",
+			"contents": "CTABTSV(${1:<...>})"
 		},
 		{
-			"trigger": "CTRANS\tfunction",
-			"contents": "CTRANS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "CTRANS",
+			"kind": ["function", "f", "Function"],
+			"details": "Zero offset for multiple axes",
+			"contents": "CTRANS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "DAC\tfunction",
-			"contents": "DAC(${1:<REAL>})$0"
+			"trigger": "DAC",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute non-modal axis-specific diameter programming",
+			"contents": "DAC(${1:<REAL>})"
 		},
 		{
-			"trigger": "DC\tfunction",
-			"contents": "DC(${1:<REAL>})$0"
+			"trigger": "DC",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute dimensions for rotary axes, approach position directly",
+			"contents": "DC(${1:<REAL>})"
 		},
 		{
-			"trigger": "DELDL\tfunction",
-			"contents": "DELDL(${1:<TNo>},${2:<DNo>})$0"
+			"trigger": "DELDL",
+			"kind": ["function", "f", "Function"],
+			"details": "Delete additive offsets",
+			"contents": "DELDL(${1:<TNo>},${2:<DNo>})"
 		},
 		{
-			"trigger": "DELMLOWNER\tfunction",
-			"contents": "DELMLOWNER(${1:<TNo>})$0"
+			"trigger": "DELMLOWNER",
+			"kind": ["function", "f", "Function"],
+			"details": "Delete owner magazine location of the tool",
+			"contents": "DELMLOWNER(${1:<TNo>})"
 		},
 		{
-			"trigger": "DELMLRES\tfunction",
-			"contents": "DELMLRES(${1:<MagNo>},${2:<LocNo>},${3:<resType>})$0"
+			"trigger": "DELMLRES",
+			"kind": ["function", "f", "Function"],
+			"details": "Delete magazine location reservation",
+			"contents": "DELMLRES(${1:<MagNo>},${2:<LocNo>},${3:<resType>})"
 		},
 		{
-			"trigger": "DELOBJ\tfunction",
-			"contents": "DELOBJ(${1:<CompType>}${2:,${3:[StartIndex]}}${4:,${5:[EndIndex]}}${6:,${7:[NoAlarm]}})$0"
+			"trigger": "DELOBJ",
+			"kind": ["function", "f", "Function"],
+			"details": "Deletion of elements from kinematic chains, protection areas, protection area elements, collision pairs and transformation data",
+			"contents": "DELOBJ(${1:<CompType>}${2:,${3:[StartIndex]}}${4:,${5:[EndIndex]}}${6:,${7:[NoAlarm]}})"
 		},
 		{
-			"trigger": "DELTOOLENV\tfunction",
-			"contents": "DELTOOLENV(${1:<Name>})$0"
+			"trigger": "DELTOOLENV",
+			"kind": ["function", "f", "Function"],
+			"details": "Delete data records describing tool environments",
+			"contents": "DELTOOLENV(${1:<Name>})"
 		},
 		{
-			"trigger": "DIC\tfunction",
-			"contents": "DIC(${1:<REAL>})$0"
+			"trigger": "DIC",
+			"kind": ["function", "f", "Function"],
+			"details": "Relative non-modal axis-specific diameter programming",
+			"contents": "DIC(${1:<REAL>})"
 		},
 		{
-			"trigger": "EXP\tfunction",
-			"contents": "EXP(${1:<REAL>})$0"
+			"trigger": "EXP",
+			"kind": ["function", "f", "Function"],
+			"details": "Exponential function ex",
+			"contents": "EXP(${1:<REAL>})"
 		},
 		{
-			"trigger": "GETACTT\tfunction",
-			"contents": "GETACTT(${1:<TNo>},${2:<ToolIdent>})$0"
+			"trigger": "GETACTT",
+			"kind": ["function", "f", "Function"],
+			"details": "Gets active tool from a group of tools with the same name",
+			"contents": "GETACTT(${1:<TNo>},${2:<ToolIdent>})"
 		},
 		{
-			"trigger": "GETACTTD\tfunction",
-			"contents": "GETACTTD(${1:<TNo>},${2:<DNo>})$0"
+			"trigger": "GETACTTD",
+			"kind": ["function", "f", "Function"],
+			"details": "Gets the T number associated with an absolute D number",
+			"contents": "GETACTTD(${1:<TNo>},${2:<DNo>})"
 		},
 		{
-			"trigger": "GETDNO\tfunction",
-			"contents": "GETDNO(${1:<TNo>},${2:<EdgeIndex>})$0"
+			"trigger": "GETDNO",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns the D number of a cutting edge (CE) of a tool (T)",
+			"contents": "GETDNO(${1:<TNo>},${2:<EdgeIndex>})"
 		},
 		{
-			"trigger": "GETT\tfunction",
-			"contents": "GETT(${1:<ToolIdent>},${2:<DuploNo>})$0"
+			"trigger": "GETT",
+			"kind": ["function", "f", "Function"],
+			"details": "Get T number for tool name",
+			"contents": "GETT(${1:<ToolIdent>},${2:<DuploNo>})"
 		},
 		{
-			"trigger": "GETTCOR\tfunction",
-			"contents": "GETTCOR(${1:<Len>},${2:<Comp>},${3:<Stat>},${4:<T>},${5:<D>},${6:<DL>})$0"
+			"trigger": "GETTCOR",
+			"kind": ["function", "f", "Function"],
+			"details": "Read out tool lengths and/or tool length components",
+			"contents": "GETTCOR(${1:<Len>},${2:<Comp>},${3:<Stat>},${4:<T>},${5:<D>},${6:<DL>})"
 		},
 		{
-			"trigger": "GETTENV\tfunction",
-			"contents": "GETTENV(${1:<Name>},${2:<TDDL[3]>})$0"
+			"trigger": "GETTENV",
+			"kind": ["function", "f", "Function"],
+			"details": "Read T, D and DL numbers",
+			"contents": "GETTENV(${1:<Name>},${2:<TDDL[3]>})"
 		},
 		{
-			"trigger": "GETVARAP\tfunction",
-			"contents": "GETVARAP(${1:<...>})$0"
+			"trigger": "GETVARAP",
+			"kind": ["function", "f", "Function"],
+			"details": "Read access rights to a system/user variable",
+			"contents": "GETVARAP(${1:<...>})"
 		},
 		{
-			"trigger": "GETVARDFT\tfunction",
-			"contents": "GETVARDFT(${1:<...>})$0"
+			"trigger": "GETVARDFT",
+			"kind": ["function", "f", "Function"],
+			"details": "Read default value of a system/user variable",
+			"contents": "GETVARDFT(${1:<...>})"
 		},
 		{
-			"trigger": "GETVARLIM\tfunction",
-			"contents": "GETVARLIM(${1:<...>})$0"
+			"trigger": "GETVARLIM",
+			"kind": ["function", "f", "Function"],
+			"details": "Read limit values of a system/user variable",
+			"contents": "GETVARLIM(${1:<...>})"
 		},
 		{
-			"trigger": "GETVARPHU\tfunction",
-			"contents": "GETVARPHU(${1:<...>})$0"
+			"trigger": "GETVARPHU",
+			"kind": ["function", "f", "Function"],
+			"details": "Read physical unit of a system/user variable",
+			"contents": "GETVARPHU(${1:<...>})"
 		},
 		{
-			"trigger": "GETVARTYP\tfunction",
-			"contents": "GETVARTYP(${1:<...>})$0"
+			"trigger": "GETVARTYP",
+			"kind": ["function", "f", "Function"],
+			"details": "Read data type of a system/user variable",
+			"contents": "GETVARTYP(${1:<...>})"
 		},
 		{
-			"trigger": "GP\tfunction",
-			"contents": "GP(${1:<Pos>},${2:<PosAttr>})$0"
+			"trigger": "GP",
+			"kind": ["function", "f", "Function"],
+			"details": "Keyword for the indirect programming of position attributes",
+			"contents": "GP(${1:<Pos>},${2:<PosAttr>})"
 		},
 		{
-			"trigger": "IC\tfunction",
-			"contents": "IC(${1:<REAL>})$0"
+			"trigger": "IC",
+			"kind": ["function", "f", "Function"],
+			"details": "Incremental dimensions",
+			"contents": "IC(${1:<REAL>})"
 		},
 		{
-			"trigger": "INDEX\tfunction",
-			"contents": "INDEX(${1:<STRING>},${2:<CHAR>})$0"
+			"trigger": "INDEX",
+			"kind": ["function", "f", "Function"],
+			"details": "Define index of character in input string",
+			"contents": "INDEX(${1:<STRING>},${2:<CHAR>})"
 		},
 		{
-			"trigger": "INTERSEC\tfunction",
-			"contents": "INTERSEC(${1:<ContTable1>},${2:<ContElem1>},${3:<ContTable2>},${4:<ContElem2>},${5:<Intersect>},${6:<Mode>})$0"
+			"trigger": "INTERSEC",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculate intersection between two contour elements",
+			"contents": "INTERSEC(${1:<ContTable1>},${2:<ContElem1>},${3:<ContTable2>},${4:<ContElem2>},${5:<Intersect>},${6:<Mode>})"
 		},
 		{
-			"trigger": "INVFRAME\tfunction",
-			"contents": "INVFRAME(${1:<FRAME>})$0"
+			"trigger": "INVFRAME",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculate the inverse frame from a frame",
+			"contents": "INVFRAME(${1:<FRAME>})"
 		},
 		{
-			"trigger": "ISAXIS\tfunction",
-			"contents": "ISAXIS(${1:<STRING>})$0"
+			"trigger": "ISAXIS",
+			"kind": ["function", "f", "Function"],
+			"details": "Check if geometry axis 1 specified as parameter",
+			"contents": "ISAXIS(${1:<STRING>})"
 		},
 		{
-			"trigger": "ISFILE\tfunction",
-			"contents": "ISFILE(${1:<STRING>})$0"
+			"trigger": "ISFILE",
+			"kind": ["function", "f", "Function"],
+			"details": "Check whether the file exists in the NCK application memory",
+			"contents": "ISFILE(${1:<STRING>})"
 		},
 		{
-			"trigger": "ISNUMBER\tfunction",
-			"contents": "ISNUMBER(${1:<STRING>})$0"
+			"trigger": "ISNUMBER",
+			"kind": ["function", "f", "Function"],
+			"details": "Check whether the input string can be converted to a number",
+			"contents": "ISNUMBER(${1:<STRING>})"
 		},
 		{
-			"trigger": "ISVAR\tfunction",
-			"contents": "ISVAR(${1:<STRING>})$0"
+			"trigger": "ISVAR",
+			"kind": ["function", "f", "Function"],
+			"details": "Check whether the transfer parameter contains a variable declared in the NC",
+			"contents": "ISVAR(${1:<STRING>})"
 		},
 		{
-			"trigger": "ITOB\tfunction",
-			"contents": "ITOB(${1:<INT>})$0"
+			"trigger": "LENTOAX",
+			"kind": ["function", "f", "Function"],
+			"details": "Provides information about the assignment of tool lengths L1, L2, and L3 of the active tool to the abscissa, ordinate and applicate",
+			"contents": "LENTOAX(${1:<AXIS>},${2:<MATRIX>},${3:<WCS>})"
 		},
 		{
-			"trigger": "ITOR\tfunction",
-			"contents": "ITOR(${1:<INT>})$0"
+			"trigger": "LN",
+			"kind": ["function", "f", "Function"],
+			"details": "Natural logarithm",
+			"contents": "LN(${1:<REAL>})"
 		},
 		{
-			"trigger": "LENTOAX\tfunction",
-			"contents": "LENTOAX(${1:<AXIS>},${2:<MATRIX>},${3:<WCS>})$0"
+			"trigger": "MATCH",
+			"kind": ["function", "f", "Function"],
+			"details": "Search for string in string",
+			"contents": "MATCH(${1:<STRING>},${2:<STRING>})"
 		},
 		{
-			"trigger": "LN\tfunction",
-			"contents": "LN(${1:<REAL>})$0"
+			"trigger": "MAXVAL",
+			"kind": ["function", "f", "Function"],
+			"details": "Larger value of two variables (arithm. function)",
+			"contents": "MAXVAL(${1:<REAL>},${2:<REAL>})"
 		},
 		{
-			"trigger": "MATCH\tfunction",
-			"contents": "MATCH(${1:<STRING>},${2:<STRING>})$0"
+			"trigger": "MEAFRAME",
+			"kind": ["function", "f", "Function"],
+			"details": "Frame calculation from measuring points",
+			"contents": "MEAFRAME(${1:<ideal points>},${2:<measuring points>},${3:<quality>})"
 		},
 		{
-			"trigger": "MAXVAL\tfunction",
-			"contents": "MAXVAL(${1:<REAL>},${2:<REAL>})$0"
+			"trigger": "MEASURE",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculation method for workpiece and tool measurement",
+			"contents": "MEASURE()"
 		},
 		{
-			"trigger": "MEAFRAME\tfunction",
-			"contents": "MEAFRAME(${1:<ideal points>},${2:<measuring points>},${3:<quality>})$0"
+			"trigger": "MINDEX",
+			"kind": ["function", "f", "Function"],
+			"details": "Define index of character in input string",
+			"contents": "MINDEX(${1:<STRING>},${2:<STRING>})"
 		},
 		{
-			"trigger": "MEASURE\tfunction",
-			"contents": "MEASURE()$0"
+			"trigger": "MINVAL",
+			"kind": ["function", "f", "Function"],
+			"details": "Smaller value of two variables (arithm. function)",
+			"contents": "MINVAL(${1:<REAL>},${2:<REAL>})"
 		},
 		{
-			"trigger": "MINDEX\tfunction",
-			"contents": "MINDEX(${1:<STRING>},${2:<STRING>})$0"
+			"trigger": "MODAXVAL",
+			"kind": ["function", "f", "Function"],
+			"details": "Determine modulo position of a modulo rotary axis",
+			"contents": "MODAXVAL(${1:<AXIS>},${2:<REAL>})"
 		},
 		{
-			"trigger": "MINVAL\tfunction",
-			"contents": "MINVAL(${1:<REAL>},${2:<REAL>})$0"
-		},
-		{
-			"trigger": "MODAXVAL\tfunction",
-			"contents": "MODAXVAL(${1:<AXIS>},${2:<REAL>})$0"
-		},
-		{
-			"trigger": "NAMETOINT\tfunction",
+			"trigger": "NAMETOINT",
+			"kind": ["function", "f", "Function"],
+			"details": "Determining the system variable index",
 			"contents": "NAMETOINT(${1:<VarName>},${2:<VarVal>},${3:<NoAlarm>})"
 		},
 		{
-			"trigger": "NEWMT\tfunction",
-			"contents": "NEWMT(${1:<ToolIdent>},${2:<PlaceCount>})$0"
+			"trigger": "NEWMT",
+			"kind": ["function", "f", "Function"],
+			"details": "Create new multitool",
+			"contents": "NEWMT(${1:<ToolIdent>},${2:<PlaceCount>})"
 		},
 		{
-			"trigger": "NEWT\tfunction",
-			"contents": "NEWT(${1:<ToolIdent>},${2:<DuploNo>})$0"
+			"trigger": "NEWT",
+			"kind": ["function", "f", "Function"],
+			"details": "Create new tool",
+			"contents": "NEWT(${1:<ToolIdent>},${2:<DuploNo>})"
 		},
 		{
-			"trigger": "NUMBER\tfunction",
-			"contents": "NUMBER(${1:<STRING>})$0"
+			"trigger": "NUMBER",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert input string to number",
+			"contents": "NUMBER(${1:<STRING>})"
 		},
 		{
-			"trigger": "PM\tfunction",
-			"contents": "PM(${1:<REAL>})$0"
+			"trigger": "PM",
+			"kind": ["function", "f", "Function"],
+			"details": "Per minute",
+			"contents": "PM(${1:<REAL>})"
 		},
 		{
-			"trigger": "POSRANGE\tfunction",
-			"contents": "POSRANGE(${1:<Axis>},${2:<RefPos>},${3:<Tol>}${4:,${5:<CoordSys>}})$0"
+			"trigger": "POSRANGE",
+			"kind": ["function", "f", "Function"],
+			"details": "Determine whether the currently interpolated position setpoint of an axis is located in a window at a predefined reference position",
+			"contents": "POSRANGE(${1:<Axis>},${2:<RefPos>},${3:<Tol>}${4:,${5:<CoordSys>}})"
 		},
 		{
-			"trigger": "POT\tfunction",
-			"contents": "POT(${1:<REAL>})$0"
+			"trigger": "POT",
+			"kind": ["function", "f", "Function"],
+			"details": "Square (arithmetic function)",
+			"contents": "POT(${1:<REAL>})"
 		},
 		{
-			"trigger": "PR\tfunction",
-			"contents": "PR(${1:<REAL>})$0"
+			"trigger": "PR",
+			"kind": ["function", "f", "Function"],
+			"details": "Per revolution",
+			"contents": "PR(${1:<REAL>})"
 		},
 		{
-			"trigger": "PROTD\tfunction",
-			"contents": "PROTD(${1:<STRING>},${2:<STRING>},${3:<VAR REAL>,${4:<BOOL>})$0"
+			"trigger": "PROTD",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculating the distance between two protection areas",
+			"contents": "PROTD(${1:<STRING>},${2:<STRING>},${3:<VAR REAL>,${4:<BOOL>})"
 		},
 		{
-			"trigger": "QU\tfunction",
-			"contents": "QU(${1:<INT>})$0"
+			"trigger": "QU",
+			"kind": ["function", "f", "Function"],
+			"details": "Fast additional (auxiliary) function output",
+			"contents": "QU(${1:<INT>})"
 		},
 		{
-			"trigger": "RAC\tfunction",
-			"contents": "RAC(${1:<REAL>})$0"
+			"trigger": "RAC",
+			"kind": ["function", "f", "Function"],
+			"details": "Absolute non-modal axis-specific radius programming",
+			"contents": "RAC(${1:<REAL>})"
 		},
 		{
-			"trigger": "REP\tfunction",
-			"contents": "REP(${1:<Value>}${2:,${3:[Count]}})$0"
+			"trigger": "REP",
+			"kind": ["function", "f", "Function"],
+			"details": "Keyword for initialization of all elements of an array with the same value",
+			"contents": "REP(${1:<Value>}${2:,${3:[Count]}})"
 		},
 		{
-			"trigger": "RIC\tfunction",
-			"contents": "RIC(${1:<REAL>})$0"
+			"trigger": "RIC",
+			"kind": ["function", "f", "Function"],
+			"details": "Relative non-modal axis-specific radius programming",
+			"contents": "RIC(${1:<REAL>})"
 		},
 		{
-			"trigger": "RINDEX\tfunction",
-			"contents": "RINDEX(${1:<STRING>},${2:<CHAR>})$0"
+			"trigger": "RINDEX",
+			"kind": ["function", "f", "Function"],
+			"details": "Define index of character in input string",
+			"contents": "RINDEX(${1:<STRING>},${2:<CHAR>})"
 		},
 		{
-			"trigger": "ROUND\tfunction",
-			"contents": "ROUND(${1:<REAL>})$0"
+			"trigger": "ROUND",
+			"kind": ["function", "f", "Function"],
+			"details": "Rounding of decimal places",
+			"contents": "ROUND(${1:<REAL>})"
 		},
 		{
-			"trigger": "ROUNDUP\tfunction",
-			"contents": "ROUNDUP(${1:<REAL>})$0"
+			"trigger": "ROUNDUP",
+			"kind": ["function", "f", "Function"],
+			"details": "Rounding up of an input value",
+			"contents": "ROUNDUP(${1:<REAL>})"
 		},
 		{
-			"trigger": "RTOB\tfunction",
-			"contents": "RTOB(${1:<REAL>})$0"
+			"trigger": "SET",
+			"kind": ["function", "f", "Function"],
+			"details": "Keyword for initialization of all elements of an array with listed values",
+			"contents": "SET(${1:<Value 1>}${2:,${3:[Value 2]}${4:,${5:[...]}}})"
 		},
 		{
-			"trigger": "RTOI\tfunction",
-			"contents": "RTOI(${1:<REAL>})$0"
+			"trigger": "SETDNO",
+			"kind": ["function", "f", "Function"],
+			"details": "Assign the D number of a cutting edge (CE) of a tool (T)",
+			"contents": "SETDNO(${1:<TNo>},${2:<EdgeIndex>},${3:<DNo>})"
 		},
 		{
-			"trigger": "SET\tfunction",
-			"contents": "SET(${1:<Value 1>}${2:,${3:[Value 2]}${4:,${5:[...]}}})$0"
+			"trigger": "SETTCOR",
+			"kind": ["function", "f", "Function"],
+			"details": "Modification of tool components taking all supplementary conditions into account",
+			"contents": "SETTCOR(${1:<CorrVal>[3]},${2:\"GW\"},${3:<Int>},${4:<Int>},${5:<Int>})"
 		},
 		{
-			"trigger": "SETDNO\tfunction",
-			"contents": "SETDNO(${1:<TNo>},${2:<EdgeIndex>},${3:<DNo>})$0"
+			"trigger": "SIN",
+			"kind": ["function", "f", "Function"],
+			"details": "Sine (trigon. function)",
+			"contents": "SIN(${1:<REAL>})"
 		},
 		{
-			"trigger": "SETTCOR\tfunction",
-			"contents": "SETTCOR(${1:<CorrVal>[3]},${2:\"GW\"},${3:<Int>},${4:<Int>},${5:<Int>})$0"
+			"trigger": "SIRELAY",
+			"kind": ["function", "f", "Function"],
+			"details": "Activate the safety functions parameterized with SIRELIN, SIRELOUT, and SIRELTIME",
+			"contents": "SIRELAY(${1:<Id>})"
 		},
 		{
-			"trigger": "SIN\tfunction",
-			"contents": "SIN(${1:<REAL>})$0"
+			"trigger": "SPI",
+			"kind": ["function", "f", "Function"],
+			"details": "Converts spindle number into axis identifier",
+			"contents": "SPI(${1:<SpindleNo>})"
 		},
 		{
-			"trigger": "SIRELAY\tfunction",
-			"contents": "SIRELAY(${1:<Id>})$0"
+			"trigger": "SPRINT",
+			"kind": ["function", "f", "Function"],
+			"details": "Returns an input string formatted",
+			"contents": "SPRINT(${1:<Format>}${2:,${3:[P1]}${4:,${5:[...]}}})"
 		},
 		{
-			"trigger": "SPI\tfunction",
-			"contents": "SPI(${1:<SpindleNo>})$0"
+			"trigger": "SQRT",
+			"kind": ["function", "f", "Function"],
+			"details": "Square root (arithmetic function)",
+			"contents": "SQRT(${1:<REAL>})"
 		},
 		{
-			"trigger": "SPRINT\tfunction",
-			"contents": "SPRINT(${1:<Format>}${2:,${3:[P1]}${4:,${5:[...]}}})$0"
+			"trigger": "STRINGIS",
+			"kind": ["function", "f", "Function"],
+			"details": "Checks the present scope of NC language and the NC cycle names, user variables, macros, and label names belonging specifically to this command to establish whether these exist, are valid, defined or active.",
+			"contents": "STRINGIS(${1:<STRING>})"
 		},
 		{
-			"trigger": "SQRT\tfunction",
-			"contents": "SQRT(${1:<REAL>})$0"
+			"trigger": "STRLEN",
+			"kind": ["function", "f", "Function"],
+			"details": "Define string length",
+			"contents": "STRLEN(${1:<STRING>})"
 		},
 		{
-			"trigger": "STRINGIS\tfunction",
-			"contents": "STRINGIS(${1:<STRING>})$0"
+			"trigger": "SUBSTR",
+			"kind": ["function", "f", "Function"],
+			"details": "Define index of character in input string",
+			"contents": "SUBSTR(${1:<STRING>},${2:<idx>}${3:,${4:[len]}})"
 		},
 		{
-			"trigger": "STRLEN\tfunction",
-			"contents": "STRLEN(${1:<STRING>})$0"
+			"trigger": "TAN",
+			"kind": ["function", "f", "Function"],
+			"details": "Tangent (trigon. function)",
+			"contents": "TAN(${1:<REAL>})"
 		},
 		{
-			"trigger": "SUBSTR\tfunction",
-			"contents": "SUBSTR(${1:<STRING>},${2:<idx>}${3:,${4:[len]}})$0"
+			"trigger": "TOLOWER",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert the letters of a string into lowercase",
+			"contents": "TOLOWER(${1:<STRING>})"
 		},
 		{
-			"trigger": "TAN\tfunction",
-			"contents": "TAN(${1:<REAL>})$0"
+			"trigger": "TOOLENV",
+			"kind": ["function", "f", "Function"],
+			"details": "Save current states which are of significance to the evaluation of the tool data stored in the memory",
+			"contents": "TOOLENV(${1:<STRING>})"
 		},
 		{
-			"trigger": "TOLOWER\tfunction",
-			"contents": "TOLOWER(${1:<STRING>})$0"
+			"trigger": "TOOLGNT",
+			"kind": ["function", "f", "Function"],
+			"details": "Determine number of tools of a tool group",
+			"contents": "TOOLGNT(${1:<STRING>})"
 		},
 		{
-			"trigger": "TOOLENV\tfunction",
-			"contents": "TOOLENV(${1:<STRING>})$0"
+			"trigger": "TOOLGT",
+			"kind": ["function", "f", "Function"],
+			"details": "Determine T number of a tool from a tool group",
+			"contents": "TOOLGT(${1:<STRING>},${2:<INT>})"
 		},
 		{
-			"trigger": "TOOLGNT\tfunction",
-			"contents": "TOOLGNT(${1:<STRING>})$0"
+			"trigger": "TOUPPER",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert the letters of a string into uppercase",
+			"contents": "TOUPPER(${1:<STRING>})"
 		},
 		{
-			"trigger": "TOOLGT\tfunction",
-			"contents": "TOOLGT(${1:<STRING>},${2:<INT>})$0"
+			"trigger": "TRUNC",
+			"kind": ["function", "f", "Function"],
+			"details": "Truncation of decimal places",
+			"contents": "TRUNC(${1:<REAL>})"
 		},
 		{
-			"trigger": "TOUPPER\tfunction",
-			"contents": "TOUPPER(${1:<STRING>})$0"
+			"trigger": "ITOR",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert INT to REAL",
+			"contents": "ITOR(${1:<INT>})"
 		},
 		{
-			"trigger": "TRUNC\tfunction",
-			"contents": "TRUNC(${1:<REAL>})$0"
+			"trigger": "RTOI",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert REAL to INT",
+			"contents": "RTOI(${1:<REAL>})"
+		},
+		{
+			"trigger": "RTOB",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert REAL to BOOL",
+			"contents": "RTOB(${1:<REAL>})"
+		},
+		{
+			"trigger": "BTOR",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert BOOL to REAL",
+			"contents": "BTOR(${1:<BOOL>})"
+		},
+		{
+			"trigger": "ITOB",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert INT to REAL",
+			"contents": "ITOB(${1:<INT>})"
+		},
+		{
+			"trigger": "BTOI",
+			"kind": ["function", "f", "Function"],
+			"details": "Convert BOOL to INT",
+			"contents": "BTOI(${1:<BOOL>})"
 		}
 	]
 }

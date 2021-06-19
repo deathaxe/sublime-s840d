@@ -2,700 +2,1048 @@
 	"scope": "source.s840d_gcode meta.function-call.name - comment - string",
 	"completions": [
 		{
-			"trigger": "ADISPOSA\tprocedure",
-			"contents": "ADISPOSA(${1:<AXIS>},${2:<MODE>},${3:<TOL>},)$0"
+			"trigger": "ADISPOSA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Size of the tolerance window for IPOBRKA",
+			"contents": "ADISPOSA(${1:<AXIS>},${2:<MODE>},${3:<TOL>},)"
 		},
 		{
-			"trigger": "AUXFUDEL\tprocedure",
-			"contents": "AUXFUDEL(${1:<Type>},${2:<Extension>},${3:<Value>},${4:<Group>})$0"
+			"trigger": "AUXFUDEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete auxiliary function channel-specifically from the global list",
+			"contents": "AUXFUDEL(${1:<Type>},${2:<Extension>},${3:<Value>},${4:<Group>})"
 		},
 		{
-			"trigger": "AUXFUDELG\tprocedure",
-			"contents": "AUXFUDELG(${1:<Group>})$0"
+			"trigger": "AUXFUDELG",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete all auxiliary functions of an auxiliary function group channel-specifically from the global list",
+			"contents": "AUXFUDELG(${1:<Group>})"
 		},
 		{
-			"trigger": "AUXFUMSEQ\tprocedure",
-			"contents": "AUXFUMSEQ(${1:<NumIn>},${2:<InM>},${3:<InExt>},${4:<NumOut>},${5:<OutM>},${6:<OutExt>})$0"
+			"trigger": "AUXFUMSEQ",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Determine output sequence of M auxiliary functions",
+			"contents": "AUXFUMSEQ(${1:<NumIn>},${2:<InM>},${3:<InExt>},${4:<NumOut>},${5:<OutM>},${6:<OutExt>})"
 		},
 		{
-			"trigger": "AUXFUSYNC\tprocedure",
-			"contents": "AUXFUSYNC(${1:<Num>},${2:<Group>},${3:<Assembled>)$0"
+			"trigger": "AUXFUSYNC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Generate a complete part program block for the channel-specific SERUPRO end ASUB as string from the global list of auxiliary functions",
+			"contents": "AUXFUSYNC(${1:<Num>},${2:<Group>},${3:<Assembled>)"
 		},
 		{
-			"trigger": "AXCTSWE\tprocedure",
-			"contents": "AXCTSWE(${1:<AXCONTAINER>})$0"
+			"trigger": "AXCTSWE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Rotate axis container",
+			"contents": "AXCTSWE(${1:<AXCONTAINER>})"
 		},
 		{
-			"trigger": "AXCTSWEC\tprocedure",
-			"contents": "AXCTSWEC(${1:<AXCONTAINER>})$0"
+			"trigger": "AXCTSWEC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Canceling enable for axis container rotation",
+			"contents": "AXCTSWEC(${1:<AXCONTAINER>})"
 		},
 		{
-			"trigger": "AXCTSWED\tprocedure",
-			"contents": "AXCTSWED(${1:<AXCONTAINER>})$0"
+			"trigger": "AXCTSWED",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Rotating axis container (command variant for commissioning!)",
+			"contents": "AXCTSWED(${1:<AXCONTAINER>})"
 		},
 		{
-			"trigger": "AXTOCHAN\tprocedure",
-			"contents": "AXTOCHAN(${1:<AXIS>},${2:<CHAN>}${3:,${4:[...]}})$0"
+			"trigger": "AXTOCHAN",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Request axis for a specific channel",
+			"contents": "AXTOCHAN(${1:<AXIS>},${2:<CHAN>}${3:,${4:[...]}})"
 		},
 		{
-			"trigger": "BRISKA\tprocedure",
-			"contents": "BRISKA(${1:<AXIS>})$0"
+			"trigger": "BRISKA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Switch on brisk path acceleration for the program med axes",
+			"contents": "BRISKA(${1:<AXIS>})"
 		},
 		{
-			"trigger": "CALLPATH\tprocedure",
-			"contents": "CALLPATH(${1:<path>})$0"
+			"trigger": "CALLPATH",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Programmable search path for subprogram calls",
+			"contents": "CALLPATH(${1:<path>})"
 		},
 		{
-			"trigger": "CANCEL\tprocedure",
-			"contents": "CANCEL(${1:<IDS1>}${2:,${3:[...]}})$0"
+			"trigger": "CANCEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Cancel modal synchronized action",
+			"contents": "CANCEL(${1:<IDS1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "CANCELSUB\tprocedure",
+			"trigger": "CANCELSUB",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Cancel subprogram asynchrounously",
 			"contents": "CANCELSUB"
 		},
 		{
-			"trigger": "CHANDATA\tprocedure",
-			"contents": "CHANDATA(${1:<INT>})$0"
+			"trigger": "CHANDATA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Set channel number for channel data access",
+			"contents": "CHANDATA(${1:<INT>})"
 		},
 		{
-			"trigger": "CLEARM\tprocedure",
-			"contents": "CLEARM(${1:<INT>}${2:,${3:[...]}})$0"
+			"trigger": "CLEARM",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Reset one/several markers for channel coordination",
+			"contents": "CLEARM(${1:<INT>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "CLRINT\tprocedure",
-			"contents": "CLRINT(${1:<INT>})$0"
+			"trigger": "CLRINT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deselect interrupt",
+			"contents": "CLRINT(${1:<INT>})"
 		},
 		{
-			"trigger": "CONTDCON\tprocedure",
-			"contents": "CONTDCON(${1:<ContourTable>},${2:<Type>},${3:<UnderCuts>},${4:<Direction>})$0"
+			"trigger": "CONTDCON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate tabular contour decoding",
+			"contents": "CONTDCON(${1:<ContourTable>},${2:<Type>},${3:<UnderCuts>},${4:<Direction>})"
 		},
 		{
-			"trigger": "CONTPRON\tprocedure",
-			"contents": "CONTPRON(${1:<ContourTable>},${2:<Direction>})$0"
+			"trigger": "CONTPRON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate reference preprocessing",
+			"contents": "CONTPRON(${1:<ContourTable>},${2:<Direction>})"
 		},
 		{
-			"trigger": "CORROF\tprocedure",
-			"contents": "CORROF(${1:<AXIS>},${2:<STRING>})$0"
+			"trigger": "CORROF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "All active overlaid movements are deselected.",
+			"contents": "CORROF(${1:<AXIS>},${2:<STRING>})"
 		},
 		{
-			"trigger": "COUPDEF\tprocedure",
-			"contents": "COUPDEF(${1:<FS>},${2:<LS>},${3:<UFS>},${4:<ULS>},${5:<BlockTrans>},${6:<CoupType>})$0"
+			"trigger": "COUPDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Definition ELG group/synchronous spindle group",
+			"contents": "COUPDEF(${1:<FS>},${2:<LS>},${3:<UFS>},${4:<ULS>},${5:<BlockTrans>},${6:<CoupType>})"
 		},
 		{
-			"trigger": "COUPDEL\tprocedure",
-			"contents": "COUPDEL(${1:<FS>},${2:<LS>})$0"
+			"trigger": "COUPDEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete ELG group",
+			"contents": "COUPDEL(${1:<FS>},${2:<LS>})"
 		},
 		{
-			"trigger": "COUPOF\tprocedure",
-			"contents": "COUPOF(${1:<FS>},${2:<LS>},${3:<POSFS>},${4:<POSLS>})$0"
+			"trigger": "COUPOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivate ELG group / synchronous spindle pair",
+			"contents": "COUPOF(${1:<FS>},${2:<LS>},${3:<POSFS>},${4:<POSLS>})"
 		},
 		{
-			"trigger": "COUPOFS\tprocedure",
-			"contents": "COUPOFS(${1:<FS>},${2:<LS>})$0"
+			"trigger": "COUPOFS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivate ELG group/synchronous spindle pair with stop of following spindle",
+			"contents": "COUPOFS(${1:<FS>},${2:<LS>})"
 		},
 		{
-			"trigger": "COUPON\tprocedure",
-			"contents": "COUPON(${1:<FS>},${2:<LS>})$0"
+			"trigger": "COUPON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate ELG group / synchronous spindle pair",
+			"contents": "COUPON(${1:<FS>},${2:<LS>})"
 		},
 		{
-			"trigger": "COUPONC\tprocedure",
-			"contents": "COUPONC(${1:<FS>},${2:<LS>})$0"
+			"trigger": "COUPONC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Transfer activation of ELG group/synchronous spindle pair with previous programming",
+			"contents": "COUPONC(${1:<FS>},${2:<LS>})"
 		},
 		{
-			"trigger": "COUPRES\tprocedure",
-			"contents": "COUPRES(${1:<FS>},${2:<LS>})$0"
+			"trigger": "COUPRES",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Reset ELG group",
+			"contents": "COUPRES(${1:<FS>},${2:<LS>})"
 		},
 		{
-			"trigger": "CPROT\tprocedure",
-			"contents": "CPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+			"trigger": "CPROT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate / deactivate channel-specific protection zone",
+			"contents": "CPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})"
 		},
 		{
-			"trigger": "CPROTDEF\tprocedure",
-			"contents": "CPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+			"trigger": "CPROTDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Definition of a channel-specific protection area",
+			"contents": "CPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})"
 		},
 		{
-			"trigger": "CTABDEF\tprocedure",
-			"contents": "CTABDEF(${1:<FAx>},${2:<LAx>},${3:<ID>},${4:<Period>},${5:[MemLoc]})$0"
+			"trigger": "CTABDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate table definition",
+			"contents": "CTABDEF(${1:<FAx>},${2:<LAx>},${3:<ID>},${4:<Period>},${5:[MemLoc]})"
 		},
 		{
-			"trigger": "CTABDEL\tprocedure",
-			"contents": "CTABDEL(${1:<...>})$0"
+			"trigger": "CTABDEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Clear curve table",
+			"contents": "CTABDEL(${1:<...>})"
 		},
 		{
-			"trigger": "CTABLOCK\tprocedure",
-			"contents": "CTABLOCK(${1:<...>})$0"
+			"trigger": "CTABLOCK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete and overwrite, lock",
+			"contents": "CTABLOCK(${1:<...>})"
 		},
 		{
-			"trigger": "CTABUNLOCK\tprocedure",
-			"contents": "CTABUNLOCK(${1:<...>})$0"
+			"trigger": "CTABUNLOCK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Revoke delete and overwrite lock",
+			"contents": "CTABUNLOCK(${1:<...>})"
 		},
 		{
-			"trigger": "DELAYFSTOF\tprocedure",
+			"trigger": "DELAYFSTOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Exclude procedure from stop delay section",
 			"contents": "DELAYFSTOF"
 		},
 		{
-			"trigger": "DELAYFSTON\tprocedure",
+			"trigger": "DELAYFSTON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Define the start of a stop delay section",
 			"contents": "DELAYFSTON"
 		},
 		{
-			"trigger": "DELDTG\tprocedure",
+			"trigger": "DELDTG",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete distance-to-go",
 			"contents": "DELDTG"
 		},
 		{
-			"trigger": "DELETE\tprocedure",
-			"contents": "DELETE(${1:<Err>},${2:<FileName>})$0"
+			"trigger": "DELETE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete the specified file. The file name can be specified with path and file identifier.",
+			"contents": "DELETE(${1:<Err>},${2:<FileName>})"
 		},
 		{
-			"trigger": "DELMT\tprocedure",
-			"contents": "DELMT(${1:<ToolIdent>})$0"
+			"trigger": "DELMT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete multitool",
+			"contents": "DELMT(${1:<ToolIdent>})"
 		},
 		{
-			"trigger": "DELT\tprocedure",
-			"contents": "DELT(${1:<ToolIdent>},${2:<DuploNo>})$0"
+			"trigger": "DELT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete Tool",
+			"contents": "DELT(${1:<ToolIdent>},${2:<DuploNo>})"
 		},
 		{
-			"trigger": "DELTC\tprocedure",
-			"contents": "DELTC(${1:<StartIndex>},${2:<EndIndex>})$0"
+			"trigger": "DELTC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete toolholder data record",
+			"contents": "DELTC(${1:<StartIndex>},${2:<EndIndex>})"
 		},
 		{
-			"trigger": "DISABLE\tprocedure",
-			"contents": "DISABLE(${1:<INT>})$0"
+			"trigger": "DISABLE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Interrupt OFF",
+			"contents": "DISABLE(${1:<INT>})"
 		},
 		{
-			"trigger": "DRIVEA\tprocedure",
-			"contents": "DRIVEA(${1:<AXIS>}${2:,${3:[...]}})$0"
+			"trigger": "DRIVEA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate knee-shaped acceleration characteristic for the programmed axes",
+			"contents": "DRIVEA(${1:<AXIS>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "DZERO\tprocedure",
-			"contents": "DZERO(${1:<INT>})$0"
+			"trigger": "DZERO",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Marks all D numbers of the TO unit as invalid",
+			"contents": "DZERO(${1:<INT>})"
 		},
 		{
-			"trigger": "EGDEF\tprocedure",
-			"contents": "EGDEF(${1:<...>})$0"
+			"trigger": "EGDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Definition of an electronic gear",
+			"contents": "EGDEF(${1:<...>})"
 		},
 		{
-			"trigger": "EGDEL\tprocedure",
-			"contents": "EGDEL(${1:<...>})$0"
+			"trigger": "EGDEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delete coupling definition for the following ax is",
+			"contents": "EGDEL(${1:<...>})"
 		},
 		{
-			"trigger": "EGOFC\tprocedure",
-			"contents": "EGOFC(${1:<...>})$0"
+			"trigger": "EGOFC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Turn off electronic gear continuously",
+			"contents": "EGOFC(${1:<...>})"
 		},
 		{
-			"trigger": "EGOFS\tprocedure",
-			"contents": "EGOFS(${1:<...>})$0"
+			"trigger": "EGOFS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Turn off electronic gear selectively",
+			"contents": "EGOFS(${1:<...>})"
 		},
 		{
-			"trigger": "EGON\tprocedure",
-			"contents": "EGON(${1:<...>})$0"
+			"trigger": "EGON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Turn on electronic gear",
+			"contents": "EGON(${1:<...>})"
 		},
 		{
-			"trigger": "EGONSYN\tprocedure",
-			"contents": "EGONSYN(${1:<...>})$0"
+			"trigger": "EGONSYN",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Turn on electronic gear",
+			"contents": "EGONSYN(${1:<...>})"
 		},
 		{
-			"trigger": "EGONSYNE\tprocedure",
-			"contents": "EGONSYNE(${1:<...>})$0"
+			"trigger": "EGONSYNE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Turn on electronic gear, with specification of approach mode",
+			"contents": "EGONSYNE(${1:<...>})"
 		},
 		{
-			"trigger": "ENABLE\tprocedure",
-			"contents": "ENABLE(${1:<INT>})$0"
+			"trigger": "ENABLE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Interrupt ON",
+			"contents": "ENABLE(${1:<INT>})"
 		},
 		{
-			"trigger": "ESRR\tprocedure",
-			"contents": "ESRR(${1:<axis1>},${2:<dist1>},${3:<velo1>}${4:,${5:[...]}})$0"
+			"trigger": "ESRR",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Parameterizing drive-autonomous ESR re traction in the drive",
+			"contents": "ESRR(${1:<axis1>},${2:<dist1>},${3:<velo1>}${4:,${5:[...]}})"
 		},
 		{
-			"trigger": "ESRS\tprocedure",
-			"contents": "ESRS(${1:<axis1>},${2:<time1>},${3:,${4:[...]}})$0"
+			"trigger": "ESRS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Parameterizing drive-autonomous ESR shut down in the drive",
+			"contents": "ESRS(${1:<axis1>},${2:<time1>},${3:,${4:[...]}})"
 		},
 		{
-			"trigger": "EXECSTRING\tprocedure",
-			"contents": "EXECSTRING(${1:<STRING>})$0"
+			"trigger": "EXECSTRING",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Transfer of a string variable with the executing part program line",
+			"contents": "EXECSTRING(${1:<STRING>})"
 		},
 		{
-			"trigger": "EXECTAB\tprocedure",
-			"contents": "EXECTAB(${1:<ContourTable>}${2:<ContourElem>})$0"
+			"trigger": "EXECTAB",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Execute an element from a motion table",
+			"contents": "EXECTAB(${1:<ContourTable>}${2:<ContourElem>})"
 		},
 		{
-			"trigger": "EXECUTE\tprocedure",
-			"contents": "EXECUTE(${1:<Error>})$0"
+			"trigger": "EXECUTE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Program execution ON",
+			"contents": "EXECUTE(${1:<Error>})"
 		},
 		{
-			"trigger": "EXTCALL\tprocedure",
-			"contents": "EXTCALL(${1:<ProgPath>})$0"
+			"trigger": "EXTCALL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Execute external subprogram",
+			"contents": "EXTCALL(${1:<ProgPath>})"
 		},
 		{
-			"trigger": "EXTCLOSE\tprocedure",
+			"trigger": "EXTCLOSE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Closing external device / file that was opened for writing",
 			"contents": "EXTCLOSE(${1:<Result>},${2:<ExtDev>})$0 "
 		},
 		{
-			"trigger": "EXTOPEN\tprocedure",
-			"contents": "EXTOPEN(${1:<Result>},${2:<ExtDev>},${3:<SyncMode>},${4:<AccessMode>},${5:<WriteMode>})$0"
+			"trigger": "EXTOPEN",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Opening external device / file for the channel for writing",
+			"contents": "EXTOPEN(${1:<Result>},${2:<ExtDev>},${3:<SyncMode>},${4:<AccessMode>},${5:<WriteMode>})"
 		},
 		{
-			"trigger": "FCTDEF\tprocedure",
-			"contents": "FCTDEF(${1:<Func>},${2:<Min>},${3:<Max>},${4:<a0>},${5:<a1>},${6:<a2>},${7:<a3>})$0"
+			"trigger": "FCTDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Define polynomial function",
+			"contents": "FCTDEF(${1:<Func>},${2:<Min>},${3:<Max>},${4:<a0>},${5:<a1>},${6:<a2>},${7:<a3>})"
 		},
 		{
-			"trigger": "FGROUP\tprocedure",
-			"contents": "FGROUP(${1:<ChanAxis>})$0"
+			"trigger": "FGROUP",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Definition of axis/axes with path feedrate",
+			"contents": "FGROUP(${1:<ChanAxis>})"
 		},
 		{
-			"trigger": "FILEDATE\tprocedure",
-			"contents": "FILEDATE(${1:<State>},${2:<File>},${3:<Result>})$0"
+			"trigger": "FILEDATE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Returns date of most recent write access to file",
+			"contents": "FILEDATE(${1:<State>},${2:<File>},${3:<Result>})"
 		},
 		{
-			"trigger": "FILEINFO\tprocedure",
-			"contents": "FILEINFO(${1:<State>},${2:<File>},${3:<Result>})$0"
+			"trigger": "FILEINFO",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Returns summary information listing FILE DATE, FILESIZE, FILESTAT, and FILETIME",
+			"contents": "FILEINFO(${1:<State>},${2:<File>},${3:<Result>})"
 		},
 		{
-			"trigger": "FILESIZE\tprocedure",
-			"contents": "FILESIZE(${1:<State>},${2:<File>},${3:<Result>})$0"
+			"trigger": "FILESIZE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Returns current file size",
+			"contents": "FILESIZE(${1:<State>},${2:<File>},${3:<Result>})"
 		},
 		{
-			"trigger": "FILESTAT\tprocedure",
-			"contents": "FILESTAT(${1:<State>},${2:<File>},${3:<Result>})$0"
+			"trigger": "FILESTAT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Returns file status of rights for read, write, execute, display, delete (rwxsd)",
+			"contents": "FILESTAT(${1:<State>},${2:<File>},${3:<Result>})"
 		},
 		{
-			"trigger": "FILETIME\tprocedure",
-			"contents": "FILETIME(${1:<State>},${2:<File>},${3:<Result>})$0"
+			"trigger": "FILETIME",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Returns time of most recent write access to file",
+			"contents": "FILETIME(${1:<State>},${2:<File>},${3:<Result>})"
 		},
 		{
-			"trigger": "FPO\tprocedure",
-			"contents": "FPO(${1:<..,..,..>})$0"
+			"trigger": "FPO",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Feedrate characteristic programmed via a polynomial",
+			"contents": "FPO(${1:<..,..,..>})"
 		},
 		{
-			"trigger": "FPR\tprocedure",
-			"contents": "FPR(${1:<AXIS>})$0"
+			"trigger": "FPR",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Rotary axis identifier",
+			"contents": "FPR(${1:<AXIS>})"
 		},
 		{
-			"trigger": "FPRAOF\tprocedure",
-			"contents": "FPRAOF(${1:<AXIS>},${2:<AXIS>})$0"
+			"trigger": "FPRAOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivate revolutional feedrate",
+			"contents": "FPRAOF(${1:<AXIS>},${2:<AXIS>})"
 		},
 		{
-			"trigger": "FPRAON\tprocedure",
-			"contents": "FPRAON(${1:<AXIS>},${2:<AXIS>})$0"
+			"trigger": "FPRAON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate revolutional feedrate",
+			"contents": "FPRAON(${1:<AXIS>},${2:<AXIS>})"
 		},
 		{
-			"trigger": "FTOC\tprocedure",
-			"contents": "FTOC(${1:<ID>},${2:<offset[]>},${3:<len>,${4:<channel>},${5:<spindle>})$0"
+			"trigger": "FTOC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Change fine tool offset",
+			"contents": "FTOC(${1:<ID>},${2:<offset[]>},${3:<len>,${4:<channel>},${5:<spindle>})"
 		},
 		{
-			"trigger": "GEOAX\tprocedure",
-			"contents": "GEOAX(${1:<INT>},${2:<AXIS>}${3:,${4:[...]}})$0"
+			"trigger": "GEOAX",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Assign new channel axes to geometry axes 1 - 3",
+			"contents": "GEOAX(${1:<INT>},${2:<AXIS>}${3:,${4:[...]}})"
 		},
 		{
-			"trigger": "GET\tprocedure",
-			"contents": "GET(${1:<AXIS>})$0"
+			"trigger": "GET",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Replace enabled axis between channels",
+			"contents": "GET(${1:<AXIS>})"
 		},
 		{
-			"trigger": "GETD\tprocedure",
-			"contents": "GETD(${1:<AXIS>})$0"
+			"trigger": "GETD",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Replace axis directly between channels",
+			"contents": "GETD(${1:<AXIS>})"
 		},
 		{
-			"trigger": "GETEXET\tprocedure",
-			"contents": "GETEXET(${1:<TNo>}${2:,${3:[SpindleNo]}})$0"
+			"trigger": "GETEXET",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Reading of the loaded T number",
+			"contents": "GETEXET(${1:<TNo>}${2:,${3:[SpindleNo]}})"
 		},
 		{
-			"trigger": "GETFREELOC\tprocedure",
-			"contents": "GETFREELOC(${1:<FreeMagNo>},${2:<FreeLocNo>},${3:<TNo>}${4:,${5:[refMagNo]}}${6:,${7:[refLocNo]}}${8:,${9:[Reserve]}})$0"
+			"trigger": "GETFREELOC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Find a free space in the magazine for a given tool",
+			"contents": "GETFREELOC(${1:<FreeMagNo>},${2:<FreeLocNo>},${3:<TNo>}${4:,${5:[refMagNo]}}${6:,${7:[refLocNo]}}${8:,${9:[Reserve]}})"
 		},
 		{
-			"trigger": "GETSELT\tprocedure",
-			"contents": "GETSELT(${1:<TNo>}${2:,${3:[SpindleNo]}})$0"
+			"trigger": "GETSELT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Return selected T number",
+			"contents": "GETSELT(${1:<TNo>}${2:,${3:[SpindleNo]}})"
 		},
 		{
-			"trigger": "GWPSOF\tprocedure",
-			"contents": "GWPSOF(${1:<TNo>})$0"
+			"trigger": "GWPSOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deselect constant grinding wheel peripheral speed (GWPS)",
+			"contents": "GWPSOF(${1:<TNo>})"
 		},
 		{
-			"trigger": "GWPSON\tprocedure",
-			"contents": "GWPSON(${1:<TNo>})$0"
+			"trigger": "GWPSON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Select constant grinding wheel peripheral speed (GWPS)",
+			"contents": "GWPSON(${1:<TNo>})"
 		},
 		{
-			"trigger": "ICYCOF\tprocedure",
+			"trigger": "ICYCOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "All blocks of a technology cycle are processed in one interpolation cycle following ICYCOF",
 			"contents": "ICYCOF"
 		},
 		{
-			"trigger": "ICYCON\tprocedure",
+			"trigger": "ICYCON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Each block of a technology cycle is processed in a separate interpolation cycle following ICYCON",
 			"contents": "ICYCON"
 		},
 		{
-			"trigger": "INIT\tprocedure",
-			"contents": "INIT(${1:<Channel>},${2:\"/_N_MPF_DIR/_N_PROG_MPF\"})$0"
+			"trigger": "INIT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Selection of a particular NC program for execution in a particular channel",
+			"contents": "INIT(${1:<Channel>},${2:\"/_N_MPF_DIR/_N_PROG_MPF\"})"
 		},
 		{
-			"trigger": "IPOBRKA\tprocedure",
-			"contents": "IPOBRKA(${1:<AXIS>},${2:<ELAPSED>})$0"
+			"trigger": "IPOBRKA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Motion criterion from braking ramp activation",
+			"contents": "IPOBRKA(${1:<AXIS>},${2:<ELAPSED>})"
 		},
 		{
-			"trigger": "IPTRLOCK\tprocedure",
+			"trigger": "IPTRLOCK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Freeze start of the untraceable program section at next machine function block.",
 			"contents": "IPTRLOCK"
 		},
 		{
-			"trigger": "IPTRUNLOCK\tprocedure",
+			"trigger": "IPTRUNLOCK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Set end of untraceable program section at current block at time of interruption.",
 			"contents": "IPTRUNLOCK"
 		},
 		{
-			"trigger": "JERKA\tprocedure",
-			"contents": "JERKA(${1:<AXIS>})$0"
+			"trigger": "JERKA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate acceleration response set via MD for",
+			"contents": "JERKA(${1:<AXIS>})"
 		},
 		{
-			"trigger": "L\tprocedure",
+			"trigger": "L",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Subprogram number",
 			"contents": "L${0:<INT>}"
 		},
 		{
-			"trigger": "LEADOF\tprocedure",
-			"contents": "LEADOF(${1:<FAx>},${2:<LAx>})$0"
+			"trigger": "LEADOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Axial master value coupling OFF",
+			"contents": "LEADOF(${1:<FAx>},${2:<LAx>})"
 		},
 		{
-			"trigger": "LEADON\tprocedure",
-			"contents": "LEADON(${1:<FAx>},${2:<LAx>},${3:<CurveTable>})$0"
+			"trigger": "LEADON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Axial master value coupling on",
+			"contents": "LEADON(${1:<FAx>},${2:<LAx>},${3:<CurveTable>})"
 		},
 		{
-			"trigger": "LOCK\tprocedure",
-			"contents": "LOCK(${1:<IDS1>}${2:,${3:[...]}})$0"
+			"trigger": "LOCK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Disable synchronized action with ID (stop technology cycle)",
+			"contents": "LOCK(${1:<IDS1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "MASLDEF\tprocedure",
-			"contents": "MASLDEF(${1:<Slv1>}${2:,${3:[...]}})$0"
+			"trigger": "MASLDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Define master/slave axis grouping",
+			"contents": "MASLDEF(${1:<Slv1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "MASLDEL\tprocedure",
-			"contents": "MASLDEL(${1:<Slv1>}${2:,${3:[...]}})$0"
+			"trigger": "MASLDEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Uncouple master/slave axis grouping and clear grouping definition",
+			"contents": "MASLDEL(${1:<Slv1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "MASLOF\tprocedure",
-			"contents": "MASLOF(${1:<Slv1>}${2:,${3:[...]}})$0"
+			"trigger": "MASLOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivation of a temporary coupling",
+			"contents": "MASLOF(${1:<Slv1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "MASLOFS\tprocedure",
-			"contents": "MASLOFS(${1:<Slv1>}${2:,${3:[...]}})$0"
+			"trigger": "MASLOFS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivation of a temporary coupling with automatic slave axis stop",
+			"contents": "MASLOFS(${1:<Slv1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "MASLON\tprocedure",
-			"contents": "MASLON(${1:<Slv1>}${2:,${3:[...]}})$0"
+			"trigger": "MASLON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activation of a temporary coupling",
+			"contents": "MASLON(${1:<Slv1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "MMC\tprocedure",
-			"contents": "MMC(${1:<...>})$0"
+			"trigger": "MMC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Call the dialog window interactively from the part program on the HMI",
+			"contents": "MMC(${1:<...>})"
 		},
 		{
-			"trigger": "MSG\tprocedure",
-			"contents": "MSG(${1:<STRING>})$0"
+			"trigger": "MSG",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Programmable messages",
+			"contents": "MSG(${1:<STRING>})"
 		},
 		{
-			"trigger": "MVTOOL\tprocedure",
-			"contents": "MVTOOL(${1:<State>},${2:<MagTo>},${3:<LocFrom>},${4:<MagTo>},${5:<LocTo>})$0"
+			"trigger": "MVTOOL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Language command to move tool",
+			"contents": "MVTOOL(${1:<State>},${2:<MagTo>},${3:<LocFrom>},${4:<MagTo>},${5:<LocTo>})"
 		},
 		{
-			"trigger": "NEWCONF\tprocedure",
+			"trigger": "NEWCONF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Apply modified machine data (corresponds to \"Activate machine data\")",
 			"contents": "NEWCONF"
 		},
 		{
-			"trigger": "NPROT\tprocedure",
-			"contents": "NPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+			"trigger": "NPROT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Machine-specific protection area ON/OFF",
+			"contents": "NPROT(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})"
 		},
 		{
-			"trigger": "NPROTDEF\tprocedure",
-			"contents": "NPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})$0"
+			"trigger": "NPROTDEF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Definition of a machine-specific protection area",
+			"contents": "NPROTDEF(${1:<N>},${2:<State>},${3:<xMov>},${4:<yMov>},${5:<zMov>})"
 		},
 		{
-			"trigger": "ORIRESET\tprocedure",
-			"contents": "ORIRESET(${1:<ofs1>},${2:<ofs2>},${3:<ofs3>})$0"
+			"trigger": "ORIRESET",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Initial tool orientation with up to 3 orientation axes",
+			"contents": "ORIRESET(${1:<ofs1>},${2:<ofs2>},${3:<ofs3>})"
 		},
 		{
-			"trigger": "POLFA\tprocedure",
-			"contents": "POLFA(${1:<AXIS>},${2:<Type>},${3:<Pos>})$0"
+			"trigger": "POLFA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Start retraction position of single axes with $AA_ESR_TRIGGER",
+			"contents": "POLFA(${1:<AXIS>},${2:<Type>},${3:<Pos>})"
 		},
 		{
-			"trigger": "POLFMASK\tprocedure",
-			"contents": "POLFMASK(${1:<AXIS>}${2:,${3:[...]}})$0"
+			"trigger": "POLFMASK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Enable axes for retraction without a connection between the axes",
+			"contents": "POLFMASK(${1:<AXIS>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "POLFMLIN\tprocedure",
-			"contents": "POLFMLIN(${1:<AXIS>}${2:,${3:[...]}})$0"
+			"trigger": "POLFMLIN",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Enable axes for retraction with a linear connection between the axes",
+			"contents": "POLFMLIN(${1:<AXIS>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "POLYPATH\tprocedure",
-			"contents": "POLYPATH(${1:<AXIS>},${2:<Vector>})$0"
+			"trigger": "POLYPATH",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Polynomial interpolation can be selected for the AXIS or VECT axis groups",
+			"contents": "POLYPATH(${1:<AXIS>},${2:<Vector>})"
 		},
 		{
-			"trigger": "POSM\tprocedure",
-			"contents": "POSM(${1:<MagLoc>},${2:<MagNo>},${3:<IntMagLoc>},${4:<IntMagNo>})$0"
+			"trigger": "POSM",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Position magazine",
+			"contents": "POSM(${1:<MagLoc>},${2:<MagNo>},${3:<IntMagLoc>},${4:<IntMagNo>})"
 		},
 		{
-			"trigger": "POSMT\tprocedure",
-			"contents": "POSMT(${1:<State>},${2:<MultiToolLocNo>},${3:<ToolHolderNo>})$0"
+			"trigger": "POSMT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Position multitool on toolholder at location number",
+			"contents": "POSMT(${1:<State>},${2:<MultiToolLocNo>},${3:<ToolHolderNo>})"
 		},
 		{
-			"trigger": "PRESETON\tprocedure",
-			"contents": "PRESETON(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "PRESETON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Actual value setting with loss of the referencing status",
+			"contents": "PRESETON(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "PRESETONS\tprocedure",
-			"contents": "PRESETONS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})$0"
+			"trigger": "PRESETONS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Actual value setting with loss of the referencing status",
+			"contents": "PRESETONS(${1:<AXIS>},${2:<REAL>}${3:,${4:[AXIS]},${5:[REAL]}}${6:,${7:[...]}})"
 		},
 		{
-			"trigger": "PROTA\tprocedure",
-			"contents": "PROTA(${1:\"R\"})$0"
+			"trigger": "PROTA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Request for a recalculation of the collision model",
+			"contents": "PROTA(${1:\"R\"})"
 		},
 		{
-			"trigger": "PROTS\tprocedure",
-			"contents": "PROTS(${1:<STRING>},${2:<STRING>})$0"
+			"trigger": "PROTS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Setting the protection area status",
+			"contents": "PROTS(${1:<STRING>},${2:<STRING>})"
 		},
 		{
-			"trigger": "PUNCHACC\tprocedure",
-			"contents": "PUNCHACC(${1:<...>})$0"
+			"trigger": "PUNCHACC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Travel-dependent acceleration for nibbling",
+			"contents": "PUNCHACC(${1:<...>})"
 		},
 		{
-			"trigger": "PUTFTOC\tprocedure",
-			"contents": "PUTFTOC(${1:<RefVal>},${2:<ToolParam>},${3:<Chan>},${4:<Spindle>})$0"
+			"trigger": "PUTFTOC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tool fine offset for parallel dressing",
+			"contents": "PUTFTOC(${1:<RefVal>},${2:<ToolParam>},${3:<Chan>},${4:<Spindle>})"
 		},
 		{
-			"trigger": "PUTFTOCF\tprocedure",
-			"contents": "PUTFTOCF(${1:<Func>},${2:<RefVal>},${3:<ToolParam>},${4:<Chan>},${5:<Spindle>})$0"
+			"trigger": "PUTFTOCF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tool fine offset dependent on a function for parallel dressing defined with FCTDEF",
+			"contents": "PUTFTOCF(${1:<Func>},${2:<RefVal>},${3:<ToolParam>},${4:<Chan>},${5:<Spindle>})"
 		},
 		{
-			"trigger": "RDISABLE\tprocedure",
+			"trigger": "RDISABLE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Read-in disable",
 			"contents": "RDISABLE"
 		},
 		{
-			"trigger": "READ\tprocedure",
-			"contents": "READ(${1:<State>},${2:<File>},${3:<FirstLine>},${4:<LineCount>},${5:<Content>})$0"
+			"trigger": "READ",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Reads one or more lines in the specified file and stores the information read in the array",
+			"contents": "READ(${1:<State>},${2:<File>},${3:<FirstLine>},${4:<LineCount>},${5:<Content>})"
 		},
 		{
-			"trigger": "RELEASE\tprocedure",
-			"contents": "RELEASE(${1:<AXIS>})$0"
+			"trigger": "RELEASE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Release machine axes for axis exchange",
+			"contents": "RELEASE(${1:<AXIS>})"
 		},
 		{
-			"trigger": "RESET\tprocedure",
-			"contents": "RESET(${1:<IDS1>}${2:,${3:[...]}})$0"
+			"trigger": "RESET",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Reset technology cycle",
+			"contents": "RESET(${1:<IDS1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "RESETMON\tprocedure",
-			"contents": "RESETMON(${1:<State>},${2:<TNo>},${3:<DNo>}${4:,${5:[MonType]}}${6:,${7:[ResetStates]}})$0"
+			"trigger": "RESETMON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Language command for setpoint activation",
+			"contents": "RESETMON(${1:<State>},${2:<TNo>},${3:<DNo>}${4:,${5:[MonType]}}${6:,${7:[ResetStates]}})"
 		},
 		{
-			"trigger": "RET\tprocedure",
+			"trigger": "RET",
+			"kind": ["function", "P", "Procedure"],
+			"details": "End of subprogram",
 			"contents": "RET"
 		},
 		{
-			"trigger": "RETB\tprocedure",
+			"trigger": "RETB",
+			"kind": ["function", "P", "Procedure"],
+			"details": "End of subprogram",
 			"contents": "RETB"
 		},
 		{
-			"trigger": "SBLOF\tprocedure",
+			"trigger": "SBLOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Suppress single block",
 			"contents": "SBLOF"
 		},
 		{
-			"trigger": "SBLON\tprocedure",
+			"trigger": "SBLON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Revoke suppression of single block",
 			"contents": "SBLON"
 		},
 		{
-			"trigger": "SETAL\tprocedure",
-			"contents": "SETAL(${1:<INT>},${2:<STRING>})$0"
+			"trigger": "SETAL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Set alarm",
+			"contents": "SETAL(${1:<INT>},${2:<STRING>})"
 		},
 		{
-			"trigger": "SETINT\tprocedure",
-			"contents": "SETINT(${1:<INT>}) PRIO=${2:<INT>} ${3:[<CycleName>]} ${4:[LIFTFAST]} $0"
+			"trigger": "SETINT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Define which interrupt routine is to be activated when an NCK input is present",
+			"contents": "SETINT(${1:<INT>}) PRIO=${2:<INT>} ${3:[<CycleName>]} ${4:[LIFTFAST]} "
 		},
 		{
-			"trigger": "SETM\tprocedure",
-			"contents": "SETM(${1:<INT>})$0"
+			"trigger": "SETM",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Setting of markers in dedicated channel",
+			"contents": "SETM(${1:<INT>})"
 		},
 		{
-			"trigger": "SETMS\tprocedure",
-			"contents": "SETMS(${1:[SpindleNo]})$0"
+			"trigger": "SETMS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Set spindle n as master spindle",
+			"contents": "SETMS(${1:[SpindleNo]})"
 		},
 		{
-			"trigger": "SETMTH\tprocedure",
-			"contents": "SETMTH(${1:<ToolHolderNo>})$0"
+			"trigger": "SETMTH",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Set master toolholder number",
+			"contents": "SETMTH(${1:<ToolHolderNo>})"
 		},
 		{
-			"trigger": "SETPIECE\tprocedure",
-			"contents": "SETPIECE(${1:<Count>}${2:,${3:[SpindleNo]})$0"
+			"trigger": "SETPIECE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Set piece number for all tools assigned to the spindle",
+			"contents": "SETPIECE(${1:<Count>}${2:,${3:[SpindleNo]})"
 		},
 		{
-			"trigger": "SETTA\tprocedure",
-			"contents": "SETTA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})$0"
+			"trigger": "SETTA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate tool from wear group",
+			"contents": "SETTA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})"
 		},
 		{
-			"trigger": "SETTIA\tprocedure",
-			"contents": "SETTIA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})$0"
+			"trigger": "SETTIA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivate tool from wear group",
+			"contents": "SETTIA(${1:<State>},${2:<MagNo>},${3:<VNo>},${4:<UseKT>})"
 		},
 		{
-			"trigger": "SIRELIN\tprocedure",
-			"contents": "SIRELIN(${1:<Id>},${2:<State>},\"${3:<Q1>}\",\"${4:<Q2>}\",\"${5:<E1>}\",\"${6:<E2>}\",\"${7:<E3>}\")$0"
+			"trigger": "SIRELIN",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Initialize input variables of function block",
+			"contents": "SIRELIN(${1:<Id>},${2:<State>},\"${3:<Q1>}\",\"${4:<Q2>}\",\"${5:<E1>}\",\"${6:<E2>}\",\"${7:<E3>}\")"
 		},
 		{
-			"trigger": "SIRELOUT\tprocedure",
-			"contents": "SIRELOUT(${1:<Id>},${2:<State>},\"${3:<A0>}\",\"${4:<A1>}\",\"${5:<A3>}\",\"${6:<A4>}\")$0"
+			"trigger": "SIRELOUT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Initialize output variables of function block",
+			"contents": "SIRELOUT(${1:<Id>},${2:<State>},\"${3:<A0>}\",\"${4:<A1>}\",\"${5:<A3>}\",\"${6:<A4>}\")"
 		},
 		{
-			"trigger": "SIRELTIME\tprocedure",
-			"contents": "SIRELTIME(${1:<Id>},${2:<State>},${3:<TM1>},${4:<TI1>},${5:<TI2>},${6:<TI3>})$0"
+			"trigger": "SIRELTIME",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Initialize timers of function block",
+			"contents": "SIRELTIME(${1:<Id>},${2:<State>},${3:<TM1>},${4:<TI1>},${5:<TI2>},${6:<TI3>})"
 		},
 		{
-			"trigger": "SOFTA\tprocedure",
-			"contents": "SOFTA(${1:<AXIS>})$0"
+			"trigger": "SOFTA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate jerk-limited axis acceleration for the programmed axes",
+			"contents": "SOFTA(${1:<AXIS>})"
 		},
 		{
-			"trigger": "SPCOF\tprocedure",
-			"contents": "SPCOF(${1:[SpindleNo]})$0"
+			"trigger": "SPCOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Switch master spindle or spindle(s) from position control to speed control",
+			"contents": "SPCOF(${1:[SpindleNo]})"
 		},
 		{
-			"trigger": "SPCON\tprocedure",
-			"contents": "SPCON(${1:[SpindleNo]})$0"
+			"trigger": "SPCON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Switch master spindle or spindle(s) from speed control to position control",
+			"contents": "SPCON(${1:[SpindleNo]})"
 		},
 		{
-			"trigger": "SPLINEPATH\tprocedure",
-			"contents": "SPLINEPATH(1,${1:<AXIS>}${2:,${3:[AXIS]}${4:,${5:[...]}}})$0"
+			"trigger": "SPLINEPATH",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Define spline grouping",
+			"contents": "SPLINEPATH(1,${1:<AXIS>}${2:,${3:[AXIS]}${4:,${5:[...]}}})"
 		},
 		{
-			"trigger": "START\tprocedure",
-			"contents": "START(${1:<INT>})$0"
+			"trigger": "START",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Start selected programs simultaneously in several channels from current program",
+			"contents": "START(${1:<INT>})"
 		},
 		{
-			"trigger": "STOPRE\tprocedure",
+			"trigger": "STOPRE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Preprocessing stop until all prepared blocks in the main run are executed",
 			"contents": "STOPRE"
 		},
 		{
-			"trigger": "STOPREOF\tprocedure",
+			"trigger": "STOPREOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Revoke preprocessing stop",
 			"contents": "STOPREOF"
 		},
 		{
-			"trigger": "SYNFCT\tprocedure",
-			"contents": "SYNFCT(${1:<PolyNo>},${2:<VarOut>},${3:<VarIn>})$0"
+			"trigger": "SYNFCT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Evaluation of a polynomial as a function of a condition in the motion-synchronous action",
+			"contents": "SYNFCT(${1:<PolyNo>},${2:<VarOut>},${3:<VarIn>})"
 		},
 		{
-			"trigger": "TANG\tprocedure",
-			"contents": "TANG(${1:<FAx>},${2:<LAx1>},${3:<LAx2>},${4:<CoupleFactor>},${5:<CoordSys>},${6:<Opt>})$0"
+			"trigger": "TANG",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tangential control: Define coupling",
+			"contents": "TANG(${1:<FAx>},${2:<LAx1>},${3:<LAx2>},${4:<CoupleFactor>},${5:<CoordSys>},${6:<Opt>})"
 		},
 		{
-			"trigger": "TANGDEL\tprocedure",
-			"contents": "TANGDEL(${1:<FAx>})$0"
+			"trigger": "TANGDEL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tangential control: Delete coupling",
+			"contents": "TANGDEL(${1:<FAx>})"
 		},
 		{
-			"trigger": "TANGOF\tprocedure",
-			"contents": "TANGOF(${1:<FAx>})$0"
+			"trigger": "TANGOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tangential control: Deactivate coupling",
+			"contents": "TANGOF(${1:<FAx>})"
 		},
 		{
-			"trigger": "TANGON\tprocedure",
-			"contents": "TANGON(${1:<FAx>},${2:<Angle>},${3:<Dist>},${4:<AngleTol>})$0"
+			"trigger": "TANGON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tangential control: Activate coupling",
+			"contents": "TANGON(${1:<FAx>},${2:<Angle>},${3:<Dist>},${4:<AngleTol>})"
 		},
 		{
-			"trigger": "TCA\tprocedure",
-			"contents": "TCA(${1:<ToolIdent>}${2:,${3:[DuploNo]}}${4:,${5:[ToolHolderNo]}})$0"
+			"trigger": "TCA",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tool selection/tool change irrespective of tool status",
+			"contents": "TCA(${1:<ToolIdent>}${2:,${3:[DuploNo]}}${4:,${5:[ToolHolderNo]}})"
 		},
 		{
-			"trigger": "TCI\tprocedure",
-			"contents": "TCI(${1:<IntLocNo>}${2:,${3:[ToolHolderNo]}})$0"
+			"trigger": "TCI",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Load tool from buffer into magazine",
+			"contents": "TCI(${1:<IntLocNo>}${2:,${3:[ToolHolderNo]}})"
 		},
 		{
-			"trigger": "TLIFT\tprocedure",
-			"contents": "TLIFT(${1:<FAx>})$0"
+			"trigger": "TLIFT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tangential control: Activate intermediate block generation",
+			"contents": "TLIFT(${1:<FAx>})"
 		},
 		{
-			"trigger": "TML\tprocedure",
-			"contents": "TML(${1:<...>})$0"
+			"trigger": "TML",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Tool selection with magazine location number",
+			"contents": "TML(${1:<...>})"
 		},
 		{
-			"trigger": "TMOF\tprocedure",
-			"contents": "TMOF(${1:<TNo>})$0"
+			"trigger": "TMOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deselect tool monitoring",
+			"contents": "TMOF(${1:<TNo>})"
 		},
 		{
-			"trigger": "TMON\tprocedure",
-			"contents": "TMON(${1:<TNo>})$0"
+			"trigger": "TMON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate tool monitoring",
+			"contents": "TMON(${1:<TNo>})"
 		},
 		{
-			"trigger": "TOFFOF\tprocedure",
-			"contents": "TOFFOF(${1:<Direction>})$0"
+			"trigger": "TOFFOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivate online tool offset",
+			"contents": "TOFFOF(${1:<Direction>})"
 		},
 		{
-			"trigger": "TOFFON\tprocedure",
-			"contents": "TOFFON(${1:<Direction>}${2:,${3:[Offset]}})$0"
+			"trigger": "TOFFON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate online tool length offset",
+			"contents": "TOFFON(${1:<Direction>}${2:,${3:[Offset]}})"
 		},
 		{
-			"trigger": "TRAANG\tprocedure",
-			"contents": "TRAANG(${1:<ANGLE>},${2:<TRAFO>})$0"
+			"trigger": "TRAANG",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Transformation inclined axis",
+			"contents": "TRAANG(${1:<ANGLE>},${2:<TRAFO>})"
 		},
 		{
-			"trigger": "TRACON\tprocedure",
-			"contents": "TRACON(${1:<TRAFO>},${2:<Param1>}${3:,${4:[...]}})$0"
+			"trigger": "TRACON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Cascaded transformation",
+			"contents": "TRACON(${1:<TRAFO>},${2:<Param1>}${3:,${4:[...]}})"
 		},
 		{
-			"trigger": "TRACYL\tprocedure",
-			"contents": "TRACYL(${1:<DIAM>},${2:<TRAFO>})$0"
+			"trigger": "TRACYL",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Cylinder: Peripheral surface transformation",
+			"contents": "TRACYL(${1:<DIAM>},${2:<TRAFO>})"
 		},
 		{
-			"trigger": "TRAFOOF\tprocedure",
+			"trigger": "TRAFOOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivate active transformations in the channel",
 			"contents": "TRAFOOF"
 		},
 		{
-			"trigger": "TRAFOON\tprocedure",
-			"contents": "TRAFOON(${1:<TRAFO>}${2:,${3:<DIAM>},${4:<k>}})$0"
+			"trigger": "TRAFOON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activate transformation in the channel",
+			"contents": "TRAFOON(${1:<TRAFO>}${2:,${3:<DIAM>},${4:<k>}})"
 		},
 		{
-			"trigger": "TRAILOF\tprocedure",
-			"contents": "TRAILOF(${1:<FAx>})$0"
+			"trigger": "TRAILOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Asynchronous coupled motion OFF",
+			"contents": "TRAILOF(${1:<FAx>})"
 		},
 		{
-			"trigger": "TRAILON\tprocedure",
-			"contents": "TRAILON(${1:<FAx>},${2:<LAx>},${3:<CoupleFactor>})$0"
+			"trigger": "TRAILON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Asynchronous coupled motion ON",
+			"contents": "TRAILON(${1:<FAx>},${2:<LAx>},${3:<CoupleFactor>})"
 		},
 		{
-			"trigger": "TRANSMIT\tprocedure",
-			"contents": "TRANSMIT(${1:<TRAFO>})$0"
+			"trigger": "TRANSMIT",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Pole transformation (face machining)",
+			"contents": "TRANSMIT(${1:<TRAFO>})"
 		},
 		{
-			"trigger": "TRAORI\tprocedure",
-			"contents": "TRAORI(${1:<TRAFO>},${2:<ORIVEC>},${3:<ROTOFS>})$0"
+			"trigger": "TRAORI",
+			"kind": ["function", "P", "Procedure"],
+			"details": "4-axis, 5-axis transformation, generic transformation",
+			"contents": "TRAORI(${1:<TRAFO>},${2:<ORIVEC>},${3:<ROTOFS>})"
 		},
 		{
-			"trigger": "UNLOCK\tprocedure",
-			"contents": "UNLOCK(${1:<IDS1>}${2:,${3:[...]}})$0"
+			"trigger": "UNLOCK",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Enable synchronized action with ID (continue technology cycle)",
+			"contents": "UNLOCK(${1:<IDS1>}${2:,${3:[...]}})"
 		},
 		{
-			"trigger": "WAITC\tprocedure",
-			"contents": "WAITC(${1:<FollowSpindle>},${2:<BlockTrans>},${3:<LeadSpindle>},${4:<BlockTrans>})$0"
+			"trigger": "WAITC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for the coupling block change criterion to be fulfilled for the axes/spindles",
+			"contents": "WAITC(${1:<FollowSpindle>},${2:<BlockTrans>},${3:<LeadSpindle>},${4:<BlockTrans>})"
 		},
 		{
-			"trigger": "WAITE\tprocedure",
-			"contents": "WAITE(${1:<ChanNo>},${2:<ChanName>})$0"
+			"trigger": "WAITE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for end of program in another channel.",
+			"contents": "WAITE(${1:<ChanNo>},${2:<ChanName>})"
 		},
 		{
-			"trigger": "WAITENC\tprocedure",
+			"trigger": "WAITENC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for synchronized or restored axis positions",
 			"contents": "WAITENC"
 		},
 		{
-			"trigger": "WAITM\tprocedure",
-			"contents": "WAITM(${1:<MarkNo>},${2:<ChanName>})$0"
+			"trigger": "WAITM",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for marker in specified channel; terminate previous block with exact stop.",
+			"contents": "WAITM(${1:<MarkNo>},${2:<ChanName>})"
 		},
 		{
-			"trigger": "WAITMC\tprocedure",
-			"contents": "WAITMC(${1:<MarkNo>},${2:<ChanName>})$0"
+			"trigger": "WAITMC",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for marker in specified channel; exact stop only if the other channels have not yet reached the marker.",
+			"contents": "WAITMC(${1:<MarkNo>},${2:<ChanName>})"
 		},
 		{
-			"trigger": "WAITP\tprocedure",
-			"contents": "WAITP(${1:<AXIS>})$0"
+			"trigger": "WAITP",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for end of travel of the positioning axis",
+			"contents": "WAITP(${1:<AXIS>})"
 		},
 		{
-			"trigger": "WAITS\tprocedure",
-			"contents": "WAITS(${1:<SpindleNo>})$0"
+			"trigger": "WAITS",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Wait for spindle position to be reached",
+			"contents": "WAITS(${1:<SpindleNo>})"
 		},
 		{
-			"trigger": "WORKPIECE\tprocedure",
-			"contents": "WORKPIECE(${1:<WP>},${2:<RefP>},${3:<ZeroOffset>},${4:<Type>},${5:<Par5>},${6:[...]})$0"
+			"trigger": "WORKPIECE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Define raw workpiece to be displayed in simulation",
+			"contents": "WORKPIECE(${1:<WP>},${2:<RefP>},${3:<ZeroOffset>},${4:<Type>},${5:<Par5>},${6:[...]})"
 		},
 		{
-			"trigger": "WRITE\tprocedure",
-			"contents": "WRITE(${1:<State>},${2:<File>},${3:<Text>})$0"
+			"trigger": "WRITE",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Write text to file system. Appends a block to the end of the specified file.",
+			"contents": "WRITE(${1:<State>},${2:<File>},${3:<Text>})"
 		},
 		{
-			"trigger": "WRTPR\tprocedure",
-			"contents": "WRTPR(${1:<Text>}${2:,${3:[Execution]}})$0"
+			"trigger": "WRTPR",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Delays the machining job without interrupting continuous-path mode",
+			"contents": "WRTPR(${1:<Text>}${2:,${3:[Execution]}})"
 		}
 	]
 }

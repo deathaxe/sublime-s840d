@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+VAR_TEMP
+    $0
+END_VAR
+]]></content>
+	<tabTrigger>vtemp</tabTrigger>
+	<scope>
+		source.plc meta.block.ob.header - meta.block.var - comment - string,
+		source.plc meta.block.fb.header - meta.block.var - comment - string,
+		source.plc meta.block.fc.header - meta.block.var - comment - string
+	</scope>
+	<description>VAR_TEMP</description>
+</snippet>

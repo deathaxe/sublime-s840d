@@ -1,0 +1,229 @@
+{
+	"scope": "(meta.column.address.s840d_hmi | meta.operand.parameters.address.s840d_hmi) & string - comment",
+	"completions": [
+		{
+			"trigger": "$R[x]",
+			"annotation": "R parameter",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "\\$R[${1:0}]"
+		},
+		{
+			"trigger": "Ax.x",
+			"annotation": "output bit",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "A${1:0}.${2:0}"
+		},
+		{
+			"trigger": "ABx",
+			"annotation": "output byte",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "AB${1:0}"
+		},
+		{
+			"trigger": "AWx",
+			"annotation": "output word",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "AW${1:0}"
+		},
+		{
+			"trigger": "ADx",
+			"annotation": "output dword",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "AD${1:0}"
+		},
+		{
+			"trigger": "ARx",
+			"annotation": "output real",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "AR${1:0}"
+		},
+		{
+			"trigger": "Qx.x",
+			"annotation": "output bit",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "Q${1:0}.${2:0}"
+		},
+		{
+			"trigger": "QBx",
+			"annotation": "output byte",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "QB${1:0}"
+		},
+		{
+			"trigger": "QWx",
+			"annotation": "output word",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "QW${1:0}"
+		},
+		{
+			"trigger": "QDx",
+			"annotation": "output dword",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "QD${1:0}"
+		},
+		{
+			"trigger": "QRx",
+			"annotation": "output real",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "QR${1:0}"
+		},
+		{
+			"trigger": "Ex.x",
+			"annotation": "input bit",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "E${1:0}.${2:0}"
+		},
+		{
+			"trigger": "EBx",
+			"annotation": "input byte",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "EB${1:0}"
+		},
+		{
+			"trigger": "EWx",
+			"annotation": "input word",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "EW${1:0}"
+		},
+		{
+			"trigger": "EDx",
+			"annotation": "input dword",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "ED${1:0}"
+		},
+		{
+			"trigger": "ERx",
+			"annotation": "input real",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "ER${1:0}"
+		},
+		{
+			"trigger": "Ix.x",
+			"annotation": "input bit",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "I${1:0}.${2:0}"
+		},
+		{
+			"trigger": "IBx",
+			"annotation": "input byte",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "IB${1:0}"
+		},
+		{
+			"trigger": "IWx",
+			"annotation": "input word",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "IW${1:0}"
+		},
+		{
+			"trigger": "IDx",
+			"annotation": "input dword",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "ID${1:0}"
+		},
+		{
+			"trigger": "IRx",
+			"annotation": "input real",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "IR${1:0}"
+		},
+		{
+			"trigger": "Mx.x",
+			"annotation": "marker bit",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "M${1:0}.${2:0}"
+		},
+		{
+			"trigger": "MBx",
+			"annotation": "marker byte",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "MB${1:0}"
+		},
+		{
+			"trigger": "MWx",
+			"annotation": "marker word",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "MW${1:0}"
+		},
+		{
+			"trigger": "MDx",
+			"annotation": "marker dword",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "MD${1:0}"
+		},
+		{
+			"trigger": "MRx",
+			"annotation": "marker real",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "MR${1:0}"
+		},
+		{
+			"trigger": "DBx.DBXx.x",
+			"annotation": "datablock bit",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "DB${1:0}.DBX${2:0}.${3:0}"
+		},
+		{
+			"trigger": "DBx.DBBx",
+			"annotation": "datablock byte",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "DB${1:0}.DBB${2:0}"
+		},
+		{
+			"trigger": "DBx.DBWx",
+			"annotation": "datablock word",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "DB${1:0}.DBW${2:0}"
+		},
+		{
+			"trigger": "DBx.DBDx",
+			"annotation": "datablock dword",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "DB${1:0}.DBD${2:0}"
+		},
+		{
+			"trigger": "DBx.DBRx",
+			"annotation": "datablock real",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "DB${1:0}.DBR${2:0}"
+		},
+		{
+			"trigger": "DBx.DBSy.z",
+			"annotation": "string y with len z",
+			"kind": "variable",
+			"details": "hotlinked NC/PLC address",
+			"contents": "DB${1:0}.DBS${2:0}.${3:0}"
+		},
+	]
+}

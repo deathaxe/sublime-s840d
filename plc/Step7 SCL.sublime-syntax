@@ -1,0 +1,689 @@
+%YAML 1.2
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 DeathAxe <deathaxe82@googlemail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+###############################################################################
+---
+name: Step7 SCL
+scope: source.plc.scl
+version: 2
+
+extends: Step7 PLC.sublime-syntax
+
+file_extensions:
+  - scl
+  - db
+  - udt
+
+variables:
+
+  control_keywords: |-
+    (?xi:
+      (?: end_ )? (?: case | if | for | region | while ) | by | continue | do
+    | elsif | else | exit | repeat | return | then | to | until
+    )\b
+
+  constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
+  escapes: '\$[LlNPpRrTt$'']'
+
+  quoted_local_ident: (#\")[^"]*(\")
+
+  # numeric storage type prefixes
+  prefix_binary: '{{prefix_numeric}}'
+  prefix_decimal: '{{prefix_numeric}}'
+  prefix_hexadecimal: '{{prefix_numeric}}'
+  prefix_numeric: (?i:B(?:yte)?|[DL]?W(?:ord)?|L|U?[DLS]?Int)
+
+  # date and time storage type prefixes
+  prefix_date: (?i:L?D(?:ATE)?)
+  prefix_date_and_time: (?i:L?DT|L?DATE_AND_TIME)
+  prefix_time: (?i:L?T(?:IME)?)
+  prefix_time_of_day: (?i:L?TOD|L?TIME_OF_DAY)
+
+contexts:
+
+###[ COMMENTS ]################################################################
+
+  comments:
+    - meta_append: true
+    - match: \(\*
+      scope: punctuation.definition.comment.begin.plc
+      push: comment-block-parens
+    - match: /\*
+      scope: punctuation.definition.comment.begin.plc
+      push: comment-block-slash
+
+  comment-block-parens:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.double-slash.plc
+    - match: \*\)
+      scope: punctuation.definition.comment.end.plc
+      pop: 1
+
+  comment-block-slash:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.double-slash.plc
+    - match: \*/
+      scope: punctuation.definition.comment.end.plc
+      pop: 1
+
+###[ BLOCK HEADERS ]###########################################################
+
+  block-fb-header-content:
+    - meta_prepend: true
+    - include: var-constant
+
+  block-fc-header-content:
+    - meta_prepend: true
+    - include: var-constant
+
+  block-ob-header-content:
+    - meta_prepend: true
+    - include: var-constant
+
+  block-body-content:
+    - include: scl-statements
+    - include: illegal
+
+###[ VAR_CONSTANT ]############################################################
+
+  var-constant:
+    - match: \b(VAR)\s+(CONSTANT)\b
+      captures:
+        1: keyword.declaration.var.constant.begin.plc
+        2: storage.modifier.interface.plc
+      push: [var-constant-body, assert-line-end]
+
+  var-constant-body:
+    - meta_scope: meta.block.var.constant.plc
+    - include: var-end
+    - match: '{{constants}}'
+      scope: entity.name.constant.plc
+      push: variable-separator-name-storage
+
+###[ STATEMENTS ]##############################################################
+
+  scl-statements:
+    - include: scl-regions
+    - include: scl-stmt-case
+    - include: scl-stmt-repeat
+    - include: scl-control
+    - include: scl-expressions
+
+  scl-expressions:
+    - include: groups
+    - include: operators
+    - include: slice-members
+    - include: function-calls
+    - include: literals
+    - include: operands-symbols
+    - include: operands-absolute
+
+  scl-expression-end:
+    # Pop nested expression contexts if control keywords are matched.
+    - match: (?=;|{{control_keywords}})
+      pop: 1
+
+###[ REGIONS ]#################################################################
+
+  scl-regions:
+    - match: \b((?i:region))(?:\s+(.*?)?\s+)?$
+      scope: meta.block.region.begin.plc
+      captures:
+        1: keyword.context.block.region.begin.plc
+        2: entity.name.section.plc
+    - match: \b((?i:end_region))(?:\s+(.*)\s+)?$
+      scope: meta.block.region.end.plc
+      captures:
+        1: keyword.context.block.region.end.plc
+        2: entity.name.section.plc
+
+###[ CONTROL ]#################################################################
+
+  scl-control:
+    # if..then..elsif..then..else..end_if
+    - match: \b(?i:if)\b
+      scope: keyword.control.conditional.if.plc
+    - match: \b(?i:elsif)\b
+      scope: keyword.control.conditional.elseif.plc
+    - match: \b(?i:else)\b
+      scope: keyword.control.conditional.else.plc
+    - match: \b(?i:end_if)\b
+      scope: keyword.control.conditional.end.plc
+    - match: \b(?i:then)\b
+      scope: keyword.control.conditional.then.plc
+    # for ... to .. by .. do ... end_for
+    - match: \b(?i:(?:end_)?for|to|by)\b
+      scope: keyword.control.loop.for.plc
+    - match: \b(?i:do)\b
+      scope: keyword.control.loop.do.plc
+    # while do end_while
+    - match: \b(?i:(?:end_)?while)\b
+      scope: keyword.control.loop.while.plc
+    # flow control
+    - match: \b(?i:continue)\b
+      scope: keyword.control.flow.continue.plc
+    - match: \b(?i:exit)\b
+      scope: keyword.control.flow.break.plc
+    - match: \b(?i:return)\b
+      scope: keyword.control.flow.return.plc
+
+###[ CASE..OF..ELSE..END_CASE ]################################################
+
+  scl-stmt-case:
+    - match: \b(?i:case)\b
+      scope: meta.conditional.case.plc keyword.control.conditional.case.plc
+      push: scl-stmt-case-variable
+
+  scl-stmt-case-variable:
+    - meta_content_scope: meta.conditional.case.variable.plc
+    - match: \b(?i:of)\b
+      scope: meta.conditional.case.plc keyword.control.conditional.of.plc
+      set: scl-stmt-case-branches
+    - include: scl-stmt-case-end
+    - include: scl-expression-end
+    - include: scl-expressions
+
+  scl-stmt-case-branches:
+    - meta_content_scope: meta.conditional.case.branches.plc
+    - include: scl-stmt-case-end
+    - include: scl-statements
+    - match: ':'
+      scope: punctuation.separator.plc
+    - match: \.\.
+      scope: keyword.operator.range.plc
+
+  scl-stmt-case-end:
+    - match: \b(?i:end_case)\b
+      scope: meta.conditional.case.plc keyword.control.conditional.end.plc
+      pop: 1
+    - include: context-end
+
+###[ REPEAT..UNTIL ]###########################################################
+
+  scl-stmt-repeat:
+    - match: \b(?i:repeat)\b
+      scope: meta.loop.repeat.plc keyword.control.loop.repeat-until.plc
+      push: scl-stmt-repeat-body
+
+  scl-stmt-repeat-body:
+    - meta_content_scope: meta.loop.repeat.plc
+    - match: \b(?i:until)\b
+      scope: meta.loop.repeat.condition.plc keyword.control.loop.repeat-until.plc
+      set: scl-stmt-repeat-until
+    - include: scl-stmt-repeat-end
+    - include: scl-statements
+
+  scl-stmt-repeat-until:
+    - meta_content_scope: meta.loop.repeat.condition.plc
+    - include: scl-stmt-repeat-end
+    - include: scl-expression-end
+    - include: scl-expressions
+
+  scl-stmt-repeat-end:
+    - match: \b(?i:end_repeat)\b
+      scope: meta.loop.repeat.plc keyword.control.loop.repeat-until.plc
+      pop: 1
+    - include: context-end
+
+###[ FUNCTION CALL ]###########################################################
+
+  function-calls:
+    - match: '{{ident}}\s*(?=\()'
+      scope:
+        meta.function-call.identifier.plc
+        support.function.plc
+      push: function-call-arguments
+
+  function-call-arguments:
+    - meta_include_prototype: false
+    - match: \(
+      scope: punctuation.section.group.begin.plc
+      set: function-call-arguments-body
+
+  function-call-arguments-body:
+    - meta_scope: meta.function-call.arguments.plc
+    - include: group-end
+    - match: ({{ident}})\s*([:?]=|=>)
+      captures:
+        1: variable.parameter.plc
+        2: keyword.operator.assignment.plc
+    - include: scl-expressions
+
+###[ GROUPS ]##################################################################
+
+  groups:
+    - match: \(
+      scope: punctuation.section.group.begin.plc
+      push: group-body
+
+  group-end:
+    - match: \)
+      scope: punctuation.section.group.end.plc
+      pop: 1
+    - include: context-end
+    - include: scl-expression-end
+
+  group-body:
+    - meta_scope: meta.group.plc
+    - include: group-end
+    - include: scl-expressions
+
+###[ CHARACTERS ]##############################################################
+
+  literals-character:
+    - match: ((?i:W?CHAR))(#)
+      scope: meta.string.plc
+      captures:
+        1: storage.type.char.plc
+        2: punctuation.separator.type.plc
+    - match: (\')(?:({{escapes}})|([^']))(\')
+      scope: meta.string.plc string.quoted.single.plc
+      captures:
+        1: punctuation.definition.string.begin.plc
+        2: constant.character.escape.plc
+        3: constant.character.literal.plc
+        4: punctuation.definition.string.end.plc
+
+###[ NUMBERS ]#################################################################
+
+  literals:
+    - meta_prepend: true
+    - include: literals-octal
+
+  literals-decimal:
+    - match: (?:({{prefix_decimal}})(#)([-+]?))?({{int}})
+      scope: meta.number.integer.decimal.plc
+      captures:
+        1: storage.type.integer.plc
+        2: punctuation.separator.type.plc
+        3: keyword.operator.arithmetic.plc
+        4: constant.numeric.value.plc
+
+  literals-float:
+    - match: ((?i:L?REAL))(#)(?:([-+]?)(\d+)(?!\.))?
+      scope: meta.number.float.decimal.plc
+      captures:
+        1: storage.type.float.plc
+        2: punctuation.separator.type.plc
+        3: keyword.operator.arithmetic.plc
+        4: constant.numeric.value.plc
+    - match: \d+(\.)\d+(?:[Ee][-+]\d+)?\b
+      scope: meta.number.float.decimal.plc constant.numeric.value.plc
+      captures:
+        1: punctuation.separator.decimal.plc
+
+  literals-octal:
+    # 8#01101
+    # B#8#02202
+    # WORD#8#82302
+    - match: (?:({{prefix_hexadecimal}})(#))?(8(#))
+      captures:
+        1: storage.type.integer.plc
+        2: punctuation.separator.type.plc
+        3: constant.numeric.base.plc
+        4: punctuation.separator.base.plc
+      push: literals-octal-digits
+
+  literals-octal-digits:
+    - meta_scope: meta.number.integer.octal.plc
+    - meta_content_scope: constant.numeric.value.plc
+    - match: '[0-8]+'
+    - match: '[9[:alpha:]]+'
+      scope: invalid.illegal.digit.plc
+    - match: _
+      scope: punctuation.separator.digits.plc
+    - include: immediately-pop
+
+###[ STRINGS ]#################################################################
+
+  literals-string:
+    - meta_prepend: true
+    - match: ((?i:W?STRING))(#)
+      scope: meta.string.plc
+      captures:
+        1: storage.type.string.plc
+        2: punctuation.separator.type.plc
+
+  literals-string-body:
+    - meta_append: true
+    - match: '{{escapes}}'
+      scope: constant.character.escape.plc
+
+###[ OPERATORS ]###############################################################
+
+  operators:
+    - include: punctuation-separators
+    - include: punctuation-terminators
+    - match: \b(?i:and|not|or|xor|mod)\b
+      scope: keyword.operator.logical.plc
+    - match: \b(?i:ref)\b
+      scope: keyword.operator.reference.plc
+    - match: '[-+*/]='
+      scope: keyword.operator.assignment.augmented.plc
+    - match: '[:?]='
+      scope: keyword.operator.assignment.plc
+    - match: '\*\*?|[-+/]'
+      scope: keyword.operator.arithmetic.plc
+    - match: '<=|>=|<>|<|>|='
+      scope: keyword.operator.comparison.plc
+    - match: '\^'
+      scope: keyword.operator.dereference.plc
+    - match: '&'
+      scope: keyword.operator.logical.plc
+
+  slice-members:
+    - match: (:)(P)\b
+      captures:
+        1: punctuation.accessor.colon.plc
+        2: variable.language.peripherie.plc
+    - match: (\.)((%)[Xx]\d+)
+      captures:
+        1: punctuation.accessor.dot.plc
+        2: variable.language.slice.plc
+        3: punctuation.definition.absolute.plc
+
+###[ STORAGE TYPES ]###########################################################
+
+  storage-type-atomic:
+    - meta_append: true
+    - match: \b(?i:VARIANT)\b
+      scope: storage.type.variant.plc
+
+  storage-type-blocks:
+    - meta_append: true
+    - match: \b(?i:ANY_DB)\b
+      scope: storage.type.datablock.plc
+    - match: |-
+        \b(?xi:
+        | REMOTE | HW_ANY | HW_DEVICE | HW_DPMASTER | HW_DPSLAVE | HW_IO
+        | HW_IOSYSTEM | HW_SUBMODULE | HW_MODULE | HW_INTERFACE | HW_IEPORT
+        | HW_HSC | HW_PWM | HW_PTO | EVENT_ANY | EVENT_ATT | EVENT_HWINT
+        | OB_ANY | OB_DELAY | OB_TOD | OB_CYCLIC | OB_ATT | OB_PCYCLE | OB_HWINT
+        | OB_DIAG | OB_TIMEERROR | OB_STARTUP | PORT | RTM | PIP | CONN_ANY
+        | CONN_PRG | CONN_OUC | CONN_R_ID | DB_ANY | DB_WWW | DB_DYN | C_ALARM
+        | C_ALARM_S | C_ALARM_8 | C_ALARM_8P | C_AR_SEND | C_NOTIFY
+        | C_NOTIFY_8P | C_ALARM_SD
+        )\b
+      scope: support.type.hardware.plc
+
+  storage-type-datetime:
+    - match: \b(?i:S5TIME|L?(?:TIME|TIME_OF_DAY|DATE_AND_TIME))\b
+      scope: storage.type.time.plc
+
+  storage-type-numeric:
+    - match: \b(?i:Byte|[DL]?Word|U?[DLS]?Int)\b
+      scope: storage.type.integer.plc
+    - match: \b(?i:L?Real)\b
+      scope: storage.type.float.plc
+
+  storage-type-string:
+    - match: \b(?i:W?CHAR)\b
+      scope: storage.type.char.plc
+    - match: \b(?i:W?STRING)\b
+      scope: storage.type.string.plc
+      push: storage-type-string-size
+
+###[ ADDRESSES ]###############################################################
+
+  operands-absolute:
+    - include: operands-address-registers
+    - include: operands-binary-absolute
+    - include: operands-counter-absolute
+    - include: operands-datablock-absolute
+    - include: operands-logical-absolute
+    - include: operands-timer-absolute
+
+  operands-datablock-absolute:
+    # %DB10 : datablocks
+    - match: (%)(?i:D[BI]){{int}}
+      captures:
+        0: meta.address.plc variable.language.db.plc
+        1: punctuation.definition.address.plc
+
+  operands-binary-absolute:
+    # %EB10, %EW10, %ED10, %PEB10, %PEW10, %PED10
+    # %AB10, %AW10, %AD10, %PAB10, %PAW10, %PAD10
+    # %MB10, %MW10, %MD10
+    # %LB10, %LW10, %LD10, %VB10, %VW10, %VD10
+    # %DBB10, %DBD10, %DBW10, %DIB10, %DIW10, %DID10
+    - match: (%)(?i:(?:P?[AEIQ]|D[BI]|[LMV])[BWD]){{int}}
+      captures:
+        0: meta.address.plc variable.language.address.plc
+        1: punctuation.definition.address.plc
+    # %DB3.DBB10, %DB3.DIB10, %DB3.DBW10
+    - match: (%)(?i:(DB\d+)(\.))(DB[BWD]{{int}})
+      captures:
+        0: meta.address.plc
+        1: variable.language.address.plc punctuation.definition.address.plc
+        2: variable.language.db.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
+
+  operands-counter-absolute:
+    # %C10 : counter (english)
+    # %Z10 : counter (german)
+    - match: (%)(?i:[CZ]){{int}}
+      captures:
+        0: meta.address.plc variable.language.counter.plc
+        1: punctuation.definition.address.plc
+
+  operands-logical-absolute:
+    # %M10.0, %DIX10.0, %L0.0, ...
+    - match: (%)(?i:DIX|[AEIQLMV])\d+(\.)[0-7]\b
+      captures:
+        0: meta.address.plc variable.language.address.plc
+        1: punctuation.definition.address.plc
+        2: punctuation.separator.decimal.plc
+    # %DB10.DBX10.0
+    - match: (%)(?i:(DB\d+)(\.))?(DBX\d+(\.)[0-7]\b)
+      captures:
+        0: meta.address.plc
+        1: punctuation.definition.address.plc
+        2: variable.language.db.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
+        5: punctuation.separator.decimal.plc
+
+  operands-timer-absolute:
+    # %T10 : timer
+    - match: (%)[Tt]{{int}}
+      captures:
+        0: meta.address.plc variable.language.timer.plc
+        1: punctuation.definition.address.plc
+
+###[ SYMBOLS ]#################################################################
+
+  operands-symbols:
+    - match: \b(?:ENO?)\b
+      scope: variable.language.scl
+    - match: (?=[#"])
+      branch_point: symbols
+      branch:
+        - unqualified-function
+        - unqualified-symbol
+        - qualified-symbol
+
+  unqualified-function:
+    - meta_include_prototype: false
+    - include: unqualified-function-unquoted
+    - include: unqualified-function-quoted
+    - include: immediately-pop
+
+  unqualified-function-quoted:
+    - match: '{{quoted_ident}}'
+      scope: variable.function.global.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set:
+        - unqualified-function-fail
+        - array-index
+    - match: '{{quoted_local_ident}}'
+      scope: variable.function.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set:
+        - unqualified-function-fail
+        - array-index
+
+  unqualified-function-unquoted:
+    - match: (#){{ident}}
+      scope: variable.function.local.plc
+      captures:
+        1: punctuation.definition.variable.plc
+      set:
+        - unqualified-function-fail
+        - array-index
+
+  unqualified-function-fail:
+    - meta_scope: meta.function-call.identifier.plc
+    - match: (?=\()
+      set: function-call-arguments
+    - match: (?=\S)
+      fail: symbols
+
+  unqualified-symbol-unquoted:
+    - meta_prepend: true
+    - match: (#){{constants}}
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.plc
+      set: unqualified-symbol-fail
+
+  unqualified-symbol-quoted:
+    - meta_prepend: true
+    - match: (#\"){{constants}}(\")
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: unqualified-symbol-fail
+    - match: (\"){{constants}}(\")
+      scope: constant.other.global.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: unqualified-symbol-fail
+    - match: '{{quoted_local_ident}}'
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set:
+        - unqualified-symbol-fail
+        - array-index
+
+  qualified-symbol-quoted:
+    - meta_append: true
+    - match: '{{quoted_local_ident}}'
+      scope: variable.namespace.struct.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set:
+        - qualified-members
+        - array-index
+
+  qualified-members:
+    - meta_include_prototype: false
+    - meta_scope: meta.path.plc
+    - match: '{{accessor}}'
+      scope: punctuation.accessor.dot.plc
+      branch_point: qualified-members
+      branch:
+        - qualified-function
+        - qualified-variable
+        - qualified-namespace
+    - include: immediately-pop
+
+  qualified-function:
+    - meta_include_prototype: false
+    - include: qualified-function-unquoted
+    - include: qualified-function-quoted
+    - include: immediately-pop2
+
+  qualified-function-quoted:
+    - match: '{{quoted_ident}}'
+      scope: variable.function.member.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set:
+        - qualified-function-fail
+        - array-index
+
+  qualified-function-unquoted:
+    - match: '{{ident}}'
+      scope: variable.function.member.plc
+      set:
+        - qualified-function-fail
+        - array-index
+
+  qualified-function-fail:
+    - clear_scopes: 1  # clear meta.path.plc
+    - meta_scope: meta.function-call.identifier.plc meta.path.plc
+    - match: (?=\()
+      pop: 2
+      push: function-call-arguments
+    - match: (?=\S)
+      fail: qualified-members
+
+  qualified-namespace:
+    - meta_include_prototype: false
+    - include: qualified-namespace-unquoted
+    - include: qualified-namespace-quoted
+    - include: immediately-pop2
+
+  qualified-namespace-quoted:
+    - match: '{{quoted_ident}}'
+      scope: variable.namespace.struct.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: array-index
+
+  qualified-variable:
+    - meta_include_prototype: false
+    - include: qualified-variable-unquoted
+    - include: qualified-variable-quoted
+    - include: immediately-pop2
+
+  qualified-variable-quoted:
+    - match: '{{quoted_ident}}'
+      scope: variable.other.member.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      pop: 1
+      set:
+        - qualified-variable-fail
+        - array-index
+
+  array-index-body:
+    - meta_scope: meta.brackets.plc
+    - match: \]
+      scope: punctuation.section.brackets.end.plc
+      pop: 1
+    - include: context-end
+    - include: scl-expression-end
+    - include: scl-expressions

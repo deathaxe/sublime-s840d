@@ -2,47 +2,69 @@
 	"scope": "source.s840d_gcode & (meta.definition.variable | meta.redefinition)",
 	"completions": [
 		{
-			"trigger": "NCK : Specify validity range for data\tkeyword",
+			"trigger": "NCK",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Specify validity range for data",
 			"contents": "NCK "
 		},
 		{
-			"trigger": "CHAN : Specify validity range for data\tkeyword",
+			"trigger": "CHAN",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Specify validity range for data",
 			"contents": "CHAN "
 		},
 		{
-			"trigger": "INIPO : Initialization of variables at POWER ON\tkeyword",
+			"trigger": "INIPO",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Initialization of variables at POWER ON",
 			"contents": "INIPO "
 		},
 		{
-			"trigger": "INICF : Initialization of variables at NewConfig\tkeyword",
+			"trigger": "INICF",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Initialization of variables at NewConfig",
 			"contents": "INICF "
 		},
 		{
-			"trigger": "INIRE : Initialization of variables at reset\tkeyword",
+			"trigger": "INIRE",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Initialization of variables at reset",
 			"contents": "INIRE "
 		},
 		{
-			"trigger": "PRLOC : Initialization of variables at reset only after local change\tkeyword",
+			"trigger": "PRLOC",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Initialization of variables at reset only after local change",
 			"contents": "PRLOC "
 		},
 		{
-			"trigger": "LLI : Lower limit value of variables\tkeyword",
+			"trigger": "LLI",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Lower limit value of variables",
 			"contents": "LLI ${1:-100.0} "
 		},
 		{
-			"trigger": "LLU : Upper limit value of variables\tkeyword",
+			"trigger": "LLU",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Upper limit value of variables",
 			"contents": "LLU ${1:100.0} "
 		},
 		{
-			"trigger": "SYNR : Variable is read synchronously\tkeyword",
+			"trigger": "SYNR",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Variable is read synchronously",
 			"contents": "SYNR "
 		},
 		{
-			"trigger": "SYNRW : Variable is read and written synchronously\tkeyword",
+			"trigger": "SYNRW",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Variable is read and written synchronously",
 			"contents": "SYNRW "
 		},
 		{
-			"trigger": "SYNW : Variable is written synchronously\tkeyword",
+			"trigger": "SYNW",
+			"kind": ["type", "m", "Modifier"],
+			"details": "Variable is written synchronously",
 			"contents": "SYNW "
 		}
 	]

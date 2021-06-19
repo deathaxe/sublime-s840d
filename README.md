@@ -1,4 +1,4 @@
-# CNC Sinumerik 840D language support
+# CNC Sinumerik
 
 [![Release](https://img.shields.io/github/tag/deathaxe/sublime-s840d.svg?style=flat-square)](https://github.com/deathaxe/sublime-s840d/releases)
 [![The MIT License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://opensource.org/licenses/MIT)
@@ -58,8 +58,9 @@ Computerized Numerical Control to the [SublimeText 3 Editor][1].
 
 ### Step7 PLC sources
 
-  * AWL syntax highlighting (German mnemonics)
+  * AWL syntax highlighting
   * ASC symbol table syntax highlighting
+  * SCL syntax
 
 
 ## 💾 Installation
@@ -70,7 +71,7 @@ For all Sublime Text 3 users install via [Package Control][2] is recommended.
 
   1. [Install][3] Package Control if you haven't yet.
   2. Use <kbd>ctrl+shift+P</kbd> then `Package Control: Install Package`
-  3. Look for `CNC SINUMERIK 840D language support` and install it.
+  3. Look for `CNC Sinumerik` and install it.
 
 
 ### Manual Installation
@@ -79,12 +80,12 @@ Clone the repository in your Sublime Text Packages directory, located somewhere
 in user's "Home" directory:
 
 ```shell
-git clone git://github.com/deathaxe/sublime-s840d.git "CNC Sinumerik 840D language support"
+git clone git://github.com/deathaxe/sublime-s840d.git "CNC Sinumerik"
 ```
 
 You can also download the latest source from GitHub
 [https://github.com/deathaxe/sublime-s840d][zip] and extract the whole content
-into the _"Packages/CNC Sinumerik 840D language support"_ directory.
+into the _"Packages/CNC Sinumerik"_ directory.
 
 
 ## ⚙ Settings

@@ -1,0 +1,458 @@
+{
+	"scope": "source.plc.scl meta.definition.variable.storage",
+	"completions": [
+		{
+			"trigger": "Any",
+			"kind": "type",
+			"details": "ANY pointer"
+		},
+		{
+			"trigger": "Any_DB",
+			"kind": "type",
+			"details": "any datablock"
+		},
+		{
+			"trigger": "Array",
+			"kind": "type",
+			"details": "array value"
+		},
+		{
+			"trigger": "Block_DB",
+			"kind": "type",
+			"details": "data block"
+		},
+		{
+			"trigger": "Block_FB",
+			"kind": "type",
+			"details": "function block"
+		},
+		{
+			"trigger": "Block_FC",
+			"kind": "type",
+			"details": "function"
+		},
+		{
+			"trigger": "Bool",
+			"kind": "type",
+			"details": "boolean"
+		},
+		{
+			"trigger": "Byte",
+			"kind": "type",
+			"details": "1 byte unsigned"
+		},
+		{
+			"trigger": "Char",
+			"kind": "type",
+			"details": "ANSI character"
+		},
+		{
+			"trigger": "Counter",
+			"kind": "type",
+			"details": "hardware counter"
+		},
+		{
+			"trigger": "Date",
+			"kind": "type",
+			"details": "32bit date"
+		},
+		{
+			"trigger": "Date_And_Time",
+			"kind": "type",
+			"details": "32bit date and time"
+		},
+		{
+			"trigger": "DInt",
+			"kind": "type",
+			"details": "32bit signend integer"
+		},
+		{
+			"trigger": "DWord",
+			"kind": "type",
+			"details": "32bit unsigned"
+		},
+		{
+			"trigger": "Int",
+			"kind": "type",
+			"details": "16bit signed integer"
+		},
+		{
+			"trigger": "LDate",
+			"kind": "type",
+			"details": "64bit date"
+		},
+		{
+			"trigger": "LDate_And_Time",
+			"kind": "type",
+			"details": "64bit date and time"
+		},
+		{
+			"trigger": "LInt",
+			"kind": "type",
+			"details": "64bit signed integer"
+		},
+		{
+			"trigger": "LTime",
+			"kind": "type",
+			"details": "64bit time"
+		},
+		{
+			"trigger": "LTime_Of_Day",
+			"kind": "type",
+			"details": "64bit time of day"
+		},
+		{
+			"trigger": "Pointer",
+			"kind": "type",
+			"details": ""
+		},
+		{
+			"trigger": "LWord",
+			"kind": "type",
+			"details": "64bit unsigned"
+		},
+		{
+			"trigger": "S5Time",
+			"kind": "type",
+			"details": "S5 time"
+		},
+		{
+			"trigger": "SInt",
+			"kind": "type",
+			"details": "8bit signed integer"
+		},
+		{
+			"trigger": "String",
+			"kind": "type",
+			"details": "ANSI string"
+		},
+		{
+			"trigger": "Struct",
+			"kind": "type",
+			"details": "data structure"
+		},
+		{
+			"trigger": "Time",
+			"kind": "type",
+			"details": "32bit time"
+		},
+		{
+			"trigger": "Time_Of_Day",
+			"kind": "type",
+			"details": "32bit time of day"
+		},
+		{
+			"trigger": "UDInt",
+			"kind": "type",
+			"details": "32bit unsigned integer"
+		},
+		{
+			"trigger": "UInt",
+			"kind": "type",
+			"details": "16bit unsigned integer"
+		},
+		{
+			"trigger": "ULInt",
+			"kind": "type",
+			"details": "64bit unsigned integer"
+		},
+		{
+			"trigger": "USInt",
+			"kind": "type",
+			"details": "8bit unsigned integer"
+		},
+		{
+			"trigger": "Variant",
+			"kind": "type",
+			"details": "may be different types"
+		},
+		{
+			"trigger": "WChar",
+			"kind": "type",
+			"details": "unicode character"
+		},
+		{
+			"trigger": "Word",
+			"kind": "type",
+			"details": "16bit unsigned"
+		},
+		{
+			"trigger": "WString",
+			"kind": "type",
+			"details": "unicode string"
+		},
+
+		// Hardware Types
+
+        {
+            "trigger": "REMOTE",
+            "annotation": "ANY",
+            "kind": "type",
+            "details": "E.g. used by <code>PUT</code> and <code>GET</code> instructions.",
+        },
+        {
+            "trigger": "HW_ANY",
+            "annotation": "UINT",
+            "kind": "type",
+            "details": "Identification of any hardware component, e.g. a module.",
+        },
+        {
+            "trigger": "HW_DEVICE",
+            "annotation": "HW_ANY",
+            "kind": "type",
+            "details": "Identification of a DP slave/PROFINET IO device",
+        },
+        {
+            "trigger": "HW_DPMASTER",
+            "annotation": "HW_INTERFACE",
+            "kind": "type",
+            "details": "Identification of a DP master",
+        },
+        {
+            "trigger": "HW_DPSLAVE",
+            "annotation": "HW_DEVICE",
+            "kind": "type",
+            "details": "Identification of a DP slave",
+        },
+        {
+            "trigger": "HW_IO",
+            "annotation": "HW_ANY",
+            "kind": "type",
+            "details": "Identification number of the CPU or the interface",
+        },
+        {
+            "trigger": "HW_IOSYSTEM",
+            "annotation": "HW_ANY",
+            "kind": "type",
+            "details": "Identification of a PN/IO system or DP master system",
+        },
+        {
+            "trigger": "HW_SUBMODULE",
+            "annotation": "HW_IO",
+            "kind": "type",
+            "details": "Identification of a central hardware component",
+        },
+        {
+            "trigger": "HW_MODULE",
+            "annotation": "HW_IO",
+            "kind": "type",
+            "details": "Identification of a module",
+        },
+        {
+            "trigger": "HW_INTERFACE",
+            "annotation": "HW_SUBMODULE",
+            "kind": "type",
+            "details": "Identification of an interface component",
+        },
+        {
+            "trigger": "HW_IEPORT",
+            "annotation": "HW_SUBMODULE",
+            "kind": "type",
+            "details": "Identification of a port (PN/IO)",
+        },
+        {
+            "trigger": "HW_HSC",
+            "annotation": "HW_SUBMODULE",
+            "kind": "type",
+            "details": "E.g. used by <code>CTRL_HSC</code> and <code>CTRL_HSC_EXT</code> instructions.",
+        },
+        {
+            "trigger": "HW_PWM",
+            "annotation": "HW_SUBMODULE",
+            "kind": "type",
+            "details": "E.g. used by <code>CTRL_PWM</code> instruction.",
+        },
+        {
+            "trigger": "HW_PTO",
+            "annotation": "HW_SUBMODULE",
+            "kind": "type",
+            "details": "Used for Motion Control.",
+        },
+        {
+            "trigger": "EVENT_ANY",
+            "annotation": "AOM_IDENT",
+            "kind": "type",
+            "details": "Used to identify any event",
+        },
+        {
+            "trigger": "EVENT_ATT",
+            "annotation": "EVENT_ANY",
+            "kind": "type",
+            "details": "E.g. used by <code>ATTACH</code> and <code>DETACH</code> instructions.",
+        },
+        {
+            "trigger": "EVENT_HWINT",
+            "annotation": "EVENT_ATT",
+            "kind": "type",
+            "details": "Is used to specify a hardware interrupt event",
+        },
+        {
+            "trigger": "OB_ANY",
+            "annotation": "INT",
+            "kind": "type",
+            "details": "Serves to specify any organization block.",
+        },
+        {
+            "trigger": "OB_DELAY",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "E.g. used by <code>SRT_DINT</code> and <code>CAN_DINT</code> instructions.",
+        },
+        {
+            "trigger": "OB_TOD",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "E.g. used by <code>SET_TINT</code>, <code>CAN_TINT</code>, <code>ACT_TINT</code> and <code>QRY_TINT</code> instructions.",
+        },
+        {
+            "trigger": "OB_CYCLIC",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "Is used to specify an OB that is called when a watchdog interrupt occurs.",
+        },
+        {
+            "trigger": "OB_ATT",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "E.g. used by <code>ATTACH</code> and <code>DETACH</code> instructions.",
+        },
+        {
+            "trigger": "OB_PCYCLE",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "Is used to specify an OB that can be assigned to an event of the \"Cyclic program\" event class.",
+        },
+        {
+            "trigger": "OB_HWINT",
+            "annotation": "OB_ATT",
+            "kind": "type",
+            "details": "Is used to specify an OB that is called when a hardware interrupt occurs.",
+        },
+        {
+            "trigger": "OB_DIAG",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "Is used to specify an OB that is called when a diagnostic interrupt occurs.",
+        },
+        {
+            "trigger": "OB_TIMEERROR",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "Is used to specify an OB that is called when a time error occurs.",
+        },
+        {
+            "trigger": "OB_STARTUP",
+            "annotation": "OB_ANY",
+            "kind": "type",
+            "details": "Is used to specify an OB that is called when a startup event occurs.",
+        },
+        {
+            "trigger": "PORT",
+            "annotation": "HW_SUBMODULE",
+            "kind": "type",
+            "details": "Used for point-to-point communication.",
+        },
+        {
+            "trigger": "RTM",
+            "annotation": "UINT",
+            "kind": "type",
+            "details": "E.g. used by <code>RTM</code> instruction.",
+        },
+        {
+            "trigger": "PIP",
+            "annotation": "UINT",
+            "kind": "type",
+            "details": "Is used to create and connect a \"Synchronous Cycle\" OB. Used for the SFCs 26, 27, 126 and 127.",
+        },
+        {
+            "trigger": "CONN_ANY",
+            "annotation": "WORD",
+            "kind": "type",
+            "details": "Serves to specify any connection.",
+        },
+        {
+            "trigger": "CONN_PRG",
+            "annotation": "CONN_ANY",
+            "kind": "type",
+            "details": "Serves to specify a connection for open communication over UDP.",
+        },
+        {
+            "trigger": "CONN_OUC",
+            "annotation": "CONN_ANY",
+            "kind": "type",
+            "details": "Used to specify a connection for open communication over Industrial Ethernet (PROFINET).",
+        },
+        {
+            "trigger": "CONN_R_ID",
+            "annotation": "DWORD",
+            "kind": "type",
+            "details": "Data type for the <code>R_ID</code> parameter on the S7 communication blocks.",
+        },
+        {
+            "trigger": "DB_ANY",
+            "annotation": "UINT",
+            "kind": "type",
+            "details": "Identification (name or number) of a DB",
+        },
+        {
+            "trigger": "DB_WWW",
+            "annotation": "DB_ANY",
+            "kind": "type",
+            "details": "Number of a DB generated via the Web application (for example, <code>WWW</code> instruction)",
+        },
+        {
+            "trigger": "DB_DYN",
+            "annotation": "DB_ANY",
+            "kind": "type",
+            "details": "Number of a DB generated by the user program",
+        },
+        {
+            "trigger": "C_ALARM",
+            "annotation": "C_ALARM",
+            "kind": "type",
+            "details": "This data type is not supported for the <code>ALARM</code> alarm block.",
+        },
+        {
+            "trigger": "C_ALARM_S",
+            "annotation": "DWORD",
+            "kind": "type",
+            "details": "Used for the <code>ALARM_S</code>, <code>ALARM_SQ</code>, <code>ALARM_DQ</code> and <code>ALARM_D</code> alarm blocks.",
+        },
+        {
+            "trigger": "C_ALARM_8",
+            "annotation": "C_ALARM",
+            "kind": "type",
+            "details": "This data type is not supported for the <code>ALARM_8</code> alarm block.",
+        },
+        {
+            "trigger": "C_ALARM_8P",
+            "annotation": "C_ALARM",
+            "kind": "type",
+            "details": "This data type is not supported for the <code>ALARM_8P</code> alarm block.",
+        },
+        {
+            "trigger": "C_AR_SEND",
+            "annotation": "C_ALARM",
+            "kind": "type",
+            "details": "This data type is not supported for the <code>AR_SEND</code> alarm block.",
+        },
+        {
+            "trigger": "C_NOTIFY",
+            "annotation": "C_ALARM",
+            "kind": "type",
+            "details": "This data type is not supported for the <code>NOTIFY</code> alarm block.",
+        },
+        {
+            "trigger": "C_NOTIFY_8P",
+            "annotation": "C_ALARM",
+            "kind": "type",
+            "details": "This data type is not supported for the <code>NOTIFY_8P</code> alarm block.",
+        },
+        {
+            "trigger": "C_ALARM_SD",
+            "annotation": "DWORD",
+            "kind": "type",
+            "details": "Is used for recording the message number. This data type can only be used with the CPU S7-410H.",
+        },
+	]
+}

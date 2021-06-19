@@ -1,0 +1,166 @@
+// SYNTAX TEST reindent-unchanged "Step7 SCL.sublime-syntax"
+
+FUNCTION "Func" : VOID
+VERSION : 0.1
+
+    VAR_INPUT
+        #enable : Bool;
+        #param : UInt;
+    END_VAR
+
+    VAR_OUTPUT
+        #error : Bool;
+        #busy : Bool;
+    END_VAR
+
+    VAR_IN_OUT
+        #token : "TypeToken";
+    END_VAR
+
+    VAR_TEMP
+    END_VAR
+
+BEGIN
+
+    // REGION INDENTATION TESTS
+
+    REGION
+    END_REGION
+
+    REGION name 1
+        REGION name 2
+            REGION name 3
+                #error := false;
+            END_REGION
+        END_REGION
+    END_REGION
+
+    // IF STATEMENT INDENTATION TESTS
+
+    IF true THEN #error := true; END_IF;
+
+    IF true
+    THEN #error := true; END_IF;
+
+    IF true
+    THEN
+        #error := true;
+    END_IF;
+
+    IF
+        true;
+    THEN
+        #error := true;
+    END_IF;
+
+    IF true THEN
+        #error := true;
+    END_IF;
+
+    // IF..ELSE STATEMENT INDENTATION TESTS
+
+    IF true THEN #error := true; ELSE #error := false; END_IF;
+
+    IF true
+    THEN #error := true; ELSE #error := false; END_IF;
+
+    IF true
+    THEN
+        #error := true;
+    ELSE #error := false; END_IF;
+
+    IF true
+    THEN
+        #error := true;
+    ELSE
+        #error := false;
+    END_IF;
+
+    IF
+        true;
+    THEN
+        #error := true;
+    ELSE
+        #error := false;
+    END_IF;
+
+    IF true THEN
+        #error := true;
+    ELSE
+        #error := false;
+    END_IF;
+
+    // IF..ELSIF..ELSE STATEMENT INDENTATION TESTS
+
+    IF true THEN #error := true; ELSIF #busy THEN #error := false; ELSE #error := false; END_IF;
+
+    IF true
+    THEN #error := true; ELSIF #busy THEN #error := false; ELSE #error := false; END_IF;
+
+    IF true
+    THEN
+        #error := true;
+    ELSIF #busy THEN #error := false; ELSE #error := false; END_IF;
+
+    IF true
+    THEN
+        #error := true;
+    ELSIF #busy
+    THEN
+        #error := false;
+    ELSE #error := false; END_IF;
+
+    IF true
+    THEN
+        #error := true;
+    ELSIF #busy
+    THEN
+        #error := false;
+    ELSE
+        #error := false;
+    END_IF;
+
+    IF
+        true;
+    THEN
+        #error := true;
+    ELSIF
+        #busy
+    THEN
+        #error := false;
+    ELSE
+        #error := false;
+    END_IF;
+
+    IF true THEN
+        #error := true;
+    ELSIF #busy THEN
+        #error := false;
+    ELSE
+        #error := false;
+    END_IF;
+
+    // CASE..LBL:..ELSE STATEMENT INDENTATION TESTS
+
+    CASE #var OF
+    0:
+        #busy := true;
+        #error := false;
+    ELSE
+        #busy := true;
+        #error := false;
+    END_CASE
+
+    CASE
+        #var
+    OF
+    0:
+        #busy := true;
+        #error := false;
+    ELSE
+        #busy := true;
+        #error := false;
+    END_CASE
+
+
+END_FUNCTION

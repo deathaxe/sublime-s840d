@@ -2,11 +2,17 @@
 	"scope": "meta.class.dialog.parameters.attributes.s840d_hmi | meta.operand.parameters.attributes.s840d_hmi",
 	"completions": [
 		{
-			"trigger": "CB0: trigger change on init\tCHANGE BLOCK",
+			"trigger": "CB0",
+			"annotation": "trigger change",
+			"kind": ["variable", "c", "Callback"],
+			"details": "Runs <code>CHANGE</code> when initializing dialog.",
 			"contents": "CB0"
 		},
 		{
-			"trigger": "CB1: ignore change on init\tCHANGE BLOCK",
+			"trigger": "CB1",
+			"annotation": "ignore change",
+			"kind": ["variable", "c", "Callback"],
+			"details": "Ignores <code>CHANGE</code> when initializing dialog.",
 			"contents": "CB1"
 		},
 	]
