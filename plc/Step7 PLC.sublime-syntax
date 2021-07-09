@@ -753,6 +753,7 @@ contexts:
 
   literals:
     - include: literals-bool
+    - include: literals-null
     - include: literals-binary
     - include: literals-hexadecimal
     - include: literals-float
@@ -832,6 +833,11 @@ contexts:
   literals-bool:
     - match: \b(?i:TRUE|FALSE)\b
       scope: constant.language.boolean.plc
+
+  literals-null:
+    # valid in TIA-Portal
+    - match: \b(?i:NULL)\b
+      scope: constant.language.null.plc
 
 ###[ NUMBERS ]#################################################################
 
