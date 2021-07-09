@@ -89,7 +89,12 @@ VAR
 //                               ^^^^^^^^^^^^^^ meta.string.plc string.quoted.single.plc
 //                                             ^ punctuation.section.sequence.end.plc
 //                                              ^ punctuation.terminator.statement.plc
-
+    "name" : String;   // program name
+//  ^^^^^^^ meta.definition.variable.plc
+//  ^^^^^^ variable.other.local.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^^ storage.type.string.plc
+//                 ^ punctuation.terminator.statement.plc
 END_VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
 //^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc

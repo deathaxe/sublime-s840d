@@ -815,6 +815,13 @@
 //^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.statement
+    "name" : String;   // program name
+//^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//  ^^^^^^^ meta.definition.variable.plc
+//  ^^^^^^ variable.other.local.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^^ storage.type.string.plc
+//                 ^ punctuation.terminator.statement.plc
    END_VAR
 // <- meta.block.fc.header meta.block.var.in-out
 // ^^^^^^^ meta.block.fc.header meta.block.var.in-out

@@ -560,6 +560,12 @@ contexts:
     - match: '{{ident}}'
       scope: variable.other.local.plc
       push: variable-separator-name-storage
+    - match: '{{quoted_ident}}'
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      push: variable-separator-name-storage
 
   variable-separator-name-storage:
     - meta_scope: meta.definition.variable.plc
