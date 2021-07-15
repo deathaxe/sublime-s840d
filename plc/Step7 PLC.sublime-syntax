@@ -1267,9 +1267,13 @@ contexts:
     - match: ''
       pop: 2
 
-  scope-end:
-    - match: $|(?=\S)
+  else-pop:
+    - match: (?=\S)
       pop: 1
+
+  scope-end:
+    - include: else-pop
+    - include: line-end
 
   line-end:
     - match: $

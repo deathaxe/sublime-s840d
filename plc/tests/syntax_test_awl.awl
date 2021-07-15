@@ -2159,6 +2159,25 @@
 //                    ^^^^^ variable.language.address
 //                         ^ punctuation.section.group.end
 //                          ^ punctuation.terminator.statement
+   CALL #wdgPrgRead
+   {time_type := 'Time'}
+//^ meta.function-call.identifier.plc
+// ^^^^^^^^^^^^^^^^^^^^^ meta.function-call.plc meta.annotation.plc
+//                      ^ meta.function-call.plc - meta.annotation
+
+   CALL #wdgPrgRead
+   {time_type := 'Time'}
+   (  IN := #interface.Platz.PrgReadReq ,
+//^ meta.function-call.plc - meta.annotation - meta.group
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc meta.group.plc
+// ^ punctuation.section.group.begin.plc
+//    ^^ variable.parameter.plc
+//       ^^ keyword.operator.assignment.plc
+   );
+//^^ meta.function-call.arguments.plc meta.group.plc
+//  ^ - meta.function-call
+// ^ punctuation.section.group.end.plc
+//  ^ punctuation.terminator.statement.plc
 
    CALL FC 10 ();
 // ^^^^ meta.function-call
