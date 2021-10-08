@@ -574,10 +574,21 @@ contexts:
       set: [assert-stmt-end, variable-storage]
     - match: \b(?i:at)\b
       scope: keyword.declaration.alias.plc
-      push:
-        - include: variable-value
+      push: variable-target
     - include: annotations
     - include: assert-stmt-end
+
+  variable-target:
+    - match: '{{ident}}'
+      scope: variable.other.local.plc
+      pop: 1
+    - match: '{{quoted_ident}}'
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      pop: 1
+    - include: scope-end
 
   variable-storage:
     - meta_content_scope: meta.definition.variable.storage.plc

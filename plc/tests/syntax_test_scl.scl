@@ -18,19 +18,19 @@ FUNCTION_BLOCK MyFunc
 VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.stat.begin.plc
 //^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.stat.begin.plc
-    statVar AT %IW0 : WORD := 0;
+    statVar AT statOther : WORD := 0;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
-//  ^^^^^^^^^^^^^^^^^ meta.definition.variable.plc
-//                   ^^^^^^ meta.definition.variable.storage.plc
-//                         ^^ meta.definition.variable.plc
-//                           ^^ meta.definition.variable.value.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.plc
+//                        ^^^^^^ meta.definition.variable.storage.plc
+//                              ^^ meta.definition.variable.plc
+//                                ^^ meta.definition.variable.value.plc
 //  ^^^^^^^ variable.other.local.plc
 //          ^^ keyword.declaration.alias.plc
-//             ^^^^ variable.language.address.plc
-//                  ^ punctuation.separator.type.plc
-//                    ^^^^ storage.type.integer.plc
-//                         ^^ keyword.operator.assignment.plc
-//                            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//             ^^^^^^^^^ variable.other.local.plc
+//                       ^ punctuation.separator.type.plc
+//                         ^^^^ storage.type.integer.plc
+//                              ^^ keyword.operator.assignment.plc
+//                                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
     statLReal { S7_Setpoint := 'True' } : LREAL := 0.0;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.plc
