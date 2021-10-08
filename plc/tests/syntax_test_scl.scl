@@ -48,27 +48,30 @@ VAR
 //                                        ^^^^^ storage.type.float.plc
 //                                              ^^ keyword.operator.assignment.plc
 //                                                 ^^^ meta.number.float.decimal.plc constant.numeric.value.plc
-    arrayVal : ARRAY[0..5] of UDInt := [0, 1, #LOCAL_CONST, 500, 10];
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
+    arrayVal : ARRAY[0..#CONST] of UDInt := [0, 1, #LOCAL_CONST, 500, 10];
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
 //  ^^^^^^^^^^ meta.definition.variable.plc
-//            ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
-//                                  ^^ meta.definition.variable.plc
-//                                    ^ meta.definition.variable.value.plc - meta.sequence
-//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.value.plc meta.sequence.list.plc
-//                                                                  ^ - meta.definition
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//                                       ^^ meta.definition.variable.plc
+//                                         ^ meta.definition.variable.value.plc - meta.sequence
+//                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.value.plc meta.sequence.list.plc
+//                                                                       ^ - meta.definition
 //  ^^^^^^^^ variable.other.local.plc
 //           ^ punctuation.separator.type.plc
 //             ^^^^^ storage.type.array.plc
 //                  ^ punctuation.definition.array.begin.plc
-//                       ^ punctuation.definition.array.end.plc
-//                         ^^ keyword.control.of.plc
-//                            ^^^^^ storage.type.integer.plc
-//                                  ^^ keyword.operator.assignment.plc
-//                                     ^ punctuation.section.sequence.begin.plc
-//                                      ^ constant.numeric.value.plc
-//                                       ^ punctuation.separator.sequence.plc
-//                                                                 ^ punctuation.section.sequence.end.plc
-//                                                                  ^ punctuation.terminator.statement.plc
+//                   ^ constant.numeric.value.plc
+//                    ^^ keyword.operator.range.plc
+//                      ^^^^^^ constant.other.local.plc
+//                            ^ punctuation.definition.array.end.plc
+//                              ^^ keyword.control.of.plc
+//                                 ^^^^^ storage.type.integer.plc
+//                                       ^^ keyword.operator.assignment.plc
+//                                          ^ punctuation.section.sequence.begin.plc
+//                                           ^ constant.numeric.value.plc
+//                                            ^ punctuation.separator.sequence.plc
+//                                                                      ^ punctuation.section.sequence.end.plc
+//                                                                       ^ punctuation.terminator.statement.plc
     structVal : STRUCT
 //  ^^^^^^^^^^^ meta.definition.variable.plc
 //             ^^^^^^^^ meta.definition.variable.storage.plc
