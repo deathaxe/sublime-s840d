@@ -1136,16 +1136,25 @@ contexts:
   stmt-synact-operation:
     - match: (?i:DO)\b
       scope: keyword.control.synact.operation.s840d_gcode
-      embed: stmt-synact-operation-body
+      embed: stmt-synact-operation-begin
       embed_scope: meta.synact.operation.s840d_gcode
       escape: $|(?=;)
 
-  stmt-synact-operation-body:
+  stmt-synact-operation-begin:
     - match: ''
-      push:
-        - include: stmt-procedure-call
-        - include: stmt-cycle-call
-        - include: stmt-iso
+      push: stmt-synact-operation-body
+
+  stmt-synact-operation-body:
+    - include: stmt-procedure-call
+    - include: stmt-cycle-call
+    - match: (?=\S)
+      set: stmt-synact-expression-body
+
+  stmt-synact-expression-body:
+    - match: (?i:ELSE)\b
+      scope: keyword.control.else.s840d_gcode
+      set: stmt-iso-body
+    - include: stmt-iso-body
 
 ###############################################################################
 # WHILE ... ENDWHILE
