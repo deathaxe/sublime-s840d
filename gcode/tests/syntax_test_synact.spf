@@ -170,8 +170,9 @@ N14 IDS=10 WHENEVER DO G0 X0 M3 F2000 ; comment
 ;          ^ keyword.control.synact.condition
 ;                   ^ keyword.control.synact.operation
 N14 IDS=10+ABS(_VAR) WHENEVER _VAR==TRUE DO G0 X0 M3 F2000 ; comment
-;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.synact
-;                                          ^^^^^^^^^^^^^^^ meta.synact.operation
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.synact.s840d_gcode
+;                                        ^^^^^^^^^^^^^^^^^^ meta.synact.operation.s840d_gcode
+;                                                          ^^^^^^^^^^ - meta.synact
 ;   ^^^ keyword.control.synact.identifier
 ;      ^ keyword.operator.assignment
 ;       ^^ constant.numeric
@@ -185,3 +186,10 @@ N14 IDS=10+ABS(_VAR) WHENEVER _VAR==TRUE DO G0 X0 M3 F2000 ; comment
 ;                                 ^^ keyword.operator.logical
 ;                                   ^^^^ constant.language.boolean
 ;                                        ^^ keyword.control.synact.operation
+N15 IDS=10 EVERY $SYG_RM[0]==TRUE DO $AC_TIMER[0]=0 ELSE $AC_TIMER[0]=-1 ELSE
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.synact.s840d_gcode
+;                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.synact.operation.s840d_gcode
+;          ^^^^^ keyword.control.synact.condition.s840d_gcode
+;                                 ^^ keyword.control.synact.operation.s840d_gcode
+;                                                   ^^^^ keyword.control.else.s840d_gcode
+;                                                                        ^^^^ invalid.illegal.keyword.control.s840d_gcode
