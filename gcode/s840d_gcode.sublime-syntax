@@ -1139,11 +1139,11 @@ contexts:
 
   stmt-synact-operation-begin:
     - match: (?i:DO)\b
+      pop: 1
       scope: meta.synact.operation.s840d_gcode keyword.control.synact.operation.s840d_gcode
       embed: stmt-synact-operation-body
       embed_scope: meta.synact.operation.s840d_gcode
       escape: $|(?=;)
-    - include: line-end-or-illegal
 
   stmt-synact-operation-body:
     - include: stmt-procedure-call
