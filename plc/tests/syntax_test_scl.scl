@@ -259,6 +259,21 @@ end_region
 //  ^^^^^^ keyword.control.conditional.end.plc
 //        ^ punctuation.terminator.statement.plc
 
+    if #itme < T#1S or #itme > T#1M then ; end_if ;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - invalid
+//  ^^ keyword.control.conditional.if.plc
+//     ^^^^^ variable.other.local.plc
+//           ^ keyword.operator.comparison.plc
+//             ^^^^ meta.number.time.iec.plc
+//                  ^^ keyword.operator.logical.plc
+//                     ^^^^^ variable.other.local.plc
+//                           ^ keyword.operator.comparison.plc
+//                             ^^^^ meta.number.time.iec.plc
+//                                  ^^^^ keyword.control.conditional.then.plc
+//                                       ^ punctuation.terminator.statement.plc
+//                                         ^^^^^^ keyword.control.conditional.end.plc
+//                                                ^ punctuation.terminator.statement.plc
+
 /// REPEAT..UNTIL /////////////////////////////////////////////////////////////
 
     repeat

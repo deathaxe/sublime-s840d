@@ -1005,7 +1005,7 @@ contexts:
         1: constant.numeric.value.hour.plc
         2: constant.numeric.suffix.hour.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:H|(?=_)))?
+    - match: (?:\w+?(?:H|(?=_)))?
       scope: invalid.illegal.time.hour.plc
       pop: 1
 
@@ -1015,7 +1015,7 @@ contexts:
         1: constant.numeric.value.minute.plc
         2: constant.numeric.suffix.minute.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?i:M(?!S)|(?=_)))?
+    - match: (?:\w+?(?i:M(?!S)|(?=_)))?
       scope: invalid.illegal.time.minute.plc
       pop: 1
 
@@ -1025,7 +1025,7 @@ contexts:
         1: constant.numeric.value.second.plc
         2: constant.numeric.suffix.second.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:[^M]S|(?=_)))?
+    - match: (?:\w+?(?:[^M]S|(?=_)))?
       scope: invalid.illegal.time.second.plc
       pop: 1
 
@@ -1035,7 +1035,7 @@ contexts:
         1: constant.numeric.value.millisecond.plc
         2: constant.numeric.suffix.millisecond.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?i:MS|(?=_)))?
+    - match: (?:\w+?(?i:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.plc
       pop: 1
 
