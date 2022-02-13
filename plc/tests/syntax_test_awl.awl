@@ -1943,6 +1943,28 @@
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.statement
 //                                  ^ - invalid
+      L    t#25d_23h_69m_59s_999ms ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec
+//         ^ storage.type.time
+//          ^ punctuation.separator.type
+//           ^^^ invalid.illegal.time.day
+//              ^ punctuation.separator.time
+//               ^^ constant.numeric.value.hour
+//                 ^ constant.numeric.suffix
+//                  ^ punctuation.separator.time
+//                   ^^^ invalid.illegal.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^ constant.numeric.value.second
+//                         ^ constant.numeric.suffix
+//                          ^ punctuation.separator.time
+//                           ^^^ constant.numeric.value.millisecond
+//                              ^^ constant.numeric.suffix
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.statement
+//                                  ^ - invalid
       L    T#24D_23M_59M_20H_999MS ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network

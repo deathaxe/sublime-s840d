@@ -990,22 +990,22 @@ contexts:
 ###[ TIME PROTOTYPES ]#########################################################
 
   literals-time-day:
-    - match: ([01]?[0-9]|2[0-4])(D)
+    - match: ([01]?[0-9]|2[0-4])([Dd])
       captures:
         1: constant.numeric.value.day.plc
         2: constant.numeric.suffix.day.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:D|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:[Dd]|(?=_)))?
       scope: invalid.illegal.time.day.plc
       pop: 1
 
   literals-time-hour:
-    - match: ([01]?[0-9]|2[0-4])(H)
+    - match: ([01]?[0-9]|2[0-4])([Hh])
       captures:
         1: constant.numeric.value.hour.plc
         2: constant.numeric.suffix.hour.plc
       pop: 1
-    - match: (?:\w+?(?:H|(?=_)))?
+    - match: (?:\w+?(?:[Hh]|(?=_)))?
       scope: invalid.illegal.time.hour.plc
       pop: 1
 
@@ -1025,7 +1025,7 @@ contexts:
         1: constant.numeric.value.second.plc
         2: constant.numeric.suffix.second.plc
       pop: 1
-    - match: (?:\w+?(?:[^M]S|(?=_)))?
+    - match: (?:\w+?(?i:[^M]S|(?=_)))?
       scope: invalid.illegal.time.second.plc
       pop: 1
 
