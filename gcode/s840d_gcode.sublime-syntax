@@ -1418,7 +1418,7 @@ contexts:
       scope: meta.definition.init.s840d_gcode storage.modifier.init.s840d_gcode
 
   storage-modifier-limits:
-    - match: (?i:LL[IU])\b
+    - match: (?i:[LU]LI)\b
       scope: storage.modifier.limit.s840d_gcode
       push:
         - meta_scope: meta.definition.limit.s840d_gcode
