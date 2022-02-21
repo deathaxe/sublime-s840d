@@ -2,6 +2,30 @@
 	"scope": "source.s840d_gcode - comment - string - support.variable - meta.control - meta.definition.variable - meta.redefinition - meta.function - meta.function-call.arguments",
 	"completions": [
 		{
+			"trigger": "A2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: RPY or Euler angle",
+			"contents": "A2=${0:<REAL>}"
+		},
+		{
+			"trigger": "A3",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Direction/surface normal vector component",
+			"contents": "A3=${0:<REAL>}"
+		},
+		{
+			"trigger": "A4",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Surface normal vector for beginning of block",
+			"contents": "A4=${0:<REAL>}"
+		},
+		{
+			"trigger": "A5",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Surface normal vector for end of block",
+			"contents": "A5=${0:<REAL>}"
+		},
+		{
 			"trigger": "ACC",
 			"kind": ["variable", "A", "Address"],
 			"details": "Effect of current axial acceleration",
@@ -14,10 +38,106 @@
 			"contents": "ACCLIMA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "ADIS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Rounding clearance for path functions G1, G2, G3, ...",
+			"contents": "ADIS=${0:<REAL>}"
+		},
+		{
+			"trigger": "ADISPOS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Rounding clearance for rapid traverse G0",
+			"contents": "ADISPOS=${0:<REAL>}"
+		},
+		{
+			"trigger": "ALF",
+			"kind": ["variable", "A", "Address"],
+			"details": "LIFTFAST angle (1, 2, 3)",
+			"contents": "ALF=${0:<INT>}"
+		},
+		{
+			"trigger": "ANG",
+			"kind": ["variable", "A", "Address"],
+			"details": "Contour angle",
+			"contents": "ANG=${0:<REAL>}"
+		},
+		{
+			"trigger": "AP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Polar angle",
+			"contents": "AP=${0:<REAL>}"
+		},
+		{
+			"trigger": "AR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Opening angle",
+			"contents": "AR=${0:<REAL>}"
+		},
+		{
 			"trigger": "ATOL",
 			"kind": ["variable", "A", "Address"],
 			"details": "Axis-specific tolerance for compressor functions, orientation smoothing and smoothing types",
 			"contents": "ATOL[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "B2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: RPY or Euler angle",
+			"contents": "B2=${0:<REAL>}"
+		},
+		{
+			"trigger": "B3",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Direction/surface normal vector component",
+			"contents": "B3=${0:<REAL>}"
+		},
+		{
+			"trigger": "B4",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Surface normal vector for beginning of block",
+			"contents": "B4=${0:<REAL>}"
+		},
+		{
+			"trigger": "B5",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Surface normal vector for end of block",
+			"contents": "B5=${0:<REAL>}"
+		},
+		{
+			"trigger": "C2",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: RPY or Euler angle",
+			"contents": "C2=${0:<REAL>}"
+		},
+		{
+			"trigger": "C3",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Direction/surface normal vector component",
+			"contents": "C3=${0:<REAL>}"
+		},
+		{
+			"trigger": "C4",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Surface normal vector for beginning of block",
+			"contents": "C4=${0:<REAL>}"
+		},
+		{
+			"trigger": "C5",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool orientation: Surface normal vector for end of block",
+			"contents": "C5=${0:<REAL>}"
+		},
+		{
+			"trigger": "CHF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Chamfer; value = length of chamfer",
+			"contents": "CHF=${0:<REAL>}"
+		},
+		{
+			"trigger": "CHR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Chamfer; value = length of chamfer in direction of movement",
+			"contents": "CHR=${0:<REAL>}"
 		},
 		{
 			"trigger": "COARSEA",
@@ -254,16 +374,46 @@
 			"contents": "CPSYNFIV[${1:<FAx>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "CR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Circle radius",
+			"contents": "CR=${0:<REAL>}"
+		},
+		{
 			"trigger": "CTOL",
 			"kind": ["variable", "A", "Address"],
-			"details": "Contour tolerance for compressor functions, orientation smoothing and smoothing types",
+			"details": "Address to program the contour tolerance factor",
 			"contents": "CTOL=${0:<REAL>}"
+		},
+		{
+			"trigger": "CTOLG0",
+			"kind": ["variable", "A", "Address"],
+			"details": "Address to program the contour tolerance factor for rapid traverse motion",
+			"contents": "CTOLG0=${0:<REAL>}"
 		},
 		{
 			"trigger": "CUTMOD",
 			"kind": ["variable", "A", "Address"],
 			"details": "Activate \"Modification of the offset data for rotatable tools\"",
 			"contents": "CUTMOD=${0:<REAL>}"
+		},
+		{
+			"trigger": "CUTMODK",
+			"kind": ["variable", "A", "Address"],
+			"details": "Function call in combination with orientation transformations that have been defined by means of kinematic chains",
+			"contents": "CUTMODK=${0:<STRING>}"
+		},
+		{
+			"trigger": "D",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool offset number",
+			"contents": "D${0:1}"
+		},
+		{
+			"trigger": "D0",
+			"kind": ["variable", "A", "Address"],
+			"details": "With D0, offsets for the tool are ineffective",
+			"contents": "D0"
 		},
 		{
 			"trigger": "DIACYCOFA",
@@ -302,10 +452,88 @@
 			"contents": "DIAMONA[${1:<AXIS>}]"
 		},
 		{
+			"trigger": "DILF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Retraction path (length)",
+			"contents": "DILF=${0:<RetractDist>}"
+		},
+		{
+			"trigger": "DISC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Transition circle overshoot tool radius compensation",
+			"contents": "DISC"
+		},
+		{
+			"trigger": "DISCL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Clearance between the end point of the fast infeed motion and the machining plane",
+			"contents": "DISCL=${0:<REAL>}"
+		},
+		{
+			"trigger": "DISPR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Path differential for repositioning",
+			"contents": "DISPR=${0:<REAL>}"
+		},
+		{
+			"trigger": "DISR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Distance for repositioning",
+			"contents": "DISR=${0:<REAL>}"
+		},
+		{
+			"trigger": "DISRP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Distance between the retraction plane and the machining plane during smooth approach and retraction",
+			"contents": "DISRP=${0:<REAL>}"
+		},
+		{
+			"trigger": "DITE",
+			"kind": ["variable", "A", "Address"],
+			"details": "Thread run-out path",
+			"contents": "DITE=${0:<REAL>}"
+		},
+		{
+			"trigger": "DITS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Thread run-in path",
+			"contents": "DITS=${0:<REAL>}"
+		},
+		{
+			"trigger": "DL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Select location-dependent additive tool offset (DL, total set-up offset)",
+			"contents": "DL"
+		},
+		{
+			"trigger": "F",
+			"kind": ["variable", "A", "Address"],
+			"details": "Feedrate value (in conjunction with G4 the dwell time is also programmed with F)",
+			"contents": "F${0:<REAL>}"
+		},
+		{
 			"trigger": "FA",
 			"kind": ["variable", "A", "Address"],
 			"details": "Axial feedrate",
 			"contents": "FA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "FAD",
+			"kind": ["variable", "A", "Address"],
+			"details": "Infeed rate for soft approach and retraction",
+			"contents": "FAD=${0:<REAL>}"
+		},
+		{
+			"trigger": "FB",
+			"kind": ["variable", "A", "Address"],
+			"details": "Non-modal feedrate",
+			"contents": "FB=${0:<REAL>}"
+		},
+		{
+			"trigger": "FD",
+			"kind": ["variable", "A", "Address"],
+			"details": "Path feedrate for handwheel override",
+			"contents": "FD=${0:<REAL>}"
 		},
 		{
 			"trigger": "FDA",
@@ -332,6 +560,12 @@
 			"contents": "FL[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "FLIM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Address for adjusting the maximum path velocity",
+			"contents": "FLIM=${0:<REAL>}"
+		},
+		{
 			"trigger": "FMA",
 			"kind": ["variable", "A", "Address"],
 			"details": "Multiple feed rates axial",
@@ -356,6 +590,24 @@
 			"contents": "FOCON[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "FP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Fixed point: Number of fixed point to be approached",
+			"contents": "FP=${0:<INT>}"
+		},
+		{
+			"trigger": "FRC",
+			"kind": ["variable", "A", "Address"],
+			"details": "Feedrate for radius and chamfer",
+			"contents": "FRC=${0:<REAL>}"
+		},
+		{
+			"trigger": "FRCM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Feedrate for radius and chamfer, modal",
+			"contents": "FRCM=${0:<REAL>}"
+		},
+		{
 			"trigger": "FXS",
 			"kind": ["variable", "A", "Address"],
 			"details": "Travel to fixed stop ON",
@@ -374,6 +626,24 @@
 			"contents": "FXSW[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "FZ",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tooth feedrate",
+			"contents": "FZ=${0:<REAL>}"
+		},
+		{
+			"trigger": "I",
+			"kind": ["variable", "A", "Address"],
+			"details": "Interpolation parameters",
+			"contents": "I=${0:<REAL>}"
+		},
+		{
+			"trigger": "I1",
+			"kind": ["variable", "A", "Address"],
+			"details": "Intermediate point coordinate",
+			"contents": "I1=${0:<REAL>}"
+		},
+		{
 			"trigger": "IP",
 			"kind": ["variable", "A", "Address"],
 			"details": "Variable interpolation parameter",
@@ -384,6 +654,30 @@
 			"kind": ["variable", "A", "Address"],
 			"details": "End of motion when \"IPO stop\" reached",
 			"contents": "IPOENDA[${1:<AXIS>}]"
+		},
+		{
+			"trigger": "IR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Center of circle coordinate (X axis) when turning a convex thread",
+			"contents": "IR=${0:<REAL>}"
+		},
+		{
+			"trigger": "ISD",
+			"kind": ["variable", "A", "Address"],
+			"details": "Insertion depth",
+			"contents": "ISD=${0:<REAL>}"
+		},
+		{
+			"trigger": "J",
+			"kind": ["variable", "A", "Address"],
+			"details": "Interpolation parameters",
+			"contents": "J=${0:<REAL>}"
+		},
+		{
+			"trigger": "J1",
+			"kind": ["variable", "A", "Address"],
+			"details": "Intermediate point coordinate",
+			"contents": "J1=${0:<REAL>}"
 		},
 		{
 			"trigger": "JERKLIM",
@@ -398,6 +692,36 @@
 			"contents": "JERKLIMA[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "JR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Center of circle coordinate (Y axis) when turning a convex thread",
+			"contents": "JR=${0:<REAL>}"
+		},
+		{
+			"trigger": "K",
+			"kind": ["variable", "A", "Address"],
+			"details": "Interpolation parameters",
+			"contents": "K=${0:<REAL>}"
+		},
+		{
+			"trigger": "K1",
+			"kind": ["variable", "A", "Address"],
+			"details": "Intermediate point coordinate",
+			"contents": "K1=${0:<REAL>}"
+		},
+		{
+			"trigger": "KR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Center of circle coordinate (Z axis) when turning a convex thread",
+			"contents": "KR=${0:<REAL>}"
+		},
+		{
+			"trigger": "LEAD",
+			"kind": ["variable", "A", "Address"],
+			"details": "Lead angle 1st basic tool orientation 2nd orientation polynomials",
+			"contents": "LEAD=${0:<REAL>}"
+		},
+		{
 			"trigger": "LIMS",
 			"kind": ["variable", "A", "Address"],
 			"details": "Speed limitation for G96/G961 and G97",
@@ -410,10 +734,22 @@
 			"contents": "MEAC[${1:<AXIS>}]=${0:<REAL>}"
 		},
 		{
+			"trigger": "MEAS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Measurement with deletion of distance-to-go",
+			"contents": "MEAS=${0:<INT>}"
+		},
+		{
 			"trigger": "MEASA",
 			"kind": ["variable", "A", "Address"],
 			"details": "Axial measurement with delete distance-to-go",
 			"contents": "MEASA[${1:<AXIS>}]=${0:<INT>}"
+		},
+		{
+			"trigger": "MEAW",
+			"kind": ["variable", "A", "Address"],
+			"details": "Measurement without delete distance-to-go",
+			"contents": "MEAW=${0:<INT>}"
 		},
 		{
 			"trigger": "MEAWA",
@@ -426,6 +762,60 @@
 			"kind": ["variable", "A", "Address"],
 			"details": "Start positioning axis",
 			"contents": "MOV[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "MOVT",
+			"kind": ["variable", "A", "Address"],
+			"details": "Specify end point of a traversing motion in the tool direction",
+			"contents": "MOVT=${0:<REAL>}"
+		},
+		{
+			"trigger": "N",
+			"kind": ["variable", "A", "Address"],
+			"details": "NC auxiliary block number",
+			"contents": "N${0<Block>}"
+		},
+		{
+			"trigger": "OFFN",
+			"kind": ["variable", "A", "Address"],
+			"details": "Allowance on the programmed contour",
+			"contents": "OFFN=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA1",
+			"kind": ["variable", "A", "Address"],
+			"details": "OEM address 1",
+			"contents": "OMA1=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA2",
+			"kind": ["variable", "A", "Address"],
+			"details": "OEM address 2",
+			"contents": "OMA2=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA3",
+			"kind": ["variable", "A", "Address"],
+			"details": "OEM address 3",
+			"contents": "OMA3=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA4",
+			"kind": ["variable", "A", "Address"],
+			"details": "OEM address 4",
+			"contents": "OMA4=${0:<REAL>}"
+		},
+		{
+			"trigger": "OMA5",
+			"kind": ["variable", "A", "Address"],
+			"details": "OEM address 5",
+			"contents": "OMA5=${0:<REAL>}"
+		},
+		{
+			"trigger": "ORIS",
+			"kind": ["variable", "A", "Address"],
+			"details": "Change in orientation",
+			"contents": "ORIS"
 		},
 		{
 			"trigger": "OS",
@@ -490,8 +880,14 @@
 		{
 			"trigger": "OTOL",
 			"kind": ["variable", "A", "Address"],
-			"details": "Orientation tolerance for compressor functions, orientation smoothing and smoothing types",
+			"details": "Address to program the orientation tolerance factor",
 			"contents": "OTOL=${0:<REAL>}"
+		},
+		{
+			"trigger": "OTOLG0",
+			"kind": ["variable", "A", "Address"],
+			"details": "Address to program the orientation tolerance factor for rapid traverse motion",
+			"contents": "OTOLG0=${0:<REAL>}"
 		},
 		{
 			"trigger": "OVR",
@@ -510,6 +906,24 @@
 			"kind": ["variable", "A", "Address"],
 			"details": "Rapid traverse override",
 			"contents": "OVRRAP[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "P",
+			"kind": ["variable", "A", "Address"],
+			"details": "Number of subprogram repetitions",
+			"contents": "P=${1:<INT>}"
+		},
+		{
+			"trigger": "PACCLIM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Address for adjusting the maximum path acceleration",
+			"contents": "PACCLIM=${1:<REAL>}"
+		},
+		{
+			"trigger": "PL",
+			"kind": ["variable", "A", "Address"],
+			"details": "1. B spline: Node clearance 2. Polynomial interpolation Length of the parameter interval for polynomial interpolation",
+			"contents": "PL=${0:<REAL>}"
 		},
 		{
 			"trigger": "PO",
@@ -548,6 +962,48 @@
 			"contents": "PRIO=${0:<INT>}"
 		},
 		{
+			"trigger": "PW",
+			"kind": ["variable", "A", "Address"],
+			"details": "B spline, point weight",
+			"contents": "PW=${0:<REAL>}"
+		},
+		{
+			"trigger": "R",
+			"kind": ["variable", "A", "Address"],
+			"details": "Arithmetic parameter also as settable address identifier and with numerical extension",
+			"contents": "R${0:<INT>}"
+		},
+		{
+			"trigger": "RND",
+			"kind": ["variable", "A", "Address"],
+			"details": "Round the contour corner",
+			"contents": "RND=${0:<REAL>}"
+		},
+		{
+			"trigger": "RNDM",
+			"kind": ["variable", "A", "Address"],
+			"details": "Modal rounding",
+			"contents": "RNDM=${0:<REAL>}"
+		},
+		{
+			"trigger": "RP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Polar radius",
+			"contents": "RP=${0:<REAL>}"
+		},
+		{
+			"trigger": "RPL",
+			"kind": ["variable", "A", "Address"],
+			"details": "Rotation in the plane",
+			"contents": "RPL=${0:<REAL>}"
+		},
+		{
+			"trigger": "S",
+			"kind": ["variable", "A", "Address"],
+			"details": "Spindle speed (with G4, G96/G961 different meaning)",
+			"contents": "S${1:[${2:<SpindleNo>}]=}"
+		},
+		{
 			"trigger": "SCC",
 			"kind": ["variable", "A", "Address"],
 			"details": "Selective assignment of transverse axis to G96/ G961/G962. Axis identifiers may take the form of geometry, channel or machine axes.",
@@ -558,6 +1014,24 @@
 			"kind": ["variable", "A", "Address"],
 			"details": "Program servo parameter set",
 			"contents": "SCPARA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "SD",
+			"kind": ["variable", "A", "Address"],
+			"details": "Spline degree",
+			"contents": "SD=${0:<INT>}"
+		},
+		{
+			"trigger": "SF",
+			"kind": ["variable", "A", "Address"],
+			"details": "Starting point offset for thread cutting",
+			"contents": "SF=${0:<REAL>}"
+		},
+		{
+			"trigger": "SPN",
+			"kind": ["variable", "A", "Address"],
+			"details": "Number of path sections per block",
+			"contents": "SPN=${0:<REAL>}"
 		},
 		{
 			"trigger": "SPOS",
@@ -572,10 +1046,28 @@
 			"contents": "SPOSA${1:[${2:<SpindleNo>}]}=${0:<Position>}"
 		},
 		{
+			"trigger": "SPP",
+			"kind": ["variable", "A", "Address"],
+			"details": "Length of a path section",
+			"contents": "SPP=${0:<REAL>}"
+		},
+		{
+			"trigger": "SR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation retraction path for synchronized action",
+			"contents": "SR=${0:<REAL>}"
+		},
+		{
 			"trigger": "SRA",
 			"kind": ["variable", "A", "Address"],
 			"details": "Oscillation retraction path with external input axial for synchronized action",
 			"contents": "SRA[${1:<AXIS>}]=${0:<REAL>}"
+		},
+		{
+			"trigger": "ST",
+			"kind": ["variable", "A", "Address"],
+			"details": "Oscillation sparking-out time for synchronized action",
+			"contents": "ST=${0:<REAL>}"
 		},
 		{
 			"trigger": "STA",
@@ -602,6 +1094,30 @@
 			"contents": "SVC${1:[${2:<INT>}]}=${0:<REAL>}"
 		},
 		{
+			"trigger": "T",
+			"kind": ["variable", "A", "Address"],
+			"details": "Call tool (only change if specified in machine data; other wise M6 command necessary)",
+			"contents": "T=${0:<INT>}"
+		},
+		{
+			"trigger": "TCARR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Request toolholder (number \"m\")",
+			"contents": "TCARR=${0:<INT>}"
+		},
+		{
+			"trigger": "THETA",
+			"kind": ["variable", "A", "Address"],
+			"details": "Angle of rotation",
+			"contents": "THETA=${0:<REAL>}"
+		},
+		{
+			"trigger": "TILT",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tilt angle",
+			"contents": "TILT=${0:<REAL>}"
+		},
+		{
 			"trigger": "TOFF",
 			"kind": ["variable", "A", "Address"],
 			"details": "Tool length offset in the direction of the tool length component that is effective parallel to the geometry axis specified in the index.",
@@ -614,10 +1130,28 @@
 			"contents": "TOFFL${1:[${2:<Direction>}]}=${0:<REAL>}"
 		},
 		{
+			"trigger": "TOFFR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Tool radius offset",
+			"contents": "TOFFR"
+		},
+		{
+			"trigger": "TOFFLR",
+			"kind": ["variable", "A", "Address"],
+			"details": "Simultaneous tool length offset and tool radius offset",
+			"contents": "TOFFLR"
+		},
+		{
 			"trigger": "TU",
 			"kind": ["variable", "A", "Address"],
 			"details": "Axis angle",
 			"contents": "TU=${0:<HEX>}"
+		},
+		{
+			"trigger": "TURN",
+			"kind": ["variable", "A", "Address"],
+			"details": "Number of turns for helix",
+			"contents": "TURN=${0:<INT>}"
 		},
 		{
 			"trigger": "VELOLIM",
