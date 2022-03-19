@@ -71,7 +71,6 @@
 <brief>Anzeigefeinheit Rotation in Nullpunktverschiebungen</brief>
 <description>Anzeigefeinheit Rotation in Nullpunktverschiebungen
 Ist der Wert des Datums 0, wird das MD51020 $MNS_DISP_RES_ANGLE verwendet.
-
 </description>
 </parameter>
 <parameter number="51020" type="BYTE" dim="0" display="DECIMAL">
@@ -108,7 +107,6 @@ Bit 2:	reserviert
 Bit 3:	EXTCALL-Programme überspringen
 Bit 4:	reserviert
 Bit 5:	Satzsuchlauf mit Testlauf
-
 </description>
 </parameter>
 <parameter number="51025" type="BYTE" dim="0" display="DECIMAL">
@@ -138,7 +136,6 @@ Bit 1:	Satzsuchlauf mit Berechnung mit Anfahren
 Bit 3:	EXTCALL-Programme überspringen
 Bit 4:	Satzsuchlauf ohne Berechnung
 Bit 5:	Satzsuchlauf mit Testlauf
-
 </description>
 </parameter>
 <parameter number="51029" type="BYTE" dim="0" display="DECIMAL">
@@ -170,7 +167,6 @@ Die Balkenanzeige im Maschinenbild, wird im Bereich zwischen den Werten von  SPI
 10: Darstellung als dezimaler Wert
 16: Darstellung als hexadezimaler Wert
 Dieses Maschinendatum ist nicht mehr zu verwenden. Die Aktivierung der Anzeige STAT bei "TEACH IN" erfolgt nur noch mit MD52032
-
 </description>
 </parameter>
 <parameter number="51033" type="BYTE" dim="0" display="DECIMAL">
@@ -253,21 +249,18 @@ Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satz
 <name>ENABLE_PROGLIST_USER</name>
 <brief>Aktivierung PLC-Programmliste Bereich USER</brief>
 <description>Aktiviert die PLC-Programmliste des Bereichs USER. Die hier eingetragenen Programme können von der PLC aus zum Abarbeiten angewählt werden.
-
 </description>
 </parameter>
 <parameter number="51042" type="BYTE" dim="0" display="DECIMAL">
 <name>ENABLE_PROGLIST_INDIVIDUAL</name>
 <brief>Aktivierung PLC-Programmliste Bereich INDIVIDUAL</brief>
 <description>Aktiviert die PLC-Programmliste des Bereichs INDIVIDUAL. Die hier eingetragenen Programme können von der PLC aus zum Abarbeiten angewählt werden.
-
 </description>
 </parameter>
 <parameter number="51043" type="BYTE" dim="0" display="DECIMAL">
 <name>ENABLE_PROGLIST_MANUFACT</name>
 <brief>Aktivierung PLC-Programmliste Bereich MANUFACTURER</brief>
 <description>Aktiviert die PLC-Programmliste des Bereichs MANUFACTURER. Die hier eingetragenen Programme können von der PLC aus zum Abarbeiten angewählt werden.
-
 </description>
 </parameter>
 <parameter number="51044" type="BYTE" dim="0" display="DECIMAL">
@@ -468,21 +461,18 @@ Bit 3: Bei der Programmanwahl/Abarbeiten im Bedienbereich Programm wird der Satz
 <name>ACCESS_WRITE_CA_MACH_JOG</name>
 <brief>Schutzstufe Kollisionskontrolle Maschine Jog schreiben</brief>
 <description>Dieses Maschinendatum legt fest, ab welcher Schutzstufe die Kollisionskontrolle Maschine/Maschine unter Jog ein- bzw. ausgeschaltet werden kann.
-
 </description>
 </parameter>
 <parameter number="51161" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_WRITE_CA_MACH_AUTO</name>
 <brief>Schutzstufe Kollisionskontrolle Maschine Automatik schreiben</brief>
 <description>Dieses Maschinendatum legt fest, ab welcher Schutzstufe die Kollisionskontrolle Maschine/Maschine unter Automatik ein- bzw. ausgeschaltet werden kann.
-
 </description>
 </parameter>
 <parameter number="51162" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_WRITE_CA_TOOL</name>
 <brief>Schutzstufe Kollisionskontrolle Werkzeug schreiben</brief>
 <description>Dieses Maschinendatum legt fest, ab welcher Schutzstufe die Kollisionskontrolle für Werkzeuge ein- bzw. ausgeschaltet werden kann.
-
 </description>
 </parameter>
 <parameter number="51198" type="BYTE" dim="0" display="DECIMAL">
@@ -551,7 +541,6 @@ Eine Berechtigung gilt gemeinsam für Grenzwerte: Stückzahl, Standzeit, Verschlei
 <name>ACCESS_WRITE_TM_ADAPT</name>
 <brief>Schutzstufe WZV Adapterdaten schreiben</brief>
 <description>Schutzstufe WZV Werkzeug-Adapter-Geometriedaten schreiben
-
 </description>
 </parameter>
 <parameter number="51209" type="BYTE" dim="0" display="DECIMAL">
@@ -577,7 +566,6 @@ Eine Berechtigung gilt gemeinsam für Grenzwerte: Stückzahl, Standzeit, Verschlei
 <brief>Maximaler Wert des Werkzeugverschleißes</brief>
 <description>Mit TM_WRITE_WEAR_ABS_LIMIT wird der max. mögliche Wert eines Werkzeugverschleißes absolut begrenzt, unabhängig von der aktuellen Schutzstufe (Schlüsselschalterstellung), d.h. auch unabhängig von ACCESS_WRITE_TM_WEAR. Absolute und inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD51213.
 Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
-
 </description>
 </parameter>
 <parameter number="51213" type="DOUBLE" dim="0" display="DECIMAL">
@@ -587,7 +575,6 @@ Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
 Mit TM_WRITE_WEAR_DELTA_LIMIT wird die Änderung eines Werkzeugverschleißes inkrementell begrenzt, wenn die aktuelle Schutzstufe gleich oder höher ist wie in ACCESS_WRITE_TM_WEAR_DELTA eingestellt. Mit akt. Schutzstufe gleich oder höher ACCESS_WRITE_TM_WEAR wird nicht mehr inkrementell begrenzt. Absolute und
 inkrementelle Verschleißbegrenzung können kombiniert werden, d.h. der Verschleiß kann inkrementell bis zur absoluten Grenze geändert werden. S. MD51212.
 Der Wert 0 schaltet die Begrenzung der Verschleißeingabe aus.
-
 </description>
 </parameter>
 <parameter number="51214" type="BYTE" dim="0" display="HEX">
@@ -598,7 +585,6 @@ Bit 0:	Anwendung auf Schneidendaten, Verschleiß
 Bit 1:	Anwendung auf SC-Daten, Summenkorrekturen
 Bit 2:	Anwendung auf EC-Daten, Einsatzkorrekturen
 Bit 0+1+2:	Anwendung auf alle Daten, Verschleiß, SC, EC
-
 </description>
 </parameter>
 <parameter number="51215" type="BYTE" dim="0" display="DECIMAL">
@@ -695,7 +681,6 @@ Bit 2: Bei externer Programmanwahl(z.B. über PLC) Startsperrenbehandlung durchfü
 <name>ENABLE_LADDER_DB_ADDRESSES</name>
 <brief>Aktivierung DB Adressen im PLC Ladder-Viewer</brief>
 <description>Aktivierung DB Adressen im PLC Ladder-Viewer
-
 </description>
 </parameter>
 <parameter number="51231" type="BOOLEAN" dim="0">
@@ -726,7 +711,6 @@ Bit 2: Bei externer Programmanwahl(z.B. über PLC) Startsperrenbehandlung durchfü
 <name>MAXNUM_WAITM_USER</name>
 <brief>Anzahl der Waitmarken, die dem Endanwender zur Verfügung stehen</brief>
 <description>Anzahl der Waitmarken, die dem Endanwender zur Verfügung stehen
-
 </description>
 </parameter>
 <parameter number="51600" type="BYTE" dim="0">
@@ -816,7 +800,6 @@ Bit 16:	Werkzeugmessen, Technologie Drehen, Berücksichtigung der Orientierung de
                   beim Messen.
           	1: Die Korrektur der Werkzeugkomponenten erfolgt entsprechend der Orientierung des Werkzeugträgers
                   in Grundstellung.
-
 </description>
 </parameter>
 <parameter number="51742" type="DWORD" dim="1">
@@ -848,14 +831,12 @@ Er wird nur von alten ShopMill-Messzyklen (PowerLine) verwendet.
 <name>J_MEA_M_DIST_TOOL_LENGTH</name>
 <brief>Messweg für die Werkzeuglängenmessung, in Messen im JOG</brief>
 <description>Dieser Parameter definiert den Messweg vor und hinter dem Mess-Sollwert.
-
 </description>
 </parameter>
 <parameter number="51753" type="DOUBLE" dim="0">
 <name>J_MEA_M_DIST_TOOL_RADIUS</name>
 <brief>Messweg für die Werkzeugradiusmessung, in Messen im JOG</brief>
 <description>Dieser Parameter definiert den Messweg vor und hinter dem Mess-Sollwert.
-
 </description>
 </parameter>
 <parameter number="51755" type="DOUBLE" dim="0">
@@ -868,14 +849,12 @@ Er wird nur von alten ShopMill-Messzyklen (PowerLine) verwendet.
 <name>J_MEA_COLL_MONIT_FEED</name>
 <brief>Vorschub in der Ebene mit aktiver Kollisionsüberwachung, in Messen im JOG</brief>
 <description>Vorschub in der Arbeitsebene mit aktiver Kollisionsüberwachung.
-
 </description>
 </parameter>
 <parameter number="51758" type="DOUBLE" dim="0">
 <name>J_MEA_COLL_MONIT_POS_FEED</name>
 <brief>Zustellvorschub mit aktiver Kollisionsüberwachung, in Messen im JOG</brief>
 <description>Vorschub der Zustellachse mit aktiver Kollisionsüberwachung, in "Messen im JOG".
-
 </description>
 </parameter>
 <parameter number="51770" type="DOUBLE" dim="1">
@@ -889,7 +868,6 @@ Er wird nur von alten ShopMill-Messzyklen (PowerLine) verwendet.
 <brief>Kalibrierhöhe in der Zustellachse, zum Kalibrieren der Messtasterlänge</brief>
 <description>Kalibrierhöhe in der Zustellachse für das Kalibrieren der Messtasterlänge, in "Messen im JOG"
 Die Kalibrierhöhe ist mit Bezug auf das Werkstückkoordinatensystem (WKS) einzugeben!
-
 </description>
 </parameter>
 <parameter number="51780" type="DOUBLE" dim="1">

@@ -622,7 +622,6 @@ Literatur:
 <brief>Anzahl der Festwertpositionen einer Achse</brief>
 <description>Anzahl eingerichteter Festpunktpositionen. d.h. Anzahl der gültigen Einträge im MD30600 $MA_FIX_POINT_POS.
 Bei G75 werden aus Gründen der Kompatibilität auch bei einem Eintrag von '0' in diesem Maschinendatum 2 Festpunktpositionen in MD30600 $MA_FIX_POINT_POS angenommen.
-
 </description>
 </parameter>
 <parameter number="30800" type="BOOLEAN" dim="0">
@@ -1161,7 +1160,6 @@ Bit 11 = 1:
 <name>MAPPED_FRAME</name>
 <brief>Mapping eines axialen Frames</brief>
 <description>Über dieses Maschinendatum kann ein axiales Frame auf ein axiales Frame einer anderen Achse abgebildet werden. D.h. beim Beschreiben eines Frames in der Datenhaltung kann gleichzeitig auch das Frame einer anderen Achse mit den gleichen Werten beschrieben werden. Über MD10616 $MN_MAPPED_FRAME_MASK können ausgewählte Datenhaltungsframes für das Mapping freigeschalten werden.
-
 </description>
 </parameter>
 <parameter number="32080" type="DOUBLE" dim="0">
@@ -1433,7 +1431,6 @@ Korrespondiert mit:
 	MD10070 $MN_IPO_SYSCLOCK_TIME_RATIO (Interpolatortakt)
 
 Jedes Feldelement entspricht einem G-Code der 59. G-Code-Gruppe
-
 </description>
 </parameter>
 <parameter number="32320" type="UDWORD" dim="0" display="HEX">
@@ -1458,8 +1455,6 @@ Bit 1 = 1:
 Hinweise:
 Im MD22410 $MC_F_VALUES_ACTIVE_AFTER_RESET wird kanalspezifisch das Resetverhalten der Dynamik-Anweisungen ACC, VELOLIM, JERKLIM, ACCLIMA, VELOLIMA und JERKLIMA eingestellt. Ist das MD gesetzt, dann bleiben die Werte ebenfalls erhalten.
 Für den Spindelbetrieb bleiben die Werte für ACC und VELOLIM auch dann erhalten, wenn MD35040 $MA_SPIND_ACTIVE_AFTER_RESET ungleich Null ist oder das kanalspezifische MD22400 $MC_S_VALUES_ACTIVE_AFTER_RESET ungleich Null ist.
-
-
 </description>
 </parameter>
 <parameter number="32400" type="BOOLEAN" dim="0">
@@ -1624,7 +1619,6 @@ MD ist nur wirksam bei MD32402 $MA_AX_JERK_MODE = 3
 <name>EQUIV_CPREC_TIME</name>
 <brief>Zeitkonstante für die programmierbare Konturgenauigkeit</brief>
 <description>Das Datum gibt diejenige Ruckfilterzeitkonstante an, bei welcher der Konturfehler mit aktiver Vorsteuerung vernachlässigbar klein ist.
-
 </description>
 </parameter>
 <parameter number="32420" type="BOOLEAN" dim="0">
@@ -1731,7 +1725,6 @@ Die Ruckanpassung wird nur dann aktiv, falls das MD32439 $MA_MAX_AX_JERK_FACTOR 
 
 Es gibt einen Eintrag für jede Dynamik-G-Code-Gruppe.
 siehe auch MD32438 $MA_AX_JERK_VEL1 und $MA_MAX_AX_JERK_FACTOR
-
 </description>
 </parameter>
 <parameter number="32438" type="DOUBLE" dim="1">
@@ -1744,8 +1737,6 @@ Die Ruckanpassung wird nur dann aktiv, falls das MD32439 $MA_MAX_AX_JERK_FACTOR 
 
 Es gibt einen Eintrag für jede Dynamik-G-Code-Gruppe.
 siehe auch MD32437 $MA_AX_JERK_VEL0 und MD32439 $MA_MAX_AX_JERK_FACTOR
-
-
 </description>
 </parameter>
 <parameter number="32439" type="DOUBLE" dim="1">
@@ -2606,8 +2597,6 @@ Korrespondiert mit:
 	Auswertung der Durchhangkompensationstabelle t freigeben
 	NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(Referenziert/Synchronisiert 1 bzw. 2)
-
-
 </description>
 </parameter>
 <parameter number="32730" type="DOUBLE" dim="0">
@@ -2631,8 +2620,6 @@ Korrespondiert mit:
 	Auswertung der Durchhangkompensationstabelle t freigeben
 	NC/PLC-Nahtstellensignal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(Referenziert/Synchronisiert 1 bzw. 2)
-
-
 </description>
 </parameter>
 <parameter number="32750" type="UBYTE" dim="0" display="HEX">
@@ -2985,7 +2972,6 @@ Nicht relevant bei:
 
 Nicht relevant bei:
 Längenmesssystemen mit abstandscodierten Referenzmarken
-
 </description>
 </parameter>
 <parameter number="34040" type="DOUBLE" dim="1">
@@ -3018,7 +3004,6 @@ Mit dieser Geschwindigkeit überfährt die Achse die zwei Referenzmarken. Die max.
 	Verfahrrichtung:
 - gemäß MD34010 $MA_REFP_CAM_DIR_IS_MINUS;
 - steht die Achse schon auf dem Nocken, dann in entgegengesetzter Richtung.
-
 </description>
 </parameter>
 <parameter number="34050" type="BOOLEAN" dim="1">
@@ -3209,7 +3194,6 @@ Korrespondiert mit:
 - MD34200 $MA_ENC_REFP_MODE = 8
 	Referenzieren bei Längenmesssystemen mit abstandscodierten Referenzmarken:
 	Längenmesssystem mit abstandscodierten Referenzmarken über 4 Nullmarken (Erhöhte Sicherheit).
-
 </description>
 </parameter>
 <parameter number="34210" type="BYTE" dim="1">
@@ -3384,7 +3368,6 @@ Wert:        0       rechtsbündig
 <description>Parametrierung für Teileprogrammbefehl WAITENC:
 0: Achse wird beim Warten auf synchronisierte/referenzierte bzw. restaurierte Position per Teileprogrammbefehl WAITENC nicht berücksichtigt.
 1: Es wird im Teileprogrammbefehl WAITENC gewartet, bis für diese Achse eine synchronisierte/referenzierte bzw. restaurierte Position zur Verfügung steht.
-
 </description>
 </parameter>
 <parameter number="34990" type="DOUBLE" dim="1">
@@ -3578,10 +3561,6 @@ MD korrespondiert mit:
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET
 	MD35020 $MA_SPIND_DEFAULT_MODE
 	SD43200 $SA_SPIND_S
-
-
-
-
 </description>
 </parameter>
 <parameter number="35040" type="BYTE" dim="0">
@@ -4356,7 +4335,6 @@ Bei aktiver Temperaturkompensation MD32750 $MA_TEMP_COMP_TYPE, wird die maximale
 - Bei Spindeln sollte je Getriebestufe ein Wert gewählt werden, der 10-15 % über MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT[n] (Maximaldrehzahl der Getriebestufe) liegt.
 
 Der Index des Maschinendatums hat folgende Codierung: [Regelungs-Parametersatz-Nr.]: 0-5
-
 </description>
 </parameter>
 <parameter number="36210" type="DOUBLE" dim="1">
@@ -4429,7 +4407,6 @@ Mit diesem MD wird die Nullmarken-Diagnose aktiviert.
  0:	keine Nullmarken-Diagnose
 
 &gt;0:	Zulässige Abweichung in 1/2 Grobstrichen zwischen der absoluten und der inkrementellen Geberspur (ein 1/2 Grobstrich ist ausreichend).
-
 </description>
 </parameter>
 <parameter number="36314" type="DWORD" dim="1">
@@ -4438,7 +4415,6 @@ Mit diesem MD wird die Nullmarken-Diagnose aktiviert.
 <description>Nur bei bei Absoluten Messsystemen (MD30240 $MA_ENC_TYPE=4):
 Parametrierung in 1/2 Grobstrichen
 Mit diesem MD wird beim Einschalten des Absolutgebers (Parken-Abwahl u.ä.) die zuvor zulässige Positionsverschiebung parametriert (Vergleich der neuen Absolutposition mit den zuletzt im SRAM gespeicherten Informationen). Bei Überschreitung der Warnschwelle wird die Systemvariable $VA_ENC_ZERO_MON_ERR_CNT im groben Raster um den Wert 10000 inkrementiert.
-
 </description>
 </parameter>
 <parameter number="36400" type="DOUBLE" dim="0">
@@ -4608,7 +4584,6 @@ Normierung: Der Eingabewert bezieht sich auf die Schnittstellen-Normierung entsp
 MD32250 $MA_RATED_OUTVAL,
 MD32260 $MA_RATED_VELO sowie
 MD36210 $MA_CTRLOUT_LIMIT.
-
 </description>
 </parameter>
 <parameter number="36730" type="BYTE" dim="0">
@@ -4702,7 +4677,6 @@ Korrespondiert mit:
 <brief>Zeitdauer bis zum Erreichen der geänderten Momentengrenze</brief>
 <description>Zeitdauer in Sekunden bis zum Erreichen der geänderten Momentengrenze.
 Der Wert 0.0 deaktiviert die Rampenfunktion.
-
 </description>
 </parameter>
 <parameter number="37014" type="DOUBLE" dim="0">
@@ -4837,7 +4811,6 @@ Korrespondiert mit:
 	NC/PLC-Nahtstellensignal &lt;Fahren_auf_Festanschlag_freigeben/&gt; (Fahren auf Festanschlag freigeben)
 	NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht/&gt; (Festanschlag erreicht)
 	NC/PLC-Nahtstellensignal &lt;Festanschlag_erreicht_quittieren/&gt; (Festanschlag erreicht quittieren)
-
 </description>
 </parameter>
 <parameter number="37070" type="DOUBLE" dim="0">
@@ -4853,7 +4826,6 @@ Die Momentengrenze muss in ihrer Wirkung der im Antrieb eingestellten Momentengr
 Diese Momentengrenze ist notwendig, damit
 - beim Umschalten vom drehzahl- in den Strom- bzw. momentengeregelten Betrieb,das Moment nicht springt.
 - in der NC die Beschleunigung auf den richtigen Wert reduziert wird.
-
 </description>
 </parameter>
 <parameter number="37080" type="UBYTE" dim="0" display="HEX">
@@ -4993,7 +4965,6 @@ Korrespondiert mit:
 	MD37120 $MA_GANTRY_POS_TOL_ERROR Gantry-Abschaltgrenze
 	NC/PLC-Nahtstellensignal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry-Verbund ist synchronisiert)
 	NC/PLC-Nahtstellensignal &lt;Gantry-Abschaltgrenze_ueberschritten/&gt; (Gantry-Abschaltgrenze überschritten)
-
 </description>
 </parameter>
 <parameter number="37135" type="DOUBLE" dim="0">
@@ -5023,7 +4994,6 @@ Korrespondiert mit:
 	          Gantry-Abschaltgrenze beim Referenzieren
 	NC/PLC-Nahtstellensignal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry-Verbund ist synchronisiert)
 	NC/PLC-Nahtstellensignal &lt;Gantry-Abschaltgrenze_ueberschritten/&gt; (Gantry-Abschaltgrenze überschritten)
-
 </description>
 </parameter>
 <parameter number="37150" type="UDWORD" dim="0" display="HEX">
@@ -5109,7 +5079,6 @@ Wird der Schwellenwert nicht eingehalten, wird es mit dem abbrechbaren Showalarm
 Korrespondiert mit:
 	MD37200 $MA_COUPLE_POS_TOL_COARSE
 	NC/PLC-Nahtstellensignal &lt;Synchronlauf_grob/&gt; (Synchronlauf grob)
-
 </description>
 </parameter>
 <parameter number="37210" type="DOUBLE" dim="0">
@@ -5142,7 +5111,6 @@ Wird der Schwellenwert nicht eingehalten, wird es mit dem abbrechbaren Showalarm
 Korrespondiert mit:
 	MD37210 $MA_COUPLE_POS_TOL_FINE
 	NC/PLC-Nahtstellensignal &lt;Sychronlauf_fein/&gt; (Synchronlauf fein)
-
 </description>
 </parameter>
 <parameter number="37220" type="DOUBLE" dim="0">
@@ -5237,7 +5205,6 @@ Bit 1 = 0:
 
 Bit 1 = 1:
 	Bei MASLDEF entspricht die Masterachse für die Momentenausgleichsregelung der im MD37252 $MA_MS_ASSIGN_MASTER_TORQUE_CTR projektierten Achse.
-
 </description>
 </parameter>
 <parameter number="37254" type="DWORD" dim="0">

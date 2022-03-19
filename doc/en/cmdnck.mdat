@@ -71,7 +71,6 @@
 <brief>Display resolution of rotation in work offsets</brief>
 <description> Display resolution of rotation in work offsets
 If the value of the data is 0, MD51020 $MNS_DISP_RES_ANGLE is used.
-
 </description>
 </parameter>
 <parameter number="51020" type="BYTE" dim="0" display="DECIMAL">
@@ -108,7 +107,6 @@ Bit 2:	reserved
 Bit 3:	Skip EXTCALL programs
 Bit 4:	reserved
 Bit 5:	Block search with test run
-
 </description>
 </parameter>
 <parameter number="51025" type="BYTE" dim="0" display="DECIMAL">
@@ -138,7 +136,6 @@ Bit 1:	Block search with calculation with approach
 Bit 3:	Skip EXTCALL programs
 Bit 4:	Block search without calculation
 Bit 5:	Block search with test run
-
 </description>
 </parameter>
 <parameter number="51029" type="BYTE" dim="0" display="DECIMAL">
@@ -170,7 +167,6 @@ The display bar in the machine image is shown in red in the range between the va
 10: decimal value display
 16: hexadecimal value display
 This machine data must not be used any more. The STAT display is only activated during "TEACH IN" with MD52032.
-
 </description>
 </parameter>
 <parameter number="51033" type="BYTE" dim="0" display="DECIMAL">
@@ -253,21 +249,18 @@ Bit 3: No automatic start of block search when the program is selected / execute
 <name>ENABLE_PROGLIST_USER</name>
 <brief>Activation of PLC program list, USER area</brief>
 <description>Activates the PLC program list of the USER area. The programs entered there can be selected by the PLC for processing.
-
 </description>
 </parameter>
 <parameter number="51042" type="BYTE" dim="0" display="DECIMAL">
 <name>ENABLE_PROGLIST_INDIVIDUAL</name>
 <brief>Activation of PLC program list, INDIVIDUAL area</brief>
 <description>Activates the PLC program list of the INDIVIDUAL area. The programs entered here can be selected by the PLC for processing.
-
 </description>
 </parameter>
 <parameter number="51043" type="BYTE" dim="0" display="DECIMAL">
 <name>ENABLE_PROGLIST_MANUFACT</name>
 <brief>Activation of PLC program list, MANUFACTURER area</brief>
 <description>Activates the PLC program list of the MANUFACTURER area. The programs entered here can be selected by the PLC for processing.
-
 </description>
 </parameter>
 <parameter number="51044" type="BYTE" dim="0" display="DECIMAL">
@@ -468,21 +461,18 @@ Bit 3: No automatic start of block search when the program is selected / execute
 <name>ACCESS_WRITE_CA_MACH_JOG</name>
 <brief>Write protection level collision monitoring machine jog</brief>
 <description>This machine data defines the protection level from which the machine/machine collision monitoring can be activated or deactivated under jog.
-
 </description>
 </parameter>
 <parameter number="51161" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_WRITE_CA_MACH_AUTO</name>
 <brief>Write protection level, collision monitoring machine automatic</brief>
 <description>This machine data defines the protection level from which the machine/machine collision monitoring can be activated or deactivated under automatic.
-
 </description>
 </parameter>
 <parameter number="51162" type="BYTE" dim="0" display="DECIMAL">
 <name>ACCESS_WRITE_CA_TOOL</name>
 <brief>Write protection level collision monitoring tool</brief>
 <description>This machine data defines the protection level from which the collision monitoring for tools can be activated or deactivated.
-
 </description>
 </parameter>
 <parameter number="51198" type="BYTE" dim="0" display="DECIMAL">
@@ -551,7 +541,6 @@ One authorization applies to all limit values: quantity, service life, wear and 
 <name>ACCESS_WRITE_TM_ADAPT</name>
 <brief>Write tool offset adapter data protection level</brief>
 <description>Write tool offset tool adapter geometry data protection level
-
 </description>
 </parameter>
 <parameter number="51209" type="BYTE" dim="0" display="DECIMAL">
@@ -577,7 +566,6 @@ One authorization applies to all limit values: quantity, service life, wear and 
 <brief>Maximum tool wear value</brief>
 <description>Using TM_WRITE_WEAR_ABS_LIMIT, the max. possible value of a tool wear is limited absolutely, independently of the current protection level (keyswitch position), i.e. also independently of ACCESS_WRITE_TM_WEAR. Absolute and incremental wear limitation can be combined, i.e. the wear can be changed incrementally up to the absolute limit. See MD51213.
 The value 0 disables the limitation of the wear input.
-
 </description>
 </parameter>
 <parameter number="51213" type="DOUBLE" dim="0" display="DECIMAL">
@@ -587,7 +575,6 @@ The value 0 disables the limitation of the wear input.
 With TM_WRITE_WEAR_DELTA_LIMIT, the change to a tool wear can be limited incrementally, if the current protection level is the same as or higher than the one set in ACCESS_WRITE_TM_WEAR_DELTA. With the current protection level being the same or higher than ACCESS_WRITE_TM_WEAR, an incremental limitation is no longer performed. Absolute and
 incremental wear limitation can be combined, i.e. the wear can be changed up to the absolute limit. See MD51212
 The value 0 disables limitation of the wear input.
-
 </description>
 </parameter>
 <parameter number="51214" type="BYTE" dim="0" display="HEX">
@@ -598,7 +585,6 @@ Bit 0:	use for cutting edge data, wear
 Bit 1:	use for SC data, sum offsets
 Bit 2:	use for EC data, use offsets
 Bit 0+1+2:	use for all data, wear, SC, EC
-
 </description>
 </parameter>
 <parameter number="51215" type="BYTE" dim="0" display="DECIMAL">
@@ -695,7 +681,6 @@ Bit 2: With external program selection (e.g. via PLC), set start disable (progra
 <name>ENABLE_LADDER_DB_ADDRESSES</name>
 <brief>DB address activation in the PLC ladder viewer</brief>
 <description>DB address activation in the PLC ladder viewer
-
 </description>
 </parameter>
 <parameter number="51231" type="BOOLEAN" dim="0">
@@ -726,7 +711,6 @@ Bit 2: With external program selection (e.g. via PLC), set start disable (progra
 <name>MAXNUM_WAITM_USER</name>
 <brief>Number of wait marks available to the end user</brief>
 <description>Number of wait marks available to the end user
-
 </description>
 </parameter>
 <parameter number="51600" type="BYTE" dim="0">
@@ -816,7 +800,6 @@ Bit 16:	Tool measurement, turning technology, taking into account the orientatio
                   when measuring.
           	1: The tool component is corrected according to the orientation of the tool carrier
                   in the initial setting.
-
 </description>
 </parameter>
 <parameter number="51742" type="DWORD" dim="1">
@@ -848,14 +831,12 @@ It is only used by old ShopMill measuring cycles (powerline).
 <name>J_MEA_M_DIST_TOOL_LENGTH</name>
 <brief>Measuring path for tool length measuring, for "Measure in JOG"</brief>
 <description>This parameter defines the measuring path in front of and behind the measuring setpoint.
-
 </description>
 </parameter>
 <parameter number="51753" type="DOUBLE" dim="0">
 <name>J_MEA_M_DIST_TOOL_RADIUS</name>
 <brief>Measuring path for tool radius measuring, for "Measure in JOG"</brief>
 <description>This parameter defines the measuring path in front of and behind the measuring setpoint.
-
 </description>
 </parameter>
 <parameter number="51755" type="DOUBLE" dim="0">
@@ -868,14 +849,12 @@ It is only used by old ShopMill measuring cycles (powerline).
 <name>J_MEA_COLL_MONIT_FEED</name>
 <brief>Feedrate in the plane w. active collision detection, for "Measure in JOG"</brief>
 <description>Feedrate in the working plane w. active collision detection
-
 </description>
 </parameter>
 <parameter number="51758" type="DOUBLE" dim="0">
 <name>J_MEA_COLL_MONIT_POS_FEED</name>
 <brief>Infeed rate with active collision detection, for "Measure in JOG"</brief>
 <description>Feedrate of the infeed axis with active collision detection, for "Measure in JOG".
-
 </description>
 </parameter>
 <parameter number="51770" type="DOUBLE" dim="1">
@@ -889,7 +868,6 @@ It is only used by old ShopMill measuring cycles (powerline).
 <brief>Calibration height in the infeed axis, for probe length calibration</brief>
 <description>Calibration height in the infeed axis for probe length calibration, for "Measure in JOG"
 The calibration height must be entered with reference to the the workpiece coordinate system (Work)!
-
 </description>
 </parameter>
 <parameter number="51780" type="DOUBLE" dim="1">

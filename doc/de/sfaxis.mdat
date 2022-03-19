@@ -31,7 +31,6 @@ Sonderfälle:
 - Wenn durch die globale Option nicht genügend Achsen/Spindeln für den sicheren Betrieb freigegeben sind, dann kann beim Hochlauf dieses Datum mit dem Wert 0 überschrieben werden.
 
 Korrespondiert mit: Globaler Option
-
 </description>
 </parameter>
 <parameter number="36902" type="BOOLEAN" dim="0">
@@ -464,7 +463,6 @@ Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
 	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
 	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
-
 </description>
 </parameter>
 <parameter number="36937" type="DOUBLE" dim="1">
@@ -490,7 +488,6 @@ Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
 	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
 	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
-
 </description>
 </parameter>
 <parameter number="36938" type="DWORD" dim="1">
@@ -517,7 +514,6 @@ Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
 	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
 	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
-
 </description>
 </parameter>
 <parameter number="36940" type="DOUBLE" dim="0">
@@ -568,7 +564,6 @@ Durch die Parametrierung einer Filterzeit ungleich 0 vergrößert sich die Reaktio
 Korrespondiert mit:
 	MD36946: $MA_SAFE_VELO_X
 	MD36947: $MA_SAFE_VELO_X_HYSTERESIS
-
 </description>
 </parameter>
 <parameter number="36946" type="DOUBLE" dim="0">
@@ -594,7 +589,6 @@ Die Funktion "Synchronisation "n &lt; nx", Hysterese und Filterung" muss aktiv s
 Korrespondiert mit:
 	MD36945: $MA_SAFE_VELO_X_FILTER_TIME
 	MD36946: $MA_SAFE_VELO_X
-
 </description>
 </parameter>
 <parameter number="36948" type="DOUBLE" dim="0">
@@ -823,8 +817,6 @@ Es beeinflusst die kanalweite IPO-Reaktions-Verteilung von Safety Integrated:
 
 0 =	Voreinstellung: Die Alarme 27000/A01797 werden bei Anwahl Parken angezeigt.
 1 =	Die Alarme 27000/A01797 werden bei Anwahl Parken nicht angezeigt. Dies ist bei Achsen notwendig, die während des Bearbeitungsprozesses geberseitig abgetrennt sind (z.B. Abricht-Achsen). Bei anschließender Abwahl des Parkbetriebs werden die Alarme angezeigt.
-
-
 </description>
 </parameter>
 <parameter number="36966" type="DOUBLE" dim="0">
@@ -1250,7 +1242,6 @@ Signal  bedeutet
 
 Hinweis:
 Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
-
 </description>
 </parameter>
 <parameter number="37901" type="UDWORD" dim="1" display="HEX">
@@ -1281,7 +1272,6 @@ Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, 
 
 Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37902" type="UDWORD" dim="1" display="HEX">
@@ -1312,7 +1302,6 @@ Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, 
 
 Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37903" type="UDWORD" dim="1" display="HEX">
@@ -1343,7 +1332,6 @@ Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, 
 
 Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37904" type="UDWORD" dim="1" display="HEX">
@@ -1374,7 +1362,6 @@ Sind nicht alle 4 Bits zugeordnet, so kann u.U. nicht eindeutig erkannt werden, 
 
 Korrespondiert mit:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37906" type="UDWORD" dim="1" display="HEX">
@@ -1399,7 +1386,6 @@ Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse a
 Hinweis:
 Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
 Ist die Nockenbereichsnummer n auf Nockenspur 1 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
-
 </description>
 </parameter>
 <parameter number="37907" type="UDWORD" dim="1" display="HEX">
@@ -1424,7 +1410,6 @@ Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse a
 Hinweis:
 Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
 Ist die Nockenbereichsnummer n auf Nockenspur 2 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
-
 </description>
 </parameter>
 <parameter number="37908" type="UDWORD" dim="1" display="HEX">
@@ -1449,7 +1434,6 @@ Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse a
 Hinweis:
 Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
 Ist die Nockenbereichsnummer n auf Nockenspur 3 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
-
 </description>
 </parameter>
 <parameter number="37909" type="UDWORD" dim="1" display="HEX">
@@ -1474,7 +1458,6 @@ Das Signal, das über Feldindex 5 angesprochen wird, geht auf 1, wenn die Achse a
 Hinweis:
 Die Funktion "sichere Nockenspur" wird über MD36903 $MA_SAFE_CAM_ENABLE freigegeben.
 Ist die Nockenbereichsnummer n auf Nockenspur 4 nicht parametriert, so kann das Signal des Feldindex n niemals auf 1 gehen. Das Output-MD mit Feldindex n muss in diesem Fall nicht parametriert werden.
-
 </description>
 </parameter>
 <parameter number="37920" type="DOUBLE" dim="0">

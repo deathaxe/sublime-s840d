@@ -6,7 +6,6 @@
 <description>With this MD, you adapt the operator panel's coordinate system to the machine's coordinate system. Depending on the selected position, all help screens, the sequence graphic, the simulation, and the input fields with the circular direction specified will change automatically in the user interface.
 The machine data is evaluated in the cycles.
 Also note MD52210 $MCS_FUNCTION_MASK_DISP, bit 1.
-
 </description>
 </parameter>
 <parameter number="52001" type="BYTE" dim="0" display="DECIMAL">
@@ -14,8 +13,6 @@ Also note MD52210 $MCS_FUNCTION_MASK_DISP, bit 1.
 <brief>Coordinate system for turning on milling machines</brief>
 <description>With this MD you specify the coordinate system for turning operations on milling machines.
 See also MD52000 $MCS_DISP_COORDINATE_SYSTEM.
-
-
 </description>
 </parameter>
 <parameter number="52004" type="BYTE" dim="0" display="DECIMAL">
@@ -24,7 +21,6 @@ See also MD52000 $MCS_DISP_COORDINATE_SYSTEM.
 <description>You can set this MD so that the coordinate system is displayed during programming as it is described in the specified channel.
 0: Display as described in own channel
 n: Display as described in channel n
-
 </description>
 </parameter>
 <parameter number="52005" type="BYTE" dim="0" display="DECIMAL">
@@ -35,7 +31,6 @@ n: Display as described in channel n
 17: always G17
 18: always G18
 19: always G19
-
 </description>
 </parameter>
 <parameter number="52006" type="BYTE" dim="0" display="DECIMAL">
@@ -46,14 +41,12 @@ n: Display as described in channel n
 17: always G17
 18: always G18
 19: always G19
-
 </description>
 </parameter>
 <parameter number="52010" type="BYTE" dim="0" display="DECIMAL">
 <name>DISP_NUM_AXIS_BIG_FONT</name>
 <brief>Number of actual values with large font</brief>
 <description>Number of actual values with large font
-
 </description>
 </parameter>
 <parameter number="52011" type="BYTE" dim="0" display="DECIMAL">
@@ -63,7 +56,6 @@ n: Display as described in channel n
 0 = Only MD52010 "DISP_NUM_AXIS_BIG_FONT" is valid. The number is assigned as a fixed value.
 1 = Only the geometry axes are displayed in large font. MD 52010 "DISP_NUM_AXIS_BIG_FONT" is ignored.
 2 = The number of geometry axes plus the content of MD 52010 "DISP_NUM_AXIS_BIG_FONT"  are displayed in large font.
-
 </description>
 </parameter>
 <parameter number="52020" type="BYTE" dim="0" display="DECIMAL">
@@ -73,7 +65,6 @@ n: Display as described in channel n
 Possible values are:
 =  0 Orientation axis name from the channel block geometry axis name with the index 3 to 5
 =  1 Orientation axis name is the name of the Euler angle from the general machine data
-
 </description>
 </parameter>
 <parameter number="52032" type="BYTE" dim="0" display="DECIMAL">
@@ -86,7 +77,6 @@ If the value of the data is greater than 0, MD51032 $MNS_STAT_DISPLAY_BASE is ig
 10: Representation as decimal value
 16: Representation as hexadecimal value
 The machine data activates not only the STAT display channel-specifically on the main screen, but also the display during "TEACH IN".
-
 </description>
 </parameter>
 <parameter number="52033" type="BYTE" dim="0" display="DECIMAL">
@@ -131,7 +121,6 @@ MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
 <name>NUM_AXIS_USED</name>
 <brief>Number of axes used in channel</brief>
 <description>Number of axes used in channel (axis gaps are also counted).
-
 </description>
 </parameter>
 <parameter number="52206" type="BYTE" dim="1" display="DECIMAL">
@@ -152,7 +141,6 @@ MD 52201 $MCS_TECHNOLOGY_EXTENSION = 2
 11 = reserved
 12 = B axis in the counterspindle (turning)
 13 = transverse travel X of the counterspindle (turning)
-
 </description>
 </parameter>
 <parameter number="52207" type="DWORD" dim="1" display="HEX">
@@ -191,8 +179,6 @@ For bits 0 - 2 and 10 - 12, only the 1st set bit is active in each case.
 
 Note on position pattern with rotary axes:
 If one of the bits 10 - 12 is set, these bits take precedence over bits 0 - 2.
-
-
 </description>
 </parameter>
 <parameter number="52210" type="DWORD" dim="0" display="HEX">
@@ -316,9 +302,6 @@ Bit 16: Do not automatically execute swivel plane after block search
 Bit 17: Do not automatically execute align turning tool after block search
 	0: The section for align turning tool is executed in the block search cycle PROG_EVENT.SPF
 	1: The section for align turning tool is not executed in the block search cycle PROG_EVENT.SPF
-
-
-
 </description>
 </parameter>
 <parameter number="52214" type="DWORD" dim="0" display="HEX">
@@ -357,7 +340,6 @@ Bit 7:	Offer fixed table for blank clamping (on drilling machines)
 	0: Fixed table not offered for blank clamping
 	1: Offer fixed table for blank clamping
 	(This bit must only be set if a drilling machine has a rotary axis and a fixed table for blank clamping.)
-
 </description>
 </parameter>
 <parameter number="52216" type="DWORD" dim="0" display="HEX">
@@ -377,7 +359,6 @@ Bit 2:	Thread tapping also without encoder (ShopMill/ShopTurn)
 Bit 3:  	Constant cutting speed in relation to the diameter of the centering (ShopMill/ShopTurn)
 	0: Constant cutting speed in relation to the diameter of the tool
 	1: Constant cutting speed in relation to the diameter of the centering
-
 </description>
 </parameter>
 <parameter number="52218" type="DWORD" dim="0" display="HEX">
@@ -432,9 +413,6 @@ Bit 13:	Stock removal along the contour with CYCLE95 (828D programGUIDE without 
 	- 828D
 	- programGUIDE
 	- Without Advanced Technology option
-
-
-
 </description>
 </parameter>
 <parameter number="52229" type="BYTE" dim="0" display="HEX">
@@ -469,7 +447,6 @@ Bit 3:	Coolant 1 and 2  ON
 <name>M_CODE_COOLANT_1_AND_2_ON</name>
 <brief>M code for both coolants ON</brief>
 <description>M code for coolant 1 + 2 ON
-
 </description>
 </parameter>
 <parameter number="52240" type="STRING" dim="1" display="ASCII">
@@ -479,7 +456,6 @@ Bit 3:	Coolant 1 and 2  ON
 When inserting a tool using the "Select tool" softkey, the T command is transferred into the program.
 If the MD contains a text, this is automatically inserted as an autonomous block after the T command.
 For example, the tool change command "M6" can be entered here or a machine-manufacturer specific tool change program.
-
 </description>
 </parameter>
 <parameter number="52241" type="DOUBLE" dim="0" display="DECIMAL">
@@ -488,7 +464,6 @@ For example, the tool change command "M6" can be entered here or a machine-manuf
 <description>Tool change position Y in Machine (ShopTurn)
 In ShopTurn, the tool change point in X and Z can be specified in the Machine or Work.
 When the tool change point is approached, the Y axis is simultaneously traversed to the value in the Machine specified in this MD.
-
 </description>
 </parameter>
 <parameter number="52242" type="BYTE" dim="0" display="DECIMAL">
@@ -498,7 +473,6 @@ When the tool change point is approached, the Y axis is simultaneously traversed
 0 = turning tool in the tool spindle
 1 = turning tool fixed at the tool spindle box
 2 = turning tool in the tool spindle or fixed at the tool spindle box
-
 </description>
 </parameter>
 <parameter number="52244" type="DOUBLE" dim="0" display="DECIMAL">
@@ -525,7 +499,6 @@ Example: "M34" or "M1=34"
 Elements:
   [0]: Main spindle
   [1]: Counterspindle
-
 </description>
 </parameter>
 <parameter number="52251" type="STRING" dim="1" display="ASCII">
@@ -537,7 +510,6 @@ Example: "M34" or "M1=34"
 Elements:
   [0]: Main spindle
   [1]: Counterspindle
-
 </description>
 </parameter>
 <parameter number="52252" type="STRING" dim="1" display="ASCII">
@@ -549,7 +521,6 @@ Example: "M34" or "M1=34"
 Elements:
   [0]: Main spindle
   [1]: Counterspindle
-
 </description>
 </parameter>
 <parameter number="52253" type="STRING" dim="1" display="ASCII">
@@ -561,7 +532,6 @@ E.g.: "M55" or "M1=55"
 Elements:
   [0]: Quill opposite main spindle
   [1]: Quill opposite counterspindle
-
 </description>
 </parameter>
 <parameter number="52254" type="STRING" dim="1" display="ASCII">
@@ -573,7 +543,6 @@ E.g.: "M54" or "M1=54"
 Elements:
   [0]: Quill opposite main spindle
   [1]: Quill opposite counterspindle
-
 </description>
 </parameter>
 <parameter number="52260" type="BYTE" dim="0" display="DECIMAL">
@@ -600,7 +569,6 @@ Bit 10:	Reactivate tool using Position magazine. Prior to reactivation, the tool
 Bit 11:	Reactivate tool in all monitoring modes. When reactivating a tool, all monitoring modes enabled in the NC are
 	reactivated for this tool, even the monitoring modes, which have not been set for the relevant tool, but are available in the background only.
 Bit 12:	Hide Reactivate tool. The function 'Reactivate tool' is hidden on the user interface.
-
 </description>
 </parameter>
 <parameter number="52271" type="DOUBLE" dim="0" display="DECIMAL">
@@ -657,7 +625,6 @@ Only one of the 4 corners can be selected:
   Bit 3 = Bottom right corner
 
 This MD is active only on the OP019.
-
 </description>
 </parameter>
 <parameter number="52480" type="STRING" dim="1" display="ASCII">
@@ -666,7 +633,6 @@ This MD is active only on the OP019.
 <description>Channel axis name of the first parallel axis (tool axis) for CYCLE69.
 The first parallel axis is the third geometry axis, if no geometry axis exchange is active (e.g. axis ZZ with G17)
 The channel axis name must differ from the geometry axis name (e.g. channel axis name ZZ, geometry axis name Z)
-
 </description>
 </parameter>
 <parameter number="52481" type="STRING" dim="1" display="ASCII">
@@ -679,7 +645,6 @@ The channel axis name must differ from the geometry axis name (e.g. channel axis
 <name>MILL_PARALLEL_AX3_NAME</name>
 <brief>Channel axis name of the third parallel axis for CYCLE69</brief>
 <description>Channel axis name of the third parallel axis (in tool direction) for CYCLE69
-
 </description>
 </parameter>
 <parameter number="52483" type="STRING" dim="1" display="ASCII">
@@ -735,7 +700,6 @@ Bit 17: Tool measurement turning, recoding of the cutting edge positions
            0: No recoding
            1: Internal recoding, cutting edge positions mirrored on the X axis
               Tool turret rotated through 180°, Z axis not mirrored
-
 </description>
 </parameter>
 <parameter number="52750" type="DOUBLE" dim="0" display="DECIMAL">
@@ -763,7 +727,6 @@ Bit 17: Tool measurement turning, recoding of the cutting edge positions
       Manual approach to the tool probe
 =2: technology-independent approach to the tool probe
       Automatic approach to the tool probe
-
 </description>
 </parameter>
 <parameter number="52800" type="BYTE" dim="0">
@@ -834,8 +797,6 @@ Bit 17: Tool measurement turning, recoding of the cutting edge positions
 Bit 7:	Retraction while profiling with G1
 	0: Retraction while profiling with rapid traverse (G0)
 	1: Retraction while profiling with feedrate (G1)
-
-
 </description>
 </parameter>
 <parameter number="52842" type="BYTE" dim="0" display="DECIMAL">
@@ -844,7 +805,6 @@ Bit 7:	Retraction while profiling with G1
 <description>Grinding technology: Number of the tool length for the grinding wheel diameter:
 1: Length 1 is grinding wheel diameter
 2: Length 2 is grinding wheel diameter
-
 </description>
 </parameter>
 <parameter number="52843" type="BYTE" dim="0" display="DECIMAL">
@@ -853,7 +813,6 @@ Bit 7:	Retraction while profiling with G1
 <description>Grinding technology: Number of the tool length for the grinding wheel width:
 1: Length 1 is grinding wheel width
 2: Length 2 is grinding wheel width
-
 </description>
 </parameter>
 </info>

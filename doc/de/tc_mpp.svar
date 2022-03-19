@@ -80,14 +80,13 @@ Die Namensgebung ist angelehnt an $TC_MPP6 - T-Nr. des auf dem Magazinplatz befi
 <name>$TC_MPP_SP</name>
 <brief>Spindel-Nummer, die dem Werkzeughalter zugeordnet ist</brief>
 <description>$TC_MPP_SP[n,m]
-Nur von Bedeutung, wenn 
+Nur von Bedeutung, wenn
 - mit Werkzeughaltern gearbeitet wird ($MC_TOOLHOLDER_MANAGEMENT &gt; 0)
 - der Magazinplatz "m" zu einem Zwischenmagazin "n" gehört
 - der Magazinplatz einen Werkzeughalter beschreibt ($TC_MPP1[n,m]=2)
 In diesem Fall enthält die Systemvariable die Spindel-Nummer,  deren Drehzahl auf die maximale Werkzeug-Drehzahl überwacht werden soll.
 Wenn nicht mit Werkzeughaltern gearbeitet wird ($MC_TOOLHOLDER_MANAGEMENT = 0), enthält die Variable den Wert des Spindel-Index aus $TC_MPP5
 Wenn Magazinplatz "n,m" kein Zwischenmagazinplatz für eine Spindel oder Werkzeughalter handelt, enthält diese Variable den Wert =0.
-
 </description>
 </parameter>
 </info>

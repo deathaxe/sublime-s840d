@@ -101,7 +101,6 @@ Bit 3: High Speed Settings mask without Advanced Surface option
 Bit 4: Display smoothing selection
 =0: Do not display smoothing selection (corresponds to smoothing = yes)
 =1: Display smoothing selection
-
 </description>
 </parameter>
 <parameter number="55221" type="DWORD" dim="0" display="HEX">
@@ -180,8 +179,6 @@ Example: Table kinematics with 1st rotary axis A (rotates around X) and 2nd rota
 Setting for swivel data record: Rotary axis reference must be set to the rotary axis that is not the pole axis (in the example: rotary axis 1).
 When the bit is set, the input rotations are evaluated so that continuous swiveling around the pole axis/tool axis is possible. The following applies: the "+" solution of CYCLE800 has no additional rotation, whereas the "-" solution has an additional 180° rotation in the Actframe in the tool axis.
 If bit13 is set, the settings of bits 4, 7 and 11 have no effect.
-
-
 </description>
 </parameter>
 <parameter number="55230" type="DOUBLE" dim="0" display="DECIMAL">
@@ -214,7 +211,6 @@ If bit13 is set, the settings of bits 4, 7 and 11 have no effect.
 <description>Simple input: safety clearance
 The input field for the safety clearance is not available in the simple input screens.
 Instead, the value of this setting date is always used.
-
 </description>
 </parameter>
 <parameter number="55301" type="DOUBLE" dim="0" display="DECIMAL">
@@ -231,7 +227,6 @@ Instead, the value of this setting data is always used.
 <description>Simple input: percentage 1st feedrate deep-hole drilling
 The input field for this percentage is not available in the simple input screens.
 Instead, the value of this setting data is always used.
-
 </description>
 </parameter>
 <parameter number="55306" type="DOUBLE" dim="0">
@@ -240,7 +235,6 @@ Instead, the value of this setting data is always used.
 <description>Simple input: percentage infeed deep-hole drilling
 The input field for this percentage is not available in the simple input screens.
 Instead, the value of this setting data is always used.
-
 </description>
 </parameter>
 <parameter number="55307" type="DOUBLE" dim="0" display="DECIMAL">
@@ -249,7 +243,6 @@ Instead, the value of this setting data is always used.
 <description>Simple input: min. depth infeed deep-hole drilling
 The input field for the minimum depth infeed is not available in the simple input screens.
 Instead, the value of this setting data is always used.
-
 </description>
 </parameter>
 <parameter number="55308" type="DOUBLE" dim="0" display="DECIMAL">
@@ -258,7 +251,6 @@ Instead, the value of this setting data is always used.
 <description>Simple input: absolute retraction value deep-hole drilling
 The input field for the absolute retraction value is not available in the simple input screens.
 Instead, the value of this setting data is always used
-
 </description>
 </parameter>
 <parameter number="55309" type="DOUBLE" dim="0" display="DECIMAL">
@@ -267,7 +259,6 @@ Instead, the value of this setting data is always used
 <description>Simple input: return distance thread tapping
 The input field for the return distance is not available in the simple input screens.
 Instead, the value of this setting data is always used.
-
 </description>
 </parameter>
 <parameter number="55400" type="DOUBLE" dim="0" display="DECIMAL">
@@ -277,7 +268,6 @@ Instead, the value of this setting data is always used.
 (Default setting for conventional engraving tools, compatibility).
 Input value greater than zero: The character "point" is executed as a circle with the radius value from this setting data
 (Setting for certain special tools).
-
 </description>
 </parameter>
 <parameter number="55405" type="STRING" dim="1">
@@ -294,7 +284,6 @@ Bit 0: Display alarm 62186: Active work offset G54 ff. and base (basic reference
 Bit 1: Display alarm 62187: Active base and basic reference (G500) contain rotations
 Bit 2: Display alarm 61148: Swivel plane not possible with active turning tool
 Bit 3: Display alarm 61426: Kinematics measurement with CYCLE9960/996. Hide 1 = Alarm 61426
-
 </description>
 </parameter>
 <parameter number="55420" type="BYTE" dim="0" display="DECIMAL">
@@ -308,7 +297,6 @@ With this setting data, the status adopted by the toggler "Retract" in the mask 
   3 = Z XY
   4 = Tool direction max.
   5 = Tool direction inc.
-
 </description>
 </parameter>
 <parameter number="55421" type="BYTE" dim="0" display="DECIMAL">
@@ -319,7 +307,6 @@ With this setting data, the status adopted by the toggler "Tool correction" in t
   0 = no change
   1 = do not correct
   2 = correct
-
 </description>
 </parameter>
 <parameter number="55422" type="BYTE" dim="0" display="DECIMAL">
@@ -329,9 +316,6 @@ With this setting data, the status adopted by the toggler "Tool correction" in t
 With this setting data, the state of the "Swivel mode" toggler in the "Swivel plane" mask can be set with the "Initial setting" softkey:
   0 = axis by axis
   1 = direct
-
-
-
 </description>
 </parameter>
 <parameter number="55440" type="DOUBLE" dim="0" display="DECIMAL">
@@ -401,7 +385,6 @@ With this setting data, the state of the "Swivel mode" toggler in the "Swivel pl
 <brief>Setting tapping G group 12: block change behavior at exact stop</brief>
 <description>Settings for tapping G group 12 cycle CYCLE84 and CYCLE840:
 G group 12: block change behavior at exact stop (G60)
-
 </description>
 </parameter>
 <parameter number="55482" type="DOUBLE" dim="1" display="DECIMAL">
@@ -416,7 +399,6 @@ G group 21: acceleration profile (SOFT, BRISK, ...)
 <brief>Setting tapping G group 24: precontrol</brief>
 <description>Settings for tapping G group 24 cycle CYCLE84 and CYCLE840:
 G group 24: precontrol  (FFWON, FFWOF )
-
 </description>
 </parameter>
 <parameter number="55484" type="DOUBLE" dim="1" display="DECIMAL">
@@ -640,8 +622,6 @@ If this MD is set to 50% and if the finishing allowance is 0.5mm, the residual m
 
 = 2 to 8: reserved
 = 9 internal
-
-
 </description>
 </parameter>
 <parameter number="55619" type="DOUBLE" dim="0">
@@ -687,7 +667,6 @@ can be defined! Currently, however, these 20 memory elements cannot be changed!
 In the mean value memory, the mean values calculated in connection with functionality
 "Automatic tool offset with mean value creation" are stored.
 Using parameter _EVNUM the mean value element to be used is addressed!
-
 </description>
 </parameter>
 <parameter number="55628" type="DOUBLE" dim="0">
@@ -695,7 +674,6 @@ Using parameter _EVNUM the mean value element to be used is addressed!
 <brief>Feed for calibrating a tool probe</brief>
 <description>MEA_TP_FEED_MEASURE
 Feed for calibrating a tool probe with stationary spindle in AUTO and JOG
-
 </description>
 </parameter>
 <parameter number="55630" type="DOUBLE" dim="0">
@@ -703,14 +681,12 @@ Feed for calibrating a tool probe with stationary spindle in AUTO and JOG
 <brief>Feed for calibrating a workpiece probe</brief>
 <description>MEA_FEED_MEASURE
 Feed for calibrating a workpiece probe in Automatic and JOG
-
 </description>
 </parameter>
 <parameter number="55631" type="DOUBLE" dim="0">
 <name>MEA_FEED_MEASURE_DEG</name>
 <brief>Measurement feedrate of workpiece probe during positioning of a rotary axis</brief>
 <description>Measurement feedrate of workpiece probe during positioning of a rotary axis
-
 </description>
 </parameter>
 <parameter number="55632" type="DOUBLE" dim="0">
@@ -743,7 +719,6 @@ Depending on this setting different velocities are used for the approach:
 <brief>Traverse velocity for intermediate positioning in the plane</brief>
 <description>MEA_FEED_MEASURE
 Traversing velocity for the intermediate positioning in the plane in Automatic and JOG
-
 </description>
 </parameter>
 <parameter number="55636" type="DOUBLE" dim="0">
@@ -773,7 +748,6 @@ Depending on this setting different speeds are used for the approach:
 <name>MEA_FEED_POS_DEG</name>
 <brief>Feedrate when positioning a rotary axis between individual measurements</brief>
 <description>Feedrate when positioning a rotary axis between individual measurements
-
 </description>
 </parameter>
 <parameter number="55638" type="DOUBLE" dim="0">
@@ -792,7 +766,6 @@ The use of "Rapid measuring feed" depends of SD55740 $SCS_MEA_FUNCTION_MASK Bit4
 <brief>Circular feed for measuring circle segment and measuring ball / 3 balls</brief>
 <description>MEA_FEED_CIRCLE
 Circular feed for measuring circle segment and measuring ball / 3 balls
-
 </description>
 </parameter>
 <parameter number="55642" type="DOUBLE" dim="0">
@@ -800,8 +773,6 @@ Circular feed for measuring circle segment and measuring ball / 3 balls
 <brief>Additional safe angle for measuring corner</brief>
 <description>Set $SCS_MEA_EDGE_SAVE_ANG=10 for compatibility programs.
 The set angle is added to the measured angle as a safety angle.
-
-
 </description>
 </parameter>
 <parameter number="55644" type="DOUBLE" dim="0" display="DECIMAL">
@@ -810,9 +781,6 @@ The set angle is added to the measured angle as a safety angle.
 <description>Measure kinematics: Tolerance of diameter of calibration ball
 If $SCS_MEA_KIN_DM_TOL &gt; 0, the measurement of the kinematics (CYCLE996) also checks whether the measured diameter
 of the calibration ball lies within the tolerance value in $SCS_MEA_KIN_DM_TOL.
-
-
-
 </description>
 </parameter>
 <parameter number="55645" type="BYTE" dim="1" display="DECIMAL">
@@ -830,7 +798,6 @@ Units digit
 Tens digit
   0 = vector chain closed, only with tool carrier (55645[0] for the head chain, 55645[1] for the table chain)
   1x = vector chain open, only with tool carrier (55645[0] for the head chain, 55645[1] for the table chain)
-
 </description>
 </parameter>
 <parameter number="55646" type="DOUBLE" dim="1" display="DECIMAL">
@@ -840,7 +807,6 @@ Tens digit
 SD55646[0] Value for rotary axis 1
 SD55646[1]  Value for rotary axis 2
 See SD55645
-
 </description>
 </parameter>
 <parameter number="55647" type="DOUBLE" dim="0">
@@ -849,7 +815,6 @@ See SD55645
 <description>Perform complete kinematics measurement
 Valid for 3 measuring points only. Minimum interior angle of the measuring triangle.
 Value range 2 to 60 degrees
-
 </description>
 </parameter>
 <parameter number="55648" type="DOUBLE" dim="0">
@@ -858,14 +823,12 @@ Value range 2 to 60 degrees
 <description>Perform complete kinematics measurement
 Minimum measuring range of a rotary axis. If the measuring range of a rotary axis is less than 90°, then inaccuracies caused by measuring inaccuracies in the micrometer range of the probe can be expected.
 Value range 10 to 180 degrees
-
 </description>
 </parameter>
 <parameter number="55649" type="DOUBLE" dim="1" display="DECIMAL">
 <name>MEA_KIN_BALL_VEC</name>
 <brief>Perform komplete kinematics measurement: Vector of the ball mounting</brief>
 <description>Perform komplete kinematics measurement: Vector of the ball mounting
-
 </description>
 </parameter>
 <parameter number="55700" type="DOUBLE" dim="0">
@@ -879,7 +842,6 @@ with simultaneous measuring (MD51740 bit14)
 <name>MEA_PROTOCOL_USER_EXT</name>
 <brief>File extension for application protocol</brief>
 <description>File extension for application protocol
-
 </description>
 </parameter>
 <parameter number="55740" type="DWORD" dim="0" display="HEX">
@@ -1007,7 +969,6 @@ Bit 28: Selection of new or continuous protocol for standard protocol measuremen
 Bit 29: File format selection for standard protocol measurement in JOG
           	0: Text format (default)
           	1: Table format
-
 </description>
 </parameter>
 <parameter number="55772" type="BYTE" dim="0" display="DECIMAL">
@@ -1017,14 +978,12 @@ Bit 29: File format selection for standard protocol measurement in JOG
 
 =0 probe type is multiprobe
 =1 probe type is monoprobe
-
 </description>
 </parameter>
 <parameter number="55774" type="STRING" dim="1" display="ASCII">
 <name>J_MEA_PROTOCOL_FILE</name>
 <brief>Name and path of protocol file for measurement in JOG</brief>
 <description>Name and path of protocol file for measurement in JOG
-
 </description>
 </parameter>
 <parameter number="55800" type="BYTE" dim="0">
@@ -1049,7 +1008,6 @@ Bit 29: File format selection for standard protocol measurement in JOG
 <name>ISO_M_RETRACTION_FACTOR</name>
 <brief>Factor for retraction speed (0...200%)</brief>
 <description>Factor for retraction speed (0...200%)
-
 </description>
 </parameter>
 <parameter number="55806" type="BYTE" dim="0">
@@ -1108,7 +1066,6 @@ Bit 1: Stock removal roughing (G71/G72) without tool nose radius compensation
 <brief>Circle radius for optimizing friction compensation</brief>
 <description>MEA_FEED_CIRCLE
 Circle radius for optimizing friction compensation
-
 </description>
 </parameter>
 <parameter number="55821" type="DOUBLE" dim="0" display="DECIMAL">
@@ -1116,21 +1073,18 @@ Circle radius for optimizing friction compensation
 <brief>Circle radius for optimizing friction compensation</brief>
 <description>MEA_FEED_CIRCLE
 Circle radius for optimizing friction compensation
-
 </description>
 </parameter>
 <parameter number="55822" type="DOUBLE" dim="1" display="DECIMAL">
 <name>FRICT_OPT_FEED</name>
 <brief>Feedrates for optimizing friction compensation</brief>
 <description>Setting data contains feedrate values for optimizing friction compensation.
-
 </description>
 </parameter>
 <parameter number="55823" type="DOUBLE" dim="1" display="DECIMAL">
 <name>FRICT_OPT_FEED_ROT</name>
 <brief>Feedrates for optimizing friction compensation for rotary axes</brief>
 <description>Setting data contains the feedrate values for optimizing friction compensation for rotary axes.
-
 </description>
 </parameter>
 <parameter number="55824" type="DWORD" dim="0" display="DECIMAL">
@@ -1166,14 +1120,12 @@ Circle radius for optimizing friction compensation
 <name>AST_MMCA</name>
 <brief>Substitute for $P_MMCA when calling AST with acknowledgment mode "N"</brief>
 <description>Substitute for $P_MMCA when calling AST with acknowledgment mode "N"
-
 </description>
 </parameter>
 <parameter number="55840" type="DWORD" dim="0" display="HEX">
 <name>GRIND_FUNCTION_MASK</name>
 <brief>Function mask for grinding cycles</brief>
 <description>Function mask for grinding cycles
-
 </description>
 </parameter>
 <parameter number="55844" type="DOUBLE" dim="0" display="DECIMAL">
@@ -1182,9 +1134,6 @@ Circle radius for optimizing friction compensation
 <description>Measure kinematics: Tolerance of kinematic vectors
 When the kinematics are measured (CYCLE496), it is checked whether the measured vectors
 lie within the tolerance value of setting data $SCS_GRIND_MEA_KIN_TOL.
-
-
-
 </description>
 </parameter>
 <parameter number="55880" type="DOUBLE" dim="0" display="DECIMAL">

@@ -620,7 +620,6 @@ MD20112 $MC_START_MODE_MASK
 MD20121 $MC_TOOL_PRESEL_RESET_VALUE
 MD20118 $MC_GEOAX_CHANGE_RESET
 MD20123 $MC_USEKT_RESET_VALUE
-
 </description>
 </parameter>
 <parameter number="20112" type="UDWORD" dim="0" display="HEX">
@@ -755,7 +754,6 @@ MD20140 $MC_TRAFO_RESET_VALUE
 MD20110 $MC_RESET_MODE_MASK
 MD20121 $MC_TOOL_PRESEL_RESET_VALUE
 MD20118 $MC_GEOAX_CHANGE_RESET
-
 </description>
 </parameter>
 <parameter number="20114" type="UDWORD" dim="0" display="HEX">
@@ -911,7 +909,6 @@ MD20110 $MC_RESET_MODE_MASK,
 MD20112 $MC_START_MODE_MASK
 MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER
 MD20130 $MC_CUTTING_EDGE_RESET_VALUE
-
 </description>
 </parameter>
 <parameter number="20123" type="DWORD" dim="0">
@@ -995,9 +992,6 @@ This data is valid without tool management.
 Related to:
 MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
-
-
-
 </description>
 </parameter>
 <parameter number="20127" type="DWORD" dim="0">
@@ -1050,8 +1044,6 @@ MD18110 $MN_MM_MAX_SUMCORR_PER_CUTTEDGE determines the maximum useful value whic
 Related to:
 MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
-
-
 </description>
 </parameter>
 <parameter number="20142" type="STRING" dim="0">
@@ -1226,7 +1218,6 @@ The changing of the initial setting of individual G groups can be disabled for s
 Related to:
 MD20110 $MC_RESET_MODE_MASK
 MD20112 $MC_START_MODE_MASK
-
 </description>
 </parameter>
 <parameter number="20154" type="BYTE" dim="1">
@@ -1829,7 +1820,6 @@ MD20122 $MC_TOOL_RESET_NAME
 MD20110 $MC_RESET_MODE_MASK
 MD20124 $MC_TOOL_MANAGEMENT_TOOLHOLDER
 MD22560 $MC_TOOL_CHANGE_M_CODE
-
 </description>
 </parameter>
 <parameter number="20320" type="UDWORD" dim="0" display="HEX">
@@ -1839,7 +1829,6 @@ MD22560 $MC_TOOL_CHANGE_M_CODE
 As soon as the path axes have been traversed (not with G00, always with G63), the tool time monitoring data of the active D compensation are updated for the tool in the selected tool holder, which is also the master tool holder.
 
  Bit 0...x-1: Monitoring of the tool in tool holder 1...x
-
 </description>
 </parameter>
 <parameter number="20350" type="BYTE" dim="0">
@@ -2239,9 +2228,6 @@ Meaning of the decade:
 
 0x: If no orientation transformation is active, rotary axis motions with OST/OSD are not smoothed.
 1x: Even without active transformation, rotary axis motions are smoothed. This permits the active smoothing of rotary axes with OST/OSD even without active orientation transformation.
-
-
-
 </description>
 </parameter>
 <parameter number="20482" type="DWORD" dim="0">
@@ -2282,7 +2268,6 @@ The hundreds digit can be used to set which blocks in addition to G01 blocks are
  The thousands digits optimize the compressor for different machine types:
 0xxx: Optimization for a good surface quality in tool and mold building.
 1xxx: Optimization for soft and fast traversing in special applications.
-
 </description>
 </parameter>
 <parameter number="20484" type="BYTE" dim="0">
@@ -2394,7 +2379,6 @@ This tolerance factor is relevant for the following control functions:
 
 This factor can be both greater than 1 and less than 1. However, higher tolerance settings are usual for infeed motion.
 If the factor is equal to 1, the tolerances applied for G00 motion are the same as those for non-G00 motion.
-
 </description>
 </parameter>
 <parameter number="20600" type="DOUBLE" dim="1">
@@ -2453,7 +2437,6 @@ Meaning:
 1:	Curve smoothing on.
 2:	Curve smoothing also on for axis couplings.
 There is an entry for all dynamic G code groups.
-
 </description>
 </parameter>
 <parameter number="20607" type="DOUBLE" dim="1">
@@ -2462,7 +2445,6 @@ There is an entry for all dynamic G code groups.
 <description>Maximum filter length for curve and torsion smoothing of the geometry axes.
 
 There is an entry for all dynamic G code groups.
-
 </description>
 </parameter>
 <parameter number="20608" type="DOUBLE" dim="1">
@@ -2471,7 +2453,6 @@ There is an entry for all dynamic G code groups.
 <description>Maximum filter length for curve and torsion smoothing of the rotary axes.
 
 There is an entry for all dynamic G code groups.
-
 </description>
 </parameter>
 <parameter number="20610" type="DOUBLE" dim="0">
@@ -3333,7 +3314,6 @@ Additional offset angle of the water jet:
 The jerk limitation during jogging of orientation axes is activated by the machine data MD21159 $MC_JOG_JERK_ORI_ENABLE = 1 (SOFT), and deactivated by MD21159 $MC_JOG_JERK_ORI_ENABLE = 0 (BRISK).
 Not relevant for:
 	Fault conditions that cause a quick stop.
-
 </description>
 </parameter>
 <parameter number="21159" type="BOOLEAN" dim="1">
@@ -3361,8 +3341,6 @@ TRUE:  jerk limitation (SOFT)
 <brief>Acceleration for geometry axes</brief>
 <description>Acceleration of the geometry axes when traversing in Jog mode.
 If the machine data has the value zero, the value of the machine data MD32301 $MA_JOG_MAX_ACCEL[&lt;axis&gt;] is used.
-
-
 </description>
 </parameter>
 <parameter number="21168" type="DOUBLE" dim="1">
@@ -3373,7 +3351,6 @@ If the machine data has the value zero, the value of the machine data MD32436 $M
 Jerk limitation during jogging of geometry axes is activated by the machine data $JOG_AND_POS_JERK_ENABLED[&lt;axis&gt; = 1 (SOFTA) of the underlying machine axes, and it is deactivated by $JOG_AND_POS_JERK_ENABLED[&lt;axis&gt;] = 0 (BRISKA), or by means of the NC commands SOFTA, DRIVEA or BRISKA.
 Not relevant for:
 	Fault conditions that cause a rapid stop.
-
 </description>
 </parameter>
 <parameter number="21170" type="DOUBLE" dim="1">
@@ -3984,7 +3961,6 @@ Bit 18 = 1 Nibbling
 <description>Acknowledgment time for auxiliary functions in ms.
 
 See MD22010 $MC_AUXFU_ASSIGN_TYPE[n] (auxiliary function type)
-
 </description>
 </parameter>
 <parameter number="22040" type="DWORD" dim="1">
@@ -4051,7 +4027,6 @@ Bit 18 = 1 Nibbling
 <description>Acknowledgment time for auxiliary functions in ms.
 
 See MD22010 $MC_AUXFU_PREDEF_TYPE[n] (auxiliary function type)
-
 </description>
 </parameter>
 <parameter number="22100" type="DWORD" dim="0">
@@ -4104,7 +4079,6 @@ Notice:
 
 Notice:
 	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
-
 </description>
 </parameter>
 <parameter number="22220" type="BYTE" dim="0">
@@ -4119,7 +4093,6 @@ Notice:
 
 Notice:
 	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
-
 </description>
 </parameter>
 <parameter number="22230" type="BYTE" dim="0">
@@ -4134,7 +4107,6 @@ Notice:
 Notice:
 	An auxiliary function output specification configured by MD22080 $MC_AUXFU_PREDEF_SPEC[ preIndex ], MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] or
 	A group output specification configured by MD11110 $MN_AUXFU_GROUP_SPEC[ groupIndex ], which has a higher priority.
-
 </description>
 </parameter>
 <parameter number="22240" type="BYTE" dim="0">
@@ -4149,7 +4121,6 @@ Notice:
 
 Notice:
 	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
-
 </description>
 </parameter>
 <parameter number="22250" type="BYTE" dim="0">
@@ -4164,7 +4135,6 @@ Notice:
 
 Notice:
 	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
-
 </description>
 </parameter>
 <parameter number="22252" type="BYTE" dim="0">
@@ -4179,7 +4149,6 @@ Notice:
 
 Notice:
 	An auxiliary function output specification configured by MD22035 $MC_AUXFU_ASSIGN_SPEC[ auxIndex ] has a higher priority.
-
 </description>
 </parameter>
 <parameter number="22254" type="DWORD" dim="0">
@@ -4612,7 +4581,6 @@ The recording of the diagnostic data ends when the event (TRACE_STOPTRACE_EVENT)
 After reaching the stop condition, the previously recorded diagnostic data is stored in a file "NCSCTRyy.MPF" or for NCU-LINK in "NCxxTRyy.MPF" in the MPF directory.
 
 The machine data is additionally activated using the Cancel alarm key.
-
 </description>
 </parameter>
 <parameter number="22706" type="STRING" dim="1">
@@ -5705,7 +5673,6 @@ However, the programmed orientation is corrected so that the orientation remains
 stationary at the edge of the settable range.
 
 The maximum active value of this MD is the value of MD TRAFO5_POLE_LIMIT_1, which is used to define the body cone.
-
 </description>
 </parameter>
 <parameter number="24650" type="DOUBLE" dim="1">
@@ -6033,8 +6000,6 @@ Bit1:  MD24870 $MC_TRACYL_BASE_TOOL_2[1] is compensated using $P_TRAFRAME.
 Bit2:  MD24870 $MC_TRACYL_BASE_TOOL_2[2] is compensated using $P_TRAFRAME.
 
 This function is only available if the system frame $P_TRAFRAME has been configured using MD28082 $MC_MM_SYSTEM_FRAME_MASK bit6.
-
-
 </description>
 </parameter>
 <parameter number="24858" type="BYTE" dim="0">
@@ -6162,7 +6127,6 @@ Bit1:   MD24970 $MC_TRANSMIT_BASE_TOOL_2[1] is compensated using $P_TRAFRAME.
 Bit2:   MD24970 $MC_TRANSMIT_BASE_TOOL_2[2] is compensated using $P_TRAFRAME.
 
 This function is only available if the system frame $P_TRAFRAME has been configured using MD28082 $MC_MM_SYSTEM_FRAME_MASK bit6.
-
 </description>
 </parameter>
 <parameter number="24960" type="BOOLEAN" dim="0">
@@ -7401,14 +7365,12 @@ Related to:
 <name>TIME_LIMIT_NETTO_INT_TASK</name>
 <brief>Runtime limit of interpreter subtask</brief>
 <description>With MD27920 $MC_TIME_LIMIT_NETTO_INT_TASK, the maximum runtime of the interpreter subtask is set. The interpreter subtask is started from the preprocessing task. If the interpreter task does not end on its own within the time set with MD27920 $MC_TIME_LIMIT_NETTO_INT_TASK, it will be stopped and continued after a preprocessing cycle.
-
 </description>
 </parameter>
 <parameter number="27930" type="DOUBLE" dim="0">
 <name>TIME_LIMIT_NETTO_EES_TASK</name>
 <brief>Runtime limit of the EES async. subtask</brief>
 <description>The maximum runtime of the EES async. subtask is set with this machine data. The EES async. subtask is started from the preprocessing task. If the EES async. subtask does not end automatically within the time set in this machine data, it will be stopped and resumed after a preprocessing cycle.
-
 </description>
 </parameter>
 <parameter number="28000" type="DWORD" dim="0">
@@ -7584,7 +7546,6 @@ If MD28085 $MC_MM_LINK_TOA_UNIT = i, the channel is assigned TO unit i. This ena
 Notice
 The uppper limit does not indicate that this value is always practical or free of conflicts. If one channel (the first) is active in a system with a maximum of 2 channels, and the other is not, the MD on channel 1 can formally be given the value 2, but the NCK cannot work with it. This setting would mean that channel 1 did not have any blocks for tool offsets, as the channel with ID=2 did not exist.
 The NCK detects this conflict at Power On and restart, and responds by autonomouslöy changing the (incorrect) value to the default value of the MD.
-
 </description>
 </parameter>
 <parameter number="28090" type="DWORD" dim="0">
@@ -7693,7 +7654,6 @@ AC_MARKER = 2 elements, variable with read value 1 element, index "1" an element
 R = 2 elements, variable with written value 1 element, index "1" an element
 
 Total 8 elements.
-
 </description>
 </parameter>
 <parameter number="28241" type="DWORD" dim="0">
@@ -7741,7 +7701,6 @@ Also see:
 <name>MM_NUM_SYNC_STRINGS</name>
 <brief>Number of strings for expressions in synchronized actions</brief>
 <description>The expressions of motion-synchronous actions are saved in memory elements for storage in the control. Elements have to be reserved specifically for strings within expressions.
-
 </description>
 </parameter>
 <parameter number="28254" type="DWORD" dim="0">
@@ -8042,7 +8001,6 @@ The MD should only be set for those channels in which free-form surfaces are als
 &gt; 0 : extended LookAhead is active if switched on by MD20443 $MC_LOOKAH_FFORM.
 
 The set value for free-form surface applications is: 18.
-
 </description>
 </parameter>
 <parameter number="28534" type="DWORD" dim="0">
@@ -8120,7 +8078,6 @@ It indicates the maximum value of the 1st index of system variable $P_WORKAREA_C
 <name>MM_PREPDYN_BLOCKS</name>
 <brief>Number of blocks for velocity preparation</brief>
 <description>This MD is used to define the number of blocks that are considered when defining the path velocity (velocity preparation). If the value of this MD is zero, only the relevant axis motions are considered in this block in order to define the maximum path velocity of a block. If the geometry in adjacent blocks is also considered when defining the path velocity, the path velocity will be more homogenous.
-
 </description>
 </parameter>
 <parameter number="28620" type="DWORD" dim="0">

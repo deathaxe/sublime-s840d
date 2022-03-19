@@ -28,7 +28,6 @@ Bit 14:	Load or relocate tool. The search for an empty location is made without 
 <brief>Assignment of an HMI Operate instance for AST commands</brief>
 <description>Name of the assigned HMI Operate (master)
 One Operate must be defined as the master.
-
 </description>
 </parameter>
 <parameter number="54481" type="BOOLEAN" dim="0">
@@ -36,8 +35,6 @@ One Operate must be defined as the master.
 <brief>Selection of HMI Operate internally (NCU) / externally (PCU) for AST</brief>
 <description>Selection of HMI Operate internally (NCU) / externally (PCU) for AST
 Selection of the Operate type
-
-
 </description>
 </parameter>
 <parameter number="54600" type="DOUBLE" dim="1">
@@ -45,7 +42,6 @@ Selection of the Operate type
 <brief>Effective diameter of the probe sphere for the workpiece probe</brief>
 <description>Effective sphere diameter of the probe sphere for the workpiece probe.
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
-
 </description>
 </parameter>
 <parameter number="54601" type="DOUBLE" dim="1">
@@ -70,7 +66,6 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <description>Trigger point of the 2nd measuring axis (ordinate) in negative traversing direction (Y at G17) of the workpiece probe.
 The term "negative traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
-
 </description>
 </parameter>
 <parameter number="54604" type="DOUBLE" dim="1">
@@ -87,7 +82,6 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <description>Trigger point of the 3rd measuring axis (applicate) in negative traversing direction (Z at G17) of the workpiece probe.
 The term "negative traversing direction" refers to the currently active workpiece zero point reference!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
-
 </description>
 </parameter>
 <parameter number="54606" type="DOUBLE" dim="1">
@@ -104,7 +98,6 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <description>The position deviation in the 1st measuring axis represents a geometrical offset of the center point of the probe sphere
 related to the electrical center point of the probe in this axis!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
-
 </description>
 </parameter>
 <parameter number="54608" type="DOUBLE" dim="1">
@@ -113,7 +106,6 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <description>The position deviation in the 2nd measuring axis represents a geometrical offset of the center point of the probe sphere
 related to the electrical center point of the probe in this axis!
 The value of this parameter is created by the operation "Calibrate workpiece probe"!
-
 </description>
 </parameter>
 <parameter number="54609" type="DOUBLE" dim="1">
@@ -135,9 +127,6 @@ The value of this parameter is created by the operation "Calibrate workpiece pro
 <brief>Measuring feed for calibration</brief>
 <description>Measure workpiece measuring feed for calibration
 This measuring feed is used for all subsequent workpiece measuring programs in conjunction with the probe field.
-
-
-
 </description>
 </parameter>
 <parameter number="54612" type="BYTE" dim="0">
@@ -177,7 +166,6 @@ This parameter is a geometrical component of the calibration groove and must be 
 <brief>Calibration groove edge in positive direction of the 1st measuring axis</brief>
 <description>Calibration groove edge in positive direction of the 1st measuring axis (abscissa, Z at G18)
 This parameter is a geometrical component of the calibration groove and must be supplied by the user!
-
 </description>
 </parameter>
 <parameter number="54618" type="DOUBLE" dim="1">
@@ -199,7 +187,6 @@ This parameter is a geometrical component of the calibration groove and must be 
 <brief>Calibration groove upper edge of the 2nd measuring axis</brief>
 <description>Calibration groove upper edge of the 2nd measuring axis (ordinate, X at G18)
 This parameter is a geometrical component of the calibration groove and must be supplied by the user!
-
 </description>
 </parameter>
 <parameter number="54621" type="DOUBLE" dim="1">
@@ -275,7 +262,6 @@ The exact value of this parameter is created by the operation "Calibrate tool pr
 <brief>Tool probe edge length/wheel diameter</brief>
 <description>Effective edge length or grinding wheel diameter of the tool probe.
 This data is important for the "Milling" technology when measuring the length of milling tools.
-
 </description>
 </parameter>
 <parameter number="54632" type="DWORD" dim="1">
@@ -324,7 +310,6 @@ This parameter does not apply to turning tool measuring!
 <brief>Calibration status in general</brief>
 <description>Calibration status general, reserved for internal use
 The value of this parameter is assigned when the "Calibrate tool probe" procedure is executed.
-
 </description>
 </parameter>
 <parameter number="54636" type="DOUBLE" dim="1">
@@ -332,7 +317,6 @@ The value of this parameter is assigned when the "Calibrate tool probe" procedur
 <brief>Measuring feed for tool probe calibration in the Machine</brief>
 <description>Measuring feed for tool probe calibration in Machine
 This measuring feed is used for all subsequent tool measuring programs in conjunction with the probe field.
-
 </description>
 </parameter>
 <parameter number="54640" type="DOUBLE" dim="1">
@@ -427,7 +411,6 @@ Meaning of the parameter components
 301: Disk in YZ, working plane G19
   2: Probe head
   3: Cube
-
 </description>
 </parameter>
 <parameter number="54649" type="DOUBLE" dim="1">
@@ -444,7 +427,6 @@ This parameter does not apply to turning tool measuring!
 <brief>Calibration status in general</brief>
 <description>Calibration status general, reserved for internal use
 The value of this parameter is assigned when the "Calibrate tool probe" procedure is executed.
-
 </description>
 </parameter>
 <parameter number="54651" type="DOUBLE" dim="1">
@@ -452,7 +434,6 @@ The value of this parameter is assigned when the "Calibrate tool probe" procedur
 <brief>Measuring feed for tool probe calibration in the Work</brief>
 <description>Measuring feed for tool probe calibration in Work
 This measuring feed is used for all subsequent tool measuring programs in conjunction with the probe field.
-
 </description>
 </parameter>
 <parameter number="54652" type="BYTE" dim="1">
@@ -476,7 +457,6 @@ This measuring feed is used for all subsequent tool measuring programs in conjun
 <description>Max. permissible peripheral speed of the tool to be measured when the spindle rotates.
 
 Monitoring parameter for tool measuring with rotating spindle
-
 </description>
 </parameter>
 <parameter number="54671" type="DOUBLE" dim="1">
@@ -577,7 +557,6 @@ These indications are required for tool measuring with rotating spindle.
 The distance (measured at the circumference of the tool) between the points at which measurements are made to find the "highest point on the longest tooth" must be entered.
 If the data value is ZERO, then the search for the "highest point on the longest tooth" is not made with a stationary spindle,
 instead the value is measured by sampling while the spindle is rotating.
-
 </description>
 </parameter>
 <parameter number="54693" type="BYTE" dim="0">
@@ -586,7 +565,6 @@ instead the value is measured by sampling while the spindle is rotating.
 <description>Maximum number of contacts for finding the "highest point on the longest tooth" when measuring the tool radius.
 If the data value is ZERO, then the search for the "highest point on the longest tooth" is not made with a stationary spindle,
 instead the value is measured by sampling while the spindle is rotating.
-
 </description>
 </parameter>
 <parameter number="54695" type="DOUBLE" dim="1">
@@ -777,8 +755,6 @@ Bit 17: Repeat measurement, tool measurement, programmed stop at M0 after tolera
 Bit 19: Tool measurement, milling technology, reducing the spindle speed at the last probing
            	0: The last probing is realized without reducing the spindle speed.
            	1: At the last probing, the spindle speed is automatically reduced.
-
-
 </description>
 </parameter>
 <parameter number="54750" type="DWORD" dim="0" display="HEX">
@@ -825,7 +801,6 @@ Bit28 Enable Select adapt tool length
 	For averaging, display the following parameters: _K _TMV, _EVNUM
 
 	1) Input measuring feed applies to automatic and JOG
-
 </description>
 </parameter>
 <parameter number="54762" type="DWORD" dim="0" display="HEX">
@@ -847,8 +822,6 @@ Bit13	Select Empirical values (_EVNUM)
 Bit14 Select offset correction with selection of direction
 
 	1) Measuring feed input applies to Automatic and JOG
-
-
 </description>
 </parameter>
 <parameter number="54764" type="DWORD" dim="0" display="HEX">
@@ -860,8 +833,6 @@ Bit14 Select offset correction with selection of direction
 
 Bit0	Measure inside/outside diameter with reversal
 Bit1	Measure inside/outside diameter "travel under turning center"?
-
-
 </description>
 </parameter>
 <parameter number="54780" type="DWORD" dim="0" display="HEX">
@@ -890,14 +861,12 @@ Bit2	Enable automatic tool measurement
 Bit3	Enable selection of tool probe calibration data field
 Bit10 Select measuring function "Check teeth individually"
 Bit 11 Select spindle reversal when calibrating on the plane
-
 </description>
 </parameter>
 <parameter number="54840" type="DWORD" dim="0" display="HEX">
 <name>GRIND_FUNCTION_MASK</name>
 <brief>Function mask for grinding cycles</brief>
 <description>Function mask for grinding cycles
-
 </description>
 </parameter>
 </info>
