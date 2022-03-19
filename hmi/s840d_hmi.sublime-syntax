@@ -126,7 +126,7 @@ contexts:
     - match: \(
       scope: punctuation.section.parens.begin.s840d_hmi
       push:
-        - meta_scope: 
+        - meta_scope:
             meta.row.s840d_hmi
             meta.parens.s840d_hmi
         - match: \)
@@ -220,7 +220,7 @@ contexts:
   class-grid:
     - match: //[Gg]\b
       scope: keyword.declaration.class.begin.s840d_hmi
-      push: 
+      push:
         - meta_scope: meta.class.grid.s840d_hmi
         - match: (?=\()
           set:
@@ -617,7 +617,7 @@ contexts:
   class-menu:
     - match: //[Ss]\b
       scope: keyword.declaration.class.begin.s840d_hmi
-      push: 
+      push:
         - meta_scope: meta.class.menu.s840d_hmi
         - match: (?=\()
           set:
@@ -627,7 +627,7 @@ contexts:
         - include: class-menu-body
 
   class-menu-attr-name:
-    - meta_scope: 
+    - meta_scope:
         meta.class.menu.parameters.name.s840d_hmi
         meta.parens.s840d_hmi
     - match: ','
