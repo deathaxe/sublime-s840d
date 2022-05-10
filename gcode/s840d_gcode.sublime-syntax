@@ -125,9 +125,6 @@ contexts:
 
   after-operator:
     - include: decimals-pop
-    - match: '[-+]'
-      scope: constant.numeric.s840d_gcode
-      pop: true
     - include: axis-variables
     - include: scope-end
 
@@ -1242,20 +1239,21 @@ contexts:
   numbers:
     # decimal numbers
     - match: '{{float}}'
-      scope: constant.numeric.float.s840d_gcode
+      scope: meta.number.float.decimal.s840d_gcode constant.numeric.value.s840d_gcode
       captures:
         1: punctuation.separator.decimal.s840d_gcode
         2: punctuation.separator.decimal.s840d_gcode
         3: punctuation.separator.decimal.s840d_gcode
     - match: \d+\b
-      scope: constant.numeric.integer.s840d_gcode
+      scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
     # single quoted binary numbers
     - match: '('')([Bb])'
       captures:
         1: punctuation.definition.numeric.begin.s840d_gcode
-        2: punctuation.definition.numeric.binary.s840d_gcode
+        2: constant.numeric.base.s840d_gcode
       push:
-        - meta_scope: constant.numeric.integer.binary.s840d_gcode
+        - meta_scope: meta.number.integer.binary.s840d_gcode
+        - meta_content_scope: constant.numeric.value.s840d_gcode
         - match: '''|$'
           scope: punctuation.definition.numeric.end.s840d_gcode
           pop: true
@@ -1265,9 +1263,10 @@ contexts:
     - match: '('')([Hh])'
       captures:
         1: punctuation.definition.numeric.begin.s840d_gcode
-        2: punctuation.definition.numeric.hexadecimal.s840d_gcode
+        2: constant.numeric.base.s840d_gcode
       push:
-        - meta_scope: constant.numeric.integer.hexadecimal.s840d_gcode
+        - meta_scope: meta.number.integer.hexadecimal.s840d_gcode
+        - meta_content_scope: constant.numeric.value.s840d_gcode
         - match: '''|$'
           scope: punctuation.definition.numeric.end.s840d_gcode
           pop: true
@@ -1276,15 +1275,20 @@ contexts:
 
   decimals-pop:
     # decimal numbers
-    - match: '[-+]?{{float}}'
-      scope: constant.numeric.float.s840d_gcode
+    - match: ([-+]?)({{float}})
+      scope: meta.number.float.decimal.s840d_gcode
       captures:
-        1: punctuation.separator.decimal.s840d_gcode
-        2: punctuation.separator.decimal.s840d_gcode
+        1: keyword.operator.arithmetic.s840d_gcode
+        2: constant.numeric.value.s840d_gcode
         3: punctuation.separator.decimal.s840d_gcode
+        4: punctuation.separator.decimal.s840d_gcode
+        5: punctuation.separator.decimal.s840d_gcode
       pop: true
-    - match: '[-+]?\d+'
-      scope: constant.numeric.integer.s840d_gcode
+    - match: ([-+]?)(\d+)
+      scope: meta.number.integer.decimal.s840d_gcode
+      captures:
+        1: keyword.operator.arithmetic.s840d_gcode
+        2: constant.numeric.value.s840d_gcode
       pop: true
 
   strings:
@@ -1398,7 +1402,7 @@ contexts:
         - meta_scope: meta.definition.access.s840d_gcode
         # allowed access levels are 0..7
         - match: \d+\b
-          scope: constant.numeric.integer.s840d_gcode
+          scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
           pop: true
         # macro defined value
         - match: '{{macro}}'
@@ -1437,7 +1441,7 @@ contexts:
         - meta_scope: meta.definition.unit.s840d_gcode
         # allowed units are 0...156
         - match: \b(?:1(?:[0-4][0-9]|5[0-6])|\d{1,2})\b
-          scope: constant.numeric.integer.s840d_gcode
+          scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
           pop: true
         # macro defined value
         - match: '{{macro}}'
@@ -1469,7 +1473,7 @@ contexts:
               scope: punctuation.definition.string-size.end.s840d_gcode
               pop: true
             - match: \d+\b
-              scope: constant.numeric.integer.s840d_gcode
+              scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
             - match: '{{macro}}'
               scope: variable.other.s840d_gcode
         - include: scope-end

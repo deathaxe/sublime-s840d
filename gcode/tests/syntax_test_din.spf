@@ -151,22 +151,28 @@ N10 F.1000 ; comment
 ;    ^^^^ constant.numeric
 N10 F+1000 ; comment
 ;   ^ support.variable.iso.address
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F-1000 ; comment
 ;   ^ support.variable.iso.address
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F+100. ; comment
 ;   ^ support.variable.iso.address
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F-100. ; comment
 ;   ^ support.variable.iso.address
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F+10.0 ; comment
 ;   ^ support.variable.iso.address
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F-10.0 ; comment
 ;   ^ support.variable.iso.address
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F=1000 ; comment
 ;   ^ support.variable.iso.address
 ;    ^ keyword.operator.assignment
@@ -183,7 +189,8 @@ N10 F[2] = ABS(-1000) ; comment
 ;        ^ keyword.operator.assignment
 ;          ^^^ support.function
 ;             ^ punctuation.section.arguments.begin
-;              ^^^^^ constant.numeric
+;              ^ keyword.operator.arithmetic
+;               ^^^^ constant.numeric
 ;                   ^ punctuation.section.arguments.end
 ; ==================================================
 ; Positions
@@ -195,22 +202,28 @@ N10 X.1000 ; comment
 ;    ^^^^ constant.numeric
 N10 X+1000 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X-1000 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X+100. ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X-100. ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X+10.0 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X-10.0 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X=1000 ; comment
 ;   ^ support.variable.iso.position
 ;    ^ keyword.operator.assignment
@@ -251,22 +264,28 @@ N10 S.1000 ; comment
 ;    ^^^^ constant.numeric
 N10 S+1000 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S-1000 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S+100. ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S-100. ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S+10.0 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S-10.0 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S=1000 ; comment
 ;   ^ support.variable.iso
 ;    ^ keyword.operator.assignment
@@ -373,7 +392,8 @@ N10G0G54X-10Y.20Z30.4EX-4B0T100S400.0M3H12
 ; ^ comment.blockno
 ;  ^^^^^ support.function.iso.command
 ;       ^ support.variable.iso.position
-;        ^^^ constant.numeric
+;        ^ keyword.operator.arithmetic
+;         ^^ constant.numeric
 ;           ^ support.variable.iso.position
 ;            ^^^ constant.numeric
 ;               ^ support.variable.iso.position
