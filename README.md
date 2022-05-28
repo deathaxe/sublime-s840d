@@ -1,10 +1,10 @@
-# CNC Sinumerik 840D language support
+# CNC Sinumerik
 
 [![Release](https://img.shields.io/github/tag/deathaxe/sublime-s840d.svg?style=flat-square)](https://github.com/deathaxe/sublime-s840d/releases)
 [![The MIT License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Package Control](https://packagecontrol.herokuapp.com/downloads/CNC%20Sinumerik.svg?style=flat-square)](https://packagecontrol.io/packages/CNC%20Sinumerik)
 
-This package provides syntax highlighting support for the SINUMERIK 840D
+This package provides syntax highlighting support for **SINUMERIK 840D/ONE**
 Computerized Numerical Control to [Sublime Text][1].
 
 
