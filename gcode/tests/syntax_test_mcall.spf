@@ -54,8 +54,7 @@ N120 MCALL (10,20,30,50)
 ; too many cycle names
 N120 MCALL L300 INV(10,20,30,50)
 ;    ^^^^^ meta.function-call - meta.function-call.name
-;         ^^^^^^^^^ meta.function-call.name
-;                  ^^^^^^^^^^^^^ meta.function-call.arguments - meta.function-call.name
+;         ^^^^^ meta.function-call.name
 ;    ^^^^^ keyword.control.mcall
 ;          ^^^^ variable.function.cycle
-;               ^^^ invalid.illegal
+;               ^^^^^^^^^^^^^^^^ invalid.illegal

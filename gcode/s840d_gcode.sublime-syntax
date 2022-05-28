@@ -565,7 +565,7 @@ contexts:
         - meta_content_scope: meta.function-call.name.s840d_gcode
         - match: '{{cycle}}'
           scope: variable.function.cycle.s840d_gcode
-          set: cycle-call-arguments
+          set: [line-end-or-illegal, cycle-call-arguments]
         - match: (?=\S)
           set:
             - meta_scope: meta.function-call.name.s840d_gcode
@@ -585,10 +585,10 @@ contexts:
         # absolute path to cycle
         - match: (?:/*[0-9A-Za-z_]+:)?/[0-9A-Za-z_/]+\b
           scope: string.unquoted.path.s840d_gcode
-          set: cycle-call-arguments
+          set: [line-end-or-illegal, cycle-call-arguments]
         - match: '{{cycle}}'
           scope: variable.function.cycle.s840d_gcode
-          set: cycle-call-arguments
+          set: [line-end-or-illegal, cycle-call-arguments]
         - match: (?=\S)
           set:
             - meta_scope: meta.function-call.name.s840d_gcode
@@ -628,7 +628,14 @@ contexts:
     # need to stand alone in a line
     - match: (?i:A(?:DISPOSA|FISO[FN]|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:DAPTO[FN]|LLPATH|NCE(?:L|LSUB))|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|R(?:IVEA|VP(?:RD|WR))|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:C(?:ALL|LOSE)|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOO[FN]|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|ORKPIECE|R(?:ITE|TPR)))\b
       scope: support.function.nck.procedure.s840d_gcode
-      set: cycle-call-arguments
+      set: [line-end-or-illegal, cycle-call-arguments]
+
+  stmt-synact-procedure-call:
+    # SINUMERIK procedures
+    # need to stand alone in a line
+    - match: (?i:A(?:DISPOSA|FISO[FN]|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:DAPTO[FN]|LLPATH|NCE(?:L|LSUB))|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|R(?:IVEA|VP(?:RD|WR))|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:C(?:ALL|LOSE)|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOO[FN]|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|ORKPIECE|R(?:ITE|TPR)))\b
+      scope: support.function.nck.procedure.s840d_gcode
+      push: cycle-call-arguments
 
 ###############################################################################
 # DIRECT CYCLE CALL
@@ -650,13 +657,13 @@ contexts:
     # (unknown subprogram) if it does not match any known keyword or function.
     - match: '{{cycle}}(?=[ \t]*(?:$|[;\w\(]))'
       scope: variable.function.cycle.s840d_gcode
-      set: cycle-call-arguments
+      set: [line-end-or-illegal, cycle-call-arguments]
 
   cycle-call-arguments:
     - meta_scope: meta.function-call.name.s840d_gcode
     - match: (?=\()
       set: [cycle-call-arguments-body, after-operator, function-call-arguments-begin]
-    - include: line-end-or-illegal
+    - include: scope-end
 
   cycle-call-arguments-body:
     - meta_scope: meta.function-call.arguments.s840d_gcode
@@ -664,7 +671,7 @@ contexts:
       scope: punctuation.section.arguments.end.s840d_gcode
       set:
         - include: iso-repeat-count
-        - include: line-end-or-illegal
+        - include: scope-end
     - include: seperator-comma-minus
     - include: expressions-line
 
@@ -1079,7 +1086,7 @@ contexts:
   stmt-ret:
     - match: (?i:RETB?)\b
       scope: meta.function-call.name.s840d_gcode keyword.control.ret.s840d_gcode
-      set: cycle-call-arguments
+      set: [line-end-or-illegal, cycle-call-arguments]
 
 ###############################################################################
 # STOPRE
@@ -1139,7 +1146,7 @@ contexts:
     - include: line-end-or-illegal
 
   stmt-synact-operation-body:
-    - include: stmt-procedure-call
+    - include: stmt-synact-procedure-call
     - include: stmt-cycle-call
     - match: (?=\S)
       set: stmt-synact-expression-body

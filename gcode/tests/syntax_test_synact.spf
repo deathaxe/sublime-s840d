@@ -193,3 +193,19 @@ N15 IDS=10 EVERY $SYG_RM[0]==TRUE DO $AC_TIMER[0]=0 ELSE $AC_TIMER[0]=-1 ELSE
 ;                                 ^^ keyword.control.synact.operation.s840d_gcode
 ;                                                   ^^^^ keyword.control.else.s840d_gcode
 ;                                                                        ^^^^ invalid.illegal.keyword.control.s840d_gcode
+N16 EVERY $A_DBB[10] DO SETAL(66003) $A_DBB[10] = 0
+;                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.synact.operation.s840d_gcode
+;                       ^^^^^ meta.function-call.name.s840d_gcode
+;                            ^^^^^^^ meta.function-call.arguments.s840d_gcode
+;                                          ^^^^ meta.brackets.s840d_gcode
+;                    ^^ keyword.control.synact.operation.s840d_gcode
+;                       ^^^^^ support.function.nck.procedure.s840d_gcode
+;                            ^ punctuation.section.arguments.begin.s840d_gcode
+;                             ^^^^^ constant.numeric.value.s840d_gcode
+;                                  ^ punctuation.section.arguments.end.s840d_gcode
+;                                    ^^^^^^ support.variable.nck.s840d_gcode
+;                                          ^ punctuation.section.brackets.begin.s840d_gcode
+;                                           ^^ constant.numeric.value.s840d_gcode
+;                                             ^ punctuation.section.brackets.end.s840d_gcode
+;                                               ^ keyword.operator.assignment.s840d_gcode
+;                                                 ^ constant.numeric.value.s840d_gcode
