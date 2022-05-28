@@ -144,46 +144,53 @@ N10 H = QU( 10 )
 ; ==================================================
 ; Parameters
 N10 F1000 ; comment
-;   ^ support.variable.iso.operand
+;   ^ support.variable.iso.address
 ;    ^^^^ constant.numeric
 N10 F.1000 ; comment
-;   ^ support.variable.iso.operand
+;   ^ support.variable.iso.address
 ;    ^^^^ constant.numeric
 N10 F+1000 ; comment
-;   ^ support.variable.iso.operand
-;    ^^^^ constant.numeric
+;   ^ support.variable.iso.address
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F-1000 ; comment
-;   ^ support.variable.iso.operand
-;    ^^^^ constant.numeric
+;   ^ support.variable.iso.address
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F+100. ; comment
-;   ^ support.variable.iso.operand
-;    ^^^^ constant.numeric
+;   ^ support.variable.iso.address
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F-100. ; comment
-;   ^ support.variable.iso.operand
-;    ^^^^ constant.numeric
+;   ^ support.variable.iso.address
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F+10.0 ; comment
-;   ^ support.variable.iso.operand
-;    ^^^^ constant.numeric
+;   ^ support.variable.iso.address
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F-10.0 ; comment
-;   ^ support.variable.iso.operand
-;    ^^^^ constant.numeric
+;   ^ support.variable.iso.address
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 F=1000 ; comment
-;   ^ support.variable.iso.operand
+;   ^ support.variable.iso.address
 ;    ^ keyword.operator.assignment
 ;     ^^^^ constant.numeric
 N10 F = 1000 ; comment
-;   ^ support.variable.iso.operand
+;   ^ support.variable.iso.address
 ;     ^ keyword.operator.assignment
 ;       ^^^^ constant.numeric
 N10 F[2] = ABS(-1000) ; comment
-;   ^ support.variable.iso.operand
+;   ^ support.variable.iso.address
 ;    ^ punctuation.section.brackets.begin
 ;     ^ constant.numeric
 ;      ^ punctuation.section.brackets.end
 ;        ^ keyword.operator.assignment
 ;          ^^^ support.function
 ;             ^ punctuation.section.arguments.begin
-;              ^^^^^ constant.numeric
+;              ^ keyword.operator.arithmetic
+;               ^^^^ constant.numeric
 ;                   ^ punctuation.section.arguments.end
 ; ==================================================
 ; Positions
@@ -195,22 +202,28 @@ N10 X.1000 ; comment
 ;    ^^^^ constant.numeric
 N10 X+1000 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X-1000 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X+100. ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X-100. ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X+10.0 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X-10.0 ; comment
 ;   ^ support.variable.iso.position
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 X=1000 ; comment
 ;   ^ support.variable.iso.position
 ;    ^ keyword.operator.assignment
@@ -251,22 +264,28 @@ N10 S.1000 ; comment
 ;    ^^^^ constant.numeric
 N10 S+1000 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S-1000 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S+100. ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S-100. ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S+10.0 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S-10.0 ; comment
 ;   ^ support.variable.iso
-;    ^^^^ constant.numeric
+;    ^ keyword.operator.arithmetic
+;     ^^^ constant.numeric
 N10 S=1000 ; comment
 ;   ^ support.variable.iso
 ;    ^ keyword.operator.assignment
@@ -346,10 +365,10 @@ N10 G3 X10 Y10 Z10 AP=10 RP = 10
 ;           ^^ constant.numeric
 ;              ^ support.variable.iso.position
 ;               ^^ constant.numeric
-;                  ^^ support.variable.iso.operand
+;                  ^^ support.variable.iso.address
 ;                    ^ keyword.operator.assignment
 ;                     ^^ constant.numeric
-;                        ^^ support.variable.iso.operand
+;                        ^^ support.variable.iso.address
 ;                           ^ keyword.operator.assignment
 ;                             ^^ constant.numeric
 ; circle with midpoint
@@ -364,7 +383,7 @@ N10 PO[THT] = 10
 ;         ^ punctuation.section.brackets.end
 
 N10 FP=2
-;   ^^ support.variable.iso.operand
+;   ^^ support.variable.iso.address
 ;     ^ keyword.operator.assignment
 ;      ^ constant.numeric
 
@@ -373,7 +392,8 @@ N10G0G54X-10Y.20Z30.4EX-4B0T100S400.0M3H12
 ; ^ comment.blockno
 ;  ^^^^^ support.function.iso.command
 ;       ^ support.variable.iso.position
-;        ^^^ constant.numeric
+;        ^ keyword.operator.arithmetic
+;         ^^ constant.numeric
 ;           ^ support.variable.iso.position
 ;            ^^^ constant.numeric
 ;               ^ support.variable.iso.position
@@ -381,7 +401,7 @@ N10G0G54X-10Y.20Z30.4EX-4B0T100S400.0M3H12
 ;                        ^ support.variable.iso.position
 ;                         ^ constant.numeric
 ;                          ^^^^ support.function.iso.command
-;                              ^ support.variable.iso.operand
+;                              ^ support.variable.iso.address
 ;                               ^^^^^ constant.numeric
 ;                                    ^^^^^ support.function.iso.auxiliary
 

@@ -18,19 +18,19 @@ FUNCTION_BLOCK MyFunc
 VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.stat.begin.plc
 //^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.stat.begin.plc
-    statVar AT %IW0 : WORD := 0;
+    statVar AT statOther : WORD := 0;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
-//  ^^^^^^^^^^^^^^^^^ meta.definition.variable.plc
-//                   ^^^^^^ meta.definition.variable.storage.plc
-//                         ^^ meta.definition.variable.plc
-//                           ^^ meta.definition.variable.value.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.plc
+//                        ^^^^^^ meta.definition.variable.storage.plc
+//                              ^^ meta.definition.variable.plc
+//                                ^^ meta.definition.variable.value.plc
 //  ^^^^^^^ variable.other.local.plc
 //          ^^ keyword.declaration.alias.plc
-//             ^^^^ variable.language.address.plc
-//                  ^ punctuation.separator.type.plc
-//                    ^^^^ storage.type.integer.plc
-//                         ^^ keyword.operator.assignment.plc
-//                            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//             ^^^^^^^^^ variable.other.local.plc
+//                       ^ punctuation.separator.type.plc
+//                         ^^^^ storage.type.integer.plc
+//                              ^^ keyword.operator.assignment.plc
+//                                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
     statLReal { S7_Setpoint := 'True' } : LREAL := 0.0;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.plc
@@ -48,27 +48,30 @@ VAR
 //                                        ^^^^^ storage.type.float.plc
 //                                              ^^ keyword.operator.assignment.plc
 //                                                 ^^^ meta.number.float.decimal.plc constant.numeric.value.plc
-    arrayVal : ARRAY[0..5] of UDInt := [0, 1, #LOCAL_CONST, 500, 10];
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
+    arrayVal : ARRAY[0..#CONST] of UDInt := [0, 1, #LOCAL_CONST, 500, 10];
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc
 //  ^^^^^^^^^^ meta.definition.variable.plc
-//            ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
-//                                  ^^ meta.definition.variable.plc
-//                                    ^ meta.definition.variable.value.plc - meta.sequence
-//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.value.plc meta.sequence.list.plc
-//                                                                  ^ - meta.definition
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//                                       ^^ meta.definition.variable.plc
+//                                         ^ meta.definition.variable.value.plc - meta.sequence
+//                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.value.plc meta.sequence.list.plc
+//                                                                       ^ - meta.definition
 //  ^^^^^^^^ variable.other.local.plc
 //           ^ punctuation.separator.type.plc
 //             ^^^^^ storage.type.array.plc
 //                  ^ punctuation.definition.array.begin.plc
-//                       ^ punctuation.definition.array.end.plc
-//                         ^^ keyword.control.of.plc
-//                            ^^^^^ storage.type.integer.plc
-//                                  ^^ keyword.operator.assignment.plc
-//                                     ^ punctuation.section.sequence.begin.plc
-//                                      ^ constant.numeric.value.plc
-//                                       ^ punctuation.separator.sequence.plc
-//                                                                 ^ punctuation.section.sequence.end.plc
-//                                                                  ^ punctuation.terminator.statement.plc
+//                   ^ constant.numeric.value.plc
+//                    ^^ keyword.operator.range.plc
+//                      ^^^^^^ constant.other.local.plc
+//                            ^ punctuation.definition.array.end.plc
+//                              ^^ keyword.control.of.plc
+//                                 ^^^^^ storage.type.integer.plc
+//                                       ^^ keyword.operator.assignment.plc
+//                                          ^ punctuation.section.sequence.begin.plc
+//                                           ^ constant.numeric.value.plc
+//                                            ^ punctuation.separator.sequence.plc
+//                                                                      ^ punctuation.section.sequence.end.plc
+//                                                                       ^ punctuation.terminator.statement.plc
     structVal : STRUCT
 //  ^^^^^^^^^^^ meta.definition.variable.plc
 //             ^^^^^^^^ meta.definition.variable.storage.plc
@@ -89,7 +92,12 @@ VAR
 //                               ^^^^^^^^^^^^^^ meta.string.plc string.quoted.single.plc
 //                                             ^ punctuation.section.sequence.end.plc
 //                                              ^ punctuation.terminator.statement.plc
-
+    "name" : String;   // program name
+//  ^^^^^^^ meta.definition.variable.plc
+//  ^^^^^^ variable.other.local.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^^ storage.type.string.plc
+//                 ^ punctuation.terminator.statement.plc
 END_VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
 //^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
@@ -250,6 +258,21 @@ end_region
     end_if;
 //  ^^^^^^ keyword.control.conditional.end.plc
 //        ^ punctuation.terminator.statement.plc
+
+    if #itme < T#1S or #itme > T#1M then ; end_if ;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - invalid
+//  ^^ keyword.control.conditional.if.plc
+//     ^^^^^ variable.other.local.plc
+//           ^ keyword.operator.comparison.plc
+//             ^^^^ meta.number.time.iec.plc
+//                  ^^ keyword.operator.logical.plc
+//                     ^^^^^ variable.other.local.plc
+//                           ^ keyword.operator.comparison.plc
+//                             ^^^^ meta.number.time.iec.plc
+//                                  ^^^^ keyword.control.conditional.then.plc
+//                                       ^ punctuation.terminator.statement.plc
+//                                         ^^^^^^ keyword.control.conditional.end.plc
+//                                                ^ punctuation.terminator.statement.plc
 
 /// REPEAT..UNTIL /////////////////////////////////////////////////////////////
 

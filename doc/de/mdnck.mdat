@@ -341,7 +341,6 @@ Die dateiverändernden Befehle WRITE und DELETE werden in dieses Verzeichnis umge
 Verzeichnis auf EES-Laufwerk:
 Beispiel: "//DEV1:/Traces/TMP_EES_WRITE.WPD"
 Für Testzwecke können die dateiverändernden Befehle WRITE und DELETE auch in ein Verzeichnis auf einem EES-Laufwerk umgelenkt werden.
-
 </description>
 </parameter>
 <parameter number="10125" type="STRING" dim="0">
@@ -354,7 +353,6 @@ FILENAME = "MYFILE_" &lt;&lt; $MN_EES_NC_NAME  &lt;&lt; "_" &lt;&lt; $P_CHANNO  
 Die Variable FILENAME bekommt dann im ersten Kanal auf NCU "NC1" den Wert "MYFILE_NC1_1.SPF"
 Hintergrund:
 Im EES-Betrieb kann sich der Teileprogrammspeicher auf einem Netzlaufwerk befinden, auf das mehrere NCUs zugreifen. Mit den Teileprogrammbefehlen WRITE und DELETE kann man damit Konflikte erzeugen, wenn keine eindeutigen Dateinamen verwendet werden. Mit MD10125 $MN_EES_NC_NAME wird die Generierung eindeutiger NC-Programmnamen im Anwenderprogramm unterstützt.
-
 </description>
 </parameter>
 <parameter number="10127" type="STRING" dim="0">
@@ -563,7 +561,6 @@ mindestens bekommt.
 Soweit die Task die Kontrolle nicht freiwillig abgibt (weil es nichts zu tun gibt),
 verdrängt sie in dieser Zeit sowohl den Vorlauf als auch die anderen Subtasks.
 Steht wenig Restrechenzeit zur Verfügung, können somit relativ große Zeiträume entstehen.
-
 </description>
 </parameter>
 <parameter number="10172" type="DWORD" dim="0">
@@ -577,7 +574,6 @@ Steht wenig Restrechenzeit zur Verfügung, können somit relativ große Zeiträume e
 <brief>Laufzeitbegrenzung der servosynch. Task der SW-PLC2xx</brief>
 <description>Laufzeitlimit der servosynchronen Soft-PLC2xx-Interrupt-Task
 Das Maschinendatum bestimmt, wieviel Rechenzeit die servosynchrone Task der SW-PLC2xx zur Abarbeitung des PLC-Anwenderprogramms in der PLC-Servo-Interrupt-Ebene am Stück höchstens bekommt.
-
 </description>
 </parameter>
 <parameter number="10174" type="DOUBLE" dim="1" readonly="true">
@@ -594,14 +590,12 @@ Die Diagnosedaten werden bei jedem NCK-Hochlauf mit NULL initialisiert.
 <name>PLC_TASK_RUNTIME_WARNING</name>
 <brief>Vorwarngrenze zur Rechenzeitüberschreitung SW-PLC2xx</brief>
 <description>Das Maschinendatum bestimmt die Zeitdauer für die Vorwarnung zur Rechenzeitüberschreitung der SW-PLC2xx in Sekunden. Nach Ablauf dieser Zeit generiert die SW-PLC2xx den Anzeige-Alarm 400026 "PLC-Zykluszeit hat Warnschwelle überschritten".
-
 </description>
 </parameter>
 <parameter number="10176" type="DOUBLE" dim="0">
 <name>PLC_TASK_RUNTIME_STOP</name>
 <brief>Maximale Rechenzeit der SW-PLC2xx</brief>
 <description>Das Maschinendatum bestimmt die Rechenzeit in Sekunden, die die zyklische Task der SW-PLC2xx zur Abarbeitung des PLC-Anwenderprogramms höchstens bekommt. Nach Ablauf dieser Zeit meldet die SW-PLC2xx den PLC-Stop-Alarm 400027 "Fehler PLC-Zykluszeit".
-
 </description>
 </parameter>
 <parameter number="10185" type="DOUBLE" dim="0">
@@ -2220,7 +2214,6 @@ Die Bezeichner müssen so gewählt werden, dass kein Konflikt mit anderen Bezeichn
 Korrespondiert mit:
 	MD10650 $MN_IPO_PARAM_NAME_TAB
 	MD10660 $MN_INTERMEDIATE_POINT_NAME_TAB
-
 </description>
 </parameter>
 <parameter number="10652" type="STRING" dim="0">
@@ -2709,7 +2702,6 @@ Folgende M-Funktionen werden geprüft:
 - M-Funktionen für Nibbeln/Stanzen laut Projektierung über MD26008 $MC_NIBBLE_PUNCH_CODE sofern sie über MD26012 $MC_PUNCHNIB_ACTIVATION aktiviert wurden.
 - bei applizierter externer Sprache (MD18800 $MN_MM_EXTERN_LANGUAGE) M19, M96-M99.
 Ausnahme: die mit MD22560 $MC_TOOL_CHANGE_M_CODE festgelegten M-Funktionen für den Werkzeugwechsel.
-
 </description>
 </parameter>
 <parameter number="10716" type="STRING" dim="1">
@@ -2914,9 +2906,6 @@ Festlegung des Zeichen- bzw. Lochstreifen-Codes, mit dem der String codiert wird
 0: ASCII
 1: ISO (DIN66024)
 2. EIA (RS-244)
-
-
-
 </description>
 </parameter>
 <parameter number="10751" type="DWORD" dim="0">
@@ -2927,10 +2916,6 @@ Parametrierung der Formatbeschreibung %n.mP des SPRINT-Befehls
 Wertebereich:
 0: Die Formatangabe %n.mP generiert aus einem Übergabeparameter vom Typ REAL oder INT einen String, der aus einer Ganzzahl mit n + m Stellen besteht. Dabei representieren die ersten n Stellen  die Vorkommastellen und die folgenden m Stellen die Nachkommastellen des Übergabeparameters. Fehlende Nachkommastellen werden mit 0 aufgefüllt. Sind mehr als m Nachkommastellen vorhanden wird gerundet. Fehlende Vorkommastellen werden mit Leerzeichen aufgefüllt.
 1: Die Formatangabe %n.mP generiert aus einem Übergabeparameter vom Typ REAL oder INT einen String, der aus einer Dezimalzahl mit bis zu n Vorkommastellen, dem Dezimalpunkt und m Nachkommastellen besteht, die ggf. mit 0 aufgefüllt oder gerundet werden.
-
-
-
-
 </description>
 </parameter>
 <parameter number="10760" type="UDWORD" dim="0" display="HEX">
@@ -3281,7 +3266,6 @@ Bit7=0:
 
 Bit7=1:
 	Wirkt nur bei ISO-Mode Turning. Bei aktiver T-Substitution ( MD10717 $MN_T_NO_FCT_CYCLE_NAME ) wird die, der im T-Wort programmierten H-Nummer entsprechende Siemens Schneidennummer D, dem Zyklus in der Variable $C_D übergeben.
-
 </description>
 </parameter>
 <parameter number="10900" type="DWORD" dim="0">
@@ -4051,7 +4035,6 @@ Wie Wert = 2, es wird jedoch nicht auf die letztmögliche Rasterposition vor eine
 
 Wert = 7:
 Wie Wert = 3, es wird jedoch nicht auf die letztmögliche Rasterposition vor einer Begrenzung angehalten, sondern die Begrenzung wird angefahren.
-
 </description>
 </parameter>
 <parameter number="11350" type="DWORD" dim="1">
@@ -4108,7 +4091,6 @@ Maschinendatum ist für folgende Handrad-Typen (siehe 11350 $MN_HANDWHEEL_SEGMENT
 
 SEGMENT_ETHERNET:
 - empfohlene Filterzeit:  0.2 - 0.5 s
-
 </description>
 </parameter>
 <parameter number="11380" type="UDWORD" dim="0" display="HEX">
@@ -4422,7 +4404,6 @@ Bit	Hex.	Bedeutung
 <description>Diese Maske dient Zyklenentwicklern zur Diagnose.
 Maske zur Aktivierung spezieller Alarmausgaben bei NCU-Link, wenn nicht-zyklische Nachrichten nicht sofort übertragen werden können.
 Der Alarm 14764 (NCU-Link kann nicht alle nicht-zyklischen Link-Nachrichten vom angegebenen Typ sofort übertragen) wird ausgelöst, wenn für den eingestellten Typ (entspricht den Bits dieses MDs) der betroffenen Nachrichtentyp nicht sofort übertragen werden konnte.
-
 </description>
 </parameter>
 <parameter number="11420" type="DWORD" dim="0">
@@ -4446,7 +4427,6 @@ Bit 0 = 1:
      Mit dieser Einstellung arbeitet der WRITE performanter.
 
 Bit 1: reserviert
-
 </description>
 </parameter>
 <parameter number="11450" type="UDWORD" dim="0" display="HEX">
@@ -4718,7 +4698,6 @@ Die Voreinstellung wird aktiv, wenn MD11620 $MN_PROG_EVENT_NAME einen Leerstring
 Enthält das Maschinendatum keinen Leerstring, so wird  String syntaktisch wie bei einem Unterprogrammbezeichner geprüft, d.h. die ersten beiden Zeichen müssen Buchstaben (keine Ziffern) oder Unterstriche sein. Ist dies nicht der Fall, wird im Hochlauf der 4010 gemeldet.
 Das Programm muss sich in einem Zyklendirectory befinden. Beim Aufruf werden die Zyklendirectories entsprechend der Einstellung von MD11622 $MN_PROG_EVENT_PATH durchsucht.
 Prefix (_N_) und Suffix (_SPF) des Programmnamens werden - wenn nicht angegeben - automatisch ergänzt.
-
 </description>
 </parameter>
 <parameter number="11622" type="BYTE" dim="0">
@@ -4730,7 +4709,6 @@ Prefix (_N_) und Suffix (_SPF) des Programmnamens werden - wenn nicht angegeben 
 1:	/_N_CUS_DIR
 2:	/_N_CST_DIR
 3:            Suchpfad in der Reihenfolge /_N_CUS_DIR, /_N_CMA_DIR und  /_N_CST_DIR
-
 </description>
 </parameter>
 <parameter number="11625" type="BYTE" dim="0">
@@ -4740,7 +4718,6 @@ Prefix (_N_) und Suffix (_SPF) des Programmnamens werden - wenn nicht angegeben 
 
 0:	Bei Unterprogrammaufrufen wird auch nach Dateien ohne Extension gesucht
 1:	Bei Unterprogrammaufrufen wird nur nach Dateien mit Extension (z. B SPF, MPF etc.) gesucht
-
 </description>
 </parameter>
 <parameter number="11626" type="BYTE" dim="0">
@@ -4752,7 +4729,6 @@ Anwendung: diese Einstellung verhindert bei der Programmbearbeitung durch die Fu
 0:   Bei Unterprogrammaufrufen wird das NC-Programm gemäß Suchpfad in allen Programmverzeichnissen gesucht
 1:   Bei Unterprogrammaufrufen wird das NC-Programm nur in den Zyklenverzeichnissen CUS, CMA und CST gesucht
 2:   Bei Unterprogrammaufrufen wird das NC-Programm in dem mit der CALLPATH-Anweisung definierten Verzeichnis und danach in den Zyklenverzeichnissen CUS, CMA und CST gesucht
-
 </description>
 </parameter>
 <parameter number="11640" type="UDWORD" dim="0" display="HEX">
@@ -5595,9 +5571,6 @@ Das MD ist bitcodiert, folgende Bits sind belegt:
 Bit 0 = 0: Bei einer direkten Achscontainerschaltung (AXCTSWED), müssen alle andere Kanäle im RESET-Zustand sein.
 
 Bit 0 = 1: Bei einer direkten Achscontainerschaltung (AXCTSWED) müssen nur andere Kanäle, die auf Achsen des Achscontainers das Interpolationsrecht haben im RESET-Zustand sein.
-
-
-
 </description>
 </parameter>
 <parameter number="12950" type="DWORD" dim="1">
@@ -5607,7 +5580,6 @@ Bit 0 = 1: Bei einer direkten Achscontainerschaltung (AXCTSWED) müssen nur ander
 Wert = -1 Keine MSTT vorhanden
 Wert =  0 Anschluss über Profinet
 Wert =  1 Anschluss über USB
-
 </description>
 </parameter>
 <parameter number="12951" type="DWORD" dim="1">
@@ -5615,7 +5587,6 @@ Wert =  1 Anschluss über USB
 <brief>Logische Eingangsadressen der MSTT am PROFINET</brief>
 <description>Das Datum definiert die logischen Eingangsadressen der Maschinensteuertafeln am PROFINET.
 Es wird nur ausgewertet, wenn für die ausgewählte MSTT das MD12950 $MN_PLC_MCP_CONNECT[i] = 0 ist.
-
 </description>
 </parameter>
 <parameter number="12952" type="DWORD" dim="1">
@@ -5623,7 +5594,6 @@ Es wird nur ausgewertet, wenn für die ausgewählte MSTT das MD12950 $MN_PLC_MCP_C
 <brief>Logische Ausgangsadressen der MSTT am PROFINET</brief>
 <description>Das Datum definiert die logischen Ausgangsadressen der Maschinensteuertafeln am PROFINET.
 Es wird nur ausgewertet, wenn für die ausgewählte MSTT das MD12950 $MN_PLC_MCP_CONNECT[i] = 0 ist.
-
 </description>
 </parameter>
 <parameter number="12954" type="DWORD" dim="1">
@@ -5728,7 +5698,6 @@ Korrespondiert mit:
 <brief>Deaktivierung der Peripherieverbindung zum PLC-Abbild</brief>
 <description>Das PLC-Input-/Output-Abbild der Stationen mit diesen logischen Adressen
 hat keine Verbindung zu der realen Peripherie
-
 </description>
 </parameter>
 <parameter number="12987" type="DWORD" dim="1">
@@ -5736,7 +5705,6 @@ hat keine Verbindung zu der realen Peripherie
 <brief>Deaktivierung der Peripherieverbindung zum PLC-Abbild</brief>
 <description>Das PLC-Input-/Output-Abbild der Stationen mit diesen logischen Adressen
 hat keine Verbindung zu der realen Peripherie
-
 </description>
 </parameter>
 <parameter number="13050" type="DWORD" dim="1">
@@ -5913,7 +5881,6 @@ Default: Das Default-Verhalten der Anzeige der genannten
          transportiert und angezeigt.
          Das frühere Default-Verhalten kann wieder hergestellt
          werden durch MD13140 $MN_PROFIBUS_ALARM_ACCESS=0.
-
 </description>
 </parameter>
 <parameter number="13150" type="UDWORD" dim="0" display="HEX">
@@ -6129,7 +6096,6 @@ Das Anwenderprogramm wird mit dem mit MD15702 $MN_LANG_SUB_PATH projektierten Pf
 <description>Programmname für das Ersetzungsprogramm bei Aufruf des TCA-Befehls.
 Wird in einem Teileprogrammsatz der TCA-Befehl programmiert, so wird am Satzende das in MD15710 $MN_TCA_CYCLE_NAME definierte Unterprogramm aufgerufen. Das programmierte Werkzeug kann im Ersetzungsprogramm über die Systemvariablen $C_TS_PROG / $C_TS, die Duplo-Nummer über $C_DUPLO_PROG / $C_DUPLO und die Toolholder/Spindel-Nummer über $C_THNO_PROG / $C_THNO abgefragt werden. Die Systemvariable $C_TCA liefert im Ersetzungsprogramm den Wert TRUE. Da die Ersetzung am Satzende ausgeführt wird, liefert die Systemvariable $P_SUB_STAT im Ersetzungsprogramm den Wert 2.
 Enthält MD15710 $MN_TCA_CYCLE_NAME einen Leerstring, ist die Ersetzung deaktiviert (Voreinstellung).
-
 </description>
 </parameter>
 <parameter number="16800" type="STRING" dim="0">
@@ -6198,7 +6164,6 @@ Abbildung der globalen Anzeigemaschinendaten auf NCK-Maschinendaten
 - $MNS_DISP_RES_INCH          :: $MN_GMMC_INFO_NO_UNIT[1]
 - $MNS_DISP_RES_SPINDLE       :: $MN_GMMC_INFO_NO_UNIT[2]
 - $MNS_ENABLE_COORDINATE_ACS  :: $MN_GMMC_INFO_NO_UNIT[3]
-
 </description>
 </parameter>
 <parameter number="17201" type="BYTE" dim="1">
@@ -6235,7 +6200,6 @@ n: es kann nur genau n Werkzeuge mit einem bestimmten Werkzeugnamen geben, also 
 Korrespondiert mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
 MD20310 $MC_TOOL_MANAGEMENT_MASK
-
 </description>
 </parameter>
 <parameter number="17504" type="DWORD" dim="0">
@@ -6318,8 +6282,6 @@ Bit-Nr.: 13, ff nicht erlaubt (ist reserviert)
 Default-Einstellung entspricht bisherigem Verhalten.
 Die nicht erlaubten Bits werden ausgefiltert und von Limit-Maske ausgeblendet.
 Hier nicht definierte Bits werden beim Schreiben des Maschinendatums ignoriert.
-
-
 </description>
 </parameter>
 <parameter number="17520" type="UDWORD" dim="0" display="HEX">
@@ -6351,8 +6313,6 @@ Bit-Nr.: 4 Bitwert: 0 hexadezimaler Wert: -
 Bedeutung: Nur mit TMMG + aktiver Nebenplatzbetrachtung. Mit dem Setzen/Rücksetzen des Magazinplatzzustands 'gesperrt' bleibt der Magazinplatzzustand 'Überlappung erlaubt' unverändert.
 Bit-Nr.: 4 Bitwert: 1 hexadezimaler Wert: 'H10'
 Bedeutung: Nur mit TMMG + aktiver Nebenplatzbetrachtung. Mit dem Setzen/Rücksetzen des Magazinplatzzustands 'gesperrt' wird automatisch der Zustand 'Überlappung  erlaubt' gesetzt/rückgesetzt.
-
-
 </description>
 </parameter>
 <parameter number="17530" type="UDWORD" dim="0" display="HEX">
@@ -6384,7 +6344,6 @@ Bedeutung: Wertänderungen der ISO-Tool-Korrektur-Daten werden im WZ Datenänderun
 Bit-Nr.: 4 Bitwert: 1 hexadezimaler Wert: 'H10' Wertänderungen der ISO-Tool-Korrektur-Daten werden im WZ Datenänderungsdienst berücksichtigt.
 
 Die Angaben"Wertänderungen des WZ-Status" und "Wertänderungen der WZ-Reststückzahl" beziehen sich auf Werteänderungen, die durch interne Vorgänge in der NC bewirkt werden, als auch auf Werteänderungen, die durch Schreiben der entsprechenden Systemvariablen verursacht werden.
-
 </description>
 </parameter>
 <parameter number="17540" type="UDWORD" dim="0" display="HEX">
@@ -6404,7 +6363,6 @@ Bit-Nr.: 9 Wert: 0x200 Bedeutung: Werkzeugtypen 900 bis 999 erlaubt
 
 Korrespondierend mit:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
 </description>
 </parameter>
 <parameter number="17600" type="DWORD" dim="0">
@@ -6794,9 +6752,6 @@ Beispiel:
 Standard-Speicherreservierung für WZV :
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK = 3 (Bit 0 + 1=1) bedeutet WZV und WZ-Überwachungsdaten sind bereitgestellt
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK = 1 bedeutet WZV ohne WZ-Überwachungsfunktionsdaten
-
-
-
 </description>
 </parameter>
 <parameter number="18082" type="DWORD" dim="0">
@@ -6809,7 +6764,6 @@ Die gepufferten Daten gehen mit Änderung des Maschinendatums verloren.
 
 Korrespondiert mit:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
 </description>
 </parameter>
 <parameter number="18083" type="DWORD" dim="0">
@@ -6830,11 +6784,6 @@ Wert = 0: Die WZ-Verwaltung kann nicht aktiv werden, weil keine Daten angelegt w
 Korrespondiert mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD20310 $MC_TOOL_MANAGEMENT_MASK
-
-
-
-
-
 </description>
 </parameter>
 <parameter number="18085" type="DWORD" dim="0">
@@ -6876,10 +6825,6 @@ Mit diesem Maschinendatum erhöht sich der Bedarf an gepuffertem Speicher um size
 Korrespondiert mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18084 $MN_MM_NUM_MAGAZINE
-
-
-
-
 </description>
 </parameter>
 <parameter number="18091" type="DWORD" dim="1">
@@ -6908,7 +6853,6 @@ Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Re
 Korrespondiert mit:
 MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM
 MD18084 $MN_MM_NUM_MAGAZINE
-
 </description>
 </parameter>
 <parameter number="18092" type="DWORD" dim="0">
@@ -6920,9 +6864,6 @@ Mit diesem MD erhöht sich der Bedarf an gepuffertem Speicher um sizeof(int)*max.
 Korrespondiert mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
-
-
-
 </description>
 </parameter>
 <parameter number="18093" type="DWORD" dim="1">
@@ -6962,9 +6903,6 @@ Mit diesem MD erhöht sich der Bedarf an gepuffertem Speicher um sizeof(double)*m
 Korrespondiert mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18082 $MN_MM_NUM_TOOL
-
-
-
 </description>
 </parameter>
 <parameter number="18095" type="DWORD" dim="1">
@@ -7005,9 +6943,6 @@ Mit diesem MD erhöht sich der Bedarf an gepuffertem Speicher um sizeof(double)*m
 Korrespondiert mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
-
-
 </description>
 </parameter>
 <parameter number="18097" type="DWORD" dim="1">
@@ -7038,7 +6973,6 @@ Verwendet wird gepufferter Anwenderspeicher. Eine Wertänderung führt zu einer Re
 Korrespondiert mit:
 MD18096 $MN_MM_NUM_CC_TOA_PARAM
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
 </description>
 </parameter>
 <parameter number="18098" type="DWORD" dim="0">
@@ -7050,10 +6984,6 @@ Mit diesem MD erhöht sich der Bedarf an gepuffertem Speicher um sizeof(int)*max.
 Korrespondierend mit:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
-
-
-
 </description>
 </parameter>
 <parameter number="18099" type="DWORD" dim="1">
@@ -7115,7 +7045,6 @@ Wert:   Bedeutung
 -----------------------------------------------------------------------------------
 0:   keine 'flache D-Nummernverwaltung' aktiv
 1:   Funktion 'flache D-Nummern' ist aktiv
-
 </description>
 </parameter>
 <parameter number="18104" type="DWORD" dim="0">
@@ -7144,8 +7073,6 @@ MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
 MD20310 $MC_TOOL_MANAGEMENT_MASK,
 MD18084 $MN_MM_NUM_MAGAZINE,
 MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
-
-
 </description>
 </parameter>
 <parameter number="18105" type="DWORD" dim="0">
@@ -7194,7 +7121,6 @@ Es wird gepufferter Speicher reserviert. Der Speicherbedarf für eine Summenkorre
 Siehe auch:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA,
 MD18110 $MN_MM_MAX_SUMCORR_PER_CUTTEDGE
-
 </description>
 </parameter>
 <parameter number="18110" type="DWORD" dim="0">
@@ -7240,9 +7166,6 @@ MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
 MD20310 $MC_TOOL_MANAGEMENT_MASK,
 MD18086 $MN_MM_NUM_MAGAZINE_LOCATION,
 MD18104 $MN_MM_NUM_TOOL_ADAPTER
-
-
-
 </description>
 </parameter>
 <parameter number="18113" type="DWORD" dim="0">
@@ -8057,7 +7980,6 @@ Literatur:
 <name>MM_USER_FILE_MEM_MINIMUM</name>
 <brief>Minimale Größe des Teileprogrammspeichers</brief>
 <description>Auf SolutionLine Systemen ohne Bedeutung.
-
 </description>
 </parameter>
 <parameter number="18352" type="DWORD" dim="1">
@@ -8141,7 +8063,6 @@ Index 2 = reserviert
 <name>MM_EES_FILE_MEM_SIZE</name>
 <brief>Speichergröße der Buffer für EES</brief>
 <description>Speichergröße der Buffer für die Funktion "Execution from External Storage" im passiven Filesystem ( in kB )
-
 </description>
 </parameter>
 <parameter number="18360" type="DWORD" dim="0">
@@ -8188,7 +8109,6 @@ Diese bestimmt die Anzahl der Programmebenen, die gleichzeitig von einem externe
 <name>MM_EES_BUFFER_SIZE</name>
 <brief>Größe der Buffer für EES</brief>
 <description>Größe der Buffer der Funktion "Execution from External Storage EES" im passiven Filesystem ( in kB )
-
 </description>
 </parameter>
 <parameter number="18370" type="DWORD" dim="1">
@@ -8745,7 +8665,6 @@ Legt eine weitere CC-Station an, die direkt nach der ersten CC-Station ( s.o. ) 
 
 MD18788 $MN_MM_CC_STATION_CHAN_MASK[2]:
 Legt eine weitere CC-Station in der Präparationstask an, die direkt vor der Werkzeugradiuskorrektur gerufen wird und Manipulationen der internen Satzinhalte erlaubt.
-
 </description>
 </parameter>
 <parameter number="18790" type="DWORD" dim="0">
@@ -8797,7 +8716,6 @@ BIT3 = 1
      Der interne Empfangsbaum wird vor und nach der Aktion aufgezeichnet und die letzten Werte finden sich
      im Trace wieder
      ACHTUNG: Sehr Sehr zeitaufwendig, bitte nur im Notfall einstellen.
-
 </description>
 </parameter>
 <parameter number="18794" type="UDWORD" dim="0" display="HEX">
@@ -8991,7 +8909,6 @@ Bit 29:
 <brief>Funktionsmaske fuer Systeme mit mehreren CPU-Kernen</brief>
 <description>Bit 0 = 1:
 	Aktivert die Verteilung von PREP-Funktionen (PrepJobs) auf andere CPU-Kerne.
-
 </description>
 </parameter>
 <parameter number="18930" type="STRING" dim="0">
@@ -9037,7 +8954,6 @@ Wert 1:
 Die Beschleunigung kommt aus dem zweiten Feldeintrag in MD32300 $MA_MAX_AX_ACCEL (Wert für DYNPOS).
 Der Ruck kommt aus dem zweiten Feldeintrag in MD32431 $MA_MAX_AX_JERK (Wert für DYNPOS).
 Für BRISK-Verhalten trägt man hier sehr große Werte ein.
-
 </description>
 </parameter>
 <parameter number="18965" type="UDWORD" dim="0" display="HEX">
@@ -9051,7 +8967,6 @@ BitNr.   Hexadez.   Bedeutung bei gesetztem Bit
 Bit0:    0x1        Die Simulation läuft auf einem SIMNCK
 Bit1:    0x2        Die Simulation läuft unter dem VNCK
 Bit2:    0x4        Die Simulation läuft unter einem HMI
-
 </description>
 </parameter>
 </info>

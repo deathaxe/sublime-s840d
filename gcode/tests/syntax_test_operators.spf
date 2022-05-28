@@ -25,8 +25,8 @@ _RESULT=10.50
 _RESULT=+10.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
-;        ^^^^^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT=.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
@@ -34,26 +34,27 @@ _RESULT=.50
 _RESULT=+.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
-;        ^^^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^ meta.number.float.decimal constant.numeric.value
 _RESULT=+.50EX2
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
-;        ^^^^^^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT=-.50EX-2
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
-;        ^^^^^^^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT=1EX300
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^^^^^^ constant.numeric
+;       ^^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT=-1EX300
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^^^^^^^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT = 10.50
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
@@ -63,8 +64,8 @@ _RESULT = 10.50
 _RESULT = +10
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
-;          ^ constant.numeric
+;         ^ meta.number.integer.decimal keyword.operator.arithmetic
+;          ^^ meta.number.integer.decimal constant.numeric.value
 _RESULT = .50
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
@@ -73,44 +74,40 @@ _RESULT = .50
 _RESULT=-10.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
-;        ^ constant.numeric
-;          ^ constant.numeric
-;           ^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT=-.50
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
-;        ^ constant.numeric
-;         ^ constant.numeric
+;       ^ meta.number.float.decimal keyword.operator.arithmetic
+;        ^^^ meta.number.float.decimal constant.numeric.value
 _RESULT = -10.50
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
-;          ^ constant.numeric
-;            ^ constant.numeric
-;             ^ constant.numeric
+;         ^ meta.number.float.decimal keyword.operator.arithmetic
+;          ^^^^^ meta.number.float.decimal constant.numeric.value
 _RESULT = -.50
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
-;          ^ constant.numeric
-;           ^ constant.numeric
+;         ^ meta.number.float.decimal keyword.operator.arithmetic
+;          ^^^ meta.number.float.decimal constant.numeric.value
 _RESULT = 'B1102031'
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
+;         ^^^^^^^^^^ meta.number.integer.binary
 ;         ^ punctuation.definition.numeric.begin
-;          ^ punctuation.definition.numeric.binary
-;         ^^^^^^^^^^ constant.numeric.integer.binary
+;          ^ constant.numeric.base
+;           ^^^^^^^ constant.numeric.value
 ;              ^ invalid.illegal
 ;                ^ invalid.illegal
 ;                  ^ punctuation.definition.numeric.end
 _RESULT = 'H0123456789ABCDEFGH'
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
+;         ^^^^^^^^^^^^^^^^^^^^^ meta.number.integer.hexadecimal
 ;         ^ punctuation.definition.numeric.begin
-;          ^ punctuation.definition.numeric.hexadecimal
-;         ^^^^^^^^^^^^^^^^^^^^^ constant.numeric.integer.hexadecimal
+;          ^ constant.numeric.base
+;           ^^^^^^^^^^^^^^^^^^ constant.numeric.value
 ;                           ^^ invalid.illegal
 ;                             ^ punctuation.definition.numeric.end
 
@@ -145,34 +142,34 @@ _AXIS = AX1
 _RESULT=-_VALUE
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
+;       ^ keyword.operator.arithmetic
 ;        ^ variable.other
 _RESULT = -_VALUE
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
+;         ^ keyword.operator.arithmetic
 ;          ^ variable.other
 _RESULT = - _VALUE
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
+;         ^ keyword.operator.arithmetic
 ;           ^ variable.other
 
 ; valid nc variable assignment
 _RESULT=-$AC_CTOL
 ;  ^ variable.other
 ;      ^ keyword.operator.assignment
-;       ^ constant.numeric
+;       ^ keyword.operator.arithmetic
 ;        ^^^^^^^^ support.variable.nck
 _RESULT = -$AC_CTOL
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
+;         ^ keyword.operator.arithmetic
 ;          ^^^^^^^^ support.variable.nck
 _RESULT = - $AC_CTOL
 ;  ^ variable.other
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
+;         ^ keyword.operator.arithmetic
 ;           ^^^^^^^^ support.variable.nck
 
 ; valid string chain assignment
@@ -199,17 +196,17 @@ _STR = << $C_T << "String 2"
 ;                 ^ string.quoted.double
 _STR=<<-$C_T<<"String 2"<< - -$C_M_PROG
 ;   ^ keyword.operator.assignment
-;      ^ constant.numeric
+;      ^ keyword.operator.arithmetic
 ;       ^ support.variable.nck
 ;           ^ keyword.operator.assignment
 ;             ^ string.quoted.double
-;                          ^ constant.numeric
+;                          ^ keyword.operator.arithmetic
 ;                            ^ invalid.illegal
 ;                              ^ support.variable.nck
 _STR = << -$C_T << - "String 2"
 ;    ^ keyword.operator.assignment
 ;      ^ keyword.operator.assignment
-;         ^ constant.numeric
+;         ^ keyword.operator.arithmetic
 ;          ^ support.variable.nck
 ;               ^ keyword.operator.assignment
 ;                  ^ invalid.illegal
@@ -291,28 +288,30 @@ _RESULT = 10 == - _DATA - 4
 ;       ^ keyword.operator.assignment
 ;         ^ constant.numeric
 ;            ^ keyword.operator.relational
-;               ^ constant.numeric
+;               ^ keyword.operator.arithmetic
 ;                 ^ variable.other
 ;                       ^ keyword.operator.arithmetic
 ;                         ^ constant.numeric
 _RESULT = (-10.5) + ( -20.1 ) * (- 5) / (-R4) - (-$AC_CTOL-4)
 ;       ^ keyword.operator.assignment
-;          ^ constant.numeric
+;          ^^^^^ meta.number.float.decimal
+;          ^ keyword.operator.arithmetic
 ;                 ^ keyword.operator.arithmetic
-;                     ^ constant.numeric
+;                     ^^^^^ meta.number.float.decimal
+;                     ^ keyword.operator.arithmetic
 ;                             ^ keyword.operator.arithmetic
-;                                ^ constant.numeric
+;                                ^ keyword.operator.arithmetic
 ;                                     ^ keyword.operator.arithmetic
-;                                        ^ constant.numeric
+;                                        ^ keyword.operator.arithmetic
 ;                                             ^ keyword.operator.arithmetic
-;                                                ^ constant.numeric
+;                                                ^ keyword.operator.arithmetic
 ;                                                         ^ keyword.operator.arithmetic
-;                                                          ^ constant.numeric
+;                                                          ^ keyword.operator.arithmetic
 
 ; invalid negative value arithmetic
 _RESULT = -10.5 + -20.1 * - 5 / -R4 - -($AC_CTOL-4)
 ;       ^ keyword.operator.assignment
-;         ^ constant.numeric
+;         ^ keyword.operator.arithmetic
 ;               ^ keyword.operator.arithmetic
 ;                 ^ invalid.illegal
 ;                       ^ keyword.operator.arithmetic
@@ -340,20 +339,22 @@ $P_UIFR[1]=CTRANS(X,-37.8,Y,25.16):CROT(X,0,Y,0,Z,0)
 ;                ^ punctuation.section.arguments.begin
 ;                 ^ support.variable.axis
 ;                  ^ punctuation.separator.comma
-;                   ^^^^^ constant.numeric
+;                   ^^^^^ meta.number.float.decimal
+;                   ^ keyword.operator.arithmetic
+;                    ^^^^ constant.numeric.value
 ;                                ^ punctuation.section.arguments.end
 ;                                 ^ keyword.operator.assignment
 ;                                  ^ support.function
 
 ; first minus after opening bracket and comma is negative sign
 ARRAY[-10 - 20, -20 + 30]
-;     ^^^ constant.numeric
+;     ^^^ meta.number.integer.decimal
 ;         ^ keyword.operator.arithmetic
-;           ^^ constant.numeric
+;           ^^ meta.number.integer.decimal constant.numeric.value
 ;             ^ punctuation.separator.comma
-;               ^^^ constant.numeric
+;               ^^^ meta.number.integer.decimal
 ;                   ^ keyword.operator.arithmetic
-;                     ^^ constant.numeric
+;                     ^^ meta.number.integer.decimal constant.numeric.value
 N10 R10=10.0+R1-2
 ;   ^^^ support.variable.nck.r
 ;            ^^ support.variable.nck.r

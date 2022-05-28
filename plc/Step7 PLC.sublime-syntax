@@ -560,6 +560,12 @@ contexts:
     - match: '{{ident}}'
       scope: variable.other.local.plc
       push: variable-separator-name-storage
+    - match: '{{quoted_ident}}'
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      push: variable-separator-name-storage
 
   variable-separator-name-storage:
     - meta_scope: meta.definition.variable.plc
@@ -568,10 +574,21 @@ contexts:
       set: [assert-stmt-end, variable-storage]
     - match: \b(?i:at)\b
       scope: keyword.declaration.alias.plc
-      push:
-        - include: variable-value
+      push: variable-target
     - include: annotations
     - include: assert-stmt-end
+
+  variable-target:
+    - match: '{{ident}}'
+      scope: variable.other.local.plc
+      pop: 1
+    - match: '{{quoted_ident}}'
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      pop: 1
+    - include: scope-end
 
   variable-storage:
     - meta_content_scope: meta.definition.variable.storage.plc
@@ -651,6 +668,7 @@ contexts:
       scope: punctuation.definition.array.end.plc
       set: storage-type-array-item
     - include: operators-range
+    - include: operands-symbols
     - include: literals-uint16
     - include: assert-line-end
 
@@ -753,6 +771,7 @@ contexts:
 
   literals:
     - include: literals-bool
+    - include: literals-null
     - include: literals-binary
     - include: literals-hexadecimal
     - include: literals-float
@@ -832,6 +851,11 @@ contexts:
   literals-bool:
     - match: \b(?i:TRUE|FALSE)\b
       scope: constant.language.boolean.plc
+
+  literals-null:
+    # valid in TIA-Portal
+    - match: \b(?i:NULL)\b
+      scope: constant.language.null.plc
 
 ###[ NUMBERS ]#################################################################
 
@@ -966,22 +990,22 @@ contexts:
 ###[ TIME PROTOTYPES ]#########################################################
 
   literals-time-day:
-    - match: ([01]?[0-9]|2[0-4])(D)
+    - match: ([01]?[0-9]|2[0-4])([Dd])
       captures:
         1: constant.numeric.value.day.plc
         2: constant.numeric.suffix.day.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:D|(?=_)))?
+    - match: (?:((?!//)[^;])+?(?:[Dd]|(?=_)))?
       scope: invalid.illegal.time.day.plc
       pop: 1
 
   literals-time-hour:
-    - match: ([01]?[0-9]|2[0-4])(H)
+    - match: ([01]?[0-9]|2[0-4])([Hh])
       captures:
         1: constant.numeric.value.hour.plc
         2: constant.numeric.suffix.hour.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:H|(?=_)))?
+    - match: (?:\w+?(?:[Hh]|(?=_)))?
       scope: invalid.illegal.time.hour.plc
       pop: 1
 
@@ -991,7 +1015,7 @@ contexts:
         1: constant.numeric.value.minute.plc
         2: constant.numeric.suffix.minute.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?i:M(?!S)|(?=_)))?
+    - match: (?:\w+?(?i:M(?!S)|(?=_)))?
       scope: invalid.illegal.time.minute.plc
       pop: 1
 
@@ -1001,7 +1025,7 @@ contexts:
         1: constant.numeric.value.second.plc
         2: constant.numeric.suffix.second.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:[^M]S|(?=_)))?
+    - match: (?:\w+?(?i:[^M]S|(?=_)))?
       scope: invalid.illegal.time.second.plc
       pop: 1
 
@@ -1011,7 +1035,7 @@ contexts:
         1: constant.numeric.value.millisecond.plc
         2: constant.numeric.suffix.millisecond.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?i:MS|(?=_)))?
+    - match: (?:\w+?(?i:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.plc
       pop: 1
 
@@ -1255,9 +1279,13 @@ contexts:
     - match: ''
       pop: 2
 
-  scope-end:
-    - match: $|(?=\S)
+  else-pop:
+    - match: (?=\S)
       pop: 1
+
+  scope-end:
+    - include: else-pop
+    - include: line-end
 
   line-end:
     - match: $

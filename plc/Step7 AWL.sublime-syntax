@@ -332,41 +332,61 @@ contexts:
     - match: \b(?i:CALL)\b
       scope: meta.function-call.plc keyword.control.call.plc
       push:
-        - meta_content_scope: meta.function-call.identifier.plc
-        - match: ','
-          scope: meta.function-call.plc punctuation.separator.sequence.plc
-          set: awl-stmt-call-instance
-        - include: awl-stmt-call-arguments
-        - include: awl-stmt-call-name
-        - include: assert-stmt-end
+        - awl-stmt-call-arguments
+        - awl-stmt-call-annotation
+        - awl-stmt-call-instance
+        - awl-stmt-call-name
+
+  awl-stmt-call-meta:
+    - meta_scope: meta.function-call.plc
+    - include: else-pop
 
   awl-stmt-call-name:
     # global symbols
     - match: (")[^"]*(")
-      scope: variable.function.global.plc
       captures:
+        0: variable.function.global.plc
         1: punctuation.definition.variable.begin.plc
         2: punctuation.definition.variable.end.plc
+      pop: 1
     # local variables
     - match: (#)({{ident}})
       captures:
         1: punctuation.definition.variable.begin.plc
         2: variable.function.local.plc
+      pop: 1
     # absolute address
     - match: (?i:S?F[BC])\s*\d+\b
       scope: variable.function.address.plc
+      pop: 1
+    - include: else-pop
 
   awl-stmt-call-instance:
+    - meta_content_scope: meta.function-call.identifier.plc
+    - match: ','
+      scope: meta.function-call.plc punctuation.separator.sequence.plc
+      set: awl-stmt-call-instance-body
+    - include: else-pop
+
+  awl-stmt-call-instance-body:
     - meta_content_scope: meta.function-call.instance.plc
-    - include: awl-stmt-call-arguments
     - include: operands-datablock-absolute
     - include: operands-symbols
-    - include: assert-stmt-end
+    - include: else-pop
+
+  awl-stmt-call-annotation:
+    - match: \{
+      scope: punctuation.definition.annotation.begin.plc
+      set:
+        - awl-stmt-call-meta
+        - annotation-key
+    - include: else-pop
 
   awl-stmt-call-arguments:
     - match: \(
       scope: punctuation.section.group.begin.plc
       set: awl-stmt-call-arguments-body
+    - include: else-pop
 
   awl-stmt-call-arguments-body:
     - meta_scope: meta.function-call.arguments.plc meta.group.plc

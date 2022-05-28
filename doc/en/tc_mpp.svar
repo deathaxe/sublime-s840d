@@ -80,14 +80,13 @@ The name assignment is based on $TC_MPP6 - T no. of tool stored in the magazine 
 <name>$TC_MPP_SP</name>
 <brief>Spindle number assigned to the tool holder</brief>
 <description>$TC_MPP_SP[n,m]
-Only of significance if 
+Only of significance if
 - Working with tool holders ($MC_TOOLHOLDER_MANAGEMENT &gt; 0)
 - The magazine location "m" belongs to a buffer magazine "n"
 - The magazine location describes a tool holder ($TC_MPP1[n,m]=2)
 In this case, the system variable contains the spindle number whose speed is to be monitored for the maximum tool speed.
 When not working with tool holders ($MC_TOOLHOLDER_MANAGEMENT = 0), the variable contains the value of the spindle index from $TC_MPP5.
 This variable contains the value =0 if the magazine location "n,m" is not a buffer magazine location for a spindle or tool holder.
-
 </description>
 </parameter>
 </info>

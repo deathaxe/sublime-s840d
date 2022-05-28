@@ -5,7 +5,7 @@ TITLE =${3:description}
 AUTHOR  : ${4:John Doe}
 FAMILY  : ${5:OEM}
 NAME    : ${6:short}
-VERSION : ${7:1.0}
+VERSION : ${7:0.1}
 
 VAR_INPUT
 
@@ -20,14 +20,11 @@ VAR_TEMP
 END_VAR
 
 BEGIN
-NETWORK
-TITLE =${8:Network 1}
-
-      $0
+	$0
 END_FUNCTION
 
 ]]></content>
-	<tabTrigger>sfc</tabTrigger>
-	<scope>source.plc.awl - meta.block - comment - string</scope>
+	<tabTrigger>fc</tabTrigger>
+	<scope>source.plc - meta.block - comment - string</scope>
 	<description>FUNCTION</description>
 </snippet>

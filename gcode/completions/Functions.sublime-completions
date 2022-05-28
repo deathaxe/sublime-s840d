@@ -152,6 +152,12 @@
 			"contents": "COLLPAIR(${1:<Name1>},${2:<Name2>}${3:,${4:<NoError>}})"
 		},
 		{
+			"trigger": "CORRTC",
+			"kind": ["function", "f", "Function"],
+			"details": "Modify offset vectors or direction vectors of orientable tool carriers according to machine measurement.",
+			"contents": "CORRTC(${1:<VECTOR>},${2:<INDEX>},${3:<MODE>},${4:<NO_ALARM>})"
+		},
+		{
 			"trigger": "CORRTRAFO",
 			"kind": ["function", "f", "Function"],
 			"details": "Modify orientation transformation after machine measurement",
@@ -443,31 +449,37 @@
 			"trigger": "GETVARAP",
 			"kind": ["function", "f", "Function"],
 			"details": "Read access rights to a system/user variable",
-			"contents": "GETVARAP(${1:<...>})"
+			"contents": "GETVARAP(${1:<name>},${1:<result>})"
 		},
 		{
 			"trigger": "GETVARDFT",
 			"kind": ["function", "f", "Function"],
 			"details": "Read default value of a system/user variable",
-			"contents": "GETVARDFT(${1:<...>})"
+			"contents": "GETVARDFT(${1:<name>},${2:<result>},${3:<index1>}${4:,${5:<index2>${6:,${7:<index3>}}}})"
+		},
+		{
+			"trigger": "GETVARDIM",
+			"kind": ["function", "f", "Function"],
+			"details": "Size of the dimension specified by the parameter <Index>",
+			"contents": "GETVARDIM(${1:<name>},${1:<index>})"
 		},
 		{
 			"trigger": "GETVARLIM",
 			"kind": ["function", "f", "Function"],
 			"details": "Read limit values of a system/user variable",
-			"contents": "GETVARLIM(${1:<...>})"
+			"contents": "GETVARLIM(${1:<name>},${2:<\"L\">},${3:<result>})"
 		},
 		{
 			"trigger": "GETVARPHU",
 			"kind": ["function", "f", "Function"],
 			"details": "Read physical unit of a system/user variable",
-			"contents": "GETVARPHU(${1:<...>})"
+			"contents": "GETVARPHU(${1:<name>})"
 		},
 		{
 			"trigger": "GETVARTYP",
 			"kind": ["function", "f", "Function"],
 			"details": "Read data type of a system/user variable",
-			"contents": "GETVARTYP(${1:<...>})"
+			"contents": "GETVARTYP(${1:<name>})"
 		},
 		{
 			"trigger": "GP",
@@ -600,6 +612,12 @@
 			"kind": ["function", "f", "Function"],
 			"details": "Convert input string to number",
 			"contents": "NUMBER(${1:<STRING>})"
+		},
+		{
+			"trigger": "ORISOLH",
+			"kind": ["function", "f", "Function"],
+			"details": "Calculate orientations",
+			"contents": "ORISOLH(${1:<CTRL>},${2:<W1>},${3:<W2>})"
 		},
 		{
 			"trigger": "PM",

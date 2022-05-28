@@ -31,7 +31,6 @@ Special cases:
 - If the global option does not enable enough axes/spindles for safe operation, then this data can be overwritten with the value 0 during runup.
 
 Related to: Global option
-
 </description>
 </parameter>
 <parameter number="36902" type="BOOLEAN" dim="0">
@@ -464,7 +463,6 @@ Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
 	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
 	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
-
 </description>
 </parameter>
 <parameter number="36937" type="DOUBLE" dim="1">
@@ -490,7 +488,6 @@ Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
 	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
 	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
-
 </description>
 </parameter>
 <parameter number="36938" type="DWORD" dim="1">
@@ -517,7 +514,6 @@ Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT[n]
 	MD37901/37902/37903/37904: $MA_SAFE_CAM_RANGE_OUTPUT_1/2/3/4[n]
 	MD37906/37907/37908/37909: $MA_SAFE_CAM_RANGE_BIN_OUTPUT_1/2/3/4[n]
-
 </description>
 </parameter>
 <parameter number="36940" type="DOUBLE" dim="0">
@@ -568,7 +564,6 @@ Parameterizing a filter time not equal to 0 increases the reaction time of SGA "
 Related to:
 	MD36946: $MA_SAFE_VELO_X
 	MD36947: $MA_SAFE_VELO_X_HYSTERESIS
-
 </description>
 </parameter>
 <parameter number="36946" type="DOUBLE" dim="0">
@@ -594,7 +589,6 @@ The function "Synchronization "n &lt; nx", hysteresis and filtering" must be act
 Related to:
 	MD36945: $MA_SAFE_VELO_X_FILTER_TIME
 	MD36946: $MA_SAFE_VELO_X
-
 </description>
 </parameter>
 <parameter number="36948" type="DOUBLE" dim="0">
@@ -823,8 +817,6 @@ It influences the channel-wide IPO response distribution of Safety Integrated:
 
 0 =	Default setting: Alarms 27000/A01797 are displayed when parking is selected.
 1 =	Alarms 27000/A01797 are not displayed when parking is selected. This is necessary for axes that are disconnected on the encoder side during the machining process (e.g. dressing axes). The alarms are displayed when parking is deselected again.
-
-
 </description>
 </parameter>
 <parameter number="36966" type="DOUBLE" dim="0">
@@ -1250,7 +1242,6 @@ Signal       Meaning
 
 Note:
 The "Safe cam track" function is enabled in MD 36903 $MA_SAFE_CAM_ENABLE.
-
 </description>
 </parameter>
 <parameter number="37901" type="UDWORD" dim="1" display="HEX">
@@ -1281,7 +1272,6 @@ If not all 4 bits are assigned, it may not be possible to detect unequivocally w
 
 Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37902" type="UDWORD" dim="1" display="HEX">
@@ -1312,7 +1302,6 @@ If not all 4 bits are assigned, it may not be possible to detect unequivocally w
 
 Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37903" type="UDWORD" dim="1" display="HEX">
@@ -1343,7 +1332,6 @@ If not all 4 bits are assigned, it may not be possible to detect unequivocally w
 
 Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37904" type="UDWORD" dim="1" display="HEX">
@@ -1374,7 +1362,6 @@ If not all 4 bits are assigned, it may not be possible to detect unequivocally w
 
 Related to:
 	MD37900: $MA_SAFE_CAM_TRACK_OUTPUT
-
 </description>
 </parameter>
 <parameter number="37906" type="UDWORD" dim="1" display="HEX">
@@ -1399,7 +1386,6 @@ The signal addressed with field index 5 changes to 1 if the axis is placed on th
 Note:
 - The "Safe cam track" function is enabled in MD 36903 $MA_SAFE_CAM_ENABLE.
 - If cam range number n on cam track 1 is not parameterized, the signal of the field index can never change to 1. In this case, the output MD with field index n does not have to be parameterized.
-
 </description>
 </parameter>
 <parameter number="37907" type="UDWORD" dim="1" display="HEX">
@@ -1424,7 +1410,6 @@ The signal addressed with field index 5 changes to 1 if the axis is placed on th
 Note:
 - The "Safe cam track" function is enabled in MD 36903 $MA_SAFE_CAM_ENABLE.
 - If cam range number n on cam track 2 is not parameterized, the signal of the field index can never change to 1. In this case, the output MD with field index n does not have to be parameterized.
-
 </description>
 </parameter>
 <parameter number="37908" type="UDWORD" dim="1" display="HEX">
@@ -1449,7 +1434,6 @@ The signal addressed with field index 5 changes to 1 if the axis is placed on th
 Note:
 - The "Safe cam track" function is enabled in MD 36903 $MA_SAFE_CAM_ENABLE.
 - If cam range number n on cam track 3 is not parameterized, the signal of the field index can never change to 1. In this case, the output MD with field index n does not have to be parameterized.
-
 </description>
 </parameter>
 <parameter number="37909" type="UDWORD" dim="1" display="HEX">
@@ -1474,7 +1458,6 @@ The signal addressed with field index 5 changes to 1 if the axis is placed on th
 Note:
 - The "Safe cam track" function is enabled in MD 36903 $MA_SAFE_CAM_ENABLE.
 - If cam range number n on cam track 4 is not parameterized, the signal of the field index can never change to 1. In this case, the output MD with field index n does not have to be parameterized.
-
 </description>
 </parameter>
 <parameter number="37920" type="DOUBLE" dim="0">

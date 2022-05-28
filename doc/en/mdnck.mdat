@@ -341,7 +341,6 @@ The file-changing commands WRITE and DELETE are diverted to this directory.
 Directory on EES drive:
 Example: "//DEV1:/Traces/TMP_EES_WRITE.WPD"
 For test purposes, the file-changing commands WRITE and DELETE can also be diverted to a directory on an EES drive.
-
 </description>
 </parameter>
 <parameter number="10125" type="STRING" dim="0">
@@ -354,7 +353,6 @@ FILENAME = "MYFILE_" &lt;&lt; $MN_EES_NC_NAME  &lt;&lt; "_" &lt;&lt; $P_CHANNO  
 The variable FILENAME is then given the value "MYFILE_NC1_1.SPF" in the first channel on the NCU "NC1".
 Background:
 In EES mode, the part program memory can be located on a network drive which is accessed by multiple NCUs. Conflicts could be generated with the part program commands WRITE and DELETE if unique file names are not used. The generation of unique NCU program names in the user program is supported by MD10125 $MN_EES_NC_NAME.
-
 </description>
 </parameter>
 <parameter number="10127" type="STRING" dim="0">
@@ -563,7 +561,6 @@ and Linux)
 If the task does not give up control on its own (as there is nothing to do),
 it will disable both the feed and the other subtasks for this period of time.
 If there is only few computing time left, relatively long periods of time may be created this way.
-
 </description>
 </parameter>
 <parameter number="10172" type="DWORD" dim="0">
@@ -577,7 +574,6 @@ If there is only few computing time left, relatively long periods of time may be
 <brief>Runtime limitation of servosynch. task of software PLC2xx</brief>
 <description>Runtime limit of the servosynchronous soft PLC2xx interrupt task
 This machine data defines the maximum amount of computing time given at any one time to the servosynchronous task of the softeware PLC2xx to execute the PLC user program on the PLC servo interrupt level.
-
 </description>
 </parameter>
 <parameter number="10174" type="DOUBLE" dim="1" readonly="true">
@@ -594,14 +590,12 @@ Diagnostic data are initialized with ZERO at each NCK power up
 <name>PLC_TASK_RUNTIME_WARNING</name>
 <brief>Prewarning limit for computation time exceeded SW-PLC2xx</brief>
 <description>The machine data defines the duration for the prewarning of the computation time exceeded for SW-PLC2xx in seconds. After this time has expired, SW-PLC2xx generates display alarm 400026 "PLC cycle time has exceeded the alarm threshold".
-
 </description>
 </parameter>
 <parameter number="10176" type="DOUBLE" dim="0">
 <name>PLC_TASK_RUNTIME_STOP</name>
 <brief>Maximum computation time of the SW-PLC2xx</brief>
 <description>The machine data defines the computation time in seconds that the cyclic task of the SW-PLC2xx is allocated as a maximum to execute the PLC user program. After this time expires, SW-PLC2xx signals the PLC stop alarm 400027 "Error PLC cycle time".
-
 </description>
 </parameter>
 <parameter number="10185" type="DOUBLE" dim="0">
@@ -2220,7 +2214,6 @@ The identifiers must be selected so that there is no conflict with other identif
 Corresponds with:
 	MD10650 $MN_IPO_PARAM_NAME_TAB
 	MD10660 $MN_INTERMEDIATE_POINT_NAME_TAB
-
 </description>
 </parameter>
 <parameter number="10652" type="STRING" dim="0">
@@ -2709,7 +2702,6 @@ The following M functions are checked:
 - M functions for nibbling/punching as configured in MD26008 $MC_NIBBLE_PUNCH_CODE if activated by MD26012 $MC_PUNCHNIB_ACTIVATION.
 - M19, M96-M99 for applied external language (MD18800 $MN_MM_EXTERN_LANGUAGE).
 Exception: The M functions for the tool change defined by MD22560 $MC_TOOL_CHANGE_M_CODE.
-
 </description>
 </parameter>
 <parameter number="10716" type="STRING" dim="1">
@@ -2914,9 +2906,6 @@ Specification of the character or punched tape code used to code the string whic
 0: ASCII
 1: ISO (DIN66024)
 2. EIA (RS-244)
-
-
-
 </description>
 </parameter>
 <parameter number="10751" type="DWORD" dim="0">
@@ -2927,10 +2916,6 @@ Parameterization of the format description %n.mP of the SPRINT command
 Value range:
 0: The format specification %n.mP generates a string from a transfer parameter of type REAL or INT consisting of an integer with n + m places. The first n places represent the integer places and the following m places the decimal places of the transfer parameter. Missing decimal places are filled with 0. If there are more than m decimal places, the number is rounded. Missing integer places are filled with spaces.
 1: The format specification %n.mP generates a string from a transfer parameter of type REAL or INT that consists of a decimal number with up to n integer places, the decimal point and m decimal places, which are filled with 0 or rounded as necessary.
-
-
-
-
 </description>
 </parameter>
 <parameter number="10760" type="UDWORD" dim="0" display="HEX">
@@ -3281,7 +3266,6 @@ Bit7=0:
 
 Bit7=1:
 	Is only active in the ISO mode turning. If T substitution ( MD10717 $MN_T_NO_FCT_CYCLE_NAME ) is active, the Siemens cutting edge number D corresponding to the H number programmed in the T word is transferred to the cycle in the variable $C_D.
-
 </description>
 </parameter>
 <parameter number="10900" type="DWORD" dim="0">
@@ -4051,7 +4035,6 @@ Same as value = 2, but travel does not stop at the last possible grid position i
 
 Value = 7:
 Same as value = 3, but travel does not stop at the last possible grid position in front of a limit, but at the limit.
-
 </description>
 </parameter>
 <parameter number="11350" type="DWORD" dim="1">
@@ -4108,7 +4091,6 @@ Machine data is valid for the following types of handwheel (see 11350 $MN_HANDWH
 
 SEGMENT_ETHERNET:
 - Recommended filter time:  0.2 - 0.5 s
-
 </description>
 </parameter>
 <parameter number="11380" type="UDWORD" dim="0" display="HEX">
@@ -4422,7 +4404,6 @@ Bit	Hex. 	Meaning
 <description>This mask is used by developers for diagnostics.
 Mask for activating special alarm outputs with NCU-Link if non-cyclic messages cannot be transferred immediately.
 Alarm 14764 (NCU-Link cannot immediately transfer all non-cyclic link messages of the stated type) is issued if, for the set type (corresponds to the bits of this MD), the affected message type could not be transferred immediately).
-
 </description>
 </parameter>
 <parameter number="11420" type="DWORD" dim="0">
@@ -4446,7 +4427,6 @@ Bit 0 = 1:
      WRITE runs faster with this setting.
 
 Bit 1: Reserved
-
 </description>
 </parameter>
 <parameter number="11450" type="UDWORD" dim="0" display="HEX">
@@ -4718,7 +4698,6 @@ The default setting is activated if MD11620 $MN_PROG_EVENT_NAME includes a blank
 If the machine data does not contain a blank string, then the syntax of the string is checked as in the case of a subprogram identifier. This means that the first two characters must be letters (not numbers) or underscores. If this is not the case, alarm 4010 is output during ramp-up.
 The program must be located in a cycle directory. When it is called, the search runs through the cycle directories in accordance with the setting of MD11622 $MN_PROG_EVENT_PATH.
 The prefix (_N_) and the suffix (_SPF) of the program name are added automatically if they have not been specified.
-
 </description>
 </parameter>
 <parameter number="11622" type="BYTE" dim="0">
@@ -4730,7 +4709,6 @@ The prefix (_N_) and the suffix (_SPF) of the program name are added automatical
 1:	/_N_CUS_DIR
 2:	/_N_CST_DIR
 3:            Search path in the sequence /_N_CUS_DIR, /_N_CMA_DIR, and  /_N_CST_DIR
-
 </description>
 </parameter>
 <parameter number="11625" type="BYTE" dim="0">
@@ -4740,7 +4718,6 @@ The prefix (_N_) and the suffix (_SPF) of the program name are added automatical
 
 0:	On subprogram calls, the search also includes files without an extension
 1:	On subprogram calls, the search is restricted to files with an extension (e.g. SPF, MPF etc.)
-
 </description>
 </parameter>
 <parameter number="11626" type="BYTE" dim="0">
@@ -4752,7 +4729,6 @@ Use: this setting prevents unnecessary accesses to the external storage during p
 0:   On subprogram calls, the NC program is searched for in all program directories in the search path
 1:   On subprogram calls, the NC program is searched for only in the cycle directories CUS, CMA, and CST
 2:   On subprogram calls, the NC program is searched for in the directory defined by the CALLPATH instruction, and then in the cycle directories CUS, CMA and CST
-
 </description>
 </parameter>
 <parameter number="11640" type="UDWORD" dim="0" display="HEX">
@@ -5595,9 +5571,6 @@ The MD is bit-coded, the following bits are assigned:
 Bit 0 = 0: For a direct axis container switch (AXCTSWED), all other channels must be in RESET status.
 
 Bit 0 = 1: For a direct axis container switch (AXCTSWED), only those other channels which have interpolation right on axes of the axis container must be in RESET status.
-
-
-
 </description>
 </parameter>
 <parameter number="12950" type="DWORD" dim="1">
@@ -5607,7 +5580,6 @@ Bit 0 = 1: For a direct axis container switch (AXCTSWED), only those other chann
 Value = -1 no MCP present
 Value =  0 connection via PROFINET
 Value =  1 connection via USB
-
 </description>
 </parameter>
 <parameter number="12951" type="DWORD" dim="1">
@@ -5615,7 +5587,6 @@ Value =  1 connection via USB
 <brief>Logical input addresses of the MCP on the PROFINET</brief>
 <description>The data defines the logical input addresses of the machine control panels on the PROFINET.
 It is only evaluated if MD12950 $MN_PLC_MCP_CONNECT[i] = 0  for the selected MCP.
-
 </description>
 </parameter>
 <parameter number="12952" type="DWORD" dim="1">
@@ -5623,7 +5594,6 @@ It is only evaluated if MD12950 $MN_PLC_MCP_CONNECT[i] = 0  for the selected MCP
 <brief>Logical output addresses of the MCP on the PROFINET</brief>
 <description>The data defines the logical output addresses of the machine control panels on the PROFINET.
 It is only evaluated if MD12950 $MN_PLC_MCP_CONNECT[i] = 0 for the selected MCPs.
-
 </description>
 </parameter>
 <parameter number="12954" type="DWORD" dim="1">
@@ -5728,7 +5698,6 @@ Related to:
 <brief>Deactivation of I/O connection to the PLC image</brief>
 <description>The PLC input/output image of the stations with these logical addresses
 is not connected to the real I/Os
-
 </description>
 </parameter>
 <parameter number="12987" type="DWORD" dim="1">
@@ -5736,7 +5705,6 @@ is not connected to the real I/Os
 <brief>Deactivation of I/O connection to the PLC image</brief>
 <description>The PLC input/output image of the stations with these logical addresses
 is not connected to the real I/Os
-
 </description>
 </parameter>
 <parameter number="13050" type="DWORD" dim="1">
@@ -5913,7 +5881,6 @@ Default: the display default behavior of the mentioned drive
          by default.
          The previous default behavior can be restored
          with MD13140 $MN_PROFIBUS_ALARM_ACCESS=0.
-
 </description>
 </parameter>
 <parameter number="13150" type="UDWORD" dim="0" display="HEX">
@@ -6129,7 +6096,6 @@ The user program is called with the path configured by MD15702 $MN_LANG_SUB_PATH
 <description>Program name for the replacement program when calling the TCA command.
 If the TCA command is programmed in a part program block, then the subprogram defined in MD15710 $MN_TCA_CYCLE_NAME is called at the end of the block. The programmed tool can be requested in the replacement program via the system variables $C_TS_PROG / $C_TS, the Duplo number via $C_DUPLO_PROG / $C_DUPLO and the toolholder/spindle number via $C_THNO_PROG / $C_THNO. The system variable $C_TCA returns the value TRUE in the replacement program. Since the replacement takes place at the end of the block, the system variable $P_SUB_STAT in the replacement program provides the value 2
 If MD15710 $MN_TCA_CYCLE_NAME contains an empty string, the replacement is deactivated (default).
-
 </description>
 </parameter>
 <parameter number="16800" type="STRING" dim="0">
@@ -6198,7 +6164,6 @@ Mapping of the global display machine data to NCK machine data
 - $MNS_DISP_RES_INCH          :: $MN_GMMC_INFO_NO_UNIT[1]
 - $MNS_DISP_RES_SPINDLE       :: $MN_GMMC_INFO_NO_UNIT[2]
 - $MNS_ENABLE_COORDINATE_ACS  :: $MN_GMMC_INFO_NO_UNIT[3]
-
 </description>
 </parameter>
 <parameter number="17201" type="BYTE" dim="1">
@@ -6235,7 +6200,6 @@ n: There can only be exactly n tools with one specific tool name, therefore ther
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
 MD20310 $MC_TOOL_MANAGEMENT_MASK
-
 </description>
 </parameter>
 <parameter number="17504" type="DWORD" dim="0">
@@ -6318,8 +6282,6 @@ Bit no.: 13 Not permitted (reserved)
 The default setting corresponds to the previous behavior.
 Impermissible bits are filtered and not displayed in the limit mask.
 Bits not defined here are ignored when writing the machine data.
-
-
 </description>
 </parameter>
 <parameter number="17520" type="UDWORD" dim="0" display="HEX">
@@ -6351,8 +6313,6 @@ Bit no.: 4 Bit value: 0 Hex value: -
 Meaning: Only with TMMG + active consider adjacent location: With SET/RESET of the magazine location status 'disabled', the magazine location status 'Overlapping allowed' remains unchanged.
 Bit no.: 4 Bit value: 1 Hex value: 'H10'
 Meaning: Only with TMMG + active consider adjacent location: With SET/RESET of the magazine location status 'disabled', the magazine location status 'Overlapping allowed' is automatically SET/RESET.
-
-
 </description>
 </parameter>
 <parameter number="17530" type="UDWORD" dim="0" display="HEX">
@@ -6384,7 +6344,6 @@ Meaning: Changes to the values of the ISO tool offset data are not taken into ac
 Bit no.	: 4  Bit value: 1 Hex value: 'H10' Meaning: Changes to the values of the ISO tool offset data are taken into account in the tool data update service
 
 The statements  "Changes to the values of the tool status" and "Changes to the values of the remaining number of tools" refer not only to value changes effected by internal processes in the NC but also to value changes produced by writing the corresponding system variables.
-
 </description>
 </parameter>
 <parameter number="17540" type="UDWORD" dim="0" display="HEX">
@@ -6404,7 +6363,6 @@ Bit no.: 9 value 0x200 means: Tool types 900 to 999 permitted
 
 Related to:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
 </description>
 </parameter>
 <parameter number="17600" type="DWORD" dim="0">
@@ -6513,8 +6471,6 @@ Bit 0 == 1:
 Value = 1 : If machine data that redefines the buffered memory is modified, then generally the alarm 4400 is not output. This means the data is retained the next time the software is started.
 
 The preassigned value is selected model-specifically and generally it must not be changed.
-
-
 </description>
 </parameter>
 <parameter number="17951" type="STRING" dim="0">
@@ -6794,9 +6750,6 @@ Example:
 Default memory reservation for TM:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK = 3 (bit 0 + 1=1) means that TM and tool monitoring data are provided
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK = 1 means tool management without tool monitoring function data
-
-
-
 </description>
 </parameter>
 <parameter number="18082" type="DWORD" dim="0">
@@ -6809,7 +6762,6 @@ The buffered data are lost when the machine data is changed.
 
 Related to:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
 </description>
 </parameter>
 <parameter number="18083" type="DWORD" dim="0">
@@ -6830,11 +6782,6 @@ Value = 0 -The tool management cannot be activated because no data can be create
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD20310 $MC_TOOL_MANAGEMENT_MASK
-
-
-
-
-
 </description>
 </parameter>
 <parameter number="18085" type="DWORD" dim="0">
@@ -6876,10 +6823,6 @@ This machine data increases the buffered memory requirement by sizeof(int)*max. 
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18084 $MN_MM_NUM_MAGAZINE
-
-
-
-
 </description>
 </parameter>
 <parameter number="18091" type="DWORD" dim="1">
@@ -6908,7 +6851,6 @@ Buffered user memory is used. A value change leads to a reconfiguration of the b
 Related to:
 MD18090 $MN_MM_NUM_CC_MAGAZINE_PARAM
 MD18084 $MN_MM_NUM_MAGAZINE
-
 </description>
 </parameter>
 <parameter number="18092" type="DWORD" dim="0">
@@ -6920,9 +6862,6 @@ This machine data increases the buffered memory requirement by sizeof(int)*max. 
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
-
-
-
 </description>
 </parameter>
 <parameter number="18093" type="DWORD" dim="1">
@@ -6962,9 +6901,6 @@ This machine data increases the buffered memory requirement by sizeof(double)*ma
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18082 $MN_MM_NUM_TOOL
-
-
-
 </description>
 </parameter>
 <parameter number="18095" type="DWORD" dim="1">
@@ -7005,9 +6941,6 @@ This MD increases the buffered memory requirement by sizeof(double)*max. number 
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
-
-
 </description>
 </parameter>
 <parameter number="18097" type="DWORD" dim="1">
@@ -7038,7 +6971,6 @@ Buffered user memory is used. A value change leads to a reconfiguration of the b
 Related to:
 MD18096 $MN_MM_NUM_CC_TOA_PARAM
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
 </description>
 </parameter>
 <parameter number="18098" type="DWORD" dim="0">
@@ -7050,10 +6982,6 @@ This MD increases the buffered memory requirement by sizeof(int)*max. number of 
 Related to:
 MD18080 $MN_MM_TOOL_MANAGEMENT_MASK
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA
-
-
-
-
 </description>
 </parameter>
 <parameter number="18099" type="DWORD" dim="1">
@@ -7115,7 +7043,6 @@ Value:   Meaning
 -----------------------------------------------------------------------------------
 0:   No 'flat D number management' active
 1:   'Flat D number' function is active
-
 </description>
 </parameter>
 <parameter number="18104" type="DWORD" dim="0">
@@ -7144,8 +7071,6 @@ MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
 MD20310 $MC_TOOL_MANAGEMENT_MASK,
 MD18084 $MN_MM_NUM_MAGAZINE,
 MD18086 $MN_MM_NUM_MAGAZINE_LOCATION
-
-
 </description>
 </parameter>
 <parameter number="18105" type="DWORD" dim="0">
@@ -7194,7 +7119,6 @@ Buffered memory is reserved. The memory requirement for a resulting offset doubl
 See also:
 MD18100 $MN_MM_NUM_CUTTING_EDGES_IN_TOA,
 MD18110 $MN_MM_MAX_SUMCORR_PER_CUTTEDGE
-
 </description>
 </parameter>
 <parameter number="18110" type="DWORD" dim="0">
@@ -7240,9 +7164,6 @@ MD18080 $MN_MM_TOOL_MANAGEMENT_MASK,
 MD20310 $MC_TOOL_MANAGEMENT_MASK,
 MD18086 $MN_MM_NUM_MAGAZINE_LOCATION,
 MD18104 $MN_MM_NUM_TOOL_ADAPTER
-
-
-
 </description>
 </parameter>
 <parameter number="18113" type="DWORD" dim="0">
@@ -8057,7 +7978,6 @@ References:
 <name>MM_USER_FILE_MEM_MINIMUM</name>
 <brief>Minimum size of the part program memory</brief>
 <description>Not relevant on SolutionLine systems.
-
 </description>
 </parameter>
 <parameter number="18352" type="DWORD" dim="1">
@@ -8141,7 +8061,6 @@ Index 2 = reserved
 <name>MM_EES_FILE_MEM_SIZE</name>
 <brief>Size of the buffer memory for EES</brief>
 <description>Size of the buffer memory for the "Execution from External Storage" function in the passive file system ( in kB )
-
 </description>
 </parameter>
 <parameter number="18360" type="DWORD" dim="0">
@@ -8188,7 +8107,6 @@ This defines the number of program levels that can be simultaneously executed fr
 <name>MM_EES_BUFFER_SIZE</name>
 <brief>Size of the buffer for EES</brief>
 <description>Size of the buffer of the "Execution from External Storage EES" function in the passive file system ( in kB )
-
 </description>
 </parameter>
 <parameter number="18370" type="DWORD" dim="1">
@@ -8745,7 +8663,6 @@ Creates another CC-Station that is called directly after the first CC station (s
 
 MD18788 $MN_MM_CC_STATION_CHAN_MASK[2]:
 Creates an additional CC station in the preparation task that is called directly prior to tool radius offset and allows manipulation of the internal block contents.
-
 </description>
 </parameter>
 <parameter number="18790" type="DWORD" dim="0">
@@ -8797,7 +8714,6 @@ BIT3 = 1
      The internal receive tree is recorded before and after the action and the most recent values can be
      found again in trace.
      NOTICE: Very very time-consuming; please only use in an emergency.
-
 </description>
 </parameter>
 <parameter number="18794" type="UDWORD" dim="0" display="HEX">
@@ -8991,7 +8907,6 @@ Bit 29:
 <brief>Function mask for systems with multiple CPU kernels</brief>
 <description>Bit 0 = 1:
 	Activates the distribution of PREP functions (PrepJobs) on other CPU kernels.
-
 </description>
 </parameter>
 <parameter number="18930" type="STRING" dim="0">
@@ -9037,7 +8952,6 @@ Value 1:
 The acceleration is taken from the second field entry in MD32300 $MA_MAX_AX_ACCEL (value for DYNPOS).
 The jerk is taken from the second field entry in MD32431 $MA_MAX_AX_JERK (value for DYNPOS).
 For BRISK behavior, enter very high values here.
-
 </description>
 </parameter>
 <parameter number="18965" type="UDWORD" dim="0" display="HEX">
@@ -9051,7 +8965,6 @@ Bit no.   Hexadec. Significance when the bit is set.
 Bit0:    0x1        Simulation runs on a SIMNCK
 Bit1:    0x2        Simulation runs under the VNCK
 Bit2:    0x4        Simulation runs under an HMI
-
 </description>
 </parameter>
 </info>

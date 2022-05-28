@@ -8,6 +8,18 @@
 			"contents": "ADISPOSA(${1:<AXIS>},${2:<MODE>},${3:<TOL>},)"
 		},
 		{
+			"trigger": "AFISON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Switch on the \"Automatic filter switchover\" function",
+			"contents": "AFISON"
+		},
+		{
+			"trigger": "AFISOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Switch off the \"Automatic filter switchover\" function",
+			"contents": "AFISOF"
+		},
+		{
 			"trigger": "AUXFUDEL",
 			"kind": ["function", "P", "Procedure"],
 			"details": "Delete auxiliary function channel-specifically from the global list",
@@ -60,6 +72,18 @@
 			"kind": ["function", "P", "Procedure"],
 			"details": "Switch on brisk path acceleration for the program med axes",
 			"contents": "BRISKA(${1:<AXIS>})"
+		},
+		{
+			"trigger": "CADAPTON",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Activates adaptation relationship",
+			"contents": "CADAPTON(${1:<Result>},${2:<Axis>},${3:<InVar>}${4:,${5:<InVal>}})"
+		},
+		{
+			"trigger": "CADAPTOF",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Deactivates adaptation relationship",
+			"contents": "CADAPTOF(${1:<Result>},${2:<Axis>},${3:<InVar>})"
 		},
 		{
 			"trigger": "CALLPATH",
@@ -246,6 +270,18 @@
 			"kind": ["function", "P", "Procedure"],
 			"details": "Activate knee-shaped acceleration characteristic for the programmed axes",
 			"contents": "DRIVEA(${1:<AXIS>}${2:,${3:[...]}})"
+		},
+		{
+			"trigger": "DRVPRD",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Read drive parameters",
+			"contents": "DRVPRD(${1:<Result>},${2:<AXIS>},${3:<ParamNo>},${4:<Index>},${2:<Value>})"
+		},
+		{
+			"trigger": "DRVPWR",
+			"kind": ["function", "P", "Procedure"],
+			"details": "Write drive parameters",
+			"contents": "DRVPWR(${1:<Result>},${2:<AXIS>},${3:<ParamNo>},${4:<Index>},${2:<Value>})"
 		},
 		{
 			"trigger": "DZERO",

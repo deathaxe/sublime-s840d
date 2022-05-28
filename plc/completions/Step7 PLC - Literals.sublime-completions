@@ -4,90 +4,90 @@
 		{
 			"trigger": "2#bin",
 			"annotation": "BIN",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "2#${1:0000}_${2:0000}"
 		},
 		// binary
 		{
 			"trigger": "B#16#hex",
 			"annotation": "BYTE",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "B#16#${1:0}"
 		},
 		{
 			"trigger": "W#16#hex",
 			"annotation": "WORD",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "W#16#${1:0}"
 		},
 		{
 			"trigger": "DW#16#hex",
 			"annotation": "DWORD",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "DW#16#${1:0}"
 		},
 		{
 			"trigger": "L#dez",
 			"annotation": "DINT",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "L#${1:0}"
 		},
 		// counter
 		{
 			"trigger": "C#bcd",
 			"annotation": "COUNTER",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "C#${1:0}"
 		},
 		// s5time
 		{
 			"trigger": "S5T#0MS",
 			"annotation": "S5 TIME",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "S5T#${1:0MS}"
 		},
 		// iectime
 		{
 			"trigger": "T#0MS",
 			"annotation": "IEC TIME",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "T#${1:0MS}"
 		},
 		{
 			"trigger": "TIME#0MS",
 			"annotation": "IEC TIME",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "TIME#${1:0MS}"
 		},
 		// datetime
 		{
 			"trigger": "D#90-01-01",
 			"annotation": "DATE",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "D#${1:90}-${2:01}-${3:01}"
 		},
 		{
 			"trigger": "DATE#90-01-01",
 			"annotation": "DATE",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "DATE#${1:90}-${2:01}-${3:01}"
 		},
 		{
 			"trigger": "TOD#0:0:0.0",
 			"annotation": "TIME OF DAY",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "TOD#${4:00}:${5:00}:${6:00}.${7:000}"
 		},
 		{
 			"trigger": "TIME_OF_DAY#0:0:0.0",
 			"annotation": "TIME OF DAY",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "TIME_OF_DAY#${4:00}:${5:00}:${6:00}.${7:000}"
 		},
 		{
 			"trigger": "DT#90-01-01-0:0:0.0",
 			"annotation": "DATE AND TIME",
-			"kind": "constants",
+			"kind": ["variable", "c", "Constants"],
 			"contents": "DT#${1:90}-${2:01}-${3:01}-${4:00}:${5:00}:${6:00}.${7:000}"
 		},
  ]

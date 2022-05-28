@@ -815,6 +815,13 @@
 //^^^^^^^^^^^^ meta.struct
 //  ^^^^^^^^^^ storage.type.struct.end
 //             ^ punctuation.terminator.statement
+    "name" : String;   // program name
+//^^^^^^^^^^^^^^^^^^^ meta.block.fc.header meta.block.var.in-out
+//  ^^^^^^^ meta.definition.variable.plc
+//  ^^^^^^ variable.other.local.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^^ storage.type.string.plc
+//                 ^ punctuation.terminator.statement.plc
    END_VAR
 // <- meta.block.fc.header meta.block.var.in-out
 // ^^^^^^^ meta.block.fc.header meta.block.var.in-out
@@ -1936,6 +1943,28 @@
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.statement
 //                                  ^ - invalid
+      L    t#25d_23h_69m_59s_999ms ;
+// <- meta.block.fc.body meta.block.network
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
+//    ^ keyword.operator.arithmetic.load
+//         ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec
+//         ^ storage.type.time
+//          ^ punctuation.separator.type
+//           ^^^ invalid.illegal.time.day
+//              ^ punctuation.separator.time
+//               ^^ constant.numeric.value.hour
+//                 ^ constant.numeric.suffix
+//                  ^ punctuation.separator.time
+//                   ^^^ invalid.illegal.time.minute
+//                      ^ punctuation.separator.time
+//                       ^^ constant.numeric.value.second
+//                         ^ constant.numeric.suffix
+//                          ^ punctuation.separator.time
+//                           ^^^ constant.numeric.value.millisecond
+//                              ^^ constant.numeric.suffix
+//                                ^ - invalid
+//                                 ^ punctuation.terminator.statement
+//                                  ^ - invalid
       L    T#24D_23M_59M_20H_999MS ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -2129,6 +2158,13 @@
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.any-pointer
 //                                           ^ punctuation.separator.sequence
+           OTHER   := NULL,
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^ variable.parameter
+//                 ^^ keyword.operator.assignment
+//                    ^^^^ constant.language.null
+//                        ^ punctuation.separator.sequence
            SD      := #data,
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
@@ -2145,6 +2181,25 @@
 //                    ^^^^^ variable.language.address
 //                         ^ punctuation.section.group.end
 //                          ^ punctuation.terminator.statement
+   CALL #wdgPrgRead
+   {time_type := 'Time'}
+//^ meta.function-call.identifier.plc
+// ^^^^^^^^^^^^^^^^^^^^^ meta.function-call.plc meta.annotation.plc
+//                      ^ meta.function-call.plc - meta.annotation
+
+   CALL #wdgPrgRead
+   {time_type := 'Time'}
+   (  IN := #interface.Platz.PrgReadReq ,
+//^ meta.function-call.plc - meta.annotation - meta.group
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc meta.group.plc
+// ^ punctuation.section.group.begin.plc
+//    ^^ variable.parameter.plc
+//       ^^ keyword.operator.assignment.plc
+   );
+//^^ meta.function-call.arguments.plc meta.group.plc
+//  ^ - meta.function-call
+// ^ punctuation.section.group.end.plc
+//  ^ punctuation.terminator.statement.plc
 
    CALL FC 10 ();
 // ^^^^ meta.function-call

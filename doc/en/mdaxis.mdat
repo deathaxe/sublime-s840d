@@ -622,7 +622,6 @@ References:
 <brief>Number of fixed-value positions of an axis</brief>
 <description>Number of fixed point positions set, i.e. the number of valid entries in MD30600 $MA_FIX_POINT_POS.
 For G75, two (2) fixed point positions are assumed in MD30600 $MA_FIX_POINT_POS for reasons of compatibility, even if '0' has been entered in this machine data.
-
 </description>
 </parameter>
 <parameter number="30800" type="BOOLEAN" dim="0">
@@ -1161,7 +1160,6 @@ Bit 11 = 1:
 <name>MAPPED_FRAME</name>
 <brief>Mapping an axial frame</brief>
 <description>Ths machine data can be used to map an axial frame onto an axial frame of another axis. This means that the description of a frame in the data management can simultaneously describe the frame of another axis with the same values. Selected data management frames can be enabled for the mapping in MD10616 $MN_MAPPED_FRAME_MASK.
-
 </description>
 </parameter>
 <parameter number="32080" type="DOUBLE" dim="0">
@@ -1433,7 +1431,6 @@ Related to:
 	MD10070 $MN_IPO_SYSCLOCK_TIME_RATIO (interpolator clock)
 
 Each field element corresponds to a G code in the 59th G group.
-
 </description>
 </parameter>
 <parameter number="32320" type="UDWORD" dim="0" display="HEX">
@@ -1458,8 +1455,6 @@ Bit 1 = 1:
 Notes:
 In MD22410 $MC_F_VALUES_ACTIVE_AFTER_RESET, the reset responses of the dynamic instructions ACC, VELOLIM, JERKLIM, ACCLIMA, VELOLIMA and JERKLIMA are set channel specifically. If the MD is set, then the values are also retained.
 For spindle mode, the values for ACC and VELOLIM are also retained if MD35040 $MA_SPIND_ACTIVE_AFTER_RESET is not equal to zero or the channel-specific MD22400 $MC_S_VALUES_ACTIVE_AFTER_RESET is not equal to zero.
-
-
 </description>
 </parameter>
 <parameter number="32400" type="BOOLEAN" dim="0">
@@ -1624,7 +1619,6 @@ MD is only active if MD32402 $MA_AX_JERK_MODE = 3
 <name>EQUIV_CPREC_TIME</name>
 <brief>Time constant for the programmable contour accuracy</brief>
 <description>The data states the jerk filter time constant at which the contour error with active feedforward control is negligibly small.
-
 </description>
 </parameter>
 <parameter number="32420" type="BOOLEAN" dim="0">
@@ -1731,7 +1725,6 @@ Jerk adjustment only becomes active if MD32439 $MA_MAX_AX_JERK_FACTOR is &gt; 1.
 
 There is an entry for each dynamic G code group.
 See also MD32438 $MA_AX_JERK_VEL1 and $MA_MAX_AX_JERK_FACTOR.
-
 </description>
 </parameter>
 <parameter number="32438" type="DOUBLE" dim="1">
@@ -1744,8 +1737,6 @@ Jerk adjustment becomes active only if MD32439 $MA_MAX_AX_JERK_FACTOR is &gt; 1.
 
 There is an entry for each dynamic G code group.
 See also MD32437 $MA_AX_JERK_VEL0 and MD32439 $MA_MAX_AX_JERK_FACTOR
-
-
 </description>
 </parameter>
 <parameter number="32439" type="DOUBLE" dim="1">
@@ -2584,7 +2575,6 @@ Related to:
 <description>Compensation data exist in:
 0:	inch system
 1:	metric system
-
 </description>
 </parameter>
 <parameter number="32720" type="DOUBLE" dim="0">
@@ -2606,8 +2596,6 @@ Related to:
 	Enable evaluation of sag compensation table t
 	NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(referenced/synchronized 1 or 2)
-
-
 </description>
 </parameter>
 <parameter number="32730" type="DOUBLE" dim="0">
@@ -2631,8 +2619,6 @@ Related to:
 	Enable evaluation of sag compensation table t
 	NC/PLC interface signal &lt;ReferenziertSynchronisiert1bzw2/&gt;
 	(referenced/synchronized 1 or 2)
-
-
 </description>
 </parameter>
 <parameter number="32750" type="UBYTE" dim="0" display="HEX">
@@ -2985,7 +2971,6 @@ MD irrelevant for:
 
 Irrelevant to:
 Linear measuring systems with distance-coded reference marks
-
 </description>
 </parameter>
 <parameter number="34040" type="DOUBLE" dim="1">
@@ -3018,7 +3003,6 @@ The axis crosses the two reference marks at this velocity. The maximum velocity 
 	Traversing direction:
 - as defined in MD34010 $MA_REFP_CAM_DIR_IS_MINUS;
 - if the axis is already positioned on the cam, the axis is traversed in the opposite direction
-
 </description>
 </parameter>
 <parameter number="34050" type="BOOLEAN" dim="1">
@@ -3209,7 +3193,6 @@ Related to:
 - MD34200 $MA_ENC_REFP_MODE = 8:
 	Referencing for linear measuring systems with distance-coded reference marks:
 	Linear measuring system with distance-coded reference marks over 4 zero marks (increased safety).
-
 </description>
 </parameter>
 <parameter number="34210" type="BYTE" dim="1">
@@ -3384,7 +3367,6 @@ Value:        0       right-aligned
 <description>Parameter setting for part program command WAITENC:
 0: Axis is not taken into account when waiting for synchronized / referenced or restored position with part program command WAITENC.
 1: A delay is applied in part program command WAITENC until a synchronized / referenced or restored position is available for this axis.
-
 </description>
 </parameter>
 <parameter number="34990" type="DOUBLE" dim="1">
@@ -3578,10 +3560,6 @@ MD corresponds with:
 	MD35040 $MA_SPIND_ACTIVE_AFTER_RESET
 	MD35020 $MA_SPIND_DEFAULT_MODE
 	SD43200 $SA_SPIND_S
-
-
-
-
 </description>
 </parameter>
 <parameter number="35040" type="BYTE" dim="0">
@@ -4356,7 +4334,6 @@ When temperature compensation is active MD32750 $MA_TEMP_COMP_TYPE, the maximum 
 - For spindles, a value should be selected for each gear stage that is 10-15 % above MD35130 $MA_GEAR_STEP_MAX_VELO_LIMIT[n] (maximum speed of the gear stage).
 
 The index of the machine data has the following coding: [control parameter set no.]: 0-5
-
 </description>
 </parameter>
 <parameter number="36210" type="DOUBLE" dim="1">
@@ -4429,7 +4406,6 @@ This MD activates zero mark diagnostics.
  0:	no zero mark diagnostics
 
 &gt;0:	permissible deviation in 1/2 coarse increments between the absolute and the incremental encoder track (one 1/2 coarse increment is sufficient).
-
 </description>
 </parameter>
 <parameter number="36314" type="DWORD" dim="1">
@@ -4438,7 +4414,6 @@ This MD activates zero mark diagnostics.
 <description>Only for absolute measuring systems (MD30240 $MA_ENC_TYPE=4):
 Parameterization in 1/2 coarse increments
 At absolute encoder power ON (deselect parking and similar) this MD parameterizes the previously permissible position offset (comparison of the new absolute position with the information last saved in SRAM). When the warning level is exceeded, system variable $VA_ENC_ZERO_MON_ERR_CNT is incremented in coarse increments by the value 10000.
-
 </description>
 </parameter>
 <parameter number="36400" type="DOUBLE" dim="0">
@@ -4608,7 +4583,6 @@ Standardization: The input value is related to the corresponding interface stand
 MD32250 $MA_RATED_OUTVAL,
 MD32260 $MA_RATED_VELO, and
 MD36210 $MA_CTRLOUT_LIMIT.
-
 </description>
 </parameter>
 <parameter number="36730" type="BYTE" dim="0">
@@ -4702,7 +4676,6 @@ Related to:
 <brief>Time period until reaching the changed torque limit</brief>
 <description>Period in seconds until the changed torque limit is reached.
 The value 0.0 deactivates the ramp function.
-
 </description>
 </parameter>
 <parameter number="37014" type="DOUBLE" dim="0">
@@ -4837,7 +4810,6 @@ Related to:
 	NC/PLC interface signal &lt;Fahren_auf_Festanschlag_freigeben/&gt; (Enable travel to fixed stop)
 	NC/PLC interface signal &lt;Festanschlag_erreicht/&gt; (Fixed stop reached)
 	NC/PLC interface signal &lt;Festanschlag_erreicht_quittieren/&gt; (Acknowledge fixed stop reached)
-
 </description>
 </parameter>
 <parameter number="37070" type="DOUBLE" dim="0">
@@ -4853,7 +4825,6 @@ The torque limit must have the same effect as the torque limit set in the drive.
 This torque limit is required to ensure that:
 - There are no step changes in torque during switchover from speed-controlled to current-controlled or torque-controlled operation
 - The acceleration is reduced to the correct value in the NC
-
 </description>
 </parameter>
 <parameter number="37080" type="UBYTE" dim="0" display="HEX">
@@ -4993,7 +4964,6 @@ Related to:
 	MD37120 $MA_GANTRY_POS_TOL_ERROR Gantry trip limit
 	NC/PLC interface signal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (Gantry grouping is synchronized)
 	NC/PLC interface signal &lt;Gantry-Abschaltgrenze_ueberschritten/&gt; (Gantry trip limit exceeded)
-
 </description>
 </parameter>
 <parameter number="37135" type="DOUBLE" dim="0">
@@ -5023,7 +4993,6 @@ Corresponds with:
 	          Gantry trip limit during referencing
 	NC/PLC interface signal &lt;Gantry-Verbund_ist_synchronisiert/&gt; (gantry grouping is synchronized)
 	NC/PLC interface signal &lt;Gantry-Abschaltgrenze_ueberschritten/&gt; (gantry trip limit exceeded)
-
 </description>
 </parameter>
 <parameter number="37150" type="UDWORD" dim="0" display="HEX">
@@ -5109,7 +5078,6 @@ If the threshold value is violated, this is indicated by show alarm 22026, which
 Corresponds with:
 	MD37200 $MA_COUPLE_POS_TOL_COARSE
 	NC/PLC interface signal &lt;Synchronlauf_grob/&gt; (synchronism coarse)
-
 </description>
 </parameter>
 <parameter number="37210" type="DOUBLE" dim="0">
@@ -5142,7 +5110,6 @@ If the threshold value is violated, this is indicated by show alarm 22025, which
 Corresponds with:
 	MD37210 $MA_COUPLE_POS_TOL_FINE
 	NC/PLC interface signal &lt;Sychronlauf_fein/&gt; (synchronism fine)
-
 </description>
 </parameter>
 <parameter number="37220" type="DOUBLE" dim="0">
@@ -5237,7 +5204,6 @@ Bit 1 = 0:
 
 Bit 1 = 1:
 	With MASLDEF, the master axis for torque compensation control is the axis configured in MD37252 $MA_MS_ASSIGN_MASTER_TORQUE_CTR.
-
 </description>
 </parameter>
 <parameter number="37254" type="DWORD" dim="0">

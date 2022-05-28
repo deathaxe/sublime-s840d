@@ -28,7 +28,6 @@ Bit 14:	Werkzeug beladen oder umsetzen. Die Leerplatzsuche erfolgt ohne Vorbeleg
 <brief>Zuordnung einer HMI-Operate-Instanz für AST-Kommandos</brief>
 <description>Name des zugeordneten HMI-Operate (Masters)
 Es muss ein Operate als Master bestimmt werden.
-
 </description>
 </parameter>
 <parameter number="54481" type="BOOLEAN" dim="0">
@@ -36,8 +35,6 @@ Es muss ein Operate als Master bestimmt werden.
 <brief>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST</brief>
 <description>Auswahl HMI-Operate intern (NCU) / extern (PCU) für AST
 Selektion des Operate- Typs
-
-
 </description>
 </parameter>
 <parameter number="54600" type="DOUBLE" dim="1">
@@ -45,7 +42,6 @@ Selektion des Operate- Typs
 <brief>Wirksamer Durchmesser der Messtasterkugel des Werkstückmesstasters</brief>
 <description>Wirksamer Kugeldurchmesser der Messtasterkugel des Werkstückmesstasters.
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54601" type="DOUBLE" dim="1">
@@ -70,7 +66,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <description>Triggerpunkt der 2. Messachse (Ordinate) in negativer Verfahrrichtung  (Y bei G17) des Werkstückmesstasters.
 Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54604" type="DOUBLE" dim="1">
@@ -87,7 +82,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <description>Triggerpunkt der 3. Messachse (Applikate) in negativer Verfahrrichtung  (Z bei G17) des Werkstückmesstasters.
 Der Ausdruck "negative Verfahrrichtung" bezieht sich auf den aktuell aktiven Werkstücknullpunktbezug!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54606" type="DOUBLE" dim="1">
@@ -104,7 +98,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <description>Die Lageabweichung in der 1.Messachse, stellt einen geometrischen Versatz des Mittelpunktes der Messtasterkugel,
 bezogen auf den elektischen Mittelpunkt des Messtasters in dieser Achse dar!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54608" type="DOUBLE" dim="1">
@@ -113,7 +106,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <description>Die Lageabweichung in der 2.Messachse, stellt einen geometrischen Versatz des Mittelpunktes der Messtasterkugel,
 bezogen auf den elektischen Mittelpunkt des Messtasters in dieser Achse dar!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54609" type="DOUBLE" dim="1">
@@ -135,9 +127,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkstückmesstaster kalibrie
 <brief>Messvorschub beim Kalibrieren</brief>
 <description>Messvorschub Werkstück messen beim Kalibrieren
 Dieser Messvorschub wird für alle nachfolgenden Werkstückmessprogramme in Verbindung mit dem Messtasterfeld verwendet.
-
-
-
 </description>
 </parameter>
 <parameter number="54612" type="BYTE" dim="0">
@@ -177,7 +166,6 @@ Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den
 <brief>Kalibriernutkante in positiver Richtung der 1. Messachse</brief>
 <description>Kalibriernutkante in positiver Richtung der 1. Messachse (Abszisse, Z bei G18)
 Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
-
 </description>
 </parameter>
 <parameter number="54618" type="DOUBLE" dim="1">
@@ -199,7 +187,6 @@ Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den
 <brief>Kalibriernutoberkante der 2. Messachse</brief>
 <description>Kalibriernutoberkante in der 2. Messachse (Ordinate, X bei G18)
 Dieser Parameter ist eine geometrische Komponente der Kalibriernut und durch den Anwender zu versorgen!
-
 </description>
 </parameter>
 <parameter number="54621" type="DOUBLE" dim="1">
@@ -275,7 +262,6 @@ Der exakte Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster ka
 <brief>Werkzeugmesstaster Kantenlaenge/Scheibendurchmesser</brief>
 <description>Wirksame Kantenlänge oder Scheibendurchmesser des Werkzeugmesstasters
 Dieses Datum ist bei der Technologie "Fräsen" bei der Längenvermessung von Fräswerkzeugen von Bedeutung.
-
 </description>
 </parameter>
 <parameter number="54632" type="DWORD" dim="1">
@@ -324,7 +310,6 @@ Zur Vermessung von Drehwerkzeugen hat dieser Parameter keine Bedeutung!
 <brief>Kalibrierstatus allgemein</brief>
 <description>Kalibrierstatus allgemein, reserviert für interne Verwendung!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54636" type="DOUBLE" dim="1">
@@ -332,7 +317,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrier
 <brief>Messvorschub beim Werkzeugmesstaster kalibrieren im MKS</brief>
 <description>Messvorschub beim Werkzeugmesstaster kalibrieren im MKS
 Dieser Messvorschub wird für alle nachfolgenden Werzeugmessprogramme in Verbindung mit dem Messtasterfeld verwendet.
-
 </description>
 </parameter>
 <parameter number="54640" type="DOUBLE" dim="1">
@@ -427,7 +411,6 @@ Bedeutung je Parameterelement
 301: Scheibe in YZ, Arbeitsebene G19
   2: Tastkopf
   3: Würfel
-
 </description>
 </parameter>
 <parameter number="54649" type="DOUBLE" dim="1">
@@ -444,7 +427,6 @@ Zur Vermessung von Drehwerkzeugen hat dieser Parameter keine Bedeutung!
 <brief>Kalibrierstatus allgemein</brief>
 <description>Kalibrierstatus allgemein, reserviert für interne Verwendung!
 Der Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrieren" erzeugt!
-
 </description>
 </parameter>
 <parameter number="54651" type="DOUBLE" dim="1">
@@ -452,7 +434,6 @@ Der Wert dieses Parameters, wird durch den Vorgang "Werkzeugmesstaster kalibrier
 <brief>Messvorschub beim Werkzeugmesstaster kalibrieren im WKS</brief>
 <description>Messvorschub beim Werkzeugmesstaster kalibrieren im WKS
 Dieser Messvorschub wird für alle nachfolgenden Werzeugmessprogramme in Verbindung mit dem Messtasterfeld verwendet.
-
 </description>
 </parameter>
 <parameter number="54652" type="BYTE" dim="1">
@@ -476,7 +457,6 @@ Dieser Messvorschub wird für alle nachfolgenden Werzeugmessprogramme in Verbindu
 <description>Maximal zulässige Umfangsgeschwindigkeit des zu messenden Werkzeuges, bei drehender Spindel.
 
 Überwachungsparameter zum Werkzeugmessen mit drehender Spindel
-
 </description>
 </parameter>
 <parameter number="54671" type="DOUBLE" dim="1">
@@ -577,7 +557,6 @@ Die Angaben sind erforderlich für das Werkzeugmessen mit drehender Spindel.
 Einzugeben ist der Abstand (gemessen auf dem Umfang des Werkzeugs), bei dem Messpunkte aufgenommen werden, um den "höchsten Punkt auf dem längsten Zahn" zu finden.
 Ist der Wert des Datums NULL, dann wird nicht mit stehender Spindel nach dem "höchsten Punkt auf dem längsten Zahn" gesucht, sondern
 es wird der Messwert vom Antasten mit drehender Spindel genommen.
-
 </description>
 </parameter>
 <parameter number="54693" type="BYTE" dim="0">
@@ -586,7 +565,6 @@ es wird der Messwert vom Antasten mit drehender Spindel genommen.
 <description>Maximale Anzahl der Antastungen zum Finden des "höchsten Punktes auf dem längsten Zahn" beim Werkzeugmessen Radius
 Ist der Wert des Datums NULL, dann wird nicht mit stehender Spindel nach dem "höchsten Punkt auf dem längsten Zahn" gesucht, sondern
 es wird der Messwert vom Antasten mit drehender Spindel genommen.
-
 </description>
 </parameter>
 <parameter number="54695" type="DOUBLE" dim="1">
@@ -777,8 +755,6 @@ Bit 17: Messwiederholung Werkzeugmessen, programmierter Halt an M0 nach Toleranz
 Bit 19: Werkzeugmessen Technologie Fräsen, Reduzierung der Spindeldrehzahl beim letzten Antasten
            	0: Das letzte Antasten erfolgt ohne Reduzierung der Spindeldrehzahl.
            	1: Beim letzten Antasten erfolgt eine automatische Reduzierung der Spindeldrehzahl.
-
-
 </description>
 </parameter>
 <parameter number="54750" type="DWORD" dim="0" display="HEX">
@@ -825,7 +801,6 @@ Bit28 Auswahl Wz.Länge anpassen, freigeben
 	Bei Mittelwertbildung folgende Parameter anzeigen : _K _TMV, _EVNUM
 
 	1) Eingabe Messvorschub gilt für Automatik und JOG
-
 </description>
 </parameter>
 <parameter number="54762" type="DWORD" dim="0" display="HEX">
@@ -847,8 +822,6 @@ Bit13 Auswahl Erfahrungswerte  (_EVNUM)
 Bit14 Auswahl Versatzkorrektur mit Richtungsauswahl
 
 	1) Eingabe Messvorschub gilt für Automatik und JOG
-
-
 </description>
 </parameter>
 <parameter number="54764" type="DWORD" dim="0" display="HEX">
@@ -860,8 +833,6 @@ Bit14 Auswahl Versatzkorrektur mit Richtungsauswahl
 
 Bit0	Messen Durchmesser innen/außen mit Umschlag
 Bit1	Messen Durchmesser innen/außen "unter Drehmitte fahren?
-
-
 </description>
 </parameter>
 <parameter number="54780" type="DWORD" dim="0" display="HEX">
@@ -890,14 +861,12 @@ bit2	Automatisches Werkzeugmessen freigeben
 bit3	Auswahl Werkzeugmesstaster-Kalibrierdatenfeld, freigeben
 Bit10 Auswahl Messfunktion "Zähne einzeln prüfen"
 Bit11 Auswahl Spindelumschlag beim Kalibrieren in der Ebene
-
 </description>
 </parameter>
 <parameter number="54840" type="DWORD" dim="0" display="HEX">
 <name>GRIND_FUNCTION_MASK</name>
 <brief>Funktionsmaske Schleifzyklen</brief>
 <description>Funktionsmaske Schleifzyklen
-
 </description>
 </parameter>
 </info>
