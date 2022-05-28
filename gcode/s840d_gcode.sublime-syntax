@@ -608,14 +608,16 @@ contexts:
     - match: (?i:SETINT)\b
       scope: keyword.operator.assignment.interrupt.s840d_gcode
       set: [stmt-setint-cycle, function-call-arguments]
+    - match: (?:BLSYNC|LIFTFAST)\b
+      scope: constant.language.s840d_gcode
 
   stmt-setint-cycle:
     - match: (?i:PRIO)\b
       scope: support.variable.iso.address.s840d_gcode
-    - match: ({{cycle}})(?i:[ \t]+(LIFTFAST\b)|[ \t]*(?=(?:$|;)))
+    - match: ({{cycle}})(?i:[ \t]+(BLSYNC|LIFTFAST)|[ \t]*(?=(?:$|;)))
       captures:
         1: meta.function-call.name.s840d_gcode variable.function.cycle.s840d_gcode
-        2: constant.language.liftfast.s840d_gcode
+        2: constant.language.s840d_gcode
       set: assert-line-end
     - include: expressions-line
 
@@ -627,7 +629,7 @@ contexts:
   stmt-procedure-call:
     # SINUMERIK procedures
     # need to stand alone in a line
-    - match: (?i:A(?:DISPOSA|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:LLPATH|NCE(?:L|LSUB))|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|RIVEA|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:C(?:ALL|LOSE)|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOO[FN]|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|ORKPIECE|R(?:ITE|TPR)))\b
+    - match: (?i:A(?:DISPOSA|FISO[FN]|UXFU(?:DE(?:L|LG)|MSEQ|SYNC)|X(?:CTSW(?:E|E[CD])|TOCHAN))|BRISKA|C(?:A(?:DAPTO[FN]|LLPATH|NCE(?:L|LSUB))|HANDATA|L(?:EARM|RINT)|O(?:NT(?:DCON|PRON)|RROF|UP(?:DE[FL]|O(?:[FN]|FS|NC)|RES))|PRO(?:T|TDEF)|TAB(?:DE[FL]|LOCK|UNLOCK))|D(?:EL(?:AYFSTO[FN]|DTG|ETE|MT|T|TC)|ISABLE|R(?:IVEA|VP(?:RD|WR))|ZERO)|E(?:G(?:DE[FL]|O(?:F[CS]|N|NSY(?:N|NE)))|NABLE|SR[RS]|X(?:EC(?:STRING|TAB|UTE)|T(?:C(?:ALL|LOSE)|OPEN)))|F(?:CTDEF|GROUP|ILE(?:DATE|INFO|S(?:IZE|TAT)|TIME)|P(?:[OR]|RAO[FN])|TOC)|G(?:E(?:OAX|T|T(?:D|EXET|FREELOC|SELT))|WPSO[FN])|I(?:CYCO[FN]|NIT|P(?:OBRKA|TR(?:LOCK|UNLOCK)))|JERKA|L|L(?:EADO[FN]|OCK)|M(?:ASL(?:DE[FL]|O(?:[FN]|FS))|MC|SG|VTOOL)|N(?:EWCONF|PRO(?:T|TDEF))|ORIRESET|P(?:O(?:L(?:F(?:A|M(?:ASK|LIN))|YPATH)|S(?:M|MT))|R(?:ESETO(?:N|NS)|OT[AS])|U(?:NCHACC|TFTO(?:C|CF)))|R(?:DISABLE|E(?:AD|LEASE|SE(?:T|TMON)|T|TB))|S(?:BLO[FN]|ET(?:AL|INT|M|M(?:S|TH)|PIECE|T(?:A|IA))|IREL(?:IN|OUT|TIME)|OFTA|P(?:CO[FN]|LINEPATH)|T(?:ART|OPR(?:E|EOF))|YNFCT)|T(?:AN(?:G|G(?:DEL|O[FN]))|C[AI]|LIFT|M(?:L|O[FN])|OFFO[FN]|RA(?:ANG|C(?:ON|YL)|FOO[FN]|ILO[FN]|NSMIT|ORI))|UNLOCK|W(?:AIT(?:[CEMPS]|ENC|MC)|ORKPIECE|R(?:ITE|TPR)))\b
       scope: support.function.nck.procedure.s840d_gcode
       set: cycle-call-arguments
 
@@ -895,7 +897,7 @@ contexts:
     # parameter adresses ending with digit: F2 S2 ...
     # F2=2200.5 | F2 = 2200.5
     - match: '(?i:[FIJKOS])(?:\d+(?=\s*=)|(?=\s*[-+=\.\d]))'
-      scope: support.variable.iso.operand.s840d_gcode
+      scope: support.variable.iso.address.s840d_gcode
       push: iso-value-float
     # M-function:   M2
     # H-function:   H3
@@ -933,7 +935,7 @@ contexts:
     # spindle speed:  S[1]=20
     - match: ((?i:[FIJKOS]))[ \t]*(\[)
       captures:
-        1: support.variable.iso.operand.s840d_gcode
+        1: support.variable.iso.address.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode
       push: array-index-body
     # FUNCTIONS
@@ -957,20 +959,14 @@ contexts:
     # SINUMERIK address parameter
     # can switch on/off internal functions
     #   e.g.: SPOS=10 | SPOS[2]=10
-    - match: (?i:A(?:C(?:C|CLIMA)|TOL)|C(?:OARSEA|P(?:BC|DE[FL]|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|RES|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|TOL|UTMOD)|DIA(?:CYCOFA|M(?:90A|CHA(?:N|NA)|O(?:FA|NA)))|F(?:[AL]|DA|GREF|INEA|MA|O(?:C|CO[FN])|X(?:S|S[TW]))|I(?:P|POENDA)|JERKLI(?:M|MA)|LIMS|M(?:EA(?:C|SA|WA)|OV)|O(?:S|S(?:[BE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TOL|V(?:R|R(?:A|RAP)))|P(?:O|O(?:LF|S|S[AP])|RIO)|S(?:C(?:C|PARA)|PO(?:S|SA)|RA|T(?:A|AT|OLF)|VC)|T(?:OF(?:F|FL)|U)|VELOLI(?:M|MA))\b
+    - match: (?i:A(?:[2345PR]|C(?:C|CLIMA)|DI(?:S|SPOS)|LF|NG|TOL)|B[2-5]|C(?:[2345R]|H[FR]|OARSEA|P(?:BC|DE[FL]|F(?:M(?:O[FN]|SON)|POS|RS)|L(?:A|CTID|DE[FLN]|IN(?:SC|TR)|NUM|O(?:[FN]|UT(?:SC|TR))|POS|SETVAL)|M(?:ALARM|BRAKE|PRT|RESET|START|VDI)|O[FN]|RES|S(?:ETTYPE|YN(?:CO(?:[PV]|P2)|FI(?:[PV]|P2))))|TO(?:L|LG0)|UTMO(?:D|DK))|[DFIJKNPRST]|D(?:[0L]|I(?:A(?:CYCOFA|M(?:90A|CHA(?:N|NA)|O(?:FA|NA)))|LF|S(?:[CR]|CL|PR|RP)|T[ES]))|F(?:[ABDLPZ]|AD|DA|GREF|INEA|LIM|MA|O(?:C|CO[FN])|R(?:C|CM)|X(?:S|S[TW]))|I(?:[1PR]|POENDA|SD)|J(?:[1R]|ERKLI(?:M|MA))|K[1R]|L(?:EAD|IMS)|M(?:EA(?:[CSW]|SA|WA)|O(?:V|VT))|O(?:FFN|MA[1-5]|RIS|S|S(?:[BE]|C(?:ILL|TRL)|NSC|P[12]|T[12])|TO(?:L|LG0)|V(?:R|R(?:A|RAP)))|P(?:ACCLIM|[LOW]|O(?:LF|S|S[AP])|RIO)|R(?:N(?:D|DM)|P|PL)|S(?:C(?:C|PARA)|[DFRT]|P(?:[NP]|O(?:S|SA))|RA|T(?:A|AT|OLF)|VC)|T(?:CARR|HETA|ILT|OF(?:F|F(?:[LR]|LR))|U|URN)|VELOLI(?:M|MA))\b
       scope: support.variable.iso.address.s840d_gcode
       push: array-index
-    # SINUMERIK command operands
-    # act as arguments for iso commands
-    #   e.g.: AP=10
-    - match: (?i:A(?:[2345PR]|DI(?:S|SPOS)|LF|NG)|B[2-5]|C(?:[2345R]|H[FR])|D(?:[0L]|I(?:LF|S(?:[CR]|CL|PR|RP)|T[ES]))|F(?:AD|[BDPZ]|R(?:C|CM))|I(?:[1R]|SD)|J[1R]|K[1R]|LEAD|M(?:EA[SW]|OVT)|O(?:FFN|MA[1-5]|RIS)|P[LW]|R(?:N(?:D|DM)|P|PL)|S(?:[DFRT]|P[NP])|T(?:CARR|HETA|ILT|OFFR|URN))\b
-      scope: support.variable.iso.operand.s840d_gcode
-      push: illegal-brackets-pop
 
   iso-commands:
     # SINUMERIK command with ISO style operands
     #   e.g.: TRANS X0 Y0.4
-    - match: (?i:A(?:MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS)|B(?:AUTO|NAT|RISK|SPLINE|TAN)|C(?:DO(?:[FN]|F2)|F(?:C|IN|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|SPLINE|UT(?:2(?:D|D(?:[DF]|FD))|3D(?:[CF]|C(?:[CD]|CD)|F[FS])|CONO[FN]))|D(?:IAM(?:90|CYCOF|O[FN])|R(?:FOF|IVE)|YN(?:FINISH|NORM|POS|ROUGH|SEMIFIN))|E(?:AUTO|NAT|TAN)|F(?:CUB|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TOCO[FN])|G(?:FRAME(?:10|[0-9])?[0-9]|ORAP)|INVC(?:CW|W)|KON(?:T|T[CT])|LF(?:O[FN]|POS|TXT|WP)|MIRROR|NORM|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CD]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CDST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS)|T(?:P|P(?:G0|WOC)))|R(?:EPOS(?:[AHLQ]|HA|QA)|M(?:[BEIN]|BBL|EBL|IBL|NBL)|O(?:T|TS)|TLIO[FN])|S(?:CALE|O(?:FT|N|NS)|P(?:ATH|IF[12]|OF)|T(?:ARTFIFO|OPFIFO)|UPA)|T(?:CO(?:ABS|F(?:R|R[XYZ]))|O(?:FRAM(?:E|E[XYZ])|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RANS)|UPATH|WAL(?:CS(?:[0-9]|10)|IMO[FN]))\b
+    - match: (?i:A(?:MIRROR|RO(?:T|TS)|S(?:CALE|PLINE)|TRANS)|B(?:AUTO|NAT|RISK|SPLINE|TAN)|C(?:DO(?:[FN]|F2)|F(?:C|IN|TCP)|IP|OMP(?:C(?:AD|URV)|O[FN]|SURF)|[PT]|PRECO[FN]|SPLINE|UT(?:2(?:D|D(?:[DF]|FD))|3D(?:[CF]|C(?:[CD]|CD)|F[DFS])|CONO[FN]))|D(?:IAM(?:90|CYCOF|O[FN])|R(?:FOF|IVE)|YN(?:FINISH|NORM|P(?:OS|REC)|ROUGH|SEMIFIN))|E(?:AUTO|NAT|TAN)|F(?:CUB|ENDNORM|FWO[FN]|IFOCTRL|LIN|NORM|TOCO[FN])|G(?:0|1|110|111|112|140|141|142|143|147|148|153|17|18|19|2|247|248|25|26|290|291|3|33|331|332|335|336|34|340|341|347|348|35|4|40|41|42|450|451|460|461|462|5|500|505|506|507|508|509|510|511|512|513|514|515|516|517|518|519|520|521|522|523|524|525|526|527|528|529|53|530|531|532|533|534|535|536|537|538|539|54|540|541|542|543|544|545|546|547|548|549|55|550|551|552|553|554|555|556|557|558|559|56|560|561|562|563|564|565|566|567|568|569|57|570|571|572|573|574|575|576|577|578|579|58|580|581|582|583|584|585|586|587|588|589|59|590|591|592|593|594|595|596|597|598|599|60|601|602|603|62|621|63|64|641|642|643|644|645|7|70|700|71|710|74|75|810|811|812|813|814|815|816|817|818|819|820|821|822|823|824|825|826|827|828|829|9|90|91|93|931|94|942|95|952|96|961|962|97|971|972|973|FRAME(?:0|1|10|100|11|12|13|14|15|16|17|18|19|2|20|21|22|23|24|25|26|27|28|29|3|30|31|32|33|34|35|36|37|38|39|4|40|41|42|43|44|45|46|47|48|49|5|50|51|52|53|54|55|56|57|58|59|6|60|61|62|63|64|65|66|67|68|69|7|70|71|72|73|74|75|76|77|78|79|8|80|81|82|83|84|85|86|87|88|89|9|90|91|92|93|94|95|96|97|98|99)|ORAP)|INVC(?:CW|W)|KON(?:T|T[CT])|LF(?:O[FN]|POS|TXT|WP)|MIRROR|NORM|O(?:EMIPO[12]|RI(?:AX(?:ES|POS)|[CD]|C(?:ON(?:C(?:CW|W)|IO|TO)|URVE)|EULER|MKS|P(?:AT(?:H|HS)|LANE)|R(?:OT[ACRT]|P(?:Y|Y2))|SO[FN]|V(?:ECT|IRT[12])|WKS)|S(?:[CDST]|OF|SE))|P(?:ARO(?:T|TOF)|DELAYO[FN]|O(?:LY|N|NS)|T(?:P|P(?:G0|WOC)))|R(?:EPOS(?:[AHLQ]|HA|QA)|M(?:[BEIN]|BBL|EBL|IBL|NBL)|O(?:T|TS)|TLIO[FN])|S(?:CALE|O(?:FT|N|NS)|P(?:ATH|IF[12]|OF)|T(?:ARTFIFO|OPFIFO)|UP[AD])|T(?:CO(?:ABS|F(?:R|R[XYZ]))|O(?:FRAM(?:E|E[XYZ])|RO(?:T|T(?:OF|[XYZ]))|W(?:BCS|KCS|MCS|STD|TCS|WCS))|RANS)|UPATH|WAL(?:CS(?:[0-9]|10)|IMO[FN]))\b
       scope: support.function.iso.command.s840d_gcode
       push: illegal-brackets-pop
 
@@ -1488,7 +1484,7 @@ contexts:
 
   nc-function-call:
     # known NC functions
-    - match: (?:A(?:BS|C|C(?:[NP]|OS)|DDFRAME|SIN|TAN2|X(?:NAME|STRING|TOSPI))|B(?:OUND|TO[IR])|C(?:A(?:C|C[NP]|LC(?:DAT|POSI))|DC|FINE|H(?:ECKSUM|KD(?:M|NO))|IC|MIRROR|O(?:LLPAIR|S)|R(?:O(?:T|TS)|PL)|SCALE|T(?:A(?:B|B(?:EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|M(?:EMTYP|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])))|RANS))|D(?:AC|C|EL(?:DL|ML(?:OWNER|RES)|OBJ|TOOLENV)|IC)|EXP|G(?:ET(?:ACT(?:T|TD)|DNO|T|T(?:COR|ENV)|VAR(?:AP|DFT|LIM|PHU|TYP))|P)|I(?:C|N(?:DEX|TERSEC|VFRAME)|S(?:AXIS|FILE|NUMBER|VAR)|TO[BR])|L(?:ENTOAX|N)|M(?:A(?:TCH|XVAL)|EA(?:FRAME|SURE)|IN(?:DEX|VAL)|ODAXVAL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|P(?:[MR]|O(?:SRANGE|T)|ROTD)|QU|R(?:AC|EP|I(?:C|NDEX)|OUN(?:D|DUP)|TO[BI])|S(?:E(?:T|T(?:DNO|TCOR))|I(?:N|RELAY)|P(?:I|RINT)|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:AN|O(?:LOWER|OL(?:ENV|G(?:NT|T))|UPPER)|RUNC))\b
+    - match: (?i:A(?:BS|C|C(?:[NP]|OS)|DDFRAME|SIN|TAN2|X(?:NAME|STRING|TOSPI))|B(?:OUND|TO[IR])|C(?:A(?:C|C[NP]|LC(?:DAT|POSI))|DC|FINE|H(?:ECKSUM|KD(?:M|NO))|IC|MIRROR|O(?:LLPAIR|RRT(?:C|RAFO)|S)|R(?:O(?:T|TS)|PL)|SCALE|T(?:A(?:B|B(?:EXISTS|F(?:NO|POL|SEG)|I(?:D|NV|SLOCK)|M(?:EMTYP|POL|SEG)|N(?:O|OMEM)|P(?:ERIOD|O(?:L|LID))|S(?:E(?:[GV]|GID)|SV)|T(?:E[PV]|M(?:AX|IN)|S[PV])))|RANS))|D(?:AC|C|EL(?:DL|ML(?:OWNER|RES)|OBJ|TOOLENV)|IC)|EXP|G(?:ET(?:ACT(?:T|TD)|DNO|T|T(?:COR|ENV)|VAR(?:AP|D(?:FT|IM)|LIM|PHU|TYP))|P)|I(?:C|N(?:DEX|TERSEC|VFRAME)|S(?:AXIS|FILE|NUMBER|VAR)|TO[BR])|L(?:ENTOAX|N)|M(?:A(?:TCH|XVAL)|EA(?:FRAME|SURE)|IN(?:DEX|VAL)|ODAXVAL)|N(?:AMETOINT|EW(?:MT|T)|UMBER)|ORISOLH|P(?:[MR]|O(?:SRANGE|T)|ROTD)|QU|R(?:AC|EP|I(?:C|NDEX)|OUN(?:D|DUP)|TO[BI])|S(?:E(?:T|T(?:DNO|TCOR))|I(?:N|RELAY)|P(?:I|RINT)|QRT|TR(?:INGIS|LEN)|UBSTR)|T(?:AN|O(?:LOWER|OL(?:ENV|G(?:NT|T))|UPPER)|RUNC))\b
       scope: support.function.nck.s840d_gcode
       push: function-call-arguments
 
