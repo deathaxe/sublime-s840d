@@ -274,6 +274,17 @@ end_region
 //                                         ^^^^^^ keyword.control.conditional.end.plc
 //                                                ^ punctuation.terminator.statement.plc
 
+/// LABEL & GOTO //////////////////////////////////////////////////////////////
+
+    label:
+//  ^^^^^ entity.name.label.plc
+//       ^ punctuation.terminator.label.plc
+
+    goto label;
+//  ^^^^ keyword.control.flow.goto.plc
+//       ^^^^^ variable.label.scl
+//            ^ punctuation.terminator.statement.plc
+
 /// REPEAT..UNTIL /////////////////////////////////////////////////////////////
 
     repeat
