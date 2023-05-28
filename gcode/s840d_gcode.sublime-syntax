@@ -202,21 +202,23 @@ contexts:
       set:
         - meta_scope: meta.namespace.s840d_gcode
         - match: (?=\()
-          set: stmt-group-parameters
+          set: stmt-group-parameter-list
         - include: line-end-or-illegal
 
-  stmt-group-parameters:
+  stmt-group-parameter-list:
     - match: \(
       scope: punctuation.section.parameters.begin.s840d_gcode
-      set:
-        - meta_scope: meta.namespace.parameters.s840d_gcode
-        - match: \)
-          scope: punctuation.section.parameters.end.s840d_gcode
-          set: line-end-or-illegal
-        - include: seperator-comma
-        - include: numbers
-        - include: strings
-        - include: line-end-or-illegal
+      set: stmt-group-parameter-list-body
+
+  stmt-group-parameter-list-body:
+    - meta_scope: meta.namespace.parameters.s840d_gcode
+    - match: \)
+      scope: punctuation.section.parameters.end.s840d_gcode
+      set: line-end-or-illegal
+    - include: seperator-comma
+    - include: numbers
+    - include: strings
+    - include: line-end-or-illegal
 
 ###############################################################################
 # EXTERN PROCEDURE DEFINITION
@@ -232,25 +234,29 @@ contexts:
     - meta_content_scope: meta.function.name.s840d_gcode
     - match: '{{cycle}}'
       scope: variable.function.cycle.s840d_gcode
-      set:
-        - meta_content_scope: meta.function.name.s840d_gcode
-        - match: (?=\()
-          set: stmt-extern-parameters
-        - include: line-end-or-illegal
+      set: stmt-extern-expect-parameters
     - include: line-end-or-illegal
 
-  stmt-extern-parameters:
+  stmt-extern-expect-parameters:
+    - meta_content_scope: meta.function.name.s840d_gcode
+    - match: (?=\()
+      set: stmt-extern-parameter-list
+    - include: line-end-or-illegal
+
+  stmt-extern-parameter-list:
     - match: \(
       scope: punctuation.section.parameters.begin.s840d_gcode
-      set:
-        - meta_scope: meta.function.parameters.s840d_gcode
-        - match: \)
-          scope: punctuation.section.parameters.end.s840d_gcode
-          set: line-end-or-illegal
-        - include: seperator-comma
-        - include: storage-types
-        - include: storage-modifiers
-        - include: line-end-or-illegal
+      set: stmt-extern-parameter-list-body
+
+  stmt-extern-parameter-list-body:
+    - meta_scope: meta.function.parameters.s840d_gcode
+    - match: \)
+      scope: punctuation.section.parameters.end.s840d_gcode
+      set: line-end-or-illegal
+    - include: seperator-comma
+    - include: storage-types
+    - include: storage-modifiers
+    - include: line-end-or-illegal
 
 ###############################################################################
 # PROCEDURE DEFINITION
@@ -266,33 +272,37 @@ contexts:
     - meta_content_scope: meta.function.name.s840d_gcode
     - match: '{{cycle}}'
       scope: entity.name.function.s840d_gcode
-      set:
-        - meta_content_scope: meta.function.name.s840d_gcode
-        - match: (?!.*\()
-          set: stmt-proc-attributes
-        - match: (?=\()
-          set: stmt-proc-parameters
-        - include: line-end-or-illegal
+      set: stmt-proc-expect-parameters
     - include: line-end-or-illegal
 
-  stmt-proc-parameters:
+  stmt-proc-expect-parameters:
+    - meta_content_scope: meta.function.name.s840d_gcode
+    - match: (?!.*\()
+      set: stmt-proc-attributes
+    - match: (?=\()
+      set: stmt-proc-parameter-list
+    - include: line-end-or-illegal
+
+  stmt-proc-parameter-list:
     - match: \(
       scope: punctuation.section.parameters.begin.s840d_gcode
-      set:
-        - meta_scope: meta.function.parameters.s840d_gcode
-        - match: \)
-          scope: punctuation.section.parameters.end.s840d_gcode
-          set: stmt-proc-attributes
-        - include: seperator-comma
-        - include: storage-types
-        - include: storage-modifiers
-        - include: constants
-        - include: operators-assignment
-        - include: illegal-operators
-        - match: '{{ident}}'
-          scope: variable.parameter.procedure.s840d_gcode
-          push: array-dimension
-        - include: line-end-or-illegal
+      set: stmt-proc-parameter-list-body
+
+  stmt-proc-parameter-list-body:
+    - meta_scope: meta.function.parameters.s840d_gcode
+    - match: \)
+      scope: punctuation.section.parameters.end.s840d_gcode
+      set: stmt-proc-attributes
+    - include: seperator-comma
+    - include: storage-types
+    - include: storage-modifiers
+    - include: constants
+    - include: operators-assignment
+    - include: illegal-operators
+    - match: '{{ident}}'
+      scope: variable.parameter.procedure.s840d_gcode
+      push: array-dimension
+    - include: line-end-or-illegal
 
   stmt-proc-attributes:
     - meta_content_scope: meta.function.attributes.s840d_gcode
@@ -363,27 +373,29 @@ contexts:
   stmt-def:
     - match: (?i:DEF)\b
       scope: meta.definition.variable.s840d_gcode keyword.declaration.def.s840d_gcode
-      set:
-        - meta_content_scope: meta.definition.variable.storage.s840d_gcode
-        - include: storage-modifier-scope
-        - include: storage-modifier-access
-        - include: storage-modifier-init
-        - include: storage-modifier-limits
-        - include: storage-modifier-sync
-        - include: storage-modifier-unit
-        - include: storage-types
-        - match: (?=\S)
-          set: stmt-def-operand
-        - include: line-end
+      set: stmt-def-modifier
+
+  stmt-def-modifier:
+    - meta_content_scope: meta.definition.variable.storage.s840d_gcode
+    - include: storage-modifier-scope
+    - include: storage-modifier-access
+    - include: storage-modifier-init
+    - include: storage-modifier-limits
+    - include: storage-modifier-sync
+    - include: storage-modifier-unit
+    - include: storage-types
+    - match: (?=\S)
+      set: stmt-def-operand
+    - include: line-end
 
   stmt-def-operand:
     - meta_content_scope: meta.definition.variable.operand.s840d_gcode
     - match: '{{ident}}'
       scope: variable.other.s840d_gcode
-      set: [stmt-def-value, array-dimension]
+      set: [stmt-def-value-assignment, array-dimension]
     - include: stmt-def-end
 
-  stmt-def-value:
+  stmt-def-value-assignment:
     - meta_content_scope: meta.definition.variable.operand.s840d_gcode
     - match: (?==)
       set: stmt-def-value-body
@@ -393,15 +405,17 @@ contexts:
     - meta_content_scope: meta.definition.variable.value.s840d_gcode
     - match: \(
       scope: meta.group.s840d_gcode punctuation.section.group.begin.s840d_gcode
-      set:
-        - meta_content_scope: meta.group.s840d_gcode meta.definition.variable.value.s840d_gcode
-        - match: \)
-          scope: punctuation.section.group.end.s840d_gcode
-          set: stmt-def-end
-        - include: seperator-comma-minus
-        - include: expressions
+      set: stmt-def-value-group-body
     - include: expressions
     - include: stmt-def-end
+
+  stmt-def-value-group-body:
+    - meta_content_scope: meta.group.s840d_gcode meta.definition.variable.value.s840d_gcode
+    - match: \)
+      scope: punctuation.section.group.end.s840d_gcode
+      set: stmt-def-end
+    - include: seperator-comma-minus
+    - include: expressions
 
   stmt-def-end:
     - meta_content_scope: meta.definition.variable.s840d_gcode
@@ -423,14 +437,16 @@ contexts:
   stmt-redef-content:
     - match: (?i:INI(?:CF|RE|PO)|PRLOC)\b
       scope: storage.modifier.init.s840d_gcode
-      set:
-        - meta_scope: meta.definition.init.s840d_gcode
-        - include: expressions-line
+      set: stmt-redef-modifier-value
     - include: storage-modifier-access
     - include: storage-modifier-sync
     - include: storage-modifier-limits
     - include: variables
     - include: line-end-or-illegal
+
+  stmt-redef-modifier-value:
+    - meta_scope: meta.definition.init.s840d_gcode
+    - include: expressions-line
 
   stmt-redef-meta:
     - meta_scope: meta.redefinition.s840d_gcode
@@ -473,52 +489,62 @@ contexts:
   stmt-call:
     - match: (?i:CALL)\b
       scope: meta.function-call.s840d_gcode keyword.control.call.s840d_gcode
-      set:
-        - meta_content_scope: meta.function-call.name.s840d_gcode
-        # first statement is BLOCK
-        - match: (?=(?i:BLOCK)\b)
-          set: stmt-call-block
-        # match single ident as function name
-        - match: '{{ident}}(?=\s*[\(\w])'
-          scope: variable.other.s840d_gcode
-          set:
-            - meta_content_scope: meta.function-call.name.s840d_gcode
-            - match: (?=(?i:BLOCK)\b)
-              set: stmt-call-block
-            - include: stmt-call-end
-        # function name is built inplace using normal expressions
-        - match: (?=\S)
-          set:
-            - meta_content_scope: meta.function-call.name.s840d_gcode
-            - match: (?=(?i:BLOCK)\b)
-              set: stmt-call-block
-            - include: stmt-call-or-expressions
-        - include: line-end
+      set: stmt-call-name
+
+  stmt-call-name:
+    - meta_content_scope: meta.function-call.name.s840d_gcode
+    # first statement is BLOCK
+    - match: (?=(?i:BLOCK)\b)
+      set: stmt-call-block
+    # match single ident as function name
+    - match: '{{ident}}(?=\s*[\(\w])'
+      scope: variable.other.s840d_gcode
+      set: stmt-call-name-expect-block
+    # function name is built inplace using normal expressions
+    - match: (?=\S)
+      set: stmt-call-name-expression
+    - include: line-end
+
+  stmt-call-name-expression:
+    - meta_content_scope: meta.function-call.name.s840d_gcode
+    - match: (?=(?i:BLOCK)\b)
+      set: stmt-call-block
+    - include: stmt-call-or-expressions
+
+  stmt-call-name-expect-block:
+    - meta_content_scope: meta.function-call.name.s840d_gcode
+    - match: (?=(?i:BLOCK)\b)
+      set: stmt-call-block
+    - include: stmt-call-end
 
   stmt-call-block:
     - match: (?i:BLOCK)\b
       scope: keyword.control.block.s840d_gcode
-      set:
-        - meta_scope: meta.function-call.block.begin.s840d_gcode
-        - match: (?=(?i:TO)\b)
-          set: stmt-call-to
-        - match: ([Nn]\d+)\b[ \t]*
-          captures:
-            1: variable.language.blockno.s840d_gcode
-          set: stmt-call-to
-        - include: stmt-call-or-expressions
+      set: stmt-call-block-value
     - include: stmt-call-end
+
+  stmt-call-block-value:
+    - meta_scope: meta.function-call.block.begin.s840d_gcode
+    - match: (?=(?i:TO)\b)
+      set: stmt-call-to
+    - match: ([Nn]\d+)\b[ \t]*
+      captures:
+        1: variable.language.blockno.s840d_gcode
+      set: stmt-call-to
+    - include: stmt-call-or-expressions
 
   stmt-call-to:
     - match: (?i:TO)\b
       scope: keyword.control.to.s840d_gcode
-      set:
-        - meta_scope: meta.function-call.block.end.s840d_gcode
-        - match: '[Nn]\d+\b'
-          scope: variable.language.blockno.s840d_gcode
-          set: stmt-call-end
-        - include: stmt-call-or-expressions
+      set: stmt-call-to-value
     - include: stmt-call-end
+
+  stmt-call-to-value:
+    - meta_scope: meta.function-call.block.end.s840d_gcode
+    - match: '[Nn]\d+\b'
+      scope: variable.language.blockno.s840d_gcode
+      set: stmt-call-end
+    - include: stmt-call-or-expressions
 
   stmt-call-or-expressions:
     - match: (?=(?i:CALL)\b)
@@ -542,16 +568,20 @@ contexts:
   stmt-isocall:
     - match: (?i:ISOCALL)\b
       scope: meta.function-call.s840d_gcode keyword.control.isocall.s840d_gcode
-      set:
-        - meta_content_scope: meta.function-call.name.s840d_gcode
-        - match: '{{ident}}(?=\s*[\(\w])'
-          scope: variable.other.s840d_gcode
-          set: line-end-or-illegal
-        - match: (?=\S)
-          set:
-            - meta_scope: meta.function-call.name.s840d_gcode
-            - include: expressions-line
-        - include: line-end
+      set: stmt-isocall-name
+
+  stmt-isocall-name:
+    - meta_content_scope: meta.function-call.name.s840d_gcode
+    - match: '{{ident}}(?=\s*[\(\w])'
+      scope: variable.other.s840d_gcode
+      set: line-end-or-illegal
+    - match: (?=\S)
+      set: stmt-isocall-body
+    - include: line-end
+
+  stmt-isocall-body:
+    - meta_scope: meta.function-call.name.s840d_gcode
+    - include: expressions-line
 
 ###############################################################################
 # MCALL
@@ -561,16 +591,20 @@ contexts:
   stmt-modalcall:
     - match: (?i:MCALL)\b
       scope: meta.function-call.s840d_gcode keyword.control.mcall.s840d_gcode
-      set:
-        - meta_content_scope: meta.function-call.name.s840d_gcode
-        - match: '{{cycle}}'
-          scope: variable.function.cycle.s840d_gcode
-          set: [line-end-or-illegal, cycle-call-arguments]
-        - match: (?=\S)
-          set:
-            - meta_scope: meta.function-call.name.s840d_gcode
-            - include: expressions-line
-        - include: line-end
+      set: stmt-modalcall-name
+
+  stmt-modalcall-name:
+    - meta_content_scope: meta.function-call.name.s840d_gcode
+    - match: '{{cycle}}'
+      scope: variable.function.cycle.s840d_gcode
+      set: [line-end-or-illegal, cycle-call-arguments]
+    - match: (?=\S)
+      set: stmt-modalcall-body
+    - include: line-end
+
+  stmt-modalcall-body:
+    - meta_scope: meta.function-call.name.s840d_gcode
+    - include: expressions-line
 
 ###############################################################################
 # PCALL
@@ -580,20 +614,24 @@ contexts:
   stmt-pathcall:
     - match: (?i:PCALL)\b
       scope: meta.function-call.s840d_gcode keyword.control.pcall.s840d_gcode
-      set:
-        - meta_content_scope: meta.function-call.name.s840d_gcode
-        # absolute path to cycle
-        - match: (?:/*[0-9A-Za-z_]+:)?/[0-9A-Za-z_/]+\b
-          scope: string.unquoted.path.s840d_gcode
-          set: [line-end-or-illegal, cycle-call-arguments]
-        - match: '{{cycle}}'
-          scope: variable.function.cycle.s840d_gcode
-          set: [line-end-or-illegal, cycle-call-arguments]
-        - match: (?=\S)
-          set:
-            - meta_scope: meta.function-call.name.s840d_gcode
-            - include: expressions-line
-        - include: line-end
+      set: stmt-pathcall-name
+
+  stmt-pathcall-name:
+    - meta_content_scope: meta.function-call.name.s840d_gcode
+    # absolute path to cycle
+    - match: (?:/*[0-9A-Za-z_]+:)?/[0-9A-Za-z_/]+\b
+      scope: string.unquoted.path.s840d_gcode
+      set: [line-end-or-illegal, cycle-call-arguments]
+    - match: '{{cycle}}'
+      scope: variable.function.cycle.s840d_gcode
+      set: [line-end-or-illegal, cycle-call-arguments]
+    - match: (?=\S)
+      set: stmt-pathcall-body
+    - include: line-end
+
+  stmt-pathcall-body:
+    - meta_scope: meta.function-call.name.s840d_gcode
+    - include: expressions-line
 
 ###############################################################################
 # SETINT(1) PRIO=4 CYCLE LIFTFAST
@@ -669,11 +707,13 @@ contexts:
     - meta_scope: meta.function-call.arguments.s840d_gcode
     - match: \)
       scope: punctuation.section.arguments.end.s840d_gcode
-      set:
-        - include: iso-repeat-count
-        - include: scope-end
+      set: cycle-call-repeat-count
     - include: seperator-comma-minus
     - include: expressions-line
+
+  cycle-call-repeat-count:
+    - include: iso-repeat-count
+    - include: scope-end
 
 ###############################################################################
 # CASE ... OF 1 GOTO ... 2 GOTO ... DEFAULT ...
@@ -714,10 +754,12 @@ contexts:
     - match: ((?i:\bDEFAULT\b))[ \t]*
       captures:
         1: keyword.control.default.s840d_gcode
-      set:
-        - meta_content_scope: meta.control.case.goto.s840d_gcode
-        - include: stmt-case-goto
-        - include: assert-line-end
+      set: stmt-case-default-body
+
+  stmt-case-default-body:
+    - meta_content_scope: meta.control.case.goto.s840d_gcode
+    - include: stmt-case-goto
+    - include: assert-line-end
 
   stmt-case-goto:
     - meta_content_scope: meta.control.case.goto.s840d_gcode
@@ -747,13 +789,15 @@ contexts:
   stmt-ctab:
     - match: (?i:CTABDEF)\b
       scope: keyword.control.ctabdef.s840d_gcode
-      set:
-        - meta_scope: meta.section.ctab.s840d_gcode meta.function-call.s840d_gcode
-        - match: \n|(?=;)
-          scope: meta.eol.s840d_gcode
-          set: stmt-ctab-body
-        - match: (?=\()
-          push: function-call-arguments
+      set: stmt-ctab-arguments
+
+  stmt-ctab-arguments:
+    - meta_scope: meta.section.ctab.s840d_gcode meta.function-call.s840d_gcode
+    - match: \n|(?=;)
+      scope: meta.eol.s840d_gcode
+      set: stmt-ctab-body
+    - match: (?=\()
+      push: function-call-arguments
 
   stmt-ctab-body:
     - meta_content_scope: meta.section.ctab.s840d_gcode
@@ -770,15 +814,17 @@ contexts:
   stmt-for:
     - match: (?i:FOR)\b
       scope: keyword.control.for.s840d_gcode
-      set:
-        - meta_scope: meta.section.for.s840d_gcode meta.control.for.s840d_gcode
-        - match: \n|(?=;)
-          scope: meta.eol.s840d_gcode
-          set: stmt-for-body
-        - match: (?i:TO)\b
-          scope: keyword.control.to.s840d_gcode
-        - include: expressions
-        - include: illegal
+      set: stmt-for-condition
+
+  stmt-for-condition:
+    - meta_scope: meta.section.for.s840d_gcode meta.control.for.s840d_gcode
+    - match: \n|(?=;)
+      scope: meta.eol.s840d_gcode
+      set: stmt-for-body
+    - match: (?i:TO)\b
+      scope: keyword.control.to.s840d_gcode
+    - include: expressions
+    - include: illegal
 
   stmt-for-body:
     - meta_content_scope: meta.section.for.s840d_gcode
@@ -795,9 +841,11 @@ contexts:
   stmt-gotos:
     - match: (?i:GOTOS)\b
       scope: keyword.control.gotos.s840d_gcode
-      set:
-        - meta_scope: meta.control.goto.s840d_gcode
-        - include: assert-line-end
+      set: stmt-gotos-body
+
+  stmt-gotos-body:
+    - meta_scope: meta.control.goto.s840d_gcode
+    - include: assert-line-end
 
   stmt-goto:
     - match: (?i:GOTO[FBC]?)\b
@@ -835,15 +883,17 @@ contexts:
   stmt-if:
     - match: (?i:IF)\b
       scope: keyword.control.if.s840d_gcode
-      set:
-        - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
-        - match: \n|(?=;)
-          scope: meta.eol.s840d_gcode
-          set: stmt-if-body
-        - match: (?=(?i:GOTO[FB]?\b))
-          set: stmt-goto
-        - include: expressions
-        - include: illegal
+      set: stmt-if-condition
+
+  stmt-if-condition:
+    - meta_scope: meta.section.if.s840d_gcode meta.control.if.s840d_gcode
+    - match: \n|(?=;)
+      scope: meta.eol.s840d_gcode
+      set: stmt-if-body
+    - match: (?=(?i:GOTO[FB]?\b))
+      set: stmt-goto
+    - include: expressions
+    - include: illegal
 
   stmt-if-body:
     - meta_content_scope: meta.section.if.s840d_gcode
@@ -1007,12 +1057,14 @@ contexts:
   stmt-loop:
     - match: (?i:LOOP)\b
       scope: keyword.control.loop.s840d_gcode
-      set:
-        - meta_scope: meta.section.loop.s840d_gcode
-        - match: \n|(?=;)
-          scope: meta.eol.s840d_gcode
-          set: stmt-loop-body
-        - include: illegal
+      set: stmt-loop-begin
+
+  stmt-loop-begin:
+    - meta_scope: meta.section.loop.s840d_gcode
+    - match: \n|(?=;)
+      scope: meta.eol.s840d_gcode
+      set: stmt-loop-body
+    - include: illegal
 
   stmt-loop-body:
     - meta_content_scope: meta.section.loop.s840d_gcode
@@ -1027,56 +1079,75 @@ contexts:
 ###############################################################################
 
   stmt-repeat:
+    - include: stmt-repeatb
+    - include: stmt-repeat-until
+    - include: stmt-repeat-begin-end
+
+  stmt-repeatb:
     # REPEATB <LBL> P=<count>
     - match: (?i:REPEATB)\b
       scope: keyword.control.repeatb.s840d_gcode
-      set:
-        - meta_scope: meta.control.repeatb.s840d_gcode
-        - match: \b({{label}})[ \t]*({{label}})?
-          captures:
-            1: entity.name.tag.repeat-label.s840d_gcode
-            2: invalid.illegal.tag.repeat-label.s840d_gcode
-          set:
-            - meta_content_scope: meta.control.repeatb.s840d_gcode
-            - include: iso-repeat-count
-            - include: expressions-line
-        - include: line-end-or-illegal
+      set: stmt-repeatb-label
 
-    # REPEAT ... UNTIL
-    - match: (?i:REPEAT)\b(?=[ \t]*(?:$|;))
-      scope: keyword.control.repeat.s840d_gcode
-      set:
-        - meta_scope: meta.section.repeat.s840d_gcode
-        - match: \n|(?=;)
-          scope: meta.eol.s840d_gcode
-          set: stmt-repeat-body
-        - include: illegal
+  stmt-repeatb-label:
+    - meta_scope: meta.control.repeatb.s840d_gcode
+    - match: \b({{label}})[ \t]*({{label}})?
+      captures:
+        1: entity.name.tag.repeat-label.s840d_gcode
+        2: invalid.illegal.tag.repeat-label.s840d_gcode
+      set: stmt-repeatb-count
+    - include: line-end-or-illegal
 
+  stmt-repeatb-count:
+    - meta_content_scope: meta.control.repeatb.s840d_gcode
+    - include: iso-repeat-count
+    - include: expressions-line
+
+  stmt-repeat-begin-end:
     # REPEAT <LBL_S> <LBL_E> P=<count>
     - match: (?i:REPEAT)\b
       scope: keyword.control.repeat.s840d_gcode
-      set:
-        - meta_scope: meta.control.repeat.s840d_gcode
-        # begin label and optional end label
-        - match: \b({{label}})[ \t]*({{label}})?
-          captures:
-            1: entity.name.tag.repeat-label.begin.s840d_gcode
-            2: entity.name.tag.repeat-label.end.s840d_gcode
-          set:
-            - meta_content_scope: meta.control.repeat.s840d_gcode
-            - include: iso-repeat-count
-            - include: expressions-line
-        - include: line-end-or-illegal
+      set: stmt-repeat-begin-end-label
 
-  stmt-repeat-body:
+  stmt-repeat-begin-end-label:
+    - meta_scope: meta.control.repeat.s840d_gcode
+    # begin label and optional end label
+    - match: \b({{label}})[ \t]*({{label}})?
+      captures:
+        1: entity.name.tag.repeat-label.begin.s840d_gcode
+        2: entity.name.tag.repeat-label.end.s840d_gcode
+      set: stmt-repeat-count
+    - include: line-end-or-illegal
+
+  stmt-repeat-count:
+    - meta_content_scope: meta.control.repeat.s840d_gcode
+    - include: iso-repeat-count
+    - include: expressions-line
+
+  stmt-repeat-until:
+    # REPEAT ... UNTIL
+    - match: (?i:REPEAT)\b(?=[ \t]*(?:$|;))
+      scope: keyword.control.repeat.s840d_gcode
+      set: stmt-repeat-until-begin
+
+  stmt-repeat-until-begin:
+    - meta_scope: meta.section.repeat.s840d_gcode
+    - match: \n|(?=;)
+      scope: meta.eol.s840d_gcode
+      set: stmt-repeat-until-body
+    - include: illegal
+
+  stmt-repeat-until-body:
     - meta_content_scope: meta.section.repeat.s840d_gcode
     - match: (?i:UNTIL)\b
       scope: keyword.control.until.s840d_gcode
-      set:
-        - meta_scope: meta.control.until.s840d_gcode
-        - meta_content_scope: meta.section.repeat.s840d_gcode
-        - include: expressions-line
+      set: stmt-repeat-until-condition
     - include: main-sublevel
+
+  stmt-repeat-until-condition:
+    - meta_scope: meta.control.until.s840d_gcode
+    - meta_content_scope: meta.section.repeat.s840d_gcode
+    - include: expressions-line
 
 ###############################################################################
 # RET / RETB
@@ -1107,30 +1178,36 @@ contexts:
   stmt-synact:
     - match: (?i:ID[S]?)\b
       scope: keyword.control.synact.identifier.s840d_gcode
-      set:
-        - meta_scope: meta.synact.s840d_gcode
-        - match: =(?=[\s\w])
-          scope: keyword.operator.assignment.s840d_gcode
-          set:
-            - meta_content_scope: meta.synact.s840d_gcode
-            - include: stmt-synact-condition
-            - include: expressions-line
-        - include: line-end-or-illegal
+      set: stmt-synact-id-assignment
     - include: stmt-synact-condition
+
+  stmt-synact-id-assignment:
+    - meta_scope: meta.synact.s840d_gcode
+    - match: =(?=[\s\w])
+      scope: keyword.operator.assignment.s840d_gcode
+      set: stmt-synact-id-value
+    - include: line-end-or-illegal
+
+  stmt-synact-id-value:
+    - meta_content_scope: meta.synact.s840d_gcode
+    - include: stmt-synact-condition
+    - include: expressions-line
 
   # condition
   stmt-synact-condition:
     - match: (?i:EVERY|FROM|WHEN|WHENEVER)\b
       scope: keyword.control.synact.condition.s840d_gcode
-      set:
-        - meta_content_scope: meta.synact.s840d_gcode
-        # assignments are illegal in this context
-        - match: =(?!=)
-          scope: invalid.illegal.s840d_gcode
-        - include: stmt-synact-operation
-        - include: iso-gcode
-        - include: expressions-line
+      set: stmt-synact-condition-body
     - include: stmt-synact-operation
+
+  stmt-synact-condition-body:
+    - meta_content_scope: meta.synact.s840d_gcode
+    # assignments are illegal in this context
+    - match: =(?!=)
+      scope: invalid.illegal.s840d_gcode
+    - include: stmt-synact-operation
+    - include: iso-gcode
+    - include: expressions-line
 
   # operation
   stmt-synact-operation:
@@ -1165,16 +1242,18 @@ contexts:
   stmt-while:
     - match: (?i:WHILE)\b
       scope: keyword.control.while.s840d_gcode
-      set:
-        - meta_scope: meta.section.while.s840d_gcode
-        - match: \n|(?=;)
-          scope: meta.eol.s840d_gcode
-          set: stmt-while-body
-        - include: expressions
-        - include: illegal
+      set: stmt-while-condition
+
+  stmt-while-condition:
+    - meta_scope: meta.section.while.condition.s840d_gcode
+    - match: \n|(?=;)
+      scope: meta.eol.s840d_gcode
+      set: stmt-while-body
+    - include: expressions
+    - include: illegal
 
   stmt-while-body:
-    - meta_content_scope: meta.section.while.s840d_gcode
+    - meta_content_scope: meta.section.while.body.s840d_gcode
     - match: (?i:ENDWHILE)\b
       scope: keyword.control.endwhile.s840d_gcode
       set: assert-line-end    # leave loop-body
@@ -1212,20 +1291,24 @@ contexts:
   comment-line:
     - match: ;
       scope: punctuation.definition.comment.begin.s840d_gcode
-      set:
-        - meta_scope: comment.line.s840d_gcode
-        - match: \n
-          scope: meta.eol.s840d_gcode
-          pop: true
+      set: comment-line-body
+
+  comment-line-body:
+    - meta_scope: comment.line.s840d_gcode
+    - match: \n
+      scope: meta.eol.s840d_gcode
+      pop: true
 
   comment-disabled:
     - match: /
       scope: punctuation.definition.comment.begin.s840d_gcode
-      push:
-        - meta_scope: comment.line.disabled.s840d_gcode
-        - match: \n
-          scope: meta.eol.s840d_gcode
-          pop: true
+      push: comment-disabled-body
+
+  comment-disabled-body:
+    - meta_scope: comment.line.disabled.s840d_gcode
+    - match: \n
+      scope: meta.eol.s840d_gcode
+      pop: true
 
   placeholder:
     # fields of auto-completion to be filled by user
@@ -1254,31 +1337,35 @@ contexts:
     - match: \d+\b
       scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
     # single quoted binary numbers
-    - match: '('')([Bb])'
+    - match: (')([Bb])
       captures:
         1: punctuation.definition.numeric.begin.s840d_gcode
         2: constant.numeric.base.s840d_gcode
-      push:
-        - meta_scope: meta.number.integer.binary.s840d_gcode
-        - meta_content_scope: constant.numeric.value.s840d_gcode
-        - match: '''|$'
-          scope: punctuation.definition.numeric.end.s840d_gcode
-          pop: true
-        - match: '[^01]'
-          scope: invalid.illegal.s840d_gcode
+      push: binary-number
     # single quoted hexadecimal numbers
-    - match: '('')([Hh])'
+    - match: (')([Hh])
       captures:
         1: punctuation.definition.numeric.begin.s840d_gcode
         2: constant.numeric.base.s840d_gcode
-      push:
-        - meta_scope: meta.number.integer.hexadecimal.s840d_gcode
-        - meta_content_scope: constant.numeric.value.s840d_gcode
-        - match: '''|$'
-          scope: punctuation.definition.numeric.end.s840d_gcode
-          pop: true
-        - match: \H
-          scope: invalid.illegal.s840d_gcode
+      push: hexadecimal-number
+
+  binary-number:
+    - meta_scope: meta.number.integer.binary.s840d_gcode
+    - meta_content_scope: constant.numeric.value.s840d_gcode
+    - match: \'|$
+      scope: punctuation.definition.numeric.end.s840d_gcode
+      pop: true
+    - match: '[^01]'
+      scope: invalid.illegal.s840d_gcode
+
+  hexadecimal-number:
+    - meta_scope: meta.number.integer.hexadecimal.s840d_gcode
+    - meta_content_scope: constant.numeric.value.s840d_gcode
+    - match: \'|$
+      scope: punctuation.definition.numeric.end.s840d_gcode
+      pop: true
+    - match: \H
+      scope: invalid.illegal.s840d_gcode
 
   decimals-pop:
     # decimal numbers
@@ -1301,26 +1388,29 @@ contexts:
   strings:
     - match: '"'
       scope: punctuation.definition.string.begin.s840d_gcode
-      push:
-        # double quoted strings with embedded highlighting
-        - meta_scope: string.quoted.double.s840d_gcode
-        # embedded double quotes
-        - match: \'"\'
-          scope: constant.character.escape.quoted.double.s840d_gcode
-        # embedded line feed
-        - match: '%[Nn]'
-          scope: constant.other.linefeed.s840d_gcode
-        # embedded sprint format parameter
-        - match: '%\d*\.*\d*[DdFfSsXx]?\b'
-          scope: constant.other.placeholder.s840d_gcode
-        # valid end of double quoted string
-        - match: '"'
-          scope: punctuation.definition.string.end.s840d_gcode
-          pop: true
-        # invalid end of double quoted string
-        - match: '[^"]$'
-          scope: invalid.illegal.s840d_gcode
-          pop: true
+      push: string-body
+
+  string-body:
+    - meta_include_prototype: false
+    # double quoted strings with embedded highlighting
+    - meta_scope: meta.string.s840d_gcode string.quoted.double.s840d_gcode
+    # embedded double quotes
+    - match: \'"\'
+      scope: constant.character.escape.quoted.double.s840d_gcode
+    # embedded line feed
+    - match: '%[Nn]'
+      scope: constant.other.linefeed.s840d_gcode
+    # embedded sprint format parameter
+    - match: '%\d*\.*\d*[DdFfSsXx]?\b'
+      scope: constant.other.placeholder.s840d_gcode
+    # valid end of double quoted string
+    - match: '"'
+      scope: punctuation.definition.string.end.s840d_gcode
+      pop: true
+    # invalid end of double quoted string
+    - match: '\n'
+      scope: invalid.illegal.s840d_gcode
+      pop: true
 
   axis-constants:
     - match: (?i:NO_AXIS)\b
@@ -1405,20 +1495,22 @@ contexts:
   storage-modifier-access:
     - match: (?i:AP[RWX][BP]?)\b
       scope: storage.modifier.access.s840d_gcode
-      push:
-        - meta_scope: meta.definition.access.s840d_gcode
-        # allowed access levels are 0..7
-        - match: \d+\b
-          scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
-          pop: true
-        # macro defined value
-        - match: '{{macro}}'
-          scope: variable.other.s840d_gcode
-          pop: true
-        - include: illegal-pop
+      push: storage-modifier-access-value
     # data class S828D
     - match: (?i:DC[IMU])\b
       scope: meta.definition.access.s840d_gcode storage.modifier.access.s840d_gcode
+
+  storage-modifier-access-value:
+    - meta_scope: meta.definition.access.s840d_gcode
+    # allowed access levels are 0..7
+    - match: \d+\b
+      scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
+      pop: true
+    # macro defined value
+    - match: '{{macro}}'
+      scope: variable.other.s840d_gcode
+      pop: true
+    - include: illegal-pop
 
   storage-modifier-init:
     - match: (?i:INI(?:CF|RE|PO)|PRLOC)\b
@@ -1427,15 +1519,17 @@ contexts:
   storage-modifier-limits:
     - match: (?i:[LU]LI)\b
       scope: storage.modifier.limit.s840d_gcode
-      push:
-        - meta_scope: meta.definition.limit.s840d_gcode
-        # decimal numbers allowed here
-        - include: decimals-pop
-        # macro defined value
-        - match: '{{macro}}'
-          scope: variable.other.s840d_gcode
-          pop: true
-        - include: illegal-pop
+      push: storage-modifier-limit-value
+
+  storage-modifier-limit-value:
+    - meta_scope: meta.definition.limit.s840d_gcode
+    # decimal numbers allowed here
+    - include: decimals-pop
+    # macro defined value
+    - match: '{{macro}}'
+      scope: variable.other.s840d_gcode
+      pop: true
+    - include: illegal-pop
 
   storage-modifier-sync:
     - match: (?i:SYN(?:[RW]|RW))\b
@@ -1444,17 +1538,19 @@ contexts:
   storage-modifier-unit:
     - match: (?i:PHU)\b
       scope: storage.modifier.unit.s840d_gcode
-      push:
-        - meta_scope: meta.definition.unit.s840d_gcode
-        # allowed units are 0...156
-        - match: \b(?:1(?:[0-4][0-9]|5[0-6])|\d{1,2})\b
-          scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
-          pop: true
-        # macro defined value
-        - match: '{{macro}}'
-          scope: variable.other.s840d_gcode
-          pop: true
-        - include: illegal-pop
+      push: storage-modifier-unit-value
+
+  storage-modifier-unit-value:
+    - meta_scope: meta.definition.unit.s840d_gcode
+    # allowed units are 0...156
+    - match: \b(?:1(?:[0-4][0-9]|5[0-6])|\d{1,2})\b
+      scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
+      pop: true
+    # macro defined value
+    - match: '{{macro}}'
+      scope: variable.other.s840d_gcode
+      pop: true
+    - include: illegal-pop
 
 ###############################################################################
 # SINUMERIK storage types
@@ -1467,23 +1563,27 @@ contexts:
   storage-types:
     - match: (?i:AXIS|BOOL|FRAME|INT|REAL|CHAR)\b
       scope: storage.type.s840d_gcode
-
     - match: (?i:STRING)\b
       scope: storage.type.string.s840d_gcode
-      push:
-        - match: \[
-          scope: punctuation.definition.string-size.begin.s840d_gcode
-          set:
-            - meta_scope: storage.type.string.s840d_gcode
-            - meta_content_scope: meta.string-size.s840d_gcode
-            - match: \]
-              scope: punctuation.definition.string-size.end.s840d_gcode
-              pop: true
-            - match: \d+\b
-              scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
-            - match: '{{macro}}'
-              scope: variable.other.s840d_gcode
-        - include: scope-end
+      push: storage-type-string-size
+
+  storage-type-string-size:
+    - meta_include_prototype: false
+    - match: \[
+      scope: punctuation.definition.string-size.begin.s840d_gcode
+      set: storage-type-string-size-body
+    - include: scope-end
+
+  storage-type-string-size-body:
+    - meta_scope: storage.type.string.s840d_gcode
+    - meta_content_scope: meta.string-size.s840d_gcode
+    - match: \]
+      scope: punctuation.definition.string-size.end.s840d_gcode
+      pop: true
+    - match: \d+\b
+      scope: meta.number.integer.decimal.s840d_gcode constant.numeric.value.s840d_gcode
+    - match: '{{macro}}'
+      scope: variable.other.s840d_gcode
 
 ###############################################################################
 # FUNCTION CALL
@@ -1635,14 +1735,16 @@ contexts:
   array-dimension:
     - match: \[
       scope: punctuation.section.brackets.begin.s840d_gcode
-      push:
-        - meta_scope: meta.brackets.s840d_gcode
-        - match: \]
-          scope: punctuation.section.brackets.end.s840d_gcode
-          set: illegal-brackets-pop
-        - include: seperator-comma-minus
-        - include: expressions-line
+      push: array-dimension-body
     - include: scope-end
+
+  array-dimension-body:
+    - meta_scope: meta.brackets.s840d_gcode
+    - match: \]
+      scope: punctuation.section.brackets.end.s840d_gcode
+      set: illegal-brackets-pop
+    - include: seperator-comma-minus
+    - include: expressions-line
 
 ###############################################################################
 # ARRAY INDEX
@@ -1672,17 +1774,21 @@ contexts:
 
   ignore-parens:
     - match: \(
-      push:
-        - match: \)|$
-          pop: true
-        - include: ignore-parens
+      push: ignore-parens-body
+
+  ignore-parens-body:
+    - match: \)|$
+      pop: true
+    - include: ignore-parens
 
   ignore-square:
     - match: \[
-      push:
-        - match: \]|$
-          pop: true
-        - include: ignore-square
+      push: ignore-square-body
+
+  ignore-square-body:
+    - match: \]|$
+      pop: true
+    - include: ignore-square
 
 ###############################################################################
 # ILLEAGAL
@@ -1714,19 +1820,23 @@ contexts:
 
   illegal-paren:
     - match: \(
-      push:
-        - meta_scope: invalid.illegal.group.s840d_gcode
-        - match: \)|$
-          pop: true
-        - include: ignore-parens
+      push: illegal-paren-body
+
+  illegal-paren-body:
+    - meta_scope: invalid.illegal.group.s840d_gcode
+    - match: \)|$
+      pop: true
+    - include: ignore-parens
 
   illegal-square:
     - match: \[
-      push:
-        - meta_scope: invalid.illegal.array.s840d_gcode
-        - match: \]|$
-          pop: true
-        - include: ignore-square
+      push: illegal-square-body
+
+  illegal-square-body:
+    - meta_scope: invalid.illegal.array.s840d_gcode
+    - match: \]|$
+      pop: true
+    - include: ignore-square
 
   illegal-keywords:
     # If one of the following keywords has not yet been handled by any
