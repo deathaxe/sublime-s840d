@@ -120,6 +120,21 @@ VAR CONSTANT
 //                      ^^ keyword.operator.assignment.plc
 //                         ^^^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                            ^ punctuation.terminator.statement.plc
+    T1s : LInt := LINT#1000_000_000;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
+//  ^^^^^ meta.definition.variable.plc
+//       ^^^^^^ meta.definition.variable.storage.plc
+//             ^^ meta.definition.variable.plc
+//               ^^^^^^^^^^^^^^^^^^ meta.definition.variable.value.plc
+//  ^^^ variable.other.local.plc
+//      ^ punctuation.separator.type.plc
+//        ^^^^ storage.type.integer.plc
+//             ^^ keyword.operator.assignment.plc
+//                ^^^^^^^^^^^^^^^^^ meta.number.integer.decimal.plc
+//                ^^^^ storage.type.integer.plc
+//                    ^ punctuation.separator.type.plc
+//                     ^^^^^^^^^^^^ constant.numeric.value.plc
+//                                 ^ punctuation.terminator.statement.plc
 END_VAR
 // <- meta.block.fb.header.plc meta.block.var.constant.plc keyword.declaration.var.end.plc
 //^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc keyword.declaration.var.end.plc
@@ -282,7 +297,7 @@ end_region
 
     goto label;
 //  ^^^^ keyword.control.flow.goto.plc
-//       ^^^^^ variable.label.scl
+//       ^^^^^ variable.label.plc
 //            ^ punctuation.terminator.statement.plc
 
 /// REPEAT..UNTIL /////////////////////////////////////////////////////////////

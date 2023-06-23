@@ -32,7 +32,8 @@ version: 2
 variables:
   accessor: \.(?!%)
 
-  int: \d+\b(?![.][^.])
+  int: '\d{{digit}}*\b(?![.][^.])'
+  digit: '[\d_]'
 
   ident: '[[:alpha:]_][[:alnum:]_]*\b'
   quoted_ident: (\")[^"]*(\")
@@ -893,7 +894,7 @@ contexts:
         4: constant.numeric.value.plc
 
   literals-float:
-    - match: ([-+]?)(\d+(\.)\d+(?:[Ee][-+]\d+)?)\b
+    - match: ([-+]?)(\d{{digit}}*(\.){{digit}}+(?:[Ee][-+]{{digit}}+)?)\b
       scope: meta.number.float.decimal.plc
       captures:
         1: keyword.operator.arithmetic.plc
