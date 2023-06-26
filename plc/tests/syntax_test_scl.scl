@@ -843,6 +843,26 @@ end_region
 //                    ^ punctuation.terminator.statement.plc
 //                     ^ - invalid
 
+    DT#1970-01-01-00:00:00
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.number.date-and-time.plc
+//  ^^ storage.type.time.plc
+//    ^ punctuation.separator.type.plc
+//     ^^^^^^^^^^^^^^^^^^^ constant.numeric.value.plc
+//         ^ punctuation.separator.date.plc
+//            ^ punctuation.separator.date.plc
+//                  ^ punctuation.separator.time.plc
+//                     ^ punctuation.separator.time.plc
+
+    LDT#1970-01-01-00:00:00
+//  ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date-and-time.plc
+//  ^^^ storage.type.time.plc
+//     ^ punctuation.separator.type.plc
+//      ^^^^^^^^^^^^^^^^^^^ constant.numeric.value.plc
+//          ^ punctuation.separator.date.plc
+//             ^ punctuation.separator.date.plc
+//                   ^ punctuation.separator.time.plc
+//                      ^ punctuation.separator.time.plc
+
 /// CHARACTERS ////////////////////////////////////////////////////////////////
 
     'A'
