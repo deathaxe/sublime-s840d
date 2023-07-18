@@ -283,7 +283,10 @@ contexts:
 
   function-call-arguments-body:
     - meta_scope: meta.function-call.arguments.plc
-    - include: group-end
+    - match: \)
+      scope: punctuation.section.group.end.plc
+      pop: 1
+    - include: scl-expression-end
     - match: ({{ident}})\s*([:?]=|=>)
       captures:
         1: variable.parameter.plc

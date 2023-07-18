@@ -396,7 +396,7 @@ end_region
 //            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //             ^ punctuation.section.brackets.end.plc
 //              ^ punctuation.section.group.begin.plc
-        execute := "globDB".anyFun[10] (IN := #var + 1)
+        execute := "globDB".anyFun[10] (IN := #var + 1),
 //     ^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc - meta.function-call meta.function-call
 //                          ^^^^^^^^^^^ meta.function-call.identifier.plc
 //                                     ^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc meta.function-call.arguments.plc - meta.path
@@ -413,6 +413,11 @@ end_region
 //                                      ^^ variable.parameter.plc
 //                                         ^^ keyword.operator.assignment.plc
 //                                            ^^^^ variable.other.local.plc
+        type := 5
+//     ^^^^^^^^^^^ meta.block.fb.body.plc meta.function-call.arguments.plc
+//      ^^^^ variable.parameter.plc
+//           ^^ keyword.operator.assignment.plc
+//              ^ meta.number.integer.decimal.plc constant.numeric.value.plc
     );
 //^^^ meta.function-call.arguments.plc
 //   ^ - meta.function-call
