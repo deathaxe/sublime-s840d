@@ -50,11 +50,12 @@ variables:
   prefix_hexadecimal: (?i:B(?:yte)?|D?W(?:ord)?)
 
   # date and time storage type prefixes
-  prefix_date: (?i:D(?:ATE)?)
-  prefix_date_and_time: (?i:DT|DATE_AND_TIME)
+  prefix_date: (?i:L?D(?:ATE)?)
+  prefix_date_and_time: (?i:L?(?:DT|DATE_AND_TIME))
   prefix_s5time: (?i:S5T(?:IME)?)
   prefix_time: (?i:T(?:IME)?)
-  prefix_time_of_day: (?i:TOD|TIME_OF_DAY)
+  prefix_ltime: (?i:LT(?:IME)?)
+  prefix_time_of_day: (?i:L?(?:TOD|TIME_OF_DAY))
 
 ###############################################################################
 # MAIN CONTEXT
@@ -965,15 +966,37 @@ contexts:
 ###[ IEC TIME ]################################################################
 
   literals-iectime:
-    # T#24D_23H_59M_59S_999MS
-    # TIME#24D_23H_59M_59S_999MS
-    - match: ({{prefix_time}})(#)
+    # T#106751D_23H_47M_16S_854MS_775US_807NS
+    # TIME#106751D_23H_47M_16S_854MS_775US_807NS
+    - match: ({{prefix_ltime}})(#)([-+]?)
       captures:
         1: storage.type.time.plc
         2: punctuation.separator.type.plc
+        3: constant.numeric.value.plc keyword.operator.arithmetic.plc
       push:
         - literals-iectime-meta
+        - literals-time-nanosecond
         - literals-time-sep
+        - literals-time-microsecond
+        - literals-time-sep
+        - literals-time-millisecond
+        - literals-time-sep
+        - literals-ltime-second
+        - literals-time-sep
+        - literals-time-minute
+        - literals-time-sep
+        - literals-time-hour
+        - literals-time-sep
+        - literals-ltime-day
+    # T#24D_23H_59M_59S_999MS
+    # TIME#24D_23H_59M_59S_999MS
+    - match: ({{prefix_time}})(#)([-+]?)
+      captures:
+        1: storage.type.time.plc
+        2: punctuation.separator.type.plc
+        3: constant.numeric.value.plc keyword.operator.arithmetic.plc
+      push:
+        - literals-iectime-meta
         - literals-time-millisecond
         - literals-time-sep
         - literals-time-second
@@ -985,10 +1008,21 @@ contexts:
         - literals-time-day
 
   literals-iectime-meta:
+    - meta_include_prototype: false
     - meta_scope: meta.number.time.iec.plc
     - include: immediately-pop
 
 ###[ TIME PROTOTYPES ]#########################################################
+
+  literals-ltime-day:
+    - match: (10(?:6(?:7(?:5[01]|[0-4]\d)|[0-6]\d{2})|[0-5]\d{3})|\d{0,5})([Dd])
+      captures:
+        1: constant.numeric.value.day.plc
+        2: constant.numeric.suffix.day.plc
+      pop: 1
+    - match: (?:\d+[Dd](?![[:alpha:]]))?
+      scope: invalid.illegal.time.day.plc
+      pop: 1
 
   literals-time-day:
     - match: ([01]?[0-9]|2[0-4])([Dd])
@@ -996,7 +1030,7 @@ contexts:
         1: constant.numeric.value.day.plc
         2: constant.numeric.suffix.day.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:[Dd]|(?=_)))?
+    - match: (?:\d+[Dd](?![[:alpha:]]))?
       scope: invalid.illegal.time.day.plc
       pop: 1
 
@@ -1030,6 +1064,16 @@ contexts:
       scope: invalid.illegal.time.second.plc
       pop: 1
 
+  literals-ltime-second:
+    - match: ([0-5]?\d)([Ss])
+      captures:
+        1: constant.numeric.value.second.plc
+        2: constant.numeric.suffix.second.plc
+      pop: 1
+    - match: (?:\w+?(?i:[^MNU]S|(?=_)))?
+      scope: invalid.illegal.time.second.plc
+      pop: 1
+
   literals-time-millisecond:
     - match: (\d{0,3})((?i:MS))
       captures:
@@ -1038,6 +1082,26 @@ contexts:
       pop: 1
     - match: (?:\w+?(?i:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.plc
+      pop: 1
+
+  literals-time-microsecond:
+    - match: (\d{0,3})((?i:US))
+      captures:
+        1: constant.numeric.value.microsecond.plc
+        2: constant.numeric.suffix.microsecond.plc
+      pop: 1
+    - match: (?:\w+?(?i:US|(?=_)))?
+      scope: invalid.illegal.time.microsecond.plc
+      pop: 1
+
+  literals-time-nanosecond:
+    - match: (\d{0,3})((?i:NS))
+      captures:
+        1: constant.numeric.value.nanosecond.plc
+        2: constant.numeric.suffix.nanosecond.plc
+      pop: 1
+    - match: (?:\w+?(?i:NS|(?=_)))?
+      scope: invalid.illegal.time.nanosecond.plc
       pop: 1
 
   literals-time-sep:
