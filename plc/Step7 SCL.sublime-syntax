@@ -142,16 +142,18 @@ contexts:
 ###[ REGIONS ]#################################################################
 
   scl-regions:
-    - match: \b((?i:region))(?:\s+(.*?)?\s+)?$
+    - match: \b((?i:region))(?:\s+(.*?))?(\s+$\n?)
       scope: meta.block.region.begin.plc
       captures:
         1: keyword.context.block.region.begin.plc
         2: entity.name.section.plc
-    - match: \b((?i:end_region))(?:\s+(.*)\s+)?$
+        3: meta.fold.begin.plc  # used as fold begin marker
+    - match: \b((?i:end_region))(?:\s+(.*?))?(\s+$\n?)
       scope: meta.block.region.end.plc
       captures:
         1: keyword.context.block.region.end.plc
         2: entity.name.section.plc
+        3: meta.fold.end.plc  # used as fold end marker
 
 ###[ CONTROL ]#################################################################
 
