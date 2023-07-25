@@ -15,6 +15,23 @@ FUNCTION_BLOCK MyFunc
 //                                                        ^ punctuation.terminator.statement.plc
 //                                                          ^ punctuation.definition.annotation.end.plc
 
+VAR_IN_OUT
+    items : Array[*] of "typeItem";
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.in-out.plc
+//  ^^^^^^^ meta.definition.variable.plc
+//         ^ meta.definition.variable.storage.plc - meta.sequence
+//          ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.sequence.array.plc
+//  ^^^^^ variable.other.local.plc
+//        ^ punctuation.separator.type.plc
+//          ^^^^^ storage.type.array.plc
+//               ^^^ meta.array-size.plc
+//               ^ punctuation.definition.array.begin.plc
+//                ^ constant.other.wildcard.asterisk.plc
+//                 ^ punctuation.definition.array.end.plc
+//                   ^^ keyword.control.of.plc
+//                      ^^^^^^^^^^ storage.type.other.plc
+END_VAR
+
 VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.stat.begin.plc
 //^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.stat.begin.plc

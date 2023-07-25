@@ -669,6 +669,8 @@ contexts:
     - match: \]
       scope: punctuation.definition.array.end.plc
       set: storage-type-array-item
+    - match: \*
+      scope: constant.other.wildcard.asterisk.plc
     - include: operators-range
     - include: operands-symbols
     - include: literals-uint16
