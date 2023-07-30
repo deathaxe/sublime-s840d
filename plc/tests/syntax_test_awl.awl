@@ -2357,6 +2357,15 @@
 //                    ^^^^^ variable.other.local
 //                    ^ punctuation.definition.variable
 //                         ^ punctuation.separator.sequence
+           "quoted:=arg" := 'value',
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^^^^^^ variable.parameter.plc
+//         ^ punctuation.definition.variable.begin.plc
+//                     ^ punctuation.definition.variable.end.plc
+//                       ^^ keyword.operator.assignment.plc
+//                          ^^^^^^^ meta.string.plc string.quoted.single.plc
+
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments

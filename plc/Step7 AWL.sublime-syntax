@@ -398,6 +398,11 @@ contexts:
       push: awl-arguments-value
     - match: ','
       scope: punctuation.separator.sequence.plc
+    - match: '{{quoted_ident}}'
+      scope: variable.parameter.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
     - match: '{{ident}}'
       scope: variable.parameter.plc
 

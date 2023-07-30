@@ -428,11 +428,19 @@ end_region
 //                                      ^^ variable.parameter.plc
 //                                         ^^ keyword.operator.assignment.plc
 //                                            ^^^^ variable.other.local.plc
-        type := 5
+        type := 5,
 //     ^^^^^^^^^^^ meta.block.fb.body.plc meta.function-call.arguments.plc
 //      ^^^^ variable.parameter.plc
 //           ^^ keyword.operator.assignment.plc
 //              ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+
+        "quoted:=arg" := 'value'
+//     ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.body.plc meta.function-call.arguments.plc
+//      ^^^^^^^^^^^^^ variable.parameter.plc
+//      ^ punctuation.definition.variable.begin.plc
+//                  ^ punctuation.definition.variable.end.plc
+//                    ^^ keyword.operator.assignment.plc
+//                       ^^^^^^^ meta.string.plc string.quoted.single.plc
     );
 //^^^ meta.function-call.arguments.plc
 //   ^ - meta.function-call

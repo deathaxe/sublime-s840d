@@ -281,10 +281,13 @@ contexts:
       scope: punctuation.section.group.end.plc
       pop: 1
     - include: scl-expression-end
-    - match: ({{ident}})\s*([:?]=|=>)
+    - match: (?:({{quoted_ident}})|({{ident}}))\s*([:?]=|=>)
       captures:
         1: variable.parameter.plc
-        2: keyword.operator.assignment.plc
+        2: punctuation.definition.variable.begin.plc
+        3: punctuation.definition.variable.end.plc
+        4: variable.parameter.plc
+        5: keyword.operator.assignment.plc
     - include: scl-expressions
 
 ###[ GROUPS ]##################################################################
