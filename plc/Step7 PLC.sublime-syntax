@@ -760,12 +760,12 @@ contexts:
   storage-type-user:
     # user defined types (UDT, DB, FB)
     - match: '{{quoted_ident}}'
-      scope: storage.type.other.plc
+      scope: support.type.plc
       captures:
         1: punctuation.definition.type.begin.plc
         2: punctuation.definition.type.end.plc
     - match: '{{ident}}'
-      scope: storage.type.other.plc
+      scope: support.type.plc
 
 ###############################################################################
 # LITERALS                                                                    #
