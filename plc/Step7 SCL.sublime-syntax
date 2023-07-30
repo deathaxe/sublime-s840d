@@ -35,6 +35,9 @@ file_extensions:
 
 variables:
 
+  reserved: |-
+    (?xi: true | false | {{control_keywords}} )
+
   control_keywords: |-
     (?xi:
       (?: end_ )? (?: case | if | for | region | while ) | by | continue | do
@@ -51,12 +54,6 @@ variables:
   prefix_decimal: '{{prefix_numeric}}'
   prefix_hexadecimal: '{{prefix_numeric}}'
   prefix_numeric: (?i:B(?:yte)?|[DL]?W(?:ord)?|L|U?[DLS]?Int)
-
-  # date and time storage type prefixes
-  prefix_date: (?i:L?D(?:ATE)?)
-  prefix_date_and_time: (?i:L?DT|L?DATE_AND_TIME)
-  prefix_time: (?i:L?T(?:IME)?)
-  prefix_time_of_day: (?i:L?TOD|L?TIME_OF_DAY)
 
 contexts:
 
@@ -106,10 +103,8 @@ contexts:
 ###[ VAR_CONSTANT ]############################################################
 
   var-constant:
-    - match: \b(VAR)\s+(CONSTANT)\b
-      captures:
-        1: keyword.declaration.var.constant.begin.plc
-        2: storage.modifier.interface.plc
+    - match: \b(?i:VAR\s+CONSTANT)\b
+      scope: keyword.declaration.var.constant.begin.plc
       push: [var-constant-body, assert-line-end]
 
   var-constant-body:
@@ -118,12 +113,14 @@ contexts:
     - match: '{{constants}}'
       scope: entity.name.constant.plc
       push: variable-separator-name-storage
+    - include: variable-declarations
 
 ###[ STATEMENTS ]##############################################################
 
   scl-statements:
     - include: scl-regions
     - include: scl-stmt-case
+    - include: scl-stmt-label
     - include: scl-stmt-repeat
     - include: scl-control
     - include: scl-expressions
@@ -145,16 +142,18 @@ contexts:
 ###[ REGIONS ]#################################################################
 
   scl-regions:
-    - match: \b((?i:region))(?:\s+(.*?)?\s+)?$
+    - match: \b((?i:region))(?:\s+(.*?))?(\s+$\n?)
       scope: meta.block.region.begin.plc
       captures:
         1: keyword.context.block.region.begin.plc
         2: entity.name.section.plc
-    - match: \b((?i:end_region))(?:\s+(.*)\s+)?$
+        3: meta.fold.begin.plc  # used as fold begin marker
+    - match: \b((?i:end_region))(?:\s+(.*?))?(\s+$\n?)
       scope: meta.block.region.end.plc
       captures:
         1: keyword.context.block.region.end.plc
         2: entity.name.section.plc
+        3: meta.fold.end.plc  # used as fold end marker
 
 ###[ CONTROL ]#################################################################
 
@@ -183,8 +182,25 @@ contexts:
       scope: keyword.control.flow.continue.plc
     - match: \b(?i:exit)\b
       scope: keyword.control.flow.break.plc
+    - match: \b(?i:goto)\b
+      scope: keyword.control.flow.goto.plc
+      push: goto-label
     - match: \b(?i:return)\b
       scope: keyword.control.flow.return.plc
+
+  goto-label:
+    - match: (?!{{reserved}}){{ident}}
+      scope: variable.label.plc
+      pop: 1
+    - include: else-pop
+
+###[ LABELS ]##################################################################
+
+  scl-stmt-label:
+    - match: ^\s*((?!{{reserved}}){{ident}})(:)
+      captures:
+        1: entity.name.label.plc
+        2: punctuation.terminator.label.plc
 
 ###[ CASE..OF..ELSE..END_CASE ]################################################
 
@@ -261,11 +277,17 @@ contexts:
 
   function-call-arguments-body:
     - meta_scope: meta.function-call.arguments.plc
-    - include: group-end
-    - match: ({{ident}})\s*([:?]=|=>)
+    - match: \)
+      scope: punctuation.section.group.end.plc
+      pop: 1
+    - include: scl-expression-end
+    - match: (?:({{quoted_ident}})|({{ident}}))\s*([:?]=|=>)
       captures:
         1: variable.parameter.plc
-        2: keyword.operator.assignment.plc
+        2: punctuation.definition.variable.begin.plc
+        3: punctuation.definition.variable.end.plc
+        4: variable.parameter.plc
+        5: keyword.operator.assignment.plc
     - include: scl-expressions
 
 ###[ GROUPS ]##################################################################

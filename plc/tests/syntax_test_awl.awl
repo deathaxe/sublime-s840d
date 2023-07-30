@@ -15,6 +15,13 @@
 //     ^ punctuation.definition.variable.begin
 //     ^^^^^^^^^^^^^^ entity.name.type
 //                  ^ punctuation.definition.variable.end
+  TITLE = Type Title
+//^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//^^^^^^^ meta.mapping.key.plc
+//       ^^^^^^^^^^^ meta.mapping.value.plc
+//^^^^^ entity.other.attribute-name.title.plc
+//      ^ punctuation.separator.key-value.title.plc
+//        ^^^^^^^^^^ entity.name.section.plc
    { S7_language := '7(1) Deutsch (Deutschland)  19.01.2014  10:33:55' }
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header meta.annotation
 // ^ punctuation.definition.annotation.begin
@@ -178,12 +185,17 @@
 //         ^ invalid.illegal
 //           ^^^^^^^ invalid.illegal
 
+   NCK_TypeName
+//<- meta.block.db.header
+// ^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^^^^^^ support.type.plc
+
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ punctuation.definition.variable.begin
-// ^^^^^^^^^^^^^^ variable.other.global
-//              ^ punctuation.definition.variable.end
+// ^ punctuation.definition.type.begin
+// ^^^^^^^^^^^^^^ support.type.plc
+//              ^ punctuation.definition.type.end
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body
@@ -259,6 +271,52 @@
 //<- meta.block.db.body
 //^^^^^^^^^^^^^^^ meta.block.db.body
 // ^^^^^^^^^^^^^^ keyword.declaration.db.end
+
+DATA_BLOCK "ClassicDB"
+   STRUCT
+// ^^^^^^ storage.type.struct.begin.plc
+      variable : Array[1..5] of "typeVar";
+//    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header.plc meta.struct.plc
+//               ^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//    ^^^^^^^^ variable.other.local.plc
+//             ^ punctuation.separator.type.plc
+//               ^^^^^ storage.type.array.plc
+//                           ^^ keyword.control.of.plc
+//                              ^^^^^^^^^ support.type.plc
+//                                       ^ punctuation.terminator.statement.plc
+   END_STRUCT
+// ^^^^^^^^^^ storage.type.struct.end.plc
+
+BEGIN
+// <- meta.block.db.body.plc keyword.other.begin.plc
+//^^^ meta.block.db.body.plc keyword.other.begin.plc
+
+END_DATA_BLOCK
+// <- meta.block.db.body.plc keyword.declaration.db.end.plc
+//^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
+
+DATA_BLOCK "TiaDB"
+   VAR
+// ^^^ keyword.declaration.var.stat.begin.plc
+      variable : Array[1..5] of "typeVar";
+//    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header.plc meta.block.var.stat.plc
+//               ^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//    ^^^^^^^^ variable.other.local.plc
+//             ^ punctuation.separator.type.plc
+//               ^^^^^ storage.type.array.plc
+//                           ^^ keyword.control.of.plc
+//                              ^^^^^^^^^ support.type.plc
+//                                       ^ punctuation.terminator.statement.plc
+   END_VAR
+// ^^^^^^^ keyword.declaration.var.end.plc
+
+BEGIN
+// <- meta.block.db.body.plc keyword.other.begin.plc
+//^^^ meta.block.db.body.plc keyword.other.begin.plc
+
+END_DATA_BLOCK
+// <- meta.block.db.body.plc keyword.declaration.db.end.plc
+//^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
 
 ///////////////////////////////////////////////////////////////////////////////
 // functions                                                                 //
@@ -461,7 +519,7 @@
 //                    ^^^^^^ meta.definition.variable.storage meta.definition.variable.value
 //     ^^ variable.other
 //          ^ punctuation.separator.type
-//            ^^^^^ storage.type.other
+//            ^^^^^ support.type
 //                  ^^ keyword.operator.assignment
 //                     ^^^^ meta.number.float.decimal
 //                     ^ keyword.operator.arithmetic
@@ -1827,7 +1885,8 @@
 //             ^ constant.numeric.value.hour
 //              ^ constant.numeric.suffix
 //               ^ punctuation.separator.time
-//                ^^^ invalid.illegal.time
+//                ^^ constant.numeric.value.minute.plc
+//                  ^ constant.numeric.suffix.minute.plc
 //                   ^ punctuation.separator.time
 //                    ^^ constant.numeric.value.second
 //                      ^ constant.numeric.suffix
@@ -1933,7 +1992,8 @@
 //               ^^ constant.numeric.value.hour
 //                 ^ constant.numeric.suffix
 //                  ^ punctuation.separator.time
-//                   ^^^ invalid.illegal.time.minute
+//                   ^^ constant.numeric.value.minute.plc
+//                     ^ constant.numeric.suffix.minute.plc
 //                      ^ punctuation.separator.time
 //                       ^^ constant.numeric.value.second
 //                         ^ constant.numeric.suffix
@@ -1955,7 +2015,8 @@
 //               ^^ constant.numeric.value.hour
 //                 ^ constant.numeric.suffix
 //                  ^ punctuation.separator.time
-//                   ^^^ invalid.illegal.time.minute
+//                   ^^ constant.numeric.value.minute.plc
+//                     ^ constant.numeric.suffix.minute.plc
 //                      ^ punctuation.separator.time
 //                       ^^ constant.numeric.value.second
 //                         ^ constant.numeric.suffix
@@ -1987,6 +2048,161 @@
 //                                ^ - invalid
 //                                 ^ punctuation.terminator.statement
 //                                  ^ - invalid
+
+      L    LT#999ns LT#-999ns LT#+999ns
+//         ^^^^^^^^ meta.number.time.iec.plc
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^^^ constant.numeric.value.nanosecond.plc
+//               ^^ constant.numeric.suffix.nanosecond.plc
+//                  ^^^^^^^^^ meta.number.time.iec.plc
+//                  ^^ storage.type.time.plc
+//                    ^ punctuation.separator.type.plc
+//                     ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//                      ^^^ constant.numeric.value.nanosecond.plc
+//                         ^^ constant.numeric.suffix.nanosecond.plc
+//                            ^^^^^^^^^ meta.number.time.iec.plc
+//                            ^^ storage.type.time.plc
+//                              ^ punctuation.separator.type.plc
+//                               ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//                                ^^^ constant.numeric.value.nanosecond.plc
+//                                   ^^ constant.numeric.suffix.nanosecond.plc
+
+      L    LT#999us LT#-999us LT#+999us
+//         ^^^^^^^^ meta.number.time.iec.plc
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^^^ constant.numeric.value.microsecond.plc
+//               ^^ constant.numeric.suffix.microsecond.plc
+//                  ^^^^^^^^^ meta.number.time.iec.plc
+//                  ^^ storage.type.time.plc
+//                    ^ punctuation.separator.type.plc
+//                     ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//                      ^^^ constant.numeric.value.microsecond.plc
+//                         ^^ constant.numeric.suffix.microsecond.plc
+//                            ^^^^^^^^^ meta.number.time.iec.plc
+//                            ^^ storage.type.time.plc
+//                              ^ punctuation.separator.type.plc
+//                               ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//                                ^^^ constant.numeric.value.microsecond.plc
+//                                   ^^ constant.numeric.suffix.microsecond.plc
+
+      L    LT#999ms LT#-999ms LT#+999ms
+//         ^^^^^^^^ meta.number.time.iec.plc
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^^^ constant.numeric.value.millisecond.plc
+//               ^^ constant.numeric.suffix.millisecond.plc
+//                  ^^^^^^^^^ meta.number.time.iec.plc
+//                  ^^ storage.type.time.plc
+//                    ^ punctuation.separator.type.plc
+//                     ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//                      ^^^ constant.numeric.value.millisecond.plc
+//                         ^^ constant.numeric.suffix.millisecond.plc
+//                            ^^^^^^^^^ meta.number.time.iec.plc
+//                            ^^ storage.type.time.plc
+//                              ^ punctuation.separator.type.plc
+//                               ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//                                ^^^ constant.numeric.value.millisecond.plc
+//                                   ^^ constant.numeric.suffix.millisecond.plc
+
+      L    LT#-106751d_23h_47m_16s_854ms_775us_808ns
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec.plc - invalid
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//             ^^^^^^ constant.numeric.value.day.plc
+//                   ^ constant.numeric.suffix.day.plc
+//                    ^ punctuation.separator.time.plc
+//                     ^^ constant.numeric.value.hour.plc
+//                       ^ constant.numeric.suffix.hour.plc
+//                        ^ punctuation.separator.time.plc
+//                         ^^ constant.numeric.value.minute.plc
+//                           ^ constant.numeric.suffix.minute.plc
+//                            ^ punctuation.separator.time.plc
+//                             ^^ constant.numeric.value.second.plc
+//                               ^ constant.numeric.suffix.second.plc
+//                                ^ punctuation.separator.time.plc
+//                                 ^^^ constant.numeric.value.millisecond.plc
+//                                    ^^ constant.numeric.suffix.millisecond.plc
+//                                      ^ punctuation.separator.time.plc
+//                                       ^^^ constant.numeric.value.microsecond.plc
+//                                          ^^ constant.numeric.suffix.microsecond.plc
+//                                            ^ punctuation.separator.time.plc
+//                                             ^^^ constant.numeric.value.nanosecond.plc
+//                                                ^^ constant.numeric.suffix.nanosecond.plc
+
+      L    LT#+106751d_23h_47m_16s_854ms_775us_807ns
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec.plc - invalid
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//             ^^^^^^ constant.numeric.value.day.plc
+//                   ^ constant.numeric.suffix.day.plc
+//                    ^ punctuation.separator.time.plc
+//                     ^^ constant.numeric.value.hour.plc
+//                       ^ constant.numeric.suffix.hour.plc
+//                        ^ punctuation.separator.time.plc
+//                         ^^ constant.numeric.value.minute.plc
+//                           ^ constant.numeric.suffix.minute.plc
+//                            ^ punctuation.separator.time.plc
+//                             ^^ constant.numeric.value.second.plc
+//                               ^ constant.numeric.suffix.second.plc
+//                                ^ punctuation.separator.time.plc
+//                                 ^^^ constant.numeric.value.millisecond.plc
+//                                    ^^ constant.numeric.suffix.millisecond.plc
+//                                      ^ punctuation.separator.time.plc
+//                                       ^^^ constant.numeric.value.microsecond.plc
+//                                          ^^ constant.numeric.suffix.microsecond.plc
+//                                            ^ punctuation.separator.time.plc
+//                                             ^^^ constant.numeric.value.nanosecond.plc
+//                                                ^^ constant.numeric.suffix.nanosecond.plc
+
+      L    LT#+106752d_23h_47m_16s_854ms_775us_807ns
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.number.time.iec.plc
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^ constant.numeric.value.plc keyword.operator.arithmetic.plc
+//             ^^^^^^^ invalid.illegal.time.day.plc
+//                    ^ punctuation.separator.time.plc
+//                     ^^ constant.numeric.value.hour.plc
+//                       ^ constant.numeric.suffix.hour.plc
+//                        ^ punctuation.separator.time.plc
+//                         ^^ constant.numeric.value.minute.plc
+//                           ^ constant.numeric.suffix.minute.plc
+//                            ^ punctuation.separator.time.plc
+//                             ^^ constant.numeric.value.second.plc
+//                               ^ constant.numeric.suffix.second.plc
+//                                ^ punctuation.separator.time.plc
+//                                 ^^^ constant.numeric.value.millisecond.plc
+//                                    ^^ constant.numeric.suffix.millisecond.plc
+//                                      ^ punctuation.separator.time.plc
+//                                       ^^^ constant.numeric.value.microsecond.plc
+//                                          ^^ constant.numeric.suffix.microsecond.plc
+//                                            ^ punctuation.separator.time.plc
+//                                             ^^^ constant.numeric.value.nanosecond.plc
+//                                                ^^ constant.numeric.suffix.nanosecond.plc
+
+      L    DT#1970-01-01-00:00:00 ;
+//         ^^^^^^^^^^^^^^^^^^^^^^ meta.number.date-and-time.plc
+//         ^^ storage.type.time.plc
+//           ^ punctuation.separator.type.plc
+//            ^^^^^^^^^^^^^^^^^^^ constant.numeric.value.plc
+//                ^ punctuation.separator.date.plc
+//                   ^ punctuation.separator.date.plc
+//                         ^ punctuation.separator.time.plc
+//                            ^ punctuation.separator.time.plc
+
+      L    LDT#1970-01-01-00:00:00 ;
+//         ^^^^^^^^^^^^^^^^^^^^^^^ meta.number.date-and-time.plc
+//         ^^^ storage.type.time.plc
+//            ^ punctuation.separator.type.plc
+//             ^^^^^^^^^^^^^^^^^^^ constant.numeric.value.plc
+//                 ^ punctuation.separator.date.plc
+//                    ^ punctuation.separator.date.plc
+//                          ^ punctuation.separator.time.plc
+//                             ^ punctuation.separator.time.plc
+
       L    D#2017-12-30 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -2000,6 +2216,7 @@
 //                     ^ - invalid
 //                      ^ punctuation.terminator.statement
 //                       ^ - invalid
+
       L    DATE#2017-12-30 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -2013,6 +2230,18 @@
 //                        ^ - invalid
 //                         ^ punctuation.terminator.statement
 //                          ^ - invalid
+
+      L    LDATE#2162-12-30 ;
+//         ^^^^^^^^^^^^^^^^ meta.number.date.plc
+//         ^^^^^ storage.type.time.plc
+//              ^ punctuation.separator.type.plc
+//               ^^^^^^^^^^ constant.numeric.value.plc
+//                   ^ punctuation.separator.date.plc
+//                      ^ punctuation.separator.date.plc
+//                         ^ - invalid
+//                          ^ punctuation.terminator.statement.plc
+//                           ^ - invalid
+
       L    TOD#23:59:59.999 ;
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
@@ -2027,6 +2256,19 @@
 //                         ^ - invalid
 //                          ^ punctuation.terminator.statement
 //                           ^ - invalid
+
+      L    LTOD#23:59:59.999 ;
+//         ^^^^^^^^^^^^^^^^^ meta.number.time-of-day.plc
+//         ^^^^ storage.type.time.plc
+//             ^ punctuation.separator.type.plc
+//              ^^^^^^^^^^^^ constant.numeric.value.plc
+//                ^ punctuation.separator.time.plc
+//                   ^ punctuation.separator.time.plc
+//                      ^ punctuation.separator.time.plc
+//                          ^ - invalid
+//                           ^ punctuation.terminator.statement.plc
+//                            ^ - invalid
+
       L    'A'
 //    ^ keyword.operator.arithmetic.load
 //         ^^^ meta.string string.quoted.single
@@ -2173,6 +2415,15 @@
 //                    ^^^^^ variable.other.local
 //                    ^ punctuation.definition.variable
 //                         ^ punctuation.separator.sequence
+           "quoted:=arg" := 'value',
+// <- meta.block.fc.body meta.block.network meta.function-call.arguments
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments
+//         ^^^^^^^^^^^^^ variable.parameter.plc
+//         ^ punctuation.definition.variable.begin.plc
+//                     ^ punctuation.definition.variable.end.plc
+//                       ^^ keyword.operator.assignment.plc
+//                          ^^^^^^^ meta.string.plc string.quoted.single.plc
+
            RET_VAL := MW200);
 // <- meta.block.fc.body meta.block.network meta.function-call.arguments
 // ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network meta.function-call.arguments

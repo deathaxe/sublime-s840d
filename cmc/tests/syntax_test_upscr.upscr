@@ -1,0 +1,525 @@
+; SYNTAX TEST "CMC Script.sublime-syntax"
+
+;  a comment
+; <- comment.line.semicolon.upscr punctuation.definition.comment.upscr
+; ^^^^^^^^^^ comment.line.semicolon.upscr - punctuation
+
+; -- PREPROCESSOR --
+
+#rem comment
+; <- meta.preprocessor.rem.upscr keyword.control.directive.rem.upscr punctuation.definition.keyword.upscr
+;^^^^^^^^^^^ meta.preprocessor.rem.upscr
+;^^^ keyword.control.directive.rem.upscr
+;   ^^^^^^^^ comment.line.rem.upscr
+
+#pragma eol
+; <- meta.preprocessor.pragma.upscr keyword.control.directive.pragma.upscr punctuation.definition.keyword.upscr
+;^^^^^^^^^^ meta.preprocessor.pragma.upscr
+;^^^^^^ keyword.control.directive.pragma.upscr
+;       ^^^ constant.other.upscr
+
+#include "utilities\base.uplib"
+; <- meta.preprocessor.include.upscr keyword.control.directive.include.upscr punctuation.definition.keyword.upscr
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.preprocessor.include.upscr
+;^^^^^^^ keyword.control.directive.include.upscr
+;        ^^^^^^^^^^^^^^^^^^^^^^ meta.string.upscr string.quoted.double.upscr
+;        ^ punctuation.definition.string.begin.upscr
+;                  ^ punctuation.separator.path.upscr
+;                             ^ punctuation.definition.string.end.upscr
+
+; path may contain windows environment variables
+#include "%USERPROFILE%\scripts\utilities.upscr"
+; <- meta.preprocessor.include.upscr keyword.control.directive.include.upscr punctuation.definition.keyword.upscr
+;^^^^^^^^ meta.preprocessor.include.upscr - meta.string
+;        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.preprocessor.include.upscr meta.string.upscr
+;        ^ string.quoted.double.upscr punctuation.definition.string.begin.upscr
+;         ^^^^^^^^^^^^^ meta.interpolation.upscr variable.other.environment.upscr - string
+;                      ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double.upscr
+;                      ^ punctuation.separator.path.upscr
+;                              ^ punctuation.separator.path.upscr
+;                                              ^ punctuation.definition.string.end.upscr
+
+#if true
+; <- keyword.control.directive.conditional.if.upscr punctuation.definition.keyword.upscr
+;^^ keyword.control.directive.conditional.if.upscr
+;   ^^^^ constant.language.boolean.upscr
+#elsif false
+; <- keyword.control.directive.conditional.elseif.upscr punctuation.definition.keyword.upscr
+;^^^^^ keyword.control.directive.conditional.elseif.upscr
+;      ^^^^^ constant.language.boolean.upscr
+#else
+; <- keyword.control.directive.conditional.else.upscr punctuation.definition.keyword.upscr
+;^^^^ keyword.control.directive.conditional.else.upscr
+#endif
+; <- keyword.control.directive.conditional.end.upscr punctuation.definition.keyword.upscr
+;^^^^^ keyword.control.directive.conditional.end.upscr
+
+; -- SECTIONS --
+
+CHANDATA(1)
+; <- meta.section.upscr entity.name.section.upscr
+;^^^^^^^ meta.section.upscr entity.name.section.upscr
+;       ^^^ meta.section.arguments.upscr
+;       ^ punctuation.section.arguments.begin.upscr
+;        ^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
+;         ^ punctuation.section.arguments.begin.upscr
+
+CHANDATA($(Up.Chan))
+; <- meta.section.upscr entity.name.section.upscr
+;^^^^^^^ meta.section.upscr entity.name.section.upscr
+;       ^ meta.section.arguments.upscr punctuation.section.arguments.begin.upscr
+;        ^^^^^^^^^^ meta.section.arguments.upscr meta.interpolation.upscr
+;        ^^ punctuation.section.interpolation.upscr
+;          ^^^^^^^ meta.path.upscr
+;          ^^ variable.namespace.upscr
+;            ^ punctuation.accessor.dot.upscr
+;             ^^^^ variable.other.member.upscr
+;                 ^ punctuation.section.interpolation.end.upscr
+;                  ^ meta.section.arguments.upscr punctuation.section.arguments.begin.upscr
+
+; Channel 1 section
+[C1]
+; <- meta.section.upscr meta.brackets.upscr punctuation.section.brackets.begin.upscr
+;^^^ meta.section.upscr meta.brackets.upscr
+;^^ entity.name.section.upscr
+;  ^ punctuation.section.brackets.end.upscr
+
+; Drive section
+[B3_S3_PS3]
+; <- meta.section.upscr meta.brackets.upscr punctuation.section.brackets.begin.upscr
+;^^^^^^^^^^ meta.section.upscr meta.brackets.upscr
+;^^^^^^^^^ entity.name.section.upscr
+;         ^ punctuation.section.brackets.end.upscr
+
+[$(Up.doVar)]
+; <- meta.section.upscr meta.brackets.upscr punctuation.section.brackets.begin.upscr
+;^^^^^^^^^^^ meta.section.upscr meta.brackets.upscr meta.interpolation.upscr
+;           ^ meta.section.upscr meta.brackets.upscr punctuation.section.brackets.end.upscr
+
+[B$(Up.BusNo)_S$(Up.SlaveNo)_PS$(Up.psNo)]
+; <- meta.section.upscr meta.brackets.upscr punctuation.section.brackets.begin.upscr
+;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.section.upscr meta.brackets.upscr
+;^ entity.name.section.upscr - meta.interpolation
+; ^^^^^^^^^^^ meta.interpolation.upscr - entity.name.section
+;            ^^ entity.name.section.upscr - meta.interpolation
+;              ^^^^^^^^^^^^^ meta.interpolation.upscr - entity.name.section
+;                           ^^^ entity.name.section.upscr - meta.interpolation
+;                              ^^^^^^^^^^ meta.interpolation.upscr - entity.name.section
+;                                        ^ punctuation.section.brackets.end.upscr
+
+; -- fully qualified data access --
+
+NC[C1]
+; <- meta.section.upscr variable.namespace.nc.upscr
+;^ meta.section.upscr variable.namespace.nc.upscr
+; ^^^^ meta.section.upscr meta.brackets.upscr
+; ^ punctuation.section.brackets.begin.upscr
+;  ^^ entity.name.section.upscr
+;    ^ punctuation.section.brackets.end.upscr
+
+NC[C1].$MC_CHAN_NAME
+; <- meta.section.upscr variable.namespace.nc.upscr
+;^ meta.section.upscr variable.namespace.nc.upscr
+; ^^^^ meta.section.upscr meta.brackets.upscr
+; ^ punctuation.section.brackets.begin.upscr
+;  ^^ entity.name.section.upscr
+;    ^ punctuation.section.brackets.end.upscr
+;     ^ punctuation.accessor.dot.upscr
+;      ^^^^^^^^^^^^^ support.variable.nck.machdata.upscr
+;      ^ punctuation.definition.variable.nck.upscr
+
+PS[B3_S3_PS3]
+; <- meta.section.upscr variable.namespace.drive.upscr
+;^ meta.section.upscr variable.namespace.drive.upscr
+; ^^^^^^^^^^^ meta.section.upscr meta.brackets.upscr
+; ^ punctuation.section.brackets.begin.upscr
+;  ^^^^^^^^^ entity.name.section.upscr
+;           ^ punctuation.section.brackets.end.upscr
+
+PS[$(Up.$2)]
+; <- meta.section.upscr variable.namespace.drive.upscr
+;^ meta.section.upscr - meta.brackets
+; ^ meta.section.upscr meta.brackets.upscr - meta.interpolation
+;  ^^^^^^^^ meta.section.upscr meta.brackets.upscr meta.interpolation.upscr
+;          ^ meta.section.upscr meta.brackets.upscr - meta.interpolation
+;^ variable.namespace.drive.upscr
+; ^ punctuation.section.brackets.begin.upscr
+;  ^ punctuation.section.interpolation.upscr punctuation.definition.variable.upscr
+;   ^ punctuation.section.interpolation.upscr
+;    ^^ variable.namespace.upscr
+;      ^ punctuation.accessor.dot.upscr
+;       ^^ variable.language.argument.upscr
+;         ^ punctuation.section.interpolation.end.upscr
+;          ^ punctuation.section.brackets.end.upscr
+
+; qualified parameter access
+PS[$(Up.$2)].p105
+;           ^ punctuation.accessor.dot.upscr
+;            ^^^^ variable.language.parameter.upscr
+
+BD[SL]
+; <- meta.section.upscr variable.namespace.bd.upscr
+;^^^^^ meta.section.upscr
+;^ variable.namespace.bd.upscr
+; ^^^^ meta.brackets.upscr
+; ^ punctuation.section.brackets.begin.upscr
+;  ^^ entity.name.section.upscr
+;    ^ punctuation.section.brackets.end.upscr
+
+BD[SL].
+; <- meta.section.upscr variable.namespace.bd.upscr
+;^^^^^ meta.section.upscr
+;^ variable.namespace.bd.upscr
+; ^^^^ meta.brackets.upscr
+; ^ punctuation.section.brackets.begin.upscr
+;  ^^ entity.name.section.upscr
+;    ^ punctuation.section.brackets.end.upscr
+;     ^ punctuation.accessor.dot.upscr
+
+p105
+; <- variable.language.parameter.upscr
+;^^^ variable.language.parameter.upscr
+
+$MC_CHAN_NAME
+; <- support.variable.nck.machdata.upscr punctuation.definition.variable.nck.upscr
+;^^^^^^^^^^^^ support.variable.nck.machdata.upscr
+
+$MA_POS_LIMIT[1, AX2]
+; <- support.variable.other.upscr punctuation.definition.variable.nck.upscr
+;^^^^^^^^^^^^ support.variable.other.upscr
+;            ^^^^^^^^ meta.brackets.upscr
+;            ^ punctuation.section.brackets.begin.upscr
+;             ^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
+;              ^ punctuation.separator.comma.upscr
+;                ^^^ constant.other.upscr
+;                   ^ punctuation.section.brackets.end.upscr
+
+; -- Literals --
+
+    true false null
+;   ^^^^ constant.language.boolean.upscr
+;        ^^^^^ constant.language.boolean.upscr
+;              ^^^^ constant.language.null.upscr
+
+    0
+;   ^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
+
+    .1 1. 1.1
+;   ^^ meta.number.float.decimal.upscr constant.numeric.value.upscr
+;      ^^ meta.number.float.decimal.upscr constant.numeric.value.upscr
+;         ^^^ meta.number.float.decimal.upscr constant.numeric.value.upscr
+
+    0xAF19
+;   ^^^^^^ meta.number.integer.hexadecimal.upscr
+;   ^^ constant.numeric.base.upscr
+;     ^^^^ constant.numeric.value.upscr
+
+    'B1020'
+;   ^^^^^^^ meta.number.integer.binary.upscr
+;   ^ punctuation.definition.numeric.begin.upscr
+;    ^ constant.numeric.base.upscr
+;     ^^^^ constant.numeric.value.upscr
+;       ^ invalid.illegal.upscr
+;         ^ punctuation.definition.numeric.end.upscr
+
+    'B$(Up.BinVal)'
+;   ^^ meta.number.integer.binary.upscr - meta.interpolation
+;     ^^^^^^^^^^^^ meta.number.integer.binary.upscr meta.interpolation.upscr
+;                 ^ meta.number.integer.binary.upscr - meta.interpolation
+;   ^ punctuation.definition.numeric.begin.upscr
+;    ^ constant.numeric.base.upscr
+;     ^^ punctuation.section.interpolation.upscr
+;                ^ punctuation.section.interpolation.end.upscr
+;                 ^ punctuation.definition.numeric.end.upscr
+
+    'HA0GF'
+;   ^^^^^^^ meta.number.integer.hexadecimal.upscr
+;   ^ punctuation.definition.numeric.begin.upscr
+;    ^ constant.numeric.base.upscr
+;     ^^^^ constant.numeric.value.upscr
+;       ^ invalid.illegal.upscr
+;         ^ punctuation.definition.numeric.end.upscr
+
+    'H$(Up.HexVal)'
+;   ^^ meta.number.integer.hexadecimal.upscr - meta.interpolation
+;     ^^^^^^^^^^^^ meta.number.integer.hexadecimal.upscr meta.interpolation.upscr
+;                 ^ meta.number.integer.hexadecimal.upscr - meta.interpolation
+;   ^ punctuation.definition.numeric.begin.upscr
+;    ^ constant.numeric.base.upscr
+;     ^^ punctuation.section.interpolation.upscr
+;                ^ punctuation.section.interpolation.end.upscr
+;                 ^ punctuation.definition.numeric.end.upscr
+
+    63:2090.15
+;   ^^^^^^^^^^ meta.bico.upscr
+;   ^^ constant.numeric.value.driveobject.upscr
+;     ^ punctuation.accessor.colon.upscr
+;      ^^^^ constant.numeric.value.parameter.upscr
+;          ^ punctuation.accessor.dot.upscr
+;           ^^ constant.numeric.value.bit.upscr
+
+    "drive $(Up.doVar) is ok\n"
+;   ^^^^^^^ meta.string.upscr - meta.interpolation
+;          ^^^^^^^^^^^ meta.string.upscr meta.interpolation.upscr
+;                     ^^^^^^^^^ meta.string.upscr - meta.interpolation
+;   ^ punctuation.definition.string.begin.upscr
+;   ^^^^^^^ string.quoted.double.upscr
+;          ^^^^^^^^^^^ - string
+;                     ^^^^^^^^^ string.quoted.double.upscr
+;                           ^^ constant.character.escape.upscr
+;                             ^ punctuation.definition.string.end.upscr
+
+    'drive $(Up.doVar) is ok\n'
+;   ^^^^^^^ meta.string.upscr - meta.interpolation
+;          ^^^^^^^^^^^ meta.string.upscr meta.interpolation.upscr
+;                     ^^^^^^^^^ meta.string.upscr - meta.interpolation
+;   ^ punctuation.definition.string.begin.upscr
+;   ^^^^^^^ string.quoted.single.upscr
+;          ^^^^^^^^^^^ - string
+;                     ^^^^^^^^^ string.quoted.single.upscr
+;                           ^^ constant.character.escape.upscr
+;                             ^ punctuation.definition.string.end.upscr
+
+    "<sup>super text</sup>"
+;   ^^^^^^^^^^^^^^^^^^^^^^^ meta.string.upscr string.quoted.double.upscr
+;    ^^^^^ meta.tag.inline.any.html
+;    ^ punctuation.definition.tag.begin.html
+;     ^^^ entity.name.tag.inline.any.html
+;        ^ punctuation.definition.tag.end.html
+;                   ^^^^^^ meta.tag.inline.any.html
+;                   ^^ punctuation.definition.tag.begin.html
+;                     ^^^ entity.name.tag.inline.any.html
+;                        ^ punctuation.definition.tag.end.html
+
+    "<b style='background-color:red'> Notice! </b>"
+;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.upscr string.quoted.double.upscr
+;   ^ punctuation.definition.string.begin.upscr
+;    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.inline.any.html
+;       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.attribute-with-value.style.html
+;    ^ punctuation.definition.tag.begin.html
+;     ^ entity.name.tag.inline.any.html
+;       ^^^^^ entity.other.attribute-name.style.html
+;            ^ punctuation.separator.key-value.html
+;             ^ meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
+;              ^^^^^^^^^^^^^^^^^^^^ meta.string.html meta.interpolation.html source.css.embedded.html
+;                                  ^ meta.string.html string.quoted.single.html punctuation.definition.string.end.html
+;                                   ^ punctuation.definition.tag.end.html
+
+    "Notice! Enter a number that is &lt;5 and &gt;2."
+;                                   ^^^^ constant.character.entity.named.html
+;                                             ^^^^ constant.character.entity.named.html
+
+; -- Operators
+
+    - + * / | &
+;   ^ keyword.operator.arithmetic.upscr
+;     ^ keyword.operator.arithmetic.upscr
+;       ^ keyword.operator.arithmetic.upscr
+;         ^ keyword.operator.arithmetic.upscr
+;           ^ keyword.operator.bitwise.upscr
+;             ^ keyword.operator.bitwise.upscr
+
+    -= += *= /= &= |= ?= := =
+;   ^^ keyword.operator.assignment.augmented.upscr
+;      ^^ keyword.operator.assignment.augmented.upscr
+;         ^^ keyword.operator.assignment.augmented.upscr
+;            ^^ keyword.operator.assignment.augmented.upscr
+;               ^^ keyword.operator.assignment.augmented.upscr
+;                  ^^ keyword.operator.assignment.augmented.upscr
+;                     ^^ keyword.operator.assignment.augmented.upscr
+;                        ^^ keyword.operator.assignment.augmented.upscr
+;                           ^ keyword.operator.assignment.upscr
+
+    < <= >= > != ==
+;   ^ keyword.operator.comparison.upscr
+;     ^^ keyword.operator.comparison.upscr
+;        ^^ keyword.operator.comparison.upscr
+;           ^ keyword.operator.comparison.upscr
+;             ^^ keyword.operator.comparison.upscr
+;                ^^ keyword.operator.comparison.upscr
+
+    <<
+;   ^^ keyword.operator.concat.upscr
+
+    && || !
+;   ^^ keyword.operator.logical.upscr
+;      ^^ keyword.operator.logical.upscr
+;         ^ keyword.operator.logical.upscr
+
+    . ,
+;   ^ punctuation.accessor.dot.upscr
+;     ^ punctuation.separator.comma.upscr
+
+; -- nested replacement operators --
+
+    $(Up.do$(Up.doName).Attribute)
+;   ^^^^^^^ meta.interpolation.upscr - meta.interpolation meta.interpolation
+;          ^^^^^^^^^^^^ meta.interpolation.upscr meta.interpolation.upscr
+;                      ^^^^^^^^^^^ meta.interpolation.upscr - meta.interpolation meta.interpolation
+;   ^^ punctuation.section.interpolation.upscr
+;     ^^ variable.namespace.upscr
+;       ^ punctuation.accessor.dot.upscr
+;        ^^ variable.other.member.upscr
+;          ^^ punctuation.section.interpolation.upscr
+;            ^^ variable.namespace.upscr
+;              ^ punctuation.accessor.dot.upscr
+;               ^^^^^^ variable.other.member.upscr
+;                     ^ punctuation.section.interpolation.end.upscr
+;                      ^ punctuation.accessor.dot.upscr
+;                       ^^^^^^^^^ variable.other.member.upscr
+;                                ^ punctuation.section.interpolation.end.upscr
+
+; -- Variables --
+
+Up.$Dialog.NcuAccess.Backup = 0
+; <- meta.path.upscr variable.namespace.upscr
+; ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.upscr
+; ^ punctuation.accessor.dot.upscr
+;  ^^^^^^^ variable.language.dialog.upscr
+;         ^ punctuation.accessor.dot.upscr
+;          ^^^^^^^^^ variable.namespace.upscr
+;                   ^ punctuation.accessor.dot.upscr
+;                    ^^^^^^ variable.other.member.upscr
+;                           ^ keyword.operator.assignment.upscr
+;                             ^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
+
+Up.$Step[0].Locked
+
+UP.$Step[OP_19.2].Activated == true
+
+Up.$Step[.2] != null
+; <- meta.path.upscr variable.namespace.upscr
+; ^^^^^^^^^^ meta.path.upscr
+; ^ punctuation.accessor.dot.upscr
+;  ^^^^^ variable.language.step.upscr
+;       ^^^^ meta.brackets.upscr
+;       ^ punctuation.section.brackets.begin.upscr
+;        ^^ meta.number.float.decimal.upscr constant.numeric.value.upscr
+;          ^ punctuation.section.brackets.end.upscr
+;            ^^ keyword.operator.comparison.upscr
+;               ^^^^ constant.language.null.upscr
+
+; -- Control Structures
+
+if Up.Var == true
+; <- keyword.control.conditional.if.upscr
+elif Up.Var == "value"
+; <- keyword.control.conditional.if.upscr
+elsif Up.Var == "value"
+; <- keyword.control.conditional.if.upscr
+else
+; <- keyword.control.conditional.else.upscr
+endif
+; <- keyword.control.conditional.end.upscr
+
+while Up.Idx < 10
+; <- keyword.control.loop.while.upscr
+;     ^^^^^^ meta.path.upscr
+;            ^ keyword.operator.comparison.upscr
+;              ^^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
+    Up.Idx += 10
+;   ^^^^^^ meta.path.upscr
+;          ^^ keyword.operator.assignment.augmented.upscr
+;             ^^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
+endwhile
+; <- keyword.control.loop.end.upscr
+
+; -- functions --
+
+FileCopy(NCU, "/user/system/etc/hwversions.xml", RTS, "$(Up.cf)hwversions.xml")
+; <- meta.function-call.identifier.upscr support.function.upscr
+;^^^^^^^ meta.function-call.identifier.upscr support.function.upscr
+;       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.upscr
+;       ^ punctuation.section.arguments.begin.upscr
+;        ^^^ constant.language.filearea.upscr
+;           ^ punctuation.separator.arguments.upscr
+;             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.upscr string.quoted.double.upscr
+;                                              ^ punctuation.separator.arguments.upscr
+;                                                ^^^ constant.language.filearea.upscr
+;                                                   ^ punctuation.separator.arguments.upscr
+;                                                     ^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.upscr
+;                                                      ^^^^^^^^ meta.interpolation.upscr
+
+; -- Other --
+
+if Up.$Dialog.NcuSetup.Mode == Up.$Dialog.NcuSetup.Modes.NONE
+    warning("Es ist eine Systemsoftware-Installation durchzuführen, bitte korrigieren!")
+    redo()
+endif
+if Up.$Dialog.NcuSetup.TgzFile != "04.05.SP2.tgz"
+    msg("Es wurde der falsche Software-Stand ausgewählt!")
+    redo()
+endif
+
+up.leavewhile=false
+while (up.leavewhile==false)
+    up.quest=inputchoice("Wählen Sie die Auflösung","1024*768;640*480;ohne Eingabe weiter")
+    if up.quest=="1024*768"
+        up.quest=1024
+    endif
+    if up.quest=="640*480"
+        up.quest=640
+    endif
+    if up.quest=="ohne Eingabe weiter"
+        msg("Es muss eine Auflösung eingegeben werden!")
+    else
+        up.leavewhile = true
+    endif
+endwhile
+
+If Up.$Step[_gpx].Activated==false
+    warning("In dieser Version muss Schritt 6 aktiviert werden.")
+    redo()
+endif
+
+
+Up.$Dialog.NcuOrigin.Backup = UNUSED
+Up.$Dialog.NcResult.Up.$Dialog.PackageConfig.Activated
+
+;Arg1:definition-file
+;Arg2:old-definition
+;Arg3:new-definition
+proc ChangeDef($,$,$) {
+    ; definition-file
+    Up.FileName=Up.$1
+    ; search-string for old definition
+    Up.DefOld=Up.$2
+    ; new definition inclusive value
+    Up.DefNew=Up.$3
+    ; read definition-file into Up-variable
+    Up.DefFile = FileRead(ARC, Up.FileName)
+    ; get type of the new definition (CHAN, REAL,...)
+    Up.DefType = StringMatch(Up.DefNew, "(DEF [A-Z]* [A-Z]*)") << ".*"
+    msg("DefType = " << Up.DefType)
+    ; get position of the search-string in the definition file
+    Up.DefPos = StringPos(Up.DefFile, Up.DefOld, 0)
+    If Up.DefPos != -1 ; Value of Up.DefOld found in Up.DefFile
+       ; replace the search-string in the definition file with the new definition
+        Up.NewFile = StringReplace(Up.DefFile, Up.DefOld, Up.DefNew)
+    Else ; Up.DefOld not found, looking for definition type
+        Up.DefPos = StringPos(Up.DefFile, Up.DefType , 0)
+        ; searching for the last occurrence of the definition type
+        While Up.DefPos != -1
+            Up.Pos2 = Up.DefPos + StringLen(Up.DefType) ; Increment Up.Pos2
+            and search forward
+            Up.DefPos = StringPos(Up.DefFile, Up.DefType , Up.Pos2)
+        EndWhile
+        ; if variable Up.Pos2 exsits (not null), a definition of the same type was found
+        ; the value of Up.Pos2 contains the position of the last occurrence for the definition type
+        If Up.Pos2 != null
+            ; set position after newline
+            Up.DefPos = StringPos(Up.DefFile, "\n", Up.Pos2)+1
+        Else
+            ; getting the position right before "M17" or "M30"
+            Up.DefPos = StringPos(Up.DefFile, "M17|M30", 0)
+        EndIf
+        ; read begin and end from origin and concatenate with new definition string
+        Up.NewFileBeg = StringSubStr(Up.DefFile, 0, Up.DefPos)
+        Up.NewFileEnd = StringSubStr(Up.DefFile, Up.DefPos)
+        Up.NewFile = Up.NewFileBeg << Up.DefNew << Up.NewFileEnd
+    EndIf
+    ; write modified string to file
+    FileWrite(ARC, Up.$1, Up.NewFile)
+
+
+}

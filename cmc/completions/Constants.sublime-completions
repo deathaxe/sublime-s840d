@@ -1,0 +1,46 @@
+{
+	"scope": "source.upscr",
+	"completions": [
+
+		// basic builtin literals
+
+		{
+			"trigger": "null",
+			"kind": ["type", "c", "Constant"],
+			"details": "<code>null</code> literal",
+		},
+		{
+			"trigger": "false",
+			"kind": ["type", "c", "Constant"],
+			"details": "boolean <code>false</code> literal",
+		},
+		{
+			"trigger": "true",
+			"kind": ["type", "c", "Constant"],
+			"details": "boolean <code>true</code> literal",
+		},
+
+		// file operation areas
+
+		{
+			"trigger": "RTS",
+			"kind": ["namespace", "a", "area"],
+			"details": "runtime system file area",
+		},
+		{
+			"trigger": "ARC",
+			"kind": ["namespace", "a", "area"],
+			"details": "archive file area",
+		},
+		{
+			"trigger": "NCU",
+			"kind": ["namespace", "a", "area"],
+			"details": "ncu file area",
+		},
+		{
+			"trigger": "PCU",
+			"kind": ["namespace", "a", "area"],
+			"details": "pcu/ipc file area",
+		},
+	],
+}

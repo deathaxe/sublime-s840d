@@ -32,7 +32,8 @@ version: 2
 variables:
   accessor: \.(?!%)
 
-  int: \d+\b(?![.][^.])
+  int: '\d{{digit}}*\b(?![.][^.])'
+  digit: '[\d_]'
 
   ident: '[[:alpha:]_][[:alnum:]_]*\b'
   quoted_ident: (\")[^"]*(\")
@@ -49,11 +50,12 @@ variables:
   prefix_hexadecimal: (?i:B(?:yte)?|D?W(?:ord)?)
 
   # date and time storage type prefixes
-  prefix_date: (?i:D(?:ATE)?)
-  prefix_date_and_time: (?i:DT|DATE_AND_TIME)
+  prefix_date: (?i:L?D(?:ATE)?)
+  prefix_date_and_time: (?i:L?(?:DT|DATE_AND_TIME))
   prefix_s5time: (?i:S5T(?:IME)?)
   prefix_time: (?i:T(?:IME)?)
-  prefix_time_of_day: (?i:TOD|TIME_OF_DAY)
+  prefix_ltime: (?i:LT(?:IME)?)
+  prefix_time_of_day: (?i:L?(?:TOD|TIME_OF_DAY))
 
 ###############################################################################
 # MAIN CONTEXT
@@ -120,7 +122,7 @@ contexts:
   block-udt:
     - match: \b(?i:TYPE)\b
       scope: keyword.declaration.udt.begin.plc
-      push: [block-udt-header, block-udt-name]
+      push: [block-udt-header, title, block-udt-name]
 
   block-udt-name:
     # quoted string symbol
@@ -148,10 +150,11 @@ contexts:
   block-udt-header-content:
     - include: punctuation-terminators
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: storage-type-struct
-    - include: operands-symbols
+    - include: illegal-attributes
+    - include: illegal-keywords
+    - include: storage-type-user
 
   block-udt-end:
     - match: \b(?i:END_TYPE)\b
@@ -195,10 +198,11 @@ contexts:
       scope: entity.other.attribute-name.plc
     - include: punctuation-terminators
     - include: annotations
-    - include: attribute
-    - include: version
-    - include: storage-type-struct
-    - include: operands-symbols
+    - include: attributes
+    - include: var-stat               # Step7 TIA
+    - include: storage-type-struct    # Step7 Classic
+    - include: illegal-keywords
+    - include: storage-type-user
 
   block-db-body:
     - meta_scope: meta.block.db.body.plc
@@ -283,8 +287,7 @@ contexts:
 
   block-fb-header-content:
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: var-input
     - include: var-output
     - include: var-inout
@@ -318,8 +321,7 @@ contexts:
 
   block-fc-header-content:
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: var-input
     - include: var-output
     - include: var-inout
@@ -369,8 +371,7 @@ contexts:
 
   block-ob-header-content:
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: var-temp
 
   block-ob-body:
@@ -439,12 +440,18 @@ contexts:
 
 ###[ AUTHOR, FAMILY, NAME ]####################################################
 
-  attribute:
+  attributes:
     - match: \b(?i:AUTHOR|FAMILY|NAME)\b
       scope: entity.other.attribute-name.plc
       push: attribute-separator
     - match: \b(?i:CODE_VERSION1|KNOW_HOW_PROTECT)\b
       scope: entity.other.attribute-name.plc
+      push: assert-line-end
+    - match: \b(?i:VERSION)\b
+      scope: entity.other.attribute-name.version.plc
+      push: version-separator
+    - match: \b(\w+)(?=\s*:)
+      scope: invalid.illegal.attribute-name.plc
       push: assert-line-end
 
   attribute-separator:
@@ -457,13 +464,6 @@ contexts:
   attribute-value:
     - meta_content_scope: meta.mapping.value.plc string.unquoted.plc
     - include: line-end
-
-###[ VERSION ]#################################################################
-
-  version:
-    - match: \b(?i:VERSION)\b
-      scope: entity.other.attribute-name.version.plc
-      push: version-separator
 
   version-separator:
     - meta_scope: meta.mapping.key.plc
@@ -667,6 +667,8 @@ contexts:
     - match: \]
       scope: punctuation.definition.array.end.plc
       set: storage-type-array-item
+    - match: \*
+      scope: constant.other.wildcard.asterisk.plc
     - include: operators-range
     - include: operands-symbols
     - include: literals-uint16
@@ -758,12 +760,12 @@ contexts:
   storage-type-user:
     # user defined types (UDT, DB, FB)
     - match: '{{quoted_ident}}'
-      scope: storage.type.other.plc
+      scope: support.type.plc
       captures:
         1: punctuation.definition.type.begin.plc
         2: punctuation.definition.type.end.plc
     - match: '{{ident}}'
-      scope: storage.type.other.plc
+      scope: support.type.plc
 
 ###############################################################################
 # LITERALS                                                                    #
@@ -893,7 +895,7 @@ contexts:
         4: constant.numeric.value.plc
 
   literals-float:
-    - match: ([-+]?)(\d+(\.)\d+(?:[Ee][-+]\d+)?)\b
+    - match: ([-+]?)(\d{{digit}}*(\.){{digit}}+(?:[Ee][-+]{{digit}}+)?)\b
       scope: meta.number.float.decimal.plc
       captures:
         1: keyword.operator.arithmetic.plc
@@ -948,7 +950,6 @@ contexts:
         2: punctuation.separator.type.plc
       push:
         - literals-s5time-meta
-        - literals-time-sep
         - literals-time-millisecond
         - literals-time-sep
         - literals-time-second
@@ -964,15 +965,37 @@ contexts:
 ###[ IEC TIME ]################################################################
 
   literals-iectime:
-    # T#24D_23H_59M_59S_999MS
-    # TIME#24D_23H_59M_59S_999MS
-    - match: ({{prefix_time}})(#)
+    # T#106751D_23H_47M_16S_854MS_775US_807NS
+    # TIME#106751D_23H_47M_16S_854MS_775US_807NS
+    - match: ({{prefix_ltime}})(#)([-+]?)
       captures:
         1: storage.type.time.plc
         2: punctuation.separator.type.plc
+        3: constant.numeric.value.plc keyword.operator.arithmetic.plc
       push:
         - literals-iectime-meta
+        - literals-time-nanosecond
         - literals-time-sep
+        - literals-time-microsecond
+        - literals-time-sep
+        - literals-time-millisecond
+        - literals-time-sep
+        - literals-ltime-second
+        - literals-time-sep
+        - literals-time-minute
+        - literals-time-sep
+        - literals-time-hour
+        - literals-time-sep
+        - literals-ltime-day
+    # T#24D_23H_59M_59S_999MS
+    # TIME#24D_23H_59M_59S_999MS
+    - match: ({{prefix_time}})(#)([-+]?)
+      captures:
+        1: storage.type.time.plc
+        2: punctuation.separator.type.plc
+        3: constant.numeric.value.plc keyword.operator.arithmetic.plc
+      push:
+        - literals-iectime-meta
         - literals-time-millisecond
         - literals-time-sep
         - literals-time-second
@@ -984,10 +1007,21 @@ contexts:
         - literals-time-day
 
   literals-iectime-meta:
+    - meta_include_prototype: false
     - meta_scope: meta.number.time.iec.plc
     - include: immediately-pop
 
 ###[ TIME PROTOTYPES ]#########################################################
+
+  literals-ltime-day:
+    - match: (10(?:6(?:7(?:5[01]|[0-4]\d)|[0-6]\d{2})|[0-5]\d{3})|\d{0,5})([Dd])
+      captures:
+        1: constant.numeric.value.day.plc
+        2: constant.numeric.suffix.day.plc
+      pop: 1
+    - match: (?:\d+[Dd](?![[:alpha:]]))?
+      scope: invalid.illegal.time.day.plc
+      pop: 1
 
   literals-time-day:
     - match: ([01]?[0-9]|2[0-4])([Dd])
@@ -995,12 +1029,12 @@ contexts:
         1: constant.numeric.value.day.plc
         2: constant.numeric.suffix.day.plc
       pop: 1
-    - match: (?:((?!//)[^;])+?(?:[Dd]|(?=_)))?
+    - match: (?:\d+[Dd](?![[:alpha:]]))?
       scope: invalid.illegal.time.day.plc
       pop: 1
 
   literals-time-hour:
-    - match: ([01]?[0-9]|2[0-4])([Hh])
+    - match: (\d+)([Hh])
       captures:
         1: constant.numeric.value.hour.plc
         2: constant.numeric.suffix.hour.plc
@@ -1010,7 +1044,7 @@ contexts:
       pop: 1
 
   literals-time-minute:
-    - match: ([0-5]?\d)((?i:M(?!S)))
+    - match: (\d+)((?i:M(?!S)))
       captures:
         1: constant.numeric.value.minute.plc
         2: constant.numeric.suffix.minute.plc
@@ -1020,7 +1054,7 @@ contexts:
       pop: 1
 
   literals-time-second:
-    - match: ([0-5]?\d)([Ss])
+    - match: (\d+)([Ss])
       captures:
         1: constant.numeric.value.second.plc
         2: constant.numeric.suffix.second.plc
@@ -1029,14 +1063,44 @@ contexts:
       scope: invalid.illegal.time.second.plc
       pop: 1
 
+  literals-ltime-second:
+    - match: (\d+)([Ss])
+      captures:
+        1: constant.numeric.value.second.plc
+        2: constant.numeric.suffix.second.plc
+      pop: 1
+    - match: (?:\w+?(?i:[^MNU]S|(?=_)))?
+      scope: invalid.illegal.time.second.plc
+      pop: 1
+
   literals-time-millisecond:
-    - match: (\d{0,3})((?i:MS))
+    - match: (\d+)((?i:MS))
       captures:
         1: constant.numeric.value.millisecond.plc
         2: constant.numeric.suffix.millisecond.plc
       pop: 1
     - match: (?:\w+?(?i:MS|(?=_)))?
       scope: invalid.illegal.time.millisecond.plc
+      pop: 1
+
+  literals-time-microsecond:
+    - match: (\d+)((?i:US))
+      captures:
+        1: constant.numeric.value.microsecond.plc
+        2: constant.numeric.suffix.microsecond.plc
+      pop: 1
+    - match: (?:\w+?(?i:US|(?=_)))?
+      scope: invalid.illegal.time.microsecond.plc
+      pop: 1
+
+  literals-time-nanosecond:
+    - match: (\d+)((?i:NS))
+      captures:
+        1: constant.numeric.value.nanosecond.plc
+        2: constant.numeric.suffix.nanosecond.plc
+      pop: 1
+    - match: (?:\w+?(?i:NS|(?=_)))?
+      scope: invalid.illegal.time.nanosecond.plc
       pop: 1
 
   literals-time-sep:
@@ -1059,8 +1123,8 @@ contexts:
           (?:[012]?[1-9]|3[01])(-)       # day
           (?:[01]?[0-9]|2[0-4])(:)       # hour
           (?:[0-5]?[0-9])(:)             # minute
-          (?:[0-5]?[0-9])(\.)            # second
-          \d{0,3}                        # millisecond
+          (?:[0-5]?[0-9])                # second
+          (?:(\.)\d{1,6})?               # millisecond/nanoseconds
         )
       captures:
         0: meta.number.date-and-time.plc
@@ -1098,8 +1162,8 @@ contexts:
         (
           (?:[01]?[0-9]|2[0-4])(:)      # hour
           (?:[0-5]?[0-9])(:)            # minute
-          (?:[0-5]?[0-9])(\.)           # second
-          \d{0,3}\b                     # millisecond
+          (?:[0-5]?[0-9])               # second
+          (?:(\.)\d{1,6})?              # millisecond/nanoseconds
         )
       captures:
         0: meta.number.time-of-day.plc
@@ -1356,6 +1420,14 @@ contexts:
     - match: $\n?
       scope: invalid.illegal.eol.plc
       pop: 1
+
+  illegal-attributes:
+    - match: (?i:NON_RETAIN|READ_ONLY)\b
+      scope: invalid.illegal.plc
+
+  illegal-keywords:
+    - match: '{{context_keywords}}'
+      scope: invalid.illegal.plc
 
 ###############################################################################
 # IGNORED NESTED PARENTHESES AND BRAKETS

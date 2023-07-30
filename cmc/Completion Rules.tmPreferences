@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+	<key>scope</key>
+	<string>source.upscr</string>
+	<key>settings</key>
+	<dict>
+		<key>cancelCompletion</key>
+		<string>(?x)
+			^ \s*
+			(?i: if | else | els?if | endif | while | endwhile | func | proc
+			| \# \s* (?: if | else | els?if | endif | pragma (?: \s+ eol )? )
+		</string>
+	</dict>
+</dict>
+</plist>
