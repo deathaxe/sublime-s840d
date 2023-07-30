@@ -122,7 +122,7 @@ contexts:
   block-udt:
     - match: \b(?i:TYPE)\b
       scope: keyword.declaration.udt.begin.plc
-      push: [block-udt-header, block-udt-name]
+      push: [block-udt-header, title, block-udt-name]
 
   block-udt-name:
     # quoted string symbol
