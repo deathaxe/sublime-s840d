@@ -185,12 +185,17 @@
 //         ^ invalid.illegal
 //           ^^^^^^^ invalid.illegal
 
+   NCK_TypeName
+//<- meta.block.db.header
+// ^^^^^^^^^^^^^ meta.block.db.header
+// ^^^^^^^^^^^^ storage.type.other.plc
+
    "UDT_TypeName"
 //<- meta.block.db.header
 // ^^^^^^^^^^^^^^ meta.block.db.header
-// ^ punctuation.definition.variable.begin
-// ^^^^^^^^^^^^^^ variable.other.global
-//              ^ punctuation.definition.variable.end
+// ^ punctuation.definition.type.begin
+// ^^^^^^^^^^^^^^ storage.type.other.plc
+//              ^ punctuation.definition.type.end
    BEGIN illegal // comment
 //<- meta.block.db.header
 //^ meta.block.db.header - meta.block.db.body

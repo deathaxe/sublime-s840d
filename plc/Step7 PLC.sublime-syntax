@@ -150,10 +150,11 @@ contexts:
   block-udt-header-content:
     - include: punctuation-terminators
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: storage-type-struct
-    - include: operands-symbols
+    - include: illegal-attributes
+    - include: illegal-keywords
+    - include: storage-type-user
 
   block-udt-end:
     - match: \b(?i:END_TYPE)\b
@@ -197,11 +198,11 @@ contexts:
       scope: entity.other.attribute-name.plc
     - include: punctuation-terminators
     - include: annotations
-    - include: attribute
-    - include: version
-    - include: storage-type-struct    # Step7 Classic
+    - include: attributes
     - include: var-stat               # Step7 TIA
-    - include: operands-symbols
+    - include: storage-type-struct    # Step7 Classic
+    - include: illegal-keywords
+    - include: storage-type-user
 
   block-db-body:
     - meta_scope: meta.block.db.body.plc
@@ -286,8 +287,7 @@ contexts:
 
   block-fb-header-content:
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: var-input
     - include: var-output
     - include: var-inout
@@ -321,8 +321,7 @@ contexts:
 
   block-fc-header-content:
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: var-input
     - include: var-output
     - include: var-inout
@@ -372,8 +371,7 @@ contexts:
 
   block-ob-header-content:
     - include: annotations
-    - include: attribute
-    - include: version
+    - include: attributes
     - include: var-temp
 
   block-ob-body:
@@ -442,12 +440,18 @@ contexts:
 
 ###[ AUTHOR, FAMILY, NAME ]####################################################
 
-  attribute:
+  attributes:
     - match: \b(?i:AUTHOR|FAMILY|NAME)\b
       scope: entity.other.attribute-name.plc
       push: attribute-separator
     - match: \b(?i:CODE_VERSION1|KNOW_HOW_PROTECT)\b
       scope: entity.other.attribute-name.plc
+      push: assert-line-end
+    - match: \b(?i:VERSION)\b
+      scope: entity.other.attribute-name.version.plc
+      push: version-separator
+    - match: \b(\w+)(?=\s*:)
+      scope: invalid.illegal.attribute-name.plc
       push: assert-line-end
 
   attribute-separator:
@@ -460,13 +464,6 @@ contexts:
   attribute-value:
     - meta_content_scope: meta.mapping.value.plc string.unquoted.plc
     - include: line-end
-
-###[ VERSION ]#################################################################
-
-  version:
-    - match: \b(?i:VERSION)\b
-      scope: entity.other.attribute-name.version.plc
-      push: version-separator
 
   version-separator:
     - meta_scope: meta.mapping.key.plc
@@ -1423,6 +1420,14 @@ contexts:
     - match: $\n?
       scope: invalid.illegal.eol.plc
       pop: 1
+
+  illegal-attributes:
+    - match: (?i:NON_RETAIN|READ_ONLY)\b
+      scope: invalid.illegal.plc
+
+  illegal-keywords:
+    - match: '{{context_keywords}}'
+      scope: invalid.illegal.plc
 
 ###############################################################################
 # IGNORED NESTED PARENTHESES AND BRAKETS
