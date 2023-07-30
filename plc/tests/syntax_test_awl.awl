@@ -267,6 +267,52 @@
 //^^^^^^^^^^^^^^^ meta.block.db.body
 // ^^^^^^^^^^^^^^ keyword.declaration.db.end
 
+DATA_BLOCK "ClassicDB"
+   STRUCT
+// ^^^^^^ storage.type.struct.begin.plc
+      variable : Array[1..5] of "typeVar";
+//    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header.plc meta.struct.plc
+//               ^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//    ^^^^^^^^ variable.other.local.plc
+//             ^ punctuation.separator.type.plc
+//               ^^^^^ storage.type.array.plc
+//                           ^^ keyword.control.of.plc
+//                              ^^^^^^^^^ storage.type.other.plc
+//                                       ^ punctuation.terminator.statement.plc
+   END_STRUCT
+// ^^^^^^^^^^ storage.type.struct.end.plc
+
+BEGIN
+// <- meta.block.db.body.plc keyword.other.begin.plc
+//^^^ meta.block.db.body.plc keyword.other.begin.plc
+
+END_DATA_BLOCK
+// <- meta.block.db.body.plc keyword.declaration.db.end.plc
+//^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
+
+DATA_BLOCK "TiaDB"
+   VAR
+// ^^^ keyword.declaration.var.stat.begin.plc
+      variable : Array[1..5] of "typeVar";
+//    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header.plc meta.block.var.stat.plc
+//               ^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//    ^^^^^^^^ variable.other.local.plc
+//             ^ punctuation.separator.type.plc
+//               ^^^^^ storage.type.array.plc
+//                           ^^ keyword.control.of.plc
+//                              ^^^^^^^^^ storage.type.other.plc
+//                                       ^ punctuation.terminator.statement.plc
+   END_VAR
+// ^^^^^^^ keyword.declaration.var.end.plc
+
+BEGIN
+// <- meta.block.db.body.plc keyword.other.begin.plc
+//^^^ meta.block.db.body.plc keyword.other.begin.plc
+
+END_DATA_BLOCK
+// <- meta.block.db.body.plc keyword.declaration.db.end.plc
+//^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
+
 ///////////////////////////////////////////////////////////////////////////////
 // functions                                                                 //
 ///////////////////////////////////////////////////////////////////////////////
