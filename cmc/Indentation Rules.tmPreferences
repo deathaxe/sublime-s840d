@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+	<key>scope</key>
+	<string>source.upscr</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string>(?x)
+			^ \s* (?i: \#\s*(?: els?if | else | endif ) | els?if | else | endif | endwhile )\b
+		</string>
+		<key>increaseIndentPattern</key>
+		<string>(?x)
+			^ \s* (?i: \#\s*(?: els?if | else | if ) | els?if | else | if | while )\b
+		</string>
+	</dict>
+</dict>
+</plist>
