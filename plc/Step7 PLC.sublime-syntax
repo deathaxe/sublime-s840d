@@ -117,12 +117,26 @@ contexts:
   block-body-content:
     - include: illegal
 
+  block-fold-begin:
+    - match: $\n?
+      scope: meta.fold.block.begin.plc
+      pop: 1
+    - match: \S.*$
+      scope: invalid.illegal.plc
+
+  block-fold-end:
+    - match: $\n?
+      scope: meta.fold.block.end.plc
+      pop: 1
+    - match: \S.*$
+      scope: invalid.illegal.plc
+
 ###[ TYPE ]####################################################################
 
   block-udt:
     - match: \b(?i:TYPE)\b
       scope: keyword.declaration.udt.begin.plc
-      push: [block-udt-header, title, block-udt-name]
+      push: [block-udt-header, title, block-fold-begin, block-udt-name]
 
   block-udt-name:
     # quoted string symbol
@@ -159,14 +173,14 @@ contexts:
   block-udt-end:
     - match: \b(?i:END_TYPE)\b
       scope: keyword.declaration.udt.end.plc
-      set: assert-line-end
+      set: block-fold-end
 
 ###[ DATA_BLOCK ]##############################################################
 
   block-db:
     - match: \b(?i:DATA_BLOCK)\b
       scope: keyword.declaration.db.begin.plc
-      push: [block-db-header, title, block-db-name]
+      push: [block-db-header, title, block-fold-begin, block-db-name]
 
   block-db-name:
     # quoted string symbol
@@ -215,7 +229,7 @@ contexts:
   block-db-end:
     - match: \b(?i:END_DATA_BLOCK)\b
       scope: keyword.declaration.db.end.plc
-      set: assert-line-end
+      set: block-fold-end
 
   block-db-assignments:
     - match: :=
@@ -259,7 +273,7 @@ contexts:
   block-fb:
     - match: \b(?i:FUNCTION_BLOCK)\b
       scope: keyword.declaration.fb.begin.plc
-      push: [block-fb-header, title, return-type, block-fb-name]
+      push: [block-fb-header, title, block-fold-begin, return-type, block-fb-name]
 
   block-fb-name:
     # quoted string symbol
@@ -302,14 +316,14 @@ contexts:
   block-fb-end:
     - match: \b(?i:END_FUNCTION_BLOCK)\b
       scope: keyword.declaration.fb.end.plc
-      set: assert-line-end
+      set: block-fold-end
 
 ###[ FUNCTION ]################################################################
 
   block-fc:
     - match: \b(?i:FUNCTION)\b
       scope: keyword.declaration.fc.begin.plc
-      push: [block-fc-header, title, return-type, block-fb-name]
+      push: [block-fc-header, title, block-fold-begin, return-type, block-fb-name]
 
   block-fc-header:
     - meta_scope: meta.block.fc.header.plc
@@ -335,14 +349,14 @@ contexts:
   block-fc-end:
     - match: \b(?i:END_FUNCTION)\b
       scope: keyword.declaration.fc.end.plc
-      set: assert-line-end
+      set: block-fold-end
 
 ###[ ORGANIZATION_BLOCK ]######################################################
 
   block-ob:
     - match: \b(?i:ORGANIZATION_BLOCK)\b
       scope: keyword.declaration.ob.begin.plc
-      push: [block-ob-header, title, block-ob-name]
+      push: [block-ob-header, title, block-fold-begin, block-ob-name]
 
   block-ob-name:
     # quoted string symbol
@@ -382,7 +396,7 @@ contexts:
   block-ob-end:
     - match: \b(?i:END_ORGANIZATION_BLOCK)\b
       scope: keyword.declaration.ob.end.plc
-      set: assert-line-end
+      set: block-fold-end
 
 ###############################################################################
 #  HEADER DATA                                                                #
