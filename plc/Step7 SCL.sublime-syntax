@@ -142,18 +142,30 @@ contexts:
 ###[ REGIONS ]#################################################################
 
   scl-regions:
-    - match: \b((?i:region))(?:\s+(.*?))?(\s+$\n?)
-      scope: meta.block.region.begin.plc
+    - match: \b((?i:region))\s+((?:(?!\s*\n).)+)
+      scope: meta.region.begin.plc
       captures:
-        1: keyword.context.block.region.begin.plc
-        2: entity.name.section.plc
-        3: meta.fold.begin.plc  # used as fold begin marker
-    - match: \b((?i:end_region))(?:\s+(.*?))?(\s+$\n?)
-      scope: meta.block.region.end.plc
+        1: keyword.context.region.begin.plc
+        2: meta.fold.region.begin.plc entity.name.section.plc
+      push: scl-region-body
+    - match: \b(?i:region)\b
+      scope: meta.region.begin.plc meta.fold.region.begin.plc keyword.context.region.begin.plc
+      push: scl-region-body
+
+  scl-region-body:
+    - meta_content_scope: meta.region.body.plc
+    - include: scl-region-end
+    - include: block-body-content
+
+  scl-region-end:
+    - match: \b((?i:end_region))(?:\s+((?:(?!\s*\n).)+)\s*)?(\n)
+      scope: meta.region.end.plc
       captures:
-        1: keyword.context.block.region.end.plc
+        1: keyword.context.region.end.plc
         2: entity.name.section.plc
-        3: meta.fold.end.plc  # used as fold end marker
+        3: meta.fold.region.end.plc
+      pop: 1
+    - include: context-end
 
 ###[ CONTROL ]#################################################################
 
