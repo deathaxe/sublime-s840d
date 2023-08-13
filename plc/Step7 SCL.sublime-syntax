@@ -343,16 +343,8 @@ contexts:
     - meta_prepend: true
     - include: literals-octal
 
-  literals-decimal:
-    - match: (?:({{prefix_decimal}})(#)([-+]?))?({{int}})
-      scope: meta.number.integer.decimal.plc
-      captures:
-        1: storage.type.integer.plc
-        2: punctuation.separator.type.plc
-        3: keyword.operator.arithmetic.plc
-        4: constant.numeric.value.plc
-
   literals-float:
+    - meta_prepend: true
     - match: ((?i:L?REAL))(#)(?:([-+]?)(\d+)(?!\.))?
       scope: meta.number.float.decimal.plc
       captures:
@@ -360,10 +352,6 @@ contexts:
         2: punctuation.separator.type.plc
         3: keyword.operator.arithmetic.plc
         4: constant.numeric.value.plc
-    - match: \d+(\.)\d+(?:[Ee][-+]\d+)?\b
-      scope: meta.number.float.decimal.plc constant.numeric.value.plc
-      captures:
-        1: punctuation.separator.decimal.plc
 
   literals-octal:
     # 8#01101

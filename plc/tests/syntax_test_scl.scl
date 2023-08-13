@@ -135,6 +135,20 @@ VAR CONSTANT
 //                      ^^ keyword.operator.assignment.plc
 //                         ^^^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                            ^ punctuation.terminator.statement.plc
+    LOCAL_CONST : Real := -100.0;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
+//  ^^^^^^^^^^^^^ meta.definition.variable.plc
+//               ^^^^^^ meta.definition.variable.storage.plc
+//                     ^^ meta.definition.variable.plc
+//                       ^^^^^^^ meta.definition.variable.value.plc
+//  ^^^^^^^^^^^ entity.name.constant.plc
+//              ^ punctuation.separator.type.plc
+//                ^^^^ storage.type.float.plc
+//                     ^^ keyword.operator.assignment.plc
+//                        ^^^^^^ meta.number.float.decimal.plc
+//                        ^ keyword.operator.arithmetic.plc
+//                         ^^^^^ constant.numeric.value.plc
+//                              ^ punctuation.terminator.statement.plc
     T1s : LInt := LINT#1000_000_000;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
 //  ^^^^^ meta.definition.variable.plc
