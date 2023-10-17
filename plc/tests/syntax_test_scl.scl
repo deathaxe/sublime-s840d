@@ -1381,6 +1381,14 @@ end_region
 //                    ^^^ variable.language.slice.plc
 //                    ^ punctuation.definition.absolute.plc
 
+    "GLOBAL_CONSTANT".%B5
+//  ^ punctuation.definition.variable.begin.plc
+//  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
+//                  ^ punctuation.definition.variable.end.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.language.slice.plc
+//                    ^ punctuation.definition.absolute.plc
+
     "GLOBAL_CONSTANT":P
 //  ^ punctuation.definition.variable.begin.plc
 //  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
@@ -1401,6 +1409,20 @@ end_region
 //                    ^^^ variable.other.member.plc
 
     "globalDB".struct.var.%X8
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                       ^^^^ - meta.path
+//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
+//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//            ^ punctuation.accessor.dot.plc
+//             ^^^^^^ variable.namespace.struct.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.other.member.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^ variable.language.slice.plc
+//                        ^ punctuation.definition.absolute.plc
+
+    "globalDB".struct.var.%B8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path
 //  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
