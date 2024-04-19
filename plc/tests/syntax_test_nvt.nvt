@@ -1,0 +1,77 @@
+// SYNTAX TEST "Step7 NVT.sublime-syntax"
+
+TYPE
+// <- meta.type.nvt keyword.declaration.udt.begin.plc
+//^^ meta.type.nvt keyword.declaration.udt.begin.plc
+//  ^ meta.type.nvt meta.fold.block.begin.plc
+
+    {PUBLISHED := 'TRUE'}
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.type.nvt meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+//   ^^^^^^^^^ variable.annotation.plc
+//             ^^ keyword.operator.assignment.plc
+//                ^^^^^^ meta.string.plc string.quoted.single.plc
+//                      ^ punctuation.definition.annotation.end.plc
+
+    namedValueType : UINT (
+//  ^^^^^^^^^^^^^^ entity.name.enum.plc
+//                 ^ punctuation.separator.type.plc
+//                   ^^^^ storage.type.integer.plc
+//                        ^^ meta.enum.scl meta.block.scl
+//                        ^ punctuation.section.block.begin.plc
+        UNDEF := 0,
+//      ^^^^^ entity.name.constant.plc
+//            ^^ keyword.operator.assignment.plc
+//               ^ constant.numeric.value.plc
+//                ^ punctuation.separator.sequence.plc
+    ) UNDEF;
+// ^^ meta.enum.scl meta.block.scl
+//  ^ punctuation.section.block.end.plc
+//    ^^^^^ constant.other.plc
+//         ^ punctuation.terminator.statement.plc
+
+    namedValueType2 : LWORD
+//  ^^^^^^^^^^^^^^^ entity.name.enum.plc
+//                  ^ punctuation.separator.type.plc
+//                    ^^^^^ storage.type.integer.plc
+    (
+//  ^^ meta.enum.scl meta.block.scl
+//  ^ punctuation.section.block.begin.plc
+        UNDEF := 16#0,
+//      ^^^^^ entity.name.constant.plc
+//            ^^ keyword.operator.assignment.plc
+//               ^^^^ meta.number.integer.hexadecimal.plc
+//                   ^ punctuation.separator.sequence.plc
+    );
+// ^^ meta.enum.scl meta.block.scl
+//  ^ punctuation.section.block.end.plc
+//   ^ punctuation.terminator.statement.plc
+
+END_TYPE
+// <- meta.type.nvt keyword.declaration.udt.end.plc
+//^^^^^^ meta.type.nvt keyword.declaration.udt.end.plc
+//      ^ meta.fold.block.end.plc
+
+NAMESPACE FOO
+// <- meta.namespace.nvt keyword.declaration.namespace.begin.plc
+//^^^^^^^^^^^^ meta.namespace.nvt
+//^^^^^^^ keyword.declaration.namespace.begin.plc
+//        ^^^ entity.name.namespace.plc
+    {PUBLISHED := 'TRUE'}
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.namespace.nvt meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+//   ^^^^^^^^^ variable.annotation.plc
+//             ^^ keyword.operator.assignment.plc
+//                ^^^^^^ meta.string.plc string.quoted.single.plc
+//                      ^ punctuation.definition.annotation.end.plc
+    TYPE
+// ^ meta.namespace.nvt - meta.type
+//  ^^^^^ meta.namespace.nvt meta.type.nvt
+
+    END_TYPE
+// ^^^^^^^^^ meta.namespace.nvt meta.type.nvt
+//          ^ meta.namespace.nvt - meta.type
+END_NAMESPACE
+// <- meta.namespace.nvt keyword.declaration.udt.end.plc
+//^^^^^^^^^^^ meta.namespace.nvt keyword.declaration.udt.end.plc
+//           ^ meta.fold.block.end.plc
