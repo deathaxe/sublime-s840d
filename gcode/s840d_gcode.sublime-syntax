@@ -197,21 +197,44 @@ contexts:
 ###############################################################################
 
   stmt-group:
-    - match: (?i:GROUP_(BEGIN|END))\b
-      scope: entity.name.namespace.s840d_gcode
+    - match: (?i:GROUP_BEGIN)\b
+      scope: entity.name.group.s840d_gcode
       set:
-        - meta_scope: meta.namespace.s840d_gcode
-        - match: (?=\()
-          set: stmt-group-parameter-list
-        - include: line-end-or-illegal
+        - stmt-group-begin-meta
+        - stmt-group-parameters
+    - match: (?i:GROUP_END)\b
+      scope: entity.name.group.s840d_gcode
+      set:
+        - stmt-group-end-meta
+        - stmt-group-parameters
+
+  stmt-group-begin-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.definition.group.begin.s840d_gcode
+    - match: ''
+      pop: true
+
+  stmt-group-end-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.definition.group.end.s840d_gcode
+    - match: ''
+      pop: true
+
+  stmt-group-parameters:
+    - meta_include_prototype: false
+    - meta_scope: meta.group.s840d_gcode
+    - match: (?=\()
+      set: stmt-group-parameter-list
+    - include: line-end-or-illegal
 
   stmt-group-parameter-list:
+    - meta_include_prototype: false
     - match: \(
       scope: punctuation.section.parameters.begin.s840d_gcode
       set: stmt-group-parameter-list-body
 
   stmt-group-parameter-list-body:
-    - meta_scope: meta.namespace.parameters.s840d_gcode
+    - meta_scope: meta.group.parameters.s840d_gcode
     - match: \)
       scope: punctuation.section.parameters.end.s840d_gcode
       set: line-end-or-illegal
