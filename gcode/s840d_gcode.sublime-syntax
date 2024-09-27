@@ -853,8 +853,12 @@ contexts:
     - meta_content_scope: meta.section.for.s840d_gcode
     - match: (?i:ENDFOR)\b
       scope: keyword.control.endfor.s840d_gcode
-      set: assert-line-end    # leave for-body
+      set: stmt-endfor-body    # leave for-body
     - include: main-sublevel
+
+  stmt-endfor-body:
+    - meta_scope: meta.section.for.s840d_gcode meta.control.endfor.s840d_gcode
+    - include: assert-line-end
 
 ###############################################################################
 # GOTO
@@ -922,11 +926,15 @@ contexts:
     - meta_content_scope: meta.section.if.s840d_gcode
     - match: (?i:ENDIF)\b
       scope: keyword.control.endif.s840d_gcode
-      set: assert-line-end    # leave if-body
+      set: stmt-endif-body    # leave if-body
     - match: (?i:ELSE)\b
       scope: keyword.control.else.s840d_gcode
       push: assert-line-end   # don't leave if-body
     - include: main-sublevel
+
+  stmt-endif-body:
+    - meta_scope: meta.section.if.s840d_gcode meta.control.endif.s840d_gcode
+    - include: assert-line-end
 
 ###############################################################################
 # DIN ISO STATEMENTS
@@ -1093,8 +1101,12 @@ contexts:
     - meta_content_scope: meta.section.loop.s840d_gcode
     - match: (?i:ENDLOOP)\b
       scope: keyword.control.endloop.s840d_gcode
-      set: assert-line-end    # leave loop-body
+      set: stmt-endloop-body    # leave loop-body
     - include: main-sublevel
+
+  stmt-endloop-body:
+    - meta_scope: meta.section.loop.s840d_gcode meta.control.endloop.s840d_gcode
+    - include: assert-line-end
 
 ###############################################################################
 # REPEAT ... UNTIL / REPEAT <LBL1> <LBL2> / REPEATB <LBL>
@@ -1154,14 +1166,14 @@ contexts:
       set: stmt-repeat-until-begin
 
   stmt-repeat-until-begin:
-    - meta_scope: meta.section.repeat.s840d_gcode
+    - meta_scope: meta.section.repeat-until.s840d_gcode meta.control.repeat.s840d_gcode
     - match: \n|(?=;)
       scope: meta.eol.s840d_gcode
       set: stmt-repeat-until-body
     - include: illegal
 
   stmt-repeat-until-body:
-    - meta_content_scope: meta.section.repeat.s840d_gcode
+    - meta_content_scope: meta.section.repeat-until.s840d_gcode
     - match: (?i:UNTIL)\b
       scope: keyword.control.until.s840d_gcode
       set: stmt-repeat-until-condition
@@ -1169,7 +1181,7 @@ contexts:
 
   stmt-repeat-until-condition:
     - meta_scope: meta.control.until.s840d_gcode
-    - meta_content_scope: meta.section.repeat.s840d_gcode
+    - meta_content_scope: meta.section.repeat-until.s840d_gcode
     - include: expressions-line
 
 ###############################################################################
@@ -1268,7 +1280,7 @@ contexts:
       set: stmt-while-condition
 
   stmt-while-condition:
-    - meta_scope: meta.section.while.condition.s840d_gcode
+    - meta_scope: meta.section.while.s840d_gcode meta.control.while.s840d_gcode
     - match: \n|(?=;)
       scope: meta.eol.s840d_gcode
       set: stmt-while-body
@@ -1279,8 +1291,12 @@ contexts:
     - meta_content_scope: meta.section.while.body.s840d_gcode
     - match: (?i:ENDWHILE)\b
       scope: keyword.control.endwhile.s840d_gcode
-      set: assert-line-end    # leave loop-body
+      set: stmt-endwhile-body    # leave loop-body
     - include: main-sublevel
+
+  stmt-endwhile-body:
+    - meta_scope: meta.section.while.s840d_gcode meta.control.endwhile.s840d_gcode
+    - include: assert-line-end
 
 ###############################################################################
 # EXPRESSIONS
