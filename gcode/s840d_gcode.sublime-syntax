@@ -238,10 +238,18 @@ contexts:
     - match: \)
       scope: punctuation.section.parameters.end.s840d_gcode
       set: line-end-or-illegal
+    - match: \"
+      scope: punctuation.definition.string.begin.s840d_gcode
+      push: group-name-body
     - include: seperator-comma
     - include: numbers
-    - include: strings
     - include: line-end-or-illegal
+
+  group-name-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.s840d_gcode string.quoted.double.s840d_gcode
+    - meta_content_scope: entity.name.section.s840d_gcode
+    - include: string-body
 
 ###############################################################################
 # EXTERN PROCEDURE DEFINITION
