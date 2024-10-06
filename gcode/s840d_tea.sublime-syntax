@@ -1,6 +1,8 @@
 %YAML 1.2
 ---
 name: S840D Config (TEA)
+scope: source.s840d_gcode.tea
+
 file_extensions:
   - gud   # user data file
   - rpa   # R-parameter file
@@ -8,8 +10,5 @@ file_extensions:
   - tea   # machine data file
   - toa   # tool correction file
   - ufr   # user frame file
-scope: source.s840d_gcode.tea
 
-contexts:
-  main:
-    - include: s840d_gcode.sublime-syntax
+extends: s840d_gcode.sublime-syntax

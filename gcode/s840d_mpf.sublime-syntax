@@ -1,10 +1,9 @@
 %YAML 1.2
 ---
 name: S840D Main Program (MPF)
-file_extensions:
-  - mpf
 scope: source.s840d_gcode.mpf
 
-contexts:
-  main:
-    - include: s840d_gcode.sublime-syntax
+file_extensions:
+  - mpf
+
+extends: s840d_gcode.sublime-syntax
