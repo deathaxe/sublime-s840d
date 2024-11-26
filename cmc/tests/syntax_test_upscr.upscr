@@ -309,6 +309,21 @@ $MA_POS_LIMIT[1, AX2]
 ;                                   ^^^^ constant.character.entity.named.html
 ;                                             ^^^^ constant.character.entity.named.html
 
+    UP.Foo<<"\20_CMC_Release\"<<Up.Bar
+;   ^^^^^^ meta.path.upscr
+;   ^^ variable.namespace.upscr
+;     ^ punctuation.accessor.dot.upscr
+;      ^^^ variable.other.member.upscr
+;         ^^ keyword.operator.concat.upscr
+;           ^^^^^^^^^^^^^^^^^^ meta.string.upscr string.quoted.double.upscr
+;           ^ punctuation.definition.string.begin.upscr
+;                            ^ punctuation.definition.string.end.upscr
+;                             ^^ keyword.operator.concat.upscr
+;                               ^^^^^^ meta.path.upscr
+;                               ^^ variable.namespace.upscr
+;                                 ^ punctuation.accessor.dot.upscr
+;                                  ^^^ variable.other.member.upscr
+
 ; -- Operators
 
     - + * / | &
