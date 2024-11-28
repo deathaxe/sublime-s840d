@@ -7,6 +7,7 @@ version: 2
 
 file_extensions:
   - upscr
+  - upcfg
   - uplib
 
 variables:
@@ -518,7 +519,7 @@ contexts:
     - include: scope:text.html.basic#entities
 
   escaped-chars:
-    - match: \\.
+    - match: \\[afnrt]
       scope: constant.character.escape.upscr
 
 ###[ VARIABLES ]###############################################################

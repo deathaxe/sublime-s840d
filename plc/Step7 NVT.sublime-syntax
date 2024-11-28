@@ -1,0 +1,141 @@
+%YAML 1.2
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 DeathAxe <deathaxe82@googlemail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+###############################################################################
+---
+name: Step7 Named Value Type
+scope: source.plc.nvt
+version: 2
+
+file_extensions:
+  - nvt
+
+variables:
+
+  ident: '[[:alpha:]_][[:alnum:]_]*\b'
+
+contexts:
+  main:
+    - include: block-namespace
+    - include: block-udt
+
+  prototype:
+    - include: scope:source.plc.scl#comments
+
+###[ NAMESPACES ]##############################################################
+
+  block-namespace:
+    - match: \b(?i:NAMESPACE)\b
+      scope: keyword.declaration.namespace.begin.plc
+      push: [block-namespace-body, block-fold-begin, block-namespace-name]
+
+  block-namespace-name:
+    # quoted string symbol
+    - match: \"
+      scope: punctuation.definition.variable.begin.plc
+      set: quoted-namespace-name-body
+    # unquoted string symbol
+    - match: '{{ident}}'
+      scope: entity.name.namespace.plc
+      pop: 1
+    - include: else-pop
+
+  quoted-namespace-name-body:
+    - meta_include_prototype: false
+    - meta_scope: entity.name.namespace.plc
+    - match: \"
+      scope: punctuation.definition.variable.end.plc
+      pop: 1
+    - include: illegal-eol
+
+  block-namespace-body:
+    - meta_scope: meta.namespace.nvt
+    - match: \b(?i:END_NAMESPACE)\b
+      scope: keyword.declaration.udt.end.plc
+      set: block-fold-end
+    - include: block-udt
+    - include: scope:source.plc.scl#annotations
+    - include: scope:source.plc.scl#punctuation-terminators
+
+###[ TYPES ]###################################################################
+
+  block-udt:
+    - match: \b(?i:TYPE)\b
+      scope: keyword.declaration.udt.begin.plc
+      push: [block-udt-body, block-fold-begin]
+
+  block-udt-body:
+    - meta_scope: meta.type.nvt
+    - match: \b(?i:END_TYPE)\b
+      scope: keyword.declaration.udt.end.plc
+      set: block-fold-end
+    - match: (?=\b(?i:END_)\b)
+      pop: 1
+    - match: '{{ident}}'
+      scope: entity.name.enum.plc
+    - match: ':'
+      scope: punctuation.separator.type.plc
+      push: named-value-type
+    - match: \(
+      scope: punctuation.section.block.begin.plc
+      push: named-value-list-body
+    - include: scope:source.plc.scl#annotations
+    - include: scope:source.plc.scl#punctuation-terminators
+
+  named-value-type:
+    - include: scope:source.plc.scl#storage-type
+    - include: else-pop
+
+  named-value-list-body:
+    - meta_scope: meta.enum.scl meta.block.scl
+    - match: \)
+      scope: punctuation.section.block.end.plc
+      set: named-value-default
+    - match: :=
+      scope: keyword.operator.assignment.plc
+    - match: '{{ident}}'
+      scope: entity.name.constant.plc
+    - include: scope:source.plc.scl#literals
+    - include: scope:source.plc.scl#punctuation-separators
+
+  named-value-default:
+    - match: '{{ident}}'
+      scope: constant.other.plc
+      pop: 1
+    - include: else-pop
+
+###[ PROTOTYPES ]##############################################################
+
+  block-fold-begin:
+    - include: scope:source.plc.scl#block-fold-begin
+
+  block-fold-end:
+    - include: scope:source.plc.scl#block-fold-end
+
+  else-pop:
+    - match: (?=\S)
+      pop: 1
+
+  illegal-eol:
+    - match: $\n?
+      scope: invalid.illegal.eol.plc
+      pop: 1

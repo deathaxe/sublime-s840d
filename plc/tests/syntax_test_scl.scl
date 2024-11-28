@@ -135,6 +135,20 @@ VAR CONSTANT
 //                      ^^ keyword.operator.assignment.plc
 //                         ^^^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                            ^ punctuation.terminator.statement.plc
+    LOCAL_CONST : Real := -100.0;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
+//  ^^^^^^^^^^^^^ meta.definition.variable.plc
+//               ^^^^^^ meta.definition.variable.storage.plc
+//                     ^^ meta.definition.variable.plc
+//                       ^^^^^^^ meta.definition.variable.value.plc
+//  ^^^^^^^^^^^ entity.name.constant.plc
+//              ^ punctuation.separator.type.plc
+//                ^^^^ storage.type.float.plc
+//                     ^^ keyword.operator.assignment.plc
+//                        ^^^^^^ meta.number.float.decimal.plc
+//                        ^ keyword.operator.arithmetic.plc
+//                         ^^^^^ constant.numeric.value.plc
+//                              ^ punctuation.terminator.statement.plc
     T1s : LInt := LINT#1000_000_000;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc meta.block.var.constant.plc
 //  ^^^^^ meta.definition.variable.plc
@@ -159,43 +173,43 @@ BEGIN
 //^^^ meta.block.fb.body.plc keyword.other.begin.plc
 
 REGION Main
-// <- meta.block.region.begin.plc keyword.context.block.region.begin.plc
-//^^^^^^^^^^ meta.block.region.begin.plc
-//^^^^ keyword.context.block.region.begin.plc
+// <- meta.region.begin.plc keyword.context.region.begin.plc
+//^^^^^^^^^ meta.region.begin.plc
+//^^^^ keyword.context.region.begin.plc
 //     ^^^^ entity.name.section.plc
 
     region Sub Region Name
-//  ^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.begin.plc
-//  ^^^^^^ keyword.context.block.region.begin.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.region.begin.plc
+//  ^^^^^^ keyword.context.region.begin.plc
 //         ^^^^^^^^^^^^^^^ entity.name.section.plc
 
     end_region Sub Region Name // comment
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.region.end.plc
-//  ^^^^^^^^^^ keyword.context.block.region.end.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.region.end.plc
+//  ^^^^^^^^^^ keyword.context.region.end.plc
 //             ^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.section.plc
 
 END_REGION // comment
-//^^^^^^^^^^^^^^^^^^^^ meta.block.region.end.plc
-// <- keyword.context.block.region.end.plc
-//^^^^^^^^ keyword.context.block.region.end.plc
+//^^^^^^^^^^^^^^^^^^^^ meta.region.end.plc
+// <- keyword.context.region.end.plc
+//^^^^^^^^ keyword.context.region.end.plc
 //         ^^^^^^^^^^ entity.name.section.plc
 
 end_region // comment
-//^^^^^^^^^^^^^^^^^^^^ meta.block.region.end.plc
-// <- keyword.context.block.region.end.plc
-//^^^^^^^^ keyword.context.block.region.end.plc
-//         ^^^^^^^^^^ entity.name.section.plc
+//^^^^^^^^^^^^^^^^^^^^ - meta.region
+// <- invalid.illegal.plc
+//^^^^^^^^ invalid.illegal.plc
+//         ^^^^^^^^^^ comment.line.double-slash.plc
 
 region
-// <- meta.block.region.begin.plc keyword.context.block.region.begin.plc
+// <- meta.region.begin.plc keyword.context.region.begin.plc
 //^^^^^ meta.block.fb.body.plc
-//^^^^ keyword.context.block.region.begin.plc
+//^^^^ keyword.context.region.begin.plc
     until
 //  ^^^^^ invalid.illegal.plc
 end_region
-// <- meta.block.region.end.plc keyword.context.block.region.end.plc
-//^^^^^^^^ meta.block.region.end.plc keyword.context.block.region.end.plc
-//        ^ meta.block.region.end.plc meta.fold.end.plc
+// <- meta.region.end.plc keyword.context.region.end.plc
+//^^^^^^^^ meta.region.end.plc keyword.context.region.end.plc
+//        ^ meta.region.end.plc meta.fold.region.end.plc
 
 /// CASE..OF..ELSE..END_CASE //////////////////////////////////////////////////
 
@@ -1367,6 +1381,14 @@ end_region
 //                    ^^^ variable.language.slice.plc
 //                    ^ punctuation.definition.absolute.plc
 
+    "GLOBAL_CONSTANT".%B5
+//  ^ punctuation.definition.variable.begin.plc
+//  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
+//                  ^ punctuation.definition.variable.end.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.language.slice.plc
+//                    ^ punctuation.definition.absolute.plc
+
     "GLOBAL_CONSTANT":P
 //  ^ punctuation.definition.variable.begin.plc
 //  ^^^^^^^^^^^^^^^^^ constant.other.global.plc
@@ -1387,6 +1409,20 @@ end_region
 //                    ^^^ variable.other.member.plc
 
     "globalDB".struct.var.%X8
+//  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                       ^^^^ - meta.path
+//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
+//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//            ^ punctuation.accessor.dot.plc
+//             ^^^^^^ variable.namespace.struct.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^ variable.other.member.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^ variable.language.slice.plc
+//                        ^ punctuation.definition.absolute.plc
+
+    "globalDB".struct.var.%B8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path
 //  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc

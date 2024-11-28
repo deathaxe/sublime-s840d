@@ -142,18 +142,30 @@ contexts:
 ###[ REGIONS ]#################################################################
 
   scl-regions:
-    - match: \b((?i:region))(?:\s+(.*?))?(\s+$\n?)
-      scope: meta.block.region.begin.plc
+    - match: \b((?i:region))\s+((?:(?!\s*\n).)+)
+      scope: meta.region.begin.plc
       captures:
-        1: keyword.context.block.region.begin.plc
-        2: entity.name.section.plc
-        3: meta.fold.begin.plc  # used as fold begin marker
-    - match: \b((?i:end_region))(?:\s+(.*?))?(\s+$\n?)
-      scope: meta.block.region.end.plc
+        1: keyword.context.region.begin.plc
+        2: meta.fold.region.begin.plc entity.name.section.plc
+      push: scl-region-body
+    - match: \b(?i:region)\b
+      scope: meta.region.begin.plc meta.fold.region.begin.plc keyword.context.region.begin.plc
+      push: scl-region-body
+
+  scl-region-body:
+    - meta_content_scope: meta.region.body.plc
+    - include: scl-region-end
+    - include: block-body-content
+
+  scl-region-end:
+    - match: \b((?i:end_region))(?:\s+((?:(?!\s*\n).)+)\s*)?(\n)
+      scope: meta.region.end.plc
       captures:
-        1: keyword.context.block.region.end.plc
+        1: keyword.context.region.end.plc
         2: entity.name.section.plc
-        3: meta.fold.end.plc  # used as fold end marker
+        3: meta.fold.region.end.plc
+      pop: 1
+    - include: context-end
 
 ###[ CONTROL ]#################################################################
 
@@ -331,16 +343,8 @@ contexts:
     - meta_prepend: true
     - include: literals-octal
 
-  literals-decimal:
-    - match: (?:({{prefix_decimal}})(#)([-+]?))?({{int}})
-      scope: meta.number.integer.decimal.plc
-      captures:
-        1: storage.type.integer.plc
-        2: punctuation.separator.type.plc
-        3: keyword.operator.arithmetic.plc
-        4: constant.numeric.value.plc
-
   literals-float:
+    - meta_prepend: true
     - match: ((?i:L?REAL))(#)(?:([-+]?)(\d+)(?!\.))?
       scope: meta.number.float.decimal.plc
       captures:
@@ -348,10 +352,6 @@ contexts:
         2: punctuation.separator.type.plc
         3: keyword.operator.arithmetic.plc
         4: constant.numeric.value.plc
-    - match: \d+(\.)\d+(?:[Ee][-+]\d+)?\b
-      scope: meta.number.float.decimal.plc constant.numeric.value.plc
-      captures:
-        1: punctuation.separator.decimal.plc
 
   literals-octal:
     # 8#01101
@@ -417,7 +417,7 @@ contexts:
       captures:
         1: punctuation.accessor.colon.plc
         2: variable.language.peripherie.plc
-    - match: (\.)((%)[Xx]\d+)
+    - match: (\.)((%)[XxBb]\d+)
       captures:
         1: punctuation.accessor.dot.plc
         2: variable.language.slice.plc

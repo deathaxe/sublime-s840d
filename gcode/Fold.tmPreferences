@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>scope</key>
+    <string>source.s840d_gcode</string>
+    <key>settings</key>
+    <dict>
+        <key>foldScopes</key>
+        <array>
+            <dict>
+                <key>begin</key>
+                <string>meta.definition.group.begin meta.eol</string>
+                <key>end</key>
+                <string>meta.definition.group.end meta.eol</string>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.control.if meta.eol</string>
+                <key>end</key>
+                <string>meta.control.endif meta.eol</string>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.control.for meta.eol</string>
+                <key>end</key>
+                <string>meta.control.for meta.eol</string>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.control.loop meta.eol</string>
+                <key>end</key>
+                <string>meta.control.endloop meta.eol</string>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.section.repeat-until meta.control.repeat meta.eol</string>
+                <key>end</key>
+                <string>meta.control.until keyword.control.until</string>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.control.while meta.eol</string>
+                <key>end</key>
+                <string>meta.control.endwhile meta.eol</string>
+            </dict>
+        </array>
+    </dict>
+</dict>
+</plist>

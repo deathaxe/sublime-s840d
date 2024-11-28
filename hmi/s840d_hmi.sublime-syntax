@@ -1924,26 +1924,28 @@ contexts:
     - match: '('')([Bb])'
       captures:
         1: punctuation.definition.numeric.begin.s840d_hmi
-        2: punctuation.definition.numeric.binary.s840d_hmi
+        2: constant.numeric.base.s840d_hmi
       push:
-      - meta_scope: constant.numeric.integer.binary.s840d_hmi
+      - meta_scope: meta.number.integer.binary.s840d_hmi
+      - meta_content_scope: constant.numeric.value.s840d_hmi
       - match: '''|$'
         scope: punctuation.definition.numeric.end.s840d_hmi
         pop: true
       - match: '[^01]'
-        scope: invalid.illegal.s840d_hmi
+        scope: invalid.illegal.digit.s840d_hmi
     # single quoted hexadecimal numbers
     - match: '('')([Hh])'
       captures:
         1: punctuation.definition.numeric.begin.s840d_hmi
-        2: punctuation.definition.numeric.hexadecimal.s840d_hmi
+        2: constant.numeric.base.s840d_hmi
       push:
-      - meta_scope: constant.numeric.hexadecimal.s840d_hmi
+      - meta_scope: meta.number.integer.hexadecimal.s840d_hmi
+      - meta_content_scope: constant.numeric.value.s840d_hmi
       - match: '''|$'
         scope: punctuation.definition.numeric.end.s840d_hmi
         pop: true
       - match: \H
-        scope: invalid.illegal.s840d_hmi
+        scope: invalid.illegal.digit.s840d_hmi
 
   operator:
     - match: =(?!=)
