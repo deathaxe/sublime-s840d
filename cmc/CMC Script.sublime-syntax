@@ -612,10 +612,19 @@ contexts:
       captures:
         1: variable.namespace.upscr
         2: punctuation.accessor.dot.upscr
-      push: qualified-variable
+      branch_point: variable
+      branch:
+        - up-variable-reference
+        - up-variable-binding
 
-  qualified-variable:
+  up-variable-reference:
     - meta_scope: meta.path.upscr
+    - match: (?==)
+      fail: variable
+    - include: up-variable-binding
+
+  up-variable-binding:
+    - meta_scope: meta.binding.upscr meta.path.upscr
     - include: interpolations
     - match: \.
       scope: punctuation.accessor.dot.upscr
