@@ -413,8 +413,6 @@ contexts:
     # file operation constants
     - match: (?i:RTS|ARC|NCU|PCU)\b
       scope: constant.language.filearea.upscr
-    - match: '[A-Z_][A-Z0-9_]*\b'
-      scope: constant.other.upscr
 
   numbers:
     # BiCo
@@ -655,9 +653,6 @@ contexts:
       captures:
         1: variable.namespace.upscr
         2: punctuation.accessor.dot.upscr
-    - match: '[A-Z_][A-Z0-9_]*\b'
-      scope: constant.other.member.upscr
-      push: maybe-item-access
     - match: \w+\b
       scope: variable.other.member.upscr
       push: maybe-item-access
