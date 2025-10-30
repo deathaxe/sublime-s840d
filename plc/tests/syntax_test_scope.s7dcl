@@ -1,0 +1,378 @@
+// SYNTAX TEST "Step7 DCL.sublime-syntax"
+
+// ============================================================================
+// NAMESPACE TESTS
+// ============================================================================
+
+NAMESPACE Name
+// <- meta.namespace.plc keyword.declaration.namespace.begin.plc
+//^^^^^^^^^^^^^ meta.namespace.plc
+//^^^^^^^ keyword.declaration.namespace.begin.plc
+//        ^^^^ entity.name.namespace.plc
+//            ^ meta.fold.namespace.begin.plc
+    TYPE
+//  ^^^^^ meta.namespace.plc meta.block.udt.header.plc
+//  ^^^^ keyword.declaration.udt.begin.plc
+    END_TYPE
+//  ^^^^^^^^ meta.namespace.plc keyword.declaration.udt.end.plc
+
+    DATA_BLOCK "dataBlock"
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.db.header.plc
+//  ^^^^^^^^^^ keyword.declaration.db.begin.plc
+//             ^^^^^^^^^^^ entity.name.datablock.plc
+//             ^ punctuation.definition.variable.begin.plc
+//                       ^ punctuation.definition.variable.end.plc
+    END_DATA_BLOCK
+//  ^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.db.end.plc
+
+    FUNCTION_BLOCK "funcName"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.fb.header.plc
+//  ^^^^^^^^^^^^^^ keyword.declaration.fb.begin.plc
+//                 ^^^^^^^^^^ entity.name.function.plc
+//                 ^ punctuation.definition.variable.begin.plc
+//                          ^ punctuation.definition.variable.end.plc
+    END_FUNCTION_BLOCK
+//  ^^^^^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.fb.end.plc
+
+    FUNCTION "funcName"
+//  ^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.fc.header.plc
+//  ^^^^^^^^ keyword.declaration.fc.begin.plc
+//           ^^^^^^^^^^ entity.name.function.plc
+//           ^ punctuation.definition.variable.begin.plc
+//                    ^ punctuation.definition.variable.end.plc
+    END_FUNCTION
+//  ^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.fc.end.plc
+
+    ORGANIZATION_BLOCK "BlockName"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.ob.header.plc
+//  ^^^^^^^^^^^^^^^^^^ keyword.declaration.ob.begin.plc
+//                     ^^^^^^^^^^^ entity.name.organization-block.plc
+//                     ^ punctuation.definition.variable.begin.plc
+//                               ^ punctuation.definition.variable.end.plc
+    END_ORGANIZATION_BLOCK
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.ob.end.plc
+
+END_NAMESPACE
+// <- meta.namespace.plc keyword.declaration.namespace.end.plc
+//^^^^^^^^^^^ meta.namespace.plc keyword.declaration.namespace.end.plc
+//           ^ meta.fold.namespace.end.plc - meta.namespace
+
+END_NAMESPACE
+// <- invalid.illegal.plc
+//^^^^^^^^^^^ invalid.illegal.plc
+
+
+// ============================================================================
+// TYPE TESTS
+// ============================================================================
+
+TYPE
+// <- meta.block.udt.header.plc keyword.declaration.udt.begin.plc
+//^^ meta.block.udt.header.plc keyword.declaration.udt.begin.plc
+
+    { S7_MLC := "MLC_comment" }
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+//    ^^^^^^ variable.annotation.plc
+//           ^^ keyword.operator.assignment.plc
+//              ^^^^^^^^^^^^^ meta.string.plc string.quoted.double.plc
+//              ^ punctuation.definition.string.begin.plc
+//                          ^ punctuation.definition.string.end.plc
+//                            ^ punctuation.definition.annotation.end.plc
+
+    name : STRUCT
+//^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//        ^^^^^^^ meta.definition.variable.storage.plc
+//         ^^^^^^ meta.struct.plc storage.type.struct.begin.plc
+    END_STRUCT;
+//^^^^^^^^^^^^^ meta.block.udt.header.plc
+//^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.struct.plc
+//  ^^^^^^^^^^ storage.type.struct.end.plc
+//            ^ punctuation.terminator.statement.plc
+
+// =============================
+// qualified types and variables
+// =============================
+
+    name : _.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^ support.type.plc
+//                     ^ punctuation.terminator.statement.plc
+
+    name : _.namespace.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^ variable.namespace.plc
+//                    ^ punctuation.accessor.dot.plc
+//                     ^^^^^^^^^^ support.type.plc
+//                               ^ punctuation.terminator.statement.plc
+
+    name : _.name_space_5."type Struct";
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^^^ variable.namespace.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^^^^^^^^^^^ support.type.plc
+//                        ^ punctuation.definition.type.begin.plc
+//                                    ^ punctuation.definition.type.end.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1.._.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^ variable.other.member.plc
+//                            ^ punctuation.definition.array.end.plc
+//                              ^^ keyword.control.of.plc
+//                                 ^^^^ storage.type.bool.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1.._.namespace.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^^ variable.namespace.plc
+//                             ^ punctuation.accessor.dot.plc
+//                              ^^^^^^^^ variable.other.member.plc
+//                                      ^ punctuation.definition.array.end.plc
+//                                        ^^ keyword.control.of.plc
+//                                           ^^^^ storage.type.bool.plc
+//                                               ^ punctuation.terminator.statement.plc
+
+    _.name : Array[1.._.namespace.datablock.member] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^^ meta.definition.variable.plc meta.path.plc
+//         ^ meta.definition.variable.plc - meta.path
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^ variable.namespace.plc
+//   ^ punctuation.accessor.dot.plc
+//    ^^^^ variable.other.member.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^ storage.type.array.plc
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//                ^ punctuation.definition.array.begin.plc
+//                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                  ^^ keyword.operator.range.plc
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                    ^ variable.namespace.plc
+//                     ^ punctuation.accessor.dot.plc
+//                      ^^^^^^^^^ variable.namespace.plc
+//                               ^ punctuation.accessor.dot.plc
+//                                ^^^^^^^^^ variable.namespace.plc
+//                                         ^ punctuation.accessor.dot.plc
+//                                          ^^^^^^ variable.other.member.plc
+//                                                ^ punctuation.definition.array.end.plc
+//                                                  ^^ keyword.control.of.plc
+//                                                     ^^^^ storage.type.bool.plc
+//                                                         ^ punctuation.terminator.statement.plc
+
+END_TYPE
+
+// ============================================================================
+// DATA_BLOCK TESTS
+// ============================================================================
+
+{
+// <- meta.annotation.plc punctuation.definition.annotation.begin.plc
+//^ meta.annotation.plc comment.line.double-slash.plc punctuation.definition.comment.begin.plc
+    S7_Optimized := "TRUE";
+//^^^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
+//  ^^^^^^^^^^^^ variable.annotation.plc
+//               ^^ keyword.operator.assignment.plc
+//                  ^^^^^^ meta.string.plc string.quoted.double.plc
+//                  ^ punctuation.definition.string.begin.plc
+//                       ^ punctuation.definition.string.end.plc
+//                        ^ punctuation.terminator.statement.plc
+    S7_StandardRetain := "FALSE";
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
+//  ^^^^^^^^^^^^^^^^^ variable.annotation.plc
+//                    ^^ keyword.operator.assignment.plc
+//                       ^^^^^^^ meta.string.plc string.quoted.double.plc
+//                       ^ punctuation.definition.string.begin.plc
+//                             ^ punctuation.definition.string.end.plc
+//                              ^ punctuation.terminator.statement.plc
+    S7_Version := "0.1"
+//^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
+//  ^^^^^^^^^^ variable.annotation.plc
+//             ^^ keyword.operator.assignment.plc
+//                ^^^^^ meta.string.plc string.quoted.double.plc
+//                ^ punctuation.definition.string.begin.plc
+//                    ^ punctuation.definition.string.end.plc
+}
+// <- meta.annotation.plc punctuation.definition.annotation.end.plc
+ // <- meta.annotation.plc
+DATA_BLOCK InstOfAnyFunctionBlock : AnyFunctionBlock
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.header.plc
+//^^^^^^^^ keyword.declaration.db.begin.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^ entity.name.datablock.plc
+//                                ^ punctuation.separator.colon.plc
+//                                  ^^^^^^^^^^^^^^^^ entity.name.function.plc
+//                                                  ^ meta.fold.block.begin.plc
+    VAR RETAIN
+//^^ meta.block.db.header.plc - meta.block.var
+//  ^^^^^^^^^^^ meta.block.db.header.plc meta.block.var.stat.plc
+//  ^^^ keyword.declaration.var.stat.begin.plc
+//      ^^^^^^ storage.modifier.interace.plc
+//            ^ meta.fold.declaration.begin.plc
+        ver : String[40];
+//      ^^^^^ meta.definition.variable.plc
+//      ^^^ variable.other.local.plc
+//          ^ punctuation.separator.type.plc
+//           ^^^^^^^^^^^ meta.definition.variable.storage.plc
+//            ^^^^^^^^^^ storage.type.string.plc
+//                  ^ punctuation.definition.brackets.begin.plc
+//                   ^^ meta.brackets.plc meta.number.integer.decimal.plc constant.numeric.value.plc
+//                     ^ punctuation.definition.brackets.end.plc
+//                      ^ punctuation.terminator.statement.plc
+    END_VAR
+//^^^^^^^^^ meta.block.db.header.plc meta.block.var.stat.plc
+//  ^^^^^^^ keyword.declaration.var.end.plc
+//         ^ meta.block.db.header.plc meta.fold.declaration.end.plc
+    { S7_MLC := "MLC_kP"; }
+//^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body.plc
+//  ^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+//    ^^^^^^ variable.annotation.plc
+//           ^^ keyword.operator.assignment.plc
+//              ^^^^^^^^ meta.string.plc string.quoted.double.plc
+//              ^ punctuation.definition.string.begin.plc
+//                     ^ punctuation.definition.string.end.plc
+//                      ^ punctuation.terminator.statement.plc
+//                        ^ punctuation.definition.annotation.end.plc
+    ver := '00.00.00 00/00/00';
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body.plc
+//  ^^^ variable.other.local.plc
+//      ^^ keyword.operator.assignment.plc
+//         ^^^^^^^^^^^^^^^^^^^ meta.string.plc string.quoted.single.plc
+//         ^ punctuation.definition.string.begin.plc
+//                           ^ punctuation.definition.string.end.plc
+//                            ^ punctuation.terminator.statement.plc
+END_DATA_BLOCK
+//^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
+//            ^ meta.fold.block.end.plc - meta.block - keyword
+
+// ============================================================================
+// FUNCTION TESTS
+// ============================================================================
+
+{
+    S7_Author := "GeR";
+    S7_BlockNumber := "1153";
+    S7_BlockTitle := "MLC_4Gj";
+    S7_Family := "DGN";
+    S7_Optimized := "FALSE";
+    S7_PreferredLanguage := "LAD";
+    S7_UserDefinedId := "H5";
+    S7_Version := "1.0"
+}
+FUNCTION "FC_EES_Sicherungen" : Void
+    VAR_INPUT
+
+    END_VAR
+
+    VAR_OUTPUT
+
+    END_VAR
+
+    VAR_IN_OUT
+        items : Array[*] of "typeItem";
+        _.items : Array[*] of "typeItem";
+    END_VAR
+
+    VAR_TEMP
+
+    END_VAR
+
+    VAR CONSTANT
+
+    END_VAR
+
+    {
+        S7_Language := "LAD";
+        S7_NetworkTitle := "MLC_325"
+    }
+    NETWORK
+        RUNG wire#powerrail
+            I_Contact( "D01S1I1" )
+            Contact( "M01K162ok" )
+            I_Contact( "ALM Netzausfall" )
+            Coil( "MSG_Alarm".K1.NCSS_510307 )
+        END_RUNG
+    END_NETWORK
+
+    {
+        S7_Language := "FBD";
+        S7_NetworkTitle := "MLC_3dk"
+    }
+    NETWORK
+        RUNG "Keys".Coolant.signal
+            X( in2 := "M7 mit Taster Ein" )
+            A(
+                in2 := NOT "M7 aktiv",
+                in3 := NOT "KSS Aufrufe löschen",
+                in4 := NOT "KSS mit Taste M9 Aus",
+                in5 := "KSS Freigabe Bearbeitung"
+            )
+            wire#w1
+            Coil( "M7 mit Taster Ein" )
+        END_RUNG
+        RUNG wire#w1
+            Coil( "SS_HMI_Bedienung".KSS.Spindel.Aufruf_Taster )
+        END_RUNG
+    END_NETWORK
+
+    {
+        S7_Language := "SCL";
+        S7_NetworkTitle := "MLC_3df"
+    }
+    NETWORK
+        IF True THEN
+
+        END_IF;
+
+    END_NETWORK
+
+END_FUNCTION

@@ -1,0 +1,295 @@
+{
+	"scope": "source.plc.lad - meta.function-call",
+	"completions": [
+
+		// basic contacts
+
+		{
+			"trigger": "Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Contact( $0 )",
+			"details": "logical <code>and</code> contact"
+		},
+		{
+			"trigger": "I_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "I_Contact( $0 )",
+			"details": "logical <code>and not</code> contact"
+		},
+		{
+			"trigger": "N_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "N_Contact(\n\toperand := $1,\n\tbit := $0\n)",
+			"details": "detect falling edge of <code>operand</code>"
+		},
+		{
+			"trigger": "P_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "P_Contact(\n\toperand := $1,\n\tbit := $0\n)",
+			"details": "detect rising edge of <code>operand</code>"
+		},
+
+		// comparator contacts
+
+		{
+			"trigger": "EQ_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "EQ_Contact(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Compare <code>in1 == in2</code>"
+		},
+		{
+			"trigger": "GE_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "GE_Contact(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Compare <code>in1 == in2</code>"
+		},
+		{
+			"trigger": "GT_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "GT_Contact(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Compare <code>in1 == in2</code>"
+		},
+		{
+			"trigger": "LE_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "LE_Contact(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Compare <code>in1 == in2</code>"
+		},
+		{
+			"trigger": "LT_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "LT_Contact(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Compare <code>in1 == in2</code>"
+		},
+		{
+			"trigger": "NE_Contact",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "NE_Contact(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Compare <code>in1 == in2</code>"
+		},
+		{
+			"trigger": "InRange",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "InRange(\n\tmin := $1,\n\tin := $2,\n\tmax := $0\n)",
+			"details": "is <code>operand</code> in range"
+		},
+		{
+			"trigger": "OutRange",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "OutRange(\n\tmin := $1,\n\tin := $2,\n\tmax := $0\n)",
+			"details": "is <code>operand</code> out of range"
+		},
+		{
+			"trigger": "OK",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "OK( $0 )",
+			"details": "is <code>operand</code> valid real value"
+		},
+		{
+			"trigger": "NOK",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "NOK( $0 )",
+			"details": "is <code>operand</code> invalid real value"
+		},
+
+		// arithmetic operators
+
+		{
+			"trigger": "Add",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Add(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Add <code>in1 + in2</code>"
+		},
+		{
+			"trigger": "Sub",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Sub(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Subtract <code>in1 - in2</code>"
+		},
+		{
+			"trigger": "Mul",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Mul(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Multiply <code>in1 * in2</code>"
+		},
+		{
+			"trigger": "Div",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Div(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Divide <code>in1 / in2</code>"
+		},
+		{
+			"trigger": "Mod",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Mod(\n\tin1 := $1,\n\tin2 := $0\n)",
+			"details": "Modulo of <code>in1 % in2</code>"
+		},
+
+		// basic coils
+
+		{
+			"trigger": "Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Coil( $0 )",
+			"details": "assign result"
+		},
+		{
+			"trigger": "I_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "I_Coil( $0 )",
+			"details": "assign inverted result"
+		},
+		{
+			"trigger": "N_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "N_Coil(\n\toperand => $1,\n\tbit := $0\n)",
+			"details": "assign <code>TRUE</code> on falling edge of <code>VKE</code>"
+		},
+		{
+			"trigger": "P_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "P_Coil(\n\toperand => $1,\n\tbit := $0\n)",
+			"details": "assign <code>TRUE</code> on rising edge of <code>VKE</code>"
+		},
+		{
+			"trigger": "R_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "R_Coil( $0 )",
+			"details": "set operand <code>FALSE</code>"
+		},
+		{
+			"trigger": "RS_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "RS_Coil(\n\toperand => $1,\n\ts1 := $0\n)",
+			"details": "RS flip-flop"
+		},
+		{
+			"trigger": "S_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "S_Coil( $0 )",
+			"details": "set operand <code>TRUE</code>"
+		},
+		{
+			"trigger": "SR_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "SR_Coil(\n\toperand => $1,\n\tr1 := $0\n)",
+			"details": "SR flip-flop"
+		},
+
+		// bitfield coils
+
+		{
+			"trigger": "R_BitfieldCoil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "R_BitfieldCoil(\n\toperand => $1,\n\tn := $0\n)",
+			"details": "reset <code>n</code> bits starting at <code>operand</code>"
+		},
+		{
+			"trigger": "S_BitfieldCoil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "S_BitfieldCoil(\n\toperand => $1,\n\tn := $0\n)",
+			"details": "set <code>n</code> bits starting at <code>operand</code>"
+		},
+
+		// counter coils
+
+		{
+			"trigger": "CD_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "CD_Coil( $0 )",
+			"details": "count down"
+		},
+		{
+			"trigger": "CU_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "CU_Coil( $0 )",
+			"details": "count up"
+		},
+		{
+			"trigger": "SC_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "SC_Coil(\n\toperand => $1,\n\tpv := ${0:C#0}\n)",
+			"details": "preset counter value"
+		},
+
+		// timer coils
+
+		{
+			"trigger": "PT_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "PT_Coil(\n\ttimer => $1,\n\tpt := $0\n)",
+			"details": "preset timer value"
+		},
+		{
+			"trigger": "RT_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "RT_Coil( $0 )",
+			"details": "reset timer"
+		},
+		{
+			"trigger": "TP_Coil",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "TP_Coil(\n\ttimer => $1,\n\tpt := $0\n)",
+			"details": "strobe"
+		},
+
+		// operators
+
+		{
+			"trigger": "Not",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "Not()",
+			"details": "invert <code>VKE</code>"
+		},
+		{
+			"trigger": "N_Trig",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "N_Trig( $0 )",
+			"details": "detect falling edge of <code>VKE</code>"
+		},
+		{
+			"trigger": "P_Trig",
+			"annotation": "LAD",
+			"kind": ["function", "o", "Operator"],
+			"contents": "P_Trig( $0 )",
+			"details": "detect rising edge of <code>VKE</code>"
+		},
+	],
+}
