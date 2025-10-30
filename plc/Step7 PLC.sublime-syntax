@@ -66,6 +66,7 @@ variables:
 contexts:
 
   main:
+    - include: annotations
     - include: block-db
     - include: block-fb
     - include: block-fc
@@ -591,6 +592,7 @@ contexts:
 ###[ VARIABLE DECLARATIONS ]###################################################
 
   variable-declarations:
+    - include: annotations
     - match: '{{ident}}'
       scope: variable.other.local.plc
       push: variable-separator-name-storage
