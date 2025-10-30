@@ -1015,6 +1015,14 @@ END_DATA_BLOCK
 // ^^^^^^^ meta.block.fc.header meta.block.var.temp
 // ^^^^^^^ keyword.declaration.var.end
 
+   VAR CONSTANT
+//^^^^^^^^^^^^^ meta.block.fc.header.plc
+// ^^^^^^^^^^^^ meta.block.var.constant.plc keyword.declaration.var.constant.begin.plc
+   END_VAR
+// <- meta.block.fc.header.plc meta.block.var.constant.plc
+//^^^^^^^^ meta.block.fc.header.plc meta.block.var.constant.plc
+// ^^^^^^^ keyword.declaration.var.end.plc
+
    VAR
 // ^^^ meta.block.fc.header invalid.illegal
    END_VAR

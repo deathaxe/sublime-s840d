@@ -44,7 +44,6 @@ variables:
     | elsif | else | exit | repeat | return | then | to | until
     )\b
 
-  constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
   escapes: '\$[LlNPpRrTt$'']'
 
   quoted_local_ident: (#\")[^"]*(\")
@@ -84,36 +83,9 @@ contexts:
 
 ###[ BLOCK HEADERS ]###########################################################
 
-  block-fb-header-content:
-    - meta_prepend: true
-    - include: var-constant
-
-  block-fc-header-content:
-    - meta_prepend: true
-    - include: var-constant
-
-  block-ob-header-content:
-    - meta_prepend: true
-    - include: var-constant
-
   block-body-content:
     - include: scl-statements
     - include: illegal
-
-###[ VAR_CONSTANT ]############################################################
-
-  var-constant:
-    - match: \b(?i:VAR\s+CONSTANT)\b
-      scope: keyword.declaration.var.constant.begin.plc
-      push: [var-constant-body, assert-line-end]
-
-  var-constant-body:
-    - meta_scope: meta.block.var.constant.plc
-    - include: var-end
-    - match: '{{constants}}'
-      scope: entity.name.constant.plc
-      push: variable-separator-name-storage
-    - include: variable-declarations
 
 ###[ STATEMENTS ]##############################################################
 
