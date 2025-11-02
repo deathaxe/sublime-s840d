@@ -46,8 +46,6 @@ variables:
 
   escapes: '\$[LlNPpRrTt$'']'
 
-  quoted_local_ident: (#\")[^"]*(\")
-
   # numeric storage type prefixes
   prefix_binary: '{{prefix_numeric}}'
   prefix_decimal: '{{prefix_numeric}}'
@@ -555,48 +553,6 @@ contexts:
       set: function-call-arguments
     - match: (?=\S)
       fail: symbols
-
-  unqualified-symbol-unquoted:
-    - meta_prepend: true
-    - match: (#){{constants}}
-      scope: constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.plc
-      set: unqualified-symbol-fail
-
-  unqualified-symbol-quoted:
-    - meta_prepend: true
-    - match: (#\"){{constants}}(\")
-      scope: constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set: unqualified-symbol-fail
-    - match: (\"){{constants}}(\")
-      scope: constant.other.global.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set: unqualified-symbol-fail
-    - match: '{{quoted_local_ident}}'
-      scope: variable.other.local.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set:
-        - unqualified-symbol-fail
-        - array-index
-
-  qualified-symbol-quoted:
-    - meta_append: true
-    - match: '{{quoted_local_ident}}'
-      scope: variable.namespace.struct.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set:
-        - qualified-members
-        - array-index
 
   qualified-members:
     - meta_include_prototype: false

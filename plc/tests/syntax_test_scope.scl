@@ -271,8 +271,8 @@ end_region
 
     #var.name:
 //  ^^^^^^^^^ meta.path.plc
-//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
-//   ^^^ variable.namespace.struct.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.plc
+//   ^^^ variable.namespace.plc
 //      ^ punctuation.accessor.dot.plc - variable
 //       ^^^^ variable.other.member.plc
 
@@ -432,7 +432,7 @@ end_region
 //                 ^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //      ^^^^^^^ variable.parameter.plc
 //              ^^ keyword.operator.assignment.plc
-//                 ^^^^^^^^ variable.namespace.datablock.plc
+//                 ^^^^^^^^ variable.namespace.plc
 //                         ^ punctuation.accessor.dot.plc
 //                          ^^^^^^ variable.function.member.plc
 //                                ^ punctuation.section.brackets.begin.plc
@@ -462,7 +462,7 @@ end_region
 //   ^ punctuation.terminator.statement.plc
 
     #struct.arrayFun[1](execute := #var + 10 = 5);
-//  ^^^^^^^ meta.path.plc variable.namespace.struct.plc
+//  ^^^^^^^ meta.path.plc variable.namespace.plc
 //         ^ meta.path.plc punctuation.accessor.dot.plc
 //          ^^^^^^^^^^^ meta.function-call.identifier.plc meta.path.plc
 //                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc - meta.path
@@ -1400,22 +1400,22 @@ end_region
     "globalDB".struct.var
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
-//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.plc - punctuation
+//           ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //            ^ punctuation.accessor.dot.plc
-//             ^^^^^^ variable.namespace.struct.plc
+//             ^^^^^^ variable.namespace.plc
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 
     "globalDB".struct.var.%X8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
-//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.plc - punctuation
+//           ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //            ^ punctuation.accessor.dot.plc
-//             ^^^^^^ variable.namespace.struct.plc
+//             ^^^^^^ variable.namespace.plc
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 //                       ^ punctuation.accessor.dot.plc
@@ -1425,11 +1425,11 @@ end_region
     "globalDB".struct.var.%B8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
-//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.plc - punctuation
+//           ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //            ^ punctuation.accessor.dot.plc
-//             ^^^^^^ variable.namespace.struct.plc
+//             ^^^^^^ variable.namespace.plc
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 //                       ^ punctuation.accessor.dot.plc
@@ -1439,14 +1439,14 @@ end_region
     "arrayDB"[5].arrayItem[4, 5+#var].node[0].%X0
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                                           ^^^^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^ variable.namespace.datablock.plc - punctuation
-//          ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^ variable.namespace.plc - punctuation
+//          ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //           ^ punctuation.section.brackets.begin.plc
 //            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //             ^ punctuation.section.brackets.end.plc
 //              ^ punctuation.accessor.dot.plc
-//               ^^^^^^^^^ variable.namespace.struct.plc
+//               ^^^^^^^^^ variable.namespace.plc
 //                        ^^^^^^^^^^^ meta.brackets.plc
 //                        ^ punctuation.section.brackets.begin.plc
 //                         ^ meta.number.integer.decimal.plc constant.numeric.value.plc
@@ -1490,8 +1490,8 @@ end_region
 
     #LOCAL_CONST.
 //  ^^^^^^^^^^^^^ meta.path.plc
-//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
-//   ^^^^^^^^^^^ variable.namespace.struct.plc - punctuation
+//  ^ variable.namespace.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^^ variable.namespace.plc - punctuation
 //              ^ punctuation.accessor.dot.plc
 
     #LOCAL_CONST.%X0
@@ -1512,16 +1512,16 @@ end_region
 
     #structured.variable
 //  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
-//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
-//   ^^^^^^^^^^ variable.namespace.struct.plc - punctuation
+//  ^ variable.namespace.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^ variable.namespace.plc - punctuation
 //             ^ punctuation.accessor.dot.plc
 //              ^^^^^^^^ variable.other.member.plc
 
     #"local struct"."with spaces"
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
-//  ^^ variable.namespace.struct.plc punctuation.definition.variable.begin.plc
-//    ^^^^^^^^^^^^ variable.namespace.struct.plc - punctuation
-//                ^ variable.namespace.struct.plc punctuation.definition.variable.end.plc
+//  ^^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//    ^^^^^^^^^^^^ variable.namespace.plc - punctuation
+//                ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //                 ^ punctuation.accessor.dot.plc
 //                  ^ variable.other.member.plc punctuation.definition.variable.begin.plc
 //                   ^^^^^^^^^^^ variable.other.member.plc - punctuation

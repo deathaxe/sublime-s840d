@@ -211,12 +211,12 @@
 // ^^^^^^^^^^^^^^^^^^^^^^ meta.path
 //    ^^^ meta.brackets
 //             ^^^^^ meta.brackets
-// ^^^ variable.namespace.struct
+// ^^^ variable.namespace
 //    ^ punctuation.section.brackets.begin
 //     ^ meta.number.integer.decimal constant.numeric.value
 //      ^ punctuation.section.brackets.end
 //       ^ punctuation.accessor.dot
-//        ^^^^^ variable.namespace.struct
+//        ^^^^^ variable.namespace
 //             ^ punctuation.section.brackets.begin
 //               ^ meta.number.integer.decimal constant.numeric.value
 //                 ^ punctuation.section.brackets.end
@@ -1497,10 +1497,10 @@ END_DATA_BLOCK
 //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path
 //    ^ keyword.operator.arithmetic.load
 //         ^ punctuation.definition.variable.begin
-//         ^^^^^^^^^^^ variable.namespace.datablock
+//         ^^^^^^^^^^^ variable.namespace
 //                   ^ punctuation.definition.variable.end
 //                    ^ punctuation.accessor.dot
-//                     ^^^^^^ variable.namespace.struct
+//                     ^^^^^^ variable.namespace
 //                           ^ punctuation.section.brackets.begin
 //                           ^^^^^ meta.brackets
 //                             ^ meta.number.integer constant.numeric.value
@@ -1516,10 +1516,10 @@ END_DATA_BLOCK
 //         ^^^^^^^^^^^^^^^^^^^^^^^^ meta.path
 //    ^ keyword.operator.arithmetic.load
 //         ^ punctuation.definition.variable.begin
-//         ^^^^^^^^^^^ variable.namespace.datablock
+//         ^^^^^^^^^^^ variable.namespace
 //                   ^ punctuation.definition.variable.end
 //                    ^ punctuation.accessor.dot
-//                     ^^^^^^ variable.namespace.struct
+//                     ^^^^^^ variable.namespace
 //                           ^ punctuation.accessor.dot
 //                            ^^^^^ variable.other.member
 //                                 ^ punctuation.terminator.statement
@@ -1530,13 +1530,13 @@ END_DATA_BLOCK
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network
 //    ^ keyword.operator.arithmetic.load
 //         ^ punctuation.definition.variable
-//         ^^^^^^ variable.namespace.struct
+//         ^^^^^^ variable.namespace
 //               ^ punctuation.section.brackets.begin
 //               ^^^ meta.brackets
 //                ^ meta.number.integer constant.numeric.value
 //                 ^ punctuation.section.brackets.end
 //                  ^ punctuation.accessor.dot
-//                   ^^^^^ variable.namespace.struct
+//                   ^^^^^ variable.namespace
 //                        ^ punctuation.section.brackets.begin
 //                        ^^^ meta.brackets
 //                         ^ meta.number.integer constant.numeric.value
@@ -2380,7 +2380,7 @@ END_DATA_BLOCK
 //         ^^^ variable.parameter
 //                 ^^ keyword.operator.assignment
 //                    ^^^^^^^^^^^^^^ meta.path
-//                    ^^^^^^ variable.namespace.datablock
+//                    ^^^^^^ variable.namespace
 //                    ^ punctuation.definition.variable.begin
 //                         ^ punctuation.definition.variable.end
 //                          ^ punctuation.accessor

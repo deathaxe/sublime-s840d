@@ -37,6 +37,7 @@ variables:
 
   ident: '[[:alpha:]_][[:alnum:]_]*\b'
   quoted_ident: (\")[^"]*(\")
+  quoted_local_ident: (#\")[^"]*(\")
 
   constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
 
@@ -1254,11 +1255,13 @@ contexts:
 
   unqualified-symbol:
     - meta_include_prototype: false
-    - include: unqualified-symbol-unquoted
-    - include: unqualified-symbol-quoted
-    - include: immediately-pop
-
-  unqualified-symbol-quoted:
+    # global identifiers
+    - match: (\"){{constants}}(\")
+      scope: constant.other.global.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: unqualified-symbol-fail
     - match: '{{quoted_ident}}'
       scope: variable.other.global.plc
       captures:
@@ -1267,8 +1270,26 @@ contexts:
       set:
         - unqualified-symbol-fail
         - array-index
-
-  unqualified-symbol-unquoted:
+    # local identifiers
+    - match: (#\"){{constants}}(\")
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: unqualified-symbol-fail
+    - match: '{{quoted_local_ident}}'
+      scope: variable.other.local.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set:
+        - unqualified-symbol-fail
+        - array-index
+    - match: (#){{constants}}
+      scope: constant.other.local.plc
+      captures:
+        1: punctuation.definition.variable.plc
+      set: unqualified-symbol-fail
     - match: (#){{ident}}
       scope: variable.other.local.plc
       captures:
@@ -1276,6 +1297,8 @@ contexts:
       set:
         - unqualified-symbol-fail
         - array-index
+    - match: ''
+      fail: symbols
 
   unqualified-symbol-fail:
     - meta_include_prototype: false
@@ -1285,29 +1308,32 @@ contexts:
 
   qualified-symbol:
     - meta_include_prototype: false
-    - include: qualified-symbol-unquoted
-    - include: qualified-symbol-quoted
-    - include: immediately-pop
-
-  qualified-symbol-quoted:
+    # global identifiers
     - match: '{{quoted_ident}}'
-      scope: variable.namespace.datablock.plc
+      scope: variable.namespace.plc
       captures:
         1: punctuation.definition.variable.begin.plc
         2: punctuation.definition.variable.end.plc
       set:
         - qualified-members
         - array-index
-
-  qualified-symbol-unquoted:
-    - match: (#){{ident}}
-      scope: variable.namespace.struct.plc
+    # local identifiers
+    - match: '{{quoted_local_ident}}'
+      scope: variable.namespace.plc
       captures:
-        1: punctuation.definition.variable.plc
-        2: punctuation.accessor.dot.plc
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
       set:
         - qualified-members
         - array-index
+    - match: (#){{ident}}
+      scope: variable.namespace.plc
+      captures:
+        1: punctuation.definition.variable.plc
+      set:
+        - qualified-members
+        - array-index
+    - include: immediately-pop
 
   qualified-members:
     - meta_include_prototype: false
@@ -1327,7 +1353,7 @@ contexts:
 
   qualified-namespace-unquoted:
     - match: '{{ident}}'
-      scope: variable.namespace.struct.plc
+      scope: variable.namespace.plc
       set: array-index
 
   qualified-variable:
