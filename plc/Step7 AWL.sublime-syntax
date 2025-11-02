@@ -49,6 +49,10 @@ contexts:
       scope: entity.name.datablock.plc
       pop: 1
 
+  block-db-value:
+    - meta_prepend: true
+    - include: operands-absolute
+
   block-fb-name:
     - meta_prepend: true
     # absolute address
@@ -67,6 +71,10 @@ contexts:
     - include: awl-networks
     - include: awl-statements
     - include: illegal
+
+  variable-value:
+    - meta_prepend: true
+    - include: operands-absolute
 
 ###[ AWL NETWORKS ]############################################################
 
