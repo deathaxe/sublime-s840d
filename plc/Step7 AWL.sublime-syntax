@@ -216,6 +216,8 @@ contexts:
         - include: operands-binary
         - include: operands-counter
         - include: operands-timer
+        - include: illegal-datablock-absolute
+        - include: illegal-logical-absolute
         - include: operands-symbols
         - include: assert-stmt-end
     # T
@@ -451,6 +453,11 @@ contexts:
       captures:
         1: punctuation.definition.address.plc
 
+  illegal-datablock-absolute:
+    # DB10, DB 10 : datablocks
+    - match: (%)?(?i:D[BI])[ \t]*{{int}}
+      scope: invalid.illegal.terminator-expected.plc
+
   operands-datablock-indirect:
     - match: ((%)?(?i:D[BI]))[ \t]*(?=\[)
       scope: meta.address.indirect.plc
@@ -551,6 +558,17 @@ contexts:
       scope: meta.address.plc variable.language.status.plc
       captures:
         1: punctuation.separator.decimal.plc
+
+  illegal-logical-absolute:
+    # M 10.0, DBX 10.0, DIX 10.0, L 0.0, ...
+    - match: (%)?(?i:D[BI]X|[AEIQLMV])\s*\d+(\.)\d+
+      scope: invalid.illegal.terminator-expected.plc
+    # DB10.DBX 10.0
+    - match: (?i:((%)?DB\d+)(\.)(DBX[ \t]*\d+(\.){{int}}))
+      scope: invalid.illegal.terminator-expected.plc
+    # BIE, OV
+    - match: (%)?(?i:BIE|OV)\b
+      scope: invalid.illegal.terminator-expected.plc
 
   operands-logical-indirect:
     # DBX [AR1,P#0.0]
