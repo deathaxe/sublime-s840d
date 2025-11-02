@@ -821,6 +821,7 @@ contexts:
     - include: literals-pointer
     - include: literals-character
     - include: literals-string
+    - include: literals-enum
 
 ###[ POINTERS ]################################################################
 
@@ -893,6 +894,20 @@ contexts:
     # valid in TIA-Portal
     - match: \b(?i:NULL)\b
       scope: constant.language.null.plc
+
+###[ ENUMS ]###################################################################
+
+  literals-enum:
+    # aka. named value types
+    - match: ({{quoted_ident}}|{{ident}})(#)({{quoted_ident}}|{{ident}})
+      captures:
+        1: storage.type.enum.plc
+        2: punctuation.definition.constant.begin.plc
+        3: punctuation.definition.constant.end.plc
+        4: punctuation.accessor.plc
+        5: constant.other.enum.plc
+        6: punctuation.definition.constant.begin.plc
+        7: punctuation.definition.constant.end.plc
 
 ###[ NUMBERS ]#################################################################
 

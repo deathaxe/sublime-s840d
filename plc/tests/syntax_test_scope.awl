@@ -1550,6 +1550,26 @@ END_DATA_BLOCK
 //                                       ^ punctuation.terminator.statement
 //                                          ^^ punctuation.definition.comment.begin
 //                                          ^^^^^^^^^^ comment.line.double-slash
+      L    myNamedValueType#value; // TIA only
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc
+//    ^ keyword.operator.arithmetic.load.plc
+//     ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.operand.numeric.plc
+//         ^^^^^^^^^^^^^^^^ storage.type.enum.plc
+//                         ^ punctuation.accessor.plc
+//                          ^^^^^ constant.other.enum.plc
+//                               ^ punctuation.terminator.statement.plc
+      L    "Fancy Named Value Type"#"fancy value"; // TIA only
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc
+//    ^ keyword.operator.arithmetic.load.plc
+//     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.operand.numeric.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^ storage.type.enum.plc
+//         ^ punctuation.definition.constant.begin.plc
+//                                ^ punctuation.definition.constant.end.plc
+//                                 ^ punctuation.accessor.plc
+//                                  ^^^^^^^^^^^^^ constant.other.enum.plc
+//                                  ^ punctuation.definition.constant.begin.plc
+//                                              ^ punctuation.definition.constant.end.plc
+//                                               ^ punctuation.terminator.statement.plc
       L    P# P0.0; // comment
 // <- meta.block.fc.body meta.block.network
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body meta.block.network

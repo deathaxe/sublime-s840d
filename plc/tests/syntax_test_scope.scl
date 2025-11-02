@@ -1146,6 +1146,22 @@ end_region
 //           ^^^^^^^^^^^^^^^^^ string.quoted.single.plc - punctuation
 //                            ^ string.quoted.single.plc punctuation.definition.string.end.plc
 
+/// NAMED VALUES //////////////////////////////////////////////////////////////
+
+    myNamedValueType#value // TIA only
+//  ^^^^^^^^^^^^^^^^ storage.type.enum.plc
+//                  ^ punctuation.accessor.plc
+//                   ^^^^^ constant.other.enum.plc
+
+    "Fancy Named Value Type"#"fancy value" // TIA only
+//  ^^^^^^^^^^^^^^^^^^^^^^^^ storage.type.enum.plc
+//  ^ punctuation.definition.constant.begin.plc
+//                         ^ punctuation.definition.constant.end.plc
+//                          ^ punctuation.accessor.plc
+//                           ^^^^^^^^^^^^^ constant.other.enum.plc
+//                           ^ punctuation.definition.constant.begin.plc
+//                                       ^ punctuation.definition.constant.end.plc
+
 /// ADDRESSES /////////////////////////////////////////////////////////////////
 
     %DB10 %DI20
