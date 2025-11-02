@@ -528,19 +528,21 @@ contexts:
     - include: operands-logical-indirect
 
   operands-logical-absolute:
-    # M 10.0, DIX 10.0, L 0.0, ...
-    - match: (%)?(?i:DIX|[AEIQLMV])\s*\d+(\.)\d+
+    # M 10.0, DBX 10.0, DIX 10.0, L 0.0, ...
+    - match: (%)?(?i:D[BI]X|[AEIQLMV])\s*\d+(\.)\d+
       scope: meta.address.plc variable.language.address.plc
       captures:
-        1: punctuation.separator.decimal.plc
+        1: punctuation.definition.address.plc
+        2: punctuation.separator.decimal.plc
     # DB10.DBX 10.0
-    - match: (%)?(?i:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
+    - match: (?i:((%)?DB\d+)(\.)(DBX[ \t]*\d+(\.){{int}}))
       scope: meta.address.plc
       captures:
         1: variable.language.db.plc
-        2: punctuation.accessor.dot.plc
-        3: variable.language.address.plc
-        4: punctuation.separator.decimal.plc
+        2: punctuation.definition.address.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
+        5: punctuation.separator.decimal.plc
     # status register A0 A1
     - match: (?:==|<>|>=|<=|<|>)0\b
       scope: meta.address.plc variable.language.status.plc
