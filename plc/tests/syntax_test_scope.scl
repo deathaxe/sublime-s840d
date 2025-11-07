@@ -175,12 +175,56 @@ VAR
 //                               ^^^^^^^^^^^^^^ meta.string.plc string.quoted.single.plc
 //                                             ^ punctuation.section.sequence.end.plc
 //                                              ^ punctuation.terminator.statement.plc
+
     "name" : String;   // program name
 //  ^^^^^^^ meta.definition.variable.plc
 //  ^^^^^^ variable.other.local.plc
 //         ^ punctuation.separator.type.plc
 //           ^^^^^^ storage.type.string.plc
 //                 ^ punctuation.terminator.statement.plc
+
+    name : _.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^ support.type.plc
+//                     ^ punctuation.terminator.statement.plc
+
+    name : _.namespace.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^ variable.namespace.plc
+//                    ^ punctuation.accessor.dot.plc
+//                     ^^^^^^^^^^ support.type.plc
+//                               ^ punctuation.terminator.statement.plc
+
+    name : _.name_space_5."type Struct";
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^^^ variable.namespace.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^^^^^^^^^^^ support.type.plc
+//                        ^ punctuation.definition.type.begin.plc
+//                                    ^ punctuation.definition.type.end.plc
+//                                     ^ punctuation.terminator.statement.plc
+
 END_VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
 //^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc

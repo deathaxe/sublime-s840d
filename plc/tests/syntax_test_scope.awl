@@ -170,6 +170,118 @@ END_NAMESPACE
 //         ^^^^^ storage.type.timer
 //               ^^ keyword.operator.assignment
 //                  ^^ variable.language.timer
+
+    //
+    // qualified types and variables
+    //
+
+    name : _.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^ support.type.plc
+//                     ^ punctuation.terminator.statement.plc
+
+    name : _.namespace.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^ variable.namespace.plc
+//                    ^ punctuation.accessor.dot.plc
+//                     ^^^^^^^^^^ support.type.plc
+//                               ^ punctuation.terminator.statement.plc
+
+    name : _.name_space_5."type Struct";
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^^^ variable.namespace.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^^^^^^^^^^^ support.type.plc
+//                        ^ punctuation.definition.type.begin.plc
+//                                    ^ punctuation.definition.type.end.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1.._.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.struct.plc
+//  ^^^^^^ meta.definition.variable.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^ variable.other.member.plc
+//                            ^ punctuation.definition.array.end.plc
+//                              ^^ keyword.control.of.plc
+//                                 ^^^^ storage.type.bool.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1..namespace.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.struct.plc
+//  ^^^^^^ meta.definition.variable.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                  ^^^^^^^^^ variable.namespace.plc
+//                           ^ punctuation.accessor.dot.plc
+//                            ^^^^^^^^ variable.other.member.plc
+//                                    ^ punctuation.definition.array.end.plc
+//                                      ^^ keyword.control.of.plc
+//                                         ^^^^ storage.type.bool.plc
+//                                             ^ punctuation.terminator.statement.plc
+
+    name : Array[1.."funky-namespace".maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.struct.plc
+//  ^^^^^^ meta.definition.variable.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                  ^^^^^^^^^^^^^^^^^ variable.namespace.plc
+//                  ^ punctuation.definition.variable.begin.plc
+//                                  ^ punctuation.definition.variable.end.plc
+//                                   ^ punctuation.accessor.dot.plc
+//                                    ^^^^^^^^ variable.other.member.plc
+//                                            ^ punctuation.definition.array.end.plc
+//                                              ^^ keyword.control.of.plc
+//                                                 ^^^^ storage.type.bool.plc
+//                                                     ^ punctuation.terminator.statement.plc
+
   END_STRUCT ;
 //^^^^^^^^^^^^^ meta.block.udt.header
 //^^^^^^^^^^ meta.struct storage.type.struct.end

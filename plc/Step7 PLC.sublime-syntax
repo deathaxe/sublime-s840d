@@ -853,6 +853,12 @@ contexts:
     - include: variable-declarations
 
   storage-type-user:
+    # namespaced data types
+    - match: (_)\s*(\.)
+      captures:
+        1: variable.namespace.plc
+        2: punctuation.accessor.dot.plc
+      push: qualified-storage-type
     # user defined types (UDT, DB, FB)
     - match: '{{quoted_ident}}'
       scope: support.type.plc
@@ -861,6 +867,22 @@ contexts:
         2: punctuation.definition.type.end.plc
     - match: '{{ident}}'
       scope: support.type.plc
+
+  qualified-storage-type:
+    - meta_scope: meta.path.plc
+    - match: ({{ident}})\s*(\.)
+      captures:
+        1: variable.namespace.plc
+        2: punctuation.accessor.dot.plc
+    - match: '{{ident}}'
+      scope: support.type.plc
+      pop: 1
+    - match: '{{quoted_ident}}'
+      scope: support.type.plc
+      captures:
+        1: punctuation.definition.type.begin.plc
+        2: punctuation.definition.type.end.plc
+      pop: 1
 
 ###############################################################################
 # LITERALS                                                                    #
