@@ -822,6 +822,7 @@ contexts:
     - include: literals-character
     - include: literals-string
     - include: literals-enum
+    - include: illegal-literals
 
 ###[ POINTERS ]################################################################
 
@@ -1498,11 +1499,15 @@ contexts:
 
   illegal-attributes:
     - match: (?i:NON_RETAIN|READ_ONLY)\b
-      scope: invalid.illegal.plc
+      scope: invalid.illegal.attribute.plc
 
   illegal-keywords:
     - match: '{{context_keywords}}'
-      scope: invalid.illegal.plc
+      scope: invalid.illegal.keyword.plc
+
+  illegal-literals:
+    - match: \w+(?:#\w+)+
+      scope: invalid.illegal.literal.plc
 
 ###############################################################################
 # IGNORED NESTED PARENTHESES AND BRAKETS

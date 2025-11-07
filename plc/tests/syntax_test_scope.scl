@@ -780,20 +780,10 @@ end_region
 //                                         ^^ constant.numeric.value.plc
 
     ULInd#2 ULInd#2#0100 ULInd#16 ULInd#16#AC
-//        ^ meta.number.integer.decimal.plc
-//                ^^^^^^ meta.number.integer.binary.plc
-//                             ^^ meta.number.integer.decimal.plc
-//                                      ^^^^^ meta.number.integer.hexadecimal.plc
-//  ^^^^^ invalid.illegal.plc
-//        ^ constant.numeric.value.plc
-//          ^^^^^ invalid.illegal.plc
-//                ^^ constant.numeric.base.plc
-//                  ^^^^ constant.numeric.value.plc
-//                       ^^^^^ invalid.illegal.plc
-//                             ^^ constant.numeric.value.plc
-//                                ^^^^^ invalid.illegal.plc
-//                                      ^^^ constant.numeric.base.plc
-//                                         ^^ constant.numeric.value.plc
+//  ^^^^^^^ invalid.illegal.literal.plc
+//          ^^^^^^^^^^^^ invalid.illegal.literal.plc
+//                       ^^^^^^^^ invalid.illegal.literal.plc
+//                                ^^^^^^^^^^^ invalid.illegal.literal.plc
 
     REAL#5 REAL#5.5 LReal#5 LReal#-10.5e+10
 //  ^^^^^^ meta.number.float.decimal.plc
