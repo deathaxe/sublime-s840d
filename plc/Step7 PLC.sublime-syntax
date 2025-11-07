@@ -653,6 +653,11 @@ contexts:
 
   variable-declarations:
     - include: annotations
+    - match: _\b
+      scope: variable.namespace.plc
+      push:
+        - variable-separator-name-storage
+        - qualified-members
     - match: '{{ident}}'
       scope: variable.other.local.plc
       push: variable-separator-name-storage
@@ -1345,6 +1350,9 @@ contexts:
 ###[ SYMBOLS ]#################################################################
 
   operands-symbols:
+    - match: _\b
+      scope: variable.namespace.plc
+      push: qualified-members
     - match: (?=[#"])
       branch_point: symbols
       branch:

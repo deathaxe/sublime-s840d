@@ -505,8 +505,11 @@ contexts:
 ###[ SYMBOLS ]#################################################################
 
   operands-symbols:
-    - match: \b(?:ENO?)\b
+    - match: (?:ENO?)\b
       scope: variable.language.scl
+    - match: _\b
+      scope: variable.namespace.plc
+      push: qualified-members
     - match: (?=[#"])
       branch_point: symbols
       branch:

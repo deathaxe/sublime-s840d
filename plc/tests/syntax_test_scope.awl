@@ -218,12 +218,11 @@ END_NAMESPACE
 //                                     ^ punctuation.terminator.statement.plc
 
     name : Array[1.._.maxItems] of Bool;
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.struct.plc
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
 //  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
 //  ^^^^ variable.other.local.plc
 //       ^ punctuation.separator.type.plc
-//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
 //         ^^^^^ storage.type.array.plc
 //              ^^^^^^^^^^^^^^^ meta.array-size.plc
 //              ^ punctuation.definition.array.begin.plc
@@ -238,49 +237,54 @@ END_NAMESPACE
 //                                 ^^^^ storage.type.bool.plc
 //                                     ^ punctuation.terminator.statement.plc
 
-    name : Array[1..namespace.maxItems] of Bool;
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.struct.plc
+    name : Array[1.._.namespace.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
 //  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
 //  ^^^^ variable.other.local.plc
 //       ^ punctuation.separator.type.plc
-//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
 //         ^^^^^ storage.type.array.plc
-//              ^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
 //              ^ punctuation.definition.array.begin.plc
 //               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //                ^^ keyword.operator.range.plc
-//                  ^^^^^^^^^^^^^^^^^^ meta.path.plc
-//                  ^^^^^^^^^ variable.namespace.plc
-//                           ^ punctuation.accessor.dot.plc
-//                            ^^^^^^^^ variable.other.member.plc
-//                                    ^ punctuation.definition.array.end.plc
-//                                      ^^ keyword.control.of.plc
-//                                         ^^^^ storage.type.bool.plc
-//                                             ^ punctuation.terminator.statement.plc
+//                  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^^ variable.namespace.plc
+//                             ^ punctuation.accessor.dot.plc
+//                              ^^^^^^^^ variable.other.member.plc
+//                                      ^ punctuation.definition.array.end.plc
+//                                        ^^ keyword.control.of.plc
+//                                           ^^^^ storage.type.bool.plc
+//                                               ^ punctuation.terminator.statement.plc
 
-    name : Array[1.."funky-namespace".maxItems] of Bool;
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc meta.struct.plc
-//  ^^^^^^ meta.definition.variable.plc
-//  ^^^^ variable.other.local.plc
-//       ^ punctuation.separator.type.plc
-//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
-//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
-//         ^^^^^ storage.type.array.plc
-//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
-//              ^ punctuation.definition.array.begin.plc
-//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
-//                ^^ keyword.operator.range.plc
-//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
-//                  ^^^^^^^^^^^^^^^^^ variable.namespace.plc
-//                  ^ punctuation.definition.variable.begin.plc
-//                                  ^ punctuation.definition.variable.end.plc
-//                                   ^ punctuation.accessor.dot.plc
-//                                    ^^^^^^^^ variable.other.member.plc
-//                                            ^ punctuation.definition.array.end.plc
-//                                              ^^ keyword.control.of.plc
-//                                                 ^^^^ storage.type.bool.plc
-//                                                     ^ punctuation.terminator.statement.plc
+    _.name : Array[1.._.namespace.datablock.member] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+//  ^^^^^^^ meta.definition.variable.plc meta.path.plc
+//         ^ meta.definition.variable.plc - meta.path
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^ variable.namespace.plc
+//   ^ punctuation.accessor.dot.plc
+//    ^^^^ variable.other.member.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^ storage.type.array.plc
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//                ^ punctuation.definition.array.begin.plc
+//                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                  ^^ keyword.operator.range.plc
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                    ^ variable.namespace.plc
+//                     ^ punctuation.accessor.dot.plc
+//                      ^^^^^^^^^ variable.namespace.plc
+//                               ^ punctuation.accessor.dot.plc
+//                                ^^^^^^^^^ variable.namespace.plc
+//                                         ^ punctuation.accessor.dot.plc
+//                                          ^^^^^^ variable.other.member.plc
+//                                                ^ punctuation.definition.array.end.plc
+//                                                  ^^ keyword.control.of.plc
+//                                                     ^^^^ storage.type.bool.plc
+//                                                         ^ punctuation.terminator.statement.plc
 
   END_STRUCT ;
 //^^^^^^^^^^^^^ meta.block.udt.header

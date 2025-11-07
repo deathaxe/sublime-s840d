@@ -225,6 +225,75 @@ VAR
 //                                    ^ punctuation.definition.type.end.plc
 //                                     ^ punctuation.terminator.statement.plc
 
+    name : Array[1.._.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^ variable.other.member.plc
+//                            ^ punctuation.definition.array.end.plc
+//                              ^^ keyword.control.of.plc
+//                                 ^^^^ storage.type.bool.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1.._.namespace.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^^ variable.namespace.plc
+//                             ^ punctuation.accessor.dot.plc
+//                              ^^^^^^^^ variable.other.member.plc
+//                                      ^ punctuation.definition.array.end.plc
+//                                        ^^ keyword.control.of.plc
+//                                           ^^^^ storage.type.bool.plc
+//                                               ^ punctuation.terminator.statement.plc
+
+    _.name : Array[1.._.namespace.datablock.member] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^^ meta.definition.variable.plc meta.path.plc
+//         ^ meta.definition.variable.plc - meta.path
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^ variable.namespace.plc
+//   ^ punctuation.accessor.dot.plc
+//    ^^^^ variable.other.member.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^ storage.type.array.plc
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//                ^ punctuation.definition.array.begin.plc
+//                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                  ^^ keyword.operator.range.plc
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                    ^ variable.namespace.plc
+//                     ^ punctuation.accessor.dot.plc
+//                      ^^^^^^^^^ variable.namespace.plc
+//                               ^ punctuation.accessor.dot.plc
+//                                ^^^^^^^^^ variable.namespace.plc
+//                                         ^ punctuation.accessor.dot.plc
+//                                          ^^^^^^ variable.other.member.plc
+//                                                ^ punctuation.definition.array.end.plc
+//                                                  ^^ keyword.control.of.plc
+//                                                     ^^^^ storage.type.bool.plc
+//                                                         ^ punctuation.terminator.statement.plc
+
 END_VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
 //^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
