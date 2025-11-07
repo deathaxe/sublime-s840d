@@ -125,15 +125,33 @@ contexts:
     - match: $\n?
       scope: meta.fold.block.begin.plc
       pop: 1
-    - match: \S.*$
-      scope: invalid.illegal.plc
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
 
   block-fold-end:
     - match: $\n?
       scope: meta.fold.block.end.plc
       pop: 1
-    - match: \S.*$
-      scope: invalid.illegal.plc
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  decl-fold-begin:
+    - match: $\n?
+      scope: meta.fold.declaration.begin.plc
+      pop: 1
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  decl-fold-end:
+    - match: $\n?
+      scope: meta.fold.declaration.end.plc
+      pop: 1
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
 
 ###[ TYPE ]####################################################################
 
@@ -554,7 +572,7 @@ contexts:
   var-constant:
     - match: \b(?i:VAR\s+CONSTANT)\b
       scope: keyword.declaration.var.constant.begin.plc
-      push: [var-constant-body, assert-line-end]
+      push: [var-constant-body, decl-fold-begin]
 
   var-constant-body:
     - meta_scope: meta.block.var.constant.plc
@@ -569,7 +587,7 @@ contexts:
   var-temp:
     - match: \b(?i:VAR_TEMP)\b
       scope: keyword.declaration.var.temp.begin.plc
-      push: [var-temp-body, assert-line-end]
+      push: [var-temp-body, decl-fold-begin]
 
   var-temp-body:
     - meta_scope: meta.block.var.temp.plc
@@ -581,13 +599,13 @@ contexts:
   var-end:
     - match: \b(?i:END_VAR)\b
       scope: keyword.declaration.var.end.plc
-      set: assert-line-end
+      set: decl-fold-end
     - include: context-end
 
   var-modifier:
     - match: \b(?i:DB_SPECIFIC|RETAIN|SETPOINT)\b
       scope: storage.modifier.interace.plc
-    - include: assert-line-end
+    - include: decl-fold-begin
 
 ###[ VARIABLE DECLARATIONS ]###################################################
 
