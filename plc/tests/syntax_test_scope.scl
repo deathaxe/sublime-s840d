@@ -1,5 +1,71 @@
 // SYNTAX TEST "Step7 SCL.sublime-syntax"
 
+///////////////////////////////////////////////////////////////////////////////
+// namespaces                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+NAMESPACE Name
+// <- meta.namespace.plc keyword.declaration.namespace.begin.plc
+//^^^^^^^^^^^^^ meta.namespace.plc
+//^^^^^^^ keyword.declaration.namespace.begin.plc
+//        ^^^^ entity.name.namespace.plc
+//            ^ meta.fold.namespace.begin.plc
+    TYPE
+//  ^^^^^ meta.namespace.plc meta.block.udt.header.plc
+//  ^^^^ keyword.declaration.udt.begin.plc
+    END_TYPE
+//  ^^^^^^^^ meta.namespace.plc keyword.declaration.udt.end.plc
+
+    DATA_BLOCK "dataBlock"
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.db.header.plc
+//  ^^^^^^^^^^ keyword.declaration.db.begin.plc
+//             ^^^^^^^^^^^ entity.name.datablock.plc
+//             ^ punctuation.definition.variable.begin.plc
+//                       ^ punctuation.definition.variable.end.plc
+    END_DATA_BLOCK
+//  ^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.db.end.plc
+
+    FUNCTION_BLOCK "funcName"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.fb.header.plc
+//  ^^^^^^^^^^^^^^ keyword.declaration.fb.begin.plc
+//                 ^^^^^^^^^^ entity.name.function.plc
+//                 ^ punctuation.definition.variable.begin.plc
+//                          ^ punctuation.definition.variable.end.plc
+    END_FUNCTION_BLOCK
+//  ^^^^^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.fb.end.plc
+
+    FUNCTION "funcName"
+//  ^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.fc.header.plc
+//  ^^^^^^^^ keyword.declaration.fc.begin.plc
+//           ^^^^^^^^^^ entity.name.function.plc
+//           ^ punctuation.definition.variable.begin.plc
+//                    ^ punctuation.definition.variable.end.plc
+    END_FUNCTION
+//  ^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.fc.end.plc
+
+    ORGANIZATION_BLOCK "BlockName"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.ob.header.plc
+//  ^^^^^^^^^^^^^^^^^^ keyword.declaration.ob.begin.plc
+//                     ^^^^^^^^^^^ entity.name.organization-block.plc
+//                     ^ punctuation.definition.variable.begin.plc
+//                               ^ punctuation.definition.variable.end.plc
+    END_ORGANIZATION_BLOCK
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.ob.end.plc
+
+END_NAMESPACE
+// <- meta.namespace.plc keyword.declaration.namespace.end.plc
+//^^^^^^^^^^^ meta.namespace.plc keyword.declaration.namespace.end.plc
+//           ^ meta.fold.namespace.end.plc - meta.namespace
+
+END_NAMESPACE
+// <- invalid.illegal.plc
+//^^^^^^^^^^^ invalid.illegal.plc
+
+
+///////////////////////////////////////////////////////////////////////////////
+// function blocks                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
 FUNCTION_BLOCK MyFunc
 
     { S7_Optimized_Access := 'TRUE' ; Published := 'TRUE' ; }

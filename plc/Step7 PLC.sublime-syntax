@@ -68,11 +68,13 @@ contexts:
 
   main:
     - include: annotations
+    - include: namespaces
     - include: block-db
     - include: block-fb
     - include: block-fc
     - include: block-ob
     - include: block-udt
+    - include: illegal
 
   prototype:
     - include: comments
@@ -88,6 +90,46 @@ contexts:
     - meta_include_prototype: false
     - meta_scope: comment.line.double-slash.plc
     - include: line-end
+
+###[ NAMESPACES ]##############################################################
+
+  namespaces:
+    - match: \b(?i:NAMESPACE)\b
+      scope: keyword.declaration.namespace.begin.plc
+      push: [namespace-body, namespace-fold-begin, namespace-name]
+
+  namespace-name:
+    - match: '{{ident}}'
+      scope: entity.name.namespace.plc
+      pop: 1
+    - include: scope-end
+
+  namespace-body:
+    - meta_scope: meta.namespace.plc
+    - match: \b(?i:END_NAMESPACE)\b
+      scope: keyword.declaration.namespace.end.plc
+      set: namespace-fold-end
+    - include: annotations
+    - include: block-db
+    - include: block-fb
+    - include: block-fc
+    - include: block-ob
+    - include: block-udt
+    - include: illegal
+
+  namespace-fold-begin:
+    - match: \n|$
+      scope: meta.fold.namespace.begin.plc
+      pop: 1
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  namespace-fold-end:
+    - match: \n|$
+      scope: meta.fold.namespace.end.plc
+      pop: 1
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
 
 ###############################################################################
 #  GLOBAL FILE TYPES                                                          #
