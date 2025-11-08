@@ -174,59 +174,6 @@ contexts:
 #      - OB  : ORGANIZATION_BLOCK                                             #
 ###############################################################################
 
-###[ BLOCK LEVEL PROTOTYPES ]##################################################
-
-  return-type:
-    - match: ':'
-      scope: punctuation.separator.mapping.pair.plc
-      set: return-type-content
-    - include: line-end
-
-  return-type-content:
-    - meta_content_scope: meta.function.return-type.plc
-    - include: storage-type
-    - include: line-end
-
-  block-body-begin:
-    - match: (?i:BEGIN)\b
-      scope: keyword.other.begin.plc
-      pop: 1
-
-  block-body-content:
-    - include: illegal
-
-  block-fold-begin:
-    - match: $\n?
-      scope: meta.fold.block.begin.plc
-      pop: 1
-    - include: punctuation-terminators
-    - match: \S.*?(?=//|$)
-      scope: invalid.illegal.eol-expected.plc
-
-  block-fold-end:
-    - match: $\n?
-      scope: meta.fold.block.end.plc
-      pop: 1
-    - include: punctuation-terminators
-    - match: \S.*?(?=//|$)
-      scope: invalid.illegal.eol-expected.plc
-
-  decl-fold-begin:
-    - match: $\n?
-      scope: meta.fold.declaration.begin.plc
-      pop: 1
-    - include: punctuation-terminators
-    - match: \S.*?(?=//|$)
-      scope: invalid.illegal.eol-expected.plc
-
-  decl-fold-end:
-    - match: $\n?
-      scope: meta.fold.declaration.end.plc
-      pop: 1
-    - include: punctuation-terminators
-    - match: \S.*?(?=//|$)
-      scope: invalid.illegal.eol-expected.plc
-
 ###[ TYPE ]####################################################################
 
   block-udt:
@@ -495,6 +442,59 @@ contexts:
     - match: \b(?i:END_ORGANIZATION_BLOCK)\b
       scope: keyword.declaration.ob.end.plc
       set: block-fold-end
+
+###[ BLOCK LEVEL PROTOTYPES ]##################################################
+
+  return-type:
+    - match: ':'
+      scope: punctuation.separator.mapping.pair.plc
+      set: return-type-content
+    - include: line-end
+
+  return-type-content:
+    - meta_content_scope: meta.function.return-type.plc
+    - include: storage-type
+    - include: line-end
+
+  block-body-begin:
+    - match: (?i:BEGIN)\b
+      scope: keyword.other.begin.plc
+      pop: 1
+
+  block-body-content:
+    - include: illegal
+
+  block-fold-begin:
+    - match: \n|$
+      scope: meta.fold.block.begin.plc
+      pop: 1
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  block-fold-end:
+    - match: \n|$
+      scope: meta.fold.block.end.plc
+      pop: 1
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  decl-fold-begin:
+    - match: \n|$
+      scope: meta.fold.declaration.begin.plc
+      pop: 1
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  decl-fold-end:
+    - match: \n|$
+      scope: meta.fold.declaration.end.plc
+      pop: 1
+    - include: punctuation-terminators
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
 
 ###[ TITLE ]###################################################################
 
@@ -1584,7 +1584,7 @@ contexts:
         - include: ignore-square
 
   illegal-eol:
-    - match: $\n?
+    - match: \n|$
       scope: invalid.illegal.eol.plc
       pop: 1
 
