@@ -91,6 +91,38 @@ contexts:
     - meta_scope: comment.line.double-slash.plc
     - include: line-end
 
+###[ ANNOTATIONS ]#############################################################
+
+  annotations:
+    # Note: Scope whole first line of multi-line annotations `meta.annotation`
+    # so whole rectangle. is highlighted with a possible background color.
+    - match: ^\s*(\{)\s*$
+      captures:
+        1: punctuation.definition.annotation.begin.plc
+      push: annotation-key
+    - match: \{
+      scope: punctuation.definition.annotation.begin.plc
+      push: annotation-key
+
+  annotation-key:
+    - meta_scope: meta.annotation.plc
+    # Note: Scope whole first line of multi-line annotations `meta.annotation`
+    # so whole rectangle. is highlighted with a possible background color.
+    - match: ^\s*(\})\s*$\n?
+      captures:
+        1: punctuation.definition.annotation.end.plc
+      pop: 1
+    - match: \}
+      scope: punctuation.definition.annotation.end.plc
+      pop: 1
+    - match: :=
+      scope: keyword.operator.assignment.plc
+    - match: '{{ident}}'
+      scope: variable.annotation.plc
+    - include: literals-string
+    - include: punctuation-terminators
+    - include: illegal
+
 ###[ NAMESPACES ]##############################################################
 
   namespaces:
@@ -464,45 +496,14 @@ contexts:
       scope: keyword.declaration.ob.end.plc
       set: block-fold-end
 
-###############################################################################
-#  HEADER DATA                                                                #
-#  =========                                                                  #
-#    all meta data of a datatype/datablock/functionblock/function             #
-#                                                                             #
-###############################################################################
-# ANNOTATION                                                                  #
-#   some kind of preprocessor information used to specify global attributes   #
-#                                                                             #
-# EXAMPLE:                                                                    #
-#   { S7_language := '7(1) Deutsch (Deutschland)  22.11.2015  08:22:27' }     #
-#                                                                             #
-###############################################################################
-
-  annotations:
-    - match: \{
-      scope: punctuation.definition.annotation.begin.plc
-      push: annotation-key
-
-  annotation-key:
-    - meta_scope: meta.annotation.plc
-    - match: \}
-      scope: punctuation.definition.annotation.end.plc
-      pop: 1
-    - match: :=
-      scope: keyword.operator.assignment.plc
-    - match: '{{ident}}'
-      scope: variable.annotation.plc
-    - include: literals-string
-    - include: punctuation-terminators
-    - include: illegal
-
 ###[ TITLE ]###################################################################
 
   title:
-    - match: \b(?i:TITLE)\b
-      scope: entity.other.attribute-name.title.plc
+    - match: \s*((?i:TITLE))\b
+      captures:
+        1: entity.other.attribute-name.title.plc
       set: title-separator
-    - match: (?=\S)
+    - match: ^
       pop: 1
 
   title-separator:

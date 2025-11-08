@@ -68,6 +68,16 @@ END_NAMESPACE
 
 FUNCTION_BLOCK MyFunc
 
+    {
+// <- meta.block.fb.header.plc meta.annotation.plc
+//^^^^ meta.block.fb.header.plc meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+        S7_Optimized_Access := 'TRUE' ;
+        Published := 'TRUE' ;
+    }
+//^^^^ meta.block.fb.header.plc meta.annotation.plc
+//  ^ punctuation.definition.annotation.end.plc
+
     { S7_Optimized_Access := 'TRUE' ; Published := 'TRUE' ; }
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
 //  ^ punctuation.definition.annotation.begin.plc
