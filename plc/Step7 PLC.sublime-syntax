@@ -281,6 +281,8 @@ contexts:
       push: block-db-value
 
   block-db-value:
+    - include: array-initializers
+    - include: struct-initializers
     - include: literals
     - include: operands-symbols
     - include: assert-stmt-end
@@ -703,7 +705,6 @@ contexts:
 
   variable-value:
     - meta_content_scope: meta.definition.variable.value.plc
-    - include: punctuation-separators
     - include: array-initializers
     - include: struct-initializers
     - include: literals
@@ -720,7 +721,11 @@ contexts:
     - match: \]
       scope: punctuation.section.sequence.end.plc
       pop: 1
-    - include: variable-value
+    - include: punctuation-separators
+    - include: array-initializers
+    - include: struct-initializers
+    - include: literals
+    - include: operands-symbols
 
   struct-initializers:
     - match: \(
@@ -732,7 +737,15 @@ contexts:
     - match: \)
       scope: punctuation.section.sequence.end.plc
       pop: 1
-    - include: variable-value
+    - match: :=
+      scope: keyword.operator.assignment.plc
+    - match: '{{ident}}'
+      scope: variable.other.local.plc
+    - include: punctuation-separators
+    - include: array-initializers
+    - include: struct-initializers
+    - include: literals
+    - include: operands-symbols
 
 ###[ STORAGE TYPES ]###########################################################
 

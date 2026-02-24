@@ -182,11 +182,13 @@ TYPE
 //                                           ^^^^ storage.type.bool.plc
 //                                               ^ punctuation.terminator.statement.plc
 
-    _.name : Array[1.._.namespace.datablock.member] of Bool;
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
+    _.name : Array[1.._.namespace.datablock.member] of Bool := ();
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.udt.header.plc
 //  ^^^^^^^ meta.definition.variable.plc meta.path.plc
 //         ^ meta.definition.variable.plc - meta.path
-//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//                                                          ^^ meta.definition.variable.plc
+//                                                            ^^^ meta.definition.variable.value.plc
 //  ^ variable.namespace.plc
 //   ^ punctuation.accessor.dot.plc
 //    ^^^^ variable.other.member.plc
@@ -207,7 +209,43 @@ TYPE
 //                                                ^ punctuation.definition.array.end.plc
 //                                                  ^^ keyword.control.of.plc
 //                                                     ^^^^ storage.type.bool.plc
-//                                                         ^ punctuation.terminator.statement.plc
+//                                                          ^^ keyword.operator.assignment.plc
+//                                                             ^^ meta.sequence.struct.plc
+//                                                             ^ punctuation.section.sequence.begin.plc
+//                                                              ^ punctuation.section.sequence.end.plc
+//                                                               ^ punctuation.terminator.statement.plc
+
+    array : Array[1..4] of STRUCT
+        item1 : Bool;
+        item2 : Bool;
+    END_STRUCT := [
+//^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//^^^^^^^^^^^^ meta.sequence.array.plc meta.struct.plc
+//  ^^^^^^^^^^ storage.type.struct.end.plc
+//             ^^ meta.definition.variable.plc keyword.operator.assignment.plc
+//               ^^^ meta.definition.variable.value.plc
+//                ^^ meta.sequence.list.plc
+//                ^ punctuation.section.sequence.begin.plc
+            (item1 := (),item2 := ())
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.value.plc meta.sequence.list.plc
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.struct.plc
+//          ^ punctuation.section.sequence.begin.plc
+//           ^^^^^ variable.other.local.plc
+//                 ^^ keyword.operator.assignment.plc
+//                    ^^ meta.sequence.struct.plc
+//                    ^ punctuation.section.sequence.begin.plc
+//                     ^ punctuation.section.sequence.end.plc
+//                      ^ punctuation.separator.sequence.plc
+//                       ^^^^^ variable.other.local.plc
+//                             ^^ keyword.operator.assignment.plc
+//                                ^^ meta.sequence.struct.plc
+//                                ^ punctuation.section.sequence.begin.plc
+//                                 ^ punctuation.section.sequence.end.plc
+//                                  ^ punctuation.section.sequence.end.plc
+    ];
+//^^^ meta.definition.variable.value.plc meta.sequence.list.plc
+//  ^ punctuation.section.sequence.end.plc
+//   ^ punctuation.terminator.statement.plc
 
 END_TYPE
 
@@ -290,6 +328,50 @@ DATA_BLOCK InstOfAnyFunctionBlock : AnyFunctionBlock
 //         ^ punctuation.definition.string.begin.plc
 //                           ^ punctuation.definition.string.end.plc
 //                            ^ punctuation.terminator.statement.plc
+
+    var := [ 1, 2, 3 ];
+//^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body.plc
+//  ^^^ meta.path.plc variable.other.local.plc
+//      ^^ keyword.operator.assignment.plc
+//         ^^^^^^^^^^^ meta.sequence.list.plc
+//         ^ punctuation.section.sequence.begin.plc
+//           ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//            ^ punctuation.separator.sequence.plc
+//              ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//               ^ punctuation.separator.sequence.plc
+//                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                   ^ punctuation.section.sequence.end.plc
+//                    ^ punctuation.terminator.statement.plc
+
+    var := ();
+//^^^^^^^^^^^^^ meta.block.db.body.plc
+//  ^^^ meta.path.plc variable.other.local.plc
+//      ^^ keyword.operator.assignment.plc
+//         ^^ meta.sequence.struct.plc
+//         ^ punctuation.section.sequence.begin.plc
+//          ^ punctuation.section.sequence.end.plc
+//           ^ punctuation.terminator.statement.plc
+
+    var := (item1 := (),item2 := ())
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.db.body.plc
+//  ^^^ meta.path.plc variable.other.local.plc
+//      ^^ keyword.operator.assignment.plc
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.struct.plc
+//         ^ punctuation.section.sequence.begin.plc
+//          ^^^^^ variable.other.local.plc
+//                ^^ keyword.operator.assignment.plc
+//                   ^^ meta.sequence.struct.plc
+//                   ^ punctuation.section.sequence.begin.plc
+//                    ^ punctuation.section.sequence.end.plc
+//                     ^ punctuation.separator.sequence.plc
+//                      ^^^^^ variable.other.local.plc
+//                            ^^ keyword.operator.assignment.plc
+//                               ^^ meta.sequence.struct.plc
+//                               ^ punctuation.section.sequence.begin.plc
+//                                ^ punctuation.section.sequence.end.plc
+//                                 ^ punctuation.section.sequence.end.plc
+//                                  ^ invalid.illegal.eol.plc
+
 END_DATA_BLOCK
 //^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
 //            ^ meta.fold.block.end.plc - meta.block - keyword
