@@ -47,6 +47,8 @@ variables:
     | (?: END_ ) ? (?: DATABLOCK | FUNCTION ( _BLOCK )? | ORGANIZATION_BLOCK | TYPE | VAR )
     )\b
 
+  escapes: '\$[LlNPpRrTt$'']'
+
   # numeric storage type prefixes
   prefix_binary: '{{prefix_numeric}}'
   prefix_decimal: '{{prefix_numeric}}'
@@ -913,6 +915,7 @@ contexts:
     - include: literals-bool
     - include: literals-null
     - include: literals-binary
+    - include: literals-octal
     - include: literals-hexadecimal
     - include: literals-float
     - include: literals-decimal
@@ -1049,6 +1052,13 @@ contexts:
         4: constant.numeric.value.plc
 
   literals-float:
+    - match: ((?i:L?REAL))(#)(?:([-+]?)(\d+)(?!\.))?
+      scope: meta.number.float.decimal.plc
+      captures:
+        1: storage.type.float.plc
+        2: punctuation.separator.type.plc
+        3: keyword.operator.arithmetic.plc
+        4: constant.numeric.value.plc
     - match: ([-+]?)(\d{{digit}}*(\.){{digit}}+(?:[Ee][-+]{{digit}}+)?)\b
       scope: meta.number.float.decimal.plc
       captures:
@@ -1073,6 +1083,28 @@ contexts:
     - meta_content_scope: constant.numeric.value.plc
     - match: \h+
     - match: '[[:alnum:]&&[^\h]]+'
+      scope: invalid.illegal.digit.plc
+    - match: _
+      scope: punctuation.separator.digits.plc
+    - include: immediately-pop
+
+  literals-octal:
+    # 8#01101
+    # B#8#02202
+    # WORD#8#82302
+    - match: (?:({{prefix_hexadecimal}})(#))?(8(#))
+      captures:
+        1: storage.type.integer.plc
+        2: punctuation.separator.type.plc
+        3: constant.numeric.base.plc
+        4: punctuation.separator.base.plc
+      push: literals-octal-digits
+
+  literals-octal-digits:
+    - meta_scope: meta.number.integer.octal.plc
+    - meta_content_scope: constant.numeric.value.plc
+    - match: '[0-8]+'
+    - match: '[9[:alpha:]]+'
       scope: invalid.illegal.digit.plc
     - match: _
       scope: punctuation.separator.digits.plc
@@ -1331,16 +1363,27 @@ contexts:
 ###[ CHARACTERS ]##############################################################
 
   literals-character:
-    - match: (\')([^'])(\')
+    - match: ((?i:W?CHAR))(#)
+      scope: meta.string.plc
+      captures:
+        1: storage.type.char.plc
+        2: punctuation.separator.type.plc
+    - match: (\')(?:({{escapes}})|([^']))(\')
       scope: meta.string.plc string.quoted.single.plc
       captures:
         1: punctuation.definition.string.begin.plc
-        2: constant.character.literal.plc
-        3: punctuation.definition.string.end.plc
+        2: constant.character.escape.plc
+        3: constant.character.literal.plc
+        4: punctuation.definition.string.end.plc
 
 ###[ STRINGS ]#################################################################
 
   literals-string:
+    - match: ((?i:W?STRING))(#)
+      scope: meta.string.plc
+      captures:
+        1: storage.type.string.plc
+        2: punctuation.separator.type.plc
     - match: \'
       scope: punctuation.definition.string.begin.plc
       push: literals-string-body
@@ -1352,6 +1395,8 @@ contexts:
       scope: punctuation.definition.string.end.plc
       pop: 1
     - include: illegal-eol
+    - match: '{{escapes}}'
+      scope: constant.character.escape.plc
 
 ###############################################################################
 # OPERANDS                                                                    #
