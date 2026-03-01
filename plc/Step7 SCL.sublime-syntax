@@ -44,17 +44,6 @@ variables:
     | elsif | else | exit | repeat | return | then | to | until
     )\b
 
-  constants: '[[:upper:]_][[:upper:][:digit:]_]*\b'
-  escapes: '\$[LlNPpRrTt$'']'
-
-  quoted_local_ident: (#\")[^"]*(\")
-
-  # numeric storage type prefixes
-  prefix_binary: '{{prefix_numeric}}'
-  prefix_decimal: '{{prefix_numeric}}'
-  prefix_hexadecimal: '{{prefix_numeric}}'
-  prefix_numeric: (?i:B(?:yte)?|[DL]?W(?:ord)?|L|U?[DLS]?Int)
-
 contexts:
 
 ###[ COMMENTS ]################################################################
@@ -84,36 +73,9 @@ contexts:
 
 ###[ BLOCK HEADERS ]###########################################################
 
-  block-fb-header-content:
-    - meta_prepend: true
-    - include: var-constant
-
-  block-fc-header-content:
-    - meta_prepend: true
-    - include: var-constant
-
-  block-ob-header-content:
-    - meta_prepend: true
-    - include: var-constant
-
   block-body-content:
     - include: scl-statements
     - include: illegal
-
-###[ VAR_CONSTANT ]############################################################
-
-  var-constant:
-    - match: \b(?i:VAR\s+CONSTANT)\b
-      scope: keyword.declaration.var.constant.begin.plc
-      push: [var-constant-body, assert-line-end]
-
-  var-constant-body:
-    - meta_scope: meta.block.var.constant.plc
-    - include: var-end
-    - match: '{{constants}}'
-      scope: entity.name.constant.plc
-      push: variable-separator-name-storage
-    - include: variable-declarations
 
 ###[ STATEMENTS ]##############################################################
 
@@ -131,8 +93,8 @@ contexts:
     - include: slice-members
     - include: function-calls
     - include: literals
-    - include: operands-symbols
     - include: operands-absolute
+    - include: operands-symbols
 
   scl-expression-end:
     # Pop nested expression contexts if control keywords are matched.
@@ -321,75 +283,6 @@ contexts:
     - include: group-end
     - include: scl-expressions
 
-###[ CHARACTERS ]##############################################################
-
-  literals-character:
-    - match: ((?i:W?CHAR))(#)
-      scope: meta.string.plc
-      captures:
-        1: storage.type.char.plc
-        2: punctuation.separator.type.plc
-    - match: (\')(?:({{escapes}})|([^']))(\')
-      scope: meta.string.plc string.quoted.single.plc
-      captures:
-        1: punctuation.definition.string.begin.plc
-        2: constant.character.escape.plc
-        3: constant.character.literal.plc
-        4: punctuation.definition.string.end.plc
-
-###[ NUMBERS ]#################################################################
-
-  literals:
-    - meta_prepend: true
-    - include: literals-octal
-
-  literals-float:
-    - meta_prepend: true
-    - match: ((?i:L?REAL))(#)(?:([-+]?)(\d+)(?!\.))?
-      scope: meta.number.float.decimal.plc
-      captures:
-        1: storage.type.float.plc
-        2: punctuation.separator.type.plc
-        3: keyword.operator.arithmetic.plc
-        4: constant.numeric.value.plc
-
-  literals-octal:
-    # 8#01101
-    # B#8#02202
-    # WORD#8#82302
-    - match: (?:({{prefix_hexadecimal}})(#))?(8(#))
-      captures:
-        1: storage.type.integer.plc
-        2: punctuation.separator.type.plc
-        3: constant.numeric.base.plc
-        4: punctuation.separator.base.plc
-      push: literals-octal-digits
-
-  literals-octal-digits:
-    - meta_scope: meta.number.integer.octal.plc
-    - meta_content_scope: constant.numeric.value.plc
-    - match: '[0-8]+'
-    - match: '[9[:alpha:]]+'
-      scope: invalid.illegal.digit.plc
-    - match: _
-      scope: punctuation.separator.digits.plc
-    - include: immediately-pop
-
-###[ STRINGS ]#################################################################
-
-  literals-string:
-    - meta_prepend: true
-    - match: ((?i:W?STRING))(#)
-      scope: meta.string.plc
-      captures:
-        1: storage.type.string.plc
-        2: punctuation.separator.type.plc
-
-  literals-string-body:
-    - meta_append: true
-    - match: '{{escapes}}'
-      scope: constant.character.escape.plc
-
 ###[ OPERATORS ]###############################################################
 
   operators:
@@ -422,47 +315,6 @@ contexts:
         1: punctuation.accessor.dot.plc
         2: variable.language.slice.plc
         3: punctuation.definition.absolute.plc
-
-###[ STORAGE TYPES ]###########################################################
-
-  storage-type-atomic:
-    - meta_append: true
-    - match: \b(?i:VARIANT)\b
-      scope: storage.type.variant.plc
-
-  storage-type-blocks:
-    - meta_append: true
-    - match: \b(?i:ANY_DB)\b
-      scope: storage.type.datablock.plc
-    - match: |-
-        \b(?xi:
-        | REMOTE | HW_ANY | HW_DEVICE | HW_DPMASTER | HW_DPSLAVE | HW_IO
-        | HW_IOSYSTEM | HW_SUBMODULE | HW_MODULE | HW_INTERFACE | HW_IEPORT
-        | HW_HSC | HW_PWM | HW_PTO | EVENT_ANY | EVENT_ATT | EVENT_HWINT
-        | OB_ANY | OB_DELAY | OB_TOD | OB_CYCLIC | OB_ATT | OB_PCYCLE | OB_HWINT
-        | OB_DIAG | OB_TIMEERROR | OB_STARTUP | PORT | RTM | PIP | CONN_ANY
-        | CONN_PRG | CONN_OUC | CONN_R_ID | DB_ANY | DB_WWW | DB_DYN | C_ALARM
-        | C_ALARM_S | C_ALARM_8 | C_ALARM_8P | C_AR_SEND | C_NOTIFY
-        | C_NOTIFY_8P | C_ALARM_SD
-        )\b
-      scope: support.type.hardware.plc
-
-  storage-type-datetime:
-    - match: \b(?i:S5TIME|L?(?:TIME|TIME_OF_DAY|DATE_AND_TIME))\b
-      scope: storage.type.time.plc
-
-  storage-type-numeric:
-    - match: \b(?i:Byte|[DL]?Word|U?[DLS]?Int)\b
-      scope: storage.type.integer.plc
-    - match: \b(?i:L?Real)\b
-      scope: storage.type.float.plc
-
-  storage-type-string:
-    - match: \b(?i:W?CHAR)\b
-      scope: storage.type.char.plc
-    - match: \b(?i:W?STRING)\b
-      scope: storage.type.string.plc
-      push: storage-type-string-size
 
 ###[ ADDRESSES ]###############################################################
 
@@ -535,8 +387,11 @@ contexts:
 ###[ SYMBOLS ]#################################################################
 
   operands-symbols:
-    - match: \b(?:ENO?)\b
+    - match: (?:ENO?)\b
       scope: variable.language.scl
+    - match: _\b
+      scope: variable.namespace.plc
+      push: qualified-members
     - match: (?=[#"])
       branch_point: symbols
       branch:
@@ -583,48 +438,6 @@ contexts:
       set: function-call-arguments
     - match: (?=\S)
       fail: symbols
-
-  unqualified-symbol-unquoted:
-    - meta_prepend: true
-    - match: (#){{constants}}
-      scope: constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.plc
-      set: unqualified-symbol-fail
-
-  unqualified-symbol-quoted:
-    - meta_prepend: true
-    - match: (#\"){{constants}}(\")
-      scope: constant.other.local.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set: unqualified-symbol-fail
-    - match: (\"){{constants}}(\")
-      scope: constant.other.global.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set: unqualified-symbol-fail
-    - match: '{{quoted_local_ident}}'
-      scope: variable.other.local.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set:
-        - unqualified-symbol-fail
-        - array-index
-
-  qualified-symbol-quoted:
-    - meta_append: true
-    - match: '{{quoted_local_ident}}'
-      scope: variable.namespace.struct.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set:
-        - qualified-members
-        - array-index
 
   qualified-members:
     - meta_include_prototype: false

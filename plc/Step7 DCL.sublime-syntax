@@ -1,0 +1,292 @@
+%YAML 1.2
+# The MIT License (MIT)
+#
+# Copyright (c) 2025 DeathAxe <deathaxe82@googlemail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+###############################################################################
+---
+name: Step7 DCL
+scope: source.plc.dcl
+version: 2
+
+extends: Step7 PLC.sublime-syntax
+
+file_extensions:
+  - s7dcl
+
+contexts:
+
+###[ ANNOTATIONS ]#############################################################
+
+  annotation-key:
+    - meta_prepend: true
+    - match: \"
+      scope: punctuation.definition.string.begin.plc
+      push: double-quoted-string-body
+
+  double-quoted-string-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.plc string.quoted.double.plc
+    - match: \"
+      scope: punctuation.definition.string.end.plc
+      pop: 1
+    - include: illegal-eol
+
+###[ TYPES ]###################################################################
+
+  block-udt:
+    - match: \b(?i:TYPE)\b
+      scope: keyword.declaration.udt.begin.plc
+      push: [block-udt-header, block-fold-begin]
+
+  block-udt-header-content:
+    - include: variable-declarations
+
+###[ DATA_BLOCK ]##############################################################
+
+  block-db:
+    - match: \b(?i:DATA_BLOCK)\b
+      scope: keyword.declaration.db.begin.plc
+      push:
+        - block-db-header
+        - block-db-var
+        - block-db-type
+        - block-db-name
+
+  block-db-type:
+    - match: ':'
+      scope: punctuation.separator.colon.plc
+      set:
+        - block-fold-begin
+        - block-fb-name
+    - include: block-fold-begin
+
+  block-db-var:
+    - match: \b(?i:VAR)\b
+      scope: keyword.declaration.var.stat.begin.plc
+      set:
+        - var-stat-body
+        - var-modifier
+    - include: annotations
+    - include: else-pop
+
+  block-db-header:
+    - meta_include_prototype: false
+    - meta_scope: meta.block.db.header.plc
+    - match: ''
+      set: block-db-body
+
+  block-db-hearder-content: []
+
+###[ FUNCTION_BLOCK ]##########################################################
+
+  block-fb-header:
+    - meta_scope: meta.block.fb.header.plc
+    - match: (?=\b(?i:NETWORK)\b)
+      set: block-fb-body
+    - include: block-fb-end
+    - include: block-fb-header-content
+    - include: illegal
+
+  block-fb-header-content:
+    - include: annotations
+    - include: var-input
+    - include: var-output
+    - include: var-inout
+    - include: var-constant
+    - include: var-stat
+    - include: var-temp
+
+###[ FUNCTION ]################################################################
+
+  block-fc-header:
+    - meta_scope: meta.block.fc.header.plc
+    - match: (?=\b(?i:NETWORK)\b)
+      set: block-fc-body
+    - include: block-fc-end
+    - include: block-fc-header-content
+    - include: illegal
+
+  block-fc-header-content:
+    - include: annotations
+    - include: var-input
+    - include: var-output
+    - include: var-inout
+    - include: var-constant
+    - include: var-stat
+    - include: var-temp
+
+###[ ORGANIZATION_BLOCK ]######################################################
+
+  block-ob-header:
+    - meta_scope: meta.block.ob.header.plc
+    - match: (?=\b(?i:NETWORK)\b)
+      set: block-ob-body
+    - include: block-ob-end
+    - include: block-ob-header-content
+    - include: illegal
+
+  block-ob-header-content:
+    - include: annotations
+    - include: attributes
+    - include: var-constant
+    - include: var-temp
+
+###[ BLOCK LEVEL PROTOTYPES ]##################################################
+
+  block-body-content:
+    - include: annotations
+    - match: \b(?i:NETWORK)\b
+      scope: keyword.control.network.plc
+      push:
+        - network-body
+        - network-fold-begin
+
+  network-body:
+    - meta_scope: meta.network.plc
+    - include: annotations
+    - match: \b(?i:END_NETWORK)\b
+      scope: keyword.control.network.plc
+      set: network-fold-end
+    - match: (?=(?i:END_(?:FUNCTION(?:_BLOCK)?|ORGANIZATION_BLOCK))\b)
+      pop: 1
+    - match: (?=(?i:RUNG)\b)
+      embed: lad-statements
+      embed_scope: source.plc.lad
+      escape: (?=(?i:END_(?:FUNCTION(?:_BLOCK)?|NETWORK|ORGANIZATION_BLOCK))\b)
+    - match: (?=\S)
+      embed: scope:source.plc.scl#scl-statements
+      embed_scope: source.plc.scl
+      escape: (?=(?i:END_(?:FUNCTION(?:_BLOCK)?|NETWORK|ORGANIZATION_BLOCK))\b)
+
+  network-fold-begin:
+    - match: \n|$
+      scope: meta.fold.network.begin.plc
+      pop: 1
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  network-fold-end:
+    - match: \n|$
+      scope: meta.fold.network.end.plc
+      pop: 1
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+###[ LAD STATEMENTS ]##########################################################
+
+  lad-statements:
+    - match: \b(?i:RUNG)\b
+      scope: keyword.control.rung.plc
+      push: [rung-fold-begin, lad-rung-name]
+    - match: \b(?i:END_RUNG)\b
+      scope: keyword.control.endrung.plc
+      push: [rung-fold-end, lad-rung-name]
+    - include: annotations
+    - include: lad-function-calls
+    - include: lad-rungs
+
+  lad-rung-name:
+    # the begin of everything in a network
+    - match: (wire)(#)(powerrail)\b
+      captures:
+        1: variable.namespace.rung.plc
+        2: punctuation.separator.rung.plc
+        3: constant.language.rung.plc
+      pop: 1
+    # intermediate rung names
+    - match: (wire)(#)({{ident}})
+      captures:
+        1: variable.namespace.rung.plc
+        2: punctuation.separator.rung.plc
+        3: constant.other.rung.plc
+      pop: 1
+    - include: operands-symbols
+    - include: scope-end
+
+  lad-rungs:
+    # defines where foreign branches are merged into current one
+    - match: (wire)(#)({{ident}})
+      captures:
+        1: variable.namespace.rung.plc
+        2: punctuation.separator.rung.plc
+        3: entity.name.rung.plc
+
+  rung-fold-begin:
+    - match: \n|$
+      scope: meta.fold.rung.begin.plc
+      pop: 1
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+  rung-fold-end:
+    - match: \n|$
+      scope: meta.fold.rung.end.plc
+      pop: 1
+    - match: \S.*?(?=//|$)
+      scope: invalid.illegal.eol-expected.plc
+
+###[ FUNCTION CALL ]###########################################################
+
+  lad-function-calls:
+    # global functions or function block instances
+    - match: ({{quoted_ident}})\s*(?=\()
+      scope: meta.function-call.identifier.plc
+      captures:
+        1: variable.function.global.plc
+        2: punctuation.definition.variable.begin.plc
+        3: punctuation.definition.variable.end.plc
+      push: lad-function-call-arguments
+    # multi-instance function block
+    - match: ((#){{ident}})\s*(?=\()
+      scope: meta.function-call.identifier.plc
+      captures:
+        1: variable.function.local.plc
+        2: punctuation.definition.variable.plc
+      push: lad-function-call-arguments
+    # built-in functions or basic instructions
+    - match: ({{ident}})\s*(?=\()
+      scope: meta.function-call.identifier.plc
+      captures:
+        1: support.function.plc
+      push: lad-function-call-arguments
+
+  lad-function-call-arguments:
+    - meta_include_prototype: false
+    - match: \(
+      scope: punctuation.section.group.begin.plc
+      set: lad-function-call-arguments-body
+
+  lad-function-call-arguments-body:
+    - meta_scope: meta.function-call.arguments.plc
+    - match: \)
+      scope: punctuation.section.group.end.plc
+      pop: 1
+    - match: (?:({{quoted_ident}})|({{ident}}))\s*([:?]=|=>)
+      captures:
+        1: variable.parameter.plc
+        2: punctuation.definition.variable.begin.plc
+        3: punctuation.definition.variable.end.plc
+        4: variable.parameter.plc
+        5: keyword.operator.assignment.plc
+    - include: lad-rung-names
+    - include: scope:source.plc.scl#scl-expressions
+
+###############################################################################

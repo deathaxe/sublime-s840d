@@ -2,11 +2,19 @@
 <plist version="1.0">
 <dict>
     <key>scope</key>
-    <string>source.plc.awl</string>
+    <string>source.plc</string>
     <key>settings</key>
     <dict>
         <key>foldScopes</key>
         <array>
+            <dict>
+                <key>begin</key>
+                <string>comment.block punctuation.definition.comment.begin</string>
+                <key>end</key>
+                <string>comment.block punctuation.definition.comment.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
             <dict>
                 <key>begin</key>
                 <string>punctuation.definition.annotation.begin</string>
@@ -44,6 +52,38 @@
                 <string>meta.fold.declaration.begin</string>
                 <key>end</key>
                 <string>meta.fold.declaration.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.fold.namespace.begin</string>
+                <key>end</key>
+                <string>meta.fold.namespace.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.fold.network.begin</string>
+                <key>end</key>
+                <string>meta.fold.network.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.fold.region.begin</string>
+                <key>end</key>
+                <string>meta.fold.region.end</string>
+                <key>excludeTrailingNewlines</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>meta.fold.rung.begin</string>
+                <key>end</key>
+                <string>meta.fold.rung.end</string>
                 <key>excludeTrailingNewlines</key>
                 <false/>
             </dict>

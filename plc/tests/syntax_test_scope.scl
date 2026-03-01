@@ -1,6 +1,82 @@
 // SYNTAX TEST "Step7 SCL.sublime-syntax"
 
+///////////////////////////////////////////////////////////////////////////////
+// namespaces                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+NAMESPACE Name
+// <- meta.namespace.plc keyword.declaration.namespace.begin.plc
+//^^^^^^^^^^^^^ meta.namespace.plc
+//^^^^^^^ keyword.declaration.namespace.begin.plc
+//        ^^^^ entity.name.namespace.plc
+//            ^ meta.fold.namespace.begin.plc
+    TYPE
+//  ^^^^^ meta.namespace.plc meta.block.udt.header.plc
+//  ^^^^ keyword.declaration.udt.begin.plc
+    END_TYPE
+//  ^^^^^^^^ meta.namespace.plc keyword.declaration.udt.end.plc
+
+    DATA_BLOCK "dataBlock"
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.db.header.plc
+//  ^^^^^^^^^^ keyword.declaration.db.begin.plc
+//             ^^^^^^^^^^^ entity.name.datablock.plc
+//             ^ punctuation.definition.variable.begin.plc
+//                       ^ punctuation.definition.variable.end.plc
+    END_DATA_BLOCK
+//  ^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.db.end.plc
+
+    FUNCTION_BLOCK "funcName"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.fb.header.plc
+//  ^^^^^^^^^^^^^^ keyword.declaration.fb.begin.plc
+//                 ^^^^^^^^^^ entity.name.function.plc
+//                 ^ punctuation.definition.variable.begin.plc
+//                          ^ punctuation.definition.variable.end.plc
+    END_FUNCTION_BLOCK
+//  ^^^^^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.fb.end.plc
+
+    FUNCTION "funcName"
+//  ^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.fc.header.plc
+//  ^^^^^^^^ keyword.declaration.fc.begin.plc
+//           ^^^^^^^^^^ entity.name.function.plc
+//           ^ punctuation.definition.variable.begin.plc
+//                    ^ punctuation.definition.variable.end.plc
+    END_FUNCTION
+//  ^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.fc.end.plc
+
+    ORGANIZATION_BLOCK "BlockName"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc meta.block.ob.header.plc
+//  ^^^^^^^^^^^^^^^^^^ keyword.declaration.ob.begin.plc
+//                     ^^^^^^^^^^^ entity.name.organization-block.plc
+//                     ^ punctuation.definition.variable.begin.plc
+//                               ^ punctuation.definition.variable.end.plc
+    END_ORGANIZATION_BLOCK
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.namespace.plc keyword.declaration.ob.end.plc
+
+END_NAMESPACE
+// <- meta.namespace.plc keyword.declaration.namespace.end.plc
+//^^^^^^^^^^^ meta.namespace.plc keyword.declaration.namespace.end.plc
+//           ^ meta.fold.namespace.end.plc - meta.namespace
+
+END_NAMESPACE
+// <- invalid.illegal.plc
+//^^^^^^^^^^^ invalid.illegal.plc
+
+
+///////////////////////////////////////////////////////////////////////////////
+// function blocks                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
 FUNCTION_BLOCK MyFunc
+
+    {
+// <- meta.block.fb.header.plc meta.annotation.plc
+//^^^^ meta.block.fb.header.plc meta.annotation.plc
+//  ^ punctuation.definition.annotation.begin.plc
+        S7_Optimized_Access := 'TRUE' ;
+        Published := 'TRUE' ;
+    }
+//^^^^ meta.block.fb.header.plc meta.annotation.plc
+//  ^ punctuation.definition.annotation.end.plc
 
     { S7_Optimized_Access := 'TRUE' ; Published := 'TRUE' ; }
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.annotation.plc
@@ -109,12 +185,125 @@ VAR
 //                               ^^^^^^^^^^^^^^ meta.string.plc string.quoted.single.plc
 //                                             ^ punctuation.section.sequence.end.plc
 //                                              ^ punctuation.terminator.statement.plc
+
     "name" : String;   // program name
 //  ^^^^^^^ meta.definition.variable.plc
 //  ^^^^^^ variable.other.local.plc
 //         ^ punctuation.separator.type.plc
 //           ^^^^^^ storage.type.string.plc
 //                 ^ punctuation.terminator.statement.plc
+
+    name : _.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^ support.type.plc
+//                     ^ punctuation.terminator.statement.plc
+
+    name : _.namespace.typeStruct;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^ variable.namespace.plc
+//                    ^ punctuation.accessor.dot.plc
+//                     ^^^^^^^^^^ support.type.plc
+//                               ^ punctuation.terminator.statement.plc
+
+    name : _.name_space_5."type Struct";
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^ meta.definition.variable.storage.plc - meta.path
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.path.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^ variable.namespace.plc
+//          ^ punctuation.accessor.dot.plc
+//           ^^^^^^^^^^^^ variable.namespace.plc
+//                       ^ punctuation.accessor.dot.plc
+//                        ^^^^^^^^^^^^^ support.type.plc
+//                        ^ punctuation.definition.type.begin.plc
+//                                    ^ punctuation.definition.type.end.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1.._.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^ variable.other.member.plc
+//                            ^ punctuation.definition.array.end.plc
+//                              ^^ keyword.control.of.plc
+//                                 ^^^^ storage.type.bool.plc
+//                                     ^ punctuation.terminator.statement.plc
+
+    name : Array[1.._.namespace.maxItems] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^ meta.definition.variable.plc
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^^^^ variable.other.local.plc
+//       ^ punctuation.separator.type.plc
+//         ^^^^^ storage.type.array.plc
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//              ^ punctuation.definition.array.begin.plc
+//               ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                ^^ keyword.operator.range.plc
+//                  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                  ^ variable.namespace.plc
+//                   ^ punctuation.accessor.dot.plc
+//                    ^^^^^^^^^ variable.namespace.plc
+//                             ^ punctuation.accessor.dot.plc
+//                              ^^^^^^^^ variable.other.member.plc
+//                                      ^ punctuation.definition.array.end.plc
+//                                        ^^ keyword.control.of.plc
+//                                           ^^^^ storage.type.bool.plc
+//                                               ^ punctuation.terminator.statement.plc
+
+    _.name : Array[1.._.namespace.datablock.member] of Bool;
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fb.header.plc
+//  ^^^^^^^ meta.definition.variable.plc meta.path.plc
+//         ^ meta.definition.variable.plc - meta.path
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc
+//  ^ variable.namespace.plc
+//   ^ punctuation.accessor.dot.plc
+//    ^^^^ variable.other.member.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^ storage.type.array.plc
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//                ^ punctuation.definition.array.begin.plc
+//                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                  ^^ keyword.operator.range.plc
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//                    ^ variable.namespace.plc
+//                     ^ punctuation.accessor.dot.plc
+//                      ^^^^^^^^^ variable.namespace.plc
+//                               ^ punctuation.accessor.dot.plc
+//                                ^^^^^^^^^ variable.namespace.plc
+//                                         ^ punctuation.accessor.dot.plc
+//                                          ^^^^^^ variable.other.member.plc
+//                                                ^ punctuation.definition.array.end.plc
+//                                                  ^^ keyword.control.of.plc
+//                                                     ^^^^ storage.type.bool.plc
+//                                                         ^ punctuation.terminator.statement.plc
+
 END_VAR
 // <- meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
 //^^^^^ meta.block.fb.header.plc meta.block.var.stat.plc keyword.declaration.var.end.plc
@@ -271,8 +460,8 @@ end_region
 
     #var.name:
 //  ^^^^^^^^^ meta.path.plc
-//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
-//   ^^^ variable.namespace.struct.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.plc
+//   ^^^ variable.namespace.plc
 //      ^ punctuation.accessor.dot.plc - variable
 //       ^^^^ variable.other.member.plc
 
@@ -432,7 +621,7 @@ end_region
 //                 ^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //      ^^^^^^^ variable.parameter.plc
 //              ^^ keyword.operator.assignment.plc
-//                 ^^^^^^^^ variable.namespace.datablock.plc
+//                 ^^^^^^^^ variable.namespace.plc
 //                         ^ punctuation.accessor.dot.plc
 //                          ^^^^^^ variable.function.member.plc
 //                                ^ punctuation.section.brackets.begin.plc
@@ -462,7 +651,7 @@ end_region
 //   ^ punctuation.terminator.statement.plc
 
     #struct.arrayFun[1](execute := #var + 10 = 5);
-//  ^^^^^^^ meta.path.plc variable.namespace.struct.plc
+//  ^^^^^^^ meta.path.plc variable.namespace.plc
 //         ^ meta.path.plc punctuation.accessor.dot.plc
 //          ^^^^^^^^^^^ meta.function-call.identifier.plc meta.path.plc
 //                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc - meta.path
@@ -780,20 +969,10 @@ end_region
 //                                         ^^ constant.numeric.value.plc
 
     ULInd#2 ULInd#2#0100 ULInd#16 ULInd#16#AC
-//        ^ meta.number.integer.decimal.plc
-//                ^^^^^^ meta.number.integer.binary.plc
-//                             ^^ meta.number.integer.decimal.plc
-//                                      ^^^^^ meta.number.integer.hexadecimal.plc
-//  ^^^^^ invalid.illegal.plc
-//        ^ constant.numeric.value.plc
-//          ^^^^^ invalid.illegal.plc
-//                ^^ constant.numeric.base.plc
-//                  ^^^^ constant.numeric.value.plc
-//                       ^^^^^ invalid.illegal.plc
-//                             ^^ constant.numeric.value.plc
-//                                ^^^^^ invalid.illegal.plc
-//                                      ^^^ constant.numeric.base.plc
-//                                         ^^ constant.numeric.value.plc
+//  ^^^^^^^ invalid.illegal.literal.plc
+//          ^^^^^^^^^^^^ invalid.illegal.literal.plc
+//                       ^^^^^^^^ invalid.illegal.literal.plc
+//                                ^^^^^^^^^^^ invalid.illegal.literal.plc
 
     REAL#5 REAL#5.5 LReal#5 LReal#-10.5e+10
 //  ^^^^^^ meta.number.float.decimal.plc
@@ -1146,6 +1325,22 @@ end_region
 //           ^^^^^^^^^^^^^^^^^ string.quoted.single.plc - punctuation
 //                            ^ string.quoted.single.plc punctuation.definition.string.end.plc
 
+/// NAMED VALUES //////////////////////////////////////////////////////////////
+
+    myNamedValueType#value // TIA only
+//  ^^^^^^^^^^^^^^^^ storage.type.enum.plc
+//                  ^ punctuation.accessor.plc
+//                   ^^^^^ constant.other.enum.plc
+
+    "Fancy Named Value Type"#"fancy value" // TIA only
+//  ^^^^^^^^^^^^^^^^^^^^^^^^ storage.type.enum.plc
+//  ^ punctuation.definition.constant.begin.plc
+//                         ^ punctuation.definition.constant.end.plc
+//                          ^ punctuation.accessor.plc
+//                           ^^^^^^^^^^^^^ constant.other.enum.plc
+//                           ^ punctuation.definition.constant.begin.plc
+//                                       ^ punctuation.definition.constant.end.plc
+
 /// ADDRESSES /////////////////////////////////////////////////////////////////
 
     %DB10 %DI20
@@ -1400,22 +1595,22 @@ end_region
     "globalDB".struct.var
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
-//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.plc - punctuation
+//           ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //            ^ punctuation.accessor.dot.plc
-//             ^^^^^^ variable.namespace.struct.plc
+//             ^^^^^^ variable.namespace.plc
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 
     "globalDB".struct.var.%X8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
-//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.plc - punctuation
+//           ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //            ^ punctuation.accessor.dot.plc
-//             ^^^^^^ variable.namespace.struct.plc
+//             ^^^^^^ variable.namespace.plc
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 //                       ^ punctuation.accessor.dot.plc
@@ -1425,11 +1620,11 @@ end_region
     "globalDB".struct.var.%B8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^^ variable.namespace.datablock.plc - punctuation
-//           ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^^ variable.namespace.plc - punctuation
+//           ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //            ^ punctuation.accessor.dot.plc
-//             ^^^^^^ variable.namespace.struct.plc
+//             ^^^^^^ variable.namespace.plc
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 //                       ^ punctuation.accessor.dot.plc
@@ -1439,14 +1634,14 @@ end_region
     "arrayDB"[5].arrayItem[4, 5+#var].node[0].%X0
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                                           ^^^^ - meta.path
-//  ^ variable.namespace.datablock.plc punctuation.definition.variable.begin.plc
-//   ^^^^^^^ variable.namespace.datablock.plc - punctuation
-//          ^ variable.namespace.datablock.plc punctuation.definition.variable.end.plc
+//  ^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//   ^^^^^^^ variable.namespace.plc - punctuation
+//          ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //           ^ punctuation.section.brackets.begin.plc
 //            ^ meta.number.integer.decimal.plc constant.numeric.value.plc
 //             ^ punctuation.section.brackets.end.plc
 //              ^ punctuation.accessor.dot.plc
-//               ^^^^^^^^^ variable.namespace.struct.plc
+//               ^^^^^^^^^ variable.namespace.plc
 //                        ^^^^^^^^^^^ meta.brackets.plc
 //                        ^ punctuation.section.brackets.begin.plc
 //                         ^ meta.number.integer.decimal.plc constant.numeric.value.plc
@@ -1490,8 +1685,8 @@ end_region
 
     #LOCAL_CONST.
 //  ^^^^^^^^^^^^^ meta.path.plc
-//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
-//   ^^^^^^^^^^^ variable.namespace.struct.plc - punctuation
+//  ^ variable.namespace.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^^ variable.namespace.plc - punctuation
 //              ^ punctuation.accessor.dot.plc
 
     #LOCAL_CONST.%X0
@@ -1512,16 +1707,16 @@ end_region
 
     #structured.variable
 //  ^^^^^^^^^^^^^^^^^^^^ meta.path.plc
-//  ^ variable.namespace.struct.plc punctuation.definition.variable.plc
-//   ^^^^^^^^^^ variable.namespace.struct.plc - punctuation
+//  ^ variable.namespace.plc punctuation.definition.variable.plc
+//   ^^^^^^^^^^ variable.namespace.plc - punctuation
 //             ^ punctuation.accessor.dot.plc
 //              ^^^^^^^^ variable.other.member.plc
 
     #"local struct"."with spaces"
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
-//  ^^ variable.namespace.struct.plc punctuation.definition.variable.begin.plc
-//    ^^^^^^^^^^^^ variable.namespace.struct.plc - punctuation
-//                ^ variable.namespace.struct.plc punctuation.definition.variable.end.plc
+//  ^^ variable.namespace.plc punctuation.definition.variable.begin.plc
+//    ^^^^^^^^^^^^ variable.namespace.plc - punctuation
+//                ^ variable.namespace.plc punctuation.definition.variable.end.plc
 //                 ^ punctuation.accessor.dot.plc
 //                  ^ variable.other.member.plc punctuation.definition.variable.begin.plc
 //                   ^^^^^^^^^^^ variable.other.member.plc - punctuation

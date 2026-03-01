@@ -1,6 +1,11 @@
 {
-	"scope": "source.plc & ((meta.block.db.header, meta.block.ob.header, meta.block.fb.header, meta.block.fc.header) - meta.block.var)",
+	"scope": "(source.plc.awl, source.plc.scl) & ((meta.block.db.header, meta.block.ob.header, meta.block.fb.header, meta.block.fc.header) - meta.block.var)",
 	"completions": [
+		{
+			"trigger": "CODE_VERSION1",
+			"kind": ["keyword", "a", "Attribute"],
+			"contents": "CODE_VERSION1\n$0"
+		},
 		{
 			"trigger": "AUTHOR",
 			"kind": ["keyword", "a", "Attribute"],

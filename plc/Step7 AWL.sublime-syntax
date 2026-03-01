@@ -49,6 +49,10 @@ contexts:
       scope: entity.name.datablock.plc
       pop: 1
 
+  block-db-value:
+    - meta_prepend: true
+    - include: operands-absolute
+
   block-fb-name:
     - meta_prepend: true
     # absolute address
@@ -67,6 +71,10 @@ contexts:
     - include: awl-networks
     - include: awl-statements
     - include: illegal
+
+  variable-value:
+    - meta_prepend: true
+    - include: operands-absolute
 
 ###[ AWL NETWORKS ]############################################################
 
@@ -208,6 +216,8 @@ contexts:
         - include: operands-binary
         - include: operands-counter
         - include: operands-timer
+        - include: illegal-datablock-absolute
+        - include: illegal-logical-absolute
         - include: operands-symbols
         - include: assert-stmt-end
     # T
@@ -438,14 +448,22 @@ contexts:
 
   operands-datablock-absolute:
     # DB10, DB 10 : datablocks
-    - match: \b(?i:D[BI])[ \t]*{{int}}
+    - match: (%)?(?i:D[BI])[ \t]*{{int}}
       scope: meta.address.plc variable.language.db.plc
+      captures:
+        1: punctuation.definition.address.plc
+
+  illegal-datablock-absolute:
+    # DB10, DB 10 : datablocks
+    - match: (%)?(?i:D[BI])[ \t]*{{int}}
+      scope: invalid.illegal.terminator-expected.plc
 
   operands-datablock-indirect:
-    - match: \b((?i:D[BI]))[ \t]*(?=\[)
+    - match: ((%)?(?i:D[BI]))[ \t]*(?=\[)
+      scope: meta.address.indirect.plc
       captures:
-        0: meta.address.indirect.plc
         1: variable.language.timer.plc
+        2: punctuation.definition.address.plc
       push: address-indirect
 
 ###[ BINARIES ]################################################################
@@ -462,24 +480,28 @@ contexts:
     # MB10, MW10, MD10
     # LB10, LW10, LD10, VB10, VW10, VD10
     # DIW10, DIW10, DID10
-    - match: \b(?i:(?:P?[AEIQ]|D[BI]|[LMV])[BWD])[ \t]*{{int}}
+    - match: (%)?(?i:(?:P?[AEIQ]|D[BI]|[LMV])[BWD])[ \t]*{{int}}
       scope: meta.address.plc variable.language.address.plc
-    # DBB10, DBD10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
-    - match: \b(?i:(DB\d+)(\.))(DB[BWD][ \t]*{{int}})
       captures:
-        0: meta.address.plc
+        1: punctuation.definition.address.plc
+    # DBB10, DBD10, DBW10, DB3.DBB10, DB3.DIB10, DB3.DBW10
+    - match: (?i:((%)?DB\d+)(\.))(DB[BWD][ \t]*{{int}})
+      scope: meta.address.plc
+      captures:
         1: variable.language.db.plc
-        2: punctuation.accessor.dot.plc
-        3: variable.language.address.plc
+        2: punctuation.definition.address.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
 
   operands-binary-indirect:
     # B[...], MB [...], LB [...], VB [...], DBB [...], DIB[...], AB[], EB[], PAB[], PEB[]
     # W[...], MW [...], LW [...], VW [...], DIW [...], DIW[...], AW[], EW[], PAW[], PEW[]
     # D[...], MD [...], LD [...], VD [...], DID [...], DID[...], AD[], ED[], PAD[], PED[]
-    - match: \b((?i:P?[AEIQ]|D[BI]|[LMV])?[BWD])[ \t]*(?=\[)
+    - match: ((%)?(?i:P?[AEIQ]|D[BI]|[LMV])?[BWD])[ \t]*(?=\[)
+      scope: meta.address.indirect.plc
       captures:
-        0: meta.address.indirect.plc
         1: variable.language.address.plc
+        2: punctuation.definition.address.plc
       push: address-indirect
 
 ###[ COUNTERS ]################################################################
@@ -491,16 +513,19 @@ contexts:
   operands-counter-absolute:
     # C10, C 10 : counter (english)
     # Z10, Z 10 : counter (german)
-    - match: \b(?i:[CZ])[ \t]*{{int}}
+    - match: (%)?(?i:[CZ])[ \t]*{{int}}
       scope: meta.address.plc variable.language.counter.plc
+      captures:
+        1: punctuation.definition.address.plc
 
   operands-counter-indirect:
     # C[MW10], C [MW10] : counter (english)
     # Z[MW10], Z [MW10] : counter (german)
-    - match: \b((?i:[CZ]))[ \t]*(?=\[)
+    - match: ((%)?(?i:[CZ]))[ \t]*(?=\[)
+      scope: meta.address.indirect.plc
       captures:
-        0: meta.address.indirect.plc
         1: variable.language.counter.plc
+        2: punctuation.definition.address.plc
       push: address-indirect
 
 ###[ LOGICALS ]################################################################
@@ -510,32 +535,48 @@ contexts:
     - include: operands-logical-indirect
 
   operands-logical-absolute:
-    # M 10.0, DIX 10.0, L 0.0, ...
-    - match: \b(?i:DIX|[AEIQLMV])\s*\d+(\.)\d+
+    # M 10.0, DBX 10.0, DIX 10.0, L 0.0, ...
+    - match: (%)?(?i:D[BI]X|[AEIQLMV])\s*\d+(\.)\d+
+      scope: meta.address.plc variable.language.address.plc
       captures:
-        0: meta.address.plc variable.language.address.plc
-        1: punctuation.separator.decimal.plc
+        1: punctuation.definition.address.plc
+        2: punctuation.separator.decimal.plc
     # DB10.DBX 10.0
-    - match: \b(?i:(DB\d+)(\.))?(DBX[ \t]*\d+(\.){{int}})
+    - match: (?i:((%)?DB\d+)(\.)(DBX[ \t]*\d+(\.){{int}}))
+      scope: meta.address.plc
       captures:
-        0: meta.address.plc
         1: variable.language.db.plc
-        2: punctuation.accessor.dot.plc
-        3: variable.language.address.plc
-        4: punctuation.separator.decimal.plc
+        2: punctuation.definition.address.plc
+        3: punctuation.accessor.dot.plc
+        4: variable.language.address.plc
+        5: punctuation.separator.decimal.plc
     # status register A0 A1
     - match: (?:==|<>|>=|<=|<|>)0\b
       scope: meta.address.plc variable.language.status.plc
     # BIE, OV
-    - match: \b(?i:BIE|OV)\b
+    - match: (%)?(?i:BIE|OV)\b
       scope: meta.address.plc variable.language.status.plc
+      captures:
+        1: punctuation.separator.decimal.plc
+
+  illegal-logical-absolute:
+    # M 10.0, DBX 10.0, DIX 10.0, L 0.0, ...
+    - match: (%)?(?i:D[BI]X|[AEIQLMV])\s*\d+(\.)\d+
+      scope: invalid.illegal.terminator-expected.plc
+    # DB10.DBX 10.0
+    - match: (?i:((%)?DB\d+)(\.)(DBX[ \t]*\d+(\.){{int}}))
+      scope: invalid.illegal.terminator-expected.plc
+    # BIE, OV
+    - match: (%)?(?i:BIE|OV)\b
+      scope: invalid.illegal.terminator-expected.plc
 
   operands-logical-indirect:
     # DBX [AR1,P#0.0]
-    - match: \b((?i:D[BI]X))[ \t]*(?=\[)
+    - match: ((%)?(?i:D[BI]X))[ \t]*(?=\[)
+      scope: meta.address.indirect.plc
       captures:
-        0: meta.address.indirect.plc
         1: variable.language.address.plc
+        2: punctuation.accessor.dot.plc
       push: address-indirect
     # [AR1,P#0.0]
     - match: \[
@@ -550,21 +591,25 @@ contexts:
 
   operands-timer-absolute:
     # T10, T 10 : timer
-    - match: \b[Tt][ \t]*{{int}}
+    - match: (%)?[Tt][ \t]*{{int}}
       scope: meta.address.plc variable.language.timer.plc
+      captures:
+        1: variable.language.address.plc
 
   operands-timer-indirect:
     # T[MW10], T [MW10] : timer
-    - match: \b([Tt])[ \t]*(?=\[)
+    - match: ((%)?[Tt])[ \t]*(?=\[)
+      scope: meta.address.indirect.plc
       captures:
-        0: meta.address.indirect.plc
         1: variable.language.timer.plc
+        2: punctuation.accessor.dot.plc
       push: address-indirect
 
 ###[ OPERAND PROTOTYPES ]######################################################
 
   address-indirect:
     - meta_include_prototype: false
+    - meta_content_scope: meta.address.indirect.plc
     - match: \[
       scope: punctuation.section.brackets.begin.plc
       set: address-indirect-body
