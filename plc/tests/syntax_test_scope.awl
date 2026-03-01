@@ -409,15 +409,17 @@ END_NAMESPACE
 //                                ^ constant.numeric.value
 //                                  ^ punctuation.terminator.statement
    test := W#16 ; illegal // comment
-// ^^^^ variable.other.local
-//      ^^ keyword.operator.assignment
-//         ^^^^ invalid.illegal
-//             ^ - invalid
-//              ^ punctuation.terminator.statement
-//               ^ - invalid
-//                ^^^^^^^^ invalid.illegal.eol-expected
-//                        ^^ punctuation.definition.comment.begin
-//                        ^^^^^^^^^^ comment.line.double-slash
+// ^^^^ variable.other.local.plc
+//      ^^ keyword.operator.assignment.plc
+//         ^^^^ meta.number.integer.decimal.plc
+//         ^ storage.type.integer.plc
+//          ^ punctuation.separator.type.plc
+//           ^^ constant.numeric.value.plc
+//              ^ punctuation.terminator.statement.plc
+//                ^^^^^^^^ invalid.illegal.eol-expected.plc
+//                        ^^^^^^^^^^ comment.line.double-slash.plc
+//                        ^^ punctuation.definition.comment.begin.plc
+
    incomplete
    next_is_valid
 // ^^^^^^^^^^^^^ variable.other.local
@@ -2530,6 +2532,18 @@ END_DATA_BLOCK
 //              ^ - invalid
 //               ^ punctuation.terminator.statement
 //                ^ - invalid
+
+      +     DINT#10 ;
+//^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc
+//    ^ keyword.operator.arithmetic.plc
+//     ^^^^^^^^^^^^^ meta.operand.constant.numeric.plc
+//          ^^^^^^^ meta.number.integer.decimal.plc
+//          ^^^^ storage.type.integer.plc
+//              ^ punctuation.separator.type.plc
+//               ^^ constant.numeric.value.plc
+//                 ^ - invalid
+//                  ^ punctuation.terminator.statement.plc
+//                   ^ - invalid
 
 ///////////////////////////////////////////////////////////////////////////////
 // function calls                                                            //

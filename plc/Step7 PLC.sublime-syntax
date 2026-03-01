@@ -48,9 +48,10 @@ variables:
     )\b
 
   # numeric storage type prefixes
-  prefix_binary: (?i:B(?:yte)?|D?W(?:ord)?)
-  prefix_decimal: (?i:L)
-  prefix_hexadecimal: (?i:B(?:yte)?|D?W(?:ord)?)
+  prefix_binary: '{{prefix_numeric}}'
+  prefix_decimal: '{{prefix_numeric}}'
+  prefix_hexadecimal: '{{prefix_numeric}}'
+  prefix_numeric: (?i:B(?:yte)?|[DL]?W(?:ord)?|L|U?[DLS]?Int)
 
   # date and time storage type prefixes
   prefix_date: (?i:L?D(?:ATE)?)
