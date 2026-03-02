@@ -426,6 +426,18 @@ FUNCTION "FC_EES_Sicherungen" : Void
     END_NETWORK
 
     {
+        S7_Language := "LAD";
+        S7_NetworkTitle := "MLC_325"
+    }
+    NETWORK
+        RUNG wire#powerrail
+            #arrayFunc[7](
+                Start := wire#powerrail,
+            )
+        END_RUNG
+    END_NETWORK
+
+    {
         S7_Language := "FBD";
         S7_NetworkTitle := "MLC_3dk"
     }
