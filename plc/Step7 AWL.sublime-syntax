@@ -369,6 +369,10 @@ contexts:
     - match: (?i:S?F[BC])\s*\d+\b
       scope: variable.function.address.plc
       pop: 1
+    # built-in functions
+    - match: '{{ident}}'
+      scope: support.function.built-in.plc
+      pop: 1
     - include: else-pop
 
   awl-stmt-call-instance:

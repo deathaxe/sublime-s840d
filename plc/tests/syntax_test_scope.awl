@@ -2720,6 +2720,58 @@ END_DATA_BLOCK
 //                        ^ punctuation.section.group.begin
 //                         ^ punctuation.section.group.end
 
+   CALL BLKMOV
+//^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc
+// ^^^^ meta.function-call.plc keyword.control.call.plc
+//     ^^^^^^^ meta.function-call.identifier.plc
+//      ^^^^^^ support.function.built-in.plc
+   {blk_type := 'Variant'}
+//^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc
+//^ meta.function-call.identifier.plc
+// ^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.plc meta.annotation.plc
+// ^ punctuation.definition.annotation.begin.plc
+//  ^^^^^^^^ variable.annotation.plc
+//           ^^ keyword.operator.assignment.plc
+//              ^^^^^^^^^ meta.string.plc string.quoted.single.plc
+//              ^ punctuation.definition.string.begin.plc
+//                      ^ punctuation.definition.string.end.plc
+//                       ^ punctuation.definition.annotation.end.plc
+   (  SRCBLK                      := "DB1".src ,
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc
+//^ meta.function-call.plc
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc meta.group.plc
+// ^ punctuation.section.group.begin.plc
+//    ^^^^^^ variable.parameter.plc
+//                                ^^ keyword.operator.assignment.plc
+//                                   ^^^^^^^^^^ meta.path.plc
+//                                   ^^^^^ variable.namespace.plc
+//                                   ^ punctuation.definition.variable.begin.plc
+//                                       ^ punctuation.definition.variable.end.plc
+//                                        ^ punctuation.accessor.dot.plc
+//                                         ^^^ variable.other.member.plc
+//                                             ^ punctuation.separator.sequence.plc
+      RET_VAL                     := #STATUS ,
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc meta.function-call.arguments.plc meta.group.plc
+//    ^^^^^^^ variable.parameter.plc
+//                                ^^ keyword.operator.assignment.plc
+//                                   ^^^^^^^ constant.other.local.plc
+//                                   ^ punctuation.definition.variable.plc
+//                                           ^ punctuation.separator.sequence.plc
+      DSTBLK                      := "DB2".dst
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.block.network.plc meta.function-call.arguments.plc meta.group.plc
+//    ^^^^^^ variable.parameter.plc
+//                                ^^ keyword.operator.assignment.plc
+//                                   ^^^^^^^^^ meta.path.plc
+//                                   ^^^^^ variable.namespace.plc
+//                                   ^ punctuation.definition.variable.begin.plc
+//                                       ^ punctuation.definition.variable.end.plc
+//                                        ^ punctuation.accessor.dot.plc
+//                                         ^^^ variable.other.member.plc
+   );
+//^^^ meta.block.fc.body.plc meta.block.network.plc
+//^^ meta.function-call.arguments.plc meta.group.plc
+// ^ punctuation.section.group.end.plc
+//  ^ punctuation.terminator.statement.plc
    END_FUNCTION
 // ^^^^^^^^^^^^ meta.block.fc.body
 // ^^^^^^^^^^^^ keyword.declaration.fc.end
