@@ -200,6 +200,8 @@ contexts:
     - match: \b(?i:END_RUNG)\b
       scope: keyword.control.endrung.plc
       push: [rung-fold-end, lad-rung-name]
+    - match: (?i:NOT)\b
+      scope: keyword.operator.logical.dcl
     - include: annotations
     - include: lad-function-calls
     - include: lad-rungs
