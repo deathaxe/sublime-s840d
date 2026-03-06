@@ -162,6 +162,7 @@ contexts:
   network-body:
     - meta_scope: meta.network.plc
     - include: annotations
+    - include: lad-function-calls
     - match: \b(?i:END_NETWORK)\b
       scope: keyword.control.network.plc
       set: network-fold-end

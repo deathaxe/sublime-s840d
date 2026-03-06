@@ -430,12 +430,46 @@ FUNCTION "FC_EES_Sicherungen" : Void
         S7_NetworkTitle := "MLC_325"
     }
     NETWORK
+//^^^^^^^^^ meta.block.fc.body.plc
+//  ^^^^^^^ meta.network.plc keyword.control.network.plc
         RUNG wire#powerrail
+//^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//      ^^^^^^^^^^^^^^^^^^^ source.plc.lad
+//      ^^^^ keyword.control.rung.plc
+//           ^^^^ variable.namespace.rung.plc
+//               ^ punctuation.separator.rung.plc
+//                ^^^^^^^^^ constant.language.rung.plc
             #arrayFunc[7](
                 Start := wire#powerrail,
             )
         END_RUNG
+//^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc source.plc.lad
+//      ^^^^^^^^ keyword.control.endrung.plc
     END_NETWORK
+//^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//^^ source.plc.lad
+//  ^^^^^^^^^^^ keyword.control.network.plc
+
+    {
+        S7_Language := "LAD";
+        S7_NetworkTitle := "MLC_3nB"
+    }
+    NETWORK
+        Label(RUN)
+        RUNG wire#powerrail
+//^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//      ^^^^^^^^^^^^^^^^^^^ source.plc.lad
+//      ^^^^ keyword.control.rung.plc
+//           ^^^^ variable.namespace.rung.plc
+//               ^ punctuation.separator.rung.plc
+//                ^^^^^^^^^ constant.language.rung.plc
+        END_RUNG
+//^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc source.plc.lad
+//      ^^^^^^^^ keyword.control.endrung.plc
+    END_NETWORK
+//^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//^^ source.plc.lad
+//  ^^^^^^^^^^^ keyword.control.network.plc
 
     {
         S7_Language := "FBD";
@@ -463,10 +497,21 @@ FUNCTION "FC_EES_Sicherungen" : Void
         S7_NetworkTitle := "MLC_3df"
     }
     NETWORK
+//^^^^^^^^^ meta.block.fc.body.plc
+//  ^^^^^^^ meta.network.plc keyword.control.network.plc
         IF True THEN
-
+//^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//      ^^^^^^^^^^^^ source.plc.scl
+//      ^^ keyword.control.conditional.if.plc
+//         ^^^^ constant.language.boolean.plc
+//              ^^^^ keyword.control.conditional.then.plc
         END_IF;
-
+//^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc source.plc.scl
+//      ^^^^^^ keyword.control.conditional.end.plc
+//            ^ punctuation.terminator.statement.plc
     END_NETWORK
+//^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//^^ source.plc.scl
+//  ^^^^^^^^^^^ keyword.control.network.plc
 
 END_FUNCTION
