@@ -1,0 +1,137 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: Step7 SDF
+scope: source.sdf
+
+file_extensions:
+  - sdf
+
+contexts:
+  main:
+    - match: ';'
+      scope: punctuation.definition.comment.sdf
+      push: line-comment-body
+    - match: ^
+      push:
+        - flag
+        - separator
+        - value
+        - separator
+        - comment
+        - separator
+        - flag
+        - separator
+        - flag
+        - separator
+        - flag
+        - separator
+        - type
+        - separator
+        - address
+        - separator
+        - symbol
+
+  line-comment-body:
+    - meta_scope: comment.line.semi-colon.sdf
+    - match: $\n?
+      pop: 1
+
+  symbol:
+    - match: \"
+      scope: punctuation.definition.quoted.begin.sdf
+      set: symbol-body
+    - include: else-pop
+
+  symbol-body:
+    - meta_scope: meta.quoted.sdf
+    - meta_content_scope: variable.other.sdf
+    - include: quoted-end
+    - include: escaped-chars
+
+  address:
+    - match: \"
+      scope: punctuation.definition.quoted.begin.sdf
+      set: address-body
+    - include: else-pop
+
+  address-body:
+    - meta_scope: meta.quoted.sdf
+    - meta_content_scope: variable.language.address.sdf
+    - include: quoted-end
+    - match: (%)(?i:[AEIQM])\s*\d+(\.)\d+
+      captures:
+        1: punctuation.definition.address.plc
+        2: punctuation.separator.decimal.sdf
+    - match: (%)(?i:(?:P?[AEIQ]|[MV])[BWD]|[CZ])[ \t]*\d+
+      captures:
+        1: punctuation.definition.address.plc
+
+  type:
+    - match: \"
+      scope: punctuation.definition.quoted.begin.sdf
+      set: type-body
+    - include: else-pop
+
+  type-body:
+    - meta_scope: meta.quoted.sdf
+    - meta_content_scope: storage.type.sdf
+    - include: quoted-end
+
+  flag:
+    - match: \"
+      scope: punctuation.definition.quoted.begin.sdf
+      set: flag-body
+    - include: else-pop
+
+  flag-body:
+    - meta_scope: meta.quoted.sdf
+    - include: quoted-end
+    - match: False\b
+      scope: constant.language.boolean.false.sdf
+    - match: True\b
+      scope: constant.language.boolean.true.sdf
+
+  comment:
+    - match: \"
+      scope: punctuation.definition.quoted.begin.sdf
+      set: comment-body
+    - include: else-pop
+
+  comment-body:
+    - meta_scope: meta.quoted.sdf
+    - meta_content_scope: comment.block.sdf
+    - include: quoted-end
+    - include: escaped-chars
+
+  value:
+    - match: \"
+      scope: punctuation.definition.quoted.begin.sdf
+      set: value-body
+    - include: else-pop
+
+  value-body:
+    - meta_scope: meta.quoted.sdf
+    - meta_content_scope: string.other.sdf
+    - include: quoted-end
+    - include: escaped-chars
+    - include: scope:source.plc#literals
+
+  quoted-end:
+    - match: \"
+      scope: punctuation.definition.quoted.end.sdf
+      pop: 1
+
+  escaped-chars:
+    - match: \\.
+      scope: constant.character.escape.sdf
+
+  separator:
+    - match: ','
+      scope: punctuation.separator.column.sdf
+      pop: 1
+    - include: else-pop
+
+  else-pop:
+    - match: (?=\S)
+      pop: 1
