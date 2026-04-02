@@ -57,13 +57,16 @@ contexts:
 
   address-body:
     - meta_scope: meta.quoted.sdf
-    - meta_content_scope: variable.language.address.sdf
     - include: quoted-end
+    - match: CONSTANT
+      scope: storage.modifier.constant.sdf
     - match: (%)(?i:[AEIQM])\s*\d+(\.)\d+
+      scope: variable.language.address.sdf
       captures:
         1: punctuation.definition.address.plc
         2: punctuation.separator.decimal.sdf
     - match: (%)(?i:(?:P?[AEIQ]|[MV])[BWD]|[CZ])[ \t]*\d+
+      scope: variable.language.address.sdf
       captures:
         1: punctuation.definition.address.plc
 
