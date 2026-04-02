@@ -202,6 +202,7 @@ contexts:
       push: [rung-fold-end, lad-rung-name]
     - match: (?i:NOT)\b
       scope: keyword.operator.logical.dcl
+      push: lad-function-call-arguments
     - include: annotations
     - include: lad-function-calls
     - include: lad-rungs
@@ -283,6 +284,7 @@ contexts:
     - match: \(
       scope: punctuation.section.group.begin.plc
       set: lad-function-call-arguments-body
+    - include: else-pop
 
   lad-function-call-arguments-body:
     - meta_scope: meta.function-call.arguments.plc

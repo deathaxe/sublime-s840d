@@ -417,13 +417,54 @@ FUNCTION "FC_EES_Sicherungen" : Void
         S7_NetworkTitle := "MLC_325"
     }
     NETWORK
+//^^ meta.block.fc.header.plc
+//  ^^^^^^^ meta.block.fc.body.plc meta.network.plc keyword.control.network.plc
         RUNG wire#powerrail
-            I_Contact( "D01S1I1" )
-            Contact( "M01K162ok" )
-            I_Contact( "ALM Netzausfall" )
-            Coil( "MSG_Alarm".K1.NCSS_510307 )
+//^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//      ^^^^^^^^^^^^^^^^^^^ source.plc.lad
+//      ^^^^ keyword.control.rung.plc
+//           ^^^^ variable.namespace.rung.plc
+//               ^ punctuation.separator.rung.plc
+//                ^^^^^^^^^ constant.language.rung.plc
+            I_Contact( "IN120" )
+//          ^^^^^^^^^ meta.function-call.identifier.plc support.function.plc
+//                   ^^^^^^^^^^^ meta.function-call.arguments.plc
+//                   ^ punctuation.section.group.begin.plc
+//                     ^^^^^^^ constant.other.global.plc
+//                     ^ punctuation.definition.variable.begin.plc
+//                           ^ punctuation.definition.variable.end.plc
+//                             ^ punctuation.section.group.end.plc
+            Contact( "foo" )
+//          ^^^^^^^ meta.function-call.identifier.plc support.function.plc
+//                 ^^^^^^^^^ meta.function-call.arguments.plc
+//                 ^ punctuation.section.group.begin.plc
+//                   ^^^^^ variable.other.global.plc
+//                   ^ punctuation.definition.variable.begin.plc
+//                       ^ punctuation.definition.variable.end.plc
+//                         ^ punctuation.section.group.end.plc
+            Not()
+//          ^^^ keyword.operator.logical.dcl
+//             ^^ meta.function-call.arguments.plc
+//             ^ punctuation.section.group.begin.plc
+//              ^ punctuation.section.group.end.plc
+            Coil( "MSG".A700424 )
+//          ^^^^ meta.function-call.identifier.plc support.function.plc
+//              ^^^^^^^^^^^^^^^^^ meta.function-call.arguments.plc
+//              ^ punctuation.section.group.begin.plc
+//                ^^^^^^^^^^^^^^ meta.path.plc
+//                ^^^^^ variable.namespace.plc
+//                ^ punctuation.definition.variable.begin.plc
+//                    ^ punctuation.definition.variable.end.plc
+//                     ^ punctuation.accessor.dot.plc
+//                      ^^^^^^^ variable.other.member.plc
+//                              ^ punctuation.section.group.end.plc
         END_RUNG
+//^^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc source.plc.lad
+//      ^^^^^^^^ keyword.control.endrung.plc
     END_NETWORK
+//^^^^^^^^^^^^^ meta.block.fc.body.plc meta.network.plc
+//^^ source.plc.lad
+//  ^^^^^^^^^^^ keyword.control.network.plc
 
     {
         S7_Language := "LAD";
