@@ -1619,6 +1619,20 @@ end_region
 //                   ^ punctuation.accessor.dot.plc
 //                    ^^^ variable.other.member.plc
 
+    "globalDB"."struct"."var"
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//  ^^^^^^^^^^ variable.namespace.plc
+//  ^ punctuation.definition.variable.begin.plc
+//           ^ punctuation.definition.variable.end.plc
+//            ^ punctuation.accessor.dot.plc
+//             ^^^^^^^^ variable.namespace.struct.plc
+//             ^ punctuation.definition.variable.begin.plc
+//                    ^ punctuation.definition.variable.end.plc
+//                     ^ punctuation.accessor.dot.plc
+//                      ^^^^^ variable.other.member.plc
+//                      ^ punctuation.definition.variable.begin.plc
+//                          ^ punctuation.definition.variable.end.plc
+
     "globalDB".struct.var.%X8
 //  ^^^^^^^^^^^^^^^^^^^^^ meta.path.plc
 //                       ^^^^ - meta.path

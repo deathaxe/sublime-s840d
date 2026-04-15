@@ -483,37 +483,6 @@ contexts:
     - match: (?=\S)
       fail: qualified-members
 
-  qualified-namespace:
-    - meta_include_prototype: false
-    - include: qualified-namespace-unquoted
-    - include: qualified-namespace-quoted
-    - include: immediately-pop2
-
-  qualified-namespace-quoted:
-    - match: '{{quoted_ident}}'
-      scope: variable.namespace.struct.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      set: array-index
-
-  qualified-variable:
-    - meta_include_prototype: false
-    - include: qualified-variable-unquoted
-    - include: qualified-variable-quoted
-    - include: immediately-pop2
-
-  qualified-variable-quoted:
-    - match: '{{quoted_ident}}'
-      scope: variable.other.member.plc
-      captures:
-        1: punctuation.definition.variable.begin.plc
-        2: punctuation.definition.variable.end.plc
-      pop: 1
-      set:
-        - qualified-variable-fail
-        - array-index
-
   array-index-body:
     - meta_scope: meta.brackets.plc
     - match: \]

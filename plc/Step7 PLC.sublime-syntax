@@ -1529,8 +1529,17 @@ contexts:
 
   qualified-namespace:
     - meta_include_prototype: false
+    - include: qualified-namespace-quoted
     - include: qualified-namespace-unquoted
     - include: immediately-pop2
+
+  qualified-namespace-quoted:
+    - match: '{{quoted_ident}}'
+      scope: variable.namespace.struct.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      set: array-index
 
   qualified-namespace-unquoted:
     - match: '{{ident}}'
@@ -1539,8 +1548,20 @@ contexts:
 
   qualified-variable:
     - meta_include_prototype: false
+    - include: qualified-variable-quoted
     - include: qualified-variable-unquoted
     - include: immediately-pop2
+
+  qualified-variable-quoted:
+    - match: '{{quoted_ident}}'
+      scope: variable.other.member.plc
+      captures:
+        1: punctuation.definition.variable.begin.plc
+        2: punctuation.definition.variable.end.plc
+      pop: 1
+      set:
+        - qualified-variable-fail
+        - array-index
 
   qualified-variable-unquoted:
     - match: '{{ident}}'

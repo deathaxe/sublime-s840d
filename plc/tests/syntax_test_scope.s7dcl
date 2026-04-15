@@ -372,6 +372,23 @@ DATA_BLOCK InstOfAnyFunctionBlock : AnyFunctionBlock
 //                                 ^ punctuation.section.sequence.end.plc
 //                                  ^ invalid.illegal.eol.plc
 
+    var."item1"."name" := 'value';
+//  ^^^^^^^^^^^^^^^^^^^ meta.path.plc
+//  ^^^ variable.namespace.struct.plc
+//     ^ punctuation.accessor.dot.plc
+//      ^^^^^^^ variable.namespace.struct.plc
+//      ^ punctuation.definition.variable.begin.plc
+//            ^ punctuation.definition.variable.end.plc
+//             ^ punctuation.accessor.dot.plc
+//              ^^^^^^ variable.other.member.plc
+//              ^ punctuation.definition.variable.begin.plc
+//                   ^ punctuation.definition.variable.end.plc
+//                     ^^ keyword.operator.assignment.plc
+//                        ^^^^^^^ meta.string.plc string.quoted.single.plc
+//                        ^ punctuation.definition.string.begin.plc
+//                              ^ punctuation.definition.string.end.plc
+//                               ^ punctuation.terminator.statement.plc
+
 END_DATA_BLOCK
 //^^^^^^^^^^^^ meta.block.db.body.plc keyword.declaration.db.end.plc
 //            ^ meta.fold.block.end.plc - meta.block - keyword
@@ -434,14 +451,19 @@ FUNCTION "FC_EES_Sicherungen" : Void
 //                     ^ punctuation.definition.variable.begin.plc
 //                           ^ punctuation.definition.variable.end.plc
 //                             ^ punctuation.section.group.end.plc
-            Contact( "foo" )
+            Contact( "foo"."bar" )
 //          ^^^^^^^ meta.function-call.identifier.plc support.function.plc
-//                 ^^^^^^^^^ meta.function-call.arguments.plc
+//                 ^^^^^^^^^^^^^^^ meta.function-call.arguments.plc
 //                 ^ punctuation.section.group.begin.plc
-//                   ^^^^^ variable.other.global.plc
+//                   ^^^^^^^^^^^^ meta.path.plc
+//                   ^^^^^ variable.namespace.plc
 //                   ^ punctuation.definition.variable.begin.plc
 //                       ^ punctuation.definition.variable.end.plc
-//                         ^ punctuation.section.group.end.plc
+//                        ^ punctuation.accessor.dot.plc
+//                         ^^^^^ variable.other.member.plc
+//                         ^ punctuation.definition.variable.begin.plc
+//                             ^ punctuation.definition.variable.end.plc
+//                               ^ punctuation.section.group.end.plc
             Not()
 //          ^^^ keyword.operator.logical.dcl
 //             ^^ meta.function-call.arguments.plc
