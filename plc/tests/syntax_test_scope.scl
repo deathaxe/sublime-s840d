@@ -465,6 +465,22 @@ end_region
 //      ^ punctuation.accessor.dot.plc - variable
 //       ^^^^ variable.other.member.plc
 
+    #ERROR_ANY, #ERROR_LAST:
+//  ^^^^^^^^^^ constant.other.local.plc
+//  ^ punctuation.definition.variable.plc
+//            ^ punctuation.separator.sequence.plc
+//              ^^^^^^^^^^^ constant.other.local.plc
+//              ^ punctuation.definition.variable.plc
+//                         ^ punctuation.separator.plc
+
+    #ERROR_ANY..#ERROR_LAST:
+//  ^^^^^^^^^^ constant.other.local.plc
+//  ^ punctuation.definition.variable.plc
+//            ^^ keyword.operator.range.plc
+//              ^^^^^^^^^^^ constant.other.local.plc
+//              ^ punctuation.definition.variable.plc
+//                         ^ punctuation.separator.plc
+
     else
 // ^^^^^^ meta.conditional.case.branches.plc
 //  ^^^^ keyword.control.conditional.else.plc
