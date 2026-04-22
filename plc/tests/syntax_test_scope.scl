@@ -165,6 +165,28 @@ VAR
 //                                            ^ punctuation.separator.sequence.plc
 //                                                                      ^ punctuation.section.sequence.end.plc
 //                                                                       ^ punctuation.terminator.statement.plc
+
+    colors : Array[0..#MAX_KEYPAD, 0..#MAX_KEY] of USInt;
+//  ^^^^^^ variable.other.local.plc
+//         ^ punctuation.separator.type.plc
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.sequence.array.plc
+//           ^^^^^ storage.type.array.plc
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.array-size.plc
+//                ^ punctuation.definition.array.begin.plc
+//                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                  ^^ keyword.operator.range.plc
+//                    ^^^^^^^^^^^ constant.other.local.plc
+//                    ^ punctuation.definition.variable.plc
+//                               ^ punctuation.separator.sequence.plc
+//                                 ^ meta.number.integer.decimal.plc constant.numeric.value.plc
+//                                  ^^ keyword.operator.range.plc
+//                                    ^^^^^^^^ constant.other.local.plc
+//                                    ^ punctuation.definition.variable.plc
+//                                            ^ punctuation.definition.array.end.plc
+//                                              ^^ keyword.control.of.plc
+//                                                 ^^^^^ storage.type.integer.plc
+//                                                      ^ punctuation.terminator.statement.plc
+
     structVal : STRUCT
 //  ^^^^^^^^^^^ meta.definition.variable.plc
 //             ^^^^^^^^ meta.definition.variable.storage.plc
