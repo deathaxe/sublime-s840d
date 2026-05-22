@@ -162,6 +162,7 @@ contexts:
   network-body:
     - meta_scope: meta.network.plc
     - include: annotations
+    - include: lad-function-calls
     - match: \b(?i:END_NETWORK)\b
       scope: keyword.control.network.plc
       set: network-fold-end
@@ -199,6 +200,9 @@ contexts:
     - match: \b(?i:END_RUNG)\b
       scope: keyword.control.endrung.plc
       push: [rung-fold-end, lad-rung-name]
+    - match: (?i:NOT)\b
+      scope: keyword.operator.logical.dcl
+      push: lad-function-call-arguments
     - include: annotations
     - include: lad-function-calls
     - include: lad-rungs
@@ -247,32 +251,40 @@ contexts:
 
   lad-function-calls:
     # global functions or function block instances
-    - match: ({{quoted_ident}})\s*(?=\()
+    - match: ({{quoted_ident}})(?=(?:\s*\[[^\]]*\])*\s*\()
       scope: meta.function-call.identifier.plc
       captures:
         1: variable.function.global.plc
         2: punctuation.definition.variable.begin.plc
         3: punctuation.definition.variable.end.plc
-      push: lad-function-call-arguments
+      push:
+        - lad-function-call-arguments
+        - array-index
     # multi-instance function block
-    - match: ((#){{ident}})\s*(?=\()
+    - match: ((#){{ident}})(?=(?:\s*\[[^\]]*\])*\s*\()
       scope: meta.function-call.identifier.plc
       captures:
         1: variable.function.local.plc
         2: punctuation.definition.variable.plc
-      push: lad-function-call-arguments
+      push:
+        - lad-function-call-arguments
+        - array-index
     # built-in functions or basic instructions
-    - match: ({{ident}})\s*(?=\()
+    - match: ({{ident}})(?=(?:\s*\[[^\]]*\])*\s*\()
       scope: meta.function-call.identifier.plc
       captures:
         1: support.function.plc
-      push: lad-function-call-arguments
+      push:
+        - lad-function-call-arguments
+        - array-index
 
   lad-function-call-arguments:
     - meta_include_prototype: false
+    - meta_content_scope: meta.function-call.identifier.plc
     - match: \(
       scope: punctuation.section.group.begin.plc
       set: lad-function-call-arguments-body
+    - include: else-pop
 
   lad-function-call-arguments-body:
     - meta_scope: meta.function-call.arguments.plc
@@ -286,7 +298,7 @@ contexts:
         3: punctuation.definition.variable.end.plc
         4: variable.parameter.plc
         5: keyword.operator.assignment.plc
-    - include: lad-rung-names
+    - include: lad-rungs
     - include: scope:source.plc.scl#scl-expressions
 
 ###############################################################################

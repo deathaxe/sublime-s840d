@@ -2,11 +2,28 @@
 ---
 name: CMC Project (XML)
 scope: text.xml.cmc.project
+version: 2
+
+extends: Packages/XML/XML.sublime-syntax
 
 file_extensions:
   - upproj
 
 contexts:
   main:
-    - include: scope:text.xml
-      apply_prototype: true
+    - meta_prepend: true
+    - match: (=)\s*((ResFile)\s*)(\()
+      captures:
+        1: keyword.operator.assignment.xml
+        2: meta.function-call.identifier.xml
+        3: variable.function.xml
+        4: meta.function-call.arguments.xml punctuation.section.arguments.begin.xml
+      push: cmc-function-argument-list-body
+
+  cmc-function-argument-list-body:
+    - meta_content_scope: meta.function-call.arguments.xml
+    - match: \)
+      scope: meta.function-call.arguments.xml punctuation.section.arguments.end.xml
+      pop: 1
+    - include: string-quoted
+    - include: string-unquoted

@@ -2,11 +2,9 @@
 ---
 name: CMC Action (XML)
 scope: text.xml.cmc.action
+version: 2
+
+extends: Packages/XML/XML.sublime-syntax
 
 file_extensions:
   - upact
-
-contexts:
-  main:
-    - include: scope:text.xml
-      apply_prototype: true
