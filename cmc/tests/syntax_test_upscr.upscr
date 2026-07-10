@@ -229,6 +229,7 @@ $MA_POS_LIMIT[1, AX2]
 ;   ^ punctuation.definition.numeric.begin.upscr
 ;    ^ constant.numeric.base.upscr
 ;     ^^ punctuation.section.interpolation.upscr
+;       ^^^^^^^^^ meta.path.upscr - meta.binding
 ;                ^ punctuation.section.interpolation.end.upscr
 ;                 ^ punctuation.definition.numeric.end.upscr
 
@@ -247,6 +248,7 @@ $MA_POS_LIMIT[1, AX2]
 ;   ^ punctuation.definition.numeric.begin.upscr
 ;    ^ constant.numeric.base.upscr
 ;     ^^ punctuation.section.interpolation.upscr
+;       ^^^^^^^^^ meta.path.upscr - meta.binding
 ;                ^ punctuation.section.interpolation.end.upscr
 ;                 ^ punctuation.definition.numeric.end.upscr
 
@@ -301,7 +303,7 @@ $MA_POS_LIMIT[1, AX2]
 ;       ^^^^^ entity.other.attribute-name.style.html
 ;            ^ punctuation.separator.key-value.html
 ;             ^ meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
-;              ^^^^^^^^^^^^^^^^^^^^ meta.string.html meta.interpolation.html source.css.embedded.html
+;              ^^^^^^^^^^^^^^^^^^^^ meta.string.html source.css.embedded.html
 ;                                  ^ meta.string.html string.quoted.single.html punctuation.definition.string.end.html
 ;                                   ^ punctuation.definition.tag.end.html
 
@@ -310,7 +312,7 @@ $MA_POS_LIMIT[1, AX2]
 ;                                             ^^^^ constant.character.entity.named.html
 
     UP.Foo<<"\20_CMC_Release\"<<Up.Bar
-;   ^^^^^^ meta.path.upscr
+;   ^^^^^^ meta.path.upscr - meta.binding
 ;   ^^ variable.namespace.upscr
 ;     ^ punctuation.accessor.dot.upscr
 ;      ^^^ variable.other.member.upscr
@@ -319,7 +321,7 @@ $MA_POS_LIMIT[1, AX2]
 ;           ^ punctuation.definition.string.begin.upscr
 ;                            ^ punctuation.definition.string.end.upscr
 ;                             ^^ keyword.operator.concat.upscr
-;                               ^^^^^^ meta.path.upscr
+;                               ^^^^^^ meta.path.upscr - meta.binding
 ;                               ^^ variable.namespace.upscr
 ;                                 ^ punctuation.accessor.dot.upscr
 ;                                  ^^^ variable.other.member.upscr
@@ -388,7 +390,7 @@ $MA_POS_LIMIT[1, AX2]
 
 Up.$Dialog.NcuAccess.Backup = 0
 ; <- meta.path.upscr variable.namespace.upscr
-; ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.upscr
+; ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.binding.upscr meta.path.upscr
 ; ^ punctuation.accessor.dot.upscr
 ;  ^^^^^^^ variable.language.dialog.upscr
 ;         ^ punctuation.accessor.dot.upscr
@@ -399,12 +401,16 @@ Up.$Dialog.NcuAccess.Backup = 0
 ;                             ^ meta.number.integer.decimal.upscr constant.numeric.value.upscr
 
 Up.$Step[0].Locked
+; <- meta.path.upscr - meta.binding
+;^^^^^^^^^^^^^^^^^ meta.path.upscr - meta.binding
 
 UP.$Step[OP_19.2].Activated == true
+; <- meta.path.upscr - meta.binding
+;^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.path.upscr - meta.binding
 
 Up.$Step[.2] != null
 ; <- meta.path.upscr variable.namespace.upscr
-; ^^^^^^^^^^ meta.path.upscr
+; ^^^^^^^^^^ meta.path.upscr - meta.binding
 ; ^ punctuation.accessor.dot.upscr
 ;  ^^^^^ variable.language.step.upscr
 ;       ^^^^ meta.brackets.upscr
