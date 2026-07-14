@@ -679,7 +679,7 @@ contexts:
     - meta_scope: meta.definition.variable.plc
     - match: ':'
       scope: punctuation.separator.type.plc
-      set: [assert-stmt-end, variable-storage]
+      set: [assert-stmt-end, variable-storage, expect-storage]
     - match: \b(?i:at)\b
       scope: keyword.declaration.alias.plc
       push: variable-target
@@ -703,8 +703,7 @@ contexts:
     - match: :=
       scope: meta.definition.variable.plc keyword.operator.assignment.plc
       set: variable-value
-    - include: storage-type
-    - include: scope-end
+    - include: else-pop
 
   variable-value:
     - meta_content_scope: meta.definition.variable.value.plc

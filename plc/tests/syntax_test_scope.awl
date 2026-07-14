@@ -464,6 +464,15 @@ DATA_BLOCK "ClassicDB"
 //                           ^^ keyword.control.of.plc
 //                              ^^^^^^^^^ support.type.plc
 //                                       ^ punctuation.terminator.statement.plc
+      variable:
+            STRUCT
+//^^^^^^^^^^^^^^^^^ meta.block.db.header.plc meta.struct.plc meta.definition.variable.storage.plc
+//          ^^^^^^^ meta.struct.plc
+//          ^^^^^^ storage.type.struct.begin.plc
+            END_STRUCT;
+//^^^^^^^^^^^^^^^^^^^^ meta.definition.variable.storage.plc meta.struct.plc
+//          ^^^^^^^^^^ storage.type.struct.end.plc
+//                    ^ punctuation.terminator.statement.plc
    END_STRUCT
 // ^^^^^^^^^^ storage.type.struct.end.plc
 
