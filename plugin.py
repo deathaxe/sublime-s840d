@@ -18,6 +18,7 @@ else:
         'S840dRenumberCommand',
         'S840dAwlLoadMergeCommand',
         'S840dAwlSaveSplitCommand',
+        'S840dCmcViewEvents',
         'S840dHmiEvents',
         'S840dNckViewEvents'
     ]
@@ -40,6 +41,7 @@ else:
     from .plc.commands.split import S840dAwlSaveSplitCommand
 
     # export event handlers
+    from .cmc.events import S840dCmcViewEvents
     from .gcode.events import S840dNckViewEvents
     from .hmi.events import S840dHmiEvents
 

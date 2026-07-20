@@ -1000,14 +1000,16 @@ contexts:
     # G-function:   G0
     # T-function:   T100
     # D-call:       D1 DL1
-    - match: (?i:[GT]|DL?)\d+
+    # MTL-function: MTL100
+    - match: (?i:[GT]|DL?|MTL)\d+
       scope: support.function.iso.command.s840d_gcode
       push: iso-value-void
     # FUNCTIONS
     # G-function:   G=0
     # T-function:   T=100  T="100"
     # D-function:   D=5 DL=5
-    - match: (?i:[GT]|DL?)(?=[ \t]*=)
+    # MTL-function: MTL=100  MTL="100"
+    - match: (?i:[GT]|DL?|MTL)(?=[ \t]*=)
       scope: support.function.iso.command.840d_gcode
       push: iso-value-int
     # M-function:   M=20
@@ -1035,7 +1037,8 @@ contexts:
     # G-function:   G[0]=20
     # T-function:   T[1]=10     // tool for toolholder 1
     # D-function:   D[1]=10     // active edge of toolholder 1
-    - match: ((?i:[GTD]))[ \t]*(\[)
+    # MTL-function: MTL[1]=10   // multitool for toolholder 1
+    - match: ((?i:[GTD]|MTL))[ \t]*(\[)
       captures:
         1: support.function.iso.command.s840d_gcode
         2: punctuation.section.brackets.begin.s840d_gcode

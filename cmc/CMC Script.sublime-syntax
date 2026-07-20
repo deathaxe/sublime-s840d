@@ -619,7 +619,7 @@ contexts:
 
   up-variable-reference:
     - meta_scope: meta.path.upscr
-    - match: (?==)
+    - match: (?=\s*=[^=])
       fail: variable
     - include: up-variable-binding
 
