@@ -56,12 +56,25 @@ Computerized Numerical Control to [Sublime Text][1].
   * embedds NC cycles and RunMyScreens syntax highlighting
 
 
-### Step7 PLC sources
+### Step7 Classic PLC sources
 
-  * AWL syntax highlighting
-  * ASC symbol table syntax highlighting
-  * SCL syntax
+  * AWL / STL  - statement lists
+  * ASC - symbol tables
+  
 
+### TIA Portal PLC sources
+
+  * NVT - named value types
+  * S7DCL / S7RES - KOP/FUP sources
+  * SCL - structured control language
+  * SDF - symbol tables
+
+
+### Create MyConfig
+
+  * actions (XML)
+  * projects (XML)
+  * scripts
 
 ## 💾 Installation
 
