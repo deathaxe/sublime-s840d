@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-
 POPUP_TEMPLATE = """
 <body id="s840d">
 <style>

@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-
 """Publish only required classes to Sublime Text."""
 import sublime
 

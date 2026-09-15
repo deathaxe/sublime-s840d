@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-
 
 def goto_point(view, point):
     if view.window():

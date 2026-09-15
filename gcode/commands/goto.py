@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from ... import lib
 from .. import codeintel
 from . import base

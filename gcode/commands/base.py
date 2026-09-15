@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-
 """The place of common base functions and classes.
 
 This file keeps some common functions and base classes which are used by all
