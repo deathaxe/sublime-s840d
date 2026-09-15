@@ -105,7 +105,7 @@ class S840dRenumberCommand(base.TextCommand):
         repl = []
         for line in lines:
             # empty line or unindented line comment
-            if not line or line[0] in ';%\n':
+            if not line.strip() or line[0] in ';%\n':
                 repl.append(line)
                 continue
             i = 0
